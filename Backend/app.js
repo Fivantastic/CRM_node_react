@@ -1,6 +1,7 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import morgan from 'morgan';
+import cors from 'cors';
 import { PORT } from './env.js';
 
 // Crear el servidor
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(fileUpload());
 app.use(morgan('dev'));
+app.use(cors());
 
 
 

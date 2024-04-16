@@ -211,8 +211,12 @@ npm init -y
    app.listen(PORT, () => {
      console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
    });
+   ```
 
-8. Creado el middleware upload de files y puesto en uso.
+8. Creado el middleware uploads de directorios estaticos, imagenes, files y puesto en uso.
+
+   ```javascript
+   app.use('/uploads', express.static('./uploads'));
    ```
 
 ## Directorio routes

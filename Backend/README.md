@@ -3,7 +3,7 @@
 ## INICIAR AL CLONAR EL PROYECTO
 
 - npm i
-- Crear el `.env` basado en el `.env.example` 
+- Crear el `.env` basado en el `.env.example`
 
 ## Descripción
 
@@ -159,6 +159,7 @@ npm init -y
   ```json
   "type": "module"
   ```
+
 ## Directorio db
 
 1. Creado los archivos `getPool.js` e `initDb.js`.
@@ -172,8 +173,6 @@ npm init -y
 
 3. Continuar con la creacion de la DB
 
-
-
 ## Documento app
 
 1. Creado un **script** en el `package.json` para ejecutar el `initDb.js`.
@@ -186,29 +185,44 @@ npm init -y
 
 2. Continuar con la importación `express`, `fileUpload`, etc...
 
+3. Importar `express`, `morgan`, y de `./env.js` importar `PORT`.
+
+4. Crear el servidor
+
+   ```javascript
+   const app = express();
+   ```
+
+5. Crear los Milddewares para parsear el `body`
+
+   ```javascript
+   app.use(express.json());
+   ```
+
+6. Crear el Milddewar de `morgan`
+
+   ```javascript
+   app.use(morgan('dev'));
+   ```
+
+7. Ponemos el servidor a escuchar
+
+   ```javascript
+   app.listen(PORT, () => {
+     console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
+   });
+   ```
 
 ## Directorio routes
 
-
-
 ## Directorio controllers
-
-
 
 ## Directorio middlewares
 
-
-
 ## Directorio utils
-
-
 
 ## Directorio services
 
-
-
 ## Directorio models
-
-
 
 ## Directorio schemas

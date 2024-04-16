@@ -90,19 +90,19 @@ npm init -y
    npm install cors
    ```
 
-3. **dotenv**: Permite cargar variables de entorno desde un archivo .env para configurar la aplicación.
+3. **dotenv HECHO**: Permite cargar variables de entorno desde un archivo .env para configurar la aplicación.
 
    ```bash
    npm install dotenv
    ```
 
-4. **express**: Para simplificar el manejo de rutas, solicitudes y respuestas HTTP.
+4. **express HECHO**: Para simplificar el manejo de rutas, solicitudes y respuestas HTTP.
 
    ```bash
    npm install express
    ```
 
-5. **express-fileupload**: Facilita la carga de archivos desde formularios HTML.
+5. **express-fileupload HECHO**: Facilita la carga de archivos desde formularios HTML.
 
    ```bash
    npm install express-fileupload
@@ -211,6 +211,8 @@ npm init -y
    app.listen(PORT, () => {
      console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
    });
+
+8. Creado el middleware upload de files y puesto en uso.
    ```
 
 ## Directorio routes

@@ -1,4 +1,5 @@
 import express from 'express';
+import fileUpload from 'express-fileupload';
 import morgan from 'morgan';
 import { PORT } from './env.js';
 
@@ -6,6 +7,7 @@ import { PORT } from './env.js';
 const app = express();
 
 app.use(express.json());
+app.use(fileUpload());
 app.use(morgan('dev'));
 
 //Ponemos el servidor a escuchar

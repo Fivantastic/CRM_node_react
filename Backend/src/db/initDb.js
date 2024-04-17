@@ -1,15 +1,17 @@
-import { MYSQL_DATABASE } from '../../env.js'
-import { getPool } from './getPool.js'
+import { MYSQL_DATABASE } from '../../env.js';
+import { createUploadsPathUtil } from '../utils/createUploadsPathUtil.js';
+import { deleteUploadsPathUtil } from '../utils/deleteUploadsPathUtil.js';
+import { getPool } from './getPool.js';
 
-async function initDb () {
+async function initDb() {
   try {
-    const pool = await getPool()
-    await pool.query(`USE ${MYSQL_DATABASE}`)
-    
-    await pool.query('DROP TABLE IF EXISTS Operaciones')
-    await pool.query('DROP TABLE IF EXISTS Clientes')
-    await pool.query('DROP TABLE IF EXISTS Productos')
-    await pool.query('DROP TABLE IF EXISTS Usuarios')
+    const pool = await getPool();
+    await pool.query(`USE ${MYSQL_DATABASE}`);
+
+    await pool.query('DROP TABLE IF EXISTS Operaciones');
+    await pool.query('DROP TABLE IF EXISTS Clientes');
+    await pool.query('DROP TABLE IF EXISTS Productos');
+    await pool.query('DROP TABLE IF EXISTS Usuarios');
 
     await pool.query(`
     CREATE TABLE Usuarios (
@@ -25,7 +27,7 @@ async function initDb () {
       biografia TEXT,
       fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
       fecha_actualizacion DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-    );`)
+    );`);
 
     await pool.query(`
     CREATE TABLE Clientes (
@@ -36,7 +38,7 @@ async function initDb () {
       direccion VARCHAR(255),
       usuario_id INT,
       FOREIGN KEY (usuario_id) REFERENCES Usuarios(usuario_id)
-  );`)
+  );`);
     await pool.query(`
     CREATE TABLE Operaciones (
       operacion_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -47,7 +49,7 @@ async function initDb () {
       fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
       fecha_actualizacion DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 
-  );`)
+  );`);
     await pool.query(`
     CREATE TABLE Productos (
       producto_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -57,20 +59,33 @@ async function initDb () {
       fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
       fecha_actualizacion DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 
-  );`)
+  );`);
 
-  await pool.query(`
+    await pool.query(`
   INSERT INTO Usuarios (email, nombre, apellidos, contraseña, rol, activado, codigo_registro)
   VALUES ('admin@test.com', 'Admin', 'Test', '1234', 'administrador', true, '0000_0000_0000_0000');
   
-  `)
+  `);
 
-    console.log('Base de datos inicializada ✅')
-    process.exit(0)
+    console.log('Base de datos inicializada ✅');
+
+    // Borramos el directorio uploads y todo su contenido
+    console.log('Borrando directorio de subida ');
+    await deleteUploadsPathUtil();
+    console.log('Directorio de subida borrado ');
+
+    // Crear el directorio uploads y sus subdirectorios imagenes y files
+    console.log('Creando directorios de subida ');
+    await createUploadsPathUtil();
+    console.log('Directorios de subida creados ');
+
+    console.log('Todo ha ido bien ');
+
+    process.exit(0);
   } catch (error) {
-    console.error(error)
-    process.exit(1)
+    console.error(error);
+    process.exit(1);
   }
 }
 
-initDb()
+initDb();

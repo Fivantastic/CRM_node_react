@@ -12,7 +12,7 @@ export async function deleteUploadsPathUtil() {
     // Borrar el directorio de uploads y todo su contenido
     await fs.rm(uploadsDir, { recursive: true });
     console.log(
-      'Uploads directory and its contents have been deleted successfully.'
+      'El directorio de cargas y su contenido se han eliminado correctamente. 💣'
     );
   } catch (error) {
     error.code = 'DELETE_UPLOADS_PATH_ERROR';

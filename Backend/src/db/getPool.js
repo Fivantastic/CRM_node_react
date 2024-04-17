@@ -10,31 +10,21 @@ import {
 
 let pool;
 
-export async function getPool() {
+export function getDBPool() {
   try {
     if (!pool) {
-      // Pool temporal para evitar error en caso de que no exista
-      const poolTemp = mysql.createPool({
-        host: MYSQL_HOST,
-        user: MYSQL_USER,
-        port: MYSQL_PORT,
-        password: MYSQL_PASSWORD,
-      });
-      await poolTemp.query(`CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE}`);
-
-      pool = mysql.createPool({
-        connectionLimit: 10,
-        host: MYSQL_HOST,
-        user: MYSQL_USER,
-        port: MYSQL_PORT,
-        password: MYSQL_PASSWORD,
-        database: MYSQL_DATABASE,
-        //  UTC (Tiempo universal coordinado), para consistencia en los datos
-        timezone: 'Z',
-      });
+        pool = mysql.createPool({
+            database: MYSQL_DATABASE,
+            host: MYSQL_HOST,
+            user: MYSQL_USER,
+            password: MYSQL_PASSWORD,
+            port: MYSQL_PORT,
+        });
     }
     return pool;
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    error.message = 'No se ha podido conectar con la base de datos';
+    throw error;
   }
 }

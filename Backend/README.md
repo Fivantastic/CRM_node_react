@@ -4,6 +4,7 @@
 
 - npm i
 - Crear el `.env` basado en el `.env.example`
+- INICIAR BASE DE DATOS `npm run initDb`
 
 ## Descripción
 

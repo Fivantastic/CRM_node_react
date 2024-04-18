@@ -14,7 +14,7 @@ app.use(fileUpload());
 app.use(morgan('dev'));
 app.use(cors());
 
-// Meddleware Recursos Estaticos
+// Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));
 
 // Ruta crear un cliente

@@ -1,4 +1,5 @@
-import { MYSQL_DATABASE } from "../../env.js";
+import { MYSQL_DATABASE, JWT_SECRET } from "../../env.js";
+import jwt from "jsonwebtoken";
 
 export async function createDBSchema(db) {
     console.log("Borrando base de datos (si existe)...💣");
@@ -35,6 +36,7 @@ export async function createDBSchema(db) {
         fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
         fecha_actualizacion DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         direccion_id CHAR(36),
+        token VARCHAR(500),
         FOREIGN KEY (direccion_id) REFERENCES Direcciones(id_direcciones)
     )`);
 
@@ -103,9 +105,18 @@ export async function createDBSchema(db) {
     await db.query(`ALTER TABLE Operaciones ADD INDEX (cliente_id)`);
 
     console.log(`-> Insertando usuario administrador...🧑‍💼`);
+    const adminPayload = {
+        email: 'admin@test.com',
+        nombre: 'Admin',
+        apellidos: 'Test',
+        rol: 'administrador',
+    };
+    
+    const adminToken = jwt.sign(adminPayload, JWT_SECRET, { expiresIn: '7d' }); // Genera el token JWT
+
     await db.query(`
-        INSERT INTO Usuarios (id_usuario, email, nombre, apellidos, contraseña, rol, activado, codigo_registro)
-        VALUES (UUID(),'admin@test.com', 'Admin', 'Test', '1234', 'administrador', true, '0000_0000_0000_0000')
+        INSERT INTO Usuarios (id_usuario, email, nombre, apellidos, contraseña, rol, activado, codigo_registro, token)
+        VALUES (UUID(), '${adminPayload.email}', '${adminPayload.nombre}', '${adminPayload.apellidos}', '1234', '${adminPayload.rol}', true, '0000_0000_0000_0000', '${adminToken}')
     `);
 
     console.log(`Base de datos inicializada con éxito...✅`);

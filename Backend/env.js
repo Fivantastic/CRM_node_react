@@ -9,4 +9,5 @@ export const {
 
   PORT,
   UPLOADS_DIR,
+  JWT_SECRET,
 } = process.env;

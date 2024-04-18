@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { JWT_SECRET } from '../../env.js';
 import { getDBPool } from '../db/getPool.js';
 import { validateSignInRequest } from '../services/validateSignInRequest.js';
 import { authenticateUser } from '../middlewares/authenticateUser.js';
@@ -13,22 +14,22 @@ export const authRouter = Router();
 authRouter.post("/login", authenticateUser, async (req, res, next) => {
     try {
         //Validar los datos de entrada
-        const { email, contraseña } = validateSignInRequest(req.body);
+        const { email, password } = validateSignInRequest(req.body);
 
         //obtener el usuario
-        const [[usuario]] = await dbPool.query(
-            "SELECT * FROM Usuarios WHERE email = ?",
+        const [[users]] = await dbPool.query(
+            "SELECT * FROM Users WHERE email = ?",
             [email]
         );
 
-        if (!usuario) throw invalidCredentials();
+        if (!users) throw invalidCredentials();
 
-        if (usuario.activado != 1) {
+        if (users.active != 1) {
             throw invalidCredentials(); // El usuario no ha sido verificado
         }
 
         //comparar la contraseña
-        const isValidPassword = await bcrypt.compare(contraseña, usuario.contraseña);
+        const isValidPassword = await bcrypt.compare(password, users.password);
 
         if (!isValidPassword) throw invalidCredentials();
 
@@ -36,10 +37,10 @@ authRouter.post("/login", authenticateUser, async (req, res, next) => {
         //Login exitoso
         const token = jwt.sign(
             {
-                id_usuario: usuario.id_usuario,
-                nombre: usuario.nombre,
-                avatar: usuario.avatar,
-                email: usuario.email,
+                id_user: users.id_user,
+                name: users.name,
+                avatar: users.avatar,
+                email: users.email,
             },
             JWT_SECRET,
             {

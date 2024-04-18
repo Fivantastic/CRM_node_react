@@ -1,3 +1,3 @@
-export function validateSignInRequest({ email, contraseña }) {
-    return { email, contraseña };
+export function validateSignInRequest({ email, password }) {
+    return { email, password };
 }

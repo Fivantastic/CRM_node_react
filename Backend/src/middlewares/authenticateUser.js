@@ -19,7 +19,7 @@ export function authenticateUser(req, res, next) {
 
         //Si el token es valido, añadir el id de usuario decodificado a la solicitud
         /* req.userId = decodedToken.userId; */
-        req.usuario = decodedToken;
+        req.user = decodedToken;
         next();
     } catch (error) {
         return res.status(401).json({error: 'Token de autentificación inválido'});

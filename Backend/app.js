@@ -3,11 +3,12 @@ import fileUpload from 'express-fileupload';
 import morgan from 'morgan';
 import cors from 'cors';
 import { PORT } from './env.js';
+import { customerRouter } from './src/routes/customerRoutes.js';
 
 // Crear el servidor
 const app = express();
 
-// Middlewares
+// Middlewares Globales
 app.use(express.json());
 app.use(fileUpload());
 app.use(morgan('dev'));
@@ -15,6 +16,9 @@ app.use(cors());
 
 // Meddleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));
+
+// Ruta crear un cliente
+app.use(customerRouter);
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

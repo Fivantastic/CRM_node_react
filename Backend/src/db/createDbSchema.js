@@ -9,114 +9,114 @@ export async function createDBSchema(db) {
     await db.query(`CREATE DATABASE ${MYSQL_DATABASE}`);
     await db.query(`USE ${MYSQL_DATABASE}`);
 
-    console.log(`-> Creando tabla Direcciones...✏️`);
-    await db.query(`CREATE TABLE Direcciones (
-        id_direcciones CHAR(36) PRIMARY KEY,
-        direccion VARCHAR(255) NOT NULL,
-        numero VARCHAR(20),
-        piso VARCHAR(10),
-        letra_numero VARCHAR(10),
-        ciudad VARCHAR(100),
-        codigo_postal VARCHAR(20),
-        pais VARCHAR(100)
+    console.log(`-> Creando tabla Addresses...✏️`);
+    await db.query(`CREATE TABLE Addresses (
+        id_address CHAR(36) PRIMARY KEY,
+        address VARCHAR(255) NOT NULL,
+        number VARCHAR(20),
+        floor VARCHAR(10),
+        letter_number VARCHAR(10),
+        city VARCHAR(100),
+        zip_code VARCHAR(20),
+        country VARCHAR(100)
     )`);
 
-    console.log(`-> Creando tabla Usuarios...✏️`);
-    await db.query(`CREATE TABLE Usuarios (
-        id_usuario CHAR(36) PRIMARY KEY,
-        nombre VARCHAR(255) NOT NULL,
-        apellidos VARCHAR(255),
+    console.log(`-> Creando tabla Users...✏️`);
+    await db.query(`CREATE TABLE Users (
+        id_user CHAR(36) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        surname VARCHAR(255),
         email VARCHAR(255) UNIQUE NOT NULL,
-        contraseña VARCHAR(255) NOT NULL,
-        rol ENUM('comercial', 'repartidor', 'administrador') NOT NULL,
-        activado BOOLEAN NOT NULL DEFAULT false,
-        codigo_registro CHAR(36) NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        role ENUM('seller', 'deliverer', 'admin') NOT NULL,
+        active BOOLEAN NOT NULL DEFAULT false,
+        registration_code CHAR(36) NOT NULL,
         avatar VARCHAR(255),
-        biografia TEXT,
-        fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-        fecha_actualizacion DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-        direccion_id CHAR(36),
+        biography TEXT,
+        create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+        address_id CHAR(36),
         token VARCHAR(500),
-        FOREIGN KEY (direccion_id) REFERENCES Direcciones(id_direcciones)
+        FOREIGN KEY (address_id) REFERENCES Addresses(id_address)
     )`);
 
-    console.log(`-> Creando tabla Clientes...✏️`);
-    await db.query(`CREATE TABLE Clientes (
-        id_cliente CHAR(36) PRIMARY KEY,
-        nombre VARCHAR(255),
+    console.log(`-> Creando tabla Customers...✏️`);
+    await db.query(`CREATE TABLE Customers (
+        id_customer CHAR(36) PRIMARY KEY,
+        name VARCHAR(255),
         email VARCHAR(255) NOT NULL,
-        telefono VARCHAR(20),
-        direccion_id CHAR(36),
-        FOREIGN KEY (direccion_id) REFERENCES Direcciones(id_direcciones)
+        phone VARCHAR(20),
+        address_id CHAR(36),
+        FOREIGN KEY (address_id) REFERENCES Addresses(id_address)
     )`);
 
-    console.log(`-> Creando tabla Productos...✏️`);
-    await db.query(`CREATE TABLE Productos (
-        id_producto CHAR(36) PRIMARY KEY,
-        nombre VARCHAR(255) NOT NULL,
-        descripcion TEXT,
-        precio DECIMAL(10,2) NOT NULL,
+    console.log(`-> Creando tabla Products...✏️`);
+    await db.query(`CREATE TABLE Products (
+        id_product CHAR(36) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        description TEXT,
+        price DECIMAL(10,2) NOT NULL,
         stock INT NOT NULL,
-        estado_producto ENUM('activo', 'desactivado') NOT NULL,
-        fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-        fecha_actualizacion DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+        product_status ENUM('active', 'inactive') NOT NULL,
+        creation_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
     )`);
 
-    console.log(`-> Creando tabla Servicios...✏️`);
-    await db.query(`CREATE TABLE Servicios (
-        id_servicio CHAR(36) PRIMARY KEY,
-        nombre VARCHAR(255) NOT NULL,
-        descripcion TEXT,
-        precio DECIMAL(10,2) NOT NULL,
-        estado ENUM('activo', 'desactivado') NOT NULL
+    console.log(`-> Creando tabla Services...✏️`);
+    await db.query(`CREATE TABLE Services (
+        id_service CHAR(36) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        description TEXT,
+        price DECIMAL(10,2) NOT NULL,
+        status ENUM('active', 'inactive') NOT NULL
     )`);
 
-    console.log(`-> Creando tabla Operaciones...✏️`);
-    await db.query(`CREATE TABLE Operaciones (
-        id_operacion CHAR(36) PRIMARY KEY,
-        usuario_id CHAR(36) ,
-        producto_id CHAR(36),
-        servicio_id CHAR(36),
-        cliente_id CHAR(36),
-        fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        tipo VARCHAR(50),
-        estado_operacion ENUM('abierto', 'cerrado') NOT NULL,
-        FOREIGN KEY (usuario_id) REFERENCES Usuarios(id_usuario),
-        FOREIGN KEY (producto_id) REFERENCES Productos(id_producto),
-        FOREIGN KEY (servicio_id) REFERENCES Servicios(id_servicio),
-        FOREIGN KEY (cliente_id) REFERENCES Clientes(id_cliente)
+    console.log(`-> Creando tabla Operations...✏️`);
+    await db.query(`CREATE TABLE Operations (
+        id_operation CHAR(36) PRIMARY KEY,
+        user_id CHAR(36) ,
+        product_id CHAR(36),
+        service_id CHAR(36),
+        customer_id CHAR(36),
+        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        tipe VARCHAR(50),
+        operation_status ENUM('open', 'closed') NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES Users(id_user),
+        FOREIGN KEY (product_id) REFERENCES Products(id_product),
+        FOREIGN KEY (service_id) REFERENCES Services(id_service),
+        FOREIGN KEY (customer_id) REFERENCES Customers(id_customer)
     )`);
 
-    console.log(`-> Creando tabla Valoraciones...✏️`);
-    await db.query(`CREATE TABLE Valoraciones (
-        id_valoracion CHAR(36) PRIMARY KEY,
-        operacion_id CHAR(36) ,
-        usuario_id CHAR(36) ,
-        puntuacion CHAR(36) NOT NULL,
-        comentario TEXT,
-        fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (operacion_id) REFERENCES Operaciones(id_operacion),
-        FOREIGN KEY (usuario_id) REFERENCES Usuarios(id_usuario)
+    console.log(`-> Creando tabla Ratings...✏️`);
+    await db.query(`CREATE TABLE Ratings (
+        id_rating CHAR(36) PRIMARY KEY,
+        operation_id CHAR(36) ,
+        user_id CHAR(36) ,
+        score CHAR(36) NOT NULL,
+        commentary TEXT,
+        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (operation_id) REFERENCES Operations(id_operation),
+        FOREIGN KEY (user_id) REFERENCES Users(id_user)
     )`);
 
-    console.log(`-> Creando índices en la tabla Operaciones...✏️`);
-    await db.query(`ALTER TABLE Operaciones ADD INDEX (producto_id)`);
-    await db.query(`ALTER TABLE Operaciones ADD INDEX (servicio_id)`);
-    await db.query(`ALTER TABLE Operaciones ADD INDEX (cliente_id)`);
+    console.log(`-> Creando índices en la tabla Operations...✏️`);
+    await db.query(`ALTER TABLE Operations ADD INDEX (product_id)`);
+    await db.query(`ALTER TABLE Operations ADD INDEX (service_id)`);
+    await db.query(`ALTER TABLE Operations ADD INDEX (customer_id)`);
 
-    console.log(`-> Insertando usuario administrador...🧑‍💼`);
+    console.log(`-> Insertando usuario Owner...🧑‍💼`);
     const adminPayload = {
         email: 'admin@test.com',
-        nombre: 'Admin',
-        apellidos: 'Test',
-        rol: 'administrador',
+        name: 'Admin',
+        surname: 'Test',
+        role: 'admin',
     };
     
     const adminToken = jwt.sign(adminPayload, JWT_SECRET, { expiresIn: '7d' }); // Genera el token JWT
 
     await db.query(`
-        INSERT INTO Usuarios (id_usuario, email, nombre, apellidos, contraseña, rol, activado, codigo_registro, token)
-        VALUES (UUID(), '${adminPayload.email}', '${adminPayload.nombre}', '${adminPayload.apellidos}', '1234', '${adminPayload.rol}', true, '0000_0000_0000_0000', '${adminToken}')
+        INSERT INTO Users (id_user, email, name, surname, password, role, active, registration_code, token)
+        VALUES (UUID(), '${adminPayload.email}', '${adminPayload.name}', '${adminPayload.surname}', '1234', '${adminPayload.role}', true, '0000_0000_0000_0000', '${adminToken}')
     `);
 
     console.log(`Base de datos inicializada con éxito...✅`);

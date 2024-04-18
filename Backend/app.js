@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
+import { authRouter } from './src/routes/auth.js';
 
 // Crear el servidor
 const app = express();
@@ -19,6 +20,9 @@ app.use('/uploads', express.static('./uploads'));
 
 // Ruta crear un cliente
 app.use(customerRouter);
+
+// Ruta login de un usuario
+app.use(authRouter);
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

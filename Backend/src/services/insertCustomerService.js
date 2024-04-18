@@ -6,10 +6,10 @@ import {
   usernameAlreadyRegisteredError,
 } from './errorService.js';
 
-export const insertCustomerService = async (nombre, email, telefono) => {
+export const insertCustomerService = async (name, email, phone) => {
   try {
     // Buscamos en la base de datos algún usuario con ese nombre.
-    let existCustomer = await selectCustomerByUsernameModel(nombre);
+    let existCustomer = await selectCustomerByUsernameModel(name);
 
     // Si existe un usuario con ese nombre, lanzamos un error.
     if (existCustomer) {
@@ -27,10 +27,10 @@ export const insertCustomerService = async (nombre, email, telefono) => {
     console.log('No hay cliente con ese email');
 
     // Creamos una id para el usuario.
-    const id_cliente = crypto.randomUUID();
+    const id_customer = crypto.randomUUID();
 
     // Insertamos el usuario en la base de datos.
-    await insertCustomerModel(id_cliente, nombre, email, telefono);
+    await insertCustomerModel(id_customer, name, email, phone);
   } catch (error) {
     // Manejar el error aquí.
     console.error('Error al insertar cliente:', error);

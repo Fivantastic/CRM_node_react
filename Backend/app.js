@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 
 // Middleware de Gestión de Errores
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error(err.stack || "Error desconocido");
   res.status(500).json({ error: 'Internal Server Error' });
 });
 

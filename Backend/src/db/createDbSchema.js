@@ -116,7 +116,7 @@ export async function createDBSchema(db) {
 
     await db.query(`
         INSERT INTO Users (id_user, email, name, surname, password, role, active, registration_code, token)
-        VALUES (UUID(), '${adminPayload.email}', '${adminPayload.name}', '${adminPayload.surname}', '1234', '${adminPayload.role}', true, '0000_0000_0000_0000', '${adminToken}')
+        VALUES (UUID(), '${adminPayload.email}', '${adminPayload.name}', '${adminPayload.surname}', '$2a$12$PdtHXSVaA9do.Rbo2LV9lOalgFoCYrVvgQZKxMirGmHDVfyA.PXFq', '${adminPayload.role}', true, '0000_0000_0000_0000', '${adminToken}')
     `);
 
     console.log(`Base de datos inicializada con éxito...✅`);

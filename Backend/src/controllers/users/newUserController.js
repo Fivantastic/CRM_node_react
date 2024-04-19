@@ -1,14 +1,15 @@
-import { newCustomerSchema } from '../../schemas/newCustomerSchema.js';
+import { newUserSchema } from '../../schemas/newUserSchema.js';
 import { insertUserService } from '../../services/insertUserService.js';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 
-export const newCustomerControllers = async (req, res, next) => {
+export const newUserController = async (req, res, next) => {
   try {
     // Obtenemos el cuerpo de la petición
     const { name, surname, email, password, role } = req.body;
 
     // Validamos el body
-    await validateSchemaUtil(newCustomerSchema, req.body);
+    // await validateSchemaUtil(newUserSchema, req.body);
+    // console.log('Ha pasado el esquema');
 
     // Insertamos el usuario en la base de datos
     await insertUserService(name, surname, email, password, role);
@@ -21,6 +22,7 @@ export const newCustomerControllers = async (req, res, next) => {
     });
   } catch (error) {
     error.code = 'NEW_USER_ERROR'
+    error.message = 'Error de registro'
     next(error);
   }
 };

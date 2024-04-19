@@ -15,7 +15,7 @@ export const insertUserModel = async (
 
   // Insertamos el user en la base de datos.
   const [result] = await pool.query(
-    `INSERT INTO Users (id_user, name, surname, email, password, role, registration_code) VALUES (?, ?, ?, ?)`,
+    `INSERT INTO Users (id_user, name, surname, email, password, role, registration_code) VALUES (?, ?, ?, ?, ?, ?, ?)`,
     [id_user, name, surname, email, password, role, registration_code]
   );
 

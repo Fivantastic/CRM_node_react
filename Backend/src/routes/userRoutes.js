@@ -7,4 +7,6 @@ import { checkAdminPrivileges } from '../middlewares/checkAdminPrivileges.js';
 export const userRouter = express.Router();
 
 // Ruta user
-userRouter.post('/user/register', authenticateUser, checkAdminPrivileges,  newUserController);
+// userRouter.post('/user/register', authenticateUser, checkAdminPrivileges,  newUserController);
+
+userRouter.post('/user/register',  newUserController);

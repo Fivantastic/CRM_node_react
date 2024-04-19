@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
-import { authRouter } from './src/routes/auth.js';
+import { authRouter } from './src/routes/authRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
 
 // Crear el servidor

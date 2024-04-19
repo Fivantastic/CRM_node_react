@@ -31,9 +31,16 @@ app.use((req, res, next) => {
 
 // Middleware de Gestión de Errores
 app.use((err, req, res, next) => {
-  console.error(err.stack || "Error desconocido");
-  res.status(500).json({ error: 'Internal Server Error' });
+  if (err.statusCode) {
+    // Si el error tiene una propiedad statusCode, se trata de un error específico
+    res.status(err.statusCode).json({ error: err.message });
+  } else {
+    // Si no, se trata de un error general del servidor
+    console.error(err.stack || "Error desconocido");
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+
 
 //Ponemos el servidor a escuchar
 app.listen(PORT, () => {

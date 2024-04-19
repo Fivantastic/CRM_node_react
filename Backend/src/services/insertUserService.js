@@ -15,7 +15,7 @@ export const insertUserService = async (name, surname, email, password, role) =>
     if (existUser) {
       emailAlreadyRegisteredError();
     }
-    console.log('Email válido');
+    console.log('Email libre');
 
     // Creamos una id y un código de activación para el usuario.
     const id_user = crypto.randomUUID();
@@ -30,13 +30,13 @@ export const insertUserService = async (name, surname, email, password, role) =>
         name, 
         surname, 
         email, 
-        random_password, 
+        hashed_password, 
         role, 
         registration_code );
   } catch (error) {
     // Manejar el error aquí.
     console.error('Error al insertar usuario:', error);
-    next(error);
+    throw error;
   }
 };
 

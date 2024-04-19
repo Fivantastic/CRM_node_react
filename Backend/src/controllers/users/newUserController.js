@@ -8,11 +8,13 @@ export const newUserController = async (req, res, next) => {
     const { name, surname, email, password, role } = req.body;
 
     // Validamos el body
-    // await validateSchemaUtil(newUserSchema, req.body);
-    // console.log('Ha pasado el esquema');
+    await validateSchemaUtil(newUserSchema, req.body);
+    console.log('Ha pasado el esquema');
 
     // Insertamos el usuario en la base de datos
     await insertUserService(name, surname, email, password, role);
+
+    console.log('Usuario creado, esperando por validación');
 
     // Respondemos al usuario
     res.status(201).send({
@@ -21,8 +23,9 @@ export const newUserController = async (req, res, next) => {
       
     });
   } catch (error) {
+    error.statusCode = 401
     error.code = 'NEW_USER_ERROR'
-    error.message = 'Error de registro'
+    error.message = error.message || 'Error de registro'
     next(error);
   }
 };

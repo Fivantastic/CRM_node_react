@@ -10,7 +10,11 @@ export const newUserSchema = joi.object({
   //   .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};:\'"|,.<>/?]).{8,30}$'))
   //   .required(),
   // No lanza error joi
-  role: joi.string().valid('seller', 'deliverer', 'admin').required().messages(joiErrorMessages),
+  role: joi.string().valid('seller', 'deliverer', 'admin').required().messages({
+    'any.required': 'El campo rol es requerido.',
+    'string.empty': 'El campo rol no puede estar vacío.',
+    'any.only': 'Debe ser uno de los siguientes valores: Seller, Deliverer, Admin.'
+  }),
 });
 
 /* 

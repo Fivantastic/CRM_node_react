@@ -1,18 +1,13 @@
 import { getDBPool } from '../../db/getPool.js';
 
 // Función que realiza una consulta a la base de datos para crear un nuevo usuario.
-export const insertCustomerModel = async (
-  id_customer,
-  name,
-  email,
-  phone
-) => {
+export const insertCustomerModel = async (id_customer, name, email, phone) => {
   // Crear un pool de conexiones.
   const pool = await getDBPool();
 
   // Insertamos el cliente en la base de datos.
   const [result] = await pool.query(
-    `INSERT INTO Clientes (id_cliente, nombre, email, telefono) VALUES (?, ?, ?, ?)`,
+    `INSERT INTO Customers (id_customer, name, email, phone) VALUES (?, ?, ?, ?)`,
     [id_customer, name, email, phone]
   );
 

@@ -5,7 +5,7 @@ export const selectCustomerByEmailModel = async (email) => {
 
   // Obtener el cliente  con ese email.
   const [customer] = await pool.query(
-    `SELECT * FROM Clientes WHERE email = ?`,
+    `SELECT * FROM Customers WHERE email = ?`,
     [email]
   );
 

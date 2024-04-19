@@ -12,3 +12,11 @@ export const emailAlreadyRegisteredError = () => {
     message: 'El email ya está uso',
   };
 };
+
+export const invalidCredentials = (message) => {
+  throw {
+    statusCode: 401,
+    code: 'INVALID_CREDENTIALS',
+    message: message || "Credenciales inválidas",
+  };
+};

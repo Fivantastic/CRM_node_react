@@ -5,7 +5,7 @@ import { JWT_SECRET } from '../../env.js';
 import { getDBPool } from '../db/getPool.js';
 import { validateSignInRequest } from '../services/validateSignInRequest.js';
 import { authenticateUser } from '../middlewares/authenticateUser.js';
-import { invalidCredentials } from '../services/invalidCredentials.js';
+import { invalidCredentials } from '../services/errorService.js';
 import { success } from '../utils/success.js';
 
 const dbPool = getDBPool();
@@ -23,11 +23,12 @@ authRouter.post("/login", authenticateUser, async (req, res, next) => {
             [email]
         );
 
-        if (!users) throw invalidCredentials();
+        if (!users) throw invalidCredentials('El usuario no existe');
 
         if (users.active != 1) {
-            throw invalidCredentials(); // El usuario no ha sido verificado
+            throw invalidCredentials('El usuario no ha sido verificado'); 
         }
+
 
         //comparar la contraseña
         const isValidPassword = await bcrypt.compare(password, users.password);
@@ -52,6 +53,8 @@ authRouter.post("/login", authenticateUser, async (req, res, next) => {
         res.json(
             success({
                 token: token,
+                name: users.name,
+
             })
         );
 

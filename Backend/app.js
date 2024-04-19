@@ -6,6 +6,7 @@ import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
 import { authRouter } from './src/routes/authRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
+import recoverPassword from './src/routes/recover-password.js';
 
 // Crear el servidor
 const app = express();
@@ -27,6 +28,9 @@ app.use(userRouter);
 
 // Ruta login de un usuario
 app.use(authRouter);
+
+// Rutas para recuperación de contraseña
+app.use(recoverPassword); 
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

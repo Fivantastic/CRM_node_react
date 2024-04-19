@@ -36,7 +36,6 @@ export async function createDBSchema(db) {
         create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         address_id CHAR(36),
-        token VARCHAR(500),
         FOREIGN KEY (address_id) REFERENCES Addresses(id_address)
     )`);
 
@@ -115,9 +114,12 @@ export async function createDBSchema(db) {
     const adminToken = jwt.sign(adminPayload, JWT_SECRET, { expiresIn: '7d' }); // Genera el token JWT
 
     await db.query(`
-        INSERT INTO Users (id_user, email, name, surname, password, role, active, registration_code, token)
-        VALUES (UUID(), '${adminPayload.email}', '${adminPayload.name}', '${adminPayload.surname}', '$2a$12$PdtHXSVaA9do.Rbo2LV9lOalgFoCYrVvgQZKxMirGmHDVfyA.PXFq', '${adminPayload.role}', true, '0000_0000_0000_0000', '${adminToken}')
+        INSERT INTO Users (id_user, email, name, surname, password, role, active, registration_code)
+        VALUES (UUID(), '${adminPayload.email}', '${adminPayload.name}', '${adminPayload.surname}', '$2a$12$PdtHXSVaA9do.Rbo2LV9lOalgFoCYrVvgQZKxMirGmHDVfyA.PXFq', '${adminPayload.role}', true, '0000_0000_0000_0000')
     `);
 
     console.log(`Base de datos inicializada con éxito...✅`);
+    console.log('---------------------------------');
+    console.log('Token Admin modo dev: ', adminToken);
+    console.log('---------------------------------');
 }

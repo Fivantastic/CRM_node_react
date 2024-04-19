@@ -19,13 +19,15 @@ export const insertUserService = async (name, surname, email, password, role) =>
     const id_user = crypto.randomUUID();
     const registration_code = crypto.randomUUID();
 
+    const hashed_password = await bcrypt.hash(password, 10)
+
     // Insertamos el usuario en la base de datos.
     await insertUserModel(
         id_user, 
         name, 
         surname, 
         email, 
-        password, 
+        hashed_password, 
         role, 
         registration_code );
   } catch (error) {

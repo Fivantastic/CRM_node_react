@@ -18,7 +18,7 @@ export function authenticateUser(req, res, next) {
         const decodedToken = jwt.verify(authorization, JWT_SECRET);
 
         //Si el token es valido, añadir el id de usuario decodificado a la solicitud
-        /* req.userId = decodedToken.userId; */
+        req.userId = decodedToken.userId
         req.user = decodedToken;
         next();
     } catch (error) {

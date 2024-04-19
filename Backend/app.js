@@ -5,6 +5,7 @@ import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
 import { authRouter } from './src/routes/auth.js';
+import { userRouter } from './src/routes/userRoutes.js';
 
 // Crear el servidor
 const app = express();
@@ -20,6 +21,9 @@ app.use('/uploads', express.static('./uploads'));
 
 // Ruta crear un cliente
 app.use(customerRouter);
+
+// Rutas de usuarios
+app.use(userRouter);
 
 // Ruta login de un usuario
 app.use(authRouter);

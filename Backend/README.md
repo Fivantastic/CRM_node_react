@@ -59,7 +59,7 @@ Para ejecutar el backend, sigue estos pasos:
 ## Endpoints
 
 - **POST /user/register**: Crea un nuevo usuario (solo para administradores). ✅
-- **POST /users/:id**: Desactiva un usuario (solo para administradores). ✅
+- **POST /users/:id**: Desactiva un usuario (solo para administradores). 
 - **PUT /user/validate/:registration_code**: Valida un usuario. ✅
 - **POST /users/login**: Inicio de sesión de usuario. ✅
 - **POST /users/forgot-password**: Recuperación de contraseña.

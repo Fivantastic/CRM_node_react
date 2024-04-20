@@ -6,7 +6,7 @@ import { emailAlreadyRegisteredError } from "./errorService.js";
 
 
 export const updateUserService = async (userId, body) => {
-    const { name, surname, email, phone, bio, avatar } = body;
+    const { name, last_name, email, phone, bio, avatar } = body;
 
     // Comprobar si el email ya existe.
     const existUser = await selectUserByEmailModel(email);
@@ -16,7 +16,7 @@ export const updateUserService = async (userId, body) => {
     console.log('email disponible');
 
     // Actualizar el usuario en la base de datos.
-    await updateUserModel(userId, name, surname, email, phone, bio, avatar );
+    await updateUserModel(userId, name, last_name, email, phone, bio, avatar );
 
     // Obtener el usuario actualizado.
     const user = await selectUserByIdModel(userId);

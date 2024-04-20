@@ -10,14 +10,14 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-export async function sendWelcomeEmail(name, surname, random_password, email, registration_code) {
+export async function sendWelcomeEmail(name, last_name, random_password, email, registration_code) {
     try {
       // Configurar el mensaje de correo electrónico
       const mailOptions = {
         from: MAIL_TRAP_AUTH_USER,
         to: email,
         subject: '¡Bienvenido a Nuestra Plataforma!',
-        html: `<p>Bienvenido a nuestra plataforma, ${name} ${surname}.</p>
+        html: `<p>Bienvenido a nuestra plataforma, ${name} ${last_name}.</p>
                <p>Tu datos de usuario son:</p>
                <p><span>Usuario:</span> ${email}</p>
                <p><span>Contraseña provisional:</span> ${random_password}.</p>

@@ -10,21 +10,26 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-export async function sendWelcomeEmail(email, validationLink) {
+export async function sendWelcomeEmail(name, surname, random_password, email, registration_code) {
     try {
       // Configurar el mensaje de correo electrónico
       const mailOptions = {
-        from: 'adminPlus@cosmic.com',
+        from: MAIL_TRAP_AUTH_USER,
         to: email,
-        subject: '¡Bienvenido a nuestra plataforma!',
-        html: `<p>Bienvenido a nuestra plataforma. Para validar tu cuenta, por favor haz clic en el siguiente enlace:</p>
-               <a href="${validationLink}">Validar cuenta</a>`,
-        };
+        subject: '¡Bienvenido a Nuestra Plataforma!',
+        html: `<p>Bienvenido a nuestra plataforma, ${name} ${surname}.</p>
+               <p>Tu datos de usuario son:</p>
+               <p><span>Usuario:</span> ${email}</p>
+               <p><span>Contraseña provisional:</span> ${random_password}.</p>
+               <p>Para validar tu cuenta, por favor haz clic en el siguiente enlace:</p>
+               <a href="${registration_code}">Validar Cuenta</a>`,
+    };
           // Enviar el correo electrónico
         await transporter.sendMail(mailOptions);
 
-  } catch (error) {
-    console.error('Error al enviar el correo electrónico de bienvenida:', error);
-    throw error; // Manejar el error adecuadamente en tu aplicación
-  }
+    } 
+    catch (error) {
+      console.error('Error al enviar el correo electrónico de bienvenida:', error);
+      throw error; // Manejar el error adecuadamente en tu aplicación
+    }
 }

@@ -5,16 +5,14 @@ import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 export const newUserController = async (req, res, next) => {
   try {
     // Obtenemos el cuerpo de la petición
-    const { name, surname, email, password, role } = req.body;
+    const { name, surname, email, role } = req.body;
 
     // Validamos el body
     await validateSchemaUtil(newUserSchema, req.body);
     console.log('Ha pasado el esquema');
 
     // Insertamos el usuario en la base de datos
-    await insertUserService(name, surname, email, password, role);
-
-    console.log('Usuario creado, esperando por validación');
+    await insertUserService(name, surname, email, role);
 
     // Respondemos al usuario
     res.status(201).send({

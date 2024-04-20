@@ -1,6 +1,8 @@
+import bcrypt from "bcrypt";
 import { newUserSchema } from '../../schemas/newUserSchema.js';
 import { insertUserService } from '../../services/insertUserService.js';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
+import { generateRandomPassword } from "../../utils/generateRandomPassword.js";
 
 export const newUserController = async (req, res, next) => {
   try {
@@ -19,7 +21,7 @@ export const newUserController = async (req, res, next) => {
     
 
     // Insertamos el usuario en la base de datos
-    await insertUserService(id_user,name, surname, email, hashed_password, role, registration_code);
+    await insertUserService(id_user, name, surname, email, hashed_password, role, registration_code);
     console.log('Usuario insertado');
 
     // Respondemos al usuario

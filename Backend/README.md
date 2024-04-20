@@ -78,7 +78,7 @@ Para ejecutar el backend, sigue estos pasos:
 - **Middleware gestión de errores**: Maneja los errores ocurridos durante el proceso de solicitud. ✅
 - **Middleware request body parsing**: Analiza el cuerpo de la solicitud para extraer datos. ✅
 - **Middleware file upload**: Procesa la carga de archivos en las solicitudes. ✅
-- **Middleware definition of static resources directory (images, files)**: Define el directorio de recursos estáticos como imágenes y archivos. ✅
+- **Middleware definition of static resources directory (images, files)**: Define el directorio de recursos estáticos de imágenes y archivos. ✅
 - **Middleware CORS**: Permite las solicitudes de recursos desde un origen diferente al del servidor. ✅
 - **Middleware user authentication verification**: Verifica la autenticación de los usuarios antes de permitir el acceso a ciertas rutas. ✅
 

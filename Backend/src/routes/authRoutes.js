@@ -4,6 +4,6 @@ import { validateUserController } from '../controllers/users/validateUserControl
 
 export const authRouter = Router();
 
-authRouter.post("/login", loginUserControllers);
+authRouter.post("user/login", loginUserControllers);
 
-authRouter.put("/validate/:registration_code", validateUserController);
+authRouter.put("/user/validate/:registration_code", validateUserController);

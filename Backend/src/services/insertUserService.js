@@ -17,11 +17,6 @@ export const insertUserService = async (name, surname, email, role, registration
     }
     console.log('Email libre');
 
-    // Creamos una id y un código de activación para el usuario.
-    const id_user = crypto.randomUUID();
-    const random_password = generateRandomPassword(10);
-    const hashed_password = await bcrypt.hash(random_password, 12)
-
     // Insertamos el usuario en la base de datos.
     await insertUserModel(
         id_user, 

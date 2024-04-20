@@ -27,3 +27,11 @@ export const invalidCredentials = (message) => {
     message: message || 'Credenciales inválidas',
   };
 };
+
+export const userAlreadyActivatedError = () => {
+  throw {
+    statusCode: 409, // Conflict
+    code: 'USER_ALREADY_ACTIVATED',
+    message: 'El usuario ya está activado',
+  };
+};

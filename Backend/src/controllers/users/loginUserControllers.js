@@ -14,17 +14,16 @@ export const loginUserControllers = async (req, res, next) => {
         const { email, password } = validateSignInRequest(req.body);
 
         //obtener el usuario
-        const [[users]] = selectUserByEmailModel(email);
+        const user = await selectUserByEmailModel(email);
 
-        if (!users) throw invalidCredentials('El usuario/email no existe');
-
-        if (users.active != 1) {
+        if (!user) throw invalidCredentials('El usuario/email no existe');
+  
+        if (user.active != 1) {
             throw invalidCredentials('El usuario no ha sido verificado'); 
         }
-
-
+        
         //comparar la contraseña
-        const isValidPassword = await bcrypt.compare(password, users.password);
+        const isValidPassword = await bcrypt.compare(password, user.password);
 
         if (!isValidPassword) throw invalidCredentials();
 
@@ -32,10 +31,10 @@ export const loginUserControllers = async (req, res, next) => {
         //Login exitoso
         const token = jwt.sign(
             {
-                id_user: users.id_user,
-                name: users.name,
-                avatar: users.avatar,
-                email: users.email,
+                id_user: user.id_user,
+                name: user.name,
+                avatar: user.avatar,
+                email: user.email,
             },
             JWT_SECRET,
             {

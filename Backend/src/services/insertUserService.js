@@ -6,7 +6,7 @@ import { emailAlreadyRegisteredError } from './errorService.js';
 import { generateRandomPassword } from "../utils/generateRandomPassword.js";
 // import { sendWelcomeEmail } from "./emailService.js";
 
-export const insertUserService = async (name, surname, email, role) => {
+export const insertUserService = async (name, surname, email, role, registration_code) => {
   try {
     // Buscamos en la base de datos algún usuario con ese email.
     const existUser = await selectUserByEmailModel(email);
@@ -19,9 +19,7 @@ export const insertUserService = async (name, surname, email, role) => {
 
     // Creamos una id y un código de activación para el usuario.
     const id_user = crypto.randomUUID();
-    const registration_code = crypto.randomUUID();
     const random_password = generateRandomPassword(10);
-
     const hashed_password = await bcrypt.hash(random_password, 12)
 
     // Insertamos el usuario en la base de datos.
@@ -37,14 +35,6 @@ export const insertUserService = async (name, surname, email, role) => {
     console.log('Usuario insertado');    
 
     console.log(random_password);
-
-    // Respondemos al usuario
-    res.status(201).send({
-      status: 'ok',
-      message: 'El usuario ha sido creado, a la espera de validación',
-      data: { registration_code }
-    })
-
 
     // ! Desactivado por motivos de prueba la funcion de enviar correo de bienvenida
     // Enviar correo electrónico de bienvenida

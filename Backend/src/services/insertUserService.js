@@ -4,7 +4,7 @@ import { insertUserModel } from '../models/user/insertUserModel.js';
 import { selectUserByEmailModel } from '../models/user/selectUserByEmailModel.js';
 import { emailAlreadyRegisteredError } from './errorService.js';
 import { generateRandomPassword } from "../utils/generateRandomPassword.js";
-import { sendWelcomeEmail } from "./emailService.js";
+// import { sendWelcomeEmail } from "./emailService.js";
 
 export const insertUserService = async (name, surname, email, role) => {
   try {
@@ -35,6 +35,15 @@ export const insertUserService = async (name, surname, email, role) => {
         registration_code );
 
     console.log('Usuario insertado');    
+
+    console.log(random_password);
+
+    // Respondemos al usuario
+    res.status(201).send({
+      status: 'ok',
+      message: 'El usuario ha sido creado, a la espera de validación',
+      data: { registration_code }
+    })
 
 
     // ! Desactivado por motivos de prueba la funcion de enviar correo de bienvenida

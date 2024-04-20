@@ -20,6 +20,16 @@ export const emailAlreadyRegisteredError = () => {
   };
 };
 
+export const passwordAlreadyRegisteredError = () => {
+  throw {
+    statusCode: 409, // Conflict
+    code: 'PASSWORD_ALREADY_REGISTERED',
+    message: 'La contraseña ya está registrado',
+};
+};
+
+
+
 export const invalidCredentials = (message) => {
   throw {
     statusCode: 401,

@@ -13,14 +13,9 @@ export const newUserController = async (req, res, next) => {
 
     // Insertamos el usuario en la base de datos
     await insertUserService(name, surname, email, role);
-
-    // Respondemos al usuario
-    res.status(201).send({
-      status: 'ok',
-      message: 'El usuario ha sido creado, a la espera de validación',
-      
-    });
-  } catch (error) {
+    console.log('Usuario insertado');
+  } 
+  catch (error) {
     error.statusCode = 401
     error.code = 'NEW_USER_ERROR'
     error.message = error.message || 'Error de registro'

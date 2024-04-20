@@ -2,9 +2,7 @@ import bcrypt from "bcrypt";
 
 import { insertUserModel } from '../models/user/insertUserModel.js';
 import { selectUserByEmailModel } from '../models/user/selectUserByEmailModel.js';
-import {
-  emailAlreadyRegisteredError,
-} from './errorService.js';
+import { emailAlreadyRegisteredError } from './errorService.js';
 
 export const insertUserService = async (name, surname, email, password, role) => {
   try {

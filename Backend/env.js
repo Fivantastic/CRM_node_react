@@ -10,4 +10,9 @@ export const {
   PORT,
   UPLOADS_DIR,
   JWT_SECRET,
+
+  MAIL_TRAP_HOST,
+  MAIL_TRAP_PORT,
+  MAIL_TRAP_AUTH_USER,
+  MAIL_TRAP_AUTH_PASS
 } = process.env;

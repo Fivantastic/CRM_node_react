@@ -1,4 +1,4 @@
-import { getDBPool } from '/home/bosser/Escritorio/dia6/CRM_node_react_1/Backend/src/db/getPool.js';
+import { getDBPool } from '../../db/getPool.js';
 
 const dbPool = getDBPool();
 

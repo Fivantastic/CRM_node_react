@@ -58,28 +58,28 @@ Para ejecutar el backend, sigue estos pasos:
 
 ## Endpoints
 
-- **POST /user/register**: Crea un nuevo usuario (solo para administradores).
-- **POST /users/:id**: Desactiva un usuario (solo para administradores).
-- **PUT /user/validate/:registration_code**: Valida un usuario.
-- **POST /users/login**: Inicio de sesión de usuario.
+- **POST /user/register**: Crea un nuevo usuario (solo para administradores). ✅
+- **POST /users/:id**: Desactiva un usuario (solo para administradores). ✅
+- **PUT /user/validate/:registration_code**: Valida un usuario. ✅
+- **POST /users/login**: Inicio de sesión de usuario. ✅
 - **POST /users/forgot-password**: Recuperación de contraseña.
 - **PUT /reset-password-request**: Cambio de contraseña.
-- **PUT /user/update/:id_user**: Gestión del perfil de usuario (no administrador).
-- **POST /customer/register**: Crea un cliente.
-- **PUT /customer/:customerId**: Actualiza un cliente.
-- **GET /customer/list**: Listado de clientes. 
+- **PUT /user/update/:id_user**: Gestión del perfil de usuario (no administrador). ✅
+- **POST /customer/register**: Crea un cliente. ✅
+- **PUT /customer/:customerId**: Actualiza un cliente. ✅
+- **GET /customer/list**: Listado de clientes. ✅
 - **POST /products**: Crea un producto (solo para administradores).
 - **PUT /products/:id**: Actualiza un producto (solo para administradores).
 - **DELETE /products/:id**: Elimina lógicamente un producto (solo para administradores).
 
 ## Middlewares
 
-- **Middleware 404 not found**: Maneja las solicitudes a rutas no encontradas.
-- **Middleware gestión de errores**: Maneja los errores ocurridos durante el proceso de solicitud.
-- **Middleware request body parsing**: Analiza el cuerpo de la solicitud para extraer datos.
-- **Middleware file upload**: Procesa la carga de archivos en las solicitudes.
-- **Middleware definition of static resources directory (images, files)**: Define el directorio de recursos estáticos como imágenes y archivos.
-- **Middleware CORS**: Permite las solicitudes de recursos desde un origen diferente al del servidor.
-- **Middleware user authentication verification**: Verifica la autenticación de los usuarios antes de permitir el acceso a ciertas rutas.
+- **Middleware 404 not found**: Maneja las solicitudes a rutas no encontradas. ✅
+- **Middleware gestión de errores**: Maneja los errores ocurridos durante el proceso de solicitud. ✅
+- **Middleware request body parsing**: Analiza el cuerpo de la solicitud para extraer datos. ✅
+- **Middleware file upload**: Procesa la carga de archivos en las solicitudes. ✅
+- **Middleware definition of static resources directory (images, files)**: Define el directorio de recursos estáticos como imágenes y archivos. ✅
+- **Middleware CORS**: Permite las solicitudes de recursos desde un origen diferente al del servidor. ✅
+- **Middleware user authentication verification**: Verifica la autenticación de los usuarios antes de permitir el acceso a ciertas rutas. ✅
 
 --- 

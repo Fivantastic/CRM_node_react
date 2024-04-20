@@ -4,7 +4,7 @@ import { joiErrorMessages } from './joiErrorMessage.js';
 // Esquema para validar el body de la petición.
 export const newUserSchema = joi.object({
   name: joi.string().min(3).max(30).required().messages(joiErrorMessages),
-  surname: joi.string().min(3).max(60).optional().messages(joiErrorMessages),
+  last_name: joi.string().min(3).max(60).optional().messages(joiErrorMessages),
   email: joi.string().email().required().messages(joiErrorMessages),
   // password: joi.string().min(8).max(30)
   //   .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};:\'"|,.<>/?]).{8,30}$'))

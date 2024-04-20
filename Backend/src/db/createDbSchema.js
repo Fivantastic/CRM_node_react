@@ -25,7 +25,7 @@ export async function createDBSchema(db) {
     await db.query(`CREATE TABLE Users (
         id_user CHAR(36) PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
-        surname VARCHAR(255),
+        last_name VARCHAR(255),
         email VARCHAR(255) UNIQUE NOT NULL,
         phone VARCHAR(20),
         password VARCHAR(255) NOT NULL,
@@ -78,9 +78,9 @@ export async function createDBSchema(db) {
         product_id CHAR(36),
         service_id CHAR(36),
         customer_id CHAR(36),
-        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         tipe VARCHAR(50),
         operation_status ENUM('open', 'closed') NOT NULL,
+        creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES Users(id_user),
         FOREIGN KEY (product_id) REFERENCES Products(id_product),
         FOREIGN KEY (service_id) REFERENCES Services(id_service),
@@ -94,7 +94,7 @@ export async function createDBSchema(db) {
         user_id CHAR(36) ,
         score CHAR(36) NOT NULL,
         commentary TEXT,
-        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (operation_id) REFERENCES Operations(id_operation),
         FOREIGN KEY (user_id) REFERENCES Users(id_user)
     )`);
@@ -105,22 +105,14 @@ export async function createDBSchema(db) {
     await db.query(`ALTER TABLE Operations ADD INDEX (customer_id)`);
 
     console.log(`-> Insertando usuario Owner...🧑‍💼`);
-    const adminPayload = {
-        email: 'admin@test.com',
-        name: 'Admin',
-        surname: 'Test',
-        role: 'admin',
-    };
-    
-    const adminToken = jwt.sign(adminPayload, JWT_SECRET, { expiresIn: '7d' }); // Genera el token JWT
 
     await db.query(`
-        INSERT INTO Users (id_user, email, name, surname, password, role, active, registration_code)
-        VALUES (UUID(), '${adminPayload.email}', '${adminPayload.name}', '${adminPayload.surname}', '$2a$12$PdtHXSVaA9do.Rbo2LV9lOalgFoCYrVvgQZKxMirGmHDVfyA.PXFq', '${adminPayload.role}', true, '0000_0000_0000_0000')
+        INSERT INTO Users (id_user, email, name, last_name, password, role, active, registration_code)
+        VALUES (UUID(), 'admin@test.com', 'admin', 'Owner', '$2a$12$PdtHXSVaA9do.Rbo2LV9lOalgFoCYrVvgQZKxMirGmHDVfyA.PXFq', 'admin', 1, UUID())
     `);
+    console.log('-------------------------------------------');
+    console.log('contraseña del Admin: "123456" sin hashear');
+    console.log('-------------------------------------------');
 
     console.log(`Base de datos inicializada con éxito...✅`);
-    console.log('---------------------------------');
-    console.log('Token Admin modo dev: ', adminToken);
-    console.log('---------------------------------');
 }

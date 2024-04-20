@@ -1,12 +1,9 @@
-import bcrypt from "bcrypt";
-
 import { insertUserModel } from '../models/user/insertUserModel.js';
 import { selectUserByEmailModel } from '../models/user/selectUserByEmailModel.js';
 import { emailAlreadyRegisteredError } from './errorService.js';
-import { generateRandomPassword } from "../utils/generateRandomPassword.js";
 // import { sendWelcomeEmail } from "./emailService.js";
 
-export const insertUserService = async (name, surname, email, role, registration_code) => {
+export const insertUserService = async (id_user, name, surname, email, hashed_password, role, registration_code) => {
   try {
     // Buscamos en la base de datos algún usuario con ese email.
     const existUser = await selectUserByEmailModel(email);
@@ -15,7 +12,7 @@ export const insertUserService = async (name, surname, email, role, registration
     if (existUser) {
       emailAlreadyRegisteredError();
     }
-    console.log('Email libre');
+    console.log('Email disponible');
 
     // Insertamos el usuario en la base de datos.
     await insertUserModel(
@@ -25,11 +22,8 @@ export const insertUserService = async (name, surname, email, role, registration
         email, 
         hashed_password, 
         role, 
-        registration_code );
-
-    console.log('Usuario insertado');    
-
-    console.log(random_password);
+        registration_code 
+    ); 
 
     // ! Desactivado por motivos de prueba la funcion de enviar correo de bienvenida
     // Enviar correo electrónico de bienvenida

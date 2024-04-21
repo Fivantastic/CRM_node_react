@@ -1,6 +1,6 @@
 import { toggleActivationService } from "../../services/toggleActivationService.js";
 
-export const deactivateUserController = async (req, res, next) => {
+export const toggleActiveStatusController = async (req, res, next) => {
 
     try {
         // Obtenemos el id del usuario.

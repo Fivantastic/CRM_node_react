@@ -7,6 +7,7 @@ import { customerRouter } from './src/routes/customerRoutes.js';
 import { authRouter } from './src/routes/authRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
 import recoverPassword from './src/routes/recover-password.js';
+import { serviceRouter } from './src/routes/serviceRoutes.js';
 
 // Crear el servidor
 const app = express();
@@ -20,8 +21,11 @@ app.use(cors());
 // Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));
 
-// Ruta crear un cliente
+// Rutas de  clientes
 app.use(customerRouter);
+
+// Ruta de servicios
+app.use(serviceRouter);
 
 // Rutas de usuarios
 app.use(userRouter);
@@ -30,7 +34,7 @@ app.use(userRouter);
 app.use(authRouter);
 
 // Rutas para recuperación de contraseña
-app.use(recoverPassword); 
+app.use(recoverPassword);
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {
@@ -49,12 +53,10 @@ app.use((err, req, res, next) => {
     res.status(err.statusCode).json(errorResponse);
   } else {
     // Si no, se trata de un error general del servidor
-    console.error(err.stack || "Error desconocido");
+    console.error(err.stack || 'Error desconocido');
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
 
 //Ponemos el servidor a escuchar
 app.listen(PORT, () => {

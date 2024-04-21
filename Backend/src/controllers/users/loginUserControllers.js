@@ -7,11 +7,17 @@ import { validateSignInRequest } from "../../services/validateSignInRequest.js";
 import { success } from "../../utils/success.js";
 import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel.js";
 import { JWT_SECRET } from '../../../env.js';
+import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
+import { loginUserSchema } from '../../schemas/loginUserSchema.js';
 
 export const loginUserControllers = async (req, res, next) => {
     try {
         //Validar los datos de entrada
         const { email, password } = validateSignInRequest(req.body);
+
+        // Validamos el body
+        await validateSchemaUtil(loginUserSchema, req.body);
+        console.log('Ha pasado el esquema');
 
         //obtener el usuario
         const user = await selectUserByEmailModel(email);

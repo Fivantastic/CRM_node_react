@@ -1,0 +1,54 @@
+
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+import { invalidCredentials } from "../../services/errorService.js";
+import { validateSignInRequest } from "../../services/validateSignInRequest.js";
+import { success } from "../../utils/success.js";
+import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel.js";
+import { JWT_SECRET } from '../../../env.js';
+
+export const loginUserControllers = async (req, res, next) => {
+    try {
+        //Validar los datos de entrada
+        const { email, password } = validateSignInRequest(req.body);
+
+        //obtener el usuario
+        const user = await selectUserByEmailModel(email);
+
+        if (!user) throw invalidCredentials('El usuario/email no existe');
+  
+        if (user.active != 1) {
+            throw invalidCredentials('El usuario no ha sido verificado'); 
+        }
+        
+        //comparar la contraseña
+        const isValidPassword = await bcrypt.compare(password, user.password);
+
+        if (!isValidPassword) throw invalidCredentials();
+
+        // El usuario existe y la contraseña es correcta
+        //Login exitoso
+        const token = jwt.sign(
+            {
+                id_user: user.id_user,
+                name: user.name,
+                avatar: user.avatar,
+                email: user.email,
+            },
+            JWT_SECRET,
+            {
+                expiresIn: "7d",
+            }
+        );
+
+        res.json(
+            success({
+                token: token,
+            })
+        );
+
+    } catch (error) {
+        next(error);
+    }
+};

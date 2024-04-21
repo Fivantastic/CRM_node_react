@@ -20,10 +20,28 @@ export const emailAlreadyRegisteredError = () => {
   };
 };
 
+export const passwordAlreadyRegisteredError = () => {
+  throw {
+    statusCode: 409, // Conflict
+    code: 'PASSWORD_ALREADY_REGISTERED',
+    message: 'La contraseña ya está registrado',
+};
+};
+
+
+
 export const invalidCredentials = (message) => {
   throw {
     statusCode: 401,
     code: 'INVALID_CREDENTIALS',
     message: message || 'Credenciales inválidas',
+  };
+};
+
+export const userAlreadyActivatedError = () => {
+  throw {
+    statusCode: 409, // Conflict
+    code: 'USER_ALREADY_ACTIVATED',
+    message: 'El usuario ya está activado',
   };
 };

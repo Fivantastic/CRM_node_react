@@ -1,235 +1,95 @@
-# Creación de un servidor HTTP
+# CRM Project Server
 
-## INICIAR AL CLONAR EL PROYECTO
+## Introducción
 
-- npm i
-- Crear el `.env` basado en el `.env.example`
-- INICIAR BASE DE DATOS `npm run initDb`
+La plataforma CRM (Customer Relationship Management) es un sistema diseñado para gestionar las relaciones y las interacciones con los clientes. Proporciona a las empresas herramientas para administrar contactos, automatizar procesos de ventas, realizar seguimiento de clientes potenciales, analizar datos y mejorar la retención de clientes. Este proyecto de backend en Node.js busca ofrecer una solución eficiente para la gestión de relaciones con los clientes, permitiendo a las empresas organizar y optimizar sus actividades comerciales de manera efectiva.
 
-## Descripción
+## Getting Started
 
-Creacion del servidor de nuestro proyecto integreador de CRM.
+Para ejecutar el backend, sigue estos pasos:
 
-## Iniciado un proyecto de Node
-
-Iniciado un Proyecto de NodeJs con
-
-```bash
-npm init -y
-```
-
-## Dependencias de Desarrollo
-
-1. Eslint:
-
-   - Instalado
-
-     ```bash
-     npm install -D eslint
-     ```
-
-   - Configurado:
-
-     ```bash
-     npx eslint --init
-     ```
-
-     - `y` para instalar `@eslint/create-config@0.4.6`
-     - Check syntax and find problems
-     - JavaScript modules (import/export)
-     - None of these
-     - TyScript: No
-     - Code run: Desmarcar con 'space' Browser, marcar Node
-     - Format: JSON
-
-   - Ejecutado: ESLint analiza los archivos JavaScript en tu proyecto según las reglas definidas en tu archivo de configuración de ESLint `.eslintrc.json` y te informa sobre cualquier problema que encuentre, como errores de sintaxis, problemas de estilo, o posibles problemas de lógica.
-
-     ```bash
-     npx eslint
-     ```
-
-   - Integrado Eslint-Prettier: `npm install -D eslint-config-prettier`
-   - Agregar la siguiente regla en el archivo `.eslintrc.json` para que no considere `next` como error si no lo usamos:
-
-     ```json
-     "rules": {
-       "no-unused-vars": ["warn", { "argsIgnorePattern": "next" }]
-     }
-     ```
-
-2. Prettier:
-
-   - Instalado
-
-     ```bash
-     npm install -D prettier
-     ```
-
-   - Creado archivo `.prettierrc.json`
-   - Agregado esta configuración al archivo `.prettierrc.json`:
-
-     ```json
-     {
-       "trailingComma": "es5",
-       "tabWidth": 2,
-       "semi": true,
-       "singleQuote": true
-     }
-     ```
-
-## Dependencias (PENDIENTE) --Reunion
-
-1. **bcrypt**: Para el hash y la comparación de contraseñas de forma segura.
-
-   ```bash
-   npm install bcrypt
-   ```
-
-2. **cors**: Middleware de Express que permite el acceso a recursos de un servidor desde un dominio diferente al del propio servidor.
-
-   ```bash
-   npm install cors
-   ```
-
-3. **dotenv HECHO**: Permite cargar variables de entorno desde un archivo .env para configurar la aplicación.
-
-   ```bash
-   npm install dotenv
-   ```
-
-4. **express HECHO**: Para simplificar el manejo de rutas, solicitudes y respuestas HTTP.
-
-   ```bash
-   npm install express
-   ```
-
-5. **express-fileupload HECHO**: Facilita la carga de archivos desde formularios HTML.
-
-   ```bash
-   npm install express-fileupload
-   ```
-
-6. **jsonwebtoken**: Implementa la generación y verificación de tokens JWT (JSON Web Tokens) para autenticación.
-
-   ```bash
-   npm install jsonwebtoken
-   ```
-
-7. **morgan**: Middleware de registro de solicitudes HTTP para Express, que registra los detalles de cada solicitud recibida por el servidor.
-
-   ```bash
-   npm install morgan
-   ```
-
-8. **mysql2**: Cliente MySQL para Node.js que proporciona una interfaz para interactuar con bases de datos MySQL.
-
-   ```bash
-   npm install mysql2
-   ```
-
-9. **nodemailer**: Biblioteca para enviar correos electrónicos desde aplicaciones Node.js.
-
-   ```bash
-   npm install nodemailer
-   ```
-
-10. **sharp**: Librería para el procesamiento de imágenes en Node.js, utilizada para manipular, redimensionar y convertir imágenes.
+1. Instala las dependencias:
 
     ```bash
-    npm install sharp
+    npm install
     ```
 
-11. **joi**: Biblioteca para definir y validar la estructura y los tipos de datos de entrada en tu aplicación.
+2. Crea un archivo `.env` en el directorio raíz del proyecto y completa la configuración necesaria. Aquí hay un ejemplo de cómo podría verse el archivo `.env`:
+
+    ```plaintext
+    # Configuración de MySQL
+    MYSQL_HOST=
+    MYSQL_PORT=
+    MYSQL_USER=
+    MYSQL_PASSWORD=
+    MYSQL_DATABASE=
+
+    # Puerto del servidor
+    PORT=
+
+    # Clave secreta para JWT
+    JWT_SECRET=
+
+    # Directorio de carga de archivos
+    UPLOADS_DIR=uploads
+
+    # Credenciales para MAILTRAP (testing emails https://mailtrap.io/)
+    MAIL_TRAP_HOST=
+    MAIL_TRAP_PORT=
+    MAIL_TRAP_AUTH_USER=
+    MAIL_TRAP_AUTH_PASS=
+
+    # Creación del usurario administrador por defecto
+    ADMIN_NAME=
+    ADMIN_LAST_NAME=
+    ADMIN_EMAIL=
+    ADMIN_PHONE=
+    # Roles admin, seller, delivery
+    ADMIN_ROLE=
+    # 1: activo, 0: inactivo
+    ADMIN_ACTIVE=
+    ```
+
+    Asegúrate de completar los campos con la información específica de tu entorno de desarrollo para crear el usuario Administrador, si esta activo o descativado. La funcionalidad del envio de email esta desactivada, comentada en su respectivo endpoint de registro de usuario(solo aministrador).
+
+3. Crea una carpeta de UPLOADS en la raiz del proyecto.
+
+4. Inicializa la base de datos:
 
     ```bash
-    npm install joi
+    npm run initDb
     ```
 
-## Estructura Principal
+5. Inicia el servidor:
 
-1. Creado un archivo `.gitignore` para no subir al repositorio `node_modules`, `.env` ni `uploads`.
-2. Creado un archivo `.env` para las Variables de Entorno.
-3. Creado un archivo `env.js` para importar las Variables de Entorno y exportarlas para usarlas desde aquí.
-4. Creado un archivo `app.js` que va a ser el punto de entrada de nuestra aplicación.
-5. Creado el directorio `src` con la estructura de archivos y carpetas necesaria para el proyecto: `controllers`, `db`, `middlewares`, `models`, `routes`, `schemas`, `services`y`utils`.
+    ```bash
+    npm run dev
+    ```
 
-## Documento package.json
+## Endpoints
 
-- Añadido
+- **POST /user/register**: Crea un nuevo usuario (solo para administradores). ✅
+- **POST /users/:id**: Desactiva un usuario (solo para administradores). 
+- **PUT /user/validate/:registration_code**: Valida un usuario. ✅
+- **POST /users/login**: Inicio de sesión de usuario. ✅
+- **POST /users/forgot-password**: Recuperación de contraseña.
+- **PUT /reset-password-request**: Cambio de contraseña.
+- **PUT /user/update/:id_user**: Gestión del perfil de usuario (no administrador). ✅
+- **POST /customer/register**: Crea un cliente. ✅
+- **PUT /customer/:customerId**: Actualiza un cliente. ✅
+- **GET /customer/list**: Listado de clientes. ✅
+- **POST /products**: Crea un producto (solo para administradores).
+- **PUT /products/:id**: Actualiza un producto (solo para administradores).
+- **DELETE /products/:id**: Elimina lógicamente un producto (solo para administradores).
 
-  ```json
-  "type": "module"
-  ```
+## Middlewares
 
-## Directorio db
+- **Middleware 404 not found**: Maneja las solicitudes a rutas no encontradas. ✅
+- **Middleware gestión de errores**: Maneja los errores ocurridos durante el proceso de solicitud. ✅
+- **Middleware request body parsing**: Analiza el cuerpo de la solicitud para extraer datos. ✅
+- **Middleware file upload**: Procesa la carga de archivos en las solicitudes. ✅
+- **Middleware definition of static resources directory (images, files)**: Define el directorio de recursos estáticos de imágenes y archivos. ✅
+- **Middleware CORS**: Permite las solicitudes de recursos desde un origen diferente al del servidor. ✅
+- **Middleware user authentication verification**: Verifica la autenticación de los usuarios antes de permitir el acceso a ciertas rutas. ✅
 
-1. Creado los archivos `getPool.js` e `initDb.js`.
-2. Creado un **script** en el `package.json` para ejecutar el `initDb.js`.
-
-   ```json
-   "scripts": {
-      "initDb": "node ./src/db/initDb.js"
-   }
-   ```
-
-3. Continuar con la creacion de la DB
-
-## Documento app
-
-1. Creado un **script** en el `package.json` para ejecutar el `initDb.js`.
-
-   ```json
-   "scripts": {
-     "dev": "node --watch app.js"
-   }
-   ```
-
-2. Continuar con la importación `express`, `fileUpload`, etc...
-
-3. Importar `express`, `morgan`, y de `./env.js` importar `PORT`.
-
-4. Crear el servidor
-
-   ```javascript
-   const app = express();
-   ```
-
-5. Crear los Milddewares para parsear el `body`
-
-   ```javascript
-   app.use(express.json());
-   ```
-
-6. Crear el Milddewar de `morgan`
-
-   ```javascript
-   app.use(morgan('dev'));
-   ```
-
-7. Ponemos el servidor a escuchar
-
-   ```javascript
-   app.listen(PORT, () => {
-     console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
-   });
-   ```
-
-8. Creado el middleware uploads de directorios estaticos, imagenes, files y puesto en uso.
-
-   ```javascript
-   app.use('/uploads', express.static('./uploads'));
-   ```
-
-## Directorio routes
-
-## Directorio controllers
-
-## Directorio middlewares
-
-## Directorio utils
-
-## Directorio services
-
-## Directorio models
-
-## Directorio schemas
+--- 

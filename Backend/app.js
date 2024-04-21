@@ -5,8 +5,8 @@ import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
-import recoverPassword from './src/routes/recover-password.js';
 import { serviceRouter } from './src/routes/serviceRoutes.js';
+
 
 // Crear el servidor
 const app = express();
@@ -28,9 +28,6 @@ app.use(serviceRouter);
 
 // Rutas de usuarios
 app.use(userRouter);
-
-// Rutas para recuperación de contraseña
-app.use(recoverPassword);
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

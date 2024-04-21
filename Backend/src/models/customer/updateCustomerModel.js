@@ -3,25 +3,26 @@ import { getDBPool } from '../../db/getPool.js';
 export const updateCustomerModel = async (customerId, name, email, phone) => {
   const pool = await getDBPool();
 
-  // Crear la query.
-  let query = `UPDATE Customers SET name = ?, email = ?`;
+  const fieldsToUpdate = [];
+  const values = [];
 
-  // Crear el array de valores.
-  let values = [name, email];
+  const addToUpdate = (field, value) => {
+    if (value !== undefined && value !== null) {
+      fieldsToUpdate.push(`${field} = ?`);
+      values.push(value);
+    }
+  };
 
-  // SI hay telefono, añadirla a la query.
-  if (phone) {
-    query += `, phone = ?`;
-    values.push(phone);
-  } else {
-    query += `, phone = NULL`;
-  }
+  addToUpdate('name', name);
+  addToUpdate('email', email);
+  addToUpdate('phone', phone);
 
-  // Añadir el where.
-  query += ` WHERE id_customer = ?`;
+  if (fieldsToUpdate.length === 0) return {};
 
-  // Actualizar el usuario con esa id con la información del body.
-  const [result] = await pool.query(query, [...values, customerId]);
+  const query = `UPDATE Customers SET ${fieldsToUpdate.join(', ')} WHERE id_customer = ?`;
+  values.push(customerId);
+
+  const [result] = await pool.query(query, values);
 
   // Si no se ha actualizado ningún cliente, lanzar un error.
   if (result.affectedRows === 0) {

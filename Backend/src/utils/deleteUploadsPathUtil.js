@@ -15,8 +15,12 @@ export async function deleteUploadsPathUtil() {
       'El directorio de cargas y su contenido se han eliminado correctamente. 💣'
     );
   } catch (error) {
-    error.code = 'DELETE_UPLOADS_PATH_ERROR';
-    error.message = 'No se ha podido eliminar el directorio de uploads';
-    throw error;
+    if (error.code === 'ENOENT') {
+      console.log('El directorio de uploads no existe. Directorio Creado 📁');
+    } else {
+      error.code = 'DELETE_UPLOADS_PATH_ERROR';
+      error.message = 'No se ha podido eliminar el directorio de uploads';
+      throw error;
+    }
   }
 }

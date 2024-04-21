@@ -5,14 +5,18 @@ import { checkAdminPrivileges } from '../middlewares/checkAdminPrivileges.js';
 import { updateUserController } from '../controllers/users/updateUserController.js';
 import { loginUserControllers } from '../controllers/users/loginUserControllers.js';
 import { validateUserController } from '../controllers/users/validateUserControllers.js';
+import { toggleActiveStatusController } from '../controllers/users/toggleActiveStatusController.js';
 
 // Creamos un router
 export const userRouter = express.Router();
 
 // Ruta user
 // userRouter.post('/user/register', authenticateUser, checkAdminPrivileges,  newUserController);
+// userRouter.put('/user/toggleActivation/:id_user', authenticateUser, checkAdminPrivileges, toggleActiveStatusController)
 
+// Test (sin permisos admin)
 userRouter.post('/user/register',  newUserController);
+userRouter.put('/user/toggleActivation/:id_user', toggleActiveStatusController)
 
 userRouter.put("/user/validate/:registration_code", validateUserController);
 

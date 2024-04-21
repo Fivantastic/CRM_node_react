@@ -3,6 +3,7 @@ import { newUserSchema } from '../../schemas/newUserSchema.js';
 import { insertUserService } from '../../services/insertUserService.js';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { generateRandomPassword } from "../../utils/generateRandomPassword.js";
+// import { sendWelcomeEmail } from "../../services/emailService.js";
 
 export const newUserController = async (req, res, next) => {
   try {
@@ -23,6 +24,12 @@ export const newUserController = async (req, res, next) => {
     // Insertamos el usuario en la base de datos
     await insertUserService(id_user, name, last_name, email, hashed_password, role, registration_code);
     console.log('Usuario insertado');
+
+    // ! Desactivado por motivos de prueba la funcion de enviar correo de bienvenida
+    // Enviar correo electrónico de bienvenida
+    // await sendWelcomeEmail(name, last_name, password, email, registration_code);
+
+    // console.log('Correo enviado');
 
     // Respondemos al usuario
     res.status(201).send({

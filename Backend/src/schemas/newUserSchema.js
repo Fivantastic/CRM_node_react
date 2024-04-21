@@ -6,10 +6,6 @@ export const newUserSchema = joi.object({
   name: joi.string().min(3).max(30).required().messages(joiErrorMessages),
   last_name: joi.string().min(3).max(60).optional().messages(joiErrorMessages),
   email: joi.string().email().required().messages(joiErrorMessages),
-  // password: joi.string().min(8).max(30)
-  //   .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=[\\]{};:\'"|,.<>/?]).{8,30}$'))
-  //   .required(),
-  // No lanza error joi
   role: joi.string().valid('seller', 'deliverer', 'admin').required().messages({
     'any.required': 'El campo rol es requerido.',
     'string.empty': 'El campo rol no puede estar vacío.',

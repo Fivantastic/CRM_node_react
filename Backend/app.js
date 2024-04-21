@@ -4,7 +4,6 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
-import { authRouter } from './src/routes/authRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
 import { serviceRouter } from './src/routes/serviceRoutes.js';
 
@@ -29,12 +28,6 @@ app.use(serviceRouter);
 
 // Rutas de usuarios
 app.use(userRouter);
-
-// Ruta login de un usuario
-app.use(authRouter);
-
-
- 
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

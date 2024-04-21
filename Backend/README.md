@@ -38,9 +38,19 @@ Para ejecutar el backend, sigue estos pasos:
     MAIL_TRAP_PORT=
     MAIL_TRAP_AUTH_USER=
     MAIL_TRAP_AUTH_PASS=
+
+    # Creación del usurario administrador por defecto
+    ADMIN_NAME=
+    ADMIN_LAST_NAME=
+    ADMIN_EMAIL=
+    ADMIN_PHONE=
+    # Roles admin, seller, delivery
+    ADMIN_ROLE=
+    # 1: activo, 0: inactivo
+    ADMIN_ACTIVE=
     ```
 
-    Asegúrate de completar los campos con la información específica de tu entorno de desarrollo.
+    Asegúrate de completar los campos con la información específica de tu entorno de desarrollo para crear el usuario Administrador, si esta activo o descativado. La funcionalidad del envio de email esta desactivada, comentada en su respectivo endpoint de registro de usuario(solo aministrador).
 
 3. Crea una carpeta de UPLOADS en la raiz del proyecto.
 

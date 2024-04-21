@@ -7,7 +7,8 @@ export const updateCustomerService = async (customerId, body) => {
   const { name, email, phone } = body;
 
   // Comprobar si el email ya existe.
-  existCustomer = await selectCustomerByEmailModel(email);
+  const existCustomer = await selectCustomerByEmailModel(email);
+
   // Si existe, comprobar si es el mismo cliente.
   if (existCustomer && existCustomer.id !== customerId) {
     emailAlreadyRegisteredError();

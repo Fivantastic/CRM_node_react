@@ -7,6 +7,7 @@ import { customerRouter } from './src/routes/customerRoutes.js';
 import { authRouter } from './src/routes/authRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
 import recoverPassword from './src/routes/recover-password.js';
+import changePassword from './src/routes/changePassword.js'; 
 
 // Crear el servidor
 const app = express();
@@ -30,7 +31,10 @@ app.use(userRouter);
 app.use(authRouter);
 
 // Rutas para recuperación de contraseña
-app.use(recoverPassword); 
+app.use(recoverPassword);
+
+// Ruta para cambiar la contraseña
+app.use(changePassword); 
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {
@@ -53,8 +57,6 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
 
 //Ponemos el servidor a escuchar
 app.listen(PORT, () => {

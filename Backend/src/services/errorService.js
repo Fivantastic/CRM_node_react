@@ -45,3 +45,12 @@ export const userAlreadyActivatedError = () => {
     message: 'El usuario ya está activado',
   };
 };
+
+export const serverError = (message = 'Error del servidor') => {
+  return {
+    statusCode: 500, // Internal Server Error
+    code: 'SERVER_ERROR',
+    message: 'Error en el servidor'
+  };
+};
+

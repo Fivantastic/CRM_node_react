@@ -1,7 +1,6 @@
 import { insertUserModel } from '../models/user/insertUserModel.js';
 import { selectUserByEmailModel } from '../models/user/selectUserByEmailModel.js';
 import { emailAlreadyRegisteredError } from './errorService.js';
-// import { sendWelcomeEmail } from "./emailService.js";
 
 export const insertUserService = async (id_user, name, last_name, email, hashed_password, role, registration_code) => {
   try {
@@ -25,11 +24,6 @@ export const insertUserService = async (id_user, name, last_name, email, hashed_
         registration_code
     );
 
-    // ! Desactivado por motivos de prueba la funcion de enviar correo de bienvenida
-    // Enviar correo electrónico de bienvenida
-    // await sendWelcomeEmail(name, last_name, random_password, email, registration_code);
-
-    // console.log('Correo enviado');
   } catch (error) {
     // Manejar el error aquí.
     console.error('Error al insertar usuario:', error);

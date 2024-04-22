@@ -31,7 +31,7 @@ export async function createDBSchema(db) {
         email VARCHAR(255) UNIQUE NOT NULL,
         phone VARCHAR(20),
         password VARCHAR(255) NOT NULL,
-        role ENUM('seller', 'deliverer', 'admin') NOT NULL,
+        role ENUM('salesAgent', 'deliverer', 'admin') NOT NULL,
         active BOOLEAN NOT NULL DEFAULT false,
         registration_code CHAR(36) NOT NULL,
         avatar VARCHAR(255),

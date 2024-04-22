@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'; // Generar un código único
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js'; // Validación de esquemas
 import { recoveryPasswordSchema } from '../../schemas/recoveryPasswordSchema.js'; // Esquema para validar datos
 import { selectUserByEmailModel } from '../../models/user/selectUserByEmailModel.js'; // Obtener usuario por correo electrónico
@@ -22,7 +21,7 @@ export const recoveryPasswordController = async (req, res, next) => {
     }
 
     // Generar un código de recuperación único
-    const recoveryCode = uuidv4();
+    const recoveryCode = crypto.randomUUID();
 
     // Actualizar el usuario con el código de recuperación
     await updateUserModel(user.id_user, { recovery_code: recoveryCode });

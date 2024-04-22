@@ -33,3 +33,24 @@ export async function sendWelcomeEmail(name, last_name, random_password, email, 
       throw error; // Manejar el error adecuadamente en tu aplicación
     }
 }
+
+export async function sendRecoveryPaswordEmail(registration_code) {
+  try {
+    // Configurar el mensaje de correo electrónico
+    const mailOptions = {
+      from: MAIL_TRAP_AUTH_USER,
+      to: email,
+      subject: 'Cambio de contraseña',
+      html: `<p>Tu cuenta a sido verificada</p>
+             <p>Procede a cambiar tu contraseña, por favor haz clic en el siguiente enlace:</p>
+             <a href="${registration_code}">Cambio de contraseña</a>`,
+  };
+        // Enviar el correo electrónico
+      await transporter.sendMail(mailOptions);
+
+  } 
+  catch (error) {
+    console.error('Error al enviar el correo electrónico de bienvenida:', error);
+    throw error; // Manejar el error adecuadamente en tu aplicación
+  }
+}

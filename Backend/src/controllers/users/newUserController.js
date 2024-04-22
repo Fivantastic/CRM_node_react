@@ -8,6 +8,7 @@ import { generateRandomPassword } from "../../utils/generateRandomPassword.js";
 export const newUserController = async (req, res, next) => {
   try {
     // Obtenemos el cuerpo de la petición
+    //! MAS ADELANTE ESTA PARTE EStara dentro de insertUserService, de momento estara fuera para que tengamos como respuesta la DATA de password y registration_code
     const { name, last_name, email, role } = req.body;
 
     // Validamos el body
@@ -15,6 +16,7 @@ export const newUserController = async (req, res, next) => {
     console.log('Ha pasado el esquema');
 
     // Creamos una id y un código de activación para el usuario.
+    //! MAS ADELANTE ESTA PARTE EStara dentro de insertUserService, de momento estara fuera para que tengamos como respuesta la DATA de password y registration_code
     const id_user = crypto.randomUUID();
     const registration_code = crypto.randomUUID();
     const password = generateRandomPassword(10);

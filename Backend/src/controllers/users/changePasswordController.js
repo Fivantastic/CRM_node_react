@@ -8,8 +8,9 @@ import { invalidCredentials } from '../../services/errorService.js';
 
 export const changePasswordController = async (req, res, next) => {
   try {
-    const userId = req.params.id_user; // Obtenido del middleware de autenticación
+    const userId = req.params.id_user;
     const { currentPassword, newPassword } = req.body;
+    
     // Validar el esquema del cuerpo de la solicitud
     await validateSchemaUtil(changePasswordSchema, req.body);
 

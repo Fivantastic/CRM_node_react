@@ -3,7 +3,7 @@ import { updateNewRegistrationCodeModel } from "../models/user/updateNewRegistra
 import { invalidCredentials } from "./errorService.js";
 
 
-export const recoveryPasswordService = async (email) => {
+export const forgotPasswordService = async (email) => {
     // Obtener el usuario por correo electrónico
     const user = await selectUserByEmailModel(email);
 

@@ -1,6 +1,6 @@
 import { getDBPool } from '../../db/getPool.js'; // Importa el pool de conexiones
 
-export const updatePasswordModel = async (userId, hashedPassword) => {
+export const updatePasswordModel = async (id_user, hashedPassword) => {
   const pool = getDBPool(); // Obtener el pool de conexiones
   const query = `
     UPDATE users
@@ -8,5 +8,5 @@ export const updatePasswordModel = async (userId, hashedPassword) => {
     WHERE id_user = ?
   `;
 
-  await pool.execute(query, [hashedPassword, userId]); // Ejecutar la consulta
+  await pool.execute(query, [hashedPassword, id_user]); // Ejecutar la consulta
 };

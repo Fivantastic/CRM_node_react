@@ -5,7 +5,7 @@ export const findByRegistrationCodeModel = async (registration_code) => {
     const pool = await getDBPool();
     // Buscar el usuario en la base de datos.
     const [users] = await pool.query(
-        `SELECT id_user, active FROM users WHERE registration_code = ?`,
+        `SELECT id_user, active FROM Users WHERE registration_code = ?`,
         [registration_code]
     );
 

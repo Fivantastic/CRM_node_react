@@ -4,7 +4,7 @@ import { getDBPool } from '../../db/getPool.js'; // Obtener el pool de conexione
 export const selectUserByEmailModel = async (email) => {
   const pool = getDBPool();
   const [rows] = await pool.execute(`
-    SELECT * FROM users WHERE email = ?
+    SELECT * FROM Users WHERE email = ?
   `, [email]);
 
   return rows[0]; // Devolver el primer resultado (usuario)
@@ -19,7 +19,7 @@ export const updateUserModel = async (userId, updates) => {
   const setClause = keys.map((key, index) => `${key} = ?`).join(', ');
 
   const query = `
-    UPDATE users
+    UPDATE Users
     SET ${setClause}
     WHERE id_user = ?
   `;

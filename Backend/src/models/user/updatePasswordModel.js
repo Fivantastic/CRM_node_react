@@ -3,7 +3,7 @@ import { getDBPool } from '../../db/getPool.js'; // Importa el pool de conexione
 export const updatePasswordModel = async (id_user, hashedPassword) => {
   const pool = getDBPool(); // Obtener el pool de conexiones
   const query = `
-    UPDATE users
+    UPDATE Users
     SET password = ?
     WHERE id_user = ?
   `;

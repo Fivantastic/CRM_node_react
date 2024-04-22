@@ -34,7 +34,7 @@ export async function sendWelcomeEmail(name, last_name, random_password, email, 
     }
 }
 
-export async function sendRecoveryPaswordEmail(registration_code) {
+export async function sendRecoveryPaswordEmail(email, registration_code) {
   try {
     // Configurar el mensaje de correo electrónico
     const mailOptions = {

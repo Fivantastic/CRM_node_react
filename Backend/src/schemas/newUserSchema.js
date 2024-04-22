@@ -6,7 +6,7 @@ export const newUserSchema = joi.object({
   name: joi.string().min(3).max(30).required().messages(joiErrorMessages),
   last_name: joi.string().min(3).max(60).optional().messages(joiErrorMessages),
   email: joi.string().email().required().messages(joiErrorMessages),
-  role: joi.string().valid('seller', 'deliverer', 'admin').required().messages({
+  role: joi.string().valid('salesAgent', 'deliverer', 'admin').required().messages({
     'any.required': 'El campo rol es requerido.',
     'string.empty': 'El campo rol no puede estar vacío.',
     'any.only': 'Debe ser uno de los siguientes valores: Seller, Deliverer, Admin.'

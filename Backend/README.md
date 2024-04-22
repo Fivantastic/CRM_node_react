@@ -69,15 +69,17 @@ Para ejecutar el backend, sigue estos pasos:
 ## Endpoints
 
 - **POST /user/register**: Crea un nuevo usuario (solo para administradores). ✅
-- **POST /users/:id**: Desactiva un usuario (solo para administradores). 
+- **POST /user/toggleActivation/:id_user**: Desactiva un usuario (solo para administradores). 
 - **PUT /user/validate/:registration_code**: Valida un usuario. ✅
-- **POST /users/login**: Inicio de sesión de usuario. ✅
-- **POST /users/forgot-password**: Recuperación de contraseña.
-- **PUT /reset-password-request**: Cambio de contraseña.
+- **POST /user/login**: Inicio de sesión de usuario. ✅
+- **POST /user/forgot-password-request**: Cambio de codigo de registro para enviar email de Cambio de contraseña.✅
+- **PUT /user/reset-password/:registration_codee**: Recuperación de contraseña.
+- **PUT '/user/change-password/:id_user**: Cambio de contraseña. ✅
 - **PUT /user/update/:id_user**: Gestión del perfil de usuario (no administrador). ✅
 - **POST /customer/register**: Crea un cliente. ✅
 - **PUT /customer/:customerId**: Actualiza un cliente. ✅
 - **GET /customer/list**: Listado de clientes. ✅
+- **GET /service/:serviceId** Listado de servicios. ✅
 - **POST /products**: Crea un producto (solo para administradores).
 - **PUT /products/:id**: Actualiza un producto (solo para administradores).
 - **DELETE /products/:id**: Elimina lógicamente un producto (solo para administradores).

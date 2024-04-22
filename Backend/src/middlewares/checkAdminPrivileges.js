@@ -13,8 +13,8 @@ export function checkAdminPrivileges(req, res, next) {
     try {
         const user = selectUserByIdModel(userId)
 
-        if (user.rol === "administrador") {
-            console.error(`Admin verificado para el usuario ${user.email}`);
+        if (user.rol === "admin") {
+            console.error(`Administrador verificado para el usuario ${user.email}`);
             return next()
         }
         throw error

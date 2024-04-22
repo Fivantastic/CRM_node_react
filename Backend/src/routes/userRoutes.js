@@ -4,10 +4,11 @@ import { authenticateUser } from '../middlewares/authenticateUser.js';
 import { checkAdminPrivileges } from '../middlewares/checkAdminPrivileges.js';
 import { updateUserController } from '../controllers/users/updateUserController.js';
 import { changePasswordController } from '../controllers/users/changePasswordController.js';
-import { recoveryPasswordController } from '../controllers/users/recoveryPasswordController.js';
+import { forgotPasswordController } from '../controllers/users/forgotPasswordController.js';
 import { loginUserControllers } from '../controllers/users/loginUserControllers.js';
 import { validateUserController } from '../controllers/users/validateUserControllers.js';
 import { toggleActiveStatusController } from '../controllers/users/toggleActiveStatusController.js';
+import { resetPasswordController } from '../controllers/users/resetPasswordController.js';
 
 // Creamos el router
 export const userRouter = express.Router();
@@ -35,5 +36,8 @@ userRouter.put(
   changePasswordController
 );
 
+// Ruta para solicitud de recuperación de contraseña
+userRouter.put('/user/forgot-password-request', forgotPasswordController);
+
 // Ruta para recuperación de contraseña
-userRouter.put('/user/reset-password-request', recoveryPasswordController);
+userRouter.put('/user/reset-password/:registration_code', resetPasswordController);

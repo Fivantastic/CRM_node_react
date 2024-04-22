@@ -1,10 +1,10 @@
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { recoveryPasswordSchema } from '../../schemas/recoveryPasswordSchema.js'; 
 import { serverError } from '../../services/errorService.js';
-import { recoveryPasswordService } from '../../services/recoveryPasswordService.js';
+import { forgotPasswordService } from '../../services/forgotPasswordService.js';
 import { sendRecoveryPaswordEmail } from '../../services/emailService.js';
 
-export const recoveryPasswordController = async (req, res, next) => {
+export const forgotPasswordController = async (req, res, next) => {
   try {
     // Validar el cuerpo de la solicitud
     await validateSchemaUtil(recoveryPasswordSchema, req.body);
@@ -14,7 +14,7 @@ export const recoveryPasswordController = async (req, res, next) => {
 
     console.log('Email:', email);
 
-    const new_registration_code = await recoveryPasswordService(email);
+    const new_registration_code = await forgotPasswordService(email);
 
     console.log('New registration code en recoveryPasswordController:', new_registration_code);
 

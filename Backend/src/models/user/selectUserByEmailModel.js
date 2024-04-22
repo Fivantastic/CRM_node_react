@@ -10,5 +10,7 @@ export const selectUserByEmailModel = async (email) => {
     [email]
   );
 
+  console.log('user:', user);
+
   return user[0];
 };

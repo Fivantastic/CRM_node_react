@@ -9,6 +9,8 @@ export const findByRegistrationCodeModel = async (registration_code) => {
         [registration_code]
     );
 
+    console.log(users);
+
     // Si no se encuentra el usuario, lanzar un error.
     if (users.length === 0) {
         notFoundError('usuario');

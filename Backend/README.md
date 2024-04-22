@@ -80,8 +80,9 @@ Para ejecutar el backend, sigue estos pasos:
 - **PUT /customer/:customerId**: Actualiza un cliente. ✅
 - **GET /customer/list**: Listado de clientes. ✅
 - **GET /service/:serviceId** Listado de servicios. ✅
-- **POST /products**: Crea un producto (solo para administradores).
+- **POST /product/register**: Crea un producto (solo para administradores). ✅
 - **PUT /products/:id**: Actualiza un producto (solo para administradores).
+- **GET /product/list**: Listado de productos. ✅
 - **DELETE /products/:id**: Elimina lógicamente un producto (solo para administradores).
 
 ## Middlewares

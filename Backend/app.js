@@ -6,7 +6,7 @@ import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
 import { serviceRouter } from './src/routes/serviceRoutes.js';
-import { productRouter } from './src/routes/productRoutes.js'
+import { productRouter } from './src/routes/productRoutes.js';
 
 
 // Crear el servidor

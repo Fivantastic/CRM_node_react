@@ -1,4 +1,4 @@
-import { selectServiceByIdModel } from '../models/services/selectServiceByModel.js';
+import { selectServiceByIdModel } from '../models/operationServices/selectServiceByModel.js';
 import { notFoundError } from '../services/errorService.js';
 
 export const serviceExist = async (req, res, next) => {

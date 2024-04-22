@@ -1,4 +1,4 @@
-import { selectServiceDetailModel } from '../../models/services/selectServiceDetailModel.js';
+import { selectServiceDetailModel } from '../../models/operationServices/selectServiceDetailModel.js';
 
 export const getServiceController = async (req, res, next) => {
   try {

@@ -73,7 +73,7 @@ Para ejecutar el backend, sigue estos pasos:
 - **PUT /user/validate/:registration_code**: Valida un usuario. ✅
 - **POST /user/login**: Inicio de sesión de usuario. ✅
 - **POST /user/forgot-password-request**: Cambio de codigo de registro para enviar email de Cambio de contraseña.✅
-- **PUT /user/reset-password/:registration_codee**: Recuperación de contraseña.
+- **PUT /user/reset-password/:registration_codee**: Recuperación de contraseña. ✅
 - **PUT '/user/change-password/:id_user**: Cambio de contraseña. ✅
 - **PUT /user/update/:id_user**: Gestión del perfil de usuario (no administrador). ✅
 - **POST /customer/register**: Crea un cliente. ✅

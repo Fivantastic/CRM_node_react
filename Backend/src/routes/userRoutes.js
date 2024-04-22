@@ -4,7 +4,7 @@ import { authenticateUser } from '../middlewares/authenticateUser.js';
 import { checkAdminPrivileges } from '../middlewares/checkAdminPrivileges.js';
 import { updateUserController } from '../controllers/users/updateUserController.js';
 import { changePasswordController } from '../controllers/users/changePasswordController.js';
-import { recoveryPasswordController } from '../controllers/users/recoveryPasswordController .js';
+import { recoveryPasswordController } from '../controllers/users/recoveryPasswordController.js';
 import { loginUserControllers } from '../controllers/users/loginUserControllers.js';
 import { validateUserController } from '../controllers/users/validateUserControllers.js';
 import { toggleActiveStatusController } from '../controllers/users/toggleActiveStatusController.js';

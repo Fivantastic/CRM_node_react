@@ -7,6 +7,7 @@ export const recoveryPasswordService = async (email) => {
     // Obtener el usuario por correo electrónico
     const user = await selectUserByEmailModel(email);
 
+
     if (!user) throw invalidCredentials('El usuario/email no existe');
 
     console.log('Ha pasada credenciales validas');

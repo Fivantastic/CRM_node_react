@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from "uuid";
 import chalk from "chalk"; // Importa chalk para dar estilo a la salida
 import { MYSQL_DATABASE, ADMIN_NAME, ADMIN_LAST_NAME, ADMIN_EMAIL, ADMIN_PHONE, ADMIN_ROLE, ADMIN_ACTIVE } from "../../env.js";
 import { generateRandomPassword } from "../utils/generateRandomPassword.js";
@@ -109,10 +108,10 @@ export async function createDBSchema(db) {
 
     console.log(chalk.bold.magenta(`->🧑‍💼 Creando usuario Owner con las variables de entorno...`));
 
-    const id_user = uuidv4();
+    const id_user = crypto.randomUUID();
     const password = generateRandomPassword(10);
     const hashed_password = await bcrypt.hash(password, 12);
-    const registration_code = uuidv4();
+    const registration_code = crypto.randomUUID();
 
     //! Aquí podría venir la lógica de enviar un correo electrónico con la contraseña y el registro.
 

@@ -1,17 +1,17 @@
-import { selectServiceByIdModel } from '../models/operationServices/selectServiceByModel.js';
+import { selectModuleByIdModel } from '../models/ModulesService/selectModuleByModel.js';
 import { notFoundError } from '../services/errorService.js';
 
-export const serviceExist = async (req, res, next) => {
+export const moduleExist = async (req, res, next) => {
   try {
     // Obtener el id del servicio de la URL.
-    const serviceId = req.params.serviceId;
+    const moduleId = req.params.moduleId;
 
     // Comprobar si existe un servicio con el id proporcionado.
-    const service = await selectServiceByIdModel(serviceId);
+    const module = await selectModuleByIdModel(moduleId);
 
     // Si no se encuentra el servicio, lanzar un error.
-    if (!service) {
-      notFoundError('service');
+    if (!module) {
+      notFoundError('modulo');
     }
 
     // Pasar el control al siguiente middleware.

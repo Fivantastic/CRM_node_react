@@ -1,12 +1,12 @@
 import { getDBPool } from '../../db/getPool.js';
 
-export const selectServiceByIdModel = async (serviceId) => {
+export const selectModuleByIdModel = async (moduleId) => {
   const pool = await getDBPool();
 
   // Comprobar si existe un servicio con el id proporcionado.
   const [customer] = await pool.query(
-    `SELECT * FROM Services WHERE id_service = ?`,
-    [serviceId]
+    `SELECT * FROM Modules WHERE id_module = ?`,
+    [moduleId]
   );
 
   return customer[0];

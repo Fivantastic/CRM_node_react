@@ -1,7 +1,6 @@
 import express from 'express';
 import { newUserController } from '../controllers/users/newUserController.js';
 import { authenticateUser } from '../middlewares/authenticateUser.js';
-import { checkAdminPrivileges } from '../middlewares/checkAdminPrivileges.js';
 import { updateUserController } from '../controllers/users/updateUserController.js';
 import { changePasswordController } from '../controllers/users/changePasswordController.js';
 import { forgotPasswordController } from '../controllers/users/forgotPasswordController.js';
@@ -15,12 +14,9 @@ import { adminAuthMiddleware } from '../middlewares/adminAuthMiddleware.js';
 export const userRouter = express.Router();
 
 // Ruta user
-// userRouter.post('/user/register', authenticateUser, checkAdminPrivileges,  newUserController);
-// userRouter.put('/user/toggleActivation/:id_user', authenticateUser, checkAdminPrivileges, toggleActiveStatusController)
+userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController);
 
-userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController); // Ya esta la verificacion de privilegios adminAuthMiddleware
-
-userRouter.put('/user/toggleActivation/:id_user', toggleActiveStatusController); //! hay que cambiar el id para que dentro saque el id del token, mira en linea 30
+userRouter.put('/user/toggleActivation',authenticateUser, adminAuthMiddleware, toggleActiveStatusController); 
 
 userRouter.put('/user/validate/:registration_code', validateUserController);
 

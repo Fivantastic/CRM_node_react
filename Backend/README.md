@@ -68,22 +68,39 @@ Para ejecutar el backend, sigue estos pasos:
 
 ## Endpoints
 
+### Users
 - **POST /user/register**: Crea un nuevo usuario (solo para administradores). ✅
-- **POST /user/toggleActivation/:id_user**: Desactiva un usuario (solo para administradores). 
+- **POST /user/toggleActivation**: Desactiva un usuario (solo para administradores). ✅
 - **PUT /user/validate/:registration_code**: Valida un usuario. ✅
 - **POST /user/login**: Inicio de sesión de usuario. ✅
 - **POST /user/forgot-password-request**: Cambio de codigo de registro para enviar email de Cambio de contraseña.✅
 - **PUT /user/reset-password/:registration_codee**: Recuperación de contraseña. ✅
-- **PUT '/user/change-password/:id_user**: Cambio de contraseña. ✅
-- **PUT /user/update/:id_user**: Gestión del perfil de usuario (no administrador). ✅
+- **PUT '/user/change-password**: Cambio de contraseña. ✅
+- **PUT /user/update**: Gestión del perfil de usuario (no administrador). ✅
+
+### Customers
 - **POST /customer/register**: Crea un cliente. ✅
 - **PUT /customer/:customerId**: Actualiza un cliente. ✅
 - **GET /customer/list**: Listado de clientes. ✅
+
+### Modulos
 - **GET /service/:serviceId** Listado de servicios. ✅
+
+#### Visitas clientes
+- **POST /user/module/visit**: Crea una visita ✅
+- **PUT /user/module/visit/update/:id_visit**: Modifica una visita
+- **DELETE /user/module/visit/delete/:id_visit**: Borra una visita
+
+#### Sales Orders
+- **POST /user/module/saleorder**: Crea una orden de venta
+- **PUT /user/module/saleorder/update/:id_saleOrder**: Modifica una orden de venta
+- **DELETE /user/module/saleorder/delete/:id_saleOrder**: Borra una orden de venta
+
+### Productos
 - **POST /product/register**: Crea un producto (solo para administradores). ✅
-- **PUT /products/:id**: Actualiza un producto (solo para administradores).
+- **PUT /products/update**: Actualiza un producto (solo para administradores).
 - **GET /product/list**: Listado de productos. ✅
-- **DELETE /products/:id**: Elimina lógicamente un producto (solo para administradores).
+- **DELETE /products**: Elimina lógicamente un producto (solo para administradores).
 
 ## Middlewares
 
@@ -94,5 +111,6 @@ Para ejecutar el backend, sigue estos pasos:
 - **Middleware definition of static resources directory (images, files)**: Define el directorio de recursos estáticos de imágenes y archivos. ✅
 - **Middleware CORS**: Permite las solicitudes de recursos desde un origen diferente al del servidor. ✅
 - **Middleware user authentication verification**: Verifica la autenticación de los usuarios antes de permitir el acceso a ciertas rutas. ✅
+- **Middleware privilegios user admin**: Verifica si el usuario es administrador y tiene privilegios para esa peticion.
 
 --- 

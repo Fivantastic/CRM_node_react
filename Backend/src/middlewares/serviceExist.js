@@ -7,10 +7,10 @@ export const serviceExist = async (req, res, next) => {
     const serviceId = req.params.serviceId;
 
     // Comprobar si existe un servicio con el id proporcionado.
-    const customer = await selectServiceByIdModel(serviceId);
+    const service = await selectServiceByIdModel(serviceId);
 
     // Si no se encuentra el servicio, lanzar un error.
-    if (!customer) {
+    if (!service) {
       notFoundError('service');
     }
 

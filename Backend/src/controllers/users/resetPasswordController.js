@@ -1,24 +1,31 @@
-import { findByRegistrationCodeModel } from "../../models/user/findByRegistrationCodeModel.js";
-import { changePasswordSchema } from "../../schemas/changePasswordSchema.js";
+import { success } from "../../utils/success.js";
+import { selectIdByRegistrationCode } from "../../models/user/selectIdByRegistrationCodeModel.js";
 import { updatePasswordService } from "../../services/updatePasswordService.js";
 import { validateSchemaUtil } from "../../utils/validateSchemaUtil.js";
+import { changeResetPasswordSchema } from "../../schemas/changeResetPasswordSchema.js";
 
 export const resetPasswordController = async (req, res, next) => {
     try {
         // Obtener el código de registro de la URL
-        const registration_code = req.params.registration_code;
-
-        const user = await findByRegistrationCodeModel(registration_code);
+        const new_registration_code = req.params.registration_code;
         
-        const { id_user } = user;
-
         // Validar el esquema del cuerpo de la solicitud
-        await validateSchemaUtil(changePasswordSchema, req.body);
+        await validateSchemaUtil(changeResetPasswordSchema, req.body);   
         
-        await updatePasswordService(id_user, req.body);
+        const { newPassword } = req.body;
+
+        const id_user  = await selectIdByRegistrationCode(new_registration_code);
+    
+        await updatePasswordService(id_user , newPassword);
 
         // Responder con éxito
-        res.json(success({ message: 'Contraseña cambiada con éxito' }));
+        res.json(success({ 
+            message: 'Contraseña cambiada con éxito', 
+            data: { 
+                id_user: id_user,
+                newPassword: newPassword
+             }
+        }));
         
     } catch (error) {
         next(error);

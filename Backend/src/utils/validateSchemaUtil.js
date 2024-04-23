@@ -1,13 +1,9 @@
-// Validamos el body
+// validateSchemaUtil.js
 export const validateSchemaUtil = async (schema, body) => {
   try {
-
-    console.log(body);
     await schema.validateAsync(body);
-
   } catch (error) {
-    console.log(error.message);
-    error.httpStatus = 400; // Bad Request
+    error.statusCode = 400;
     error.code = 'SCHEMA_VALIDATION_ERROR';
     throw error;
   }

@@ -9,6 +9,7 @@ import { loginUserControllers } from '../controllers/users/loginUserControllers.
 import { validateUserController } from '../controllers/users/validateUserControllers.js';
 import { toggleActiveStatusController } from '../controllers/users/toggleActiveStatusController.js';
 import { resetPasswordController } from '../controllers/users/resetPasswordController.js';
+import { adminAuthMiddleware } from '../middlewares/adminAuthMiddleware.js';
 
 // Creamos el router
 export const userRouter = express.Router();
@@ -17,8 +18,7 @@ export const userRouter = express.Router();
 // userRouter.post('/user/register', authenticateUser, checkAdminPrivileges,  newUserController);
 // userRouter.put('/user/toggleActivation/:id_user', authenticateUser, checkAdminPrivileges, toggleActiveStatusController)
 
-// Test (sin permisos admin)
-userRouter.post('/user/register', newUserController);
+userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController);
 
 userRouter.put('/user/toggleActivation/:id_user', toggleActiveStatusController);
 

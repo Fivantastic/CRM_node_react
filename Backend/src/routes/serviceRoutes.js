@@ -1,8 +1,8 @@
 import express from 'express';
-import { serviceExist } from '../middlewares/serviceExist.js';
-import { getServiceController } from '../controllers/operationServices/getServiceController.js';
+import { moduleExist } from '../middlewares/serviceExist.js';
+import { getModuleController } from '../controllers/ModulesService/getServiceController.js';
 
 // Creamos un router
-export const serviceRouter = express.Router();
+export const moduleRouter = express.Router();
 
-serviceRouter.get('/service/:serviceId', serviceExist, getServiceController);
+moduleRouter.get('/module/:moduleId', moduleExist, getModuleController);

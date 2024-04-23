@@ -1,12 +1,12 @@
 import { getDBPool } from '../../db/getPool.js';
 
-export const selectServiceDetailModel = async (serviceId) => {
+export const selectModuleDetailModel = async (moduleId) => {
   const pool = getDBPool();
 
   // Obtener el detalle del servicio
   const result = await pool.query(
-    `SELECT * FROM Services WHERE id_service = ?`,
-    [serviceId]
+    `SELECT * FROM Modules WHERE moduleId = ?`,
+    [moduleId]
   );
 
   return result[0];

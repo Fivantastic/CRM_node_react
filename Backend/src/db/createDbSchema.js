@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
-import chalk from "chalk"; // Importa chalk para dar estilo a la salida
+import chalk from "chalk";
+import crypto from "crypto";
 import { MYSQL_DATABASE, ADMIN_NAME, ADMIN_LAST_NAME, ADMIN_EMAIL, ADMIN_PHONE, ADMIN_ROLE, ADMIN_ACTIVE } from "../../env.js";
 import { generateRandomPassword } from "../utils/generateRandomPassword.js";
 
@@ -31,6 +32,7 @@ export async function createDBSchema(db) {
         email VARCHAR(255) UNIQUE NOT NULL,
         phone VARCHAR(20),
         password VARCHAR(255) NOT NULL,
+        address_id CHAR(36),
         role ENUM('salesAgent', 'deliverer', 'admin') NOT NULL,
         active BOOLEAN NOT NULL DEFAULT false,
         registration_code CHAR(36) NOT NULL,
@@ -38,7 +40,6 @@ export async function createDBSchema(db) {
         biography TEXT,
         create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-        address_id CHAR(36),
         FOREIGN KEY (address_id) REFERENCES Addresses(id_address)
     )`);
 
@@ -64,47 +65,65 @@ export async function createDBSchema(db) {
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Services...`));
-    await db.query(`CREATE TABLE Services (
-        id_service CHAR(36) PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        description TEXT,
-        price DECIMAL(10,2) NOT NULL,
-        status ENUM('active', 'inactive') NOT NULL
-    )`);
-
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Operations...`));
-    await db.query(`CREATE TABLE Operations (
-        id_operation CHAR(36) PRIMARY KEY,
+    console.log(chalk.bold.blue(`->✏️ Creando tabla Sales...`)); //Modulo de ventas
+    await db.query(`CREATE TABLE Sales (
+        id_sale CHAR(36) PRIMARY KEY,
         user_id CHAR(36),
-        product_id CHAR(36),
-        service_id CHAR(36),
         customer_id CHAR(36),
-        type VARCHAR(50),
         operation_status ENUM('open', 'closed') NOT NULL,
         creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES Users(id_user),
-        FOREIGN KEY (product_id) REFERENCES Products(id_product),
-        FOREIGN KEY (service_id) REFERENCES Services(id_service),
         FOREIGN KEY (customer_id) REFERENCES Customers(id_customer)
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Ratings...`));
-    await db.query(`CREATE TABLE Ratings (
-        id_rating CHAR(36) PRIMARY KEY,
-        operation_id CHAR(36),
-        user_id CHAR(36),
-        score CHAR(36) NOT NULL,
-        commentary TEXT,
-        creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (operation_id) REFERENCES Operations(id_operation),
-        FOREIGN KEY (user_id) REFERENCES Users(id_user)
+    console.log(chalk.bold.blue(`->✏️ Creando tabla SalesProducts...`));
+    await db.query(`CREATE TABLE SalesProducts (
+        id_saleProduct CHAR(36) PRIMARY KEY,
+        sale_id CHAR(36),
+        product_id CHAR(36),
+        quantity INT NOT NULL,
+        description TEXT,
+        FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
+        FOREIGN KEY (product_id) REFERENCES Products(id_product)
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando índices en la tabla Operations...`));
-    await db.query(`ALTER TABLE Operations ADD INDEX (product_id)`);
-    await db.query(`ALTER TABLE Operations ADD INDEX (service_id)`);
-    await db.query(`ALTER TABLE Operations ADD INDEX (customer_id)`);
+    console.log(chalk.bold.blue(`->✏️ Creando tabla Visits...`));
+    await db.query(`CREATE TABLE Visits (
+        id_visit CHAR(36) PRIMARY KEY,
+        user_id CHAR(36),
+        customer_id CHAR(36),
+        visit_status ENUM('scheduled', 'completed') NOT NULL,
+        visit_date DATETIME,
+        creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES Users(id_user),
+        FOREIGN KEY (customer_id) REFERENCES Customers(id_customer)
+    )`);
+
+    console.log(chalk.bold.blue(`->✏️ Creando tabla DeliveryNotes...`));
+    await db.query(`CREATE TABLE DeliveryNotes (
+        id_note CHAR(36) PRIMARY KEY,
+        sale_id CHAR(36),
+        deliverer_id CHAR(36),
+        delivery_status ENUM('pending', 'delivered') NOT NULL,
+        delivery_date DATETIME,
+        FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
+        FOREIGN KEY (deliverer_id) REFERENCES Users(id_user)
+    )`);
+
+    console.log(chalk.bold.blue(`->✏️ Creando tabla Modules...`));
+    await db.query(`CREATE TABLE Modules (
+        id_module CHAR(36) PRIMARY KEY,
+        user_id CHAR(36),
+        service_type ENUM('sale', 'visit', 'deliveryNote') NOT NULL,
+        sale_id CHAR(36),
+        visit_id CHAR(36),
+        deliveryNote_id CHAR(36),
+        creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES Users(id_user),
+        FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
+        FOREIGN KEY (visit_id) REFERENCES Visits(id_visit),
+        FOREIGN KEY (deliveryNote_id) REFERENCES DeliveryNotes(id_note)
+    )`);
 
     console.log(chalk.bold.magenta(`->🧑‍💼 Creando usuario Owner con las variables de entorno...`));
 

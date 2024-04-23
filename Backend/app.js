@@ -5,7 +5,7 @@ import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
-import { serviceRouter } from './src/routes/serviceRoutes.js';
+import { moduleRouter } from './src/routes/serviceRoutes.js';
 import { productRouter } from './src/routes/productRoutes.js';
 
 
@@ -25,7 +25,7 @@ app.use('/uploads', express.static('./uploads'));
 app.use(customerRouter);
 
 // Ruta de servicios
-app.use(serviceRouter);
+app.use(moduleRouter);
 
 // Rutas de usuarios
 app.use(userRouter);

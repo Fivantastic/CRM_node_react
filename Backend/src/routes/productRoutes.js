@@ -13,4 +13,4 @@ productRouter.post(
   newProductControllers
 );
 
-productRouter.get('/product/list', productListController);
+productRouter.get('/product/list', authenticateUser, productListController);

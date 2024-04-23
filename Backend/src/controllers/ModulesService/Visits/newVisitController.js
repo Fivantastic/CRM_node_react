@@ -20,7 +20,7 @@ export const newVisitController = async (req, res, next) => {
         //Extraer los datos del cliente
         const { name, email } = customer;
 
-        // // Enviar correo electrónico de bienvenida
+        // Enviar correo electrónico de bienvenida
         // await sendConfirmationVisitEmail(name, email, visit_date );
 
         // console.log('Correo enviado');

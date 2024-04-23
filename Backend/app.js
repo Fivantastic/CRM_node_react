@@ -5,7 +5,7 @@ import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
-import { moduleRouter } from './src/routes/serviceRoutes.js';
+import { moduleRouter } from './src/routes/moduleRoutes.js';
 import { productRouter } from './src/routes/productRoutes.js';
 import { operationRoutes } from './src/routes/operationRoutes.js';
 

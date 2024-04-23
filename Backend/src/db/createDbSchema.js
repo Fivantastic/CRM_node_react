@@ -94,6 +94,8 @@ export async function createDBSchema(db) {
         customer_id CHAR(36),
         visit_status ENUM('scheduled', 'completed') NOT NULL,
         visit_date DATETIME,
+        observations TEXT,
+        rating_visit ENUM('1', '2', '3', '4', '5'),
         creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES Users(id_user),
         FOREIGN KEY (customer_id) REFERENCES Customers(id_customer)

@@ -13,24 +13,23 @@ import { adminAuthMiddleware } from '../middlewares/adminAuthMiddleware.js';
 // Creamos el router
 export const userRouter = express.Router();
 
-// Ruta user
+// Ruta de registro solo para administradores
 userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController);
 
+// Ruta de activación/desactivación solo para administradores
 userRouter.put('/user/toggleActivation',authenticateUser, adminAuthMiddleware, toggleActiveStatusController); 
 
+// Ruta de validación 
 userRouter.put('/user/validate/:registration_code', validateUserController);
 
+// Ruta de inicio de sesión
 userRouter.post('/user/login', loginUserControllers);
 
-// Ruta para actualización de usuario
+// Ruta para actualización
 userRouter.put('/user/update/', authenticateUser, updateUserController);
 
 // Ruta para cambio de contraseña
-userRouter.put(
-  '/user/change-password/',
-  authenticateUser,
-  changePasswordController
-);
+userRouter.put('/user/change-password/',authenticateUser, changePasswordController);
 
 // Ruta para solicitud de recuperación de contraseña
 userRouter.put('/user/forgot-password-request', forgotPasswordController);

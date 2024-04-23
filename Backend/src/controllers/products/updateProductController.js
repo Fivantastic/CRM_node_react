@@ -1,6 +1,6 @@
-import { validateSchemaUtil } from "../../utils/validateSchemaUtil";
-import { newProductSchema } from "../../schemas/newProductSchema";
-// Falta algún import?
+import { validateSchemaUtil } from "../../utils/validateSchemaUtil.js";
+import { newProductSchema } from "../../schemas/newProductSchema.js";
+import { updateProductService } from "../../services/updateProductServices.js";
 
 export const updateProductController = async (req, res, next) => {
    try{ 
@@ -8,10 +8,10 @@ export const updateProductController = async (req, res, next) => {
     await validateSchemaUtil(newProductSchema, req.body);
 
     // Obtenemos el id del producto.
-    const productId = req.params.productId;
+    const id_product = req.params.id_product;
 
     // Actualizamos el Producto en la base de datos.
-    const product = await updateProduct(productId, req.body);
+    const product = await updateProductService(id_product, req.body);
 
    res.send({
     status: 'ok',

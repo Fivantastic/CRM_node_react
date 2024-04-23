@@ -1,19 +1,25 @@
+import chalk from "chalk";
 import { toggleActivationService } from "../../services/toggleActivationService.js";
 
 export const toggleActiveStatusController = async (req, res, next) => {
 
     try {
         // Obtenemos el id del usuario.
-        const userId =  req.params.id_user;
-
+        const userId =  req.user.id_user;
+        
         // Desactivamos al usuario en la base de datos.
         const user = await toggleActivationService(userId)
 
         // Devolvemos el usuario actualizado.
+        const isActive = user.active === 1 ? true : false
+        const message = `Estado del usuario cambiado a: ${isActive ? 'Activo' : 'Inactivo'} `
+
+        console.log(`${user.email}:`, isActive ? chalk.bold.green('Activo') : chalk.bold.gray('Inactivo'))
         res.send({
             status: 'ok',
-            message: `Estado del usuario cambiado a: ${user.active === 1 ? 'Activo' : 'Inactivo'}`,
-            data: { user },
+            isActive,
+            message,
+            email: `${user.email}`
         });
     } catch (error) {
         next(error);

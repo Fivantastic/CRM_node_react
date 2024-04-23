@@ -5,8 +5,11 @@ import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
-import { moduleRouter } from './src/routes/moduleRoutes.js';
+// ? Descomentar cuando esté operativo
+// import { moduleRouter } from './src/routes/moduleRoutes.js';
 import { productRouter } from './src/routes/productRoutes.js';
+// import { operationRoutes } from './src/routes/operationRoutes.js';
+
 
 // Crear el servidor
 const app = express();
@@ -31,6 +34,10 @@ app.use(userRouter);
 
 // Rutas de productos
 app.use(productRouter);
+
+// ? Descomentar cuando esté operativo
+// Rutas de operaciones
+// app.use(operationRoutes); 
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

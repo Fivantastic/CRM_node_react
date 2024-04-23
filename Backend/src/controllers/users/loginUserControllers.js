@@ -39,7 +39,7 @@ export const loginUserControllers = async (req, res, next) => {
             {
                 id_user: user.id_user,
                 name: user.name,
-                avatar: user.avatar,
+                role: user.role,
                 email: user.email,
             },
             JWT_SECRET,

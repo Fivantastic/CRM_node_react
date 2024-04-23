@@ -9,7 +9,7 @@ export const updateUserController = async (req, res, next) => {
         await validateSchemaUtil(updateUserSchema, req.body);
 
         // Obtenemos el id del usuario.
-        const userId =  req.params.id_user;
+        const userId =  req.user.id_user;
 
         // Actualizamos el usuario en la base de datos.
         const user = await updateUserService(userId, req.body);

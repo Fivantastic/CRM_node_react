@@ -18,20 +18,20 @@ export const userRouter = express.Router();
 // userRouter.post('/user/register', authenticateUser, checkAdminPrivileges,  newUserController);
 // userRouter.put('/user/toggleActivation/:id_user', authenticateUser, checkAdminPrivileges, toggleActiveStatusController)
 
-userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController);
+userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController); // Ya esta la verificacion de privilegios adminAuthMiddleware
 
-userRouter.put('/user/toggleActivation/:id_user', toggleActiveStatusController);
+userRouter.put('/user/toggleActivation/:id_user', toggleActiveStatusController); //! hay que cambiar el id para que dentro saque el id del token, mira en linea 30
 
 userRouter.put('/user/validate/:registration_code', validateUserController);
 
 userRouter.post('/user/login', loginUserControllers);
 
 // Ruta para actualización de usuario
-userRouter.put('/user/update/:id_user', authenticateUser, updateUserController);
+userRouter.put('/user/update/', authenticateUser, updateUserController);
 
 // Ruta para cambio de contraseña
 userRouter.put(
-  '/user/change-password/:id_user',
+  '/user/change-password/',
   authenticateUser,
   changePasswordController
 );

@@ -8,7 +8,7 @@ import { invalidCredentials } from '../../services/errorService.js';
 
 export const changePasswordController = async (req, res, next) => {
   try {
-    const userId = req.params.id_user;
+    const userId = req.user.id_user;
     const { currentPassword, newPassword } = req.body;
     
     // Validar el esquema del cuerpo de la solicitud

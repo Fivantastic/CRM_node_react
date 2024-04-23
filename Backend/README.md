@@ -86,15 +86,17 @@ Para ejecutar el backend, sigue estos pasos:
 ### Modulos
 - **GET /service/:serviceId** Listado de servicios. ✅
 
-#### Visitas clientes
+#### Modulo visitas a clientes
 - **POST /user/module/visit**: Crea una visita ✅
 - **PUT /user/module/visit/update/:id_visit**: Modifica una visita
 - **DELETE /user/module/visit/delete/:id_visit**: Borra una visita
 
-#### Sales Orders
+#### Modulo sales Orders
 - **POST /user/module/saleorder**: Crea una orden de venta
 - **PUT /user/module/saleorder/update/:id_saleOrder**: Modifica una orden de venta
 - **DELETE /user/module/saleorder/delete/:id_saleOrder**: Borra una orden de venta
+
+#### Modulo de albaran
 
 ### Productos
 - **POST /product/register**: Crea un producto (solo para administradores). ✅

@@ -79,8 +79,8 @@ export async function createDBSchema(db) {
     console.log(chalk.bold.blue(`->✏️ Creando tabla SalesProducts...`));
     await db.query(`CREATE TABLE SalesProducts (
         id_saleProduct CHAR(36) PRIMARY KEY,
-        sale_id CHAR(36),
-        product_id CHAR(36),
+        sale_id CHAR(36) NOT NULL,
+        product_id CHAR(36) NOT NULL,
         quantity INT NOT NULL,
         description TEXT,
         FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
@@ -90,10 +90,10 @@ export async function createDBSchema(db) {
     console.log(chalk.bold.blue(`->✏️ Creando tabla Visits...`));
     await db.query(`CREATE TABLE Visits (
         id_visit CHAR(36) PRIMARY KEY,
-        user_id CHAR(36),
-        customer_id CHAR(36),
-        visit_status ENUM('scheduled', 'completed') NOT NULL,
-        visit_date DATETIME,
+        user_id CHAR(36) NOT NULL,
+        customer_id CHAR(36) NOT NULL,
+        visit_status ENUM('scheduled', 'completed') DEFAULT 'scheduled',
+        visit_date DATETIME NOT NULL,
         observations TEXT,
         rating_visit ENUM('1', '2', '3', '4', '5'),
         creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

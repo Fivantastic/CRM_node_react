@@ -13,6 +13,5 @@ productRouter.post('/product/register', authenticateUser, adminAuthMiddleware, n
 // Eliminar un producto (solo Admin)
 productRouter.delete('/product/delete/:product_id', authenticateUser, adminAuthMiddleware, deleteProductController)
 
-
 // Obtener la lsita de productos
 productRouter.get('/product/list', authenticateUser, productListController);

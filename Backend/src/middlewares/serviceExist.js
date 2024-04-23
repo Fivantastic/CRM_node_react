@@ -7,11 +7,11 @@ export const moduleExist = async (req, res, next) => {
     const moduleId = req.params.moduleId;
 
     // Comprobar si existe un servicio con el id proporcionado.
-    const customer = await selectModuleByIdModel(moduleId);
+    const module = await selectModuleByIdModel(moduleId);
 
     // Si no se encuentra el servicio, lanzar un error.
-    if (!customer) {
-      notFoundError('service');
+    if (!module) {
+      notFoundError('modulo');
     }
 
     // Pasar el control al siguiente middleware.

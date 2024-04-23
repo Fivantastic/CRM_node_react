@@ -11,7 +11,7 @@ export const insertNewVisitService = async (userId, id_customer, visit_date, obs
     const customer = await selectCustomerByIdModel(id_customer);
     
     const { address_id } = customer;
-
+    
     // Obtenemos la direccion del cliente.
     const address = await selectAddressCustomerByIdModel(address_id);
 

@@ -7,15 +7,19 @@ import { customerRouter } from './src/routes/customerRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
 import { moduleRouter } from './src/routes/moduleRoutes.js';
 import { productRouter } from './src/routes/productRoutes.js';
+import { cookie } from 'express-validator';
+import cookieParser from 'cookie-parser';
 
 // Crear el servidor
 const app = express();
 
 // Middlewares Globales
+app.use(cookieParser())
 app.use(express.json());
 app.use(fileUpload());
 app.use(morgan('dev'));
 app.use(cors());
+
 
 // Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));

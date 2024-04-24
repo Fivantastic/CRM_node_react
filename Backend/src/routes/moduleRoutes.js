@@ -1,12 +1,12 @@
 import express from 'express';
 import { moduleExist } from '../middlewares/serviceExist.js';
-import { getModuleController } from '../controllers/ModulesService/getServiceController.js';
+import { getModuleController } from '../controllers/Modules/getServiceController.js';
 import { authenticateUser } from '../middlewares/authenticateUser.js';
-import { newVisitController } from '../controllers/ModulesService/Visits/newVisitController.js';
+import { newVisitController } from '../controllers/Modules/Visits/newVisitController.js';
 import { adminAuthMiddleware } from '../middlewares/adminAuthMiddleware.js';
-import { updateVisitController } from '../controllers/ModulesService/Visits/updateVisitController.js';
-import { deleteVisitController } from '../controllers/ModulesService/Visits/deleteVisitController.js';
-import { getUserVisitsController } from '../controllers/ModulesService/Visits/getUserVisitsController.js';
+import { updateVisitController } from '../controllers/Modules/Visits/updateVisitController.js';
+import { deleteVisitController } from '../controllers/Modules/Visits/deleteVisitController.js';
+import { getUserVisitsController } from '../controllers/Modules/Visits/getUserVisitsController.js';
 
 // Creamos un router
 export const moduleRouter = express.Router();

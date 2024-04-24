@@ -1,4 +1,4 @@
-import { getDBPool } from '../../db/getPool.js';
+import { getDBPool } from "../../db/getPool.js";
 
 // Función que realiza una consulta a la base de datos para crear un nuevo usuario.
 export const insertCustomerModel = async (id_customer, name, email, phone, id_address) => {

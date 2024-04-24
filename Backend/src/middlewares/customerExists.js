@@ -1,5 +1,5 @@
 import { selectCustomerByIdModel } from '../models/customer/selectCustomerByIdModel.js';
-import { notFoundError } from '../services/errorService.js';
+import { notFoundError } from '../services/error/errorService.js';
 
 export const customerExists = async (req, res, next) => {
   try {

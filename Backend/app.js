@@ -5,10 +5,11 @@ import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
+import { deliveryNoteRoutes } from './src/routes/deliveryNoteRoutes.js'; 
 import { moduleRouter } from './src/routes/moduleRoutes.js';
 import { productRouter } from './src/routes/productRoutes.js';
-import { cookie } from 'express-validator';
-import cookieParser from 'cookie-parser';
+//import { cookie } from 'express-validator';
+//import cookieParser from 'cookie-parser';
 
 // Crear el servidor
 const app = express();
@@ -28,13 +29,17 @@ app.use('/uploads', express.static('./uploads'));
 app.use(customerRouter);
 
 // Ruta de servicios
-app.use(moduleRouter);
+//app.use(moduleRouter);
 
 // Rutas de usuarios
 app.use(userRouter);
 
 // Rutas de productos
-app.use(productRouter); 
+app.use(productRouter);
+
+// Ruta de reparto
+app.use(deliveryNoteRoutes); 
+
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

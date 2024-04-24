@@ -10,6 +10,7 @@ import { updateVisitController } from '../controllers/ModulesService/Visits/upda
 // Creamos un router
 export const moduleRouter = express.Router();
 
+
 //TODO: MODULOS
 // Obtener lista de modulos
 moduleRouter.get('/module/:moduleId', moduleExist, getModuleController);

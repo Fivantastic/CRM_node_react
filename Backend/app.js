@@ -14,7 +14,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 // Middlewares Globales
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(express.json());
 app.use(fileUpload());
 app.use(morgan('dev'));

@@ -1,5 +1,5 @@
-import { newCustomerSchema } from '../../schemas/newCustomerSchema.js';
-import { insertCustomerService } from '../../services/insertCustomerService.js';
+import { newCustomerSchema } from '../../schemas/customer/newCustomerSchema.js';
+import { insertCustomerService } from '../../services/customer/insertCustomerService.js';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 
 export const newCustomerControllers = async (req, res, next) => {

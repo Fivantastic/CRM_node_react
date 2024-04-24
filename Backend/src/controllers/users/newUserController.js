@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
-import { newUserSchema } from '../../schemas/newUserSchema.js';
-import { insertUserService } from '../../services/insertUserService.js';
+import { newUserSchema } from '../../schemas/user/newUserSchema.js';
+import { insertUserService } from '../../services/user/insertUserService.js';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { generateRandomPassword } from "../../utils/generateRandomPassword.js";
-// import { sendWelcomeEmail } from "../../services/emailService.js";
+// import { sendWelcomeEmail } from "../../services/email/emailService.js";
 
 export const newUserController = async (req, res, next) => {
   try {

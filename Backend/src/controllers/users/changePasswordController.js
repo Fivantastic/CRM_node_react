@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
-import { changePasswordSchema } from '../../schemas/changePasswordSchema.js';
+import { changePasswordSchema } from '../../schemas/user/changePasswordSchema.js';
 import { selectUserByIdModel } from '../../models/user/selectUserByIdModel.js';
 import { updatePasswordModel } from '../../models/user/updatePasswordModel.js';
+import { invalidCredentials } from '../../services/error/errorService.js';
 import { success } from '../../utils/success.js';
-import { invalidCredentials } from '../../services/errorService.js';
 
 export const changePasswordController = async (req, res, next) => {
   try {

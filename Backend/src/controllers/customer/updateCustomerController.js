@@ -1,6 +1,6 @@
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
-import { newCustomerSchema } from '../../schemas/newCustomerSchema.js';
-import { updateCustomerService } from '../../services/updateCustomerService.js';
+import { newCustomerSchema } from '../../schemas/customer/newCustomerSchema.js';
+import { updateCustomerService } from '../../services/customer/updateCustomerService.js';
 
 export const updateCustomerController = async (req, res, next) => {
   try {

@@ -1,8 +1,8 @@
 import { success } from "../../utils/success.js";
 import { selectIdByRegistrationCode } from "../../models/user/selectIdByRegistrationCodeModel.js";
-import { updatePasswordService } from "../../services/updatePasswordService.js";
+import { updatePasswordService } from "../../services/user/updatePasswordService.js";
 import { validateSchemaUtil } from "../../utils/validateSchemaUtil.js";
-import { changeResetPasswordSchema } from "../../schemas/changeResetPasswordSchema.js";
+import { changeResetPasswordSchema } from "../../schemas/user/changeResetPasswordSchema.js";
 
 export const resetPasswordController = async (req, res, next) => {
     try {

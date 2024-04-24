@@ -1,5 +1,5 @@
-import { selectModuleByIdModel } from '../models/ModulesService/selectModuleByModel.js';
-import { notFoundError } from '../services/errorService.js';
+import { selectModuleByIdModel } from '../models/Modules/selectModuleByModel.js';
+import { notFoundError } from '../services/error/errorService.js';
 
 export const moduleExist = async (req, res, next) => {
   try {

@@ -1,5 +1,5 @@
 import { getDBPool } from '../../db/getPool.js';
-import { notFoundError, userAlreadyActivatedError } from '../../services/errorService.js';
+import { notFoundError, userAlreadyActivatedError } from '../../services/error/errorService.js';
 
 export const findByRegistrationCodeModel = async (registration_code) => {
     const pool = await getDBPool();

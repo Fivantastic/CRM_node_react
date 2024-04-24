@@ -1,7 +1,7 @@
 import express from 'express';
-import { newProductControllers } from '../controllers/products/newProductController.js';
-import { productListController } from '../controllers/products/productListController.js';
-import { deleteProductController } from '../controllers/products/deleteProductController.js';
+import { newProductControllers } from '../controllers/product/newProductController.js';
+import { productListController } from '../controllers/product/productListController.js';
+import { deleteProductController } from '../controllers/product/deleteProductController.js';
 import { authenticateUser } from '../middlewares/authenticateUser.js';
 import { adminAuthMiddleware } from '../middlewares/adminAuthMiddleware.js';
 

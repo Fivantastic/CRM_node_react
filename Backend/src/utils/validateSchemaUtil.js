@@ -1,4 +1,3 @@
-// validateSchemaUtil.js
 export const validateSchemaUtil = async (schema, body) => {
   try {
     await schema.validateAsync(body);

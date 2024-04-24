@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { toggleActivationService } from "../../services/toggleActivationService.js";
+import { toggleActivationService } from "../../services/user/toggleActivationService.js";
 
 export const toggleActiveStatusController = async (req, res, next) => {
 

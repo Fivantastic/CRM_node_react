@@ -1,14 +1,11 @@
-
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-import { invalidCredentials } from "../../services/errorService.js";
-import { validateSignInRequest } from "../../services/validateSignInRequest.js";
-import { success } from "../../utils/success.js";
-import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel.js";
 import { JWT_SECRET } from '../../../env.js';
+import { invalidCredentials } from "../../services/error/errorService.js";
+import { validateSignInRequest } from "../../services/user/validateSignInRequest.js";
+import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel.js";
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
-import { loginUserSchema } from '../../schemas/loginUserSchema.js';
+import { loginUserSchema } from '../../schemas/user/loginUserSchema.js';
 
 export const loginUserControllers = async (req, res, next) => {
     try {

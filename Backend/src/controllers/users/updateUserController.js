@@ -1,6 +1,6 @@
 import { validateSchemaUtil } from "../../utils/validateSchemaUtil.js";
-import { updateUserService } from "../../services/updateUserService.js";
-import { updateUserSchema } from "../../schemas/updateUserSchema.js";
+import { updateUserService } from "../../services/user/updateUserService.js";
+import { updateUserSchema } from "../../schemas/user/updateUserSchema.js";
 
 export const updateUserController = async (req, res, next) => {
 

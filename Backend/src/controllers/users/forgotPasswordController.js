@@ -1,8 +1,8 @@
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
-import { recoveryPasswordSchema } from '../../schemas/recoveryPasswordSchema.js'; 
-import { serverError } from '../../services/errorService.js';
-import { forgotPasswordService } from '../../services/forgotPasswordService.js';
-import { sendRecoveryPaswordEmail } from '../../services/emailService.js';
+import { recoveryPasswordSchema } from '../../schemas/user/recoveryPasswordSchema.js'; 
+import { serverError } from '../../services/error/errorService.js';
+import { forgotPasswordService } from '../../services/user/forgotPasswordService.js';
+// import { sendRecoveryPaswordEmail } from '../../services/email/emailService.js';
 
 export const forgotPasswordController = async (req, res, next) => {
   try {

@@ -1,14 +1,11 @@
 import express from 'express';
 import { authenticateUser } from '../middlewares/authenticateUser.js';
 import { checkRole } from '../middlewares/checkRole.js';
-import { createDeliveryNoteController } from '../controllers/operationServices/createDeliveryNoteController.js';
+import { createDeliveryNoteController } from '../controllers/Modules/deliveryNote/createDeliveryNoteController.js';
 
-const router = express.Router();
+export const deliveryNoteRoutes = express.Router();
 
 // Ruta para crear albarán de reparto
-router.post( '/delivery-notes', authenticateUser, checkRole(['deliverer', 'admin']), // Verificar roles permitidos
-  createDeliveryNoteController // Controlador para crear albarán
-);
+deliveryNoteRoutes.post( '/delivery-notes', authenticateUser, checkRole(['deliverer', 'admin']), // Verificar roles permitidos
+  createDeliveryNoteController);
 
-// Exportación con nombre
-export const deliveryNoteRoutes = router;

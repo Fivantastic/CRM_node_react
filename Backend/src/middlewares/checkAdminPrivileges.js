@@ -8,7 +8,7 @@ export function checkAdminPrivileges(req, res, next) {
     //Extraer el id 
     const userId = req.userId;
     
-
+    
   
     try {
         const user = selectUserByIdModel(userId)
@@ -20,7 +20,7 @@ export function checkAdminPrivileges(req, res, next) {
         throw error
 
     } catch (error) {
-        console.error(`El usuario ${user.email} no es admin`);
+        console.error(`El usuario ${user.email} necesita privilegios de administrador para esta acción`);
         return res.status(401).json({error: 'Se requiere privilegio de administrador para esta acción'});
     }
 }

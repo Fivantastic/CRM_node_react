@@ -18,7 +18,9 @@ export const newProductControllers = async (req, res, next) => {
             status: 'ok',
             message: 'The product has been added correctly'
         });
-    } catch (error) {
+    } catch (error) { 
+        console.log(error.code);
+        console.log(error.message);
         next(error);
     }
 };

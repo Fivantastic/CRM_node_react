@@ -7,7 +7,10 @@ export function authenticateUser(req, res, next) {
     try {
     //Extraer el token de la solicitud
     const {authorization} = req.headers;
-    console.log(authorization);
+
+    // Nueva validación con cookies
+    // const authorization = req.cookies.token
+    // console.log(authorization);
 
     // Verifica si se proporciono un token
     if (!authorization) {
@@ -21,7 +24,6 @@ export function authenticateUser(req, res, next) {
         //Si el token es valido, añadir el id de usuario decodificado a la solicitud
         req.userId = decodedToken.userId
         req.user = decodedToken;
-        console.log('va a través de auth user middleware');
         next();
     } catch (error) {
         return res.status(401).json({error: 'Token de autentificación inválido'});

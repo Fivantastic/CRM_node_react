@@ -7,6 +7,7 @@ import { customerRouter } from './src/routes/customerRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
 import { moduleRouter } from './src/routes/moduleRoutes.js';
 import { productRouter } from './src/routes/productRoutes.js';
+import { salesRouter } from './src/routes/salesRutes.js';
 
 // Crear el servidor
 const app = express();
@@ -31,6 +32,9 @@ app.use(userRouter);
 
 // Rutas de productos
 app.use(productRouter);
+
+// Rutas de ventas
+app.use(salesRouter);
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

@@ -1,19 +1,29 @@
-import bcrypt from "bcrypt";
-import chalk from "chalk";
-import crypto from "crypto";
-import { MYSQL_DATABASE, ADMIN_NAME, ADMIN_LAST_NAME, ADMIN_EMAIL, ADMIN_PHONE, ADMIN_ROLE, ADMIN_ACTIVE } from "../../env.js";
-import { generateRandomPassword } from "../utils/generateRandomPassword.js";
+import bcrypt from 'bcrypt';
+import chalk from 'chalk';
+import crypto from 'crypto';
+import {
+  MYSQL_DATABASE,
+  ADMIN_NAME,
+  ADMIN_LAST_NAME,
+  ADMIN_EMAIL,
+  ADMIN_PHONE,
+  ADMIN_ROLE,
+  ADMIN_ACTIVE,
+} from '../../env.js';
+import { generateRandomPassword } from '../utils/generateRandomPassword.js';
 
 export async function createDBSchema(db) {
-    console.log(chalk.bold.yellow("Borrando base de datos (si existe)... 💣"));
-    await db.query(`DROP DATABASE IF EXISTS ${MYSQL_DATABASE}`);
+  console.log(chalk.bold.yellow('Borrando base de datos (si existe)... 💣'));
+  await db.query(`DROP DATABASE IF EXISTS ${MYSQL_DATABASE}`);
 
-    console.log(chalk.bold.green(`Creando base de datos ${MYSQL_DATABASE}... ✏️`));
-    await db.query(`CREATE DATABASE ${MYSQL_DATABASE}`);
-    await db.query(`USE ${MYSQL_DATABASE}`);
+  console.log(
+    chalk.bold.green(`Creando base de datos ${MYSQL_DATABASE}... ✏️`)
+  );
+  await db.query(`CREATE DATABASE ${MYSQL_DATABASE}`);
+  await db.query(`USE ${MYSQL_DATABASE}`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Addresses...`));
-    await db.query(`CREATE TABLE Addresses (
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Addresses...`));
+  await db.query(`CREATE TABLE Addresses (
         id_address CHAR(36) PRIMARY KEY,
         address VARCHAR(255) NOT NULL,
         number VARCHAR(20),
@@ -24,8 +34,8 @@ export async function createDBSchema(db) {
         country VARCHAR(100)
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Users...`));
-    await db.query(`CREATE TABLE Users (
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Users...`));
+  await db.query(`CREATE TABLE Users (
         id_user CHAR(36) PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         last_name VARCHAR(255),
@@ -43,8 +53,8 @@ export async function createDBSchema(db) {
         FOREIGN KEY (address_id) REFERENCES Addresses(id_address)
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Customers...`));
-    await db.query(`CREATE TABLE Customers (
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Customers...`));
+  await db.query(`CREATE TABLE Customers (
         id_customer CHAR(36) PRIMARY KEY,
         name VARCHAR(255),
         email VARCHAR(255) NOT NULL,
@@ -53,8 +63,8 @@ export async function createDBSchema(db) {
         FOREIGN KEY (address_id) REFERENCES Addresses(id_address)
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Products...`));
-    await db.query(`CREATE TABLE Products (
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Products...`));
+  await db.query(`CREATE TABLE Products (
         id_product CHAR(36) PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         description TEXT,
@@ -65,30 +75,30 @@ export async function createDBSchema(db) {
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Sales...`)); //Modulo de ventas
-    await db.query(`CREATE TABLE Sales (
-        id_sale CHAR(36) PRIMARY KEY,
-        user_id CHAR(36),
-        customer_id CHAR(36),
-        operation_status ENUM('open', 'closed') NOT NULL,
-        creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES Users(id_user),
-        FOREIGN KEY (customer_id) REFERENCES Customers(id_customer)
-    )`);
-
-    console.log(chalk.bold.blue(`->✏️ Creando tabla SalesProducts...`));
-    await db.query(`CREATE TABLE SalesProducts (
+  console.log(chalk.bold.blue(`->✏️ Creando tabla SalesProducts...`));
+  await db.query(`CREATE TABLE SalesProducts (
         id_saleProduct CHAR(36) PRIMARY KEY,
-        sale_id CHAR(36) NOT NULL,
         product_id CHAR(36) NOT NULL,
         quantity INT NOT NULL,
         description TEXT,
-        FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
         FOREIGN KEY (product_id) REFERENCES Products(id_product)
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Visits...`));
-    await db.query(`CREATE TABLE Visits (
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Sales...`)); //Modulo de ventas
+  await db.query(`CREATE TABLE Sales (
+        id_sale CHAR(36) PRIMARY KEY,
+        user_id CHAR(36),
+        saleProdut_id CHAR(36),
+        customer_id CHAR(36),
+        operation_status ENUM('open', 'closed') DEFAULT 'open',
+        creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES Users(id_user),
+        FOREIGN KEY (customer_id) REFERENCES Customers(id_customer),
+        FOREIGN KEY (saleProdut_id) REFERENCES SalesProducts(id_saleProduct)
+    )`);
+
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Visits...`));
+  await db.query(`CREATE TABLE Visits (
         id_visit CHAR(36) PRIMARY KEY,
         user_id CHAR(36) NOT NULL,
         customer_id CHAR(36) NOT NULL,
@@ -101,8 +111,8 @@ export async function createDBSchema(db) {
         FOREIGN KEY (customer_id) REFERENCES Customers(id_customer)
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla DeliveryNotes...`));
-    await db.query(`CREATE TABLE DeliveryNotes (
+  console.log(chalk.bold.blue(`->✏️ Creando tabla DeliveryNotes...`));
+  await db.query(`CREATE TABLE DeliveryNotes (
         id_note CHAR(36) PRIMARY KEY,
         sale_id CHAR(36),
         deliverer_id CHAR(36),
@@ -112,8 +122,8 @@ export async function createDBSchema(db) {
         FOREIGN KEY (deliverer_id) REFERENCES Users(id_user)
     )`);
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla Modules...`));
-    await db.query(`CREATE TABLE Modules (
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Modules...`));
+  await db.query(`CREATE TABLE Modules (
         id_module CHAR(36) PRIMARY KEY,
         user_id CHAR(36),
         service_type ENUM('sale', 'visit', 'deliveryNote') NOT NULL,
@@ -127,27 +137,52 @@ export async function createDBSchema(db) {
         FOREIGN KEY (deliveryNote_id) REFERENCES DeliveryNotes(id_note)
     )`);
 
-    console.log(chalk.bold.magenta(`->🧑‍💼 Creando usuario Owner con las variables de entorno...`));
+  console.log(
+    chalk.bold.magenta(
+      `->🧑‍💼 Creando usuario Owner con las variables de entorno...`
+    )
+  );
 
-    const id_user = crypto.randomUUID();
-    const password = generateRandomPassword(10);
-    const hashed_password = await bcrypt.hash(password, 12);
-    const registration_code = crypto.randomUUID();
+  const id_user = crypto.randomUUID();
+  const password = generateRandomPassword(10);
+  const hashed_password = await bcrypt.hash(password, 12);
+  const registration_code = crypto.randomUUID();
 
-    //! Aquí podría venir la lógica de enviar un correo electrónico con la contraseña y el registro.
+  //! Aquí podría venir la lógica de enviar un correo electrónico con la contraseña y el registro.
 
-    console.log(chalk.bold.yellow('--------------------------------------------------------'));
-    console.log(chalk.bold.yellow('ID de usuario:', id_user));
-    console.log(chalk.bold.yellow('Contraseña:', password));
-    console.log(chalk.bold.yellow('Código de registro:', registration_code));
-    console.log(chalk.bold.yellow('--------------------------------------------------------'));
+  console.log(
+    chalk.bold.yellow(
+      '--------------------------------------------------------'
+    )
+  );
+  console.log(chalk.bold.yellow('ID de usuario:', id_user));
+  console.log(chalk.bold.yellow('Contraseña:', password));
+  console.log(chalk.bold.yellow('Código de registro:', registration_code));
+  console.log(
+    chalk.bold.yellow(
+      '--------------------------------------------------------'
+    )
+  );
 
-    console.log(chalk.bold.magenta(`->🧑‍💼 Insertando usuario Owner...`));
+  console.log(chalk.bold.magenta(`->🧑‍💼 Insertando usuario Owner...`));
 
-    await db.query(`
+  await db.query(
+    `
     INSERT INTO Users (id_user, name, last_name, email, phone, password, role, active, registration_code)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `, [id_user, ADMIN_NAME, ADMIN_LAST_NAME, ADMIN_EMAIL, ADMIN_PHONE, hashed_password, ADMIN_ROLE, ADMIN_ACTIVE, registration_code]);
+    `,
+    [
+      id_user,
+      ADMIN_NAME,
+      ADMIN_LAST_NAME,
+      ADMIN_EMAIL,
+      ADMIN_PHONE,
+      hashed_password,
+      ADMIN_ROLE,
+      ADMIN_ACTIVE,
+      registration_code,
+    ]
+  );
 
-    console.log(chalk.bold.green(`✅ Base de datos inicializada con éxito...`));
+  console.log(chalk.bold.green(`✅ Base de datos inicializada con éxito...`));
 }

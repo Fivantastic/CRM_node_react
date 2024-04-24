@@ -2,7 +2,6 @@ import { updateVisitSchema } from "../../../schemas/newVisitSchema.js";
 import { validateSchemaUtil } from "../../../utils/validateSchemaUtil.js";
 import { updateVisitService } from "../../../services/updateVisitService.js";
 
-
 export const updateVisitController = async (req, res, next) => {
     try {
         //obtenemos el id_user del token
@@ -17,14 +16,15 @@ export const updateVisitController = async (req, res, next) => {
         // Validamos el body
         await validateSchemaUtil(updateVisitSchema, req.body);
 
-        await updateVisitService(visitId, id_user, id_customer, visit_date, observations);
+        // Llamamos al servicio de actualización de visita
+        const response = await updateVisitService(visitId, id_user, id_customer, visit_date, observations);
 
-
-        res.send({
+        res.status(200).json({
             status: 'ok',
-            message: 'Visita actualizada'
+            message: response.message
         });
     } catch (error) {
         next(error);
     }
 }
+

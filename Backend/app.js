@@ -8,8 +8,10 @@ import { userRouter } from './src/routes/userRoutes.js';
 import { deliveryNoteRoutes } from './src/routes/deliveryNoteRoutes.js'; 
 import { moduleRouter } from './src/routes/moduleRoutes.js';
 import { productRouter } from './src/routes/productRoutes.js';
+import { salesRouter } from './src/routes/salesRutes.js';
 //import { cookie } from 'express-validator';
 //import cookieParser from 'cookie-parser';
+
 
 // Crear el servidor
 const app = express();
@@ -37,9 +39,11 @@ app.use(userRouter);
 // Rutas de productos
 app.use(productRouter);
 
+// Rutas de ventas
+app.use(salesRouter);
+
 // Ruta de reparto
 app.use(deliveryNoteRoutes); 
-
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

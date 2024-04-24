@@ -115,17 +115,17 @@ export async function createDBSchema(db) {
     console.log(chalk.bold.blue(`->✏️ Creando tabla DeliveryNotes...`));
     await db.query(`
         CREATE TABLE DeliveryNotes (
-            id_note INT AUTO_INCREMENT PRIMARY KEY, -- Autoincrementado
+            id_note CHAR(36) PRIMARY KEY,
             sale_id CHAR(36),
             deliverer_id CHAR(36),
-            delivery_status ENUM('pending', 'delivered') NOT NULL,
-            delivery_date DATETIME DEFAULT NOW(), -- Fecha de creación
+            delivery_status ENUM('pending', 'delivering', 'delivered') DEFAULT 'pending',
             address_id CHAR(36),
-            product_id CHAR(36), -- Para almacenar referencia a un producto
+            saleProduct_id CHAR(36), 
+            delivery_date DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
             FOREIGN KEY (deliverer_id) REFERENCES Users(id_user),
             FOREIGN KEY (address_id) REFERENCES Addresses(id_address),
-            FOREIGN KEY (product_id) REFERENCES Products(id_product) -- Nueva clave foránea
+            FOREIGN KEY (saleProduct_id) REFERENCES SalesProducts(id_saleProduct)
         )`);
 
 

@@ -47,12 +47,20 @@ export const loginUserControllers = async (req, res, next) => {
                 expiresIn: "7d",
             }
         );
+        
+        // const oneDay = 1000 * 60 * 60 * 24
 
-        res.json(
-            success({
-                token: token,
-            })
-        );
+        // // Nueva validación por cookies
+        // res.cookie('token', token, { maxAge: oneDay, httpOnly: true })
+
+        res.send({
+            // token: token,
+            status: 'ok',
+            message: 'Sesión iniciada correctamente',
+            token: token
+
+        
+        });
 
     } catch (error) {
         next(error);

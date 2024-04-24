@@ -7,6 +7,8 @@ export const insertProductService = async (name, description, price, stock, prod
     await insertProductModel(id_product, name, description, price, stock, product_status)
 
    } catch(error) {
-    console.error("Error al insertar el producto",error)
+      error.statusCode = 500
+      error.code = "Error al insertar el producto"
+      throw error
    }
 }

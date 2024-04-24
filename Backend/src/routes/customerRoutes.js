@@ -15,9 +15,4 @@ customerRouter.post('/customer/register', authenticateUser, newCustomerControlle
 customerRouter.get('/customer/list', authenticateUser, getCustomerListController);
 
 // Modificar cliente
-customerRouter.put(
-  '/customer/:customerId',
-  authenticateUser,
-  customerExists,
-  updateCustomerController
-);
+customerRouter.put('/customer/:customerId',authenticateUser, customerExists, updateCustomerController);

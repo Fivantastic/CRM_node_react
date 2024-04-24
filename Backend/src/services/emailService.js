@@ -50,7 +50,29 @@ export async function sendRecoveryPaswordEmail(email, registration_code) {
 
   } 
   catch (error) {
-    console.error('Error al enviar el correo electrónico de bienvenida:', error);
+    console.error('Error al enviar el correo electrónico de recuperar contrasena:', error);
     throw error; // Manejar el error adecuadamente en tu aplicación
+  }
+}
+
+export async function sendConfirmationVisitEmail(name, email, visit_date) {
+  try {
+    // Configurar el mensaje de correo electrónico
+    const mailOptions = {
+      from: MAIL_TRAP_AUTH_USER,
+      to: email,
+      subject: 'Visita a programada ',
+      html: `<p>Estimado ${name},</p>
+             <p>Como hemos confirmado nuestra visita a programada el dia ${visit_date}.</p>
+             <p>Si tiene alguna duda, por favor no dude en contactarnos.</p>
+             `,
+  };
+        // Enviar el correo electrónico
+      await transporter.sendMail(mailOptions);
+
+  } 
+  catch (error) {
+    console.error('Error al enviar el correo electrónico de visita:', error);
+    throw error; 
   }
 }

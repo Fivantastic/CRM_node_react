@@ -8,6 +8,10 @@ export function authenticateUser(req, res, next) {
     //Extraer el token de la solicitud
     const {authorization} = req.headers;
 
+    // Nueva validación con cookies
+    // const authorization = req.cookies.token
+    // console.log(authorization);
+
     // Verifica si se proporciono un token
     if (!authorization) {
         return res.status(401).json({msg: 'No se proporcionó token de autenticación'});

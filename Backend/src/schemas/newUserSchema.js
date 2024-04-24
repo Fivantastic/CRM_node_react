@@ -9,7 +9,7 @@ export const newUserSchema = joi.object({
   role: joi.string().valid('salesAgent', 'deliverer', 'admin').required().messages({
     'any.required': 'El campo rol es requerido.',
     'string.empty': 'El campo rol no puede estar vacío.',
-    'any.only': 'Debe ser uno de los siguientes valores: Seller, Deliverer, Admin.'
+    'any.only': 'Debe ser uno de los siguientes valores: salesAgent, deliverer, admin.'
   }),
 });
 

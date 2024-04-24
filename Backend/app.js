@@ -31,7 +31,7 @@ app.use('/uploads', express.static('./uploads'));
 app.use(customerRouter);
 
 // Ruta de servicios
-//app.use(moduleRouter);
+app.use(moduleRouter);
 
 // Rutas de usuarios
 app.use(userRouter);

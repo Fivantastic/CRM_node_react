@@ -28,8 +28,6 @@ export const passwordAlreadyRegisteredError = () => {
 };
 };
 
-
-
 export const invalidCredentials = (message) => {
   throw {
     statusCode: 401,

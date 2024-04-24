@@ -1,6 +1,5 @@
 import { getDBPool } from "../../db/getPool.js";
 
-
 export const updateUserModel = async (userId, name, last_name, email, phone, bio, avatar ) => {
     const pool = await getDBPool();
 
@@ -23,6 +22,7 @@ export const updateUserModel = async (userId, name, last_name, email, phone, bio
 
     if (fieldsToUpdate.length === 0) return {};
 
+    //insetamos en la base de datos
     const query = `UPDATE Users SET ${fieldsToUpdate.join(', ')} WHERE id_user = ?`;
     values.push(userId);
 

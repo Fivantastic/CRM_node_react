@@ -9,5 +9,5 @@ export const selectCustomerByIdModel = async (id_customer) => {
     [id_customer]
   );
 
-  return customer;
+  return customer[0];
 };

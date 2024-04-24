@@ -6,14 +6,14 @@ import { emailAlreadyRegisteredError,usernameAlreadyRegisteredError } from './er
 
 export const insertCustomerService = async (name, email, phone) => {
   try {
-    // Buscamos en la base de datos algún usuario con ese nombre.
+    // // Buscamos en la base de datos algún usuario con ese nombre.
     let existCustomer = await selectCustomerByUsernameModel(name);
 
-    // Si existe un usuario con ese nombre, lanzamos un error.
-    if (existCustomer) {
-      usernameAlreadyRegisteredError();
-    }
-    console.log('No hay cliente con ese nombre');
+    // // Si existe un usuario con ese nombre, lanzamos un error.
+    // if (existCustomer) {
+    //   usernameAlreadyRegisteredError();
+    // }
+    // console.log('No hay cliente con ese nombre');
 
     // Buscamos en la base de datos algún usuario con ese email.
     existCustomer = await selectCustomerByEmailModel(email);

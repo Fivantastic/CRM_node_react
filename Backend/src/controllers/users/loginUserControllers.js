@@ -48,14 +48,17 @@ export const loginUserControllers = async (req, res, next) => {
             }
         );
         
-        const oneDay = 1000 * 60 * 60 * 24
+        // const oneDay = 1000 * 60 * 60 * 24
 
-        // Nueva validación por cookies
-        res.cookie('token', token, { maxAge: oneDay, httpOnly: true })
+        // // Nueva validación por cookies
+        // res.cookie('token', token, { maxAge: oneDay, httpOnly: true })
 
         res.send({
             // token: token,
-            message: 'Sesión iniciada correctamente'
+            status: 'ok',
+            message: 'Sesión iniciada correctamente',
+            token: token
+
         
         });
 

@@ -1,6 +1,6 @@
 import { getDBPool } from "../../../db/getPool.js";
 
-export const insertOrUpdateVisitModel = async (visitId, userId, customerId, visitDate, observations) => {
+export const insertOrUpdateVisitModel = async (visitId, id_user, customerId, visitDate, observations) => {
     const pool = await getDBPool();
 
     const fieldsToUpdate = [];
@@ -13,7 +13,7 @@ export const insertOrUpdateVisitModel = async (visitId, userId, customerId, visi
         }
     };
 
-    addToUpdate('user_id', userId);
+    addToUpdate('user_id', id_user);
     addToUpdate('customer_id', customerId);
     addToUpdate('visit_date', visitDate);
     addToUpdate('observations', observations);

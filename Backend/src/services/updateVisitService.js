@@ -1,6 +1,4 @@
-// updateVisitService.js
-
-import { insertOrUpdateVisitModel } from "../models/ModulesService/visits/insertOrUpdateVisitModel.js";
+import { updateVisitModel } from "../models/ModulesService/visits/updateVisitModel.js";
 import { invalidCredentials } from "./errorService.js";
 import { selectCustomerByIdModel } from "../models/customer/selectCustomerByIdModel.js";
 import { selectUserByIdModel } from "../models/user/selectUserByIdModel.js";
@@ -40,7 +38,7 @@ export const updateVisitService = async (visitId, id_user, id_customer, visit_da
         return { status: 'ok', message: 'Los datos ya estaban registrados.' };
     } else {
         // Si los datos son diferentes, actualiza la visita
-        await insertOrUpdateVisitModel(visitId, userId, customerId, visit_date, observations);
+        await updateVisitModel(visitId, userId, customerId, visit_date, observations);
         return { status: 'ok', message: 'Visita actualizada exitosamente' };
     }
 }

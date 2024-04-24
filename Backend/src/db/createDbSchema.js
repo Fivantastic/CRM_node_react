@@ -15,7 +15,7 @@ export async function createDBSchema(db) {
     console.log(chalk.bold.blue(`->✏️ Creando tabla Addresses...`));
     await db.query(`CREATE TABLE Addresses (
         id_address CHAR(36) PRIMARY KEY,
-        address VARCHAR(255) NOT NULL,
+        address VARCHAR(255),
         number VARCHAR(20),
         floor VARCHAR(10),
         letter_number VARCHAR(10),

@@ -69,50 +69,60 @@ Para ejecutar el backend, sigue estos pasos:
 ## Endpoints
 
 ### Users
-- **POST /user/register**: Crea un nuevo usuario (solo para administradores). ✅
-- **POST /user/toggleActivation**: Desactiva un usuario (solo para administradores). ✅
-- **PUT /user/validate/:registration_code**: Valida un usuario. ✅
-- **POST /user/login**: Inicio de sesión de usuario. ✅
-- **POST /user/forgot-password-request**: Cambio de codigo de registro para enviar email de Cambio de contraseña.✅
-- **PUT /user/reset-password/:registration_codee**: Recuperación de contraseña. ✅
-- **PUT '/user/change-password**: Cambio de contraseña. ✅
-- **PUT /user/update**: Gestión del perfil de usuario (no administrador). ✅
+- **POST /user/register**: Crea un nuevo usuario (solo para administradores). 
+- **POST /user/toggleActivation**: Desactiva un usuario (solo para administradores). 
+- **PUT /user/validate/:registration_code**: Valida un usuario. 
+- **POST /user/login**: Inicio de sesión de usuario. 
+- **POST /user/forgot-password-request**: Cambio de codigo de registro para enviar email de Cambio de contraseña.
+- **PUT /user/reset-password/:registration_codee**: Recuperación de contraseña. 
+- **PUT '/user/change-password**: Cambio de contraseña. 
+- **PUT /user/update**: Gestión del perfil de usuario (no administrador). 
 
 ### Customers
-- **POST /customer/register**: Crea un cliente. ✅
-- **PUT /customer/:customerId**: Actualiza un cliente. ✅
-- **GET /customer/list**: Listado de clientes. ✅
+- **POST /customer/register**: Crea un cliente. 
+- **PUT /customer/:customerId**: Actualiza un cliente. 
+- **GET /customer/list**: Listado de clientes. 
 
 ### Modulos
-- **GET /service/:serviceId** Listado de servicios. ✅
+- **GET /module/:moduleId** Listado de un modulo. 
+- **GET /module/search** Buscar por modulo
 
 #### Modulo visitas a clientes
-- **POST /user/module/visit**: Crea una visita ✅
-- **PUT /user/module/visit/update/:id_visit**: Modifica una visita
-- **DELETE /user/module/visit/delete/:id_visit**: Borra una visita
+- **POST /user/module/visit**: Crea una visita. 
+- **PUT /user/module/visit/update/:id_visit**: Modifica una visita.
+- **DELETE /user/module/visit/delete/:id_visit**: Borra una visita.
+- **PUT /user/module/visit/complete/:id_visit**: Completa una visita y envia email al cliente para validacion.
+- **PUT /user/module/visit/feedback/:visitId**: Inserta la valoracion del cliente.
 
 #### Modulo sales Orders
-- **POST /user/module/saleorder**: Crea una orden de venta
-- **PUT /user/module/saleorder/update/:id_saleOrder**: Modifica una orden de venta
-- **DELETE /user/module/saleorder/delete/:id_saleOrder**: Borra una orden de venta
+- **POST /user/module/sales**: Crea una orden de venta
+- **PUT /user/module/sales/update/:id_saleOrder**: Modifica una orden de venta.
+- **DELETE /user/module/sales/delete/:id_saleOrder**: Borra una orden de venta.
+- **PUT /user/module/sales/complete/:id_visit**: Completa una orden de venta.
+- **PUT /user/module/sales/feedback/:visitId**: Inserta la valoracion de la orden de venta.
 
 #### Modulo de albaran
+- **POST /user/module/delivery-notes**: Crea una albaran de la orden de venta. 
+- **PUT /user/module/delivery-notes/update/:id_visit**: Modifica una albaran.
+- **DELETE /user/module/delivery-notes/delete/:id_visit**: Borra una albaran.
+- **PUT /user/module/delivery-notes/complete/:id_visit**: Completa la entrega y envia email al cliente para validacion del envio y la orden de venta.
+- **PUT /user/module/delivery-notes/feedback/:visitId**: Inserta la valoracion del envio.
 
 ### Productos
-- **POST /product/register**: Crea un producto (solo para administradores). ✅
+- **POST /product/register**: Crea un producto (solo para administradores). 
 - **PUT /products/update**: Actualiza un producto (solo para administradores).
-- **GET /product/list**: Listado de productos. ✅
+- **GET /product/list**: Listado de productos. 
 - **DELETE /products**: Elimina lógicamente un producto (solo para administradores).
 
 ## Middlewares
 
-- **Middleware 404 not found**: Maneja las solicitudes a rutas no encontradas. ✅
-- **Middleware gestión de errores**: Maneja los errores ocurridos durante el proceso de solicitud. ✅
-- **Middleware request body parsing**: Analiza el cuerpo de la solicitud para extraer datos. ✅
-- **Middleware file upload**: Procesa la carga de archivos en las solicitudes. ✅
-- **Middleware definition of static resources directory (images, files)**: Define el directorio de recursos estáticos de imágenes y archivos. ✅
-- **Middleware CORS**: Permite las solicitudes de recursos desde un origen diferente al del servidor. ✅
-- **Middleware user authentication verification**: Verifica la autenticación de los usuarios antes de permitir el acceso a ciertas rutas. ✅
+- **Middleware 404 not found**: Maneja las solicitudes a rutas no encontradas. 
+- **Middleware gestión de errores**: Maneja los errores ocurridos durante el proceso de solicitud. 
+- **Middleware request body parsing**: Analiza el cuerpo de la solicitud para extraer datos. 
+- **Middleware file upload**: Procesa la carga de archivos en las solicitudes. 
+- **Middleware definition of static resources directory (images, files)**: Define el directorio de recursos estáticos de imágenes y archivos. 
+- **Middleware CORS**: Permite las solicitudes de recursos desde un origen diferente al del servidor. 
+- **Middleware user authentication verification**: Verifica la autenticación de los usuarios antes de permitir el acceso a ciertas rutas. 
 - **Middleware privilegios user admin**: Verifica si el usuario es administrador y tiene privilegios para esa peticion.
 
 --- 

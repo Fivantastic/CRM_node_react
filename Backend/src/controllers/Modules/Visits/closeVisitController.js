@@ -1,5 +1,5 @@
 import { closeVisitService } from "../../../services/Modules/visits/closeVisitService.js";
-import { sendEmailForVisitFeedback } from "../../../services/email/emailService.js";
+// import { sendEmailForVisitFeedback } from "../../../services/email/emailService.js";
 
 
 export const closeVisitController = async (req, res, next) => {
@@ -12,9 +12,9 @@ export const closeVisitController = async (req, res, next) => {
         // Cerramos la visita y obtenemos el email del cliente
         const email = await closeVisitService(visitId, id_user);
 
-        console.log('email: ', email);
+        //! Comentada la logica de envio de email por ahora
         // Enviar email al cliente
-        await sendEmailForVisitFeedback(visitId ,email);
+        // await sendEmailForVisitFeedback(visitId ,email);
         
 
         res.send ({

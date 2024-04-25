@@ -106,7 +106,9 @@ export async function createDBSchema(db) {
         visit_date DATETIME NOT NULL,
         observations TEXT,
         rating_visit ENUM('1', '2', '3', '4', '5'),
+        rating_comment TEXT,
         creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES Users(id_user),
         FOREIGN KEY (customer_id) REFERENCES Customers(id_customer)
     )`);

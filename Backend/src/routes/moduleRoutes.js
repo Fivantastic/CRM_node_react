@@ -7,6 +7,7 @@ import { adminAuthMiddleware } from '../middlewares/adminAuthMiddleware.js';
 import { updateVisitController } from '../controllers/Modules/Visits/updateVisitController.js';
 import { deleteVisitController } from '../controllers/Modules/Visits/deleteVisitController.js';
 import { getUserVisitsController } from '../controllers/Modules/Visits/getUserVisitsController.js';
+import { closeVisitController } from '../controllers/Modules/Visits/closeVisitController.js';
 
 // Creamos un router
 export const moduleRouter = express.Router();
@@ -36,6 +37,9 @@ moduleRouter.put('/user/module/visit/:visitId', authenticateUser, updateVisitCon
 
 // Borrar una visita
 moduleRouter.delete('/user/module/delete/visit/:visitId', authenticateUser, adminAuthMiddleware, deleteVisitController);
+
+// Completar una visita y enviar valoacion al cliente
+moduleRouter.put('/user/module/visit/complete/:visitId', authenticateUser, closeVisitController);
 
 
 //TODO: MODULO DELIVERY NOTE

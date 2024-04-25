@@ -134,9 +134,9 @@ Para ejecutar el backend, sigue estos pasos:
 Puedes importarlo en tu Postman en import y copiando la Url facilitada.
 
 ### Proyecto realizado por:
-    #### Iván Jiménez
-    #### Juan Carlos Varela
-    #### Juan Manuel Bs
-    #### Daniel Veiga
-    #### Daniel Montero
-    #### Alberto Góngora
+   #### Iván Jiménez
+   #### Juan Carlos Varela
+   #### Juan Manuel Bs
+   #### Daniel Veiga
+   #### Daniel Montero
+   #### Alberto Góngora

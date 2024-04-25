@@ -5,6 +5,7 @@ import { createUploadsPathUtil } from '../utils/createUploadsPathUtil.js';
 import { deleteUploadsPathUtil } from '../utils/deleteUploadsPathUtil.js';
 
 import { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD } from '../../env.js';
+// import { loadDemoData } from "./loadDemoData.js";
 
 const db = await createConnection({
   host: MYSQL_HOST,
@@ -13,7 +14,11 @@ const db = await createConnection({
   password: MYSQL_PASSWORD,
 });
 
+// Crear la base de datos
 await createDBSchema(db);
+
+// Cargamos los datos de prueba
+// await loadDemoData(db);
 
 // Borramos el directorio uploads y todo su contenido
 await deleteUploadsPathUtil();

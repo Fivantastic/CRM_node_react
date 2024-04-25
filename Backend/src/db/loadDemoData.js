@@ -1,6 +1,5 @@
-import { faker } from "@faker-js/faker";
+import { es, fakerES as faker } from "@faker-js/faker";
 import bcrypt from 'bcrypt';
-import crypto from 'crypto';
 import chalk from 'chalk';
 
 import { generateRandomPassword } from '../utils/generateRandomPassword.js';
@@ -12,14 +11,14 @@ export async function loadDemoData(db) {
     const addressData = [];
     for (let i = 0; i < 10; i++) {
       const address = {
-        id_address: crypto.randomUUID(),
-        address: faker.address.streetAddress(),
-        number: faker.random.number(),
-        floor: faker.random.alphaNumeric(2),
-        letter_number: faker.random.alphaNumeric(2),
-        city: faker.address.city(),
-        zip_code: faker.address.zipCode(),
-        country: faker.address.country(),
+        id_address: faker.string.uuid(),
+        address: faker.location.streetAddress(),
+        number: faker.number.int(300),
+        floor: faker.number.int(10), 
+        letter_number: faker.number.int(4),
+        city: faker.location.city(),
+        zip_code: faker.location.zipCode(),
+        country: 'España'
       };
       addressData.push(address);
     }
@@ -36,16 +35,16 @@ export async function loadDemoData(db) {
       const password = generateRandomPassword(10);
       const hashedPassword = await bcrypt.hash(password, 12);
       const user = {
-        id_user: crypto.randomUUID(),
-        name: faker.name.firstName(),
-        last_name: faker.name.lastName(),
+        id_user: faker.string.uuid(),
+        name: faker.person.firstName(),
+        last_name: faker.person.lastName(),
         email: faker.internet.email(),
-        phone: faker.phone.phoneNumber(),
+        phone: faker.phone.imei(), 
         password: hashedPassword,
         address_id: addressData[i].id_address,
-        role: faker.random.arrayElement(['salesAgent', 'deliverer']),
-        active: faker.random.boolean(),
-        registration_code: crypto.randomUUID(),
+        role: faker.helpers.arrayElement(['salesAgent', 'deliverer']),
+        active: faker.datatype.boolean(),
+        registration_code: faker.string.uuid(),
         avatar: faker.image.avatar(),
         biography: faker.lorem.paragraph(),
       };
@@ -62,10 +61,10 @@ export async function loadDemoData(db) {
     const customerData = [];
     for (let i = 0; i < 10; i++) {
       const customer = {
-        id_customer: crypto.randomUUID(),
-        name: faker.company.companyName(),
+        id_customer: faker.string.uuid(),
+        name: faker.person.fullName(),
         email: faker.internet.email(),
-        phone: faker.phone.phoneNumber(),
+        phone: faker.phone.imei(),
         address_id: addressData[i].id_address,
       };
       customerData.push(customer);
@@ -81,12 +80,12 @@ export async function loadDemoData(db) {
     const productData = [];
     for (let i = 0; i < 10; i++) {
       const product = {
-        id_product: crypto.randomUUID(),
+        id_product: faker.string.uuid(),
         name: faker.commerce.productName(),
         description: faker.lorem.paragraph(),
         price: faker.commerce.price(),
-        stock: faker.random.number(),
-        product_status: faker.random.arrayElement(['active', 'inactive']),
+        stock: faker.number.int(1000), 
+        product_status: faker.helpers.arrayElement(['active', 'inactive']),
       };
       productData.push(product);
     }
@@ -101,9 +100,9 @@ export async function loadDemoData(db) {
     const salesProductData = [];
     for (let i = 0; i < 10; i++) {
       const saleProduct = {
-        id_saleProduct: crypto.randomUUID(),
+        id_saleProduct: faker.string.uuid(),
         product_id: productData[i].id_product,
-        quantity: faker.random.number(),
+        quantity: faker.number.int(10), // Cambiar aquí
         description: faker.lorem.sentence(),
       };
       salesProductData.push(saleProduct);
@@ -119,11 +118,11 @@ export async function loadDemoData(db) {
     const salesData = [];
     for (let i = 0; i < 10; i++) {
       const sale = {
-        id_sale: crypto.randomUUID(),
+        id_sale: faker.string.uuid(),
         user_id: userData[i].id_user,
         saleProdut_id: salesProductData[i].id_saleProduct,
         customer_id: customerData[i].id_customer,
-        operation_status: faker.random.arrayElement(['open', 'closed']),
+        operation_status: faker.helpers.arrayElement(['open', 'closed']),
       };
       salesData.push(sale);
     }
@@ -138,13 +137,13 @@ export async function loadDemoData(db) {
     const visitData = [];
     for (let i = 0; i < 10; i++) {
       const visit = {
-        id_visit: crypto.randomUUID(),
+        id_visit: faker.string.uuid(),
         user_id: userData[i].id_user,
         customer_id: customerData[i].id_customer,
-        visit_status: faker.random.arrayElement(['scheduled', 'completed']),
+        visit_status: faker.helpers.arrayElement(['scheduled', 'completed']),
         visit_date: faker.date.past(),
         observations: faker.lorem.sentence(),
-        rating_visit: faker.random.arrayElement(['1', '2', '3', '4', '5']),
+        rating_visit: faker.helpers.arrayElement([null, null, null, '1', '2', '3', '4', '5']),
         rating_comment: faker.lorem.paragraph(),
       };
       visitData.push(visit);
@@ -160,10 +159,10 @@ export async function loadDemoData(db) {
     const deliveryNoteData = [];
     for (let i = 0; i < 10; i++) {
       const deliveryNote = {
-        id_note: crypto.randomUUID(),
+        id_note: faker.string.uuid(),
         sale_id: salesData[i].id_sale,
         deliverer_id: userData[i].id_user,
-        delivery_status: faker.random.arrayElement(['pending', 'delivering', 'delivered']),
+        delivery_status: faker.helpers.arrayElement(['pending', 'delivering', 'delivered','pending','pending','pending','pending','pending',]),
         address_id: addressData[i].id_address,
         saleProduct_id: salesProductData[i].id_saleProduct,
         delivery_date: faker.date.recent(),
@@ -176,25 +175,36 @@ export async function loadDemoData(db) {
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla DeliveryNotes.`));
 
-    // Insertar datos en la tabla Modules
-    console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Modules...`));
-    const moduleData = [];
-    for (let i = 0; i < 10; i++) {
-      const module = {
-        id_module: crypto.randomUUID(),
-        user_id: userData[i].id_user,
-        service_type: faker.random.arrayElement(['sale', 'visit', 'deliveryNote']),
-        sale_id: salesData[i].id_sale,
-        visit_id: visitData[i].id_visit,
-        deliveryNote_id: deliveryNoteData[i].id_note,
-      };
-      moduleData.push(module);
-    }
-    await db.query(
-      `INSERT INTO Modules (id_module, user_id, service_type, sale_id, visit_id, deliveryNote_id) VALUES ?`,
-      [moduleData.map(module => Object.values(module))]
-    );
-    console.log(chalk.bold.green(`✅ Datos insertados en tabla Modules.`));
+// Insertar datos en la tabla Modules
+console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Modules...`));
+const moduleData = [];
+for (let i = 0; i < 10; i++) {
+  const serviceType = faker.helpers.arrayElement(['visit', 'sale', 'deliveryNote']);
+  let serviceId = null;
+
+  if (serviceType === 'visit') {
+    serviceId = visitData[i].id_visit;
+  } else if (serviceType === 'sale') {
+    serviceId = salesData[i].id_sale;
+  } else if (serviceType === 'deliveryNote') {
+    serviceId = deliveryNoteData[i].id_note;
+  }
+
+  const module = {
+    id_module: faker.string.uuid(),
+    user_id: userData[i].id_user,
+    service_type: serviceType,
+    sale_id: serviceType === 'sale' ? serviceId : null,
+    visit_id: serviceType === 'visit' ? serviceId : null,
+    deliveryNote_id: serviceType === 'deliveryNote' ? serviceId : null,
+  };
+  moduleData.push(module);
+}
+await db.query(
+  `INSERT INTO Modules (id_module, user_id, service_type, sale_id, visit_id, deliveryNote_id) VALUES ?`,
+  [moduleData.map(module => Object.values(module))]
+);
+console.log(chalk.bold.green(`✅ Datos insertados en tabla Modules.`));
 
     console.log(chalk.bold.green(`✅ Todos los datos ficticios insertados con éxito.`));
   } catch (error) {

@@ -1,4 +1,4 @@
-import { updateVisitSchema } from "../../../schemas/Modules/visits/newVisitSchema.js";
+import { updateVisitSchema } from "../../../schemas/Modules/visits/visitSchema.js";
 import { validateSchemaUtil } from "../../../utils/validateSchemaUtil.js";
 import { updateVisitService } from "../../../services/Modules/visits/updateVisitService.js";
 

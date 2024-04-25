@@ -15,3 +15,8 @@ export const updateVisitSchema = Joi.object({
     visit_date: Joi.date().required().messages(joiErrorMessages), // Fecha de la visita
     observations: Joi.string().optional().messages(joiErrorMessages), // Observación de la visita
 });
+
+export const feedbackVisitSchema = Joi.object({
+    rating_visit: Joi.number().required().min(1).max(5).messages(joiErrorMessages), 
+    comment_visit: Joi.string().optional().messages(joiErrorMessages)
+});

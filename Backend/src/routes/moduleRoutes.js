@@ -8,6 +8,7 @@ import { updateVisitController } from '../controllers/Modules/Visits/updateVisit
 import { deleteVisitController } from '../controllers/Modules/Visits/deleteVisitController.js';
 import { getUserVisitsController } from '../controllers/Modules/Visits/getUserVisitsController.js';
 import { closeVisitController } from '../controllers/Modules/Visits/closeVisitController.js';
+import { feedbackVisitController } from '../controllers/Modules/Visits/feedbackVisitController.js';
 
 // Creamos un router
 export const moduleRouter = express.Router();
@@ -40,6 +41,9 @@ moduleRouter.delete('/user/module/delete/visit/:visitId', authenticateUser, admi
 
 // Completar una visita y enviar valoacion al cliente
 moduleRouter.put('/user/module/visit/complete/:visitId', authenticateUser, closeVisitController);
+
+// Recivir e insertar la valoracion del cliente
+moduleRouter.put('/user/module/visit/feedback/:visitId', feedbackVisitController);
 
 
 //TODO: MODULO DELIVERY NOTE

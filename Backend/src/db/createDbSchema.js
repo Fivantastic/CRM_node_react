@@ -7,10 +7,11 @@ import {
   ADMIN_LAST_NAME,
   ADMIN_EMAIL,
   ADMIN_PHONE,
+  ADMIN_PASSWORD,
   ADMIN_ROLE,
   ADMIN_ACTIVE,
 } from '../../env.js';
-import { generateRandomPassword } from '../utils/generateRandomPassword.js';
+// import { generateRandomPassword } from '../utils/generateRandomPassword.js';
 
 export async function createDBSchema(db) {
   console.log(chalk.bold.yellow('Borrando base de datos (si existe)... 💣'));
@@ -60,6 +61,8 @@ export async function createDBSchema(db) {
         email VARCHAR(255) NOT NULL,
         phone VARCHAR(20),
         address_id CHAR(36),
+        create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (address_id) REFERENCES Addresses(id_address)
     )`);
 
@@ -81,6 +84,8 @@ export async function createDBSchema(db) {
         product_id CHAR(36) NOT NULL,
         quantity INT NOT NULL,
         description TEXT,
+        create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (product_id) REFERENCES Products(id_product)
     )`);
 
@@ -91,7 +96,8 @@ export async function createDBSchema(db) {
         saleProdut_id CHAR(36),
         customer_id CHAR(36),
         operation_status ENUM('open', 'closed') DEFAULT 'open',
-        creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES Users(id_user),
         FOREIGN KEY (customer_id) REFERENCES Customers(id_customer),
         FOREIGN KEY (saleProdut_id) REFERENCES SalesProducts(id_saleProduct)
@@ -124,6 +130,8 @@ export async function createDBSchema(db) {
             address_id CHAR(36),
             saleProduct_id CHAR(36), 
             delivery_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+            create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
             FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
             FOREIGN KEY (deliverer_id) REFERENCES Users(id_user),
             FOREIGN KEY (address_id) REFERENCES Addresses(id_address),
@@ -139,7 +147,8 @@ export async function createDBSchema(db) {
         sale_id CHAR(36),
         visit_id CHAR(36),
         deliveryNote_id CHAR(36),
-        creation_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES Users(id_user),
         FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
         FOREIGN KEY (visit_id) REFERENCES Visits(id_visit),
@@ -153,7 +162,8 @@ export async function createDBSchema(db) {
   );
 
   const id_user = crypto.randomUUID();
-  const password = generateRandomPassword(10);
+  // const password = generateRandomPassword(10);
+  const password = ADMIN_PASSWORD;
   const hashed_password = await bcrypt.hash(password, 12);
   const registration_code = crypto.randomUUID();
 

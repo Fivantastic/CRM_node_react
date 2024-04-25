@@ -5,13 +5,12 @@ import cors from 'cors';
 import { PORT } from './env.js';
 import { customerRouter } from './src/routes/customerRoutes.js';
 import { userRouter } from './src/routes/userRoutes.js';
-import { deliveryNoteRoutes } from './src/routes/deliveryNoteRoutes.js'; 
+import { deliveryNoteRoutes } from './src/routes/deliveryNoteRoutes.js';
 import { moduleRouter } from './src/routes/moduleRoutes.js';
 import { productRouter } from './src/routes/productRoutes.js';
 import { salesRouter } from './src/routes/salesRutes.js';
 //import { cookie } from 'express-validator';
 //import cookieParser from 'cookie-parser';
-
 
 // Crear el servidor
 const app = express();
@@ -23,14 +22,13 @@ app.use(fileUpload());
 app.use(morgan('dev'));
 app.use(cors());
 
-
 // Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));
 
 // Rutas de  clientes
 app.use(customerRouter);
 
-// Ruta de servicios
+// Ruta de modulos
 app.use(moduleRouter);
 
 // Rutas de usuarios
@@ -43,7 +41,7 @@ app.use(productRouter);
 app.use(salesRouter);
 
 // Ruta de reparto
-app.use(deliveryNoteRoutes); 
+app.use(deliveryNoteRoutes);
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

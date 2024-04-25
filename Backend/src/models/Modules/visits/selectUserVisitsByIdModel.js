@@ -1,6 +1,6 @@
 import { getDBPool } from "../../../db/getPool.js";
 
-export const selectUserVisitsModel = async (userId) => {
+export const selectUserVisitsByIdModel = async (userId) => {
 
     const pool = getDBPool();
 

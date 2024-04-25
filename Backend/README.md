@@ -126,3 +126,17 @@ Para ejecutar el backend, sigue estos pasos:
 - **Middleware privilegios user admin**: Verifica si el usuario es administrador y tiene privilegios para esa peticion.
 
 --- 
+
+## Colección de Postman
+
+```Aqui ira la Url de la coleccion de postman```
+
+Puedes importarlo en tu Postman en import y copiando la Url facilitada.
+
+### Proyecto realizado por:
+    #### Iván Jiménez
+    #### Juan Carlos Varela
+    #### Juan Manuel Bs
+    #### Daniel Veiga
+    #### Daniel Montero
+    #### Alberto Góngora

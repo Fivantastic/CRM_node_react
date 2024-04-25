@@ -76,3 +76,24 @@ export async function sendConfirmationVisitEmail(name, email, visit_date) {
     throw error; 
   }
 }
+
+export const sendEmailForVisitFeedback = async (visitId, email) => {
+  try {
+    // Construir la URL de valoración con el ID de la visita
+    const feedbackUrl = `www.localhost:3000/NuestraURL/${visitId}`;
+
+    // Configurar el mensaje de correo electrónico
+    const mailOptions = {
+        from: MAIL_TRAP_AUTH_USER,
+        to: email,
+        subject: 'Solicitud de valoración de la visita',
+        html: `¡Hola! Nos encantaría saber tu opinión sobre tu reciente visita. Por favor, <a href="${feedbackUrl}">haz clic aquí</a> para dejar tus comentarios. ¡Gracias!`
+    };
+
+    // Enviar el correo electrónico
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+      console.error('Error al enviar el correo electrónico de solicitud de valoración:', error);
+      throw error;
+  }
+}

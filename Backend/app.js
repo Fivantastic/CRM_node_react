@@ -9,6 +9,7 @@ import { deliveryNoteRoutes } from './src/routes/deliveryNoteRoutes.js';
 import { moduleRouter } from './src/routes/moduleRoutes.js';
 import { productRouter } from './src/routes/productRoutes.js';
 import { salesRouter } from './src/routes/salesRutes.js';
+import { router } from './src/routes/closeDeliveryNoteRoutes.js';
 //import { cookie } from 'express-validator';
 //import cookieParser from 'cookie-parser';
 
@@ -42,6 +43,9 @@ app.use(salesRouter);
 
 // Ruta de reparto
 app.use(deliveryNoteRoutes);
+
+// Ruta de cerrado
+app.use(router);
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

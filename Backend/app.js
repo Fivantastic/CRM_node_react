@@ -23,7 +23,6 @@ app.use(fileUpload());
 app.use(morgan('dev'));
 app.use(cors());
 
-
 // Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));
 

@@ -17,7 +17,7 @@ export const newVisitController = async (req, res, next) => {
 
         const { customer, Address } = await insertNewVisitService(user_id, id_customer, visit_date, observations);
 
-        // //Extraer los datos del cliente
+        //Extraer los datos del cliente
         // const { name, email } = customer;
 
         // Enviar correo electrónico de bienvenida

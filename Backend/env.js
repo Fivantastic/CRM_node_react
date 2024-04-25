@@ -20,6 +20,7 @@ export const {
   ADMIN_LAST_NAME,
   ADMIN_EMAIL,
   ADMIN_PHONE,
+  ADMIN_PASSWORD,
   ADMIN_ROLE,
   ADMIN_ACTIVE
 } = process.env;

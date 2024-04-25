@@ -68,7 +68,7 @@ Para ejecutar el backend, sigue estos pasos:
 
 ## Endpoints
 
-### Users
+### -Users
 - **POST /user/register**: Crea un nuevo usuario (solo para administradores). 
 - **POST /user/toggleActivation**: Desactiva un usuario (solo para administradores). 
 - **PUT /user/validate/:registration_code**: Valida un usuario. 
@@ -78,37 +78,37 @@ Para ejecutar el backend, sigue estos pasos:
 - **PUT '/user/change-password**: Cambio de contraseña. 
 - **PUT /user/update**: Gestión del perfil de usuario (no administrador). 
 
-### Customers
+### -Customers
 - **POST /customer/register**: Crea un cliente. 
 - **PUT /customer/:customerId**: Actualiza un cliente. 
 - **GET /customer/list**: Listado de clientes. 
 
-### Modulos
+### -Modulos
 - **GET /module/:moduleId** Listado de un modulo. 
 - **GET /module/search** Buscar por modulo
 
-#### Modulo visitas a clientes
+#### --Modulo visitas a clientes
 - **POST /user/module/visit**: Crea una visita. 
 - **PUT /user/module/visit/update/:id_visit**: Modifica una visita.
 - **DELETE /user/module/visit/delete/:id_visit**: Borra una visita.
 - **PUT /user/module/visit/complete/:id_visit**: Completa una visita y envia email al cliente para validacion.
 - **PUT /user/module/visit/feedback/:visitId**: Inserta la valoracion del cliente.
 
-#### Modulo sales Orders
+#### --Modulo sales Orders
 - **POST /user/module/sales**: Crea una orden de venta
 - **PUT /user/module/sales/update/:id_saleOrder**: Modifica una orden de venta.
 - **DELETE /user/module/sales/delete/:id_saleOrder**: Borra una orden de venta.
 - **PUT /user/module/sales/complete/:id_visit**: Completa una orden de venta.
 - **PUT /user/module/sales/feedback/:visitId**: Inserta la valoracion de la orden de venta.
 
-#### Modulo de albaran
+#### --Modulo de albaran
 - **POST /user/module/delivery-notes**: Crea una albaran de la orden de venta. 
 - **PUT /user/module/delivery-notes/update/:id_visit**: Modifica una albaran.
 - **DELETE /user/module/delivery-notes/delete/:id_visit**: Borra una albaran.
 - **PUT /user/module/delivery-notes/complete/:id_visit**: Completa la entrega y envia email al cliente para validacion del envio y la orden de venta.
 - **PUT /user/module/delivery-notes/feedback/:visitId**: Inserta la valoracion del envio.
 
-### Productos
+### -Productos
 - **POST /product/register**: Crea un producto (solo para administradores). 
 - **PUT /products/update**: Actualiza un producto (solo para administradores).
 - **GET /product/list**: Listado de productos. 

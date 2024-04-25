@@ -1,4 +1,5 @@
-import { selectUserVisitsModel } from "../../../models/Modules/visits/selectUserVisitsModel.js";
+import { selectUserVisitsByIdModel } from "../../../models/Modules/visits/selectUserVisitsByIdModel.js";
+
 
 
 export const getUserVisitsController = async (req, res, next) => {
@@ -6,7 +7,7 @@ export const getUserVisitsController = async (req, res, next) => {
         //obtenemos el id_user del token
         const userId = req.user.id_user;
 
-        const userVisits = await selectUserVisitsModel(userId);
+        const userVisits = await selectUserVisitsByIdModel(userId);
 
         res.status(200).send({
             status: 'ok',

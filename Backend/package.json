@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "initDb": "node ./src/db/initDb.js",
+    "insertDb": "node ./src/db/insertDb.js",
     "dev": "node --watch app.js"
   },
   "keywords": [],
@@ -30,6 +31,7 @@
     "joi": "^17.12.3",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
     "mysql2": "^3.9.2",
     "nodemailer": "^6.9.13"
   }

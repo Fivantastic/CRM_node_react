@@ -1,11 +1,13 @@
 import express from 'express';
-import { authenticateUser } from '../middlewares/authenticateUser.js';
-import { adminAuthMiddleware } from '../middlewares/adminAuthMiddleware.js';
-import { productExist } from '../middlewares/productExist.js';
-import { newProductController } from '../controllers/product/newProductController.js';
-import { deleteProductController } from '../controllers/product/deleteProductController.js';
-import { productListController } from '../controllers/product/productListController.js';
-import { selectSaleProductController } from '../controllers/product/selectSaleProductController.js';
+import { authenticateUser } from '../../middlewares/authenticateUser.js';
+import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
+import { productExist } from '../../middlewares/productExist.js';
+import { 
+    newProductController, 
+    deleteProductController, 
+    productListController,
+    selectSaleProductController 
+} from '../../controllers/mainControllers.js';
 
 
 export const productRouter = express.Router();

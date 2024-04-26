@@ -1,18 +1,18 @@
-import { es, fakerES as faker } from "@faker-js/faker";
+import { fakerES as faker } from "@faker-js/faker";
 import bcrypt from 'bcrypt';
 import chalk from 'chalk';
-
-import { generateRandomPassword } from '../utils/generateRandomPassword.js';
+import { ADMIN_PASSWORD } from "../../env.js";
 
 export async function loadDemoData(db) {
   try {
     // Insertar datos en la tabla Addresses
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Addresses...`));
     const addressData = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 30; i++) {
+      const calle = faker.location.street();
       const address = {
         id_address: faker.string.uuid(),
-        address: faker.location.streetAddress(),
+        address: `Calle ${calle}`,	
         number: faker.number.int(300),
         floor: faker.number.int(10), 
         letter_number: faker.number.int(4),
@@ -32,20 +32,25 @@ export async function loadDemoData(db) {
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Users...`));
     const userData = [];
     for (let i = 0; i < 10; i++) {
-      const password = generateRandomPassword(10);
+      const password = ADMIN_PASSWORD;
       const hashedPassword = await bcrypt.hash(password, 12);
+      const firstName = faker.person.firstName();
+      const lastName = faker.person.lastName();
       const user = {
         id_user: faker.string.uuid(),
-        name: faker.person.firstName(),
-        last_name: faker.person.lastName(),
-        email: faker.internet.email(),
-        phone: faker.phone.imei(), 
+        name: firstName,
+        last_name: lastName,
+        email: faker.internet.email({ 
+          firstName: firstName,
+          lastName: lastName,
+          provider: 'cosmic.com' }),
+        phone: faker.phone.number(), 
         password: hashedPassword,
         address_id: addressData[i].id_address,
         role: faker.helpers.arrayElement(['salesAgent', 'deliverer']),
         active: faker.datatype.boolean(),
         registration_code: faker.string.uuid(),
-        avatar: faker.image.avatar(),
+        avatar: faker.image.avatarLegacy(),
         biography: faker.lorem.paragraph(),
       };
       userData.push(user);
@@ -60,11 +65,12 @@ export async function loadDemoData(db) {
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Customers...`));
     const customerData = [];
     for (let i = 0; i < 10; i++) {
+      const firstName = faker.person.firstName();
       const customer = {
         id_customer: faker.string.uuid(),
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
-        phone: faker.phone.imei(),
+        name: firstName,
+        email: faker.internet.email({firstName}),
+        phone: faker.phone.number(),
         address_id: addressData[i].id_address,
       };
       customerData.push(customer);
@@ -78,10 +84,10 @@ export async function loadDemoData(db) {
     // Insertar datos en la tabla Products
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Products...`));
     const productData = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 30; i++) {
       const product = {
         id_product: faker.string.uuid(),
-        name: faker.commerce.productName(),
+        name: faker.commerce.product(),
         description: faker.lorem.paragraph(),
         price: faker.commerce.price(),
         stock: faker.number.int(1000), 
@@ -102,7 +108,7 @@ export async function loadDemoData(db) {
       const saleProduct = {
         id_saleProduct: faker.string.uuid(),
         product_id: productData[i].id_product,
-        quantity: faker.number.int(10), // Cambiar aquí
+        quantity: faker.number.int(10), 
         description: faker.lorem.sentence(),
       };
       salesProductData.push(saleProduct);
@@ -165,7 +171,7 @@ export async function loadDemoData(db) {
         delivery_status: faker.helpers.arrayElement(['pending', 'delivering', 'delivered','pending','pending','pending','pending','pending',]),
         address_id: addressData[i].id_address,
         saleProduct_id: salesProductData[i].id_saleProduct,
-        delivery_date: faker.date.recent(),
+        delivery_date: faker.date.soon({ days: 3 }),
       };
       deliveryNoteData.push(deliveryNote);
     }

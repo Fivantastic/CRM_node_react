@@ -17,14 +17,13 @@ export function authenticateUser(req, res, next) {
         return res.status(401).json({msg: 'No se proporcionó token de autenticación'});
     }
 
-    
-        //Verifica el token
-        const decodedToken = jwt.verify(authorization, JWT_SECRET);
+    //Verifica el token
+    const decodedToken = jwt.verify(authorization, JWT_SECRET);
 
-        //Si el token es valido, añadir el id de usuario decodificado a la solicitud
-        req.userId = decodedToken.userId
-        req.user = decodedToken;
-        next();
+    //Si el token es valido, añadir el id de usuario decodificado a la solicitud
+    req.userId = decodedToken.userId
+    req.user = decodedToken;
+    next();
     } catch (error) {
         return res.status(401).json({error: 'Token de autentificación inválido'});
     }

@@ -7,7 +7,7 @@ import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { loginUserSchema } from '../../schemas/user/loginUserSchema.js';
 
-export const loginUserControllers = async (req, res, next) => {
+export const loginUserController = async (req, res, next) => {
     try {
         //Validar los datos de entrada
         const { email, password } = validateSignInRequest(req.body);

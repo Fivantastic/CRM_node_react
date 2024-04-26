@@ -1,3 +1,4 @@
+import { fakerES as faker } from "@faker-js/faker";
 import bcrypt from 'bcrypt';
 import chalk from 'chalk';
 import crypto from 'crypto';
@@ -161,6 +162,18 @@ export async function createDBSchema(db) {
     )
   );
 
+  // Datos direccion ADMINISTRADOR
+  const calle = faker.location.street();
+  const address = {
+    id_address: faker.string.uuid(),
+    address: `Calle ${calle}`,	
+    number: faker.number.int(300),
+    floor: faker.number.int(10), 
+    letter_number: faker.number.int(4),
+    city: faker.location.city(),
+    zip_code: faker.location.zipCode(),
+    country: 'España'
+  };
   const id_user = crypto.randomUUID();
   // const password = generateRandomPassword(10);
   const password = ADMIN_PASSWORD;
@@ -185,8 +198,25 @@ export async function createDBSchema(db) {
 
   await db.query(
     `
-    INSERT INTO Users (id_user, name, last_name, email, phone, password, role, active, registration_code)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO Addresses (id_address, address, number, floor, letter_number, city, zip_code, country)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `,
+    [
+      address.id_address,
+      address.address,
+      address.number,
+      address.floor,
+      address.letter_number,
+      address.city,
+      address.zip_code,
+      address.country
+    ]
+  );
+
+  await db.query(
+    `
+    INSERT INTO Users (id_user, name, last_name, email, phone, password, address_id, role, active, registration_code)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `,
     [
       id_user,
@@ -195,6 +225,7 @@ export async function createDBSchema(db) {
       ADMIN_EMAIL,
       ADMIN_PHONE,
       hashed_password,
+      address.id_address,
       ADMIN_ROLE,
       ADMIN_ACTIVE,
       registration_code,

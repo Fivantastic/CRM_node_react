@@ -15,7 +15,7 @@ export const moduleExist = async (req, res, next) => {
     }
 
     // Pasar el control al siguiente middleware.
-    res.send({ status: 'ok', data: { module } });
+    next();
   } catch (error) {
     next(error);
   }

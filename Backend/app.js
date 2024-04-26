@@ -3,13 +3,8 @@ import fileUpload from 'express-fileupload';
 import morgan from 'morgan';
 import cors from 'cors';
 import { PORT } from './env.js';
-import { customerRouter } from './src/routes/customerRoutes.js';
-import { userRouter } from './src/routes/userRoutes.js';
-import { deliveryNoteRoutes } from './src/routes/deliveryNoteRoutes.js';
-import { moduleRouter } from './src/routes/moduleRoutes.js';
-import { productRouter } from './src/routes/productRoutes.js';
-import { salesRouter } from './src/routes/salesRutes.js';
-import { router } from './src/routes/closeDeliveryNoteRoutes.js';
+import { mainRouter } from './src/routes/mainRouter.js';
+import { modulesRoutes } from './src/routes/modulesRoutes.js';
 //import { cookie } from 'express-validator';
 //import cookieParser from 'cookie-parser';
 
@@ -26,26 +21,11 @@ app.use(cors());
 // Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));
 
-// Rutas de  clientes
-app.use(customerRouter);
+// Ruta a gestion de personal/clientes/stock
+app.use(mainRouter);
 
-// Ruta de modulos
-app.use(moduleRouter);
-
-// Rutas de usuarios
-app.use(userRouter);
-
-// Rutas de productos
-app.use(productRouter);
-
-// Rutas de ventas
-app.use(salesRouter);
-
-// Ruta de reparto
-app.use(deliveryNoteRoutes);
-
-// Ruta de cerrado
-app.use(router);
+// Ruta gestion de Modulos
+app.use(modulesRoutes);
 
 // Middleware 404 Not Found
 app.use((req, res, next) => {

@@ -1,9 +1,11 @@
 import express from 'express';
-import { newCustomerControllers } from '../controllers/customer/newCustomerController.js';
-import { customerExists } from '../middlewares/customerExists.js';
-import { updateCustomerController } from '../controllers/customer/updateCustomerController.js';
-import { getCustomerListController } from '../controllers/customer/getCustomerController.js';
-import { authenticateUser } from '../middlewares/authenticateUser.js';
+import { customerExists } from '../../middlewares/customerExists.js';
+import { authenticateUser } from '../../middlewares/authenticateUser.js';
+import { 
+    getCustomerListController, 
+    newCustomerControllers, 
+    updateCustomerController 
+} from '../../controllers/mainControllers.js';
 
 // Creamos un router
 export const customerRouter = express.Router();

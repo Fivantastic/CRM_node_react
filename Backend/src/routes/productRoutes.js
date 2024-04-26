@@ -1,19 +1,17 @@
 import express from 'express';
-import { authenticateUser } from '../../middlewares/authenticateUser.js';
-import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
-import { productExist } from '../../middlewares/productExist.js';
-import { 
-    newProductControllers, 
-    deleteProductController, 
-    productListController,
-    selectSaleProductController 
-} from '../../controllers/mainControllers.js';
+import { authenticateUser } from '../middlewares/authenticateUser.js';
+import { adminAuthMiddleware } from '../middlewares/adminAuthMiddleware.js';
+import { productExist } from '../middlewares/productExist.js';
+import { newProductController } from '../controllers/product/newProductController.js';
+import { deleteProductController } from '../controllers/product/deleteProductController.js';
+import { productListController } from '../controllers/product/productListController.js';
+import { selectSaleProductController } from '../controllers/product/selectSaleProductController.js';
 
 
 export const productRouter = express.Router();
 
 // Crear un nuevo producto (solo Admin)
-productRouter.post('/product/register', authenticateUser, adminAuthMiddleware, newProductControllers);
+productRouter.post('/product/register', authenticateUser, adminAuthMiddleware, newProductController);
 
 // Eliminar un producto (solo Admin)
 productRouter.delete('/product/delete/:product_id', authenticateUser, adminAuthMiddleware, deleteProductController)

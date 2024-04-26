@@ -4,7 +4,7 @@ import { authenticateUser } from '../middlewares/authenticateUser.js';
 import { updateUserController } from '../controllers/users/updateUserController.js';
 import { changePasswordController } from '../controllers/users/changePasswordController.js';
 import { forgotPasswordController } from '../controllers/users/forgotPasswordController.js';
-import { loginUserControllers } from '../controllers/users/loginUserControllers.js';
+import { loginUserController } from '../controllers/users/loginUserControllers.js';
 import { validateUserController } from '../controllers/users/validateUserControllers.js';
 import { toggleActiveStatusController } from '../controllers/users/toggleActiveStatusController.js';
 import { resetPasswordController } from '../controllers/users/resetPasswordController.js';
@@ -23,7 +23,7 @@ userRouter.put('/user/toggleActivation',authenticateUser, adminAuthMiddleware, t
 userRouter.put('/user/validate/:registration_code', validateUserController);
 
 // Ruta de inicio de sesión
-userRouter.post('/user/login', loginUserControllers);
+userRouter.post('/user/login', loginUserController);
 
 // Ruta para actualización
 userRouter.put('/user/update/', authenticateUser, updateUserController);

@@ -1,12 +1,14 @@
 import express from 'express';
-import { authenticateUser } from '../middlewares/authenticateUser.js';
-import { adminAuthMiddleware } from '../middlewares/adminAuthMiddleware.js';
-import { updateVisitController } from '../controllers/Modules/Visits/updateVisitController.js';
-import { deleteVisitController } from '../controllers/Modules/Visits/deleteVisitController.js';
-import { getUserVisitsController } from '../controllers/Modules/Visits/getUserVisitsController.js';
-import { closeVisitController } from '../controllers/Modules/Visits/closeVisitController.js';
-import { feedbackVisitController } from '../controllers/Modules/Visits/feedbackVisitController.js';
-import { newVisitController } from '../controllers/Modules/Visits/newVisitController.js';
+import { authenticateUser } from '../../middlewares/authenticateUser.js';
+import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
+import {
+    newVisitController,
+    getUserVisitsController,
+    updateVisitController,
+    deleteVisitController,
+    closeVisitController,
+    feedbackVisitController
+} from '../../controllers/modulesControllers.js';
 
 export const visitsRouter = express.Router()
 

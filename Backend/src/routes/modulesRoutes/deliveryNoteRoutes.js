@@ -1,8 +1,10 @@
 import express from 'express';
-import { authenticateUser } from '../middlewares/authenticateUser.js';
-import { checkRole } from '../middlewares/checkRole.js';
-import { createDeliveryNoteController } from '../controllers/Modules/deliveryNote/createDeliveryNoteController.js';
-import { closeDeliveryNoteController } from '../controllers/Modules/deliveryNote/closeDeliveryNoteController.js';
+import { authenticateUser } from '../../middlewares/authenticateUser.js';
+import { checkRole } from '../../middlewares/checkRole.js';
+import { 
+    createDeliveryNoteController, 
+    closeDeliveryNoteController 
+} from '../../controllers/modulesControllers.js';
 
 export const deliveryNoteRoutes = express.Router();
 

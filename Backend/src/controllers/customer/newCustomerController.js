@@ -2,7 +2,7 @@ import { newCustomerSchema } from '../../schemas/customer/newCustomerSchema.js';
 import { insertCustomerService } from '../../services/customer/insertCustomerService.js';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 
-export const newCustomerControllers = async (req, res, next) => {
+export const newCustomerController = async (req, res, next) => {
   try {
     // Obtenemos el cuerpo de la petición
     const { name, email, phone } = req.body;

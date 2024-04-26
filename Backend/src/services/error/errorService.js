@@ -25,7 +25,7 @@ export const passwordAlreadyRegisteredError = () => {
     statusCode: 409, // Conflict
     code: 'PASSWORD_ALREADY_REGISTERED',
     message: 'La contraseña ya está registrado',
-};
+  };
 };
 
 export const invalidCredentials = (message) => {
@@ -48,7 +48,13 @@ export const serverError = (message = 'Error del servidor') => {
   return {
     statusCode: 500, // Internal Server Error
     code: 'SERVER_ERROR',
-    message: 'Error en el servidor'
+    message: 'Error en el servidor',
   };
 };
-
+export const limitedStock = (resource) => {
+  throw {
+    statusCode: 409,
+    code: 'LIMITED_STOCK',
+    message: `La cantidad '${resource}' se exede del stock`,
+  };
+};

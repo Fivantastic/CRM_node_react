@@ -7,9 +7,9 @@ import { deleteUserSchema } from "../../schemas/user/updateUserSchema.js";
 export const deleteUserController = async (req, res, next) => {
     try {
         // Validar el body con Joi.
-        await validateSchemaUtil(deleteUserSchema, req.body);
+        await validateSchemaUtil(deleteUserSchema, req.params);
 
-        const user_id = req.body.id_user;
+        const user_id = req.params.id_user;
 
         // Verificación de la existencia del usuario
         const existingUser = await selectUserByIdModel(user_id);

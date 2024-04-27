@@ -7,3 +7,7 @@ export const newCustomerSchema = joi.object({
   email: joi.string().email().optional().messages(joiErrorMessages),
   phone: joi.string().min(9).max(30).optional().messages(joiErrorMessages),
 });
+
+export const deleteCustomerSchema = joi.object({
+  customerId: joi.string().guid().required().messages(joiErrorMessages),
+});

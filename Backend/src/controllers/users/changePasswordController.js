@@ -35,7 +35,7 @@ export const changePasswordController = async (req, res, next) => {
     await updatePasswordModel(userId, hashedPassword);
 
     // Responder con éxito
-    res.json(success({ message: 'Contraseña cambiada con éxito' }));
+    res.send(success({ message: 'Contraseña cambiada con éxito' }));
   } catch (error) {
     next(error); // Manejo de errores
   }

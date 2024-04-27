@@ -11,7 +11,7 @@ export const salesRouter = express.Router();
 salesRouter.post('/sales/create', authenticateUser, insertSalesController);
 
 // Modificar venta
-salesRouter.put('/sales/update/:id_salesOrder', authenticateUser, updateSalesController)
+salesRouter.put('/sales/update/:id_sale', authenticateUser, updateSalesController)
 
 // Eliminar venta
-salesRouter.delete('sales/delete/:id_salesOrder', authenticateUser, deleteSalesController)
+salesRouter.delete('sales/delete/:id_sale', authenticateUser, deleteSalesController)

@@ -12,7 +12,7 @@ export const insertSalesService = async (
 ) => {
   try {
     // Obtengo el id de la producto
-    const saleProdut = await selectProductByIdModel(saleProdut_id);
+    const [saleProdut] = await selectProductByIdModel(saleProdut_id);
 
     if (!saleProdut) {
       notFoundError('Product');
@@ -22,7 +22,7 @@ export const insertSalesService = async (
     if (!user) {
       notFoundError('user');
     }
-    const customer = await selectCustomerByIdModel(customer_id);
+    const [customer] = await selectCustomerByIdModel(customer_id);
 
     if (!customer) {
       notFoundError('customer');

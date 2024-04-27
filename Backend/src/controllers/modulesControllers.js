@@ -12,6 +12,8 @@ import { updateVisitController } from "./Modules/Visits/updateVisitController.js
 
 // Imports ventas
 import { insertSalesController } from "./Modules/sales/insertSalesController.js";
+import { updateSalesController } from "./Modules/sales/updateSalesController.js";
+import { deleteSalesController } from "./Modules/sales/deleteSalesController.js";
 
 // Imports Albarán
 import { createDeliveryNoteController } from "./Modules/deliveryNote/createDeliveryNoteController.js";
@@ -31,6 +33,8 @@ export{
     updateVisitController,
 
     insertSalesController,
+    updateSalesController,
+    deleteSalesController,
     
     createDeliveryNoteController,
     closeDeliveryNoteController

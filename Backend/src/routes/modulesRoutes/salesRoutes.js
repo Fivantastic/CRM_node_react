@@ -1,9 +1,17 @@
 import express from 'express';
 import { 
-    insertSalesController 
+    deleteSalesController,
+    insertSalesController, updateSalesController 
 } from '../../controllers/modulesControllers.js';
+import { authenticateUser } from '../../middlewares/authenticateUser.js';
 
 export const salesRouter = express.Router();
 
-// Ruta de venta
-salesRouter.post('/sales', insertSalesController);
+// Crear venta
+salesRouter.post('/sales/create', authenticateUser, insertSalesController);
+
+// Modificar venta
+salesRouter.put('/sales/update/:id_sale', authenticateUser, updateSalesController)
+
+// Eliminar venta
+salesRouter.delete('sales/delete/:id_sale', authenticateUser, deleteSalesController)

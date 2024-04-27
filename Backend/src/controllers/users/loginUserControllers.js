@@ -13,6 +13,7 @@ export const loginUserController = async (req, res, next) => {
         const { email, password } = validateSignInRequest(req.body);
 
         // Validamos el body
+        console.log('Debug log in controller:', password);
         await validateSchemaUtil(loginUserSchema, req.body);
 
         //obtener el usuario

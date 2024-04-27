@@ -6,12 +6,12 @@ import {
     closeDeliveryNoteController 
 } from '../../controllers/modulesControllers.js';
 
-export const deliveryNoteRoutes = express.Router();
+export const deliveryNoteRouter = express.Router();
 
 // Ruta para crear albarán de reparto
-deliveryNoteRoutes.post( '/delivery-notes', authenticateUser, checkRole(['deliverer', 'admin']), createDeliveryNoteController);
+deliveryNoteRouter.post( '/delivery-notes', authenticateUser, checkRole(['deliverer', 'admin']), createDeliveryNoteController);
 
 // Ruta para cerrar el reparto y autenticar los roles
-deliveryNoteRoutes.put('/delivery-notes/close/:id', authenticateUser, checkRole(['deliverer', 'admin']),  closeDeliveryNoteController);
+deliveryNoteRouter.put('/delivery-notes/close/:id', authenticateUser, checkRole(['deliverer', 'admin']),  closeDeliveryNoteController);
 
 

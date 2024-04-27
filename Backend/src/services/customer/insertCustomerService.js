@@ -23,8 +23,9 @@ export const insertCustomerService = async (name, email, phone) => {
     await insertAddressCustomerModel(id_address);
 
     // Insertamos el usuario en la base de datos.
-    await insertCustomerModel(id_customer, name, email, phone, id_address);
-    
+    const response = await insertCustomerModel(id_customer, name, email, phone, id_address);
+
+    return response;
   } catch (error) {
     // Manejar el error aquí.
     console.error('Error al insertar cliente:', error);

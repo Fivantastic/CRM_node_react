@@ -17,4 +17,6 @@ export const insertCustomerModel = async (id_customer, name, email, phone, id_ad
     error.code = 'INSERT_CUSTOMER_ERROR';
     throw error;
   }
+
+  return { message: 'Cliente insertado correctamente' };
 };

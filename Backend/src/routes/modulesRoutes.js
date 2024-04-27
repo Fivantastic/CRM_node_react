@@ -1,8 +1,8 @@
 import express from 'express';
 import { moduleRouter } from './modulesRoutes/moduleRoutes.js';
-import { visitsRouter } from './modulesRoutes/visitsRouter.js';
-import { salesRouter } from './modulesRoutes/salesRutes.js';
-import { deliveryNoteRoutes } from './modulesRoutes/deliveryNoteRoutes.js';
+import { visitsRouter } from './modulesRoutes/visitsRoutes.js';
+import { salesRouter } from './modulesRoutes/salesRoutes.js';
+import { deliveryNoteRouter } from './modulesRoutes/deliveryNoteRoutes.js';
 
 // Creamos el router
 export const modulesRoutes = express.Router();
@@ -17,4 +17,4 @@ modulesRoutes.use(visitsRouter);
 modulesRoutes.use(salesRouter);
 
 // Ruta de Albaran
-modulesRoutes.use(deliveryNoteRoutes);
+modulesRoutes.use(deliveryNoteRouter);

@@ -1,6 +1,6 @@
 export function success(result) {
     return {
-        success: true,
+        success: ok,
         ...result,
     };
 }

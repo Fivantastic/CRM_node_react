@@ -12,10 +12,10 @@ export const insertCustomerService = async (name, email, phone) => {
     if (existCustomer) {
       emailAlreadyRegisteredError();
     }
-    console.log('No hay cliente con ese email');
 
     // Creamos una id para el usuario.
     const id_customer = crypto.randomUUID();
+    
     // Creamos una id para la direccion
     const id_address = crypto.randomUUID();
 

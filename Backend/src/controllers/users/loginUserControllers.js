@@ -19,8 +19,10 @@ export const loginUserController = async (req, res, next) => {
         //obtener el usuario
         const user = await selectUserByEmailModel(email);
 
+        //validar el usuario
         if (!user) throw invalidCredentials('El usuario/email no existe');
   
+        //validar el estado
         if (user.active != 1) {
             throw invalidCredentials('El usuario no ha sido verificado'); 
         }
@@ -28,6 +30,7 @@ export const loginUserController = async (req, res, next) => {
         //comparar la contraseña
         const isValidPassword = await bcrypt.compare(password, user.password);
 
+        //validar la contraseña
         if (!isValidPassword) throw invalidCredentials();
 
         // El usuario existe y la contraseña es correcta
@@ -37,7 +40,7 @@ export const loginUserController = async (req, res, next) => {
         // insertar el token en la base de datos
         insertTokenCookie(res, token);
 
-        res.send({
+        res.status(201).send({
             // token: token,
             status: 'ok',
             message: 'Sesión iniciada correctamente',

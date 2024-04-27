@@ -13,7 +13,6 @@ export const newUserController = async (req, res, next) => {
 
     // Validamos el body
     await validateSchemaUtil(newUserSchema, req.body);
-    console.log('Ha pasado el esquema');
 
     // Creamos una id y un código de activación para el usuario.
     //! MAS ADELANTE ESTA PARTE EStara dentro de insertUserService, de momento estara fuera para que tengamos como respuesta la DATA de password y registration_code
@@ -25,13 +24,10 @@ export const newUserController = async (req, res, next) => {
 
     // Insertamos el usuario en la base de datos
     await insertUserService(id_user, name, last_name, email, hashed_password, role, registration_code);
-    console.log('Usuario insertado');
 
     // ! Desactivado por motivos de prueba la funcion de enviar correo de bienvenida
     // Enviar correo electrónico de bienvenida
     // await sendWelcomeEmail(name, last_name, password, email, registration_code);
-
-    // console.log('Correo enviado');
 
     // Respondemos al usuario
     res.status(201).send({

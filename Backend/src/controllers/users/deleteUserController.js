@@ -2,6 +2,7 @@ import { validateSchemaUtil } from "../../utils/validateSchemaUtil.js";
 import { deleteUserModel } from "../../models/user/deleteUserModel.js";
 import { selectUserByIdModel } from "../../models/user/selectUserByIdModel.js";
 import { deleteUserSchema } from "../../schemas/user/updateUserSchema.js";
+import { success } from "../../utils/success.js";
 
 
 export const deleteUserController = async (req, res, next) => {
@@ -21,7 +22,7 @@ export const deleteUserController = async (req, res, next) => {
         await deleteUserModel(user_id);
 
         // Envía una respuesta de éxito
-        res.status(200).json({ message: 'El usuario ha sido eliminado correctamente' });
+        res.send(success({ message: 'Usuario eliminado correctamente' }));
     } catch (error) {
         // Manejo de errores
         next(error);

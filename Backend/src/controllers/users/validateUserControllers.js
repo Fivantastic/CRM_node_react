@@ -1,5 +1,6 @@
 import { findByRegistrationCodeModel } from "../../models/user/findByRegistrationCodeModel.js";
 import { updateUserActiveModel } from "../../models/user/updateUserActiveModel.js";
+import { success } from "../../utils/success.js";
 
 export const validateUserController = async (req, res, next) => {
     try {
@@ -13,9 +14,7 @@ export const validateUserController = async (req, res, next) => {
         // Actualizar el estado de activación del usuario
         await updateUserActiveModel(id_user);
 
-        res.status(201).send({
-            message: 'El usuario ha sido validado exitosamente',
-          });
+        res.status(201).send(success({message: 'El usuario ha sido validado exitosamente'}));
     } catch (error) {
         next(error);
 

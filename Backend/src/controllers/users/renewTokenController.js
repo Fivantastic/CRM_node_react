@@ -11,7 +11,7 @@ export const renewTokenController = async (req, res, next) => {
         insertTokenCookie(res, accessToken);
         
         // Enviar una respuesta al cliente
-        res.json({ status: 'success', message: 'Token renovado correctamente' });
+        res.status(200).send(success({ message: 'Token renovado correctamente' }));
       } catch (error) {
         // Manejar cualquier error que ocurra
         res.status(500).json({ error: 'Ha ocurrido un error al renovar el token' });

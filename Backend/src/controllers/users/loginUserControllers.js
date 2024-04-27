@@ -14,7 +14,6 @@ export const loginUserController = async (req, res, next) => {
 
         // Validamos el body
         await validateSchemaUtil(loginUserSchema, req.body);
-        console.log('Ha pasado el esquema');
 
         //obtener el usuario
         const user = await selectUserByEmailModel(email);
@@ -38,7 +37,7 @@ export const loginUserController = async (req, res, next) => {
         const token = generateAccessToken(user);
         
         // insertar el token en la base de datos
-        insertTokenCookie(res, token);
+        // insertTokenCookie(res, token);
 
         res.status(201).send({
             // token: token,

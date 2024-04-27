@@ -7,6 +7,8 @@ import { mainRouter } from './src/routes/mainRouter.js';
 import { modulesRoutes } from './src/routes/modulesRoutes.js';
 import { cookie } from 'express-validator';
 import cookieParser from 'cookie-parser';
+import { notFoundErrorMiddleware } from './src/middlewares/errors/notFoundErrorMiddleware.js';
+import { errorHandlerMiddleware } from './src/middlewares/errors/errorHandlerMiddleware.js';
 
 // Crear el servidor
 const app = express();
@@ -28,26 +30,10 @@ app.use(mainRouter);
 app.use(modulesRoutes);
 
 // Middleware 404 Not Found
-app.use((req, res, next) => {
-  res.status(404).json({ error: 'Not Found' });
-});
+app.use(notFoundErrorMiddleware);
 
 // Middleware de Gestión de Errores
-app.use((err, req, res, next) => {
-  if (err.statusCode) {
-    // Si el error tiene una propiedad statusCode, se trata de un error específico
-    const errorResponse = {
-      statusCode: err.statusCode,
-      code: err.code || 'UNKNOWN_ERROR',
-      message: err.message || 'Unknown error occurred',
-    };
-    res.status(err.statusCode).json(errorResponse);
-  } else {
-    // Si no, se trata de un error general del servidor
-    console.error(err.stack || 'Error desconocido');
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+app.use(errorHandlerMiddleware);
 
 //Ponemos el servidor a escuchar
 app.listen(PORT, () => {

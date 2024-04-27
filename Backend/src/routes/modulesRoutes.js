@@ -1,8 +1,8 @@
 import express from 'express';
-import { moduleRouter } from './moduleRoutes.js';
-import { visitsRouter } from './visitsRouter.js';
-import { salesRouter } from './salesRutes.js';
-import { deliveryNoteRoutes } from './deliveryNoteRoutes.js';
+import { moduleRouter } from './modulesRoutes/moduleRoutes.js';
+import { visitsRouter } from './modulesRoutes/visitsRouter.js';
+import { salesRouter } from './modulesRoutes/salesRutes.js';
+import { deliveryNoteRoutes } from './modulesRoutes/deliveryNoteRoutes.js';
 
 // Creamos el router
 export const modulesRoutes = express.Router();

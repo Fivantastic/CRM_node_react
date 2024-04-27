@@ -6,11 +6,10 @@ import { JWT_SECRET } from '../../env.js';
 export function authenticateUser(req, res, next) {
     try {
     //Extraer el token de la solicitud
-    const {authorization} = req.headers;
+    // const {authorization} = req.headers;
 
     // Nueva validación con cookies
-    // const authorization = req.cookies.token
-    // console.log(authorization);
+    const authorization = req.cookies.token
 
     // Verifica si se proporciono un token
     if (!authorization) {

@@ -5,11 +5,14 @@ import {
     changePasswordController, 
     forgotPasswordController, 
     loginUserController, 
+    logoutUserController,
     newUserController, 
     resetPasswordController, 
     toggleActiveStatusController, 
     updateUserController, 
-    validateUserController 
+    validateUserController, 
+    renewTokenController,
+    deleteUserController 
 } from '../../controllers/mainControllers.js';
 
 // Creamos el router
@@ -21,11 +24,17 @@ userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUser
 // Ruta de activación/desactivación solo para administradores
 userRouter.put('/user/toggleActivation',authenticateUser, adminAuthMiddleware, toggleActiveStatusController); 
 
+// Ruta de eliminación de un usuario solo para administradores
+userRouter.delete('/user/delete', authenticateUser, adminAuthMiddleware, deleteUserController);
+
 // Ruta de validación 
 userRouter.put('/user/validate/:registration_code', validateUserController);
 
 // Ruta de inicio de sesión
 userRouter.post('/user/login', loginUserController);
+
+// Ruta de cierre de sesión
+userRouter.post('/user/logout', authenticateUser, logoutUserController);
 
 // Ruta para actualización
 userRouter.put('/user/update/', authenticateUser, updateUserController);
@@ -38,3 +47,6 @@ userRouter.put('/user/forgot-password-request', forgotPasswordController);
 
 // Ruta para recuperación de contraseña
 userRouter.put('/user/reset-password/:registration_code', resetPasswordController);
+
+// Ruta para renovación de token
+userRouter.get('/user/renew-token', authenticateUser, renewTokenController);

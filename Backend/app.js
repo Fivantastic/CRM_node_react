@@ -5,14 +5,14 @@ import cors from 'cors';
 import { PORT } from './env.js';
 import { mainRouter } from './src/routes/mainRouter.js';
 import { modulesRoutes } from './src/routes/modulesRoutes.js';
-//import { cookie } from 'express-validator';
-//import cookieParser from 'cookie-parser';
+import { cookie } from 'express-validator';
+import cookieParser from 'cookie-parser';
 
 // Crear el servidor
 const app = express();
 
 // Middlewares Globales
-// app.use(cookieParser())
+app.use(cookieParser())
 app.use(express.json());
 app.use(fileUpload());
 app.use(morgan('dev'));

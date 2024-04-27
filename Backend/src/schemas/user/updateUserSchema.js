@@ -10,3 +10,7 @@ export const updateUserSchema = joi.object({
   bio: joi.string().optional().messages(joiErrorMessages),
   avatar: joi.string().optional().messages(joiErrorMessages),
 });
+
+export const deleteUserSchema = joi.object({
+  id_user: joi.string().guid().required().messages(joiErrorMessages),
+});

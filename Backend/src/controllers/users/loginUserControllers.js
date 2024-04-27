@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../../../env.js';
 import { invalidCredentials } from "../../services/error/errorService.js";
 import { validateSignInRequest } from "../../services/user/validateSignInRequest.js";
 import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel.js";
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { loginUserSchema } from '../../schemas/user/loginUserSchema.js';
+import { generateAccessToken } from '../../utils/generateAccessToken.js';
+import { insertTokenCookie } from '../../utils/insertTokenCookie.js';
 
 export const loginUserController = async (req, res, next) => {
     try {
@@ -32,31 +32,16 @@ export const loginUserController = async (req, res, next) => {
 
         // El usuario existe y la contraseña es correcta
         //Login exitoso
-        const token = jwt.sign(
-            {
-                id_user: user.id_user,
-                name: user.name,
-                role: user.role,
-                email: user.email,
-            },
-            JWT_SECRET,
-            {
-                expiresIn: "7d",
-            }
-        );
+        const token = generateAccessToken(user);
         
-        // const oneDay = 1000 * 60 * 60 * 24
-
-        // // Nueva validación por cookies
-        // res.cookie('token', token, { maxAge: oneDay, httpOnly: true })
+        // insertar el token en la base de datos
+        insertTokenCookie(res, token);
 
         res.send({
             // token: token,
             status: 'ok',
             message: 'Sesión iniciada correctamente',
             token: token
-
-        
         });
 
     } catch (error) {

@@ -33,5 +33,5 @@ export const updateCustomerModel = async (customerId, name, email, phone) => {
   }
 
   // Devolver el resultado.
-  return result;
+  return { message: 'Cliente actualizado correctamente' };
 };

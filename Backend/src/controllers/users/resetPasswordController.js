@@ -12,10 +12,13 @@ export const resetPasswordController = async (req, res, next) => {
         // Validar el esquema del cuerpo de la solicitud
         await validateSchemaUtil(changeResetPasswordSchema, req.body);   
         
+        // Obtenemos el nuevo password
         const { newPassword } = req.body;
 
+        // Obtenemos el id del usuario
         const id_user  = await selectIdByRegistrationCode(new_registration_code);
     
+        // Actualizar la contraseña en la base de datos
         await updatePasswordService(id_user , newPassword);
 
         // Responder con éxito

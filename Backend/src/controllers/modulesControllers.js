@@ -11,7 +11,7 @@ import { newVisitController } from "./Modules/Visits/newVisitController.js";
 import { updateVisitController } from "./Modules/Visits/updateVisitController.js";
 
 // Imports ventas
-import { insertSalesController } from "./Modules/Sales/insertSalesController.js";
+import { insertSalesController } from "./Modules/sales/insertSalesController.js";
 
 // Imports Albarán
 import { createDeliveryNoteController } from "./Modules/deliveryNote/createDeliveryNoteController.js";

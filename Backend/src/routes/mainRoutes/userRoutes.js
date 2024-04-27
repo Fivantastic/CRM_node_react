@@ -25,7 +25,7 @@ userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUser
 userRouter.put('/user/toggleActivation',authenticateUser, adminAuthMiddleware, toggleActiveStatusController); 
 
 // Ruta de eliminación de un usuario solo para administradores
-userRouter.delete('/user/delete', authenticateUser, adminAuthMiddleware, deleteUserController);
+userRouter.delete('/user/delete/:id_user', authenticateUser, adminAuthMiddleware, deleteUserController);
 
 // Ruta de validación 
 userRouter.put('/user/validate/:registration_code', validateUserController);

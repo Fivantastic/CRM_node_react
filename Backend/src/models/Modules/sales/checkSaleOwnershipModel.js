@@ -1,13 +1,13 @@
 import { getDBPool } from "../../../db/getPool.js";
 
-export const selectSaleByIdModel = async (id_sale) => {
+export const checkSaleOwnershipModel = async (user_id, id_sale) => {
   const pool = await getDBPool();
 
   const [result] = await pool.query(
     `SELECT * FROM Sales
-        WHERE id_sale = ?;
+        WHERE id_sale = ? AND user_id = ?;
         `,
-    [id_sale]
+    [id_sale, user_id]
   );
 
   if (result.length === 0){
@@ -20,5 +20,10 @@ export const selectSaleByIdModel = async (id_sale) => {
     throw error;
   }
   
+  console.log({
+    user_id,
+    id_sale,
+    message: 'The user is owner of the sale'
+  });
   return result;
 };

@@ -2,7 +2,6 @@ import { updateSaleModel } from '../../../models/Modules/sales/updateSaleModel.j
 import { selectCustomerByIdModel } from '../../../models/Modules/sales/selectCustomerByIdModel.js';
 import { selectProductByIdModel } from '../../../models/Modules/sales/selectProductByIdModel.js';
 import { selectSaleByIdModel } from '../../../models/Modules/sales/selectSaleByIdModel.js';
-import { selectUserByIdModel } from '../../../models/Modules/sales/selectUserByIdModel.js';
 import { notFoundError } from '../../error/errorService.js';
 
 export const updateSalesService = async (

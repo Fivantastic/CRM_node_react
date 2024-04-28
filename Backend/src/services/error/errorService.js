@@ -58,3 +58,11 @@ export const limitedStock = (resource) => {
     message: `La cantidad '${resource}' se exede del stock`,
   };
 };
+
+export const unauthorizedError = (resource) => {
+  throw {
+    statusCode: 401,
+    code: 'UNAUTHORIZED_ACTION',
+    message: `La acción '${resource}' debe ser realizada por su propietario`
+  }
+}

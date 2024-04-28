@@ -14,4 +14,4 @@ salesRouter.post('/sales/create', authenticateUser, insertSalesController);
 salesRouter.put('/sales/update/:id_sale', authenticateUser, updateSalesController)
 
 // Eliminar venta
-salesRouter.delete('sales/delete/:id_sale', authenticateUser, deleteSalesController)
+salesRouter.delete('/sales/delete/:id_sale', authenticateUser, deleteSalesController)

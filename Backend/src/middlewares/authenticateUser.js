@@ -5,11 +5,11 @@ import { JWT_SECRET } from '../../env.js';
 //Middleware de verificacion de autenitficacion de usuarios
 export function authenticateUser(req, res, next) {
     try {
-    //Extraer el token de la solicitud
-    const {authorization} = req.headers;
+    // SIN COOKIES - Extraer el token de la solicitud
+    // const {authorization} = req.headers;
 
-    // Nueva validación con cookies
-    // const authorization = req.cookies.token
+    // CON COOKIES - Extrar el token de la solicitud
+    const authorization = req.cookies.token
 
     // Verifica si se proporciono un token
     if (!authorization) {
@@ -24,6 +24,7 @@ export function authenticateUser(req, res, next) {
     req.user = decodedToken;
     next();
     } catch (error) {
+        console.log(error);
         return res.status(401).json({error: 'Token de autentificación inválido'});
     }
 }

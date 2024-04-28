@@ -59,6 +59,14 @@ export const limitedStock = (resource) => {
   };
 };
 
+export const saveFileError = () => {
+  throw {
+    httpStatus: 500, // Internal Server Error
+    code: 'FILE_SAVE_FAILED',
+    message: 'Error al guardar el archivo en el disco',
+  };
+};
+
 export const unauthorizedError = (resource) => {
   throw {
     statusCode: 401,

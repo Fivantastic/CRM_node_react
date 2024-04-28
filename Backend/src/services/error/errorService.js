@@ -58,6 +58,7 @@ export const limitedStock = (resource) => {
     message: `La cantidad '${resource}' se exede del stock`,
   };
 };
+
 export const saveFileError = () => {
   throw {
     httpStatus: 500, // Internal Server Error
@@ -65,3 +66,11 @@ export const saveFileError = () => {
     message: 'Error al guardar el archivo en el disco',
   };
 };
+
+export const unauthorizedError = (resource) => {
+  throw {
+    statusCode: 401,
+    code: 'UNAUTHORIZED_ACTION',
+    message: `La acción '${resource}' debe ser realizada por su propietario`
+  }
+}

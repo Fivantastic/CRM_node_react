@@ -13,7 +13,6 @@ export const loginUserController = async (req, res, next) => {
         const { email, password } = validateSignInRequest(req.body);
 
         // Validamos el body
-        console.log('Debug log in controller:', password);
         await validateSchemaUtil(loginUserSchema, req.body);
 
         //obtener el usuario
@@ -40,6 +39,10 @@ export const loginUserController = async (req, res, next) => {
         // insertar el token en la base de datos
         // insertTokenCookie(res, token);
 
+        // Colocar la cookie (no devuelve respuesta aún)
+        res.cookie('token', token)
+
+        // Responder al usuario
         res.status(201).send({
             // token: token,
             status: 'ok',

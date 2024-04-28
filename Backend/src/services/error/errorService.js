@@ -58,3 +58,10 @@ export const limitedStock = (resource) => {
     message: `La cantidad '${resource}' se exede del stock`,
   };
 };
+export const saveFileError = () => {
+  throw {
+    httpStatus: 500, // Internal Server Error
+    code: 'FILE_SAVE_FAILED',
+    message: 'Error al guardar el archivo en el disco',
+  };
+};

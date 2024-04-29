@@ -90,7 +90,7 @@ export async function createDBSchema(db) {
         FOREIGN KEY (product_id) REFERENCES Products(id_product)
     )`);
 
-  console.log(chalk.bold.blue(`->✏️ Creando tabla Sales...`)); //Modulo de ventas
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Sales...`)); 
   await db.query(`CREATE TABLE Sales (
         id_sale CHAR(36) PRIMARY KEY,
         user_id CHAR(36),
@@ -121,46 +121,89 @@ export async function createDBSchema(db) {
     )`);
 
 
-    console.log(chalk.bold.blue(`->✏️ Creando tabla DeliveryNotes...`));
-    await db.query(`
-        CREATE TABLE DeliveryNotes (
-            id_note CHAR(36) PRIMARY KEY,
-            sale_id CHAR(36),
-            deliverer_id CHAR(36),
-            delivery_status ENUM('pending', 'delivering', 'delivered') DEFAULT 'pending',
-            address_id CHAR(36),
-            saleProduct_id CHAR(36), 
-            delivery_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-            create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-            FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
-            FOREIGN KEY (deliverer_id) REFERENCES Users(id_user),
-            FOREIGN KEY (address_id) REFERENCES Addresses(id_address),
-            FOREIGN KEY (saleProduct_id) REFERENCES SalesProducts(id_saleProduct)
-        )`);
-
-
+  console.log(chalk.bold.blue(`->✏️ Creando tabla DeliveryNotes...`));
+  await db.query(`CREATE TABLE DeliveryNotes (
+        id_note CHAR(36) PRIMARY KEY,
+        sale_id CHAR(36),
+        deliverer_id CHAR(36),
+        delivery_status ENUM('pending', 'delivering', 'delivered') DEFAULT 'pending',
+        address_id CHAR(36),
+        saleProduct_id CHAR(36), 
+        delivery_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
+        FOREIGN KEY (deliverer_id) REFERENCES Users(id_user),
+        FOREIGN KEY (address_id) REFERENCES Addresses(id_address),
+        FOREIGN KEY (saleProduct_id) REFERENCES SalesProducts(id_saleProduct)
+  )`);
+    
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Shipments...`));
+  await db.query(`CREATE TABLE Shipments (
+        id_shipment CHAR(36) PRIMARY KEY,
+        customer_id CHAR(36),
+        address_id CHAR(36),
+        deliveryNote_id CHAR(36),
+        shipment_status ENUM('pending', 'inTransit', 'delivered', 'delayed', 'cancelled') DEFAULT 'pending',
+        tracking_number VARCHAR(255),
+        additional_notes TEXT,
+        create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (customer_id) REFERENCES Customers(id_customer),
+        FOREIGN KEY (address_id) REFERENCES Addresses(id_address),
+        FOREIGN KEY (deliveryNote_id) REFERENCES DeliveryNotes(id_note)
+    )`);
+      
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Invoices...`));
+  await db.query(`CREATE TABLE Invoices (
+        id_invoice CHAR(36) PRIMARY KEY,
+        sale_id CHAR(36),
+        total_amount DECIMAL(10,2) NOT NULL,
+        invoice_status ENUM('pending', 'paid') DEFAULT 'pending',
+        creation_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (sale_id) REFERENCES Sales(id_sale)
+    )`);
+      
+  console.log(chalk.bold.blue(`->✏️ Creando tabla Payments...`));
+  await db.query(`CREATE TABLE Payments (
+        id_payment CHAR(36) PRIMARY KEY,
+        invoice_id CHAR(36),
+        amount DECIMAL(10,2) NOT NULL,
+        payment_status ENUM('pending', 'cancelled', 'paid') DEFAULT 'pending',
+        payment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (invoice_id) REFERENCES Invoices(id_invoice)
+    )`);
+  
   console.log(chalk.bold.blue(`->✏️ Creando tabla Modules...`));
   await db.query(`CREATE TABLE Modules (
         id_module CHAR(36) PRIMARY KEY,
-        user_id CHAR(36),
-        service_type ENUM('sale', 'visit', 'deliveryNote') NOT NULL,
+        agentUser_id CHAR(36),
+        deliveryUser_id CHAR(36),
+        service_type ENUM('sale', 'visit', 'deliveryNote', 'invoice', 'payment', 'shipment') NOT NULL,
         sale_id CHAR(36),
         visit_id CHAR(36),
         deliveryNote_id CHAR(36),
+        invoice_id CHAR(36),
+        payment_id CHAR(36),
+        shipment_id CHAR(36),
+        rating_module ENUM('1', '2', '3', '4', '5'),
+        rating_comment TEXT,
         create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES Users(id_user),
+        FOREIGN KEY (agentUser_id) REFERENCES Users(id_user),
+        FOREIGN KEY (deliveryUser_id) REFERENCES Users(id_user),
         FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
         FOREIGN KEY (visit_id) REFERENCES Visits(id_visit),
-        FOREIGN KEY (deliveryNote_id) REFERENCES DeliveryNotes(id_note)
+        FOREIGN KEY (deliveryNote_id) REFERENCES DeliveryNotes(id_note),
+        FOREIGN KEY (invoice_id) REFERENCES Invoices(id_invoice),
+        FOREIGN KEY (payment_id) REFERENCES Payments(id_payment),
+        FOREIGN KEY (shipment_id) REFERENCES Shipments(id_shipment)
     )`);
 
-  console.log(
-    chalk.bold.magenta(
-      `->🧑‍💼 Creando usuario Owner con las variables de entorno...`
-    )
-  );
+  console.log(chalk.bold.magenta(`->🧑‍💼 Creando usuario Owner con las variables de entorno...`));
 
   // Datos direccion ADMINISTRADOR
   const calle = faker.location.street();

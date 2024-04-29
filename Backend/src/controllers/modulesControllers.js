@@ -18,6 +18,9 @@ import { deleteSalesController } from "./Modules/sales/deleteSalesController.js"
 // Imports Facturas
 import { newInvoiceController } from "./Modules/invoices/newInvoiceController.js";
 
+// Imports Pagos
+import { newPaymentController } from "./Modules/payments/newPaymentController.js";
+
 // Imports Albarán
 import { createDeliveryNoteController } from "./Modules/deliveryNote/createDeliveryNoteController.js";
 import { closeDeliveryNoteController } from "./Modules/deliveryNote/closeDeliveryNoteController.js";
@@ -42,5 +45,7 @@ export{
     deleteSalesController,
     
     createDeliveryNoteController,
-    closeDeliveryNoteController
+    closeDeliveryNoteController,
+
+    newPaymentController
 }

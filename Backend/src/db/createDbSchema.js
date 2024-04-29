@@ -159,7 +159,9 @@ export async function createDBSchema(db) {
         id_invoice CHAR(36) PRIMARY KEY,
         sale_id CHAR(36),
         total_amount DECIMAL(10,2) NOT NULL,
+        payment_method ENUM('cash', 'card', 'transfer') DEFAULT 'transfer',
         invoice_status ENUM('pending', 'paid') DEFAULT 'pending',
+        due_date DATETIME DEFAULT DATE_ADD(NOW(), INTERVAL 3 MONTH),
         creation_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (sale_id) REFERENCES Sales(id_sale)

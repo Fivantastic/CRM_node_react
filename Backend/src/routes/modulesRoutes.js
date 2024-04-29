@@ -12,7 +12,7 @@ export const modulesRoutes = express.Router();
 
 // Ruta de modulos generales
 modulesRoutes.use(moduleRouter);
-
+ 
 // Ruta de visitas
 modulesRoutes.use(visitsRouter);
 

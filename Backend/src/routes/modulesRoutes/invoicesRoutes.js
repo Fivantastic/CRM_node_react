@@ -8,4 +8,4 @@ export const invoicesRouter = express.Router();
 
 // Borrado de una factura
 
-// Cerrar una  factura
+// Cerrar una  factura 

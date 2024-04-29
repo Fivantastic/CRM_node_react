@@ -198,7 +198,7 @@ for (let i = 0; i < 10; i++) {
 
   const module = {
     id_module: faker.string.uuid(),
-    user_id: userData[i].id_user,
+    agentUser_id: userData[i].id_user, // !REVISAR ESTE PUNTO
     service_type: serviceType,
     sale_id: serviceType === 'sale' ? serviceId : null,
     visit_id: serviceType === 'visit' ? serviceId : null,
@@ -207,7 +207,7 @@ for (let i = 0; i < 10; i++) {
   moduleData.push(module);
 }
 await db.query(
-  `INSERT INTO Modules (id_module, user_id, service_type, sale_id, visit_id, deliveryNote_id) VALUES ?`,
+  `INSERT INTO Modules (id_module, agentUser_id, service_type, sale_id, visit_id, deliveryNote_id) VALUES ?`,
   [moduleData.map(module => Object.values(module))]
 );
 console.log(chalk.bold.green(`✅ Datos insertados en tabla Modules.`));

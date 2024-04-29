@@ -8,6 +8,7 @@ import {
     productListController,
     selectSaleProductController 
 } from '../../controllers/mainControllers.js';
+import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 
 
 export const productRouter = express.Router();
@@ -18,8 +19,8 @@ productRouter.post('/product/register', authenticateUser, adminAuthMiddleware, n
 // Eliminar un producto (solo Admin)
 productRouter.delete('/product/delete/:product_id', authenticateUser, adminAuthMiddleware, deleteProductController)
 
-// Obtener la lsita de productos
-productRouter.get('/product/list', authenticateUser, productListController);
+// Obtener la lista de productos
+productRouter.get('/product/list', authenticateUser, checkRoleAgent, productListController);
 
 // Obtener producto para la venta
-productRouter.post('/sales-product/:productId', productExist, selectSaleProductController);
+productRouter.post('/sales-product/:productId',authenticateUser, checkRoleAgent, productExist, selectSaleProductController);

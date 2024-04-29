@@ -3,8 +3,11 @@ import { insertAddressCustomerModel } from '../../models/customer/insertAddressC
 import { selectCustomerByEmailModel } from '../../models/customer/selectCustomerByEmailModel.js';
 import { emailAlreadyRegisteredError } from '../error/errorService.js';
 
-export const insertCustomerService = async (name, email, phone) => {
+export const insertCustomerService = async (body) => {
   try {
+    // Obtener los datos del body.
+    const { name, email, phone } = body;
+
     // Buscamos en la base de datos algún usuario con ese email.
     const existCustomer = await selectCustomerByEmailModel(email);
 

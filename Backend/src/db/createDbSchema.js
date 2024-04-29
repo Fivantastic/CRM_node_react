@@ -157,14 +157,18 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla Invoices...`));
   await db.query(`CREATE TABLE Invoices (
         id_invoice CHAR(36) PRIMARY KEY,
+        agentUser_id CHAR(36),
         sale_id CHAR(36),
+        customer_id CHAR(36),
         total_amount DECIMAL(10,2) NOT NULL,
         payment_method ENUM('cash', 'card', 'transfer') DEFAULT 'transfer',
         invoice_status ENUM('pending', 'paid') DEFAULT 'pending',
-        due_date DATETIME DEFAULT DATE_ADD(NOW(), INTERVAL 3 MONTH),
+        due_date DATETIME,
         creation_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (sale_id) REFERENCES Sales(id_sale)
+        FOREIGN KEY (agentUser_id) REFERENCES Users(id_user),
+        FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
+        FOREIGN KEY (customer_id) REFERENCES Customers(id_customer)
     )`);
       
   console.log(chalk.bold.blue(`->✏️ Creando tabla Payments...`));

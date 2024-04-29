@@ -3,7 +3,6 @@ import { newInvoiceService } from "../../../services/Modules/invoices/insertInvo
 import { validateSchemaUtil } from "../../../utils/validateSchemaUtil.js";
 import { success } from "../../../utils/success.js";
 
-
 export const newInvoiceController = async (req, res, next) => {
     try {
         // Validamos el body

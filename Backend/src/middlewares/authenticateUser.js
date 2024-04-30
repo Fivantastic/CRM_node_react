@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../../env.js';
+import { selectUserByIdModel } from '../models/user/selectUserByIdModel.js';
 
 
 //Middleware de verificacion de autenitficacion de usuarios
-export function authenticateUser(req, res, next) {
+export const authenticateUser = async (req, res, next) => {
     try {
     // SIN COOKIES - Extraer el token de la solicitud
     // const {authorization} = req.headers;
@@ -22,6 +23,12 @@ export function authenticateUser(req, res, next) {
     //Si el token es valido, añadir el id de usuario decodificado a la solicitud
     req.userId = decodedToken.id_user
     req.user = decodedToken;
+
+    // Verifica si el usuario existe en la base de datos
+    const user = await selectUserByIdModel(req.userId);
+    if (!user) return res.status(401).json({msg: 'Token de autentificación inválido'});
+    
+
     next();
     } catch (error) {
         console.log(error);

@@ -33,18 +33,25 @@ import { closeShipmentController } from './Modules/shipment/closeShipmentControl
 export {
   getModuleController,
   searchModulesController,
+
   closeVisitController,
   deleteVisitController,
   feedbackVisitController,
   getUserVisitsController,
   newVisitController,
   updateVisitController,
+
   insertSalesController,
   updateSalesController,
   deleteSalesController,
+
+  newInvoiceController,
+
   createDeliveryNoteController,
   closeDeliveryNoteController,
+
   newInvoiceController,
+
   shipmentCreateController,
   shipmentUpdateController,
   deleteShipmentController,

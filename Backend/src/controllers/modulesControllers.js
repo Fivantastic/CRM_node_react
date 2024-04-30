@@ -49,7 +49,7 @@ export {
 
   newInvoiceController,
   
-  newPaymentController
+  newPaymentController,
 
   createDeliveryNoteController,
   closeDeliveryNoteController,

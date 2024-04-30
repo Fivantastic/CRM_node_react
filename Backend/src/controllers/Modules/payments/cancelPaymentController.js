@@ -9,7 +9,7 @@ export const cancelPaymentController = async (req, res, next) => {
 
         const { payment_id, new_status } = req.body;
 
-        // TODO Actualizar el pago
+        // Actualizar el pago
         await changePaymentStatusModel(payment_id, new_status)
 
         res.send({

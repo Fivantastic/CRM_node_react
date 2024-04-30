@@ -7,8 +7,5 @@ export const paymentsRouter = express.Router();
 paymentsRouter.post('/payments/create', authenticateUser, newPaymentController);
 
 
-//TODO Cancelar un pago (en vez de eliminar, registrar como cancelado)
-paymentsRouter.put('/payments/cancel', authenticateUser, cancelPaymentController); // No paso el payment_id por seguridad y privacidad
-
-//TODO Cerrar un pago
-// paymentsRouter.put('/payments/close', authenticateUser, controller); // No paso el payment_id por seguridad y privacidad
+//Cambiar el estado del pago: a 'pending', 'cancelled' o 'paid'
+paymentsRouter.put('/payments/status', authenticateUser, cancelPaymentController); // No paso el payment_id por seguridad y privacidad

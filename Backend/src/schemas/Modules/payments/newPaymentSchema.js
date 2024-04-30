@@ -5,6 +5,10 @@ import { joiErrorMessages } from '../../error/joiErrorMessage.js';
 export const newPaymentSchema = Joi.object({
     invoice_id: Joi.string().guid().required().messages(joiErrorMessages), 
     amount: Joi.number().required().min(1).max(100000).messages(joiErrorMessages),
-    // payment_status: Joi.string().valid('pending', 'cancelled', 'paid').optional().messages(joiErrorMessages),
     payment_date: Joi.date().optional().messages(joiErrorMessages),
+});
+
+export const cancelPaymentSchema = Joi.object({
+    payment_id: Joi.string().guid().required().messages(joiErrorMessages), 
+    new_status: Joi.string().valid('pending', 'cancelled', 'paid').required().messages({'any.only': 'Introduce un estado válido (pending, cancelled, paid)' }),
 });

@@ -21,6 +21,7 @@ import { deleteInvoiceController } from './Modules/invoices/deleteInvoiceControl
 
 // Imports Pagos
 import { newPaymentController } from "./Modules/payments/newPaymentController.js";
+import { cancelPaymentController } from "./Modules/payments/cancelPaymentController.js";
 
 // Imports Albarán
 import { createDeliveryNoteController } from './Modules/deliveryNote/createDeliveryNoteController.js';
@@ -52,6 +53,7 @@ export {
   deleteInvoiceController,
   
   newPaymentController,
+  cancelPaymentController,
 
   createDeliveryNoteController,
   closeDeliveryNoteController,

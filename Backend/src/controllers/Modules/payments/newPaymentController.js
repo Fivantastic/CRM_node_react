@@ -8,7 +8,7 @@ export const newPaymentController = async (req, res, next) => {
         // Validar el body
         await validateSchemaUtil(newPaymentSchema, req.body)
 
-        //TODO Insertar en BBDD
+        // Insertar en BBDD
         await newPaymentService(req.body)
 
         // Enviar Respuesta

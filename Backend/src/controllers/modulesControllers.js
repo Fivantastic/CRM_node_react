@@ -20,6 +20,7 @@ import { newInvoiceController } from './Modules/invoices/newInvoiceController.js
 
 // Imports Pagos
 import { newPaymentController } from "./Modules/payments/newPaymentController.js";
+import { cancelPaymentController } from "./Modules/payments/cancelPaymentController.js";
 
 // Imports Albarán
 import { createDeliveryNoteController } from './Modules/deliveryNote/createDeliveryNoteController.js';
@@ -50,6 +51,7 @@ export {
   newInvoiceController,
   
   newPaymentController,
+  cancelPaymentController,
 
   createDeliveryNoteController,
   closeDeliveryNoteController,

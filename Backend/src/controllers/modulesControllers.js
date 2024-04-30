@@ -17,6 +17,7 @@ import { deleteSalesController } from './Modules/sales/deleteSalesController.js'
 
 // Imports Facturas
 import { newInvoiceController } from './Modules/invoices/newInvoiceController.js';
+import { deleteInvoiceController } from './Modules/invoices/deleteInvoiceController.js';
 
 // Imports Pagos
 import { newPaymentController } from "./Modules/payments/newPaymentController.js";
@@ -49,6 +50,7 @@ export {
   deleteSalesController,
 
   newInvoiceController,
+  deleteInvoiceController,
   
   newPaymentController,
   cancelPaymentController,

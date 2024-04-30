@@ -24,7 +24,7 @@ export const newInvoiceService = async (userId, body) => {
     if (!saleOrder) {throw invalidCredentials('La orden de venta no existe');}
 
     // Verificamos que exista el cliente
-    if (!saleOrder.customer_id) {throw invalidCredentials('El cliente no existe');}
+    if (!saleOrder.customer_id) {throw invalidCredentials('La orden de venta no tiene un cliente');}
     
     // Extraemos los datos de sales Product
     const saleProduct = await selectSaleProductByIdModel(saleOrder.saleProduct_id);
@@ -42,7 +42,7 @@ export const newInvoiceService = async (userId, body) => {
     const total_amount = total_price + including_tax;
 
     // Extraemos los detalles del cliente
-    const { company_name, NIF, address_id } = await selectCustomerByIdModel(customer_id);
+    const { company_name, NIF, address_id } = await selectCustomerByIdModel(saleOrder.customer_id);
 
     // Verificamos que exista la direccion
     if (!address_id) {throw invalidCredentials('La direccion no existe');}
@@ -57,7 +57,7 @@ export const newInvoiceService = async (userId, body) => {
     const expiry_date = await generateExpiryDate(due_date);
 
     // Insertamos la factura en la base de datos
-    const response = await insertInvoiceModel(idInvoice, userId, sale_id, customer_id, company_name, NIF, addressComplete, total_price, including_tax, total_amount, payment_method, expiry_date);
+    const response = await insertInvoiceModel(idInvoice, userId, sale_id, saleOrder.customer_id, company_name, NIF, addressComplete, total_price, including_tax, total_amount, payment_method, expiry_date);
 
     // Retornamos la respuesta
     return response;

@@ -1,5 +1,9 @@
 import { getModuleDeliveryNoteModel } from '../../models/Modules/getModuleDeliveryNoteModel.js';
+import { getModuleInvoiceModel } from '../../models/Modules/getModuleInvoiceModel.js';
+import { getModuleModel } from '../../models/Modules/getModuleModel.js';
+import { getModulePaymentModel } from '../../models/Modules/getModulePaymentModel.js';
 import { getModuleSalesModel } from '../../models/Modules/getModuleSalesModel.js';
+import { getModuleShipmentModel } from '../../models/Modules/getModuleShipmentModel.js';
 import { getModuleVisitModel } from '../../models/Modules/getModuleVisitModel.js';
 
 export const searchModulesController = async (req, res, next) => {
@@ -16,6 +20,10 @@ export const searchModulesController = async (req, res, next) => {
     const searchSale = await getModuleSalesModel(searchTerm);
     const searchVisit = await getModuleVisitModel(searchTerm);
     const searchDeliveryNote = await getModuleDeliveryNoteModel(searchTerm);
+    const searchInvoice = await getModuleInvoiceModel(searchTerm);
+    const searchPayment = await getModulePaymentModel(searchTerm);
+    const searchShipment = await getModuleShipmentModel(searchTerm);
+    const searchModules = await getModuleModel(searchTerm);
 
     // Muestro la info por su respectivo rol
     if (userRole === 'admin') {
@@ -23,6 +31,10 @@ export const searchModulesController = async (req, res, next) => {
         sales: searchSale,
         visits: searchVisit,
         deliveryNotes: searchDeliveryNote,
+        invoice: searchInvoice,
+        payment: searchPayment,
+        shipment: searchShipment,
+        Module: searchModules,
       };
     } else if (userRole === 'salesAgent') {
       responseData = {

@@ -1,5 +1,9 @@
 import express from 'express';
-import { shipmentCreateController } from '../../controllers/modulesControllers.js';
+import {
+  shipmentCreateController,
+  shipmentUpdateController,
+} from '../../controllers/modulesControllers.js';
+import { shipmentExist } from '../../middlewares/shipmentExist.js';
 
 export const shipmentRouter = express.Router();
 
@@ -7,7 +11,11 @@ export const shipmentRouter = express.Router();
 shipmentRouter.post('/shipment/create', shipmentCreateController);
 
 // Modificacion de un envio
-shipmentRouter.put('/shipment/update/:shipmentId');
+shipmentRouter.put(
+  '/shipment/update/:shipmentId',
+  shipmentExist,
+  shipmentUpdateController
+);
 
 // Borrado de un envio
 shipmentRouter.delete('/shipment/delete/:shipmentId');

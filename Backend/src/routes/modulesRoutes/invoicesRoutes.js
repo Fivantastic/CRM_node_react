@@ -1,6 +1,6 @@
 import express from 'express';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
-import { newInvoiceController } from '../../controllers/Modules/invoices/newInvoiceController.js';
+import { newInvoiceController } from '../../controllers/modulesControllers.js';
 import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 
 export const invoicesRouter = express.Router();

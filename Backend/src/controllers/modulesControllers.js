@@ -30,17 +30,23 @@ import { shipmentCreateController } from './Modules/shipment/shipmentCreateContr
 export {
   getModuleController,
   searchModulesController,
+
   closeVisitController,
   deleteVisitController,
   feedbackVisitController,
   getUserVisitsController,
   newVisitController,
   updateVisitController,
+
   insertSalesController,
   updateSalesController,
   deleteSalesController,
+
+  newInvoiceController,
+
   createDeliveryNoteController,
   closeDeliveryNoteController,
+
   shipmentCreateController,
 };
 

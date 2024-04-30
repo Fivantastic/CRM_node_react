@@ -8,6 +8,7 @@ export const newInvoiceController = async (req, res, next) => {
         // Validamos el body
         await validateSchemaUtil(newInvoiceSchema, req.body);
 
+        console.log(req.user.id_user);
         // Insertamos el cliente en la base de datos
         const response = await newInvoiceService(req.user.id_user ,req.body);
 

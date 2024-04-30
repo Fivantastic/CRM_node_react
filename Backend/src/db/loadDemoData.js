@@ -2,6 +2,7 @@ import { fakerES as faker } from "@faker-js/faker";
 import bcrypt from 'bcrypt';
 import chalk from 'chalk';
 import { ADMIN_PASSWORD } from "../../env.js";
+import { generarNIF } from "../utils/generateNIF.js";
 
 export async function loadDemoData(db) {
   try {
@@ -66,17 +67,20 @@ export async function loadDemoData(db) {
     const customerData = [];
     for (let i = 0; i < 10; i++) {
       const firstName = faker.person.firstName();
+      const NIF_completo = generarNIF();
       const customer = {
         id_customer: faker.string.uuid(),
         name: firstName,
         email: faker.internet.email({firstName}),
         phone: faker.phone.number(),
-        address_id: addressData[i].id_address,
+        company_name: faker.company.name(),
+        NIF: NIF_completo,
+        address_id: addressData[i].id_address
       };
       customerData.push(customer);
     }
     await db.query(
-      `INSERT INTO Customers (id_customer, name, email, phone, address_id) VALUES ?`,
+      `INSERT INTO Customers (id_customer, name, email, phone, company_name, NIF, address_id) VALUES ?`,
       [customerData.map(customer => Object.values(customer))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Customers.`));
@@ -126,14 +130,14 @@ export async function loadDemoData(db) {
       const sale = {
         id_sale: faker.string.uuid(),
         user_id: userData[i].id_user,
-        saleProdut_id: salesProductData[i].id_saleProduct,
+        saleProduct_id: salesProductData[i].id_saleProduct,
         customer_id: customerData[i].id_customer,
         operation_status: faker.helpers.arrayElement(['open', 'closed']),
       };
       salesData.push(sale);
     }
     await db.query(
-      `INSERT INTO Sales (id_sale, user_id, saleProdut_id, customer_id, operation_status) VALUES ?`,
+      `INSERT INTO Sales (id_sale, user_id, saleProduct_id, customer_id, operation_status) VALUES ?`,
       [salesData.map(sale => Object.values(sale))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Sales.`));

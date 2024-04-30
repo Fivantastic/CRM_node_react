@@ -25,6 +25,7 @@ import { closeDeliveryNoteController } from './Modules/deliveryNote/closeDeliver
 // Imports envios
 import { shipmentCreateController } from './Modules/shipment/shipmentCreateController.js';
 import { shipmentUpdateController } from './Modules/shipment/shipmentUpdateController.js';
+import { deleteShipmentController } from './Modules/shipment/deleteShipmentController.js';
 
 // Exportar todos los controladores
 
@@ -45,4 +46,5 @@ export {
   newInvoiceController,
   shipmentCreateController,
   shipmentUpdateController,
+  deleteShipmentController,
 };

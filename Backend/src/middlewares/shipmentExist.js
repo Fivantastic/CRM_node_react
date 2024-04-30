@@ -1,4 +1,5 @@
 import { selectShipmentByIdModel } from '../models/Modules/shipment/selectShipmentByIdModel.js';
+import { notFoundError } from '../services/error/errorService.js';
 
 export const shipmentExist = async (req, res, next) => {
   try {

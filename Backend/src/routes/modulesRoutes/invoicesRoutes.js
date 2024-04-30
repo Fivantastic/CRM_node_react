@@ -1,7 +1,10 @@
 import express from 'express';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
-import { newInvoiceController } from '../../controllers/modulesControllers.js';
 import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
+import { 
+    deleteInvoiceController, 
+    newInvoiceController 
+} from '../../controllers/modulesControllers.js';
 
 export const invoicesRouter = express.Router();
 
@@ -11,5 +14,6 @@ invoicesRouter.post('/user/module/invoice', authenticateUser, checkRoleAgent, ne
 // Modificacion de una factura
 
 // Borrado de una factura
+invoicesRouter.delete('/user/module/invoice/:invoiceId', authenticateUser, checkRoleAgent, deleteInvoiceController);
 
 // Cerrar una  factura 

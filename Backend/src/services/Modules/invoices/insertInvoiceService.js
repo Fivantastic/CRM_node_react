@@ -24,7 +24,7 @@ export const newInvoiceService = async (userId, body) => {
     if (!saleOrder) {throw invalidCredentials('La orden de venta no existe');}
 
     // Verificamos que exista el cliente
-    if (!saleOrder.customer_id) {throw invalidCredentials('El cliente no existe');}
+    if (!saleOrder.customer_id) {throw invalidCredentials('La orden de venta no tiene un cliente');}
     
     // Extraemos los datos de sales Product
     const saleProduct = await selectSaleProductByIdModel(saleOrder.saleProduct_id);

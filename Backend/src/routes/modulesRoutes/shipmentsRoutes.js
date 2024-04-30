@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  deleteShipmentController,
   shipmentCreateController,
   shipmentUpdateController,
 } from '../../controllers/modulesControllers.js';
@@ -18,7 +19,11 @@ shipmentRouter.put(
 );
 
 // Borrado de un envio
-shipmentRouter.delete('/shipment/delete/:shipmentId');
+shipmentRouter.delete(
+  '/shipment/delete/:shipmentId',
+  shipmentExist,
+  deleteShipmentController
+);
 
 // Completar un envio
 shipmentRouter.put('/shipment/closed/:shipmentId');

@@ -20,6 +20,14 @@ export const emailAlreadyRegisteredError = () => {
   };
 };
 
+export const shipmentAlreadyCompletedError = () => {
+  throw {
+    statusCode: 409, // Conflict
+    code: 'SHIPMENT_ALREADY_COMPLETED',
+    message: 'El envio ya esta completado',
+  };
+};
+
 export const passwordAlreadyRegisteredError = () => {
   throw {
     statusCode: 409, // Conflict
@@ -71,6 +79,6 @@ export const unauthorizedError = (resource) => {
   throw {
     statusCode: 401,
     code: 'UNAUTHORIZED_ACTION',
-    message: `La acción '${resource}' debe ser realizada por su propietario`
-  }
-}
+    message: `La acción '${resource}' debe ser realizada por su propietario`,
+  };
+};

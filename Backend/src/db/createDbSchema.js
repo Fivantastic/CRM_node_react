@@ -169,7 +169,7 @@ export async function createDBSchema(db) {
         including_tax DECIMAL(10,2) NOT NULL,
         total_amount DECIMAL(10,2) NOT NULL,
         payment_method ENUM('cash', 'card', 'transfer') DEFAULT 'transfer',
-        invoice_status ENUM('pending', 'paid') DEFAULT 'pending',
+        invoice_status ENUM('pending', 'paid', 'overdue', 'partially_paid', 'cancelled', 'refunded', 'disputed', 'sent') DEFAULT 'pending',
         due_date DATETIME,
         creation_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,

@@ -7,3 +7,7 @@ export const newInvoiceSchema = Joi.object({
     payment_method: Joi.string().valid('cash', 'card', 'transfer').optional().messages(joiErrorMessages),
     due_date: Joi.date().optional().messages(joiErrorMessages),
 });
+
+export const closeInvoiceSchema = Joi.object({
+    invoice_status: Joi.string().valid('pending', 'paid', 'overdue', 'partially_paid', 'cancelled', 'refunded', 'disputed', 'sent').required().messages(joiErrorMessages),
+});

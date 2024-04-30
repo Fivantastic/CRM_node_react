@@ -1,6 +1,6 @@
 import { getDBPool } from "../../../db/getPool.js";
-
-export const insertPaymentModel = async (idInvoice, userId, sale_id, payment_method, due_date) => {
+                                        // idPayment, invoice_id, amount, payment_date
+export const insertPaymentModel = async (id_payment, invoice_id, amount, payment_date)=> {
     const pool = getDBPool();
 
     const fieldsToUpdate = [];
@@ -14,17 +14,17 @@ export const insertPaymentModel = async (idInvoice, userId, sale_id, payment_met
 
     };
 
+    addToUpdate('id_payment', id_payment);
     addToUpdate('invoice_id', invoice_id);
     addToUpdate('amount', amount);
-    addToUpdate('payment_status', payment_status);
     addToUpdate('payment_date', payment_date);
 
     if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar
 
-
-    const query = `INSERT INTO Payments (invoice_id, amount, payment_status, payment_date) VALUES (?, ?, ?, ?)`;
-    values.push(idInvoice);
-
+    // Adaptar e query a los valores dados
+    const fieldsString = fieldsToUpdate.join(', ');
+    const query = `INSERT INTO Payments SET ${fieldsString}`;
+    
     const [result] = await pool.query(query, values);
 
     if (result.affectedRows === 0) {

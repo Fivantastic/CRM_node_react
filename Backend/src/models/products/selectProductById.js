@@ -8,5 +8,6 @@ export const selectProductById = async (id_product) => {
     `SELECT * FROM Products WHERE id_product = ?`,
     [id_product]
   );
+
   return product[0];
 };

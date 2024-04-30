@@ -1,5 +1,5 @@
 import { newShipmentSchema } from '../../../schemas/Modules/shipment/newShipmentSchema.js';
-import { newShipmentService } from '../../../services/Modules/shipment/newshipmentService.js';
+import { newShipmentService } from '../../../services/Modules/shipment/newShipmentService.js';
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 
 export const shipmentCreateController = async (req, res, next) => {

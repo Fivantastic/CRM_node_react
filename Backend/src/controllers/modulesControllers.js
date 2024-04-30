@@ -18,6 +18,9 @@ import { deleteSalesController } from './Modules/sales/deleteSalesController.js'
 // Imports Facturas
 import { newInvoiceController } from './Modules/invoices/newInvoiceController.js';
 
+// Imports Pagos
+import { newPaymentController } from "./Modules/payments/newPaymentController.js";
+
 // Imports Albarán
 import { createDeliveryNoteController } from './Modules/deliveryNote/createDeliveryNoteController.js';
 import { closeDeliveryNoteController } from './Modules/deliveryNote/closeDeliveryNoteController.js';
@@ -29,24 +32,31 @@ import { deleteShipmentController } from './Modules/shipment/deleteShipmentContr
 import { closeShipmentController } from './Modules/shipment/closeShipmentController.js';
 
 // Exportar todos los controladores
-
 export {
   getModuleController,
   searchModulesController,
+
   closeVisitController,
   deleteVisitController,
   feedbackVisitController,
   getUserVisitsController,
   newVisitController,
   updateVisitController,
+
   insertSalesController,
   updateSalesController,
   deleteSalesController,
+
+  newInvoiceController,
+  
+  newPaymentController,
+
   createDeliveryNoteController,
   closeDeliveryNoteController,
-  newInvoiceController,
+
   shipmentCreateController,
   shipmentUpdateController,
   deleteShipmentController,
   closeShipmentController,
 };
+

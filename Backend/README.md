@@ -52,15 +52,13 @@ Para ejecutar el backend, sigue estos pasos:
 
     Asegúrate de completar los campos con la información específica de tu entorno de desarrollo para crear el usuario Administrador, si esta activo o descativado. La funcionalidad del envio de email esta desactivada, comentada en su respectivo endpoint de registro de usuario(solo aministrador).
 
-3. Crea una carpeta de UPLOADS en la raiz del proyecto.
-
-4. Inicializa la base de datos:
+3. Inicializa la base de datos:
 
     ```bash
     npm run initDb
     ```
 
-5. Inicia el servidor:
+4. Inicia el servidor:
 
     ```bash
     npm run dev
@@ -126,12 +124,6 @@ Para ejecutar el backend, sigue estos pasos:
 - **Middleware privilegios user admin**: Verifica si el usuario es administrador y tiene privilegios para esa peticion.
 
 ------
-
-## Colección de Postman
-
-```Aqui ira la Url de la coleccion de postman```
-
-Puedes importarlo en tu Postman en import y copiando la Url facilitada.
 
 ### Proyecto realizado por:
    #### Iván Jiménez

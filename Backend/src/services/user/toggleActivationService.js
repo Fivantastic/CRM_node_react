@@ -1,10 +1,7 @@
-import chalk from "chalk";
 import { selectUserByIdModel } from "../../models/user/selectUserByIdModel.js";
 import { toggleActiveModel } from "../../models/user/toggleActiveModel.js";
 
 export const toggleActivationService = async (userId) => {
-
-    console.log('User Id en service', userId);
     // Comprobar si el id existe.
     const user = await selectUserByIdModel(userId);
 

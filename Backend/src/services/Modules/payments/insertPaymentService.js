@@ -10,8 +10,7 @@ export const newPaymentService = async (body) => {
     const invoice = await selectInvoiceByIdService(invoice_id)
 
     if(!invoice){
-        console.log('Factura no encontrada');
-        notFoundError('Invoice')
+        notFoundError('Invoice');
     }
 
     // ? Creamos una id para el pago

@@ -11,7 +11,9 @@ export const feedbackVisitService = async (visitId, body) => {
     const feedbackVisit = await selectIdVisitByIdService(visitId);
 
     console.log(feedbackVisit.rating_visit);
-    if (feedbackVisit.rating_visit !== null) throw invalidCredentials('Ya has realizado una valoración para esta visita');
+    if (feedbackVisit.rating_visit !== null) {
+        invalidCredentials('Ya has realizado una valoración para esta visita');
+    }
 
     //Llamamos al servicio
     const response = await feedbackVisitModel(visitId, rating_visit, comment_visit);

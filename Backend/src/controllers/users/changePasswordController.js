@@ -17,7 +17,9 @@ export const changePasswordController = async (req, res, next) => {
     // Obtener usuario por ID
     const user = await selectUserByIdModel(userId);
 
-    if (!user) throw invalidCredentials('Usuario no encontrado');
+    if (!user) {
+      invalidCredentials('Usuario no encontrado');
+    }
 
     // Verificar si la contraseña actual es correcta
     const isValidPassword = await bcrypt.compare(
@@ -25,8 +27,9 @@ export const changePasswordController = async (req, res, next) => {
       user.password
     );
 
-    if (!isValidPassword)
-      throw invalidCredentials('Contraseña actual incorrecta');
+    if (!isValidPassword){
+      invalidCredentials('Contraseña actual incorrecta');
+    }
 
     // Encriptar la nueva contraseña
     const hashedPassword = await bcrypt.hash(newPassword, 12);

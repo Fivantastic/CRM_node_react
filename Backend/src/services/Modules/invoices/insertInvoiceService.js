@@ -15,16 +15,19 @@ export const newInvoiceService = async (userId, body) => {
 
     // Verificamos si existe una factura con esa orden de venta
     const invoice = await selectInvoiceIdBySaleIdModel(sale_id);
-    if (invoice) {throw invalidCredentials('La orden de venta ya tiene una factura');}
+    if (invoice) {
+        invalidCredentials('La orden de venta ya tiene una factura');}
 
     // Extraemos el id del cliente de orden de venta
     const saleOrder = await selectCustomerIdBySaleIdModel(sale_id);
 
     // Verificamos que exista la orden de venta
-    if (!saleOrder) {throw invalidCredentials('La orden de venta no existe');}
+    if (!saleOrder) {
+        invalidCredentials('La orden de venta no existe');}
 
     // Verificamos que exista el cliente
-    if (!saleOrder.customer_id) {throw invalidCredentials('La orden de venta no tiene un cliente');}
+    if (!saleOrder.customer_id) {
+        invalidCredentials('La orden de venta no tiene un cliente');}
     
     // Extraemos los datos de sales Product
     const saleProduct = await selectSaleProductByIdModel(saleOrder.saleProduct_id);

@@ -5,17 +5,16 @@ import { getModulePaymentModel } from '../../models/Modules/getModulePaymentMode
 import { getModuleSalesModel } from '../../models/Modules/getModuleSalesModel.js';
 import { getModuleShipmentModel } from '../../models/Modules/getModuleShipmentModel.js';
 import { getModuleVisitModel } from '../../models/Modules/getModuleVisitModel.js';
+import { invalidCredentials } from '../../services/error/errorService.js';
 
 export const searchModulesController = async (req, res, next) => {
   try {
     // Obtengo el rol del usuario
     const userRole = req.user?.role;
     const searchTerm = req.query.search;
-    console.log(searchTerm);
 
     let responseData = {};
 
-    console.log(userRole);
     // Busco los datos en la base de datos
     const searchSale = await getModuleSalesModel(searchTerm);
     const searchVisit = await getModuleVisitModel(searchTerm);
@@ -44,11 +43,10 @@ export const searchModulesController = async (req, res, next) => {
     } else if (userRole === 'deliverer') {
       responseData = {
         deliveryNotes: searchDeliveryNote,
+        shipment: searchShipment,
       };
     } else {
-      responseData = {
-        deliveryNotes: 'No tienes permisos. !',
-      };
+      invalidCredentials('No tienes permisos. !');
     }
 
     // Responder con los modulos

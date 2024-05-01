@@ -61,6 +61,8 @@ export async function createDBSchema(db) {
         name VARCHAR(255),
         email VARCHAR(255) NOT NULL,
         phone VARCHAR(20),
+        company_name VARCHAR(255),
+        NIF VARCHAR(20),
         address_id CHAR(36),
         create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -94,14 +96,14 @@ export async function createDBSchema(db) {
   await db.query(`CREATE TABLE Sales (
         id_sale CHAR(36) PRIMARY KEY,
         user_id CHAR(36),
-        saleProdut_id CHAR(36),
+        saleProduct_id CHAR(36),
         customer_id CHAR(36),
         operation_status ENUM('open', 'closed') DEFAULT 'open',
         create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES Users(id_user),
         FOREIGN KEY (customer_id) REFERENCES Customers(id_customer),
-        FOREIGN KEY (saleProdut_id) REFERENCES SalesProducts(id_saleProduct)
+        FOREIGN KEY (saleProduct_id) REFERENCES SalesProducts(id_saleProduct)
     )`);
 
   console.log(chalk.bold.blue(`->✏️ Creando tabla Visits...`));
@@ -165,6 +167,14 @@ export async function createDBSchema(db) {
         total_amount DECIMAL(10,2) NOT NULL,
         payment_method ENUM('cash', 'card', 'transfer') DEFAULT 'transfer',
         invoice_status ENUM('pending', 'paid') DEFAULT 'pending',
+        company_name VARCHAR(255),
+        NIF VARCHAR(20),
+        address VARCHAR(255),
+        total_price DECIMAL(10,2) NOT NULL,
+        including_tax DECIMAL(10,2) NOT NULL,
+        total_amount DECIMAL(10,2) NOT NULL,
+        payment_method ENUM('cash', 'card', 'transfer') DEFAULT 'transfer',
+        invoice_status ENUM('pending', 'paid', 'overdue', 'partially_paid', 'cancelled', 'refunded', 'disputed', 'sent') DEFAULT 'pending',
         due_date DATETIME,
         creation_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -232,18 +242,6 @@ export async function createDBSchema(db) {
   const registration_code = crypto.randomUUID();
 
   //! Aquí podría venir la lógica de enviar un correo electrónico con la contraseña y el registro.
-
-  console.log(chalk.bold.yellow(
-      '--------------------------------------------------------'
-    )
-  );
-  console.log(chalk.bold.yellow('ID de usuario:', id_user));
-  console.log(chalk.bold.yellow('Contraseña:', password));
-  console.log(chalk.bold.yellow('Código de registro:', registration_code));
-  console.log(chalk.bold.yellow(
-      '--------------------------------------------------------'
-    )
-  );
 
   console.log(chalk.bold.magenta(`->🧑‍💼 Insertando usuario Owner...`));
 

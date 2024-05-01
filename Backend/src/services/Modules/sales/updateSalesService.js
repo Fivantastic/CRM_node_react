@@ -14,8 +14,6 @@ export const updateSalesService = async (
     // Obtengo el id de la venta
     const sale = await selectSaleByIdModel(id_sale);
 
-    console.log(sale);
-
     if (!sale) {
       notFoundError('Sale');
     }

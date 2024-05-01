@@ -11,7 +11,6 @@ export const insertUserService = async (id_user, name, last_name, email, hashed_
     if (existUser) {
       emailAlreadyRegisteredError();
     }
-    console.log('Email disponible');
 
     // Insertamos el usuario en la base de datos.
     await insertUserModel(

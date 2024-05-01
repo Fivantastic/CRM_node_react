@@ -8,7 +8,9 @@ export const forgotPasswordService = async (email) => {
     const user = await selectUserByEmailModel(email);
 
     // Validar que el usuario exista
-    if (!user) throw invalidCredentials('El usuario/email no existe');
+    if (!user) {
+        invalidCredentials('El usuario/email no existe');
+    }
 
     // Generar un código de recuperación único
     const new_registration_code = crypto.randomUUID();

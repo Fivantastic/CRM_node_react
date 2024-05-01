@@ -31,3 +31,4 @@ console.log('-> Directorios de subida creados ✅');
 console.log('Todo ha ido bien 🎉');
 
 await db.end();
+process.exit(0);

@@ -5,14 +5,11 @@ import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 
 export const newCustomerController = async (req, res, next) => {
   try {
-    // Obtenemos el cuerpo de la petición
-    const { name, email, phone } = req.body;
-
     // Validamos el body
     await validateSchemaUtil(newCustomerSchema, req.body);
 
     // Insertamos el cliente en la base de datos
-    const response = await insertCustomerService(name, email, phone);
+    const response = await insertCustomerService(req.body);
 
     // Respondemos al cliente
     res.status(201).send(

@@ -1,6 +1,6 @@
-import Joi from 'joi';
-import { joiErrorMessages } from './joiErrorMessage.js';
+import joi from 'joi';
+import { joiErrorMessages } from '../../error/joiErrorMessage.js';
 
 export const closeDeliveryNoteSchema = joi.object({
-  delivery_status: Joi.string().required().messages(joiErrorMessages), //Estado de la entrega
+  delivery_status: joi.string().required().messages(joiErrorMessages), //Estado de la entrega
 });

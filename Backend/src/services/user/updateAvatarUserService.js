@@ -15,7 +15,6 @@ export const updateAvatarUserService = async (userId, img, width) => {
       userId.toString(),
       ''
     );
-    console.log('uploadsDir', uploadsDir);
 
     // Creamos el directorio si no existe.
     await createPathIfNotExistsUtil(uploadsDir);
@@ -28,7 +27,6 @@ export const updateAvatarUserService = async (userId, img, width) => {
 
     // Nombrede la imagen como uuid.
     const imgName = `${crypto.randomUUID()}.jpg`;
-    console.log(imgName);
 
     // Actualizamos el avatar del usuario.
     await updateUserAvatarModel(userId, imgName);

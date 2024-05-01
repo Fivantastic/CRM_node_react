@@ -7,7 +7,9 @@ import { selectCustomerByIdModel } from "../../../models/customer/selectCustomer
 export const closeVisitService = async (visitId, id_user) => {
     // Comprobamos que esta visita existe
     const visitData = await getVisitData(visitId);
-    if (!visitData) throw invalidCredentials('La visita no existe');
+    if (!visitData) {
+        invalidCredentials('La visita no existe');
+    }
 
 
     // Comprobamos si el usuario es el propietario de la visita
@@ -16,7 +18,7 @@ export const closeVisitService = async (visitId, id_user) => {
         const close_visit = 'completed';
         await closeVisitModel(visitId, close_visit);
     } else {
-        throw invalidCredentials('No eres el propietario de la visita');
+        invalidCredentials('No eres el propietario de la visita');
     }
 
     //retornamos el email del cliente, para notificarle que la visita ha sido cerrada y nosde su feedback

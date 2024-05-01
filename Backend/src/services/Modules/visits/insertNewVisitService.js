@@ -12,7 +12,9 @@ export const insertNewVisitService = async (user_id, id_customer, visit_date, ob
     const customer = await selectCustomerByIdModel(id_customer);
 
     // Verificamos si el cliente
-    if (!customer) throw invalidCredentials('El cliente no existe');
+    if (!customer) {
+        invalidCredentials('El cliente no existe');
+    }
 
     const{ address_id } = customer;
     
@@ -20,7 +22,9 @@ export const insertNewVisitService = async (user_id, id_customer, visit_date, ob
     const address = await selectAddressCustomerByIdModel(address_id);
 
     // Verificamos si la direccion existe.
-    if (!address.address) throw invalidCredentials('El cliente no tiene asociada una direccion');
+    if (!address.address) {
+        invalidCredentials('El cliente no tiene asociada una direccion');
+    }
 
     // Insertamos la visita en la base de datos.
     await insertVisitModel(visitId, user_id, id_customer, visit_date, observations);

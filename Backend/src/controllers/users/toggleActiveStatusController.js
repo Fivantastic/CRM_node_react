@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import { toggleActivationService } from "../../services/user/toggleActivationService.js";
 
 export const toggleActiveStatusController = async (req, res, next) => {
@@ -14,7 +13,6 @@ export const toggleActiveStatusController = async (req, res, next) => {
         const isActive = user.active === 1 ? true : false
         const message = `Estado del usuario cambiado a: ${isActive ? 'Activo' : 'Inactivo'} `
 
-        console.log(`${user.email}:`, isActive ? chalk.bold.green('Activo') : chalk.bold.gray('Inactivo'))
         res.send({
             status: 'ok',
             isActive,

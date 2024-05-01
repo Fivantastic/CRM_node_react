@@ -1,21 +1,28 @@
 import { getModuleDeliveryNoteModel } from '../../models/Modules/getModuleDeliveryNoteModel.js';
+import { getModuleInvoiceModel } from '../../models/Modules/getModuleInvoiceModel.js';
+import { getModuleModel } from '../../models/Modules/getModuleModel.js';
+import { getModulePaymentModel } from '../../models/Modules/getModulePaymentModel.js';
 import { getModuleSalesModel } from '../../models/Modules/getModuleSalesModel.js';
+import { getModuleShipmentModel } from '../../models/Modules/getModuleShipmentModel.js';
 import { getModuleVisitModel } from '../../models/Modules/getModuleVisitModel.js';
+import { invalidCredentials } from '../../services/error/errorService.js';
 
 export const searchModulesController = async (req, res, next) => {
   try {
     // Obtengo el rol del usuario
     const userRole = req.user?.role;
     const searchTerm = req.query.search;
-    console.log(searchTerm);
 
     let responseData = {};
 
-    console.log(userRole);
     // Busco los datos en la base de datos
     const searchSale = await getModuleSalesModel(searchTerm);
     const searchVisit = await getModuleVisitModel(searchTerm);
     const searchDeliveryNote = await getModuleDeliveryNoteModel(searchTerm);
+    const searchInvoice = await getModuleInvoiceModel(searchTerm);
+    const searchPayment = await getModulePaymentModel(searchTerm);
+    const searchShipment = await getModuleShipmentModel(searchTerm);
+    const searchModules = await getModuleModel(searchTerm);
 
     // Muestro la info por su respectivo rol
     if (userRole === 'admin') {
@@ -23,6 +30,10 @@ export const searchModulesController = async (req, res, next) => {
         sales: searchSale,
         visits: searchVisit,
         deliveryNotes: searchDeliveryNote,
+        invoice: searchInvoice,
+        payment: searchPayment,
+        shipment: searchShipment,
+        Module: searchModules,
       };
     } else if (userRole === 'salesAgent') {
       responseData = {
@@ -32,11 +43,10 @@ export const searchModulesController = async (req, res, next) => {
     } else if (userRole === 'deliverer') {
       responseData = {
         deliveryNotes: searchDeliveryNote,
+        shipment: searchShipment,
       };
     } else {
-      responseData = {
-        deliveryNotes: 'No tienes permisos. !',
-      };
+      invalidCredentials('No tienes permisos. !');
     }
 
     // Responder con los modulos

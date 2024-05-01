@@ -13,7 +13,6 @@ export const updateUserService = async (userId, body) => {
     if (existUser && existUser.id !== userId) {
         emailAlreadyRegisteredError();
     }
-    console.log('email disponible');
 
     // Actualizar el usuario en la base de datos.
     await updateUserModel(userId, name, last_name, email, phone, bio, avatar );

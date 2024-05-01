@@ -1,6 +1,6 @@
 import { getDBPool } from '../../../db/getPool.js';
 
-export const deleteVisitService = async (visitId) => {
+export const deleteVisitModel = async (visitId) => {
     const pool = getDBPool();
     const [result] = await pool.query(
         `DELETE FROM Visits 
@@ -13,4 +13,6 @@ export const deleteVisitService = async (visitId) => {
         error.code = 'DELETE_VISITS_ERROR';
         throw error;
     }
+
+    return { message: 'Visita eliminada correctamente' };
 }

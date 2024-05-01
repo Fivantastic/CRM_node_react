@@ -19,18 +19,22 @@ export const loginUserController = async (req, res, next) => {
         const user = await selectUserByEmailModel(email);
 
         //validar el usuario
-        if (!user) throw invalidCredentials('El usuario/email no existe');
+        if (!user){
+            invalidCredentials('El usuario/email no existe');
+        }
   
         //validar el estado
         if (user.active != 1) {
-            throw invalidCredentials('El usuario no ha sido verificado'); 
+            invalidCredentials('El usuario no ha sido verificado'); 
         }
         
         //comparar la contraseña
         const isValidPassword = await bcrypt.compare(password, user.password);
 
         //validar la contraseña
-        if (!isValidPassword) throw invalidCredentials();
+        if (!isValidPassword) {
+            invalidCredentials('La contraseña es incorrecta');
+        }
 
         // El usuario existe y la contraseña es correcta
         //Login exitoso

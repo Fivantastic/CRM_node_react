@@ -22,9 +22,7 @@ export const updateProductService = async (id_product, body) => {
     product_status
   );
 
-  // Obtener el producto actualizado.
-  const product = await selectProductById(id_product);
-
   // devolver el producto actualizado.
+  const product = await selectProductById(id_product);
   return product;
 };

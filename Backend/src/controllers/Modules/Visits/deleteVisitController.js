@@ -1,4 +1,4 @@
-import { deleteVisitService } from "../../../services/Modules/visits/deleteVisitService.js";
+import { deleteVisitModel } from "../../../models/Modules/visits/deleteVisitModel.js";
 import { invalidCredentials } from "../../../services/error/errorService.js";
 import { selectIdVisitByIdService } from "../../../services/Modules/visits/selectIdVisitByIdService.js";
 
@@ -9,10 +9,10 @@ export const deleteVisitController = async (req, res, next) => {
 
         const id_visit = await selectIdVisitByIdService(visitId);
 
-        if(!id_visit) {
-            throw invalidCredentials('No se encontró el identificador de la visita');
+        if(id_visit !== visitId) {
+            invalidCredentials('No se encontró el identificador de la visita');
         } else{
-            await deleteVisitService(visitId);
+            await deleteVisitModel(visitId);
         }
         res.status(200).json({
             status: 'ok',

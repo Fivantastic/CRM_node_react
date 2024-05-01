@@ -8,7 +8,7 @@ export const statusUpdateInvoiceService = async (invoiceId, body) => {
     // Comprobar si la factura ya existe.
     const invoiceExists = await selectInvoiceById(invoiceId);
     if (!invoiceExists) {
-        throw invalidCredentials('La factura no existe en la base de datos.');
+        invalidCredentials('La factura no existe en la base de datos.');
     }
 
     // Actualizar la factura en la base de datos.

@@ -12,8 +12,6 @@ export const deleteProductController = async (req, res, next) => {
         if (!product){
             const error = new Error
             const errMsg = 'El id no se corresponde a ningún producto'
-            console.log(errMsg);
-            console.log('id proporcionado:', chalk.bold(product_id));
 
             error.statusCode = 404
             error.code = 'PRODUCT_NOT_FOUND'
@@ -25,7 +23,6 @@ export const deleteProductController = async (req, res, next) => {
         await deleteProductService(product_id)
 
         // Confirmación de la eliminación
-        console.log(chalk.bold.red(`Producto eliminado: ${product.name}`));
         res.status(200).send({
             message: 'Producto eliminado correctamente',
             product: product.name

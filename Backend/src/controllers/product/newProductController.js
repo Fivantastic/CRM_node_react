@@ -16,7 +16,7 @@ export const newProductController = async (req, res, next) => {
         // Respuesta al Admin
         res.status(201).send({
             status: 'ok',
-            message: 'The product has been added correctly'
+            message: 'El Producto ha sido creado.',
         });
     } catch (error) { 
         console.log(error.code);

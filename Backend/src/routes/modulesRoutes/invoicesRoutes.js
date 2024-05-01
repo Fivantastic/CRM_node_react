@@ -13,6 +13,7 @@ export const invoicesRouter = express.Router();
 invoicesRouter.post('/invoice', authenticateUser, checkRoleAgent, newInvoiceController);
 
 // Modificacion de una factura
+//? En las apps de facturas no se puede modificar la factura, solo borrarla
 
 // Borrado de una factura
 invoicesRouter.delete('/invoice/:invoiceId', authenticateUser, checkRoleAgent, deleteInvoiceController);

@@ -129,6 +129,7 @@ export async function createDBSchema(db) {
         sale_id CHAR(36),
         deliverer_id CHAR(36),
         delivery_status ENUM('pending', 'delivering', 'delivered') DEFAULT 'pending',
+        customer_id CHAR(36),
         address_id CHAR(36),
         saleProduct_id CHAR(36), 
         delivery_date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -136,6 +137,7 @@ export async function createDBSchema(db) {
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
         FOREIGN KEY (deliverer_id) REFERENCES Users(id_user),
+        FOREIGN KEY (customer_id) REFERENCES Customers(id_customer),
         FOREIGN KEY (address_id) REFERENCES Addresses(id_address),
         FOREIGN KEY (saleProduct_id) REFERENCES SalesProducts(id_saleProduct)
   )`);
@@ -162,6 +164,9 @@ export async function createDBSchema(db) {
         agentUser_id CHAR(36),
         sale_id CHAR(36),
         customer_id CHAR(36),
+        total_amount DECIMAL(10,2) NOT NULL,
+        payment_method ENUM('cash', 'card', 'transfer') DEFAULT 'transfer',
+        invoice_status ENUM('pending', 'paid') DEFAULT 'pending',
         company_name VARCHAR(255),
         NIF VARCHAR(20),
         address VARCHAR(255),

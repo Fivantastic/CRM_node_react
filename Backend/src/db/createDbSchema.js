@@ -238,18 +238,6 @@ export async function createDBSchema(db) {
 
   //! Aquí podría venir la lógica de enviar un correo electrónico con la contraseña y el registro.
 
-  console.log(chalk.bold.yellow(
-      '--------------------------------------------------------'
-    )
-  );
-  console.log(chalk.bold.yellow('ID de usuario:', id_user));
-  console.log(chalk.bold.yellow('Contraseña:', password));
-  console.log(chalk.bold.yellow('Código de registro:', registration_code));
-  console.log(chalk.bold.yellow(
-      '--------------------------------------------------------'
-    )
-  );
-
   console.log(chalk.bold.magenta(`->🧑‍💼 Insertando usuario Owner...`));
 
   await db.query(

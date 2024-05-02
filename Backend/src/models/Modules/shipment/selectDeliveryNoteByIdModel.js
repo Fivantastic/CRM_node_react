@@ -10,4 +10,5 @@ export const selectDeliveryNoteByIdModel = async (deliveryNote_id) => {
   );
 
   return deliveryNote[0];
+};
 

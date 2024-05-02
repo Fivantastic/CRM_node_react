@@ -8,5 +8,7 @@ export const updatePasswordModel = async (id_user, hashedPassword) => {
     WHERE id_user = ?
   `;
 
-  await pool.execute(query, [hashedPassword, id_user]); 
+  await pool.execute(query, [hashedPassword, id_user]);
+  
+  return { message: 'Contraseña actualizada correctamente' };
 };

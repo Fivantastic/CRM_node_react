@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import DynamicForm from '../components/forms/DynamicForm.jsx';
+
 export const LoginPage = () => {
   const handleLoginSubmit = async (data) => {
     try {
@@ -52,8 +53,21 @@ export const LoginPage = () => {
       type: 'password',
       placeholder: 'Introduce tu contraseña...',
       required: true,
+    },
+    {
+      type: 'textWithLink',
+      linkText: '¿Olvidaste tu contraseña?',
+      link: 'http://localhost:5173/forgot-password' // URL a la que deseas redirigir al hacer clic en el enlace
     }
+
   ];
+
+//   const extraButtons = [
+//     {
+//         label: 'Borrar',
+//         type: 'reset' 
+//     }
+// ];
 
   return (
     <div>
@@ -63,6 +77,7 @@ export const LoginPage = () => {
         schema={loginUserSchema}
         fields={loginFormFields}
         buttonText={'Entrar'}
+        extraButtons={[]}
       />
     </div>
   );

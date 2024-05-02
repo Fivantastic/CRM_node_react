@@ -54,12 +54,42 @@
     font-size: 14px;
     margin-top: 5px;
   }
+
+  /* Estilo para los ancores */
+  a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 10px 5px;
+    cursor: pointer;
+    font-style: italic;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
   
+  /* Estilo para los botónes */
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
   /* Estilo para el botón de enviar */
   button[type="submit"] {
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
+    margin: 10px 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;

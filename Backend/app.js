@@ -17,7 +17,12 @@ app.use(cookieParser())
 app.use(express.json());
 app.use(fileUpload());
 app.use(morgan('dev'));
-app.use(cors());
+// Middleware Cors con la insertación de Cookies en las peticiones con el token
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:5173',
+  exposedHeaders: ['SET-COOKIE']
+}));
 
 // Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));

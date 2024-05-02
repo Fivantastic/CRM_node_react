@@ -94,6 +94,16 @@
     border-radius: 5px;
     cursor: pointer;
   }
+
+  button[type="submit"]:hover {
+    background-color: #0069d9;
+  }
+
+  button[type="submit"]:active {
+    box-shadow:  1px 1px 2px rgba(0, 0, 0, 0.2); /* Agrega una sombra interna al botón al hacer clic */
+}
+
+
   
   /* Estilo para el botón de enviar cuando está deshabilitado */
   button[type="submit"]:disabled {
@@ -101,3 +111,21 @@
     cursor: not-allowed;
   }
   
+  .password-input-wrapper {
+    position: relative;
+}
+
+.password-input-wrapper input[type="password"] {
+    padding-right: 30px; /* Espacio para el icono del ojo */
+}
+
+.toggle-password {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    color: #000; /* Color negro */
+    cursor: pointer;
+    position: absolute;
+    right: -10px;
+    top: 25%; /* Centra verticalmente */
+    transform: translateY(-50%); /* Ajusta la posición vertical */
+}

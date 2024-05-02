@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './simpleEstilo.css';
-
 
 // /* Estilos para los campos que podeis utilizar */
 // Campos de entrada de texto (<input type="text">)
@@ -39,6 +41,9 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
         }
       }
   });
+
+    // Estado para controlar la visibilidad de la contraseña
+    const [showPassword, setShowPassword] = useState(false);
 
     // Obtener todos los campos del formulario
     const watchedFields = watch();
@@ -103,6 +108,26 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
                                             })}
                                         />
                                     ) : (
+                                        <>
+                                        {field.type === 'password' ? (
+                                            <div className="password-input-wrapper">
+                                                <input
+                                                    id={field.name}
+                                                    className={`input ${errors[field.name] ? 'error' : ''}`}
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    placeholder={field.placeholder}
+                                                    {...register(field.name, {
+                                                        required: field.required,
+                                                        minLength: field.minLength,
+                                                        maxLength: field.maxLength
+                                                    })}
+                                                />
+                                                <button type="button" className="toggle-password" onClick={() => setShowPassword(!showPassword)}>
+                                                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                                                </button>
+                                            </div>
+
+                                        ) : ( 
                                         <input
                                             id={field.name}
                                             className={`input ${errors[field.name] ? 'error' : ''}`}
@@ -117,6 +142,8 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
                                     )}
                                     {field.help && <p className="help-text">{field.help}</p>}
                                     {errors[field.name] && <p className="error-message">{errors[field.name]?.message}</p>}
+                                    </>
+                                )}
                                 </>
                             )}
                         </div>

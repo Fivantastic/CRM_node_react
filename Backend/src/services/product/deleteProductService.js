@@ -1,16 +1,19 @@
-import { getDBPool } from "../../db/getPool.js";
+import { deleteProductModel } from "../../models/products/deleteProductModel.js";
+import { selectProductById } from "../../models/products/selectProductById.js";
+import { notFoundError } from "../error/errorService.js";
 
-export const deleteProductService = async(id_product) =>{
-    const pool = await getDBPool();
-    const [result] = await pool.query(
-        `DELETE FROM Products
-        WHERE id_product = ?;
-        `,[id_product]
-    );
-    
-    if (result.affectedRows === 0) {
-    const error = new Error('No se ha podido eliminar el producto.');
-    error.code = 'DELETE_PRODUCTS_ERROR';
-    throw error;
+
+export const deleteProductService = async (product_id) => {
+    // Obtenemos el producto
+    const product = await selectProductById(product_id);
+
+    // Verificamos que exista
+    if (!product){
+        notFoundError('Producto');
     }
+
+    // Lógica de la eliminación
+    const response = await deleteProductModel(product_id)
+
+    return response;
 }

@@ -4,6 +4,7 @@ import { checkRole } from '../../middlewares/checkRoles/checkRole.js';
 import {
   createDeliveryNoteController,
   closeDeliveryNoteController,
+  deleteDeliveryNoteController,
 } from '../../controllers/modulesControllers.js';
 import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
 
@@ -23,4 +24,12 @@ deliveryNoteRouter.put(
   authenticateUser,
   checkRoleAgent,
   closeDeliveryNoteController
+);
+
+// Eliminar Un albaran
+deliveryNoteRouter.delete(
+  '/delivery-notes/delete/:deliveryNote_id',
+  authenticateUser,
+  checkRoleAgent,
+  deleteDeliveryNoteController
 );

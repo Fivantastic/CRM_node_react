@@ -1,6 +1,7 @@
 // Imports Modulos generales
 import { getModuleController } from './Modules/getModuleController.js';
 import { searchModulesController } from './Modules/searchModulesController.js';
+import { deleteModuleController } from './Modules/deleteModuleController.js';
 
 // Imports visitas
 import { closeVisitController } from './Modules/Visits/closeVisitController.js';
@@ -21,12 +22,14 @@ import { deleteInvoiceController } from './Modules/invoices/deleteInvoiceControl
 import { statusUpdateInvoiceController } from './Modules/invoices/statusUpdateInvoiceController.js';
 
 // Imports Pagos
-import { newPaymentController } from "./Modules/payments/newPaymentController.js";
-import { cancelPaymentController } from "./Modules/payments/cancelPaymentController.js";
+import { newPaymentController } from './Modules/payments/newPaymentController.js';
+import { cancelPaymentController } from './Modules/payments/cancelPaymentController.js';
+import { deletePaymentController } from './Modules/payments/deletePaymentController.js';
 
 // Imports Albarán
 import { createDeliveryNoteController } from './Modules/deliveryNote/createDeliveryNoteController.js';
 import { closeDeliveryNoteController } from './Modules/deliveryNote/closeDeliveryNoteController.js';
+import { deleteDeliveryNoteController } from './Modules/deliveryNote/deleteDeliveryNoteController.js';
 
 // Imports envios
 import { shipmentCreateController } from './Modules/shipment/shipmentCreateController.js';
@@ -38,31 +41,27 @@ import { closeShipmentController } from './Modules/shipment/closeShipmentControl
 export {
   getModuleController,
   searchModulesController,
-
+  deleteModuleController,
   closeVisitController,
   deleteVisitController,
   feedbackVisitController,
   getUserVisitsController,
   newVisitController,
   updateVisitController,
-
   insertSalesController,
   updateSalesController,
   deleteSalesController,
-
   newInvoiceController,
   deleteInvoiceController,
   statusUpdateInvoiceController,
-  
   newPaymentController,
   cancelPaymentController,
-
+  deletePaymentController,
   createDeliveryNoteController,
   closeDeliveryNoteController,
-
+  deleteDeliveryNoteController,
   shipmentCreateController,
   shipmentUpdateController,
   deleteShipmentController,
   closeShipmentController,
 };
-

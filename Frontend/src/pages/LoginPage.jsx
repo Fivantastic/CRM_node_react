@@ -3,6 +3,7 @@ import DynamicForm from '../components/forms/DynamicForm.jsx';
 export const LoginPage = () => {
   const handleLoginSubmit = async (data) => {
     try {
+      // Peticion al servidor para el login y peticion en cors de las cookies
       const response = await fetch('http://localhost:3000/user/login', {
         method: 'POST',
         credentials: 'include',

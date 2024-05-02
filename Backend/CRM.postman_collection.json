@@ -17,7 +17,8 @@
 							{
 								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoiYzIxZGRmYTAtZGU4MC00MTc5LWExZjYtMzM3MzhiMmE3ZWE3IiwibmFtZSI6IkRhbmllbCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiRGFuQGFkbWluLmNvbSIsImlhdCI6MTcxNDA1NjI3MiwiZXhwIjoxNzE0NjYxMDcyfQ._26_5q07Rv8pJtMuJTsn-9A4WCJC0s2Ptxj4zFGQSFE",
-								"type": "text"
+								"type": "text",
+								"uuid": "b0dd823d-eda3-43f1-a8ab-f158d384b0e0"
 							}
 						],
 						"body": {
@@ -93,7 +94,8 @@
 							"variable": [
 								{
 									"key": "registration_code",
-									"value": ""
+									"value": "",
+									"uuid": "14e7568f-3577-4683-a3dc-eac0b52b5470"
 								}
 							]
 						}
@@ -101,7 +103,7 @@
 					"response": []
 				},
 				{
-					"name": "Desactivar / Activar solo Admin",
+					"name": "Desactivar / Activar  Usuario solo Admin",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -202,7 +204,56 @@
 							"variable": [
 								{
 									"key": "registration_code",
-									"value": ""
+									"value": "",
+									"uuid": "4c330e6b-b949-4b06-9dfe-25a97585736a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Avatar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/avatar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/delete/:id_user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"delete",
+								":id_user"
+							],
+							"variable": [
+								{
+									"key": "id_user",
+									"value": "",
+									"uuid": "6d467109-bd51-47e0-8b3b-365edbf27a9e"
 								}
 							]
 						}
@@ -294,7 +345,36 @@
 							"variable": [
 								{
 									"key": "customerId",
-									"value": ""
+									"value": "",
+									"uuid": "a0b7df7c-ed3f-4ee8-a9e0-e6f7f651ec33"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/customer/delete/:customerId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customer",
+								"delete",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "",
+									"uuid": "a89cc8b4-90ee-449d-a737-3eb47b071224"
 								}
 							]
 						}
@@ -345,7 +425,8 @@
 							"variable": [
 								{
 									"key": "productId",
-									"value": ""
+									"value": "",
+									"uuid": "05edaddd-df7c-4d32-9325-e9bbfb900ee0"
 								}
 							]
 						}
@@ -392,7 +473,8 @@
 							"variable": [
 								{
 									"key": "product_id",
-									"value": ""
+									"value": "",
+									"uuid": "52c77a52-e680-4dc1-b0b5-82bc7f4e5a0d"
 								}
 							]
 						}
@@ -408,7 +490,13 @@
 					"name": "Búsqueda Por Modulos",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoiYzIxZGRmYTAtZGU4MC00MTc5LWExZjYtMzM3MzhiMmE3ZWE3IiwibmFtZSI6IkRhbmllbCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiRGFuQGFkbWluLmNvbSIsImlhdCI6MTcxNDA1NjI3MiwiZXhwIjoxNzE0NjYxMDcyfQ._26_5q07Rv8pJtMuJTsn-9A4WCJC0s2Ptxj4zFGQSFE",
+								"uuid": "3d6f8b3d-4595-417e-91eb-4055e8879f7d"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/module/search",
 							"protocol": "http",
@@ -419,6 +507,48 @@
 							"path": [
 								"module",
 								"search"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "open",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "closed",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "scheduled",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "pending",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "delivered",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "partially_paid",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "paid",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "completed",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -443,7 +573,8 @@
 							"variable": [
 								{
 									"key": "moduleId",
-									"value": ""
+									"value": "",
+									"uuid": "68d7d513-3054-4e97-a516-d928e1bbfd8a"
 								}
 							]
 						}
@@ -451,157 +582,27 @@
 					"response": []
 				},
 				{
-					"name": "Lista De Visitas",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/user/module/visits/list",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"module",
-								"visits",
-								"list"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Crea Una Visita",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/user/module/visit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"module",
-								"visit"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Modifica Una visita",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/user/module/visit/:visitId",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"module",
-								"visit",
-								":visitId"
-							],
-							"variable": [
-								{
-									"key": "visitId",
-									"value": ""
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Completa Una Visita  Y Envía Una Valoración Al Cliente",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/user/module/visit/complete/:visitId",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"module",
-								"visit",
-								"complete",
-								":visitId"
-							],
-							"variable": [
-								{
-									"key": "visitId",
-									"value": ""
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Inserta La Valoración Del Cliente",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/user/module/visit/feedback/:visitId",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"module",
-								"visit",
-								"feedback",
-								":visitId"
-							],
-							"variable": [
-								{
-									"key": "visitId",
-									"value": ""
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Borrar Una Visita",
+					"name": "Eliminar Un Modulo",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/module/delete/visit/:visitId",
+							"raw": "http://localhost:3000/module/delete/:moduleId",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"user",
 								"module",
 								"delete",
-								"visit",
-								":visitId"
+								":moduleId"
 							],
 							"variable": [
 								{
-									"key": "visitId",
-									"value": ""
+									"key": "moduleId",
+									"value": "",
+									"uuid": "bd618edc-48e2-4af9-8bca-8b5ed265a172"
 								}
 							]
 						}
@@ -640,6 +641,62 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Actualizar Una Venta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/sales/update/:id_sale",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"sales",
+								"update",
+								":id_sale"
+							],
+							"variable": [
+								{
+									"key": "id_sale",
+									"value": "",
+									"uuid": "965d0003-eb98-4ac5-abe7-d127cffdd755"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Una Venta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/sales/delete/:id_sale",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"sales",
+								"delete",
+								":id_sale"
+							],
+							"variable": [
+								{
+									"key": "id_sale",
+									"value": "",
+									"uuid": "a9e716d7-2ab5-45d9-8d01-27f9575c5665"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -660,6 +717,517 @@
 							"port": "3000",
 							"path": [
 								"delivery-notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cerrer Albaran",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/delivery-notes/close/:deliveryNode_id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delivery-notes",
+								"close",
+								":deliveryNode_id"
+							],
+							"variable": [
+								{
+									"key": "deliveryNode_id",
+									"value": "",
+									"uuid": "8217417f-7cb9-4eae-bc09-cd13d303e8f1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Albaran",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/delivery-notes/delete/:deliveryNote_id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delivery-notes",
+								"delete",
+								":deliveryNote_id"
+							],
+							"variable": [
+								{
+									"key": "deliveryNote_id",
+									"value": "",
+									"uuid": "a2325454-bfce-4bf4-9dfc-5bfbf48ee82f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Visitas",
+			"item": [
+				{
+					"name": "Crea Una Visita",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/module/visit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"module",
+								"visit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista De Visitas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/module/visits/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"module",
+								"visits",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifica Una visita",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/module/visit/:visitId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"module",
+								"visit",
+								":visitId"
+							],
+							"variable": [
+								{
+									"key": "visitId",
+									"value": "",
+									"uuid": "03416a3b-44b3-4422-bf6b-6cde24f5cb14"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Completa Una Visita  Y Envía Una Valoración Al Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/module/visit/complete/:visitId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"module",
+								"visit",
+								"complete",
+								":visitId"
+							],
+							"variable": [
+								{
+									"key": "visitId",
+									"value": "",
+									"uuid": "d68706cd-5420-472f-9ffd-f0a70f3f4151"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inserta La Valoración Del Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/module/visit/feedback/:visitId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"module",
+								"visit",
+								"feedback",
+								":visitId"
+							],
+							"variable": [
+								{
+									"key": "visitId",
+									"value": "",
+									"uuid": "d71fc072-0866-41ef-8d99-b83db0d9143f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Una Visita",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/module/delete/visit/:visitId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"module",
+								"delete",
+								"visit",
+								":visitId"
+							],
+							"variable": [
+								{
+									"key": "visitId",
+									"value": "",
+									"uuid": "0cf7964e-5324-442c-b2c8-4609a470eec0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Envios",
+			"item": [
+				{
+					"name": "Crear Envio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customer_id\": \"a4814432-3d70-4f48-a4c4-52d6ad7891ab\",\r\n  \"address_id\": \"accc5129-9e97-4c7b-bed6-c261efe067c7\",\r\n  \"deliveryNote_id\": \"0816c07a-8d3a-4e1c-8201-d7019979d845\",\r\n  \"additional_notes\": \"Gracias por por confiar en CRM comsmico\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/shipment/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shipment",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Envio",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customer_id\": \"a4814432-3d70-4f48-a4c4-52d6ad7891ab\", \r\n    \"address\": \"Calle falsa\",\r\n    \"number\": \"123\",\r\n    \"floor\": \"5\",\r\n    \"letter_number\": \"B\",\r\n    \"city\": \"Barcelona\",\r\n    \"zip_code\": \"08765\",\r\n    \"country\": \"España\",\r\n    \"deliveryNote_id\": \"0816c07a-8d3a-4e1c-8201-d7019979d845\",\r\n    \"additional_notes\": \"Probando 123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/shipment/update/:shipmentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shipment",
+								"update",
+								":shipmentId"
+							],
+							"variable": [
+								{
+									"key": "shipmentId",
+									"value": "",
+									"uuid": "02e8d68f-0820-414e-94f2-422da9fe8d67"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cerrar Envio",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shipment_status\": \"delivered\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/shipment/closed/:shipmentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shipment",
+								"closed",
+								":shipmentId"
+							],
+							"variable": [
+								{
+									"key": "shipmentId",
+									"value": "",
+									"uuid": "66d587e7-0b39-4e18-8fbd-19c05e532b98"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Envio",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/shipment/delete/:shipmentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shipment",
+								"delete",
+								":shipmentId"
+							],
+							"variable": [
+								{
+									"key": "shipmentId",
+									"value": "",
+									"uuid": "c17eb3ce-d0c0-4720-874c-46f62e729243"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Facturas",
+			"item": [
+				{
+					"name": "Crear Factura",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/invoice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"invoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cerrar Factura",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/invoice/close/:invoiceId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"invoice",
+								"close",
+								":invoiceId"
+							],
+							"variable": [
+								{
+									"key": "invoiceId",
+									"value": "",
+									"uuid": "629c4c4a-fede-45ca-a753-03f579ca4290"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Factura",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/invoice/:invoiceId'",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"invoice",
+								":invoiceId'"
+							],
+							"variable": [
+								{
+									"key": "invoiceId'",
+									"value": "",
+									"uuid": "84656438-ed2a-4946-ac52-406d4719ccb2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pagos",
+			"item": [
+				{
+					"name": "Crear Pago",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/payments/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"payments",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cerrar Envio / cambio De Estado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/payments/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"payments",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Pago",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/payments/delete/:pagoId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"payments",
+								"delete",
+								":pagoId"
+							],
+							"variable": [
+								{
+									"key": "pagoId",
+									"value": "",
+									"uuid": "58da185a-fcc2-46e9-840c-80faf788a9b1"
+								}
 							]
 						}
 					},

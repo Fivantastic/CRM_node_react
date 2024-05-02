@@ -1,0 +1,73 @@
+/* Estilo para el contenedor principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+  
+  /* Estilo para los títulos */
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para los campos de entrada y etiquetas */
+  input[type="text"],
+  input[type="password"],
+  textarea,
+  select,
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Estilo para los campos de entrada */
+  input[type="text"],
+  input[type="password"],
+  textarea,
+  select {
+    width: 200px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegura que el tamaño total del elemento incluya el padding y el borde */
+  }
+  
+  /* Estilo para los mensajes de ayuda */
+  .help-text {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  /* Estilo para los mensajes de error */
+  .error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  /* Estilo para el botón de enviar */
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Estilo para el botón de enviar cuando está deshabilitado */
+  button[type="submit"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

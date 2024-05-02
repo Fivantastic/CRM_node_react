@@ -8,8 +8,10 @@ export const resetPasswordController = async (req, res, next) => {
         // Validar el esquema del cuerpo de la solicitud
         await validateSchemaUtil(changeResetPasswordSchema, req.body);   
         
+        const registration_code = decodeURIComponent(req.params.registration_code);
+
         // Actualizar la contraseña en la base de datos
-        const response = await updatePasswordService(req.params.registration_code , req.body);
+        const response = await updatePasswordService(registration_code , req.body);
 
         // Responder al cliente
         res.json(success(response));

@@ -4,16 +4,22 @@ import { updatePasswordModel } from "../../models/user/updatePasswordModel.js";
 import { selectIdByRegistrationCode } from '../../models/user/selectIdByRegistrationCodeModel.js';
 
 
-export const updatePasswordService = async (new_registration_code, body) => {
+export const updatePasswordService = async (registration_code, body) => {
     // Obtenemos el nuevo password
-    const { newPassword } = body;
+    const { newPassword, repeatPassword } = body;
+
+    // Verificar que las dos passwords sean iguales
+    if (newPassword !== repeatPassword) {
+        invalidCredentials('Las dos passwords no coinciden');
+    }
 
     // Obtenemos el id del usuario
-    const id_user  = await selectIdByRegistrationCode(new_registration_code);
+    const id_user = await selectIdByRegistrationCode(registration_code);
+
         
     // Verificar que el usuario exista
     if (!id_user) {
-        invalidCredentials('Usuario no encontrado');
+        invalidCredentials(`El usuario no existe`);
     }
 
     // Encriptar la nueva contraseña

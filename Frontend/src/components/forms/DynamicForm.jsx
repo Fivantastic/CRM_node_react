@@ -114,7 +114,6 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
                             )}
                         </div>
                     ))}
-
                     <div className="button-container">
                         {extraButtons.map((button, index) => {
                             if (button.type === 'submit') {

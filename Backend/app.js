@@ -26,9 +26,8 @@ app.use(morgan('dev'));
 // }));
 
 // Middleware Cors sin cookies
-app.use(cors({
-  origin: 'http://localhost:5173'
-}));
+app.use(cors());
+
 
 // Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));

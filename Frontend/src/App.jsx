@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/Home/HomePage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
 import { LoginPage } from './pages/LoginPage.jsx';
-import { RegisterPage } from './pages/RegisterPage.jsx';
+import { RegisterPage } from './pages/UserRegistrationPage.jsx';
 import { SalesPage } from './pages/SalesPage.jsx';
 import { Visitpage } from './pages/Visitpage.jsx';
 import { DeliveryNotePage } from './pages/DeliveryNotePage.jsx';

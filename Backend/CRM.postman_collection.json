@@ -580,34 +580,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Eliminar Un Modulo",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/module/delete/:moduleId",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"module",
-								"delete",
-								":moduleId"
-							],
-							"variable": [
-								{
-									"key": "moduleId",
-									"value": "",
-									"uuid": "bd618edc-48e2-4af9-8bca-8b5ed265a172"
-								}
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},

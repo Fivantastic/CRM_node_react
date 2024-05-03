@@ -1,12 +1,12 @@
 import Joi from 'joi';
 import DynamicForm from '../components/forms/DynamicForm.jsx';
-import { AuthContext } from '../context/authContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/authContext.jsx';
 import { useContext } from 'react';
 
 export const LoginPage = () => {
   const navigate = useNavigate(); 
-  const { setToken } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext); // Cambia de useSetUser a setUser
 
   const handleLoginSubmit = async (data) => {
     try {
@@ -26,7 +26,7 @@ export const LoginPage = () => {
         const newToken = responseData.token;
 
         // Actualizar el token en el localStorage y en el estado del contexto
-        setToken(newToken);
+        setUser(newToken); // Usa setUser en lugar de setToken
 
         // Redireccionar a la página principal
         navigate('/home'); // Usa navigate para redirigir al usuario a la página principal

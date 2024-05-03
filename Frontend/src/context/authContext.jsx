@@ -1,31 +1,19 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useContext} from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage.js';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(null);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem('token');
-        if (storedToken) {
-            setToken(storedToken);
-        } else {
-            setError('No se encontró el token en el localStorage.');
-        }
-    }, []);
-
-    const updateToken = (newToken) => {
-        // Aquí puedes agregar lógica para validar el nuevo token antes de almacenarlo
-        localStorage.setItem('token', newToken);
-        setToken(newToken);
-    };
-
-    // Aquí puedes agregar lógica adicional para manejar la expiración del token y la validación
-
+    const [user, setUser] = useLocalStorage('session', '');
     return (
-        <AuthContext.Provider value={{ token, setToken: updateToken, error }}>
+        <AuthContext.Provider value={{ user, setUser }}>
             {children}
         </AuthContext.Provider>
     );
 };
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useUser = () => useContext(AuthContext)[0];
+// eslint-disable-next-line react-refresh/only-export-components
+export const useSetUser = () => useContext(AuthContext)[1];
+

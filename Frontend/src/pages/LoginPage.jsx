@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 export const LoginPage = () => {
   const navigate = useNavigate(); 
-  const { setUser } = useContext(AuthContext); // Cambia de useSetUser a setUser
+  const { setUser } = useContext(AuthContext);
 
   const handleLoginSubmit = async (data) => {
     try {
@@ -26,11 +26,10 @@ export const LoginPage = () => {
         const newToken = responseData.token;
 
         // Actualizar el token en el localStorage y en el estado del contexto
-        setUser(newToken); // Usa setUser en lugar de setToken
+        setUser(newToken); 
 
         // Redireccionar a la página principal
-        navigate('/home'); // Usa navigate para redirigir al usuario a la página principal
-
+        navigate('/home'); 
       } else {
         const errorData = await response.json();
         console.error('Login fallido:', errorData);

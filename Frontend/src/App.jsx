@@ -5,7 +5,6 @@ import { LoginPage } from './pages/LoginPage.jsx';
 import { RegisterPage } from './pages/UserRegistrationPage.jsx';
 import { ForgotPassword } from './pages/ForgotPassword.jsx';
 import { ResetPassword } from './pages/ResetPassword.jsx';
-import { RegisterPage } from './pages/RegisterPage.jsx';
 import { SalesPage } from './pages/SalesPage.jsx';
 import { Visitpage } from './pages/Visitpage.jsx';
 import { DeliveryNotePage } from './pages/DeliveryNotePage.jsx';

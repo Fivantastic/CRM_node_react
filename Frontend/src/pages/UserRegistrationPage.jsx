@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext.jsx';
 import { useContext } from 'react';
 
-function RegisterPage() {
+export function RegisterPage(){
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
 

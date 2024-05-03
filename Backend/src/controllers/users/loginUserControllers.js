@@ -41,10 +41,10 @@ export const loginUserController = async (req, res, next) => {
         const token = generateAccessToken(user);
         
         // Eliminar el token de la cookie si existe
-        res.clearCookie('token');
+        // res.clearCookie('token');
 
         // insertar el token en la cookies
-        insertTokenCookie(res, token);
+        // insertTokenCookie(res, token);
 
         // Colocar la cookie (no devuelve respuesta aún)
         // res.cookie('token', token)

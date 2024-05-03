@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import './simpleEstilo.css';
 
-
 // /* Estilos para los campos que podeis utilizar */
 // Campos de entrada de texto (<input type="text">)
 // Campos de contraseña (<input type="password">)
@@ -16,34 +15,28 @@ import './simpleEstilo.css';
 // Etiquetas y agrupación (<label>, <fieldset>, <legend>)
 // Elementos ocultos (<input type="hidden">)
 
-
 function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons }) {
     const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm({
-
-      // Función que utiliza Joi para validar los campos 
-      resolver: async data => {
-        try {
-          const values = await schema.validateAsync(data);
-          return { 
-              values, 
-              errors: {} 
-          };
-        } catch (error) {
-          return {
-            values: {},
-            errors: error.details.reduce((acc, curr) => {
-              acc[curr.context.key] = { message: curr.message };
-              return acc;
-            }, {})
-          };
+        resolver: async data => {
+            try {
+                const values = await schema.validateAsync(data);
+                return { 
+                    values, 
+                    errors: {} 
+                };
+            } catch (error) {
+                return {
+                    values: {},
+                    errors: error.details.reduce((acc, curr) => {
+                        acc[curr.context.key] = { message: curr.message };
+                        return acc;
+                    }, {})
+                };
+            }
         }
-      }
-  });
+    });
 
-    // Obtener todos los campos del formulario
     const watchedFields = watch();
-
-    // Verificar si todos los campos tienen datos
     const allFieldsFilled = Object.values(watchedFields).every(value => value !== "");
 
     return (
@@ -51,8 +44,8 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
             <main className="container"> 
                 <h1>{title}</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    {fields.map(field => (
-                        <div key={field.name}>
+                    {fields.map((field, index) => (
+                        <div key={index}>
                             {field.type === 'textWithLink' ? (
                                 <p>
                                     {field.text}{' '}

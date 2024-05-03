@@ -12,13 +12,15 @@ import { InvoicePage } from './pages/InvoicePage.jsx';
 import { PaymentPage } from './pages/PaymentPage.jsx';
 import { ShipmentPage } from './pages/ShipmentPage.jsx';
 import { AboutPage } from './pages/About/AboutPage.jsx';
+import { InitialPage } from './pages/InitialPage.jsx';
 
 function App() {
   return (
     <>
       <h1>Cosmic CRM</h1>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<InitialPage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/user/reset-password/:registration_code" element={<ResetPassword />} />

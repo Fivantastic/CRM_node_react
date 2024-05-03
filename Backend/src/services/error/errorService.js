@@ -2,7 +2,7 @@ export const notFoundError = (resource) => {
   throw {
     statusCode: 404, // Not Found
     code: 'RESOURCE_NOT_FOUND',
-    message: `El recurso '${resource}' no existe`,
+    message: `El '${resource}' no existe`,
   };
 };
 export const usernameAlreadyRegisteredError = () => {

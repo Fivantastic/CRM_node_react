@@ -1,44 +1,18 @@
-import bcrypt from 'bcrypt';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { changePasswordSchema } from '../../schemas/user/changePasswordSchema.js';
-import { selectUserByIdModel } from '../../models/user/selectUserByIdModel.js';
-import { updatePasswordModel } from '../../models/user/updatePasswordModel.js';
-import { invalidCredentials } from '../../services/error/errorService.js';
+import { changePasswordService } from '../../services/user/changePasswordService.js';
 import { success } from '../../utils/success.js';
 
 export const changePasswordController = async (req, res, next) => {
   try {
-    const userId = req.user.id_user;
-    const { currentPassword, newPassword } = req.body;
-    
     // Validar el esquema del cuerpo de la solicitud
     await validateSchemaUtil(changePasswordSchema, req.body);
-
-    // Obtener usuario por ID
-    const user = await selectUserByIdModel(userId);
-
-    if (!user) {
-      invalidCredentials('Usuario no encontrado');
-    }
-
-    // Verificar si la contraseña actual es correcta
-    const isValidPassword = await bcrypt.compare(
-      currentPassword,
-      user.password
-    );
-
-    if (!isValidPassword){
-      invalidCredentials('Contraseña actual incorrecta');
-    }
-
-    // Encriptar la nueva contraseña
-    const hashedPassword = await bcrypt.hash(newPassword, 12);
-
-    // Actualizar la contraseña en la base de datos
-    await updatePasswordModel(userId, hashedPassword);
-
+    
+    // Obtener el id del usuario e insertar el password
+    const response = changePasswordService(req.user.id_user, req.body);
+   
     // Responder con éxito
-    res.send(success({ message: 'Contraseña cambiada con éxito' }));
+    res.send(success(response));
   } catch (error) {
     next(error); // Manejo de errores
   }

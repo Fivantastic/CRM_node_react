@@ -2,6 +2,7 @@ import express from 'express';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
 import { userExist } from '../../middlewares/userExist.js';
+import { renewTokenMiddleware } from '../../middlewares/renewTokenMiddleware.js';
 import {
   changePasswordController,
   forgotPasswordController,
@@ -51,7 +52,7 @@ userRouter.put('/user/forgot-password-request', forgotPasswordController);
 userRouter.put('/user/reset-password/:registration_code', resetPasswordController);
 
 // Ruta para renovación de token
-userRouter.get('/user/renew-token', authenticateUser, renewTokenController);
+userRouter.get('/user/renew-token', renewTokenMiddleware, renewTokenController);
 
 // Ruta para actualizar avatar
 userRouter.put('/user/avatar', authenticateUser, userExist, updateUserAvatarController);

@@ -101,22 +101,3 @@
     background-color: #ccc;
     cursor: not-allowed;
   }
-  
-  .password-input-wrapper {
-    position: relative;
-}
-
-.password-input-wrapper input[type="password"] {
-    padding-right: 30px; /* Espacio para el icono del ojo */
-}
-
-.toggle-password {
-    background-color: transparent; /* Fondo transparente */
-    border: none; /* Sin borde */
-    color: #000; /* Color negro */
-    cursor: pointer;
-    position: absolute;
-    right: -10px;
-    top: 25%; /* Centra verticalmente */
-    transform: translateY(-50%); /* Ajusta la posición vertical */
-}

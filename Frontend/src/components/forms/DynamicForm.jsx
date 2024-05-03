@@ -1,8 +1,21 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './simpleEstilo.css';
+
+
+// /* Estilos para los campos que podeis utilizar */
+// Campos de entrada de texto (<input type="text">)
+// Campos de contraseña (<input type="password">)
+// Campos de número (<input type="number">)
+// Campos de correo electrónico (<input type="email">)
+// Campos de fecha (<input type="date">)
+// Casillas de verificación (<input type="checkbox">)
+// Botones de radio (<input type="radio">)
+// Campos de archivo (<input type="file">)
+// Áreas de texto (<textarea>)
+// Menús desplegables (<select>)
+// Etiquetas y agrupación (<label>, <fieldset>, <legend>)
+// Elementos ocultos (<input type="hidden">)
+
 
 function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons }) {
     const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm({
@@ -27,9 +40,6 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
       }
   });
 
-    // Estado para controlar la visibilidad de la contraseña
-    const [showPassword, setShowPassword] = useState(false);
-
     // Obtener todos los campos del formulario
     const watchedFields = watch();
 
@@ -41,8 +51,8 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
             <main className="container"> 
                 <h1>{title}</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    {fields.map((field, index) => (
-                        <div key={index}> {/* Usamos el índice como clave única */}
+                    {fields.map(field => (
+                        <div key={field.name}>
                             {field.type === 'textWithLink' ? (
                                 <p>
                                     {field.text}{' '}
@@ -92,23 +102,6 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
                                                 required: field.required
                                             })}
                                         />
-                                    ) : field.type === 'password' ? (
-                                        <div className="password-input-wrapper">
-                                            <input
-                                                id={field.name}
-                                                className={`input ${errors[field.name] ? 'error' : ''}`}
-                                                type={showPassword ? 'text' : 'password'}
-                                                placeholder={field.placeholder}
-                                                {...register(field.name, {
-                                                    required: field.required,
-                                                    minLength: field.minLength,
-                                                    maxLength: field.maxLength
-                                                })}
-                                            />
-                                            <button type="button" className="toggle-password" onClick={() => setShowPassword(!showPassword)}>
-                                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                                            </button>
-                                        </div>
                                     ) : (
                                         <input
                                             id={field.name}
@@ -130,9 +123,15 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
                     ))}
 
                     <div className="button-container">
-                        {extraButtons.map((button, index) => (
-                            <button key={index} type={button.type} onClick={button.onClick}>{button.label}</button>
-                        ))}
+                        {extraButtons.map((button, index) => {
+                            if (button.type === 'submit') {
+                                return <button key={index} type="submit">{button.label}</button>;
+                            } else if (button.type === 'reset') {
+                                return <button key={index} type="reset">{button.label}</button>;
+                            } else {
+                                return <button key={index} type="button" onClick={button.onClick}>{button.label}</button>;
+                            }
+                        })}
                         <button type="submit" disabled={!isValid || !allFieldsFilled}>{buttonText}</button>
                     </div>
                 </form>

@@ -7,10 +7,10 @@ import { selectUserByIdModel } from '../models/user/selectUserByIdModel.js';
 export const authenticateUser = async (req, res, next) => {
     try {
     // SIN COOKIES - Extraer el token de la solicitud
-    // const {authorization} = req.headers;
+    const {authorization} = req.headers;
 
     // CON COOKIES - Extrar el token de la solicitud
-    const authorization = req.cookies.token
+    // const authorization = req.cookies.token
 
     // Verifica si se proporciono un token
     if (!authorization) {

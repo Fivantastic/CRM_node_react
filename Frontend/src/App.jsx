@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/Home/HomePage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
 import { LoginPage } from './pages/LoginPage.jsx';
+import { RegisterPage } from './pages/UserRegistrationPage.jsx';
 import { ForgotPassword } from './pages/ForgotPassword.jsx';
 import { ResetPassword } from './pages/ResetPassword.jsx';
 import { RegisterPage } from './pages/RegisterPage.jsx';

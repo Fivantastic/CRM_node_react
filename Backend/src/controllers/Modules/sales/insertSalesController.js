@@ -4,33 +4,16 @@ import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 
 export const insertSalesController = async (req, res, next) => {
   try {
-    const user_id = req.userId
-    const { saleProduct_id, customer_id } = req.body;
-    console.log('Debug: ', saleProduct_id, customer_id);
-
-    const data = {
-      user_id,
-      saleProduct_id,
-      customer_id
-    }
+    const { id_user, saleProduct_id, customer_id } = req.body;
 
     // Validamos el body
-    await validateSchemaUtil(newSaleProductSchema, data);
+    await validateSchemaUtil(newSaleProductSchema, req.body);
 
-    // Genero el id
-    const id_sale = crypto.randomUUID();
-
-    const sale = await insertSalesService(
-      id_sale,
-      user_id,
-      saleProduct_id,
-      customer_id
-    );
-
+    const sale = await insertSalesService(id_user, saleProduct_id, customer_id);
 
     res.status(200).send({
       status: 'ok',
-      message: 'Venta registrada con exito!',
+      message: { sale },
     });
   } catch (error) {
     next(error);

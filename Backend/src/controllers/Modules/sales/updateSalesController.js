@@ -3,35 +3,26 @@ import { updateSalesService } from '../../../services/Modules/sales/updateSalesS
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 
 export const updateSalesController = async (req, res, next) => {
-    // Todo: All
+  // Todo: All
   try {
-    const user_id = req.userId
-    const id_sale = req.params.id_sale
-    const { saleProduct_id, customer_id, operation_status } = req.body
-
-    const data = {
-        user_id,
-        id_sale,
-        saleProduct_id,
-        customer_id,
-        operation_status
-    }
+    const id_sale = req.params.id_sale;
+    const { id_user, saleProduct_id, customer_id, operation_status } = req.body;
 
     // Validamos el body
-    await validateSchemaUtil(updateSaleProductSchema, data);
+    await validateSchemaUtil(updateSaleProductSchema, req.body);
 
     // Insertar que solo el user que la creó la modifique?
-
     const updatedSale = await updateSalesService(
-        id_sale,
-        saleProduct_id,
-        customer_id,
-        operation_status
+      id_sale,
+      id_user,
+      saleProduct_id,
+      customer_id,
+      operation_status
     );
 
     res.status(200).send({
       status: 'ok',
-      message: 'Venta actualizada con éxito!',
+      message: updatedSale,
     });
   } catch (error) {
     next(error);

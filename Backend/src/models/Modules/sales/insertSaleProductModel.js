@@ -2,7 +2,7 @@ import { getDBPool } from '../../../db/getPool.js';
 
 export const insertSaleProductModel = async (
   id_sale,
-  user_id,
+  id_user,
   saleProdut_id,
   customer_id
 ) => {
@@ -19,13 +19,13 @@ export const insertSaleProductModel = async (
   };
 
   addToUpdate('id_sale,', id_sale);
-  addToUpdate('user_id', user_id);
-  addToUpdate('saleProdut_id', saleProdut_id);
+  addToUpdate('user_id', id_user);
+  addToUpdate('saleProduct_id', saleProdut_id);
   addToUpdate('customer_id', customer_id);
 
   if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar, salir
 
-  const query = `INSERT INTO Sales (id_sale, user_id, saleProdut_id, customer_id) VALUES (?,?,?,?)`;
+  const query = `INSERT INTO Sales (id_sale, user_id, saleProduct_id, customer_id) VALUES (?,?,?,?)`;
   values.push(id_sale);
 
   const [result] = await pool.query(query, values);
@@ -36,4 +36,5 @@ export const insertSaleProductModel = async (
     error.code = 'INSERT_SALE_ERROR';
     throw error;
   }
+  return { message: 'Venta creada correctamente' };
 };

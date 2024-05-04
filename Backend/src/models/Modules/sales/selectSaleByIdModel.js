@@ -1,4 +1,4 @@
-import { getDBPool } from "../../../db/getPool.js";
+import { getDBPool } from '../../../db/getPool.js';
 
 export const selectSaleByIdModel = async (id_sale) => {
   const pool = await getDBPool();
@@ -10,7 +10,7 @@ export const selectSaleByIdModel = async (id_sale) => {
     [id_sale]
   );
 
-  if (result.length === 0){
+  if (result.length === 0) {
     return false;
   }
 
@@ -19,6 +19,6 @@ export const selectSaleByIdModel = async (id_sale) => {
     error.code = 'SELECT_SALES_ERROR';
     throw error;
   }
-  
-  return result;
+
+  return result[0];
 };

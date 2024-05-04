@@ -82,7 +82,7 @@ const token = useUser();
       name: 'repeatPassword',
       type: 'password',
       label: 'Repetir nueva contraseña',
-    },
+    }
   ];
 
   const updatePasswordSchema = Joi.object({

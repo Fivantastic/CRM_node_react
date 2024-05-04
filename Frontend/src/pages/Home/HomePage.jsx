@@ -1,14 +1,14 @@
 import LogoutButton from "../../components/buttons/LogoutButton.jsx";
-import { AuthContext } from "../../context/authContext.jsx"; 
-import { useContext } from "react";
+import { useSetUser, useUser } from "../../context/authContext.jsx";
 
 export const HomePage = () => {
-  const { setUser } = useContext(AuthContext);
+  const user = useUser(); 
+  const setUser = useSetUser();
 
   return (
     <div>
       <h1>HomePage</h1>
-      <LogoutButton setUser={setUser} />
+      {user && <LogoutButton setUser={setUser} />}
     </div>
   );
 };

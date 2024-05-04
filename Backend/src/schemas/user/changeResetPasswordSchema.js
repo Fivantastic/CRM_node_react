@@ -6,12 +6,10 @@ export const changeResetPasswordSchema = Joi.object({
   newPassword: Joi.string()
   .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
   .required()
-  .label('Nueva contraseña')
   .messages(joiErrorMessages),
 repeatPassword: Joi.string()
   .valid(Joi.ref('newPassword'))
   .required()
-  .label('Repetir nueva contraseña')
   .messages(joiErrorMessages),
 });
 

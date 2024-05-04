@@ -15,6 +15,7 @@ import { updateVisitController } from './Modules/Visits/updateVisitController.js
 import { insertSalesController } from './Modules/sales/insertSalesController.js';
 import { updateSalesController } from './Modules/sales/updateSalesController.js';
 import { deleteSalesController } from './Modules/sales/deleteSalesController.js';
+import { getSalesController } from './Modules/sales/getSalesController.js';
 
 // Imports Facturas
 import { newInvoiceController } from './Modules/invoices/newInvoiceController.js';
@@ -51,6 +52,7 @@ export {
   insertSalesController,
   updateSalesController,
   deleteSalesController,
+  getSalesController,
   newInvoiceController,
   deleteInvoiceController,
   statusUpdateInvoiceController,

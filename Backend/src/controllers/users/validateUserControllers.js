@@ -5,7 +5,7 @@ import { success } from "../../utils/success.js";
 export const validateUserController = async (req, res, next) => {
     try {
         // Obtener el código de registro de la URL
-        const { registration_code } = req.params;
+        const registration_code = decodeURIComponent(req.params.registration_code);
 
         const userid = await findByRegistrationCodeModel(registration_code);
 

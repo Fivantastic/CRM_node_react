@@ -21,6 +21,12 @@
   /* Estilo para los campos de entrada y etiquetas */
   input[type="text"],
   input[type="password"],
+  input[type="number"],
+  input[type="email"],
+  input[type="date"],
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="file"],
   textarea,
   select,
   label {
@@ -31,6 +37,13 @@
   /* Estilo para los campos de entrada */
   input[type="text"],
   input[type="password"],
+  input[type="password"],
+  input[type="number"],
+  input[type="email"],
+  input[type="date"],
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="file"],
   textarea,
   select {
     width: 200px;

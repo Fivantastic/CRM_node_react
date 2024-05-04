@@ -1,33 +1,49 @@
 import Joi from 'joi';
 import DynamicForm from '../components/forms/DynamicForm.jsx'; 
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/authContext.jsx';
-import { useContext } from 'react';
+import { useUser } from '../context/authContext.jsx';
+import Swal from 'sweetalert2';
+
 
 export function RegisterPage(){
   const navigate = useNavigate();
-  const { setUser } = useContext(AuthContext);
+  const token = useUser();
+
 
   const handleRegisterSubmit = async (data) => {
     try {
+      console.log(token)
       const response = await fetch('http://localhost:3000/user/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `${token}`
         },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        const responseData = await response.json();
-        console.log('Registration successful:', responseData);
+        await response.json();
 
-        const newToken = responseData.token;
-
-        setUser(newToken);
-
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+            navigate('/home');
+          }
+        });
+        
+        Toast.fire({
+          icon: "success",
+          title: data.name + " " + data.last_name + " registro exitoso!",
+        });
+        // Redireccionar a la página principal
         navigate('/home');
-
       } else {
         const errorData = await response.json();
         console.error('Registration failed:', errorData);
@@ -39,9 +55,9 @@ export function RegisterPage(){
 
   const registerUserSchema = Joi.object({
     name: Joi.string().required().label('Name'),
-    lastName: Joi.string().required().label('Last Name'),
+    last_name: Joi.string().required().label('Last Name'),
     email: Joi.string().email({ tlds: false }).required().label('Email'),
-    role: Joi.string().valid('user', 'admin').required().label('Role')
+    role: Joi.string().valid('salesAgent', 'admin', 'deliverer').required().label('Role')
   });
 
   const registrationFormFields = [
@@ -52,7 +68,7 @@ export function RegisterPage(){
       required: true,
     },
     {
-      name: 'lastName',
+      name: 'last_name',
       label: 'Last Name',
       type: 'text',
       required: true,
@@ -68,8 +84,9 @@ export function RegisterPage(){
       label: 'Role',
       type: 'select',
       options: [
-        { value: 'user', label: 'User' },
-        { value: 'admin', label: 'Admin' }
+        { value: 'salesAgent', label: 'Sales Agent' },
+        { value: 'admin', label: 'Admin' },
+        { value: 'deliverer', label: 'Deliverer' },
       ],
       required: true,
     }

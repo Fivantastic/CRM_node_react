@@ -1,5 +1,5 @@
 import LogoutButton from "../../components/buttons/LogoutButton.jsx";
-import ChangePasswordModal from "../../components/userActions/ChangePassword.jsx";
+import ChangePasswordModal from "../../components/userActions/ChangePasswordPop.jsx";
 import { useSetUser, useUser } from "../../context/authContext.jsx";
 
 export const HomePage = () => {

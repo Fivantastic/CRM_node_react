@@ -40,10 +40,10 @@ userRouter.post('/user/login', loginUserController);
 userRouter.post('/user/logout', authenticateUser, logoutUserController);
 
 // Ruta para actualización
-userRouter.put('/user/update/', authenticateUser, updateUserController);
+userRouter.put('/user/update', authenticateUser, updateUserController);
 
 // Ruta para cambio de contraseña
-userRouter.put('/user/change-password/', authenticateUser, changePasswordController);
+userRouter.put('/user/change-password', authenticateUser, changePasswordController);
 
 // Ruta para solicitud de recuperación de contraseña
 userRouter.put('/user/forgot-password-request', forgotPasswordController);

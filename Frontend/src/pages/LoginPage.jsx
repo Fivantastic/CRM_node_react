@@ -59,7 +59,7 @@ export const LoginPage = () => {
         // Opcion Modal 3
         const Toast = Swal.mixin({
           toast: true,
-          position: "top-end",
+          position: "bottom-end",
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -72,7 +72,7 @@ export const LoginPage = () => {
         
         Toast.fire({
           icon: "success",
-          title: "Welcome, " + username + "."
+          title: "Bienvenido a Cosmic, " + username + "."
         });
         
       } else {

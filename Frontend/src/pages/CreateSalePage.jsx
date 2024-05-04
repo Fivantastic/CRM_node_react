@@ -3,7 +3,7 @@ import DynamicForm from '../components/forms/DynamicForm.jsx';
 import { useUser } from '../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
-export const SalesPage = () => {
+export const CreateSalePage = () => {
   const token = useUser();
 
   const handleSaleSubmit = async (data) => {

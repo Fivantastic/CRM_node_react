@@ -13,6 +13,8 @@ import { PaymentPage } from './pages/PaymentPage.jsx';
 import { ShipmentPage } from './pages/ShipmentPage.jsx';
 import { AboutPage } from './pages/About/AboutPage.jsx';
 import { InitialPage } from './pages/InitialPage.jsx';
+import { UpdateSalePage } from './pages/UpdateSalePage.jsx';
+import { CreateSalePage } from './pages/CreateSalePage.jsx';
 
 function App() {
   return (
@@ -23,10 +25,15 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/user/reset-password/:registration_code" element={<ResetPassword />} />
+        <Route
+          path="/user/reset-password/:registration_code"
+          element={<ResetPassword />}
+        />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/sale" element={<SalesPage />} />
+        <Route path="/sale/update" element={<UpdateSalePage />} />
+        <Route path="/sale/create" element={<CreateSalePage />} />
         <Route path="/visit" element={<Visitpage />} />
         <Route path="/deliveryNote" element={<DeliveryNotePage />} />
         <Route path="/invoice" element={<InvoicePage />} />

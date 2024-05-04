@@ -12,17 +12,27 @@ const transporter = nodemailer.createTransport({
 
 export async function sendWelcomeEmail(name, last_name, random_password, email, registration_code) {
     try {
+
+      const validateURL = `http://localhost:5173/validation/${registration_code}`;
       // Configurar el mensaje de correo electrónico
       const mailOptions = {
         from: MAIL_TRAP_AUTH_USER,
         to: email,
-        subject: '¡Bienvenido a Nuestra Plataforma!',
-        html: `<p>Bienvenido a nuestra plataforma, ${name} ${last_name}.</p>
+        subject: '¡Bienvenido a COSMIC CRM!',
+        html: `<p>Bienvenido/a a nuestra plataforma, ${name} ${last_name}.</p>
                <p>Tu datos de usuario son:</p>
                <p><span>Usuario:</span> ${email}</p>
                <p><span>Contraseña provisional:</span> ${random_password}.</p>
                <p>Para validar tu cuenta, por favor haz clic en el siguiente enlace:</p>
-               <a href="${registration_code}">Validar Cuenta</a>`,
+               <a href="${validateURL}">Validar Cuenta</a>
+
+               <p>Te recomiendo que cambies tu contraseña al iniciar sesión.</p>
+               
+               <p>Si tiene alguna duda, por favor no dude en contactarnos.</p>
+               
+               <p>Bienvenido/a a COSMIC CRM.</p>`
+               
+               ,
     };
           // Enviar el correo electrónico
         await transporter.sendMail(mailOptions);

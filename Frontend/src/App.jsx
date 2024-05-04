@@ -2,7 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/Home/HomePage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
 import { LoginPage } from './pages/LoginPage.jsx';
-import { RegisterPage } from './pages/UserRegistrationPage.jsx'; // Importa la página de registro
+import { RegisterPage } from './pages/UserRegistrationPage.jsx';
+import { ValidationPage } from './pages/ValidationPage.jsx';
 import { ForgotPassword } from './pages/ForgotPassword.jsx';
 import { ResetPassword } from './pages/ResetPassword.jsx';
 import { SalesPage } from './pages/SalesPage.jsx';
@@ -29,11 +30,9 @@ function App() {
         <Route path="/customer" element={<CustomerPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route
-          path="/user/reset-password/:registration_code"
-          element={<ResetPassword />}
-        />
+        <Route path="/user/reset-password/:registration_code" element={<ResetPassword />}/>
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/validation/:registration_code" element={<ValidationPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/sale" element={<SalesPage />} />
         <Route path="/sale/update" element={<UpdateSalePage />} />

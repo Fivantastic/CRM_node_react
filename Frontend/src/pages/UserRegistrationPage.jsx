@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import DynamicForm from '../components/forms/DynamicForm.jsx'; 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
@@ -94,6 +94,7 @@ export function RegisterPage(){
 
   return (
     <div>
+      <li><Link to="/">Home</Link></li>
       <h1>User Registration</h1>
       <DynamicForm
         title="Register User"

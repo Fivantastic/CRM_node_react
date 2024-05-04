@@ -2,6 +2,7 @@ import Joi from 'joi';
 import DynamicForm from '../components/forms/DynamicForm.jsx';
 import { useUser } from '../context/authContext.jsx';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 export const SalesPage = () => {
   const token = useUser();
@@ -81,6 +82,7 @@ export const SalesPage = () => {
 
   return (
     <div>
+      <li><Link to="/">Home</Link></li>
       <DynamicForm
         title="Crear Venta"
         onSubmit={handleSaleSubmit}

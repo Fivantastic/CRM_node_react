@@ -1,3 +1,10 @@
+import { Link } from "react-router-dom";
+
 export const AboutPage = () => {
-  return <div>AboutPage</div>;
+  return (
+    <>
+        <li><Link to="/">Home</Link></li>
+        <div>AboutPage</div>
+    </>
+);
 };

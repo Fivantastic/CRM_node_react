@@ -11,6 +11,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+form {
+    width: 90%;
+    padding-left: 50px;
+}
+
   
   /* Estilo para los títulos */
   h1 {
@@ -37,7 +42,6 @@
   /* Estilo para los campos de entrada */
   input[type="text"],
   input[type="password"],
-  input[type="password"],
   input[type="number"],
   input[type="email"],
   input[type="date"],
@@ -46,7 +50,7 @@
   input[type="file"],
   textarea,
   select {
-    width: 200px;
+    width: 80%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;

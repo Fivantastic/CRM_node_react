@@ -8,13 +8,16 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useLocalStorage('session', '');
 
     useEffect(() => {
-        if (user) {
-        renewTokenIfExpired();
-        } else {
-        setUser('');
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        const renewToken = async () => {
+            if (user) {
+                await renewTokenIfExpired();
+            }
+        };
+
+        renewToken();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]);
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>
@@ -22,6 +25,7 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useUser = () => useContext(AuthContext).user;

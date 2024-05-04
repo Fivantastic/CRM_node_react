@@ -24,6 +24,6 @@ export const AuthProvider = ({ children }) => {
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useUser = () => useContext(AuthContext)[0];
+export const useUser = () => useContext(AuthContext).user;
 // eslint-disable-next-line react-refresh/only-export-components
-export const useSetUser = () => useContext(AuthContext)[1];
+export const useSetUser = () => useContext(AuthContext).setUser;

@@ -54,7 +54,8 @@ export const loginUserController = async (req, res, next) => {
             // token: token,
             status: 'ok',
             message: 'Sesión iniciada correctamente',
-            token: token
+            token: token,
+            user: user.name
         });
 
     } catch (error) {

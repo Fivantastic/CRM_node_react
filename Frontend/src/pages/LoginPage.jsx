@@ -3,6 +3,8 @@ import DynamicForm from '../components/forms/DynamicForm.jsx';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext.jsx';
 import { useContext } from 'react';
+import'../components/PopsStyle/PopLoginStyle.css';
+import Swal from 'sweetalert2';
 
 export const LoginPage = () => {
   const navigate = useNavigate(); 
@@ -25,11 +27,54 @@ export const LoginPage = () => {
         // Extraer el token de la respuesta
         const newToken = responseData.token;
 
+        // Extraer el nombre de usuario de la respuesta
+        const username = responseData.user;
+
         // Actualizar el token en el localStorage y en el estado del contexto
         setUser(newToken); 
 
-        // Redireccionar a la página principal
-        navigate('/home'); 
+        // Opcion Modal 1
+        // await Swal.fire({
+        //   title: "Login successful!",
+        //   text: "Welcome, " + username + ".",
+        //   icon: "success"
+        // }).then((result) => {
+        //   if (result.isConfirmed) {
+        //     navigate('/home');
+        //   }
+        // });
+
+        // Opcion Modal 2
+        await Swal.fire({
+          title: "Login successful!",
+          text: "Welcome, " + username + ".",
+          icon: "success",
+          allowOutsideClick: false // Evitar que el usuario cierre el modal haciendo clic fuera de él
+        }).then((result) => {
+          if (result.isConfirmed || result.dismiss === Swal.DismissReason.overlay || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
+            navigate('/home');
+          }
+        });
+
+        // Opcion Modal 3
+        // const Toast = Swal.mixin({
+        //   toast: true,
+        //   position: "top-end",
+        //   showConfirmButton: false,
+        //   timer: 3000,
+        //   timerProgressBar: true,
+        //   didOpen: (toast) => {
+        //     toast.onmouseenter = Swal.stopTimer;
+        //     toast.onmouseleave = Swal.resumeTimer;
+        //     navigate('/home');
+        //   }
+        // });
+        
+        // Toast.fire({
+        //   icon: "success",
+        //   title: "Welcome, " + username + "."
+        // });
+        
       } else {
         const errorData = await response.json();
         console.error('Login fallido:', errorData);

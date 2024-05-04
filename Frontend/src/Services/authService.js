@@ -15,7 +15,7 @@ export async function renewTokenIfExpired() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `${token}`
+                    'Authorization': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyI…E0Nn0.BkVU7qfQbtDXyqCmF2OGcfj8vf-N6srcluxDv0n_Kh8`
                 }
             });
             if (response.ok) {

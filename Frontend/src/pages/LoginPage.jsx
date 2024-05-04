@@ -45,35 +45,35 @@ export const LoginPage = () => {
         // });
 
         // Opcion Modal 2
-        await Swal.fire({
-          title: "Login successful!",
-          text: "Welcome, " + username + ".",
-          icon: "success",
-          allowOutsideClick: false // Evitar que el usuario cierre el modal haciendo clic fuera de él
-        }).then((result) => {
-          if (result.isConfirmed || result.dismiss === Swal.DismissReason.overlay || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
-            navigate('/home');
-          }
-        });
-
-        // Opcion Modal 3
-        // const Toast = Swal.mixin({
-        //   toast: true,
-        //   position: "top-end",
-        //   showConfirmButton: false,
-        //   timer: 3000,
-        //   timerProgressBar: true,
-        //   didOpen: (toast) => {
-        //     toast.onmouseenter = Swal.stopTimer;
-        //     toast.onmouseleave = Swal.resumeTimer;
+        // await Swal.fire({
+        //   title: "Login successful!",
+        //   text: "Welcome, " + username + ".",
+        //   icon: "success",
+        //   allowOutsideClick: false // Evitar que el usuario cierre el modal haciendo clic fuera de él
+        // }).then((result) => {
+        //   if (result.isConfirmed || result.dismiss === Swal.DismissReason.overlay || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
         //     navigate('/home');
         //   }
         // });
+
+        // Opcion Modal 3
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+            navigate('/home');
+          }
+        });
         
-        // Toast.fire({
-        //   icon: "success",
-        //   title: "Welcome, " + username + "."
-        // });
+        Toast.fire({
+          icon: "success",
+          title: "Welcome, " + username + "."
+        });
         
       } else {
         const errorData = await response.json();
@@ -112,8 +112,15 @@ export const LoginPage = () => {
       type: 'textWithLink',
       linkText: '¿Olvidaste tu contraseña?',
       link: 'http://localhost:5173/forgot-password' // URL a la que deseas redirigir al hacer clic en el enlace
-    },
+    }
   ];
+
+  // const extraButtons = [
+  //   {
+  //     type: 'reset',
+  //     label: 'Borrar',
+  //   }
+  // ];
 
   return (
     <div>

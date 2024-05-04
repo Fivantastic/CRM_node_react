@@ -1,3 +1,10 @@
+import { Link } from "react-router-dom"
+
 export const NotFoundPage = () => {
-  return <div>NotFoundPage</div>;
-};
+  return (
+    <>
+        <li><Link to="/">Home</Link></li>
+      <div>NotFoundPage</div>
+    </>
+  )
+}

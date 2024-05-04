@@ -1,3 +1,10 @@
+import { Link } from "react-router-dom";
+
 export const PaymentPage = () => {
-  return <div>PaymentPage</div>;
+  return (
+    <>
+        <li><Link to="/">Home</Link></li>
+        <div>PaymentPage</div>
+    </>
+);
 };

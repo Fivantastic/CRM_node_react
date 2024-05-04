@@ -1,3 +1,10 @@
+import { Link } from "react-router-dom";
+
 export const Visitpage = () => {
-  return <div>Visitpage</div>;
+  return (
+    <>
+        <li><Link to="/">Home</Link></li>
+        <div>Visitpage</div>
+    </>
+);
 };

@@ -1,37 +1,43 @@
 import { insertSaleProductModel } from '../../../models/Modules/sales/insertSaleProductModel.js';
 import { selectCustomerByIdModel } from '../../../models/Modules/sales/selectCustomerByIdModel.js';
 import { selectProductByIdModel } from '../../../models/Modules/sales/selectProductByIdModel.js';
-import { selectUserByIdModel } from '../../../models/Modules/sales/selectUserByIdModel.js';
+import { selectUserByIdModel } from '../../../models/user/selectUserByIdModel.js';
 import { notFoundError } from '../../error/errorService.js';
 
 export const insertSalesService = async (
-  id_sale,
-  user_id,
+  id_user,
   saleProdut_id,
   customer_id
 ) => {
-  try {
-    // Obtengo el id de la producto
-    const [saleProdut] = await selectProductByIdModel(saleProdut_id);
+  // Compluebo si  existen con ese id
+  const user = await selectUserByIdModel(id_user);
 
-    if (!saleProdut) {
-      notFoundError('Product');
-    }
-    const user = await selectUserByIdModel(user_id);
-
-    if (!user) {
-      notFoundError('user');
-    }
-    const [customer] = await selectCustomerByIdModel(customer_id);
-
-    if (!customer) {
-      notFoundError('customer');
-    }
-
-    // Insertamos la venta de producto en la base de datos
-    await insertSaleProductModel(id_sale, user_id, saleProdut_id, customer_id);
-  } catch (error) {
-    console.error('Error :', error);
-    throw error;
+  if (user.id_user !== id_user) {
+    notFoundError('User');
   }
+
+  const saleProduct = await selectProductByIdModel(saleProdut_id);
+
+  if (saleProduct.id_saleProduct !== saleProdut_id) {
+    notFoundError('Product');
+  }
+
+  const customer = await selectCustomerByIdModel(customer_id);
+
+  if (customer.id_customer !== customer_id) {
+    notFoundError('customer');
+  }
+
+  // Genero el id
+  const id_sale = crypto.randomUUID();
+
+  // Insertamos la venta de producto en la base de datos
+  const response = await insertSaleProductModel(
+    id_sale,
+    id_user,
+    saleProdut_id,
+    customer_id
+  );
+
+  return response;
 };

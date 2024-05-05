@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from "../../env.js";
+import { JWT_SECRET } from '../../env.js';
 
 // Función para generar un token de acceso
 export function generateAccessToken(user) {
@@ -16,3 +16,4 @@ export function generateAccessToken(user) {
       }
     );
   }
+

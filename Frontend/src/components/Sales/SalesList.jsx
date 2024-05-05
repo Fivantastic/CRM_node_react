@@ -3,7 +3,7 @@ export const SalesList = ({ sale }) => {
     <>
       <li>
         <h2>Referencia de venta</h2>
-        <p>{sale.id_sale}</p>
+        {/* <p>{sale.id_sale}</p> */}
         <h3>Comercial</h3>
         <p>Nombre: {sale.salesAgent}</p>
         <p>Apellido: {sale.salesAgent_lastName}</p>

@@ -3,16 +3,15 @@ import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
 import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
-export const UpdateSale = () => {
+export const UpdateSale = ({ sale, onUpdateSale }) => {
   // Asi obtienes el token del usuario de la sesión
   const token = useUser();
-  const id_sale = 'e533b5d4-b6f2-4f2b-b89b-bbef88897d84';
 
   // Aqui hace la peticion al servidor
   const handleUpdateSaleAccion = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/sales/update/${id_sale}`,
+        `http://localhost:3000/sales/update/${sale}`,
         {
           method: 'PUT',
           credentials: 'include',
@@ -29,10 +28,12 @@ export const UpdateSale = () => {
         const responseData = await response.json();
         console.log('Venta actualizada satisfactorio:', responseData);
 
+        onUpdateSale(responseData);
+
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -106,7 +107,7 @@ export const UpdateSale = () => {
   });
 
   // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
-  const handleClickChangePassword = () => {
+  const handleUpdateSale = () => {
     DynamicFormPopUp(
       title,
       updateSaleFormFields,
@@ -118,7 +119,7 @@ export const UpdateSale = () => {
 
   return (
     <div>
-      <button onClick={handleClickChangePassword}>Actualizar Venta</button>
+      <button onClick={handleUpdateSale}>Actualizar Venta</button>
     </div>
   );
 };

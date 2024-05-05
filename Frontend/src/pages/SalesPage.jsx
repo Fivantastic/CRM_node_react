@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
 import { SalesList } from '../components/Sales/SalesList.jsx';
 import { CreateSale } from '../components/Sales/CreateSale.jsx';
 import { UpdateSale } from '../components/Sales/UpdateSale.jsx';
-import { DaleteSale } from '../components/Sales/DaleteSale.jsx';
+import { DeleteSale } from '../components/Sales/DaleteSale.jsx';
 
 export const SalesPage = () => {
   const token = useUser();
@@ -41,17 +41,43 @@ export const SalesPage = () => {
     getSaleList();
   }, [token]);
 
+  // Actualizo el estado con la venta añadida
+  const addSale = (id_sale) => {
+    setSalesList((prevSales) =>
+      prevSales.filter((sale) => sale.id_sale !== id_sale)
+    );
+  };
+
+  // Actualizo el estado con la venta eliminada
+  const deleteSale = (id_sale) => {
+    setSalesList((prevSales) =>
+      prevSales.filter((sale) => sale.id_sale !== id_sale)
+    );
+  };
+
+  // Actualizo el estado con la venta eliminada
+  const updateSale = (id_sale) => {
+    setSalesList((prevSales) =>
+      prevSales.filter((sale) => sale.id_sale !== id_sale)
+    );
+  };
+
   return (
     <section className="sale_container">
+      <li>
+        <Link to="/">Home</Link>
+      </li>
       <h1 className="sale_title">Ventas</h1>
-      <CreateSale />
+      <CreateSale onAddSale={addSale} />
       <ol>
         {salesList.map((data) => {
+          console.log(data);
           return (
-            <>
-              <SalesList key={data.id} sale={data} /> <UpdateSale />
-              <DaleteSale />
-            </>
+            <div key={data.id_sale}>
+              <SalesList sale={data} />
+              <UpdateSale sale={data.id_sale} onUpdateSale={updateSale} />
+              <DeleteSale sale={data.id_sale} onDeleteSale={deleteSale} />
+            </div>
           );
         })}
       </ol>

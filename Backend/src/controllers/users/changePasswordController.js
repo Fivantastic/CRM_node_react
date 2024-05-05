@@ -9,7 +9,7 @@ export const changePasswordController = async (req, res, next) => {
     await validateSchemaUtil(changePasswordSchema, req.body);
     
     // Obtener el id del usuario e insertar el password
-    const response = changePasswordService(req.user.id_user, req.body);
+    const response = await changePasswordService(req.user.id_user, req.body);
    
     // Responder con éxito
     res.send(success(response));

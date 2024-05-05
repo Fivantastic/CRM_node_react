@@ -4,7 +4,7 @@ export const errorHandlerMiddleware = (err, req, res, next) => {
       const errorResponse = {
         statusCode: err.statusCode,
         code: err.code || 'UNKNOWN_ERROR',
-        message: err.message || 'Unknown error occurred',
+        message: err.message || 'Unknown error occurred'
       };
       res.status(err.statusCode).json(errorResponse);
     } else {

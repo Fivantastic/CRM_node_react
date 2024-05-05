@@ -55,7 +55,18 @@ const token = useUser();
       } else {
         const errorData = await response.json();
         console.error('Error al cambiar la contraseña:', errorData);
-        // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
+        
+        if (errorData.code === 'INVALID_PASSWORD_CRM_ERROR') {
+          Swal.fire({
+            icon: 'error',
+            title: '¡Contraseña incorrecta!',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Recarga de nuevo el boton de modificar contraseña modal
+              ChangePasswordPop();
+            }
+          });
+        }
       }
     } catch (error) {
       console.error('Error al cambiar la contraseña:', error);

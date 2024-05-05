@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const renewToken = async () => {
             if (user) {
-                await renewTokenIfExpired();
+                await renewTokenIfExpired(user, setUser);
             }
         };
 

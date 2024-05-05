@@ -29,7 +29,7 @@ export const ValidationPage = () => {
         };
 
         const handleSuccess = () => {
-            setShowImage(false); // Ocultar la imagen antes de abrir el modal
+            setShowImage(true); 
             Swal.fire({
                 title: "¡Validación exitosa!",
                 text: "Ya puedes iniciar sesión, te recomendamos cambiar tu contraseña lo antes posible",
@@ -43,7 +43,7 @@ export const ValidationPage = () => {
         };
 
         const handleValidationFailure = () => {
-            setShowImage(false); // Ocultar la imagen antes de abrir el modal
+            setShowImage(true);
             Swal.fire({
                 title: "¡Cuenta ya validada!",
                 text: "Ya tienes la cuenta validada, inicia sesión",
@@ -63,6 +63,7 @@ export const ValidationPage = () => {
 
     return (
         <>
+            
             {showImage && <img src="/cosmic.png" alt="Logo Cosmic" style={{ width: '100%', height: '100vh' }} />}
         </>
     );

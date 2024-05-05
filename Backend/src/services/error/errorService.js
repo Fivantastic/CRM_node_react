@@ -82,3 +82,19 @@ export const unauthorizedError = (resource) => {
     message: `La acción '${resource}' debe ser realizada por su propietario`,
   };
 };
+
+export const AccountInactiveError = () => {
+  throw {
+    statusCode: 401,
+    code: 'ACCOUNT_INACTIVE_CRM_ERROR',
+    message: 'Cuenta inactiva'
+  };
+};
+
+export const invalidPasswordError = () => {
+  throw {
+    statusCode: 401,
+    code: 'INVALID_PASSWORD_CRM_ERROR',
+    message: 'Contraseña inválida'
+  };
+};

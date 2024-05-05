@@ -3,7 +3,7 @@ import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
 import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
-export const UpdateSale = ({ sale, onUpdateSale }) => {
+export const UpdateSale = ({ sale }) => {
   // Asi obtienes el token del usuario de la sesión
   const token = useUser();
 
@@ -27,8 +27,6 @@ export const UpdateSale = ({ sale, onUpdateSale }) => {
         //si la peticion es correcta
         const responseData = await response.json();
         console.log('Venta actualizada satisfactorio:', responseData);
-
-        onUpdateSale(responseData);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({

@@ -8,7 +8,7 @@ export const DeleteSale = ({ sale, onDeleteSale }) => {
   const token = useUser();
 
   // Aqui hace la peticion al servidor
-  const handleDeleteSaleAccion = async (formData, id_sale) => {
+  const handleDeleteSaleAccion = async (formData) => {
     try {
       const response = await fetch(
         `http://localhost:3000/sales/delete/${sale}`,
@@ -28,7 +28,7 @@ export const DeleteSale = ({ sale, onDeleteSale }) => {
         const responseData = await response.json();
         console.log('Venta borrada con éxito:', responseData);
 
-        onDeleteSale(id_sale);
+        onDeleteSale(sale);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
@@ -73,7 +73,7 @@ export const DeleteSale = ({ sale, onDeleteSale }) => {
   const deleteSaleSchema = Joi.object({});
 
   // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
-  const handleClickChangePassword = () => {
+  const handleClickDeleteSale = () => {
     DynamicFormPopUp(
       title,
       deleteSaleFields,
@@ -85,7 +85,7 @@ export const DeleteSale = ({ sale, onDeleteSale }) => {
 
   return (
     <div>
-      <button onClick={handleClickChangePassword}>X</button>
+      <button onClick={handleClickDeleteSale}>X</button>
     </div>
   );
 };

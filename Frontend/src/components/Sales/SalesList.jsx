@@ -1,32 +1,28 @@
-export const SalesList = ({ data }) => {
-    return (
-       <section>
-         <ul>
-           <li>
-             <p>ID</p>
-             <p>{data.id_sale}</p>
-           </li>
-           <li>
-             <p>Nombre Del Usuario</p>
-             <p>{data.user_id}</p>
-           </li>
-           <li>
-             <p>Producto En Venta</p>
-             <p>{data.saleProduct_id}</p>
-           </li>
-           <li>
-             <p>Cliente</p>
-             <p>{data.customer_id}</p>
-           </li>
-           <li>
-             <p>Estado De la Venta</p>
-             <p>{data.operation_status}</p>
-           </li>
-           <li>
-             <p>Fecha De Creación</p>
-             <p>{data.create_at}</p>
-           </li>
-         </ul>
-       </section>
-    );
-   };
+export const SalesList = ({ sale }) => {
+  return (
+    <>
+      <li>
+        <h2>Referencia de venta</h2>
+        <p>{sale.id_sale}</p>
+        <h3>Comercial</h3>
+        <p>Nombre: {sale.salesAgent}</p>
+        <p>Apellido: {sale.salesAgent_lastName}</p>
+
+        <h3>Producto En Venta</h3>
+        <p>{sale.product_name}</p>
+        <p>Precio: {sale.product_price}</p>
+        <p>Cantidad: {sale.quantity} </p>
+
+        <h3>Cliente</h3>
+        <p>Nombre: {sale.customer}</p>
+        <p>Email: {sale.customer_email}</p>
+        <p>Telefono: {sale.customer_phone}</p>
+
+        <h3>Estado De la Venta</h3>
+        <p>{sale.operation_status}</p>
+        <h3>Fecha De Creación</h3>
+        <p>{sale.create_at}</p>
+      </li>
+    </>
+  );
+};

@@ -34,4 +34,4 @@ salesRouter.delete(
   deleteSalesController
 );
 
-salesRouter.get('/sales', authenticateUser, checkRoleAgent, getSalesController);
+salesRouter.get('/sales/list', authenticateUser, checkRoleAgent, getSalesController);

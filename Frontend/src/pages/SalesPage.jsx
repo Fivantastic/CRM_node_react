@@ -4,16 +4,22 @@ import { useUser } from '../context/authContext.jsx';
 import { SalesList } from '../components/Sales/SalesList.jsx';
 import { CreateSale } from '../components/Sales/CreateSale.jsx';
 import { UpdateSale } from '../components/Sales/UpdateSale.jsx';
-import { DeleteSale } from '../components/Sales/DaleteSale.jsx';
+import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 
 export const SalesPage = () => {
   const token = useUser();
   const [salesList, setSalesList] = useState([]);
 
+  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
+  const typeModule = 'sales';
+
+  // Tipo de modulo para el nombre de los mensajes al cliente
+  const typeModuleMessage = 'Venta';
+
   useEffect(() => {
     const getSaleList = async () => {
       try {
-        const response = await fetch('http://localhost:3000/sales', {
+        const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -66,15 +72,14 @@ export const SalesPage = () => {
         <Link to="/">Home</Link>
       </li>
       <h1 className="sale_title">Ventas</h1>
-      <CreateSale onAddSale={addSale} />
+      <CreateSale onAddSale={addSale} token={token} />
       <ol>
         {salesList.map((data) => {
-          console.log(data);
           return (
             <div key={data.id_sale}>
-              <SalesList sale={data} />
-              <UpdateSale sale={data.id_sale} onUpdateSale={updateSale} />
-              <DeleteSale sale={data.id_sale} onDeleteSale={deleteSale} />
+              <SalesList sale={data}/>
+              <UpdateSale sale={data.id_sale} onUpdateSale={updateSale} token={token} />
+              <DeleteGenericModal id={data.id_sale} onDelete={deleteSale} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />
             </div>
           );
         })}

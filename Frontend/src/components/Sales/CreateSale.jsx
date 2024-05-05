@@ -1,11 +1,8 @@
 import Joi from 'joi';
 import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
-import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
-export const CreateSale = ({ onAddSale }) => {
-  // Asi obtienes el token del usuario de la sesión
-  const token = useUser();
+export const CreateSale = ({ onAddSale, token }) => {
 
   // Aqui hace la peticion al servidor
   const handleSaleCreatedAccion = async (formData) => {
@@ -15,7 +12,7 @@ export const CreateSale = ({ onAddSale }) => {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `${token}`, //aqui ya entra el token
+          Authorization: `${token}`, 
         },
         body: JSON.stringify(formData),
       });
@@ -66,13 +63,6 @@ export const CreateSale = ({ onAddSale }) => {
   // Campos del formulario personalizables
   const saleFormFields = [
     {
-      name: 'id_user',
-      label: 'Usuario',
-      type: 'text',
-      placeholder: 'Introduce el usuario...',
-      required: true,
-    },
-    {
       name: 'saleProduct_id',
       label: 'Producto de venta',
       type: 'text',
@@ -89,7 +79,6 @@ export const CreateSale = ({ onAddSale }) => {
   ];
 
   const saleSchema = Joi.object({
-    id_user: Joi.string().required().min(36),
     saleProduct_id: Joi.string().required().min(36),
     customer_id: Joi.string().required().min(36),
   });

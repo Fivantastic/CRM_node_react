@@ -11,7 +11,7 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
   const handleButtonUpdateVisit = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/visit/update/${visit}`,
+        `http://localhost:3000/visits/update/${visit}`,
         {
           method: 'PUT',
           credentials: 'include',

@@ -1,11 +1,8 @@
 import Joi from 'joi';
 import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
-import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
-export const UpdateSale = ({ sale }) => {
-  // Asi obtienes el token del usuario de la sesión
-  const token = useUser();
+export const UpdateSale = ({ sale, token }) => {
 
   // Aqui hace la peticion al servidor
   const handleUpdateSaleAccion = async (formData) => {

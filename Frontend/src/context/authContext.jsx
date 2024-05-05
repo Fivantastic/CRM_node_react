@@ -16,8 +16,11 @@ export const AuthProvider = ({ children }) => {
 
         renewToken();
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+        const intervalId = setInterval(renewToken, 840000); // Renueva el token cada 14 minutos
+
+        return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
+
+    }, [user, setUser]);
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>
@@ -25,7 +28,6 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
-
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useUser = () => useContext(AuthContext).user;

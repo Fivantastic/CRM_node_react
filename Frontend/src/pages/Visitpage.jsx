@@ -3,18 +3,24 @@ import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
 import { CreateVisit } from '../components/Visits/CreateVisit.jsx';
 import { UpdateVisit } from '../components/Visits/UpdateVisit.jsx';
-import { DeleteVisit } from '../components/Visits/DeleteVisit.jsx';
 import { VisitsList } from '../components/Visits/VisitList.jsx';
+import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 
 
 export const Visitpage = () => {
   const token = useUser();
   const [visitList, setVisitList] = useState([]);
 
+  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
+  const typeModule = 'visits';
+    
+  // Tipo de modulo para el nombre de los mensajes al cliente
+  const typeModuleMessage = 'Visita';
+
   useEffect(() => {
     const getVisitList = async () => {
       try {
-        const response = await fetch('http://localhost:3000/visits/list', {
+        const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -73,8 +79,8 @@ export const Visitpage = () => {
         {visitList.map((visit) => (
           <div key={visit.id_visit}>
             <VisitsList visit={visit} />
-            <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit} />
-            <DeleteVisit visit={visit.id_visit} onDeleteVisit={deleteVisit} />
+            <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit}  />
+            <DeleteGenericModal id={visit.id_visit} onDelete={deleteVisit} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />
           </div>
         ))}
       </ol>

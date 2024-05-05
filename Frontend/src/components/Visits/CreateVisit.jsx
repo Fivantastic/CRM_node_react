@@ -10,7 +10,7 @@ export const CreateVisit = ({ onAddVisit }) => {
   // Aqui hace la peticion al servidor
   const handleVisitCreate = async (formData, newVisit) => {
     try {
-      const response = await fetch('http://localhost:3000/visit/new', {
+      const response = await fetch('http://localhost:3000/visits/new', {
         method: 'POST',
         credentials: 'include',
         headers: {

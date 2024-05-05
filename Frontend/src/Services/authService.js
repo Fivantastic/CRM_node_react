@@ -8,7 +8,11 @@ export async function renewTokenIfExpired(token, setUser) {
     const decodedToken = jwtDecode(token);
     const currentTime = Date.now() / 1000;
 
-    if (decodedToken.exp < currentTime) {
+    // Calcular el tiempo restante para la expiración del token
+    const timeUntilExpiration = decodedToken.exp - currentTime;
+
+    // Renovar el token si está próximo a expirar (menos de 1 minuto)
+    if (timeUntilExpiration < 60) {
         try {
             const response = await fetch('http://localhost:3000/user/renew-token', {
                 method: 'GET',
@@ -23,12 +27,10 @@ export async function renewTokenIfExpired(token, setUser) {
                 // Extraer el nuevo token de la respuesta
                 const newToken = responseData.token;
                 // Guardar el nuevo token en el contexto de autenticación
-
-                console.log('Nuevo token renovado:', newToken);
-
                 setUser(newToken);
                 // También puedes guardar el nuevo token en el localStorage si es necesario
                 // localStorage.setItem('session', newToken);
+                console.log('Token renovado');
             } else {
                 console.error('Error al renovar el token:', response.statusText);
             }

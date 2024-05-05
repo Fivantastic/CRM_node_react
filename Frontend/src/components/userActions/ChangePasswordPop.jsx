@@ -1,10 +1,9 @@
 import Joi from 'joi';
 import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
-import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
-const ChangePasswordPop = () => {
-const token = useUser();
+const ChangePasswordPop = ({token}) => {
+
 
   const handleChangePassword = async ( formData) => {
     try {
@@ -63,7 +62,7 @@ const token = useUser();
           }).then((result) => {
             if (result.isConfirmed) {
               // Recarga de nuevo el boton de modificar contraseña modal
-              ChangePasswordPop();
+              
             }
           });
         }

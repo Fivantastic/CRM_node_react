@@ -3,12 +3,12 @@ import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
 import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
-export const CreateSale = () => {
+export const CreateSale = ({ onAddSale }) => {
   // Asi obtienes el token del usuario de la sesión
   const token = useUser();
 
   // Aqui hace la peticion al servidor
-  const handleSaleDeLaAccion = async (formData) => {
+  const handleSaleDeLaAccion = async (formData, newSale) => {
     try {
       const response = await fetch('http://localhost:3000/sales/create', {
         method: 'POST',
@@ -24,6 +24,8 @@ export const CreateSale = () => {
         //si la peticion es correcta
         const responseData = await response.json();
         console.log('Venta satisfactorio:', responseData);
+
+        onAddSale(newSale);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({

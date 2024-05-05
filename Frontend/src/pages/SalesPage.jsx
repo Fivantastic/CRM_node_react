@@ -42,10 +42,8 @@ export const SalesPage = () => {
   }, [token]);
 
   // Actualizo el estado con la venta añadida
-  const addSale = (id_sale) => {
-    setSalesList((prevSales) =>
-      prevSales.filter((sale) => sale.id_sale !== id_sale)
-    );
+  const addSale = () => {
+    setSalesList((prevSales) => [...prevSales, salesList]);
   };
 
   // Actualizo el estado con la venta eliminada

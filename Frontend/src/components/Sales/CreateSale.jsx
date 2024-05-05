@@ -8,7 +8,7 @@ export const CreateSale = ({ onAddSale }) => {
   const token = useUser();
 
   // Aqui hace la peticion al servidor
-  const handleSaleDeLaAccion = async (formData, newSale) => {
+  const handleSaleCreatedAccion = async (formData) => {
     try {
       const response = await fetch('http://localhost:3000/sales/create', {
         method: 'POST',
@@ -17,7 +17,7 @@ export const CreateSale = ({ onAddSale }) => {
           'Content-Type': 'application/json',
           Authorization: `${token}`, //aqui ya entra el token
         },
-        body: JSON.stringify(formData), // aqui va el formData lo que le envio lo del body
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -25,7 +25,7 @@ export const CreateSale = ({ onAddSale }) => {
         const responseData = await response.json();
         console.log('Venta satisfactorio:', responseData);
 
-        onAddSale(newSale);
+        onAddSale(responseData.data);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
@@ -99,7 +99,7 @@ export const CreateSale = ({ onAddSale }) => {
       title,
       saleFormFields,
       saleSchema,
-      handleSaleDeLaAccion,
+      handleSaleCreatedAccion,
       nameButton
     );
   };

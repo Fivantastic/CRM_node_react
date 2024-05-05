@@ -3,16 +3,15 @@ import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
 import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
-export const DaleteSale = () => {
+export const DeleteSale = ({ sale, onDeleteSale }) => {
   // Asi obtienes el token del usuario de la sesión
   const token = useUser();
-  const id_sale = 'e533b5d4-b6f2-4f2b-b89b-bbef88897d84';
 
   // Aqui hace la peticion al servidor
-  const handleDeleteSaleAccion = async (formData) => {
+  const handleDeleteSaleAccion = async (formData, id_sale) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/sales/delete/${id_sale}`,
+        `http://localhost:3000/sales/delete/${sale}`,
         {
           method: 'DELETE',
           credentials: 'include',
@@ -29,10 +28,12 @@ export const DaleteSale = () => {
         const responseData = await response.json();
         console.log('Venta borrada con éxito:', responseData);
 
+        onDeleteSale(id_sale);
+
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,

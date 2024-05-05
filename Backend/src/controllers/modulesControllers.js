@@ -21,6 +21,7 @@ import { getSalesController } from './Modules/sales/getSalesController.js';
 import { newInvoiceController } from './Modules/invoices/newInvoiceController.js';
 import { deleteInvoiceController } from './Modules/invoices/deleteInvoiceController.js';
 import { statusUpdateInvoiceController } from './Modules/invoices/statusUpdateInvoiceController.js';
+import { getInvoiceController } from './Modules/invoices/getInvoiceController.js';
 
 // Imports Pagos
 import { newPaymentController } from './Modules/payments/newPaymentController.js';
@@ -55,6 +56,7 @@ export {
   getSalesController,
   newInvoiceController,
   deleteInvoiceController,
+  getInvoiceController,
   statusUpdateInvoiceController,
   newPaymentController,
   cancelPaymentController,

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { selectUserByIdModel } from "../../models/user/selectUserByIdModel.js";
 import { updatePasswordModel } from "../../models/user/updatePasswordModel.js";
-import { invalidCredentials } from "../error/errorService.js";
+import { invalidCredentials, invalidPasswordError } from "../error/errorService.js";
 
 
 export const changePasswordService = async (userId, body) => {
@@ -21,8 +21,9 @@ export const changePasswordService = async (userId, body) => {
       user.password
     );
 
+    // Verificar que la contraseña actual sea correcta
     if (!isValidPassword){
-      invalidCredentials('Contraseña actual incorrecta');
+      invalidPasswordError();
     }
 
     // Encriptar la nueva contraseña

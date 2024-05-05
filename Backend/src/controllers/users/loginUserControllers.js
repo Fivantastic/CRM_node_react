@@ -1,11 +1,10 @@
 import bcrypt from 'bcrypt';
-import { invalidCredentials } from "../../services/error/errorService.js";
+import { AccountInactiveError, invalidCredentials, invalidPasswordError } from "../../services/error/errorService.js";
 import { validateSignInRequest } from "../../services/user/validateSignInRequest.js";
 import { selectUserByEmailModel } from "../../models/user/selectUserByEmailModel.js";
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 import { loginUserSchema } from '../../schemas/user/loginUserSchema.js';
 import { generateAccessToken } from '../../utils/generateAccessToken.js';
-import { insertTokenCookie } from '../../utils/insertTokenCookie.js';
 
 export const loginUserController = async (req, res, next) => {
     try {
@@ -25,7 +24,7 @@ export const loginUserController = async (req, res, next) => {
   
         //validar el estado
         if (user.active != 1) {
-            invalidCredentials('El usuario no ha sido verificado'); 
+            AccountInactiveError(); 
         }
         
         //comparar la contraseña
@@ -33,7 +32,7 @@ export const loginUserController = async (req, res, next) => {
 
         //validar la contraseña
         if (!isValidPassword) {
-            invalidCredentials('La contraseña es incorrecta');
+            invalidPasswordError();
         }
 
         // El usuario existe y la contraseña es correcta

@@ -1,7 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
-export async function renewTokenIfExpired() {
-    const token = localStorage.getItem('session');
+export async function renewTokenIfExpired(token, setUser) {
     if (!token) {
         return;
     }
@@ -15,13 +14,21 @@ export async function renewTokenIfExpired() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyI…E0Nn0.BkVU7qfQbtDXyqCmF2OGcfj8vf-N6srcluxDv0n_Kh8`
+                    'Authorization': `${token}` 
                 }
             });
             if (response.ok) {
-                const newToken = await response.text(); // Obtiene el token renovado como texto
-                // Guardar el nuevo token en el localStorage
-                localStorage.setItem('session', newToken);
+                const responseData = await response.json();
+
+                // Extraer el nuevo token de la respuesta
+                const newToken = responseData.token;
+                // Guardar el nuevo token en el contexto de autenticación
+
+                console.log('Nuevo token renovado:', newToken);
+
+                setUser(newToken);
+                // También puedes guardar el nuevo token en el localStorage si es necesario
+                // localStorage.setItem('session', newToken);
             } else {
                 console.error('Error al renovar el token:', response.statusText);
             }

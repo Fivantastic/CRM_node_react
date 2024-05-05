@@ -22,7 +22,7 @@ export const LoginPage = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log('Login satisfactorio:', responseData);
+        console.log('Login satisfactorio:', responseData.message);
 
         // Extraer el token de la respuesta
         const newToken = responseData.token;
@@ -78,7 +78,25 @@ export const LoginPage = () => {
       } else {
         const errorData = await response.json();
         console.error('Login fallido:', errorData);
-        // Mostrar un mensaje de error al usuario
+        
+        // Si el usuario no esta activo muestra un mensaje de error modal
+        if (errorData.code === 'ACCOUNT_INACTIVE_CRM_ERROR') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Usuario inactivo',
+            text: 'Verifica tu correo electronico para activar tu cuenta',
+          });
+        }
+
+        // Si la contraseña es incorrecta muestra un mensaje de error modal
+        if (errorData.code === 'INVALID_PASSWORD_CRM_ERROR') {
+          Swal.fire({
+            icon: 'error',
+            title: '¡Contraseña incorrecta!',
+          });
+          // Borra el campo de la contraseña
+          document.getElementById('password').value = '';
+        }
       }
     } catch (error) {
       console.error('Error durante el login:', error);
@@ -136,3 +154,7 @@ export const LoginPage = () => {
     </div>
   );
 };
+
+
+
+

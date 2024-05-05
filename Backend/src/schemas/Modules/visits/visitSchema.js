@@ -12,7 +12,7 @@ export const newVisitSchema = Joi.object({
 export const updateVisitSchema = Joi.object({
     id_customer: Joi.string().guid().optional().messages(joiErrorMessages), // ID del cliente
     id_user: Joi.string().guid().optional().messages(joiErrorMessages), // ID del usuario
-    visit_date: Joi.date().required().messages(joiErrorMessages), // Fecha de la visita
+    visit_date: Joi.date().optional().messages(joiErrorMessages), // Fecha de la visita
     observations: Joi.string().optional().messages(joiErrorMessages), // Observación de la visita
 });
 

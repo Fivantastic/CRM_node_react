@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 
 export const UserPage = () => {
     const user = useUser(); 
+
     return (
         <>
             <li><Link to="/">Home</Link></li>
             <div>UserPage</div>
-            {user && <ChangePasswordPop />}
+            {user && <ChangePasswordPop token={user} />}
         </>
-  );
+    );
 };
-  

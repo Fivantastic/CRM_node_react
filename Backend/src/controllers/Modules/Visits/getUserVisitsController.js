@@ -1,7 +1,5 @@
 import { selectUserVisitsByIdModel } from "../../../models/Modules/visits/selectUserVisitsByIdModel.js";
 
-
-
 export const getUserVisitsController = async (req, res, next) => {
     try {
         //obtenemos el id_user del token

@@ -1,35 +1,38 @@
 import Joi from 'joi';
-import DynamicForm from '../components/forms/DynamicForm.jsx';
+import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
+import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
-import { useUser } from '../context/authContext.jsx';
-import { Link } from 'react-router-dom';
 
-export const UpdateSalePage = () => {
+export const UpdateSale = () => {
+  // Asi obtienes el token del usuario de la sesión
   const token = useUser();
-  const id_sale = '3ef4277d-788e-4c37-8197-8e323b594a56';
+  const id_sale = 'e533b5d4-b6f2-4f2b-b89b-bbef88897d84';
 
-  const handleUpdateSaleSubmit = async (data) => {
+  // Aqui hace la peticion al servidor
+  const handleUpdateSaleAccion = async (formData) => {
     try {
       const response = await fetch(
         `http://localhost:3000/sales/update/${id_sale}`,
         {
           method: 'PUT',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `${token}`,
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(formData), // aqui va el formData lo que le envio lo del body
         }
       );
 
       if (response.ok) {
+        //si la peticion es correcta
         const responseData = await response.json();
         console.log('Venta actualizada satisfactorio:', responseData);
 
-        //Opcion Modal 3
+        // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: 'bottom-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -44,44 +47,43 @@ export const UpdateSalePage = () => {
           title: 'Actualización Realizada con exito ! ',
         });
       } else {
+        // si la peticion es incorrecta
         const errorData = await response.json();
         console.error('Actualización Venta fallido:', errorData);
-        // Mostrar un mensaje de error al usuario
+        // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
       }
     } catch (error) {
+      // si la peticion falla
       console.error('Error durante la Actualización de venta:', error);
-      // Mostrar un mensaje de error al usuario
+      // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
     }
   };
 
-  const updateSaleSchema = Joi.object({
-    id_user: Joi.string().optional().min(36),
-    saleProduct_id: Joi.string().optional().min(36),
-    customer_id: Joi.string().optional().min(36),
-    operation_status: Joi.string().optional(),
-  });
+  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+  const title = 'Actualizar Venta';
 
+  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
+  const nameButton = 'Actualizar';
+
+  // Campos del formulario personalizables
   const updateSaleFormFields = [
     {
       name: 'id_user',
       label: 'Usuario',
       type: 'text',
       placeholder: 'Introduce el usuario...',
-      required: true,
     },
     {
       name: 'saleProduct_id',
       label: 'Producto de venta',
       type: 'text',
       placeholder: 'Introduce el producto...',
-      required: true,
     },
     {
       name: 'customer_id',
       label: 'Cliente',
       type: 'text',
       placeholder: 'Introduce el cliente...',
-      required: true,
     },
     {
       name: 'operation_status',
@@ -92,21 +94,31 @@ export const UpdateSalePage = () => {
         { value: 'cancelled', label: 'cancelled' },
         { value: 'closed', label: 'closed' },
       ],
-      required: true,
     },
   ];
 
+  // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
+  const updateSaleSchema = Joi.object({
+    id_user: Joi.string().optional().min(36),
+    saleProduct_id: Joi.string().optional().min(36),
+    customer_id: Joi.string().optional().min(36),
+    operation_status: Joi.string().optional(),
+  });
+
+  // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
+  const handleClickChangePassword = () => {
+    DynamicFormPopUp(
+      title,
+      updateSaleFormFields,
+      updateSaleSchema,
+      handleUpdateSaleAccion,
+      nameButton
+    );
+  };
+
   return (
     <div>
-      <li><Link to="/">Home</Link></li>
-      <DynamicForm
-        title="Actualizar Venta"
-        onSubmit={handleUpdateSaleSubmit}
-        schema={updateSaleSchema}
-        fields={updateSaleFormFields}
-        buttonText={'Actualizar'}
-        extraButtons={[]}
-      />
+      <button onClick={handleClickChangePassword}>Actualizar Venta</button>
     </div>
   );
 };

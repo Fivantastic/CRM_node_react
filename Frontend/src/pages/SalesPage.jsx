@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { useUser } from '../context/authContext.jsx';
 import { SalesList } from '../components/Sales/SalesList.jsx';
+import { CreateSale } from '../components/Sales/CreateSale.jsx';
+import { UpdateSale } from '../components/Sales/UpdateSale.jsx';
+import { DaleteSale } from '../components/Sales/DaleteSale.jsx';
 
 export const SalesPage = () => {
   const token = useUser();
@@ -23,8 +26,7 @@ export const SalesPage = () => {
           console.log('Obtener satisfactorio:', responseData);
 
           // Actualizar el estado con los datos obtenidos
-          const dataArray = Object.values(responseData);
-          setSalesList(dataArray);
+          setSalesList(responseData.data);
         } else {
           const errorData = await response.json();
           console.error('Obetener fallido:', errorData);
@@ -37,14 +39,22 @@ export const SalesPage = () => {
     };
 
     getSaleList();
-  }, [token]); // Dependencia para que se ejecute cuando el token cambie
+  }, [token]);
 
   return (
-    <>
-      <h1>Ventas</h1>
-      {salesList.map((data) => {
-        return <SalesList key={data.id} data={data} />;
-      })}
-    </>
+    <section className="sale_container">
+      <h1 className="sale_title">Ventas</h1>
+      <CreateSale />
+      <ol>
+        {salesList.map((data) => {
+          return (
+            <>
+              <SalesList key={data.id} sale={data} /> <UpdateSale />
+              <DaleteSale />
+            </>
+          );
+        })}
+      </ol>
+    </section>
   );
 };

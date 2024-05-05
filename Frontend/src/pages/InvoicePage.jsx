@@ -1,3 +1,10 @@
+import { Link } from "react-router-dom";
+
 export const InvoicePage = () => {
-  return <div>InvoicePage</div>;
-};
+  return (
+    <>
+      <li><Link to="/">Home</Link></li>
+      <div>InvoicePage</div>
+    </>
+  );
+}

@@ -1,109 +1,75 @@
-import Joi from 'joi';
-import DynamicForm from '../components/forms/DynamicForm.jsx'; 
-import { Link, useNavigate } from 'react-router-dom';
-import { useUser } from '../context/authContext.jsx'; 
-import Swal from 'sweetalert2';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useUser } from '../context/authContext.jsx';
+import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
+import { DeliveryNoteList } from '../components/DeliveryNotes/DeliveryNoteList.jsx';
+import { CreateDeliveryNote } from '../components/DeliveryNotes/CreateDeliveryNote.jsx';
 
-export function DeliveryNotePage() {
-  const navigate = useNavigate();
-  const token = useUser(); // Obtener el token usando el hook useUser
+export const DeliveryNotePage = () => {
+  const token = useUser();
+  const [deliveryNotesList, setDeliveryNotesList] = useState([]);
+  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
+  const typeModule = 'deliveryNotes';
 
-  const handleSubmit = async (data) => {
-    try {
-      const response = await fetch('http://localhost:3000/delivery-notes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}` // Agregar el token de autenticación en el encabezado
-        },
-        body: JSON.stringify(data),
-      });
+  // Tipo de modulo para el nombre de los mensajes al cliente
+  const typeModuleMessage = 'DeliveryNote';
 
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log('Delivery note created successfully:', responseData);
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-            navigate('/delivery-notes');
-          }
+  useEffect(() => {
+    const fetchDeliveryNotes = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/${typeModule}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
         });
-        
-        Toast.fire({
-          icon: "success",
-          title: "Delivery note created successfully!",
-        });
-      } else {
-        const errorData = await response.json();
-        console.error('Error creating delivery note:', errorData);
+
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('Obtener notas de entrega satisfactorio:', responseData);
+          setDeliveryNotesList(responseData.data);
+        } else {
+          const errorData = await response.json();
+          console.error('Obtener notas de entrega fallido:', errorData);
+        }
+      } catch (error) {
+        console.error('Error al obtener la lista de notas de entrega:', error);
       }
-    } catch (error) {
-      console.error('Error during delivery note creation:', error);
-    }
+    };
+
+    fetchDeliveryNotes();
+  }, [token]);
+
+  const addDeliveryNote = (newDeliveryNote) => {
+    setDeliveryNotesList([...deliveryNotesList, newDeliveryNote]);
   };
 
-  const deliveryNoteSchema = Joi.object({
-    sale_id: Joi.string().guid().required(),
-    deliverer_id: Joi.string().guid().required(),
-    address_id: Joi.string().guid().required(),
-    customer_id: Joi.string().guid().required(),
-    saleProduct_id: Joi.string().guid().optional(),
-  });
-
-  const deliveryNoteFormFields = [
-    {
-      name: 'sale_id',
-      label: 'Sale ID',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'deliverer_id',
-      label: 'Deliverer ID',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'address_id',
-      label: 'Address ID',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'customer_id',
-      label: 'Customer ID',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'saleProduct_id',
-      label: 'Sale Product ID',
-      type: 'text',
-      required: false,
-    },
-  ];
+  const deleteDeliveryNote = (id) => {
+    setDeliveryNotesList(deliveryNotesList.filter(note => note.id !== id));
+  };
 
   return (
     <div>
-      <li><Link to="/">Home</Link></li>
-      <h1>Create Delivery Note</h1>
-      <DynamicForm
-        title="Delivery Note Form"
-        onSubmit={handleSubmit}
-        schema={deliveryNoteSchema}
-        fields={deliveryNoteFormFields}
-        buttonText={'Create Delivery Note'}
-        extraButtons={[]}
-      />
+      <Link to="/">Home</Link>
+      <h1>Notas de Entrega</h1>
+      <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
+      <ul>
+        {deliveryNotesList.map((data) => (
+          <li key={data.id}>
+            <DeliveryNoteList deliveryNote={data} />
+            <DeleteGenericModal
+                id={data.id_note}
+                onDelete={deleteDeliveryNote}
+                token={token}
+                typeModule={typeModule}
+                typeModuleMessage={typeModuleMessage}
+              />
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default DeliveryNotePage;

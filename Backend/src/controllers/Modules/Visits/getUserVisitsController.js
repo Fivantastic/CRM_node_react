@@ -9,7 +9,7 @@ export const getUserVisitsController = async (req, res, next) => {
 
         res.status(200).send({
             status: 'ok',
-            data: { userVisits },
+            data: userVisits,
         });
     } catch (error) {
         next(error);

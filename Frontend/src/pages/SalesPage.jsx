@@ -16,54 +16,79 @@ export const SalesPage = () => {
   // Tipo de modulo para el nombre de los mensajes al cliente
   const typeModuleMessage = 'Venta';
 
-  useEffect(() => {
-    const getSaleList = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-        });
+  const getSaleList = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+      });
 
-        if (response.ok) {
-          const responseData = await response.json();
-          console.log('Obtener satisfactorio:', responseData);
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Obtener satisfactorio:', responseData);
 
-          // Actualizar el estado con los datos obtenidos
-          setSalesList(responseData.data);
-        } else {
-          const errorData = await response.json();
-          console.error('Obetener fallido:', errorData);
-          // Mostrar un mensaje de error al usuario
-        }
-      } catch (error) {
-        console.error('Error al obtener la lista de ventas:', error);
+        // Actualizar el estado con los datos obtenidos
+        setSalesList(responseData.data);
+      } else {
+        const errorData = await response.json();
+        console.error('Obtener fallido:', errorData);
         // Mostrar un mensaje de error al usuario
       }
-    };
+    } catch (error) {
+      console.error('Error al obtener la lista de ventas:', error);
+      // Mostrar un mensaje de error al usuario
+    }
+  };
 
+  useEffect(() => {
     getSaleList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  // Actualizo el estado con la venta añadida
-  const addSale = () => {
-    setSalesList((prevSales) => [...prevSales, salesList]);
+  // Actualizo el estado con la venta añadida y solicito la lista actualizada al servidor
+  const addSale = async () => {
+    try {
+      // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
+      await getSaleList();
+    } catch (error) {
+      console.error('Error al agregar la venta:', error);
+      // Mostrar un mensaje de error al usuario
+    }
   };
 
-  // Actualizo el estado con la venta eliminada
-  const deleteSale = (id_sale) => {
-    setSalesList((prevSales) =>
-      prevSales.filter((sale) => sale.id_sale !== id_sale)
-    );
+  // Actualizo el estado con la venta eliminada y solicito la lista actualizada al servidor
+  const deleteSale = async (id_sale) => {
+    try {
+      // Eliminar la venta del estado local
+      setSalesList((prevSales) =>
+        prevSales.filter((sale) => sale.id_sale !== id_sale)
+      );
+
+      // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
+      await getSaleList();
+    } catch (error) {
+      console.error('Error al eliminar la venta:', error);
+      // Mostrar un mensaje de error al usuario
+    }
   };
 
-  // Actualizo el estado con la venta eliminada
-  const updateSale = (id_sale) => {
-    setSalesList((prevSales) =>
-      prevSales.filter((sale) => sale.id_sale !== id_sale)
-    );
+  // Actualizo el estado con la venta actualizada y solicito la lista actualizada al servidor
+  const updateSale = async (id_sale) => {
+    try {
+      // Eliminar la venta del estado local
+      setSalesList((prevSales) =>
+        prevSales.filter((sale) => sale.id_sale !== id_sale)
+      );
+
+      // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
+      await getSaleList();
+    } catch (error) {
+      console.error('Error al actualizar la venta:', error);
+      // Mostrar un mensaje de error al usuario
+    }
   };
 
   return (

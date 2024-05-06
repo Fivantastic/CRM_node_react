@@ -4,7 +4,7 @@
 // Los imports son estos...
 // Agrega mas si tu codigo necesita mas de una libreria o archivos
 import Joi from 'joi';
-import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
+import DynamicFormPopUp from './DynamicFormPopUp.js';
 import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 

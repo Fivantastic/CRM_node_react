@@ -11,6 +11,7 @@ import { validateUserController } from './users/validateUserControllers.js';
 import { renewTokenController } from './users/renewTokenController.js';
 import { deleteUserController } from './users/deleteUserController.js';
 import { updateUserAvatarController } from './users/updateUserAvatarController.js';
+import { getUserListController } from './users/getUserListController.js';
 
 // Imports Productos
 import { deleteProductController } from './product/deleteProductController.js';
@@ -39,12 +40,15 @@ export {
   renewTokenController,
   deleteUserController,
   updateUserAvatarController,
+  getUserListController,
+  
   deleteProductController,
   getProductController,
   newProductController,
   productListController,
   updateProductController,
   selectSaleProductController,
+  
   getCustomerListController,
   newCustomerController,
   updateCustomerController,

@@ -1,4 +1,4 @@
-export const checkRoleAgent = (req, res, next) => {
+export const checkRoleDelivery = (req, res, next) => {
     try {
         const userRole = req.user.role; // El rol del usuario autenticado
 

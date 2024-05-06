@@ -1,0 +1,32 @@
+/* Estilo para la lista de visitas */
+.visit_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100vh;
+    
+  }
+  
+  /* Estilo para cada elemento de la lista */
+  .visist {
+    width: 100vh;
+    background-color: #f2f2f2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: calc(33.33% - 10px); /* Ajusta el ancho para mostrar tres elementos por fila */
+  }
+  
+  /* Estilo para los botones */
+  .visist > div {
+    width: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  

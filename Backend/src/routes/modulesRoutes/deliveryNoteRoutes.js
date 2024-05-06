@@ -2,7 +2,8 @@ import express from 'express';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { checkRole } from '../../middlewares/checkRoles/checkRole.js';
 import { createDeliveryNoteController, closeDeliveryNoteController, deleteDeliveryNoteController,getDeliveryNotesController } from '../../controllers/modulesControllers.js'; 
-import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
+import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
+import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
 
 // Crea una instancia del enrutador de Express
 const router = express.Router();
@@ -14,7 +15,7 @@ router.get('/deliveryNotes', getDeliveryNotesController);
 router.post(
   '/delivery-notes',
   authenticateUser,
-  checkRole(['deliverer', 'admin']),
+  checkRoleDelivery,
   createDeliveryNoteController
 );
 
@@ -22,7 +23,7 @@ router.post(
 router.put(
   '/deliveryNotes/close/:deliveryNote_id',
   authenticateUser,
-  checkRoleAgent,
+  checkRoleDelivery,
   closeDeliveryNoteController
 );
 
@@ -30,7 +31,7 @@ router.put(
 router.delete(
   '/deliveryNotes/delete/:deliveryNote_id',
   authenticateUser,
-  checkRoleAgent,
+  adminAuthMiddleware,
   deleteDeliveryNoteController
 );
 

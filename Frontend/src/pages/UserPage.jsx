@@ -1,15 +1,95 @@
 import { useUser } from "../context/authContext.jsx";
-import ChangePasswordPop from "../components/userActions/ChangePasswordPop.jsx";
+
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { UserList } from "../components/User/UserList.jsx";
+import { CreateUser } from "../components/User/CreateUser.jsx";
 
 export const UserPage = () => {
-    const user = useUser(); 
+    const token = useUser(); 
+    const [userList, setUserList] = useState([]);
 
+    // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
+    const typeModule = 'user';
+  
+    // Tipo de modulo para el nombre de los mensajes al cliente
+    const typeModuleMessage = 'Usuiario';
+  
+    const getUserList = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+        });
+  
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('Obtener satisfactorio:', responseData);
+  
+          // Actualizar el estado con los datos obtenidos
+          setUserList(responseData.data);
+        } else {
+          const errorData = await response.json();
+          console.error('Obtener fallido:', errorData);
+          // Mostrar un mensaje de error al usuario
+        }
+      } catch (error) {
+        console.error('Error al obtener la lista de ventas:', error);
+        // Mostrar un mensaje de error al usuario
+      }
+    };
+  
+    useEffect(() => {
+      getUserList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [token]);
+  
+    // Actualizo el estado con la venta añadida y solicito la lista actualizada al servidor
+    const addUser = async () => {
+      try {
+        // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
+        await getUserList();
+      } catch (error) {
+        console.error('Error al agregar la venta:', error);
+        // Mostrar un mensaje de error al usuario
+      }
+    };
+  
+    // Actualizo el estado con la venta eliminada y solicito la lista actualizada al servidor
+    const deleteUser = async (id_user) => {
+      try {
+        // Eliminar la venta del estado local
+        setUserList((prevUser) =>
+          prevUser.filter((user) => user.id_user !== id_user)
+        );
+  
+        // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
+        await getUserList();
+      } catch (error) {
+        console.error('Error al eliminar la venta:', error);
+        // Mostrar un mensaje de error al usuario
+      }
+    };
+  
     return (
-        <>
-            <li><Link to="/">Home</Link></li>
-            <div>UserPage</div>
-            {user && <ChangePasswordPop token={user} />}
-        </>
+      <section className="user_container">
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <h1 className="user_title">Users</h1>
+        <CreateUser onAddUser={addUser} token={token} />
+        <ul>
+          {userList.map((data) => {
+            return (
+              <div key={data.id_user}>
+                <UserList user={data} id={data.id_user} onDelete={deleteUser} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage}  />
+              </div>
+            );
+          })}
+        </ul>
+      </section>
     );
-};
+  };

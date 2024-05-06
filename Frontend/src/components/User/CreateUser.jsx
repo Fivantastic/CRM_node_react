@@ -2,18 +2,17 @@ import Joi from 'joi';
 import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 
-export const CreateVisit = ({ onAddVisit, token }) => {
+export const CreateUser = ({ onAddUser, token }) => {
 
   // Aqui hace la peticion al servidor
-  const handleVisitCreate = async (formData) => {
+  const handleUserCreate = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/visits/new', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`, 
-        },
+        const response = await fetch('http://localhost:3000/user/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `${token}`
+            },
         body: JSON.stringify(formData),
       });
 
@@ -23,7 +22,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
         console.log('Visita satisfactorio:', responseData);
 
         
-        onAddVisit(responseData.data);
+        onAddUser(responseData.data);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
@@ -40,69 +39,83 @@ export const CreateVisit = ({ onAddVisit, token }) => {
 
         Toast.fire({
           icon: 'success',
-          title: 'Visita programada con exito !',
+          title: 'Usuario creado con exito !',
         });
       } else {
         // si la peticion es incorrecta
         const errorData = await response.json();
-        console.error('Programa de visita fallido:', errorData);
+        console.error('Crear usuario fallido:', errorData);
         // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
       }
     } catch (error) {
       // si la peticion falla
-      console.error('Error programa de visita fallido:', error);
+      console.error('Error al crear usuario:', error);
       // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
     }
   };
 
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
-  const title = 'Programar Visita';
+  const title = 'Registrar usuario';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
-  const nameButton = 'Programar Visita';
+  const nameButton = 'Crear';
 
   // Campos del formulario personalizables
-  const VisitFormFields = [
+  const userFormFields = [
     {
-      name: 'id_customer',
-      label: 'Cliente',
+      name: 'name',
       type: 'text',
-      placeholder: 'Introduce el  cliente...',
+      label: 'Nombre',
+      required: true,
+    },
+    { 
+      name: 'last_name',
+      type: 'text',
+      label: 'Apellidos',
       required: true,
     },
     {
-      name: 'visit_date',
-      label: 'Fecha',
-      type: 'date',
+      name: 'email',
+      type: 'email',
+      label: 'Email',
       required: true,
     },
     {
-      name: 'observations',
-      label: 'Observaciones',
-      type: 'textarea',
-      placeholder: 'Introduce las observaciones...',
-      required: false,
+      name: 'role',
+      type: 'select',
+      label: 'Rol',
+      required: true,
+      options: {
+        Administradores: { 
+          admin: 'Administrador'
+        },
+        Empleados: {
+          salesAgent: 'Comercial', 
+          deliverer: 'Repartidor'
+        },
+      },
     },
   ];
-
-  const newVisitSchema = Joi.object({
-    id_customer: Joi.string().guid().required(),
-    visit_date: Joi.date().required(),
-    observations: Joi.string().optional()
+  
+  const newUserSchema = Joi.object({
+    name: Joi.string().required().label('Name'),
+    last_name: Joi.string().required().label('Last Name'),
+    email: Joi.string().email({ tlds: false }).required().label('Email'),
+    role: Joi.string().valid('salesAgent', 'admin', 'deliverer').required().label('Role')
   });
 
-  const handleClickCreateVisit = () => {
+  const handleClickCreateUser = () => {
     DynamicFormPopUp(
       title,
-      VisitFormFields,
-      newVisitSchema,
-      handleVisitCreate,
+      userFormFields,
+      newUserSchema,
+      handleUserCreate,
       nameButton
     );
   };
   return (
     <div>
-      <button onClick={handleClickCreateVisit}>Programar Visita</button>
+      <button onClick={handleClickCreateUser}>Registrar usuario</button>
     </div>
   );
 };

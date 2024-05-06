@@ -45,4 +45,30 @@
   .setting-btn:hover .bar2::before {
     transform: translateX(-4px);
   }
+
+  .container-avatar-active-inside {
+    width: 120px; 
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: auto;
+  }
+
+  .avatar-inside {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    scale: 0.95;
+  }
+
+  .container-avatar-active-inside.active {
+    background-color: #5deb5d; /* Verde si el usuario está activo */
+  }
   
+  .container-avatar-active-inside.inactive {
+    background-color: #ee3933; /* Rojo si el usuario está inactivo */
+  }
+

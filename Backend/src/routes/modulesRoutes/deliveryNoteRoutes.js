@@ -1,6 +1,5 @@
 import express from 'express';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
-import { checkRole } from '../../middlewares/checkRoles/checkRole.js';
 import { createDeliveryNoteController, closeDeliveryNoteController, deleteDeliveryNoteController,getDeliveryNotesController } from '../../controllers/modulesControllers.js'; 
 import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';

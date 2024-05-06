@@ -1,12 +1,12 @@
 import express from 'express';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
-import { checkRole } from '../../middlewares/checkRoles/checkRole.js';
 import {
   createDeliveryNoteController,
   closeDeliveryNoteController,
   deleteDeliveryNoteController,
 } from '../../controllers/modulesControllers.js';
-import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
+import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
+import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
 
 export const deliveryNoteRouter = express.Router();
 
@@ -14,7 +14,7 @@ export const deliveryNoteRouter = express.Router();
 deliveryNoteRouter.post(
   '/delivery-notes',
   authenticateUser,
-  checkRole(['deliverer', 'admin']),
+  checkRoleDelivery,
   createDeliveryNoteController
 );
 
@@ -22,7 +22,7 @@ deliveryNoteRouter.post(
 deliveryNoteRouter.put(
   '/delivery-notes/close/:deliveryNote_id',
   authenticateUser,
-  checkRoleAgent,
+  checkRoleDelivery,
   closeDeliveryNoteController
 );
 
@@ -30,6 +30,6 @@ deliveryNoteRouter.put(
 deliveryNoteRouter.delete(
   '/delivery-notes/delete/:deliveryNote_id',
   authenticateUser,
-  checkRoleAgent,
+  adminAuthMiddleware,
   deleteDeliveryNoteController
 );

@@ -1,5 +1,5 @@
 import { useUser } from "../context/authContext.jsx";
-import ChangePasswordPop from "../components/userActions/ChangePasswordPop.jsx";
+import ChangePasswordPop from "../components/User/ChangePasswordPop.jsx";
 import { Link } from "react-router-dom";
 
 export const UserPage = () => {

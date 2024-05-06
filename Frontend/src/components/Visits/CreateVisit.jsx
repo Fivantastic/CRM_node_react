@@ -1,14 +1,11 @@
 import Joi from 'joi';
 import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
-import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
-export const CreateVisit = ({ onAddVisit }) => {
-  // Asi obtienes el token del usuario de la sesión
-  const token = useUser();
+export const CreateVisit = ({ onAddVisit, token }) => {
 
   // Aqui hace la peticion al servidor
-  const handleVisitCreate = async (formData, newVisit) => {
+  const handleVisitCreate = async (formData) => {
     try {
       const response = await fetch('http://localhost:3000/visits/new', {
         method: 'POST',
@@ -25,12 +22,13 @@ export const CreateVisit = ({ onAddVisit }) => {
         const responseData = await response.json();
         console.log('Visita satisfactorio:', responseData);
 
-        onAddVisit(newVisit);
+        
+        onAddVisit(responseData.data);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: 'bottom-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,

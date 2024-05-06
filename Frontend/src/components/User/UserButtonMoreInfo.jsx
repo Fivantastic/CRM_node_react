@@ -1,5 +1,6 @@
 // Importa las librerías y los archivos necesarios
 import Swal from 'sweetalert2';
+import defaultAvatar from '../../../public/profile.svg'; 
 import './UserInfoButtonStyle.css'
 
 // Define la función para mostrar la información del usuario
@@ -8,10 +9,13 @@ const showUserInfo = (userData) => {
   const addressConcatenated = userData.address ? `${userData.address} ${userData.number}, ${userData.floor ? 'Piso ' + userData.floor : ''} ${userData.letter_number ? 'Letra ' + userData.letter_number : ''}, ${userData.city}` : 'Dirección no disponible';
 
   const isActive = userData.active === 1 ? 'Activo' : 'Inactivo';
+  const activeClass = userData.active === 1 ? 'active' : 'inactive'; // Clase para el estado activo o inactivo
 
   const userInfoHtml = `
     <div>
-      <img src="${userData.avatar}" alt="Avatar del usuario" style="width: 100px; height: 100px; border-radius: 50%; " />
+      <div class="container-avatar-active-inside ${activeClass}">
+        <img src="${userData.avatar || defaultAvatar}" alt="Avatar del usuario" class="avatar-inside" />
+      </div>
       <p><strong>Nombre:</strong> ${userData.name}</p>
       <p><strong>Apellidos:</strong> ${userData.last_name}</p>
       <p><strong>Email:</strong> ${userData.email}</p>
@@ -27,6 +31,7 @@ const showUserInfo = (userData) => {
   Swal.fire({
     title: 'Información del Usuario',
     html: userInfoHtml,
+    allowOutsideClick: false,
     showCancelButton: false,
     confirmButtonText: 'Cerrar',
   });

@@ -1,5 +1,4 @@
 import { useUser } from "../context/authContext.jsx";
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserList } from "../components/User/UserList.jsx";
@@ -13,7 +12,7 @@ export const UserPage = () => {
     const typeModule = 'user';
   
     // Tipo de modulo para el nombre de los mensajes al cliente
-    const typeModuleMessage = 'Usuiario';
+    const typeModuleMessage = 'Usuario';
   
     const getUserList = async () => {
       try {
@@ -27,7 +26,7 @@ export const UserPage = () => {
   
         if (response.ok) {
           const responseData = await response.json();
-          console.log('Obtener satisfactorio:', responseData);
+          console.log(`${typeModuleMessage} recibido satisfactorio:`, responseData);
   
           // Actualizar el estado con los datos obtenidos
           setUserList(responseData.data);
@@ -81,11 +80,11 @@ export const UserPage = () => {
         </li>
         <h1 className="user_title">Users</h1>
         <CreateUser onAddUser={addUser} token={token} />
-        <ul>
+        <ul className="user_list_ul">
           {userList.map((data) => {
             return (
               <div key={data.id_user}>
-                <UserList user={data} id={data.id_user} onDelete={deleteUser} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage}  />
+                <UserList user={data} id={data.id_user} onDelete={deleteUser}/>
               </div>
             );
           })}

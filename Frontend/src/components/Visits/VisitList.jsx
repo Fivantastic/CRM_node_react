@@ -1,7 +1,7 @@
 export const VisitsList = ({ visit }) => {
   return (
     <>
-      <li>
+      <li className="visit">
         <h2>Detalles de la visita</h2>
         <p>ID de la visita: {visit.id_visit}</p>
         <h3>Cliente</h3>

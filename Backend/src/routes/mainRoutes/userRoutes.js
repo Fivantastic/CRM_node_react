@@ -16,10 +16,14 @@ import {
   renewTokenController,
   deleteUserController,
   updateUserAvatarController,
+  getUserListController,
 } from '../../controllers/mainControllers.js';
 
 // Creamos el router
 export const userRouter = express.Router();
+
+// Ruta para listado de usuarios
+userRouter.get('/user/list', authenticateUser, adminAuthMiddleware, getUserListController);
 
 // Ruta de registro solo para administradores
 userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController);

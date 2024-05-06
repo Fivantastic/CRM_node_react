@@ -38,12 +38,13 @@ export async function loadDemoData(db) {
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Users...`));
     const userData = [];
     for (let i = 0; i < 20; i++) {
+      const id_user = faker.string.uuid();
       const password = ADMIN_PASSWORD;
       const hashedPassword = await bcrypt.hash(password, 12);
       const firstName = faker.person.firstName();
       const lastName = faker.person.lastName();
       const user = {
-        id_user: faker.string.uuid(),
+        id_user: id_user,
         name: firstName,
         last_name: lastName,
         email: faker.internet.email({ 
@@ -56,7 +57,7 @@ export async function loadDemoData(db) {
         role: faker.helpers.arrayElement(['salesAgent', 'deliverer']),
         active: faker.datatype.boolean(),
         registration_code: faker.string.uuid(),
-        avatar: faker.image.avatarLegacy(),
+        avatar: `https://i.pravatar.cc/150?u=` + id_user,
         biography: faker.lorem.paragraph(),
       };
       userData.push(user);

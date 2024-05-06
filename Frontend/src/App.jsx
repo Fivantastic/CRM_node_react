@@ -16,6 +16,7 @@ import { AboutPage } from './pages/About/AboutPage.jsx';
 import { InitialPage } from './pages/InitialPage.jsx';
 import { UserPage } from './pages/UserPage.jsx';
 import { CustomerPage } from './pages/CustomerPage.jsx';
+import { ProfilePage } from './pages/ProfilePage.jsx';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<InitialPage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/Profile" element={<ProfilePage />} />
         <Route path="/user" element={<UserPage />} />
         <Route path="/customer" element={<CustomerPage />} />
         <Route path="/login" element={<LoginPage />} />

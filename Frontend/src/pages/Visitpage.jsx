@@ -5,6 +5,7 @@ import { CreateVisit } from '../components/Visits/CreateVisit.jsx';
 import { UpdateVisit } from '../components/Visits/UpdateVisit.jsx';
 import { VisitsList } from '../components/Visits/VisitList.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
+import '../components/PopsStyle/listStyle.css'
 
 export const Visitpage = () => {
   const token = useUser();
@@ -97,7 +98,7 @@ const addVisit = async () => {
       </li>
       <h1 className="visit_title">Visitas</h1>
       <CreateVisit onAddVisit={addVisit} token={token} />
-      <ol>
+      <ol className="visit_list">
         {visitList.map((visit) => (
           <div key={visit.id_visit}>
             <VisitsList visit={visit} />

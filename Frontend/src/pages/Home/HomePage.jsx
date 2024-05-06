@@ -12,6 +12,7 @@ export const HomePage = () => {
       <h1>HomePage</h1>
       <nav>
         <ul>
+          <li><Link to="/profile">Perfil</Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/user">User</Link></li>
           <li><Link to="/customer">Customer</Link></li>

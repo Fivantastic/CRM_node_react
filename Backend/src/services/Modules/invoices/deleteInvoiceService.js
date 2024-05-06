@@ -10,7 +10,7 @@ export const deleteInvoiceService = async (invoiceId) => {
     invalidCredentials('La factura no existe en la base de datos.');
   }
 
-  if (invoiceExists.invoiceId !== 'cancelled') {
+  if (invoiceExists.invoice_status !== 'cancelled') {
     invalidCredentials('La factura no esta cancelado');
   }
 

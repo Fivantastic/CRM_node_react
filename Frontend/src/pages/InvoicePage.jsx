@@ -14,56 +14,73 @@ export const InvoicePage = () => {
   const typeModule = 'invoice';
 
   // Tipo de modulo para el nombre de los mensajes al cliente
-  const typeModuleMessage = 'Invoice';
+  const typeModuleMessage = 'Factura';
 
-  useEffect(() => {
-    const getSaleList = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/${typeModule}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-        });
+  const getSaleList = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/${typeModule}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+      });
 
-        if (response.ok) {
-          const responseData = await response.json();
-          console.log('Obtener satisfactorio:', responseData);
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Obtener satisfactorio:', responseData);
 
-          // Actualizar el estado con los datos obtenidos
-          setInvoiceList(responseData.data);
-        } else {
-          const errorData = await response.json();
-          console.error('Obetener fallido:', errorData);
-          // Mostrar un mensaje de error al usuario
-        }
-      } catch (error) {
-        console.error('Error al obtener la lista de ventas:', error);
+        // Actualizar el estado con los datos obtenidos
+        setInvoiceList(responseData.data);
+      } else {
+        const errorData = await response.json();
+        console.error('Obetener fallido:', errorData);
         // Mostrar un mensaje de error al usuario
       }
-    };
+    } catch (error) {
+      console.error('Error al obtener la lista de ventas:', error);
+      // Mostrar un mensaje de error al usuario
+    }
+  };
 
+  useEffect(() => {
     getSaleList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   // Actualizo el estado con la venta añadida
-  const addInvoice = () => {
-    setInvoiceList((prevSales) => [...prevSales, invoiceList]);
+  const addInvoice = async () => {
+    try {
+      await getSaleList();
+    } catch (error) {
+      console.error('Error al agregar la factura:', error);
+    }
   };
 
   // Actualizo el estado con la venta eliminada
-  const deleteInvoice = (id_invoice) => {
-    setInvoiceList((prevSales) =>
-      prevSales.filter((invoice) => invoice.id_invoice !== id_invoice)
-    );
+  const deleteInvoice = async (id_invoice) => {
+    try {
+      setInvoiceList((prevSales) =>
+        prevSales.filter((invoice) => invoice.id_invoice !== id_invoice)
+      );
+
+      await getSaleList();
+    } catch (error) {
+      console.error('Error al eliminar la factura:', error);
+    }
   };
 
   // Actualizo el estado con la venta eliminada
-  const updateInvoice = (id_invoice) => {
-    setInvoiceList((prevSales) =>
-      prevSales.filter((invoice) => invoice.id_invoice !== id_invoice)
-    );
+  const updateInvoice = async (id_invoice) => {
+    try {
+      setInvoiceList((prevSales) =>
+        prevSales.filter((invoice) => invoice.id_invoice !== id_invoice)
+      );
+
+      await getSaleList();
+    } catch (error) {
+      console.error('Error al actualizar la factura:', error);
+    }
   };
 
   return (
@@ -72,7 +89,7 @@ export const InvoicePage = () => {
         <Link to="/">Home</Link>
       </li>
       <h1 className="invoice_title">Facturas</h1>
-      <CreateInvoice onAddSale={addInvoice} token={token} />
+      <CreateInvoice onAddInvoice={addInvoice} token={token} />
       <ol>
         {invoiceList.map((data) => {
           return (

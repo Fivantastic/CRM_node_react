@@ -3,7 +3,7 @@ import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../context/authContext.jsx';
 
-export const CreateInvoice = ({ addInvoice }) => {
+export const CreateInvoice = ({ onAddInvoice }) => {
   const token = useUser();
   // peticion al servidor
   const handleInvoiceCreatedAccion = async (formData) => {
@@ -23,7 +23,7 @@ export const CreateInvoice = ({ addInvoice }) => {
         const responseData = await response.json();
         console.log('Factura satisfactorio:', responseData);
 
-        addInvoice(responseData.data);
+        onAddInvoice(responseData.data);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({

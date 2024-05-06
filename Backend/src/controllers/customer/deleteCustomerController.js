@@ -1,24 +1,27 @@
-import { deleteCustomerModel } from "../../models/customer/deleteCustomerModel.js";
-import { deleteCustomerSchema } from "../../schemas/customer/newCustomerSchema.js";
-import { success } from "../../utils/success.js";
-import { validateSchemaUtil } from "../../utils/validateSchemaUtil.js";
+import { deleteCustomerModel } from '../../models/customer/deleteCustomerModel.js';
+import { selectCustomerByIdModel } from '../../models/customer/selectCustomerByIdModel.js';
+import { success } from '../../utils/success.js';
 
 export const deleteCustomerController = async (req, res, next) => {
-    try {
-        // Validar el body con Joi.
-        await validateSchemaUtil(deleteCustomerSchema, req.body);
+  try {
+    // Obtener el id del cliente.
+    const id_customer = req.params.customerId;
 
-        // Obtener el id del cliente de la URL.
-        const customerId = req.params.customerId
+    // Obtener el id del address asosiado
+    const custumerAddress = await selectCustomerByIdModel(id_customer);
 
-        // Eliminar el cliente de la base de datos.
-        const deleteCustomer = await deleteCustomerModel(customerId)
+    console.log(custumerAddress.address_id);
+    console.log(id_customer);
 
-        // Respondemos al cliente.
-        res.status(200).send(
-            success(deleteCustomer)
-        );
-    } catch (error) { 
-        next(error);
-    }
-}
+    // Eliminar el cliente de la base de datos.
+    const deleteCustomer = await deleteCustomerModel(
+      id_customer,
+      custumerAddress.address_id
+    );
+
+    // Respondemos al cliente.
+    res.status(200).send(success(deleteCustomer));
+  } catch (error) {
+    next(error);
+  }
+};

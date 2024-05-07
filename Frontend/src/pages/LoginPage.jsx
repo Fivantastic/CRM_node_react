@@ -129,8 +129,8 @@ export const LoginPage = () => {
     {
       type: 'textWithLink',
       linkText: '¿Olvidaste tu contraseña?',
-      link: 'http://localhost:5173/forgot-password' // URL a la que deseas redirigir al hacer clic en el enlace
-    }
+      link: 'http://localhost:5173/forgot-password' 
+    },
   ];
 
   // const extraButtons = [

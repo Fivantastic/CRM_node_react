@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import '../PopsStyle/StyleUserList.css'
+import '../../PopsStyle/StyleUserList.css'
 // import { UserButtonMoreInfo } from "./UserButtonMoreInfo.jsx";
 import defaultAvatar from '/profile.svg'; 
-import { ProfileButton } from "../buttons/ProfileButton.jsx";
-import { ButtonMoreUserActions } from "../buttons/ButtonMoreUserActions.jsx";
-import { useUser } from "../../context/authContext.jsx";
+import { ProfileButton } from "../../buttons/ProfileButton.jsx";
+import { ButtonMoreUserActions } from "../../buttons/ButtonMoreUserActions.jsx";
+import { useUser } from "../../../context/authContext.jsx";
 
 // Objeto de mapeo de roles
 const roleMapping = {

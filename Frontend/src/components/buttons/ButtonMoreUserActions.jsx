@@ -2,7 +2,7 @@ import './StyleModalUserEdit.css';
 import './StyleButtonMoreActions.css';
 import './DeleteButtomStyle.css';
 import './ActiveButtonStyle.css';
-import '../User/UserInfoButtonStyle.css'
+import '../PagesComponents/User/UserInfoButtonStyle.css'
 import Swal from 'sweetalert2';
 
 export const ButtonMoreUserActions = ( id, onDelete) => {

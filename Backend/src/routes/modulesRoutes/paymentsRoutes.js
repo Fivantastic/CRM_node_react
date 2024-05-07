@@ -3,6 +3,7 @@ import {
   newPaymentController,
   cancelPaymentController,
   deletePaymentController,
+  getPaymentsController,
 } from '../../controllers/modulesControllers.js';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
 
@@ -23,3 +24,9 @@ paymentsRouter.delete(
   authenticateUser,
   deletePaymentController
 );
+
+paymentsRouter.get(
+  '/payments/list',
+  authenticateUser,
+  getPaymentsController
+)

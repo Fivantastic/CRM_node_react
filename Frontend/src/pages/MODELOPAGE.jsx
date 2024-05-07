@@ -23,7 +23,7 @@ import '../components/PopsStyle/listStyle.css'
 
 //? 1. LISTAR
 // Funcion que crea la pagina, aqui esta todo. Y directamente lo exportamos
-export const Visitpage = () => {
+export const ProductPage = () => {
     //? 1. LISTAR
     // Aqui recibimos el token
   const token = useUser();
@@ -34,7 +34,7 @@ export const Visitpage = () => {
     //? 1. LISTAR
     // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
     //! Revisar ruta que sea igual.
-  const typeModule = 'visits';
+  const typeModule = 'product';
    
     //? 1. LISTAR
     // Tipo de modulo para el nombre de los mensajes al cliente (Producto, Visitas, Venta, etc..) La que hagas
@@ -81,7 +81,6 @@ export const Visitpage = () => {
   //! Funcion para agregar una nueva (venta, producto, etc..)
 const addVisit = async () => {
   try {
-    
         // Solicitar la lista actualizada al servidor utilizando la función reutilizada, cuando ejecutamos esta funcion que es crear un nuevo (producto, venta, etc..)
     await getVisitList();
   } catch (error) {

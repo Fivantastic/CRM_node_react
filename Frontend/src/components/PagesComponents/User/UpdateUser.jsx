@@ -1,14 +1,15 @@
 import Joi from 'joi';
-import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+
 import Swal from 'sweetalert2';
 
-export const UpdateSale = ({ sale, token }) => {
+export const UpdateUser = ({ id, updateUser, token }) => {
 
   // Aqui hace la peticion al servidor
-  const handleUpdateSaleAccion = async (formData) => {
+  const handleButtonUpdateVisit = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/sales/update/${sale}`,
+        `http://localhost:3000/user/update/${id}`,
         {
           method: 'PUT',
           credentials: 'include',
@@ -24,6 +25,8 @@ export const UpdateSale = ({ sale, token }) => {
         //si la peticion es correcta
         const responseData = await response.json();
         console.log('Venta actualizada satisfactorio:', responseData);
+
+        updateUser(responseData);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
@@ -45,7 +48,7 @@ export const UpdateSale = ({ sale, token }) => {
       } else {
         // si la peticion es incorrecta
         const errorData = await response.json();
-        console.error('Actualización Venta fallido:', errorData);
+        console.error('Actualización Visita fallido:', errorData);
         // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
       }
     } catch (error) {
@@ -56,65 +59,61 @@ export const UpdateSale = ({ sale, token }) => {
   };
 
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
-  const title = 'Actualizar Venta';
+  const title = 'Modificar Visita';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
-  const nameButton = 'Actualizar';
+  const nameButton = 'Modificar';
 
   // Campos del formulario personalizables
-  const updateSaleFormFields = [
+  const updateVisitFormFields = [
     {
-      name: 'id_user',
-      label: 'Usuario',
-      type: 'text',
-      placeholder: 'Introduce el usuario...',
-    },
-    {
-      name: 'saleProduct_id',
-      label: 'Producto de venta',
-      type: 'text',
-      placeholder: 'Introduce el producto...',
-    },
-    {
-      name: 'customer_id',
+      name: 'id_customer',
       label: 'Cliente',
       type: 'text',
       placeholder: 'Introduce el cliente...',
     },
     {
-      name: 'operation_status',
-      label: 'Estado',
-      type: 'select',
-      options: [
-        { value: 'open', label: 'open' },
-        { value: 'cancelled', label: 'cancelled' },
-        { value: 'closed', label: 'closed' },
-      ],
+      name: 'id_user',
+      label: 'Comercial',
+      type: 'text',
+      placeholder: 'Introduce el comercial...',
+    },
+    {
+      name: 'visit_date',
+      label: 'Fecha',
+      type: 'date',
+      placeholder: 'Introduce la fecha...',
+    },
+    {
+      name: 'observations',
+      label: 'Observaciones',
+      type: 'textarea',
+      placeholder: 'Introduce las observaciones...',
     },
   ];
 
   // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
-  const updateSaleSchema = Joi.object({
-    id_user: Joi.string().optional().min(36),
-    saleProduct_id: Joi.string().optional().min(36),
-    customer_id: Joi.string().optional().min(36),
-    operation_status: Joi.string().optional(),
+  const updateVisitSchema = Joi.object({
+    id_customer: Joi.string().guid().optional(),
+    id_user: Joi.string().guid().optional(),
+    visit_date: Joi.date().optional(),
+    observations: Joi.string().optional(),
   });
 
   // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
-  const handleUpdateSale = () => {
+  const handleUpdateVisit = () => {
     DynamicFormPopUp(
       title,
-      updateSaleFormFields,
-      updateSaleSchema,
-      handleUpdateSaleAccion,
+      updateVisitFormFields,
+      updateVisitSchema,
+      handleButtonUpdateVisit,
       nameButton
     );
   };
 
   return (
     <div>
-      <button onClick={handleUpdateSale}>Actualizar Venta</button>
+      <button onClick={handleUpdateVisit}>Actualizar Venta</button>
     </div>
   );
 };

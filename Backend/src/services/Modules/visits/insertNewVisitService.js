@@ -2,11 +2,15 @@ import { selectCustomerByIdModel } from "../../../models/customer/selectCustomer
 import { selectAddressCustomerByIdModel } from "../../../models/customer/selectAdressCustomerByIdModel.js";
 import { invalidCredentials } from "../../error/errorService.js";
 import { insertVisitModel } from "../../../models/Modules/visits/insertVisitModel.js";
+import { insertModuleVisitsModel } from "../../../models/Modules/visits/insertModuleVisitsModel.js";
 
 
 export const insertNewVisitService = async (user_id, id_customer, visit_date, observations) => {
     // Creamos una id para la visita.
     const visitId = crypto.randomUUID();
+
+    // Creamos un id para el modulo
+    const moduleId = crypto.randomUUID();
     
     // Obtenemos el cliente
     const customer = await selectCustomerByIdModel(id_customer);
@@ -25,9 +29,12 @@ export const insertNewVisitService = async (user_id, id_customer, visit_date, ob
     if (!address.address) {
         invalidCredentials('El cliente no tiene asociada una direccion');
     }
-
+    
     // Insertamos la visita en la base de datos.
     await insertVisitModel(visitId, user_id, id_customer, visit_date, observations);
+    
+    // Insertamos el modulo en la base de datos.
+    await insertModuleVisitsModel(moduleId, user_id, visitId)
 
     // Retornamos el cliente y la direccion.
     return { customer, address };

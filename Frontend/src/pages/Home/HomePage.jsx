@@ -12,11 +12,13 @@ export const HomePage = () => {
       <h1>HomePage</h1>
       <nav>
         <ul>
+          <li><Link to="/profile">Perfil</Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/user">User</Link></li>
           <li><Link to="/customer">Customer</Link></li>
           <li><Link to="/register">Register</Link></li>
           <li><Link to="/about">About</Link></li>
+          <li><Link to="/product">Products</Link></li>
           <li><Link to="/sale">Sales</Link></li>
           <li><Link to="/visit">Visits</Link></li>
           <li><Link to="/deliveryNote">Delivery Notes</Link></li>

@@ -33,6 +33,10 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
           if (input && field.defaultValue) {
             input.value = field.defaultValue;
           }
+          if (field.type === 'select') {
+            const selectElement = document.getElementById(field.name);
+            selectElement.innerHTML = generateSelectOptions(field.options);
+          }
         });
       }
     });
@@ -45,11 +49,42 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
   const generateFormHtml = (fields) => {
     let html = '';
     fields.forEach(field => {
-      html += `<label for="${field.name}">${field.label}</label>` +
-        `<input id="${field.name}" type="${field.type}" class="swal2-input">`;
+      if (field.type === 'select') {
+        html += `<label for="${field.name}">${field.label}</label>` +
+          `<select id="${field.name}" class="swal2-select"></select>`;
+      } else {
+        html += `<label for="${field.name}">${field.label}</label>` +
+          `<input id="${field.name}" type="${field.type}" class="swal2-input">`;
+      }
     });
     return html;
   };
+
+  const generateSelectOptions = (options) => {
+    let selectOptionsHtml = '';
+    if (options) {
+      for (const group in options) {
+        if (Object.prototype.hasOwnProperty.call(options, group)) {
+          if (group !== '') {
+            selectOptionsHtml += `<optgroup label="${group}">`;
+          }
+          const groupOptions = options[group];
+          if (groupOptions) {
+            for (const key in groupOptions) {
+              if (Object.prototype.hasOwnProperty.call(groupOptions, key)) {
+                selectOptionsHtml += `<option value="${key}">${groupOptions[key]}</option>`;
+              }
+            }
+          }
+          if (group !== '') {
+            selectOptionsHtml += `</optgroup>`;
+          }
+        }
+      }
+    }
+    return selectOptionsHtml;
+  };
+  
 
   handleClickSubmit();
 };

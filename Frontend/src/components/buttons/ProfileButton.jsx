@@ -12,24 +12,28 @@ const showUserInfo = (userData) => {
     const activeClass = userData.active === 1 ? 'active' : 'inactive'; // Clase para el estado activo o inactivo
   
     const userInfoHtml = `
-      <div>
-        <div class="container-avatar-active-inside ${activeClass}">
+      <section>
+        <div class="container-avatar">
+          <div class="container-avatar-active-inside ${activeClass}">
           <img src="${userData.avatar || defaultAvatar}" alt="Avatar del usuario" class="avatar-inside" />
+          </div>
         </div>
-        <p><strong>Nombre:</strong> ${userData.name}</p>
-        <p><strong>Apellidos:</strong> ${userData.last_name}</p>
-        <p><strong>Email:</strong> ${userData.email}</p>
-        <p><strong>Teléfono:</strong> ${userData.phone}</p>
-        <p><strong>Dirección:</strong> ${addressConcatenated}</p>
-        <p><strong>Rol en la empresa:</strong> ${userData.role}</p>
-        <p><strong>Estado:</strong> ${isActive}</p>
-        <p><strong>Biografía:</strong> ${userData.biography}</p>
-      </div>
+        <div class="container-details">
+          <p><strong>Nombre:</strong> ${userData.name}</p>
+          <p><strong>Apellidos:</strong> ${userData.last_name}</p>
+          <p><strong>Email:</strong> ${userData.email}</p>
+          <p><strong>Teléfono:</strong> ${userData.phone}</p>
+          <p><strong>Dirección:</strong> ${addressConcatenated}</p>
+          <p><strong>Rol en la empresa:</strong> ${userData.role}</p>
+          <p><strong>Estado:</strong> ${isActive}</p>
+          <p><strong>Biografía:</strong> ${userData.biography}</p>
+        </div>
+      </section>
     `;
   
     // Muestra el modal con la información del usuario
     Swal.fire({
-      title: 'Información del Usuario',
+      title: 'Perfil de Usuario',
       html: userInfoHtml,
       allowOutsideClick: false,
       showCancelButton: false,

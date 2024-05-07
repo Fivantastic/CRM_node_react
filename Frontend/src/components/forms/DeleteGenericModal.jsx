@@ -10,6 +10,7 @@ export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModule
             text: "¡No podrás revertir esto!",
             icon: "warning",
             showCancelButton: true,
+            allowOutsideClick: false,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             cancelButtonText: "Cancelar",

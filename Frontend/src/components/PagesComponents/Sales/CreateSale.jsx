@@ -3,7 +3,6 @@ import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 
 export const CreateSale = ({ onAddSale, token }) => {
-
   // Aqui hace la peticion al servidor
   const handleSaleCreatedAccion = async (formData) => {
     try {
@@ -12,7 +11,7 @@ export const CreateSale = ({ onAddSale, token }) => {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `${token}`, 
+          Authorization: `${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -63,14 +62,21 @@ export const CreateSale = ({ onAddSale, token }) => {
   // Campos del formulario personalizables
   const saleFormFields = [
     {
-      name: 'saleProduct_id',
+      name: 'product',
       label: 'Producto de venta',
       type: 'text',
       placeholder: 'Introduce el producto...',
       required: true,
     },
     {
-      name: 'customer_id',
+      name: 'quantity',
+      label: 'Cantidad de productos',
+      type: 'text',
+      placeholder: 'Introduce la cantidad de producto...',
+      required: true,
+    },
+    {
+      name: 'customer',
       label: 'Cliente',
       type: 'text',
       placeholder: 'Introduce el cliente...',
@@ -79,8 +85,9 @@ export const CreateSale = ({ onAddSale, token }) => {
   ];
 
   const saleSchema = Joi.object({
-    saleProduct_id: Joi.string().required().min(36),
-    customer_id: Joi.string().required().min(36),
+    product: Joi.string().required(),
+    quantity: Joi.string().required(),
+    customer: Joi.string().required(),
   });
 
   const handleClickCreateSale = () => {

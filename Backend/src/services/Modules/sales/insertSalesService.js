@@ -6,8 +6,8 @@ import { notFoundError } from '../../error/errorService.js';
 
 export const insertSalesService = async (
   id_user,
-  saleProdut_id,
-  customer_id
+  id_saleProduct,
+  id_customer
 ) => {
   // Compluebo si  existen con ese id
   const user = await selectUserByIdModel(id_user);
@@ -16,27 +16,28 @@ export const insertSalesService = async (
     notFoundError('User');
   }
 
-  const saleProduct = await selectProductByIdModel(saleProdut_id);
+  const saleProduct = await selectProductByIdModel(id_saleProduct);
 
-  if (saleProduct.id_saleProduct !== saleProdut_id) {
+  if (saleProduct.id_saleProduct !== id_saleProduct) {
     notFoundError('Product');
   }
 
-  const customer = await selectCustomerByIdModel(customer_id);
+  const customer = await selectCustomerByIdModel(id_customer);
 
-  if (customer.id_customer !== customer_id) {
+  if (customer.id_customer !== id_customer) {
     notFoundError('customer');
   }
 
   // Genero el id
   const id_sale = crypto.randomUUID();
+  console.log('inserSalesService', id_customer);
 
   // Insertamos la venta de producto en la base de datos
   const response = await insertSaleProductModel(
     id_sale,
     id_user,
-    saleProdut_id,
-    customer_id
+    id_saleProduct,
+    id_customer
   );
 
   return response;

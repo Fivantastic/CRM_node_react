@@ -33,5 +33,10 @@ salesRouter.delete(
   checkRoleAgent,
   deleteSalesController
 );
-
-salesRouter.get('/sales/list', authenticateUser, checkRoleAgent, getSalesController);
+// obtener todas las ventas
+salesRouter.get(
+  '/sales/list',
+  authenticateUser,
+  checkRoleAgent,
+  getSalesController
+);

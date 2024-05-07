@@ -3,7 +3,7 @@ import { controlStockProductService } from '../../services/product/controlStockP
 
 export const insertSaleProductModel = async (
   saleProduct_id,
-  productId,
+  id_product,
   quantity,
   description
 ) => {
@@ -12,7 +12,7 @@ export const insertSaleProductModel = async (
   // Comprobar si existe un producto con el id proporcionado.
   const [result] = await pool.query(
     `INSERT INTO SalesProducts  (id_saleProduct, product_id, quantity , description) VALUES (?,?,?,?)`,
-    [saleProduct_id, productId, quantity, description]
+    [saleProduct_id, id_product, quantity, description]
   );
 
   // Actualizo el stock del producto
@@ -27,7 +27,7 @@ export const insertSaleProductModel = async (
   };
 
   // Obtengo el stock de base de datos
-  const stock = await controlStockProductService(productId);
+  const stock = await controlStockProductService(id_product);
 
   // Convierto la info ha numeros
   const numberStock = Number(stock.stock);
@@ -45,7 +45,7 @@ export const insertSaleProductModel = async (
   if (fieldsToUpdate.length === 0) return {};
 
   const query = `UPDATE Products SET ${fieldsToUpdate.join(', ')} WHERE id_product = ?`;
-  values.push(productId);
+  values.push(id_product);
 
   const [updateStock] = await pool.query(query, values);
 

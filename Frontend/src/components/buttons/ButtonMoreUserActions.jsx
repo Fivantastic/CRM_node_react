@@ -13,6 +13,7 @@ export const ButtonMoreUserActions = ({ id, activeUser, isActive, token }) => {
             title: '¿Estás seguro?',
             text: confirmationMessage,
             icon: 'question',
+            allowOutsideClick: false,
             showCancelButton: true,
             confirmButtonColor: confirmButtonColor,
             cancelButtonColor: '#6c757d',

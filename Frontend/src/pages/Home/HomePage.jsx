@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import LogoutButton from "../../components/buttons/LogoutButton.jsx";
-
 import { useSetUser, useUser } from "../../context/authContext.jsx";
 
 export const HomePage = () => {
@@ -16,7 +15,6 @@ export const HomePage = () => {
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/user">User</Link></li>
           <li><Link to="/customer">Customer</Link></li>
-          <li><Link to="/register">Register</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/product">Products</Link></li>
           <li><Link to="/sale">Sales</Link></li>

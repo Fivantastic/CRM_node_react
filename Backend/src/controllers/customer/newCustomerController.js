@@ -1,6 +1,5 @@
 import { newCustomerSchema } from '../../schemas/customer/newCustomerSchema.js';
 import { insertCustomerService } from '../../services/customer/insertCustomerService.js';
-import { success } from '../../utils/success.js';
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
 
 export const newCustomerController = async (req, res, next) => {
@@ -12,9 +11,10 @@ export const newCustomerController = async (req, res, next) => {
     const response = await insertCustomerService(req.body);
 
     // Respondemos al cliente
-    res.status(201).send(
-      success( response )
-    );
+    res.status(201).send({
+      status: 'ok',
+      message: response.message,
+    });
   } catch (error) {
     next(error);
   }

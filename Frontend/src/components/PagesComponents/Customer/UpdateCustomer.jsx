@@ -1,5 +1,5 @@
 import joi from 'joi';
-import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 
 export const UpdateCustomer = ({ customer, token, onUpdateCustomer }) => {

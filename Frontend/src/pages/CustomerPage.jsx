@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { CreateCustomer } from '../components/Customer/CreateCustomer.jsx';
-import { CustomerList } from '../components/Customer/CustomerList.jsx';
-import { UpdateCustomer } from '../components/Customer/UpdateCustomer.jsx';
+import { CreateCustomer } from '../components/PagesComponents/Customer/CreateCustomer.jsx';
+import { CustomerList } from '../components/PagesComponents/Customer/CustomerList.jsx';
+import { UpdateCustomer } from '../components/PagesComponents/Customer/UpdateCustomer.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { useEffect, useState } from 'react';
 import { useUser } from '../context/authContext.jsx';

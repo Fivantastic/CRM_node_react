@@ -98,3 +98,12 @@ export const invalidPasswordError = () => {
     message: 'Contraseña inválida'
   };
 };
+
+// Error que dice que tiene un modulo asignado
+export const moduleAssignedError = () => {
+  throw {
+    statusCode: 401,
+    code: 'MODULE_ASSIGNED_CRM_ERROR',
+    message: 'Tiene un modulo asignado, no puede eliminarlo'
+  };
+}

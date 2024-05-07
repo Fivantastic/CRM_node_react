@@ -4,7 +4,6 @@ import { toggleActiveModel } from "../../models/user/toggleActiveModel.js";
 export const toggleActivationService = async (userId) => {
     // Comprobar si el id existe.
     const user = await selectUserByIdModel(userId);
-
     // Condicional: si está activo desactivar, y viceversa
     const newStatus = user.active === 0 ? true : false
 

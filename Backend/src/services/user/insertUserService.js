@@ -12,8 +12,6 @@ export const insertUserService = async (id_user, name, last_name, email, hashed_
       emailAlreadyRegisteredError();
     }
 
-    // Creamos un avatar aleatorio.
-    const avatar = `https://i.pravatar.cc/150?u=${id_user}`;
 
     // Insertamos el usuario en la base de datos.
     await insertUserModel(
@@ -23,7 +21,6 @@ export const insertUserService = async (id_user, name, last_name, email, hashed_
         email,
         hashed_password,
         role,
-        avatar,
         registration_code
     );
 

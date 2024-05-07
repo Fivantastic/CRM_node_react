@@ -4,8 +4,8 @@ export const toggleActiveStatusController = async (req, res, next) => {
 
     try {
         // Obtenemos el id del usuario.
-        const userId =  req.user.id_user;
-        
+        const userId =  req.body.id;
+
         // Desactivamos al usuario en la base de datos.
         const user = await toggleActivationService(userId)
 
@@ -16,8 +16,7 @@ export const toggleActiveStatusController = async (req, res, next) => {
         res.send({
             status: 'ok',
             isActive,
-            message,
-            email: `${user.email}`
+            message
         });
     } catch (error) {
         next(error);

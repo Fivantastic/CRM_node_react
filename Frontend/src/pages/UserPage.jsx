@@ -46,6 +46,7 @@ export const UserPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
   
+
     // Actualizo el estado con la venta añadida y solicito la lista actualizada al servidor
     const addUser = async () => {
       try {
@@ -56,6 +57,7 @@ export const UserPage = () => {
         // Mostrar un mensaje de error al usuario
       }
     };
+    
   
     // Actualizo el estado con la venta eliminada y solicito la lista actualizada al servidor
     const deleteUser = async (id_user) => {
@@ -72,6 +74,22 @@ export const UserPage = () => {
         // Mostrar un mensaje de error al usuario
       }
     };
+
+    const activeUser = (id_user) => {
+      try {
+        // Actualizar el estado local del usuario directamente
+        setUserList((prevUserList) =>
+          prevUserList.map((user) =>
+            user.id_user === id_user ? { ...user, active: !user.active } : user
+          )
+        );
+      } catch (error) {
+        console.error('Error al cambiar el estado del usuario:', error);
+        // Mostrar un mensaje de error al usuario si es necesario
+      }
+    };
+    
+    
   
     return (
       <section className="user_container">
@@ -84,7 +102,7 @@ export const UserPage = () => {
           {userList.map((data) => {
             return (
               <div key={data.id_user}>
-                <UserList user={data} id={data.id_user} onDelete={deleteUser}/>
+                <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser}/>
               </div>
             );
           })}

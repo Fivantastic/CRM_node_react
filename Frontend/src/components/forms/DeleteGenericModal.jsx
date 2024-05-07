@@ -4,6 +4,7 @@ import { SimpleDeleteButton } from "../buttons/DeleteButtons/SimpleDeleteButton.
 
 
 export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage }) => {
+
     const handleDelete = async () => {
         Swal.fire({
             title: "¿Estas seguro?",
@@ -33,8 +34,7 @@ export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModule
                       //si la peticion es correcta
                       const responseData = await response.json();
                       console.log(`${typeModuleMessage} borrada con éxito:`, responseData);
-              
-                      onDelete(id);
+            
               
                       // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
                       const Toast = Swal.mixin({
@@ -51,13 +51,24 @@ export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModule
               
                       Toast.fire({
                         icon: 'success',
-                        title: `${typeModuleMessage} eliminada con exito`,
+                        title: `${typeModuleMessage} eliminado con exito`,
                       });
+
+                      onDelete(id);
                     } else {
                       // si la peticion es incorrecta
                       const errorData = await response.json();
-                      console.error(`Error al borra la ${typeModuleMessage}:`, errorData);
-                      // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
+                      console.error(`Error en la petición de ${typeModuleMessage}:`, errorData);
+
+                      // Si el usuario no esta activo muestra un mensaje de error modal
+                      if (errorData.code === 'MODULE_ASSIGNED_CRM_ERROR') {
+                        Swal.fire({
+                          icon: 'warning',
+                          title: '¡Usuario con modulos asignados!',
+                          text: 'No puedes borrar este usuario porque tiene modulos asignados',
+                        });
+                      }
+                      
                     }
                   } catch (error) {
                     // si la peticion falla

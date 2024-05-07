@@ -1,7 +1,7 @@
 import Joi from 'joi';
-import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
-import { useUser } from '../../context/authContext.jsx';
+import { useUser } from '../../../context/authContext.jsx';
 
 export const CreateInvoice = ({ onAddInvoice }) => {
   const token = useUser();

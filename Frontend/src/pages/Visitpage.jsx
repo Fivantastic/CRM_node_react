@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
-import { CreateVisit } from '../components/Visits/CreateVisit.jsx';
-import { UpdateVisit } from '../components/Visits/UpdateVisit.jsx';
-import { VisitsList } from '../components/Visits/VisitList.jsx';
+import { CreateVisit } from '../components/PagesComponents/Visits/CreateVisit.jsx';
+import { UpdateVisit } from '../components/PagesComponents/Visits/UpdateVisit.jsx';
+import { VisitsList } from '../components/PagesComponents/Visits/VisitList.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import '../components/PopsStyle/listStyle.css'
 

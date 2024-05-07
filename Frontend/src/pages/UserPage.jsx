@@ -1,8 +1,8 @@
 import { useUser } from "../context/authContext.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserList } from "../components/User/UserList.jsx";
-import { CreateUser } from "../components/User/CreateUser.jsx";
+import { UserList } from "../components/PagesComponents/User/UserList.jsx";
+import { CreateUser } from "../components/PagesComponents/User/CreateUser.jsx";
 
 export const UserPage = () => {
     const token = useUser(); 

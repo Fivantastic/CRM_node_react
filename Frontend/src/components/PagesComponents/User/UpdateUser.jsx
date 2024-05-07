@@ -1,14 +1,15 @@
 import Joi from 'joi';
-import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+
 import Swal from 'sweetalert2';
 
-export const ClosedInvoice = ({ invoice, token }) => {
-  /* const token = useUser(); */
+export const UpdateUser = ({ id, updateUser, token }) => {
+
   // Aqui hace la peticion al servidor
-  const handleclosedInvoiceAccion = async (formData) => {
+  const handleButtonUpdateVisit = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/invoice/close/${invoice}`,
+        `http://localhost:3000/user/update/${id}`,
         {
           method: 'PUT',
           credentials: 'include',
@@ -23,7 +24,9 @@ export const ClosedInvoice = ({ invoice, token }) => {
       if (response.ok) {
         //si la peticion es correcta
         const responseData = await response.json();
-        console.log('Factura actualizada satisfactorio:', responseData);
+        console.log('Venta actualizada satisfactorio:', responseData);
+
+        updateUser(responseData);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
@@ -45,70 +48,72 @@ export const ClosedInvoice = ({ invoice, token }) => {
       } else {
         // si la peticion es incorrecta
         const errorData = await response.json();
-        console.error('Actualización Factura fallido:', errorData);
+        console.error('Actualización Visita fallido:', errorData);
         // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
       }
     } catch (error) {
       // si la peticion falla
-      console.error('Error durante la Actualización de factura:', error);
+      console.error('Error durante la Actualización de venta:', error);
       // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
     }
   };
 
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
-  const title = 'Cerrar Factura';
+  const title = 'Modificar Visita';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
-  const nameButton = 'Cerrar';
+  const nameButton = 'Modificar';
 
   // Campos del formulario personalizables
-  const updateSaleFormFields = [
+  const updateVisitFormFields = [
     {
-      name: 'invoice_status',
-      label: 'Estado',
-      type: 'select',
-      options: [
-        { value: 'paid', label: 'Pagado' },
-        { value: 'overdue', label: 'Atrasada' },
-        { value: 'partially_paid', label: 'Parcialmente pagado' },
-        { value: 'cancelled', label: 'Cancelado' },
-        { value: 'refunded', label: 'Reintegrada' },
-        { value: 'disputed', label: 'Disputa' },
-        { value: 'sent', label: 'Enviado' },
-      ],
+      name: 'id_customer',
+      label: 'Cliente',
+      type: 'text',
+      placeholder: 'Introduce el cliente...',
+    },
+    {
+      name: 'id_user',
+      label: 'Comercial',
+      type: 'text',
+      placeholder: 'Introduce el comercial...',
+    },
+    {
+      name: 'visit_date',
+      label: 'Fecha',
+      type: 'date',
+      placeholder: 'Introduce la fecha...',
+    },
+    {
+      name: 'observations',
+      label: 'Observaciones',
+      type: 'textarea',
+      placeholder: 'Introduce las observaciones...',
     },
   ];
 
   // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
-  const closedInvoiceSchema = Joi.object({
-    invoice_status: Joi.string()
-      .valid(
-        'pending',
-        'paid',
-        'overdue',
-        'partially_paid',
-        'cancelled',
-        'refunded',
-        'disputed',
-        'sent'
-      )
-      .required(),
+  const updateVisitSchema = Joi.object({
+    id_customer: Joi.string().guid().optional(),
+    id_user: Joi.string().guid().optional(),
+    visit_date: Joi.date().optional(),
+    observations: Joi.string().optional(),
   });
 
   // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
-  const handleClosedInvoice = () => {
+  const handleUpdateVisit = () => {
     DynamicFormPopUp(
       title,
-      updateSaleFormFields,
-      closedInvoiceSchema,
-      handleclosedInvoiceAccion,
+      updateVisitFormFields,
+      updateVisitSchema,
+      handleButtonUpdateVisit,
       nameButton
     );
   };
 
   return (
     <div>
-      <button onClick={handleClosedInvoice}>Cerrar Factura</button>
+      <button onClick={handleUpdateVisit}>Actualizar Venta</button>
     </div>
   );
 };

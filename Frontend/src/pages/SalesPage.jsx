@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
-import { SalesList } from '../components/Sales/SalesList.jsx';
-import { CreateSale } from '../components/Sales/CreateSale.jsx';
-import { UpdateSale } from '../components/Sales/UpdateSale.jsx';
+import { SalesList } from '../components/PagesComponents/Sales/SalesList.jsx';
+import { CreateSale } from '../components/PagesComponents/Sales/CreateSale.jsx';
+import { UpdateSale } from '../components/PagesComponents/Sales/UpdateSale.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 
 export const SalesPage = () => {

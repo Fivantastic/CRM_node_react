@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import DynamicFormPopUp from '../forms/DynamicFormPopUp.js';
-import { useUser } from '../../context/authContext.jsx';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { useUser } from '../../../context/authContext.jsx';
 import Swal from 'sweetalert2';
 
 export const UpdateVisit = ({ visit, onUpdateSale }) => {

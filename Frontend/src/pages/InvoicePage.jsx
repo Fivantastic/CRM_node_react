@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { CreateInvoice } from '../components/Invoces/CreateInvoice.jsx';
-import { InvoicesList } from '../components/Invoces/InvoicesList.jsx';
-import { ClosedInvoice } from '../components/Invoces/ClosedInvoice.jsx';
+import { CreateInvoice } from '../components/PagesComponents/Invoces/CreateInvoice.jsx';
+import { InvoicesList } from '../components/PagesComponents/Invoces/InvoicesList.jsx';
+import { ClosedInvoice } from '../components/PagesComponents/Invoces/ClosedInvoice.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { useEffect, useState } from 'react';
 import { useUser } from '../context/authContext.jsx';

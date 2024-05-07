@@ -4,7 +4,6 @@ import { SimpleDeleteButton } from "../buttons/DeleteButtons/SimpleDeleteButton.
 
 
 export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage }) => {
-
     const handleDelete = async () => {
         Swal.fire({
             title: "¿Estas seguro?",

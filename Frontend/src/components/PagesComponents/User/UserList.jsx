@@ -5,6 +5,7 @@ import defaultAvatar from '/profile.svg';
 import { ProfileButton } from "../../buttons/ProfileButton.jsx";
 import { ButtonMoreUserActions } from "../../buttons/ButtonMoreUserActions.jsx";
 import { useUser } from "../../../context/authContext.jsx";
+import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 
 // Objeto de mapeo de roles
 const roleMapping = {
@@ -36,11 +37,14 @@ export const UserList = ({ user, id, onDelete }) => {
         <img src={user.avatar || defaultAvatar} alt="Avatar del usuario" className="avatar" />
       </div>
       <div className="details">
-        <h2>{`${user.name} ${user.last_name}`}</h2>
-        <p>{translatedRole}</p> {/* Mostrar el rol traducido */}
+        <h2 className="userName">{`${user.name} ${user.last_name}`}</h2>
+        <p className="role">{translatedRole}</p> {/* Mostrar el rol traducido */}
       </div>
-      <ButtonMoreUserActions id={userId} onDelete={onDelete} token={token}  />
-      <ProfileButton userData={userData} />
+      <div className="actions">
+        <ProfileButton userData={userData} />
+        <ButtonMoreUserActions id={userId} onDelete={onDelete} token={token}  />
+        <DeleteGenericModal id={id} onDelete={onDelete} token={token} typeModule="users" typeModuleMessage="usuario"  />
+      </div>
     </li>
   );
 };

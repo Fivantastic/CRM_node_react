@@ -8,7 +8,6 @@ export const insertUserModel = async (
     email, 
     password, 
     role,
-    avatar, 
     registration_code
 ) => {
   // Crear un pool de conexiones.
@@ -16,8 +15,8 @@ export const insertUserModel = async (
 
   // Insertamos el user en la base de datos.
   const [result] = await pool.query(
-    `INSERT INTO Users (id_user, name, last_name, email, password, role, avatar, registration_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    [id_user, name, last_name, email, password, role, avatar, registration_code]
+    `INSERT INTO Users (id_user, name, last_name, email, password, role, registration_code) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    [id_user, name, last_name, email, password, role, registration_code]
   );
 
   // Verificar si el insert afectó a alguna línea.

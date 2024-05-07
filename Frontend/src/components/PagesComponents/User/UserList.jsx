@@ -14,12 +14,11 @@ const roleMapping = {
   admin: 'Administrador'
 };
 
-export const UserList = ({ user, id, onDelete }) => {
+export const UserList = ({ user, id, activeUser, onDelete }) => {
     const token = useUser();
     const userData = user;
     const userId = id;
 
-   
   // Estado para controlar si el usuario está activo o no
   const [isActive, setIsActive] = useState(user.active);
 
@@ -38,12 +37,12 @@ export const UserList = ({ user, id, onDelete }) => {
       </div>
       <div className="details">
         <h2 className="userName">{`${user.name} ${user.last_name}`}</h2>
-        <p className="role">{translatedRole}</p> {/* Mostrar el rol traducido */}
+        <p className="role">{translatedRole}</p> 
       </div>
       <div className="actions">
         <ProfileButton userData={userData} />
-        <ButtonMoreUserActions id={userId} onDelete={onDelete} token={token}  />
-        <DeleteGenericModal id={id} onDelete={onDelete} token={token} typeModule="users" typeModuleMessage="usuario"  />
+        <ButtonMoreUserActions id={userId} activeUser={activeUser}  isActive={isActive}  token={token}  />
+        <DeleteGenericModal id={id} onDelete={onDelete} token={token} typeModule="user" typeModuleMessage="usuario"/>
       </div>
     </li>
   );

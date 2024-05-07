@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
 import { PaymentsList } from '../components/Payments/PaymentsList.jsx';
-// import { ChangeStatus } from '../components/forms/ChangeStatus.jsx';
+import { ChangeStatus } from '../components/forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { CreatePayment } from '../components/Payments/CreatePayment.jsx';
-// import { UpdateSale } from '../components/Sales/UpdateSale.jsx';
+import { get } from 'react-hook-form';
 
 export const PaymentPage = () => {
-  // const token = useUser();
   const token = useUser();
   const [paymentsList, setPaymentsList] = useState([]);
 
@@ -49,7 +48,9 @@ export const PaymentPage = () => {
     getSaleList();
   }, [token]);
 
-  //TODO Actualizo el estado con la venta añadida
+  // Actualizo el estado con la venta añadida
+  
+  // todo - no pilla la data nueva, solo los campos
   const addPayment = () => {
     setPaymentsList((prevPayment) => [...prevPayment, paymentsList]);
   };
@@ -78,11 +79,18 @@ export const PaymentPage = () => {
       <CreatePayment onAddPayment={addPayment} token={token} />
       <ol>
       {paymentsList.map((data) => {
+          // console.log(data)
+          const currentStatus = data.payment_status
+          console.log(currentStatus);
           return (
             <div key={data.id_payment}>
               <PaymentsList payment={data}/>
-              {/* <ChangeStatus id={data.id_payment} onClick={console.log('Cambiando el estado')} newStatus={'cancelled'} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />  */}
-              {data.status === "cancelled" && <DeleteGenericModal id={data.id_payment} onDelete={deletePayment} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+              {currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={console.log('Cambiando el estado')} newStatus={'cancelled'} newStatusMessage='Cancelar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />  }
+              {currentStatus !== "paid" && currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={console.log('Cambiando el estado')} newStatus={'paid'} newStatusMessage='Resolver' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+              {currentStatus !== "pending" && <ChangeStatus id={data.id_payment} onClick={console.log('Cambiando el estado')} newStatus={'pending'} newStatusMessage='Restaurar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+
+              {currentStatus === "cancelled" && <DeleteGenericModal id={data.id_payment} onDelete={deletePayment} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+
             </div>
           );
         })}

@@ -1,38 +1,42 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import Swal from "sweetalert2";
 
-export const ChangeStatus = ({id, newStatus, typeModule, typeModuleMessage, token}) => {
+export const ChangeStatus = ({id, newStatus, newStatusMessage,typeModule, typeModuleMessage, token}) => {
 
   // TODO - Dev
-  console.log(`
-  id: ${id},
-  newStatus: ${newStatus},
-  type: ${typeModule},
-  typeMessage: ${typeModuleMessage},
-  token: ${token}`);
+  // console.log(`
+  // id: ${id},
+  // newStatus: ${newStatus},
+  // type: ${typeModule},
+  // typeMessage: ${typeModuleMessage},
+  // token: ${token}`);
   
   const handleStatusChange = async () => {
     Swal.fire({
         title: "Advertencia",
-        text: `Se cambiará el estado de este elemento a "${newStatus}"`,
-        icon: "warning",
+        text: `${newStatusMessage} este elemento?`,
+        icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        cancelButtonText: "Cancelar",
+        cancelButtonText: "Volver atrás",
         confirmButtonText: "Cambiar Estado"
       }).then(async (result) => {
         if (result.isConfirmed) {
             try {
                 const response = await fetch(
-                  `http://localhost:3000/${typeModule}/delete/${id}`,
+                  `http://localhost:3000/${typeModule}/status`,
                   {
-                    method: 'DELETE',
+                    method: 'PUT',
                     credentials: 'include',
                     headers: {
                       'Content-Type': 'application/json',
                       Authorization: `${token}`,
                     },
+                    body: JSON.stringify({
+                      payment_id: id,
+                      new_status: newStatus
+                    }),
                   }
                 );
           
@@ -78,6 +82,6 @@ export const ChangeStatus = ({id, newStatus, typeModule, typeModuleMessage, toke
 }
 
   return (
-    <button onClick={handleStatusChange()}>{newStatus}</button>
+    <button onClick={handleStatusChange}>{newStatusMessage}</button>
   )
 }

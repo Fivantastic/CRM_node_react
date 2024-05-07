@@ -18,6 +18,7 @@ export const HomePage = () => {
           <li><Link to="/customer">Customer</Link></li>
           <li><Link to="/register">Register</Link></li>
           <li><Link to="/about">About</Link></li>
+          <li><Link to="/product">Products</Link></li>
           <li><Link to="/sale">Sales</Link></li>
           <li><Link to="/visit">Visits</Link></li>
           <li><Link to="/deliveryNote">Delivery Notes</Link></li>

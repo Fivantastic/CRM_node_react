@@ -17,6 +17,7 @@ import { InitialPage } from './pages/InitialPage.jsx';
 import { UserPage } from './pages/UserPage.jsx';
 import { CustomerPage } from './pages/CustomerPage.jsx';
 import { ProfilePage } from './pages/ProfilePage.jsx';
+import { ProductPage } from './pages/ProductPage.jsx';
 
 function App() {
   return (
@@ -30,16 +31,11 @@ function App() {
         <Route path="/customer" element={<CustomerPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route
-          path="/user/reset-password/:registration_code"
-          element={<ResetPassword />}
-        />
+        <Route path="/user/reset-password/:registration_code" element={<ResetPassword />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route
-          path="/validation/:registration_code"
-          element={<ValidationPage />}
-        />
+        <Route path="/validation/:registration_code" element={<ValidationPage />}/>
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/product" element={<ProductPage />} />
         <Route path="/sale" element={<SalesPage />} />
         <Route path="/visit" element={<Visitpage />} />
         <Route path="/deliveryNote" element={<DeliveryNotePage />} />

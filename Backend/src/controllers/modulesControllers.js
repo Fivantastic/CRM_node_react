@@ -34,6 +34,8 @@ import { getPaymentsController } from './Modules/payments/getPaymentsController.
 import { createDeliveryNoteController } from './Modules/deliveryNote/createDeliveryNoteController.js';
 import { closeDeliveryNoteController } from './Modules/deliveryNote/closeDeliveryNoteController.js';
 import { deleteDeliveryNoteController } from './Modules/deliveryNote/deleteDeliveryNoteController.js';
+import { getDeliveryNotesController } from './Modules/deliveryNote/getDeliveryNoteController.js';
+
 
 // Imports envios
 import { shipmentCreateController } from './Modules/shipment/shipmentCreateController.js';
@@ -71,4 +73,5 @@ export {
   shipmentUpdateController,
   deleteShipmentController,
   closeShipmentController,
+  getDeliveryNotesController,
 };

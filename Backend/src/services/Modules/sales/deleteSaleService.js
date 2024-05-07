@@ -10,14 +10,9 @@ export const deleteSaleService = async (id_sale) => {
   if (sale && sale.id_sale !== id_sale) {
     notFoundError('Sale');
   }
-
-  console.log('sale', id_sale);
-
-  // Obtiene todos los datos de la modulos
-  const resultModules = await selectModuleByIdSaleModel(id_sale);
-
+  
   // Eliminamos la venta de producto de la base de datos
-  const response = await deleteSaleModel(id_sale, resultModules.shipment_id, resultModules.payment_id);
+  const response = await deleteSaleModel(id_sale);
 
   return response;
 };

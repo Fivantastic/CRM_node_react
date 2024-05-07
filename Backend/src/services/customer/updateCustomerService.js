@@ -4,7 +4,7 @@ import { updateCustomerModel } from '../../models/customer/updateCustomerModel.j
 import { emailAlreadyRegisteredError } from '../error/errorService.js';
 
 export const updateCustomerService = async (customerId, body) => {
-  const { name, email, phone } = body;
+  const { name, email, phone, company_name, NIF } = body;
 
   // Comprobar si el email ya existe.
   const existCustomer = await selectCustomerByEmailModel(email);
@@ -15,7 +15,7 @@ export const updateCustomerService = async (customerId, body) => {
   }
 
   // Actualizar el cliente en la base de datos.
-  await updateCustomerModel(customerId, name, email, phone);
+  await updateCustomerModel(customerId, name, email, phone, company_name, NIF);
 
   // Obtener el cliente actualizado.
   const customer = await selectCustomerByIdModel(customerId);

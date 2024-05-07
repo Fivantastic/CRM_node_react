@@ -6,6 +6,8 @@ import {
   shipmentUpdateController,
 } from '../../controllers/modulesControllers.js';
 import { shipmentExist } from '../../middlewares/shipmentExist.js';
+import { authenticateUser } from '../../middlewares/authenticateUser.js';
+import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
 
 export const shipmentRouter = express.Router();
 
@@ -15,6 +17,7 @@ shipmentRouter.post('/shipment/create', shipmentCreateController);
 // Modificacion de un envio
 shipmentRouter.put(
   '/shipment/update/:shipmentId',
+  authenticateUser,
   shipmentExist,
   shipmentUpdateController
 );
@@ -22,6 +25,8 @@ shipmentRouter.put(
 // Borrado de un envio
 shipmentRouter.delete(
   '/shipment/delete/:shipmentId',
+  authenticateUser,
+  adminAuthMiddleware,
   shipmentExist,
   deleteShipmentController
 );
@@ -29,6 +34,7 @@ shipmentRouter.delete(
 // Completar un envio
 shipmentRouter.put(
   '/shipment/closed/:shipmentId',
+  authenticateUser,
   shipmentExist,
   closeShipmentController
 );

@@ -6,7 +6,7 @@ import { emailAlreadyRegisteredError } from '../error/errorService.js';
 export const insertCustomerService = async (body) => {
   try {
     // Obtener los datos del body.
-    const { name, email, phone } = body;
+    const { name, email, phone, company_name, NIF } = body;
 
     // Buscamos en la base de datos algún usuario con ese email.
     const existCustomer = await selectCustomerByEmailModel(email);
@@ -18,7 +18,7 @@ export const insertCustomerService = async (body) => {
 
     // Creamos una id para el usuario.
     const id_customer = crypto.randomUUID();
-    
+
     // Creamos una id para la direccion
     const id_address = crypto.randomUUID();
 
@@ -26,7 +26,15 @@ export const insertCustomerService = async (body) => {
     await insertAddressCustomerModel(id_address);
 
     // Insertamos el usuario en la base de datos.
-    const response = await insertCustomerModel(id_customer, name, email, phone, id_address);
+    const response = await insertCustomerModel(
+      id_customer,
+      name,
+      email,
+      phone,
+      company_name,
+      NIF,
+      id_address
+    );
 
     return response;
   } catch (error) {

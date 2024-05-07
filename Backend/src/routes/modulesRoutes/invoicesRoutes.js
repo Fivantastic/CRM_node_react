@@ -23,7 +23,7 @@ invoicesRouter.post(
 
 // Borrado de una factura
 invoicesRouter.delete(
-  '/invoice/:invoiceId',
+  '/invoice/delete/:invoiceId',
   authenticateUser,
   checkRoleAgent,
   deleteInvoiceController

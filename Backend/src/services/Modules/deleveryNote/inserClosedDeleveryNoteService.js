@@ -8,7 +8,7 @@ export const inserClosedDeleveryNoteService = async (deliveryNote_id, body) => {
   // compruebo que existe
   const existDelivery = await selectDeliveryNoteByIdModel(deliveryNote_id);
   if (!existDelivery) {
-    notFoundError('Delevery_Note');
+    notFoundError('Delivery_Note');
   }
 
   const response = await inserClosedDeleveryNoteModel(

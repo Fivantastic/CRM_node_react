@@ -1,20 +1,18 @@
-import { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { DeliveryNoteList } from '../components/DeliveryNotes/DeliveryNoteList.jsx';
 import { CreateDeliveryNote } from '../components/DeliveryNotes/CreateDeliveryNote.jsx';
+import UpdateDelivery from '../components/DeliveryNotes/UpdateDeliveryNote.jsx'; // Importamos el componente de actualización
 
 export const DeliveryNotePage = () => {
   const token = useUser();
   const [deliveryNotesList, setDeliveryNotesList] = useState([]);
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
   const typeModule = 'deliveryNotes';
-
-  // Tipo de modulo para el nombre de los mensajes al cliente
   const typeModuleMessage = 'DeliveryNote';
 
-  useEffect(() => {
+  
     const fetchDeliveryNotes = async () => {
       try {
         const response = await fetch(`http://localhost:3000/${typeModule}`, {
@@ -36,18 +34,33 @@ export const DeliveryNotePage = () => {
       } catch (error) {
         console.error('Error al obtener la lista de notas de entrega:', error);
       }
-    };
-
+   
+   };
+    useEffect(() => {
     fetchDeliveryNotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const addDeliveryNote = (newDeliveryNote) => {
     setDeliveryNotesList([...deliveryNotesList, newDeliveryNote]);
   };
 
-  const deleteDeliveryNote = (id) => {
-    setDeliveryNotesList(deliveryNotesList.filter(note => note.id !== id));
+  //Actualizo el estado con la venta eliminada y solicito la lista actualizada al servidor
+  const deleteDeliveryNote = async (id_note) => {
+    try {
+      // Eliminar la venta del estado local
+      setDeliveryNotesList((prevVisit) =>
+        prevVisit.filter((deliveryNote) => deliveryNote.id_note !== id_note)
+      );
+
+      // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
+      await fetchDeliveryNotes();
+    } catch (error) {
+      console.error('Error al eliminar la venta:', error);
+      // Mostrar un mensaje de error al usuario
+    }
   };
+
 
   return (
     <div>
@@ -56,15 +69,16 @@ export const DeliveryNotePage = () => {
       <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
       <ul>
         {deliveryNotesList.map((data) => (
-          <li key={data.id}>
+          <li key={data.id_note}>
             <DeliveryNoteList deliveryNote={data} />
+            <UpdateDelivery deliveryNote={data.id_note} token={token} /> {/* Agregamos el componente de actualización */}
             <DeleteGenericModal
-                id={data.id_note}
-                onDelete={deleteDeliveryNote}
-                token={token}
-                typeModule={typeModule}
-                typeModuleMessage={typeModuleMessage}
-              />
+              id={data.id_note}
+              onDelete={deleteDeliveryNote}
+              token={token}
+              typeModule={typeModule}
+              typeModuleMessage={typeModuleMessage}
+            />
           </li>
         ))}
       </ul>

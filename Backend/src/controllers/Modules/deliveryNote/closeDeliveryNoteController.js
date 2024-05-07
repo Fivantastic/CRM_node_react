@@ -14,6 +14,7 @@ export const closeDeliveryNoteController = async (req, res, next) => {
       deliveryNote_id,
       req.body
     );
+console.log(req.body);
 
     // Mensaje al cliente para cerrando la operación exitosamente.
     res.status(200).send({

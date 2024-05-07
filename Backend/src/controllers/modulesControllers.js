@@ -27,6 +27,8 @@ import { getInvoiceController } from './Modules/invoices/getInvoiceController.js
 import { newPaymentController } from './Modules/payments/newPaymentController.js';
 import { cancelPaymentController } from './Modules/payments/cancelPaymentController.js';
 import { deletePaymentController } from './Modules/payments/deletePaymentController.js';
+import { getPaymentsController } from './Modules/payments/getPaymentsController.js';
+
 
 // Imports Albarán
 import { createDeliveryNoteController } from './Modules/deliveryNote/createDeliveryNoteController.js';
@@ -63,6 +65,7 @@ export {
   newPaymentController,
   cancelPaymentController,
   deletePaymentController,
+  getPaymentsController,
   createDeliveryNoteController,
   closeDeliveryNoteController,
   deleteDeliveryNoteController,

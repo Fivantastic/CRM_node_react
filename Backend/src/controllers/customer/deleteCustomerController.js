@@ -7,11 +7,11 @@ export const deleteCustomerController = async (req, res, next) => {
     // Obtener el id del cliente.
     const id_customer = req.params.customerId;
 
+    console.log(id_customer);
     // Obtener el id del address asosiado
     const custumerAddress = await selectCustomerByIdModel(id_customer);
 
     console.log(custumerAddress.address_id);
-    console.log(id_customer);
 
     // Eliminar el cliente de la base de datos.
     const deleteCustomer = await deleteCustomerModel(

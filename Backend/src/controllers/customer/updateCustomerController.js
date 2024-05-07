@@ -1,11 +1,11 @@
 import { validateSchemaUtil } from '../../utils/validateSchemaUtil.js';
-import { newCustomerSchema } from '../../schemas/customer/newCustomerSchema.js';
 import { updateCustomerService } from '../../services/customer/updateCustomerService.js';
+import { updateCustomerSchema } from '../../schemas/customer/updateCustomerSchema.js';
 
 export const updateCustomerController = async (req, res, next) => {
   try {
     // Validar el body con Joi.
-    await validateSchemaUtil(newCustomerSchema, req.body);
+    await validateSchemaUtil(updateCustomerSchema, req.body);
 
     // Obtenemos el id del usuario.
     const customerId = req.params.customerId;

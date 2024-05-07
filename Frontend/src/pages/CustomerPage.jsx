@@ -97,7 +97,7 @@ export const CustomerPage = () => {
         <Link to="/">Home</Link>
       </li>
       <h1 className="customer_title">Clientes</h1>
-      <CreateCustomer onAddSale={addCustomer} token={token} />
+      <CreateCustomer onAddCustomer={addCustomer} token={token} />
       <ol>
         {listCustomer.map((data) => {
           return (

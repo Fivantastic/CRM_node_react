@@ -3,13 +3,11 @@ import { selectCustomerByIdModel } from '../../../models/Modules/sales/selectCus
 import { selectProductByIdModel } from '../../../models/Modules/sales/selectProductByIdModel.js';
 import { selectSaleByIdModel } from '../../../models/Modules/sales/selectSaleByIdModel.js';
 import { notFoundError } from '../../error/errorService.js';
-import { selectUserByIdModel } from '../../../models/user/selectUserByIdModel.js';
 
 export const updateSalesService = async (
   id_sale,
-  id_user,
-  saleProduct_id,
-  customer_id,
+  id_saleProduct,
+  id_customer,
   operation_status
 ) => {
   // Obtengo el id de la venta
@@ -19,29 +17,23 @@ export const updateSalesService = async (
     notFoundError('Sale');
   }
 
-  const user = await selectUserByIdModel(id_user);
+  const saleProduct = await selectProductByIdModel(id_saleProduct);
 
-  if (user && user.id_user !== id_user) {
-    notFoundError('User');
-  }
-
-  const saleProduct = await selectProductByIdModel(saleProduct_id);
-
-  if (saleProduct && saleProduct.id_saleProduct !== saleProduct_id) {
+  if (saleProduct && saleProduct.id_saleProduct !== id_saleProduct) {
     notFoundError('Sale Product');
   }
 
-  const customer = await selectCustomerByIdModel(customer_id);
+  const customer = await selectCustomerByIdModel(id_customer);
 
-  if (customer && customer.id_customer !== customer_id) {
+  if (customer && customer.id_customer !== id_customer) {
     notFoundError('customer');
   }
 
   // Actualizamos la venta de producto en la base de datos
   const response = await updateSaleModel(
     id_sale,
-    saleProduct_id,
-    customer_id,
+    id_saleProduct,
+    id_customer,
     operation_status
   );
 

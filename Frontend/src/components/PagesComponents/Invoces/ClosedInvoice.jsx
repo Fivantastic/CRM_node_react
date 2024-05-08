@@ -2,7 +2,7 @@ import Joi from 'joi';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 
-export const ClosedInvoice = ({ invoice, token }) => {
+export const ClosedInvoice = ({ onUpdateInvoice, invoice, token }) => {
   /* const token = useUser(); */
   // Aqui hace la peticion al servidor
   const handleclosedInvoiceAccion = async (formData) => {
@@ -24,6 +24,8 @@ export const ClosedInvoice = ({ invoice, token }) => {
         //si la peticion es correcta
         const responseData = await response.json();
         console.log('Factura actualizada satisfactorio:', responseData);
+
+        onUpdateInvoice(invoice);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
@@ -67,15 +69,17 @@ export const ClosedInvoice = ({ invoice, token }) => {
       name: 'invoice_status',
       label: 'Estado',
       type: 'select',
-      options: [
-        { value: 'paid', label: 'Pagado' },
-        { value: 'overdue', label: 'Atrasada' },
-        { value: 'partially_paid', label: 'Parcialmente pagado' },
-        { value: 'cancelled', label: 'Cancelado' },
-        { value: 'refunded', label: 'Reintegrada' },
-        { value: 'disputed', label: 'Disputa' },
-        { value: 'sent', label: 'Enviado' },
-      ],
+      options: {
+        Estado: {
+          paid: 'Pagado',
+          overdue: 'Atrasada',
+          partially_paid: 'Parcialmente pagado',
+          cancelled: 'Cancelado',
+          refunded: 'Reintegrada',
+          disputed: 'Disputa',
+          sent: 'Enviado',
+        },
+      },
     },
   ];
 

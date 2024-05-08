@@ -5,7 +5,7 @@ import { PaymentsList } from '../components/Payments/PaymentsList.jsx';
 import { ChangeStatus } from '../components/forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { CreatePayment } from '../components/Payments/CreatePayment.jsx';
-import { get } from 'react-hook-form';
+import { MainLayout } from '../layout/MainLayout.jsx';
 
 export const PaymentPage = () => {
   const token = useUser();
@@ -71,6 +71,7 @@ export const PaymentPage = () => {
   // };
 
   return (
+    <MainLayout>
     <section className="sale_container">
       <li>
         <Link to="/">Home</Link>
@@ -96,5 +97,6 @@ export const PaymentPage = () => {
         })}
       </ol> 
     </section>
+    </MainLayout>
   );
 };

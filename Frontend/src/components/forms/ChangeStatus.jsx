@@ -62,10 +62,10 @@ export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , newStatus, n
                   handleNewPaymentStatus(id, newStatus)
             
                   // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos            
-                  Toast.fire({
-                    icon: 'success',
-                    title: `${typeModuleMessage}: Estado actualizado`,
-                  });
+                  // Toast.fire({
+                  //   icon: 'success',
+                  //   title: `${typeModuleMessage}: Estado actualizado`,
+                  // });
                 } else {
                   // si la peticion es incorrecta
                   const errorData = await response.json();

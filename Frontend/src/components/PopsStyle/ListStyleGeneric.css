@@ -1,9 +1,21 @@
 /* Para cada elemento de la lista */
 li {list-style: none}
 
+.generic_list{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    
+}
+
+.generic_list > * {
+    flex: 1 1 1;
+}
+
 .element {
     /* max-width: 500px;
   max-height: 150px; */
+  
 
   display: flex;
   flex-direction: column;

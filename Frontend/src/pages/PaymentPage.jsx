@@ -8,6 +8,20 @@ import { CreatePayment } from '../components/Payments/CreatePayment.jsx';
 import { MainLayout } from '../layout/MainLayout.jsx';
 
 import '../components/PopsStyle/ListStyleGeneric.css'
+import Swal from 'sweetalert2';
+
+// Modelo swal
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
 
 export const PaymentPage = () => {
   const token = useUser();
@@ -39,11 +53,13 @@ export const PaymentPage = () => {
         } else {
           const errorData = await response.json();
           console.error('Obetener fallido:', errorData);
-          // Mostrar un mensaje de error al usuario
         }
       } catch (error) {
         console.error('Error al obtener la lista de pagos:', error);
-        // Mostrar un mensaje de error al usuario
+        Toast.fire({
+          icon: 'error',
+          title: 'Error al obtener la lista de pagos',
+          });
       }
     };
 
@@ -59,7 +75,6 @@ export const PaymentPage = () => {
 
   // Actualizo el estado con el pago eliminado
   const deletePayment = (id_payment) => {
-
     setPaymentsList((prevPayments) =>
       prevPayments.filter((payment) => payment.id_payment !== id_payment)
     );
@@ -78,7 +93,10 @@ export const PaymentPage = () => {
     } catch (error) {
       console.error('Error al cambiar el estado del usuario:', error);
 
-      // Mostrar un mensaje de error al usuario si es necesario
+      Toast.fire({
+        icon: 'error',
+        title: 'Por favor, recarga la página',
+        });
     }
   }
 
@@ -90,7 +108,7 @@ export const PaymentPage = () => {
       </li>
       <h1>Pagos</h1>
       <CreatePayment onAddPayment={addPayment} token={token} />
-      <ol className='user_list_ul'>
+      <ol className='user_list_ul generic_list'>
       {paymentsList.map((data) => {
           // console.log(data)
           const currentStatus = data.payment_status

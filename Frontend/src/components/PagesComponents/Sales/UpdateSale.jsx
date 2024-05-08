@@ -2,8 +2,7 @@ import Joi from 'joi';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 
-export const UpdateSale = ({ sale, token }) => {
-
+export const UpdateSale = ({ onUpdateSale, sale, token }) => {
   // Aqui hace la peticion al servidor
   const handleUpdateSaleAccion = async (formData) => {
     try {
@@ -24,7 +23,7 @@ export const UpdateSale = ({ sale, token }) => {
         //si la peticion es correcta
         const responseData = await response.json();
         console.log('Venta actualizada satisfactorio:', responseData);
-
+        onUpdateSale(sale);
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
@@ -64,40 +63,45 @@ export const UpdateSale = ({ sale, token }) => {
   // Campos del formulario personalizables
   const updateSaleFormFields = [
     {
-      name: 'id_user',
-      label: 'Usuario',
-      type: 'text',
-      placeholder: 'Introduce el usuario...',
-    },
-    {
-      name: 'saleProduct_id',
+      name: 'product',
       label: 'Producto de venta',
       type: 'text',
       placeholder: 'Introduce el producto...',
+      required: true,
     },
     {
-      name: 'customer_id',
+      name: 'quantity',
+      label: 'Cantidad de productos',
+      type: 'text',
+      placeholder: 'Introduce la cantidad de producto...',
+      required: true,
+    },
+    {
+      name: 'customer',
       label: 'Cliente',
       type: 'text',
       placeholder: 'Introduce el cliente...',
+      required: true,
     },
     {
       name: 'operation_status',
       label: 'Estado',
       type: 'select',
-      options: [
-        { value: 'open', label: 'open' },
-        { value: 'cancelled', label: 'cancelled' },
-        { value: 'closed', label: 'closed' },
-      ],
+      options: {
+        Estado: {
+          open: 'En Proceso',
+          cancelled: 'Cancelado',
+          closed: 'Cerrado',
+        },
+      },
     },
   ];
 
   // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
   const updateSaleSchema = Joi.object({
-    id_user: Joi.string().optional().min(36),
-    saleProduct_id: Joi.string().optional().min(36),
-    customer_id: Joi.string().optional().min(36),
+    product: Joi.string().optional(),
+    quantity: Joi.string().optional(),
+    customer: Joi.string().optional(),
     operation_status: Joi.string().optional(),
   });
 

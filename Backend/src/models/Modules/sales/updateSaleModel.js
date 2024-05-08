@@ -2,8 +2,8 @@ import { getDBPool } from '../../../db/getPool.js';
 
 export const updateSaleModel = async (
   id_sale,
-  saleProduct_id,
-  customer_id,
+  id_saleProduct,
+  id_customer,
   operation_status
 ) => {
   const pool = await getDBPool();
@@ -19,8 +19,8 @@ export const updateSaleModel = async (
   };
 
   addToUpdate('id_sale', id_sale);
-  addToUpdate('saleProduct_id', saleProduct_id);
-  addToUpdate('customer_id', customer_id);
+  addToUpdate('saleProduct_id', id_saleProduct);
+  addToUpdate('customer_id', id_customer);
   addToUpdate('operation_status', operation_status);
 
   if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar, salir

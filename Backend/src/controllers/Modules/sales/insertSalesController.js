@@ -4,6 +4,7 @@ import { selectQuantityModel } from '../../../models/Modules/sales/selectQuantit
 import { insertSaleProductModel } from '../../../models/products/insertSaleProductModel.js';
 import { newSaleProductSchema } from '../../../schemas/Modules/sale/newSaleProductSchema.js';
 import { insertSalesService } from '../../../services/Modules/sales/insertSalesService.js';
+import { limitedStock } from '../../../services/error/errorService.js';
 import { controlStockProductService } from '../../../services/product/controlStockProductService.js';
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 
@@ -52,6 +53,7 @@ export const insertSalesController = async (req, res, next) => {
       seachSaleProduct.description
     );
 
+    // Inserto la venta en la base de datos
     const sale = await insertSalesService(
       id_user,
       seachQuantity.id_saleProduct,

@@ -15,6 +15,7 @@
 .toggle-btn,
 a {
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .sidebar-bottom {
@@ -41,7 +42,7 @@ a {
 
 .sidebar-header {
   height: 70px;
-  padding: 2px 0;
+  padding: 24.5px 0;
   transition: all 0.3s ease;
 }
 
@@ -67,6 +68,11 @@ a {
 
 .iconSidebar {
   justify-content: start;
+}
+
+.expand {
+    scale: 1.5;
+    transition: all 0.3s ease;
 }
 
 .linkPage,
@@ -100,8 +106,6 @@ a {
 .logo-wrapper:hover {
   text-decoration: none;
 }
-
-
 
 .linkPage {
   display: flex;
@@ -138,11 +142,6 @@ a {
   height: 24px;
 }
 
-.profileBar {
-  background-color: transparent;
-  border: none;
-}
-
 .sidebar-bottom .sidebar-links {
   padding-bottom: 1.5rem;
 }
@@ -151,7 +150,7 @@ a {
   position: absolute;
   right: -50px;
   padding: 0.5rem;
-  background-color: #14214E;
+  background-color: transparent;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -239,7 +238,7 @@ a {
   
     .sidebar-header {
       height: 80px;
-      padding: 10px 0;
+      padding: 40px 0;
       transition: all 0.3s ease;
     }
   
@@ -252,9 +251,7 @@ a {
       padding: 0.5rem 1.75rem;
     }
   
-    .hidden {
-      display: none;
-    }
+
     
     #logC {
         width: 55px;
@@ -268,7 +265,7 @@ a {
     }
 
     .toggle-btn {
-        top: 15px;
+        top: 10px;
         transition: all 0.3s ease;
       }
   }

@@ -21,7 +21,7 @@ export const NavBar = () => {
                         <LogC className="iconSidebar crm"  />
                     </NavLink>
                     <button className="toggle-btn" onClick={toggleSidebar}>
-                        <img className="iconSidebar" src="./expand.svg" alt="expand button" />
+                        <img className="iconSidebar expand" src="./expand.svg" alt="expand button" />
                     </button>
                 </div>
                 <div className="sidebar-left"></div>

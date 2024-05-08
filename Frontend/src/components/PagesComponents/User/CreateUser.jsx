@@ -114,8 +114,8 @@ export const CreateUser = ({ onAddUser, token }) => {
     );
   };
   return (
-    <div>
+    <>
       <button onClick={handleClickCreateUser}>Registrar usuario</button>
-    </div>
+    </>
   );
 };

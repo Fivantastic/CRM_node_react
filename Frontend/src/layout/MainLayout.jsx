@@ -9,7 +9,7 @@ export function MainLayout({ children }) {
   const changeMode = theme ? 'dark' : 'light';
 
   return (
-    <div className="main-layout">
+    <div className="main-layout-container">
       <NavBar className="navbar-layout" />
       <Header className="header-layout" />
       <main className={`main-layout ${changeMode}`}>{children}</main>

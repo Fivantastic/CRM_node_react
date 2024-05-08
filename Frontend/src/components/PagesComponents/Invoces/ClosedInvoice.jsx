@@ -111,8 +111,8 @@ export const ClosedInvoice = ({ onUpdateInvoice, invoice, token }) => {
   };
 
   return (
-    <div>
+    <>
       <button onClick={handleClosedInvoice}>Cerrar Factura</button>
-    </div>
+    </>
   );
 };

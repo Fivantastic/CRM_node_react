@@ -1,5 +1,4 @@
 import  { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { DeliveryNoteList } from '../components/DeliveryNotes/DeliveryNoteList.jsx';
@@ -67,15 +66,14 @@ export const DeliveryNotePage = () => {
 
   return (
     <MainLayout>
-    <div>
-      <Link to="/">Home</Link>
-      <h1>Notas de Entrega</h1>
+    <section className='note_container'>
+      <h1 className='note_title'>Notas de Entrega</h1>
       <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
-      <ul className='generic_list'>
+      <ol className='note_list generic_list'>
         {deliveryNotesList.map((data) => (
-          <li key={data.id_note} className='element'>
+          <li key={data.id_note} className='element_note_container'>
             <DeliveryNoteList deliveryNote={data} />
-            <UpdateDelivery deliveryNote={data.id_note} token={token} /> {/* Agregamos el componente de actualización */}
+            <UpdateDelivery deliveryNote={data.id_note} token={token} />
             <DeleteGenericModal
               id={data.id_note}
               onDelete={deleteDeliveryNote}
@@ -85,8 +83,8 @@ export const DeliveryNotePage = () => {
             />
           </li>
         ))}
-      </ul>
-    </div>
+      </ol>
+    </section>
     </MainLayout>
   );
 };

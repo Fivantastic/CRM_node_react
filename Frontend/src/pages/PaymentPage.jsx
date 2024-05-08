@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
 import { PaymentsList } from '../components/Payments/PaymentsList.jsx';
 import { ChangeStatus } from '../components/forms/ChangeStatus.jsx';
@@ -102,31 +101,25 @@ export const PaymentPage = () => {
 
   return (
     <MainLayout>
-    <section>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <h1>Pagos</h1>
-      <CreatePayment onAddPayment={addPayment} token={token} />
-      <ol className='user_list_ul generic_list'>
-      {paymentsList.map((data) => {
-          // console.log(data)
-          const currentStatus = data.payment_status
-          console.log(currentStatus);
-          return (
-            <div key={data.id_payment} className='element' >
-              <PaymentsList payment={data} />
-              {currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'cancelled'} newStatusMessage='Cancelar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />  }
-              {currentStatus !== "paid" && currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'paid'} newStatusMessage='Resolver' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
-              {currentStatus !== "pending" && currentStatus !== "paid" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'pending'} newStatusMessage='Restaurar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+      <section className='payment_container'>
+        <h1>Pagos</h1>
+        <CreatePayment onAddPayment={addPayment} token={token} />
+        <ol className='payment_list generic_list'>
+        {paymentsList.map((data) => {
+            const currentStatus = data.payment_status
+            return (
+              <li key={data.id_payment} className='element_payment_content' >
+                <PaymentsList payment={data} />
+                {currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'cancelled'} newStatusMessage='Cancelar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />  }
+                {currentStatus !== "paid" && currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'paid'} newStatusMessage='Resolver' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+                {currentStatus !== "pending" && currentStatus !== "paid" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'pending'} newStatusMessage='Restaurar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
 
-              {currentStatus === "cancelled" && <DeleteGenericModal id={data.id_payment} onDelete={deletePayment} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
-
-            </div>
-          );
-        })}
-      </ol> 
-    </section>
+                {currentStatus === "cancelled" && <DeleteGenericModal id={data.id_payment} onDelete={deletePayment} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+              </li>
+            );
+          })}
+        </ol> 
+      </section>
     </MainLayout>
   );
 };

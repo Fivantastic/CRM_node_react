@@ -8,25 +8,21 @@ export const PaymentsList = ( { payment } ) => {
 } else if (status === 'paid') { statusColor = 'green'; message = "Pagado";
 }
   
-    
-
-    return (
+  return (
       <>
-        <li className='element_content'>
-          <h2 className="element_title">{payment.paid_amount}€</h2>
-          <p className="element_subtitle">{payment.payment_date}</p>
-  
-          <h3 >Factura asociada</h3>
-          <p>{payment.id_invoice}</p>
-  
-          <h3 className="element_section">Cliente</h3>
-          <p>Nombre: {payment.customer}</p>
-          <p>Email: {payment.customer_email}</p>
-          <p>Telefono: {payment.customer_phone}</p>
+        <h2 className="element_payment_title">{payment.paid_amount}€</h2>
+        <p className="element_payment_subtitle">{payment.payment_date}</p>
 
-          <h3 className="status" style={{color: statusColor}}>{message}</h3>
-        </li>
+        <h3 >Factura asociada</h3>
+        <p>{payment.id_invoice}</p>
+
+        <h3 className="element_payment_section">Cliente</h3>
+        <p>Nombre: {payment.customer}</p>
+        <p>Email: {payment.customer_email}</p>
+        <p>Telefono: {payment.customer_phone}</p>
+
+        <h3 className="status payment_status" style={{color: statusColor}}>{message}</h3>
       </>
-    );
-  };
+  );
+};
   

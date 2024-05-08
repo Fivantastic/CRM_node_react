@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { CreateCustomer } from '../components/PagesComponents/Customer/CreateCustomer.jsx';
 import { CustomerList } from '../components/PagesComponents/Customer/CustomerList.jsx';
 import { UpdateCustomer } from '../components/PagesComponents/Customer/UpdateCustomer.jsx';
@@ -96,34 +95,31 @@ export const CustomerPage = () => {
 
   return (
     <MainLayout>
-    <section className="sale_container">
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <h1 className="customer_title">Clientes</h1>
-      <CreateCustomer onAddCustomer={addCustomer} token={token} />
-      <ol className='generic_list'>
-        {listCustomer.map((data) => {
-          return (
-            <div key={data.id_customer} className='element'>
-              <CustomerList customer={data} />
-              <UpdateCustomer
-                customer={data.id_customer}
-                onUpdateCustomer={updateCustomer}
-                token={token}
-              />
-              <DeleteGenericModal
-                id={data.id_customer}
-                onDelete={deleteCustomer}
-                token={token}
-                typeModule={typeModule}
-                typeModuleMessage={typeModuleMessage}
-              />
-            </div>
-          );
-        })}
-      </ol>
-    </section>
+      <section className="customer_container">
+        <h1 className="customer_title">Clientes</h1>
+        <CreateCustomer onAddCustomer={addCustomer} token={token} />
+        <ol className='customers_list generic_list'>
+          {listCustomer.map((data) => {
+            return (
+              <li key={data.id_customer} className='element'>
+                <CustomerList customer={data} />
+                <UpdateCustomer
+                  customer={data.id_customer}
+                  onUpdateCustomer={updateCustomer}
+                  token={token}
+                />
+                <DeleteGenericModal
+                  id={data.id_customer}
+                  onDelete={deleteCustomer}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
+              </li>
+            );
+          })}
+        </ol>
+      </section>
     </MainLayout>
   );
 };

@@ -114,8 +114,8 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
   };
 
   return (
-    <div>
+    <>
       <button onClick={handleUpdateVisit}>Actualizar Venta</button>
-    </div>
+    </>
   );
 };

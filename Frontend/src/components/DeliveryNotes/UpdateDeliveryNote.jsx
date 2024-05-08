@@ -85,9 +85,9 @@ const UpdateDelivery = ({ deliveryNote, token }) => {
   };
 
   return (
-    <div>
+    <>
       <button onClick={handleUpdateDelivery}>Actualizar Nota de Entrega</button>
-    </div>
+    </>
   );
 };
 

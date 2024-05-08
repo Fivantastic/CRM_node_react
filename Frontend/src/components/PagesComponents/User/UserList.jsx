@@ -31,19 +31,19 @@ export const UserList = ({ user, id, activeUser, onDelete }) => {
   const translatedRole = roleMapping[user.role] || user.role;
 
   return (
-    <li className="user">
-      <div className={`container-avatar-active ${isActive ? 'active' : 'inactive'}`}>
+    <>
+      <figure className={`container-avatar-active ${isActive ? 'active' : 'inactive'}`}>
         <img src={user.avatar || defaultAvatar} alt="Avatar del usuario" className="avatar" />
-      </div>
-      <div className="details">
+      </figure>
+      <article className="details">
         <h2 className="userName">{`${user.name} ${user.last_name}`}</h2>
         <p className="role">{translatedRole}</p> 
-      </div>
-      <div className="actions">
+      </article>
+      <nav className="actions">
         <ProfileButton userData={userData} />
         <ButtonMoreUserActions id={userId} activeUser={activeUser}  isActive={isActive}  token={token}  />
-        <DeleteGenericModal id={id} onDelete={onDelete} token={token} typeModule="user" typeModuleMessage="usuario"/>
-      </div>
-    </li>
+        <DeleteGenericModal id={id} onDelete={onDelete} token={token} typeModule="user" typeModuleMessage="Usuario"/>
+      </nav>
+    </>
   );
 };

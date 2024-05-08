@@ -3,6 +3,18 @@ import DynamicFormPopUp from "../forms/DynamicFormPopUp";
 import Swal from "sweetalert2";
 
 export const CreatePayment = ({onAddPayment, token}) => {
+  // Modelo swal
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
+  });
     
     // Petición al servidor
     const handlePaymentCreatedAction = async (formData) => {
@@ -28,18 +40,6 @@ export const CreatePayment = ({onAddPayment, token}) => {
                 onAddPayment(responseData.data)
 
                 // Mensaje de éxito con Swal
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.onmouseenter = Swal.stopTimer;
-                      toast.onmouseleave = Swal.resumeTimer;
-                    },
-                  });
-                
                 Toast.fire({
                 icon: 'success',
                 title: 'Pago creado con exito!',
@@ -48,10 +48,22 @@ export const CreatePayment = ({onAddPayment, token}) => {
                 // Fallo en la respuesta del servidor
                 const errorData = await response.json();
                 console.error('Creación del pago fallida:', errorData)
+                Swal.fire({
+                  title: "Creación del pago fallida",
+                  text: errorData.message,
+                  icon: "error",
+                  allowOutsideClick: false,
+                  confirmButtonColor: "#3085d6",
+                  confirmButtonText: "Volver"
+                })
             }
         } catch (error) {
             // Fallo en la petición
             console.error('Error durante la creación del pago:', error);
+            Toast.fire({
+              icon: 'error',
+              title: 'Fallo en la petición',
+              });
         }
                 
     }
@@ -71,19 +83,11 @@ export const CreatePayment = ({onAddPayment, token}) => {
       type: 'text',
       placeholder: 'Introduce el identificador...',
       required: true,
-    },
-    {
-      name: 'amount',
-      label: 'Cantidad',
-      type: 'number',
-      placeholder: 'Introduce la cantidad del pago...',
-      required: true,
-    },
+    }
   ];
 
   const paymentSchema = Joi.object({
-    invoice_id: Joi.string().required().guid(),
-    amount: Joi.number().required().max(1000000),
+    invoice_id: Joi.string().required().guid()
   });
 
   const handleClickCreatePayment = () => {

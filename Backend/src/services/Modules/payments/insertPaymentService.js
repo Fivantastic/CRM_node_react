@@ -4,7 +4,7 @@ import { selectInvoiceByIdService } from "../../product/selectInvoiceByIdService
 
 export const newPaymentService = async (body) => {
     // Obtenemos el cuerpo de la petición
-    const { invoice_id, amount, payment_date } = body
+    const { invoice_id, payment_date } = body
     
     // Revisamos que la factura exista
     const invoice = await selectInvoiceByIdService(invoice_id)
@@ -17,8 +17,8 @@ export const newPaymentService = async (body) => {
     const payment_id = crypto.randomUUID();
 
     // Insertamos la factura en la base de datos
-    const response = await insertPaymentModel(payment_id, invoice_id, amount, payment_date);
+    const data = await insertPaymentModel(payment_id, invoice_id, payment_date);
 
     // Retornamos la respuesta
-    return response
+    return data;
 }

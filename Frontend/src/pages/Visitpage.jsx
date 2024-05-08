@@ -8,6 +8,9 @@ import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import '../components/PopsStyle/listStyle.css'
 import { MainLayout } from '../layout/MainLayout.jsx';
 
+import '../components/PopsStyle/ListStyleGeneric.css'
+
+
 export const Visitpage = () => {
   const token = useUser();
   const [visitList, setVisitList] = useState([]);
@@ -100,9 +103,9 @@ const addVisit = async () => {
       </li>
       <h1 className="visit_title">Visitas</h1>
       <CreateVisit onAddVisit={addVisit} token={token} />
-      <ol className="visit_list">
+      <ol className="visit_list generic_list">
         {visitList.map((visit) => (
-          <div key={visit.id_visit}>
+          <div key={visit.id_visit} className='element'>
             <VisitsList visit={visit} />
             <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit} />
             <DeleteGenericModal id={visit.id_visit} onDelete={deleteVisit} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />

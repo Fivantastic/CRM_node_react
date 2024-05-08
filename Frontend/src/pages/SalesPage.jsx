@@ -7,6 +7,8 @@ import { UpdateSale } from '../components/PagesComponents/Sales/UpdateSale.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { MainLayout } from '../layout/MainLayout.jsx';
 
+import '../components/PopsStyle/ListStyleGeneric.css'
+
 export const SalesPage = () => {
   const token = useUser();
   const [salesList, setSalesList] = useState([]);
@@ -90,10 +92,10 @@ export const SalesPage = () => {
       </li>
       <h1 className="sale_title">Ventas</h1>
       <CreateSale onAddSale={addSale} token={token} />
-      <ol>
+      <ol className='generic_list'>
         {salesList.map((data) => {
           return (
-            <div key={data.id_sale}>
+            <div key={data.id_sale} className='element'>
               <SalesList sale={data} />
               <UpdateSale
                 sale={data.id_sale}

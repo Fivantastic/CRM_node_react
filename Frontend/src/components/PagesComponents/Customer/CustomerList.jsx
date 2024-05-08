@@ -2,13 +2,18 @@ export const CustomerList = ({ customer }) => {
   return (
     <>
       <li>
-        <h2>Cliente</h2>
+        <h1 className="element_title">{customer.name}</h1>
         {/* <p>{customer.id_customer}</p> */}
-        <p>Nombre: {customer.name}</p>
+        <p className="element_subtitle">NIF: {customer.NIF} </p>
+        
+        <h3 className="element_section">Empresa</h3>
+        <p>{customer.company_name}</p>
+
+        <h3 className="element_section">Datos de contacto</h3>
         <p>Email: {customer.email}</p>
         <p>Telefono: {customer.phone}</p>
-        <p>Empresa: {customer.company_name}</p>
-        <p>NIF: {customer.NIF} </p>
+        <h3 className="element_section">Dirección</h3>
+        
         <p>Dirección: {customer.street}</p>
         <p>Numero: {customer.street_number}</p>
         <p>Letra / Numero: {customer.letter_number}</p>

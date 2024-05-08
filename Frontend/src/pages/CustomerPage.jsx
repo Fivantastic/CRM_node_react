@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { useUser } from '../context/authContext.jsx';
 import { MainLayout } from '../layout/MainLayout.jsx';
 
+import "../components/PopsStyle/ListStyleGeneric.css"
+
 export const CustomerPage = () => {
   const token = useUser();
   const [listCustomer, setListCustomer] = useState([]);
@@ -100,10 +102,10 @@ export const CustomerPage = () => {
       </li>
       <h1 className="customer_title">Clientes</h1>
       <CreateCustomer onAddCustomer={addCustomer} token={token} />
-      <ol>
+      <ol className='generic_list'>
         {listCustomer.map((data) => {
           return (
-            <div key={data.id_customer}>
+            <div key={data.id_customer} className='element'>
               <CustomerList customer={data} />
               <UpdateCustomer
                 customer={data.id_customer}

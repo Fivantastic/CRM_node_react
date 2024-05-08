@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import DynamicForm from '../components/forms/DynamicForm.jsx';
+import DynamicForm from '../../components/forms/DynamicForm.jsx';
 
 export const ForgotPassword = () => {
 

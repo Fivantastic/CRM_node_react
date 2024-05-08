@@ -1,6 +1,6 @@
 // import { useEffect } from "react";
 
-import { MainLayout } from "../layout/MainLayout.jsx";
+import { MainLayout } from "../../layout/MainLayout.jsx";
 
 
 // // 1. Listar

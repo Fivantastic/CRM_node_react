@@ -9,15 +9,15 @@ import { useEffect, useState } from 'react';
 // ? Para poner la ruta que nos lleva a home de nuevo /home
 import { Link } from 'react-router-dom';
 //? LLamamos a nuestro context que es el TOKEN
-import { useUser } from '../context/authContext.jsx';
+import { useUser } from '../../context/authContext.jsx';
 //? Llamamos al componete de crear 
-import { CreateVisit } from '../components/PagesComponents/Visits/CreateVisit.jsx';
+import { CreateVisit } from '../../components/PagesComponents/Visits/CreateVisit.jsx';
 //? Llamamos al componete de actualizar
-import { UpdateVisit } from '../components/PagesComponents/Visits/UpdateVisit.jsx';
+import { UpdateVisit } from '../../components/PagesComponents/Visits/UpdateVisit.jsx';
 //? Llamamos al componete de la lista que es el que se ejecuta al cargar la pagina
-import { VisitsList } from '../components/PagesComponents/Visits/VisitList.jsx';
+import { VisitsList } from '../../components/PagesComponents/Visits/VisitList.jsx';
 //? Llamamos al componete de eliminar que es un componente CUSTOM
-import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
+import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 //? Estilos
 import '../components/PopsStyle/listStyle.css'
 

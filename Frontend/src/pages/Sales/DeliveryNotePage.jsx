@@ -1,12 +1,12 @@
 import  { useState, useEffect } from 'react';
-import { useUser } from '../context/authContext.jsx';
-import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
-import { DeliveryNoteList } from '../components/DeliveryNotes/DeliveryNoteList.jsx';
-import { CreateDeliveryNote } from '../components/DeliveryNotes/CreateDeliveryNote.jsx';
-import UpdateDelivery from '../components/DeliveryNotes/UpdateDeliveryNote.jsx'; // Importamos el componente de actualización
-import { MainLayout } from '../layout/MainLayout.jsx';
+import { useUser } from '../../context/authContext.jsx';
+import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { DeliveryNoteList } from '../../components/PagesComponents/DeliveryNotes/DeliveryNoteList.jsx';
+import { CreateDeliveryNote } from '../../components/PagesComponents/DeliveryNotes/CreateDeliveryNote.jsx';
+import UpdateDelivery from '../../components/PagesComponents/DeliveryNotes/UpdateDeliveryNote.jsx'; // Importamos el componente de actualización
+import { MainLayout } from '../../layout/MainLayout.jsx';
 
-import "../components/PopsStyle/ListStyleGeneric.css"
+import "../../components/PopsStyle/ListStyleGeneric.css"
 
 export const DeliveryNotePage = () => {
   const token = useUser();

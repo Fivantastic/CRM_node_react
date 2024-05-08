@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
 import { SalesList } from '../components/PagesComponents/Sales/SalesList.jsx';
 import { CreateSale } from '../components/PagesComponents/Sales/CreateSale.jsx';
@@ -87,15 +86,12 @@ export const SalesPage = () => {
   return (
     <MainLayout>
     <section className="sale_container">
-      <li>
-        <Link to="/">Home</Link>
-      </li>
       <h1 className="sale_title">Ventas</h1>
       <CreateSale onAddSale={addSale} token={token} />
       <ol className='generic_list'>
         {salesList.map((data) => {
           return (
-            <div key={data.id_sale} className='element'>
+            <li key={data.id_sale} className='element_sale_container'>
               <SalesList sale={data} />
               <UpdateSale
                 sale={data.id_sale}
@@ -109,7 +105,7 @@ export const SalesPage = () => {
                 typeModule={typeModule}
                 typeModuleMessage={typeModuleMessage}
               />
-            </div>
+            </li>
           );
         })}
       </ol>

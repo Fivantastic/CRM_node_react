@@ -1,16 +1,19 @@
-.main-layout {
+.main-layout-container {
   display: grid;
   grid-template-areas:
     'navbar header'
     'navbar main ';
   grid-template-columns: auto 1fr;
-  grid-template-rows: 70px 1fr;
+  grid-template-rows: 71px 1fr;
   height: 100vh;
-  transition: grid-template-rows 0.3s ease; /* Agregamos transición */
+  transition: grid-template-rows 0.3s ease;
+  overflow: hidden;
 }
 
 .navbar-layout {
   grid-area: navbar;
+  position: sticky;
+  z-index: -1;
 }
 
 .header-layout {
@@ -23,8 +26,8 @@
 }
 
 @media screen and (min-width: 600px) {
-  .main-layout {
+  .main-layout-container {
     grid-template-rows: 81px 1fr;
-    transition: grid-template-rows 0.3s ease; /* Agregamos transición */
+    transition: grid-template-rows 0.3s ease;
   }
 }

@@ -1,5 +1,7 @@
 // import { useEffect } from "react";
 
+import { MainLayout } from "../layout/MainLayout.jsx";
+
 
 // // 1. Listar
 // export const ProductPage = () => {
@@ -74,3 +76,13 @@
 //     };
 
 //     // 
+
+export const ProductPage = () => {
+    return (
+        <MainLayout>
+            <div>
+                <h1>ProductPage</h1>
+            </div>
+        </MainLayout>
+    )
+}

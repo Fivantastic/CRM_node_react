@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { CreateInvoice } from '../components/PagesComponents/Invoces/CreateInvoice.jsx';
 import { InvoicesList } from '../components/PagesComponents/Invoces/InvoicesList.jsx';
 import { ClosedInvoice } from '../components/PagesComponents/Invoces/ClosedInvoice.jsx';
@@ -88,34 +87,31 @@ export const InvoicePage = () => {
 
   return (
     <MainLayout>
-    <section className="invoice_container">
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <h1 className="invoice_title">Facturas</h1>
-      <CreateInvoice onAddInvoice={addInvoice} token={token} />
-      <ol className='generic_list'>
-        {invoiceList.map((data) => {
-          return (
-            <div key={data.id_invoice} className='element'>
-              <InvoicesList invoice={data} />
-              <ClosedInvoice
-                invoice={data.id_invoice}
-                onUpdateInvoice={updateInvoice}
-                token={token}
-              />
-              <DeleteGenericModal
-                id={data.id_invoice}
-                onDelete={deleteInvoice}
-                token={token}
-                typeModule={typeModule}
-                typeModuleMessage={typeModuleMessage}
-              />
-            </div>
-          );
-        })}
-      </ol>
-    </section>
+      <section className="invoice_container">
+        <h1 className="invoice_title">Facturas</h1>
+        <CreateInvoice onAddInvoice={addInvoice} token={token} />
+        <ol className='invoice_list generic_list'>
+          {invoiceList.map((data) => {
+            return (
+              <li key={data.id_invoice} className='element_invoice_container'>
+                <InvoicesList invoice={data} />
+                <ClosedInvoice
+                  invoice={data.id_invoice}
+                  onUpdateInvoice={updateInvoice}
+                  token={token}
+                />
+                <DeleteGenericModal
+                  id={data.id_invoice}
+                  onDelete={deleteInvoice}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
+              </li>
+            );
+          })}
+        </ol>
+      </section>
     </MainLayout>
   );
 };

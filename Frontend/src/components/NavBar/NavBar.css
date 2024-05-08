@@ -12,21 +12,21 @@
   position: relative;
 }
 
+.sidebar-bottom {
+    width: 4rem;
+    min-height: 100vh;
+    height: 100%;
+    background-color: #14214E;
+    display: flex;
+    flex-direction: column;
+    transition: width 500ms ease;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
 .toggle-btn,
 a {
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.sidebar-bottom {
-  width: 4rem;
-  min-height: 100vh;
-  height: 100%;
-  background-color: #14214E;
-  display: flex;
-  flex-direction: column;
-  transition: width 500ms ease;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-bottom.active {
@@ -40,6 +40,10 @@ a {
   align-items: center;
 }
 
+.sidebar-links {
+ overflow: auto;
+}
+
 .sidebar-header {
   height: 70px;
   padding: 24.5px 0;
@@ -51,7 +55,6 @@ a {
   justify-content: start;
   align-items: center;
   gap: 1.25rem;
-
 }
 
 .sidebar-bottom.active .logo-wrapper {
@@ -68,6 +71,7 @@ a {
 
 .iconSidebar {
   justify-content: start;
+  transition: all 0.3s ease;
 }
 
 .expand {
@@ -92,6 +96,30 @@ a {
   padding-top: 1.5rem;
 }
 
+.sidebar-links {
+  /* Firefox */
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+
+  /* Webkit (Chrome, Safari, etc.) */
+  -webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento en navegadores Webkit */
+  }
+
+  /* Internet Explorer y Edge */
+  -ms-overflow-style: none; /* Oculta la barra de desplazamiento en Internet Explorer y Edge */
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Edge Chromium (a partir de la versión 79) */
+
+  /* Estilo para el track (fondo) de la barra de desplazamiento en Firefox */
+  &::-webkit-scrollbar-track {
+    background: transparent; /* Fondo transparente */
+  }
+
+  /* Estilo para el thumb (barra deslizante) de la barra de desplazamiento en Firefox */
+  &::-webkit-scrollbar-thumb {
+    background: transparent; /* Color transparente */
+  }
+}
+
 .sidebar-bottom > .sidebar-links {
   border-top: 1px solid rgb(211, 211, 211);
 }
@@ -109,13 +137,16 @@ a {
 
 .linkPage {
   display: flex;
-  justify-content: start;
-  width: 100%;
-  padding: 0.6rem;
+  justify-content: star;
+  width: 90%;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  margin-right: 0;
+  margin-left: 0;
   gap: 1.5rem;
   text-decoration: none;
   color: white;
 }
+
 
 .hidden {
   display: none;
@@ -124,22 +155,24 @@ a {
 
 .sidebar-bottom.active .hidden {
   display: inline;
+  white-space: nowrap;
 }
 
 .linkPage:hover {
   filter: drop-shadow(0px 0px 10px #fff);
-  transition: background-color 500ms ease;
+  transition: all 0.3s ease;
 
 }
 
 .linkPage.active {
+  scale: 1.1;
   border-left: 3px solid #fff;
-  transition: background-color 500ms ease;
+  transition: all 0.3s ease;
 }
 
 .linkPage > .iconSidebar {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
 .sidebar-bottom .sidebar-links {
@@ -247,12 +280,16 @@ a {
       width: 3.25rem;
       height: 3.25rem;
     }
-  
-    .linkPage {
-      padding: 0.5rem 1.75rem;
+
+    .linkPage > .iconSidebar {
+      width: 24px;
+      height: 24px;
     }
   
-
+    .linkPage {
+      
+      padding: 0.5rem 1.25rem;
+    }
     
     #logC {
         right: 12px;

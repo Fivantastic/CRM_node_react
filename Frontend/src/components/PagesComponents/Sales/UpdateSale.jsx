@@ -117,8 +117,8 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
   };
 
   return (
-    <div>
+    <>
       <button onClick={handleUpdateSale}>Actualizar Venta</button>
-    </div>
+    </>
   );
 };

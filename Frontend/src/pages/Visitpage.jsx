@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useUser } from '../context/authContext.jsx';
 import { CreateVisit } from '../components/PagesComponents/Visits/CreateVisit.jsx';
 import { UpdateVisit } from '../components/PagesComponents/Visits/UpdateVisit.jsx';
@@ -98,18 +97,15 @@ const addVisit = async () => {
   return (
     <MainLayout>
     <section className="visit_container">
-      <li>
-        <Link to="/">Home</Link>
-      </li>
       <h1 className="visit_title">Visitas</h1>
       <CreateVisit onAddVisit={addVisit} token={token} />
       <ol className="visit_list generic_list">
         {visitList.map((visit) => (
-          <div key={visit.id_visit} className='element'>
+          <li key={visit.id_visit} className='element_visit_container'>
             <VisitsList visit={visit} />
             <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit} />
             <DeleteGenericModal id={visit.id_visit} onDelete={deleteVisit} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />
-          </div>
+          </li>
         ))}
       </ol>
     </section>

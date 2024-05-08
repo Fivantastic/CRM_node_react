@@ -101,8 +101,8 @@ export const CreateVisit = ({ onAddVisit, token }) => {
     );
   };
   return (
-    <div>
+    <>
       <button onClick={handleClickCreateVisit}>Programar Visita</button>
-    </div>
+    </>
   );
 };

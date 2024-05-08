@@ -19,7 +19,7 @@ a {
 }
 
 .sidebar-bottom {
-  width: 3.5rem;
+  width: 4rem;
   min-height: 100vh;
   height: 100%;
   background-color: #14214E;
@@ -30,7 +30,7 @@ a {
 }
 
 .sidebar-bottom.active {
-  width: 13rem;
+  width: 14rem;
 }
 
 .sidebar-header,
@@ -188,7 +188,7 @@ a {
 
 #logC {
     position: absolute;
-    right: 5px;
+    right: 10px;
     width: 44px;
     height: 43px;
     transition: all 0.3s ease;
@@ -197,6 +197,7 @@ a {
 #Logo_cosmic_blanco {
     position: absolute;
     z-index: 1;
+    left: 10px;
     width: 233px;
     height: 49px;
     display: none;
@@ -233,7 +234,7 @@ a {
     }
   
     .sidebar-bottom.active {
-      width: 17rem;
+      width: 18.3rem;
     }
   
     .sidebar-header {
@@ -254,6 +255,7 @@ a {
 
     
     #logC {
+        right: 12px;
         width: 55px;
         height: 55px;
     }

@@ -8,7 +8,6 @@ export function generateAccessToken(user) {
         id_user: user.id_user,
         name: user.name,
         role: user.role,
-        email: user.email,
         avatar: user.avatar
       },
       JWT_SECRET,

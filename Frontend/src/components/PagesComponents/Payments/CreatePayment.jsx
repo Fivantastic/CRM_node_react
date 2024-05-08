@@ -1,5 +1,5 @@
 import Joi from "joi";
-import DynamicFormPopUp from "../forms/DynamicFormPopUp";
+import DynamicFormPopUp from "../../forms/DynamicFormPopUp";
 import Swal from "sweetalert2";
 
 export const CreatePayment = ({onAddPayment, token}) => {

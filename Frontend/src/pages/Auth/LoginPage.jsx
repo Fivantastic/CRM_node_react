@@ -1,9 +1,9 @@
 import Joi from 'joi';
-import DynamicForm from '../components/forms/DynamicForm.jsx';
+import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/authContext.jsx';
+import { AuthContext } from '../../context/authContext.jsx';
 import { useContext } from 'react';
-import'../components/PopsStyle/PopLoginStyle.css';
+import'../../components/PopsStyle/PopLoginStyle.css';
 import Swal from 'sweetalert2';
 
 export const LoginPage = () => {

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useUser } from '../context/authContext.jsx';
-import { CreateVisit } from '../components/PagesComponents/Visits/CreateVisit.jsx';
-import { UpdateVisit } from '../components/PagesComponents/Visits/UpdateVisit.jsx';
-import { VisitsList } from '../components/PagesComponents/Visits/VisitList.jsx';
-import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
-import '../components/PopsStyle/listStyle.css'
-import { MainLayout } from '../layout/MainLayout.jsx';
+import { useUser } from '../../context/authContext.jsx';
+import { CreateVisit } from '../../components/PagesComponents/Visits/CreateVisit.jsx';
+import { UpdateVisit } from '../../components/PagesComponents/Visits/UpdateVisit.jsx';
+import { VisitsList } from '../../components/PagesComponents/Visits/VisitList.jsx';
+import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import '../../components/PopsStyle/listStyle.css'
+import { MainLayout } from '../../layout/MainLayout.jsx';
 
-import '../components/PopsStyle/ListStyleGeneric.css'
+import '../../components/PopsStyle/ListStyleGeneric.css'
 
 
 export const Visitpage = () => {

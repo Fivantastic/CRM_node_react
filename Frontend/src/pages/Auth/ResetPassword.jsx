@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { useParams } from 'react-router-dom'; 
-import DynamicForm from '../components/forms/DynamicForm.jsx';
+import DynamicForm from '../../components/forms/DynamicForm.jsx';
 
 export const ResetPassword = () => {
     const { registration_code } = useParams();

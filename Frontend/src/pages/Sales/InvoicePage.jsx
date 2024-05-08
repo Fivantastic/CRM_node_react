@@ -1,12 +1,12 @@
-import { CreateInvoice } from '../components/PagesComponents/Invoces/CreateInvoice.jsx';
-import { InvoicesList } from '../components/PagesComponents/Invoces/InvoicesList.jsx';
-import { ClosedInvoice } from '../components/PagesComponents/Invoces/ClosedInvoice.jsx';
-import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
+import { CreateInvoice } from '../../components/PagesComponents/Invoces/CreateInvoice.jsx';
+import { InvoicesList } from '../../components/PagesComponents/Invoces/InvoicesList.jsx';
+import { ClosedInvoice } from '../../components/PagesComponents/Invoces/ClosedInvoice.jsx';
+import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 import { useEffect, useState } from 'react';
-import { useUser } from '../context/authContext.jsx';
-import { MainLayout } from '../layout/MainLayout.jsx';
+import { useUser } from '../../context/authContext.jsx';
+import { MainLayout } from '../../layout/MainLayout.jsx';
 
-import "../components/PopsStyle/ListStyleGeneric.css"
+import "../../components/PopsStyle/ListStyleGeneric.css"
 
 export const InvoicePage = () => {
   const token = useUser();

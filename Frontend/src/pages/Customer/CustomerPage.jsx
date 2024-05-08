@@ -1,12 +1,12 @@
-import { CreateCustomer } from '../components/PagesComponents/Customer/CreateCustomer.jsx';
-import { CustomerList } from '../components/PagesComponents/Customer/CustomerList.jsx';
-import { UpdateCustomer } from '../components/PagesComponents/Customer/UpdateCustomer.jsx';
-import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
+import { CreateCustomer } from '../../components/PagesComponents/Customer/CreateCustomer.jsx';
+import { CustomerList } from '../../components/PagesComponents/Customer/CustomerList.jsx';
+import { UpdateCustomer } from '../../components/PagesComponents/Customer/UpdateCustomer.jsx';
+import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 import { useEffect, useState } from 'react';
-import { useUser } from '../context/authContext.jsx';
-import { MainLayout } from '../layout/MainLayout.jsx';
+import { useUser } from '../../context/authContext.jsx';
+import { MainLayout } from '../../layout/MainLayout.jsx';
 
-import "../components/PopsStyle/ListStyleGeneric.css"
+import "../../components/PopsStyle/ListStyleGeneric.css"
 
 export const CustomerPage = () => {
   const token = useUser();

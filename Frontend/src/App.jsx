@@ -1,22 +1,22 @@
 import { Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/Home/HomePage.jsx';
-import { NotFoundPage } from './pages/NotFoundPage.jsx';
-import { LoginPage } from './pages/LoginPage.jsx';
-import { ValidationPage } from './pages/ValidationPage.jsx';
-import { ForgotPassword } from './pages/ForgotPassword.jsx';
-import { ResetPassword } from './pages/ResetPassword.jsx';
-import { SalesPage } from './pages/SalesPage.jsx';
-import { Visitpage } from './pages/Visitpage.jsx';
-import { DeliveryNotePage } from './pages/DeliveryNotePage.jsx';
-import { InvoicePage } from './pages/InvoicePage.jsx';
-import { PaymentPage } from './pages/PaymentPage.jsx';
-import { ShipmentPage } from './pages/ShipmentPage.jsx';
+import { NotFoundPage } from './pages/Others/NotFoundPage.jsx';
+import { LoginPage } from './pages/Auth/LoginPage.jsx';
+import { ValidationPage } from './pages/Auth/ValidationPage.jsx';
+import { ForgotPassword } from './pages/Auth/ForgotPassword.jsx';
+import { ResetPassword } from './pages/Auth/ResetPassword.jsx';
+import { SalesPage } from './pages/Sales/SalesPage.jsx';
+import { Visitpage } from './pages/Customer/Visitpage.jsx';
+import { DeliveryNotePage } from './pages/Sales/DeliveryNotePage.jsx';
+import { InvoicePage } from './pages/Sales/InvoicePage.jsx';
+import { PaymentPage } from './pages/Sales/PaymentPage.jsx';
+import { ShipmentPage } from './pages/Sales/ShipmentPage.jsx';
 import { AboutPage } from './pages/About/AboutPage.jsx';
-import { InitialPage } from './pages/InitialPage.jsx';
+import { InitialPage } from './pages/Others/InitialPage.jsx';
 import { UserPage } from './pages/UserPage.jsx';
-import { CustomerPage } from './pages/CustomerPage.jsx';
-import { ProfilePage } from './pages/ProfilePage.jsx';
-import { ProductPage } from './pages/ProductPage.jsx';
+import { CustomerPage } from './pages/Customer/CustomerPage.jsx';
+import { ProfilePage } from './pages/Others/ProfilePage.jsx';
+import { ProductPage } from './pages/Product/ProductPage.jsx';
 import './App.css';
 
 function App() {

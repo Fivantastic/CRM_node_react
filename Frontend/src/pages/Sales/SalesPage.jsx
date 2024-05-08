@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useUser } from '../context/authContext.jsx';
-import { SalesList } from '../components/PagesComponents/Sales/SalesList.jsx';
-import { CreateSale } from '../components/PagesComponents/Sales/CreateSale.jsx';
-import { UpdateSale } from '../components/PagesComponents/Sales/UpdateSale.jsx';
-import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
-import { MainLayout } from '../layout/MainLayout.jsx';
+import { useUser } from '../../context/authContext.jsx';
+import { SalesList } from '../../components/PagesComponents/Sales/SalesList.jsx';
+import { CreateSale } from '../../components/PagesComponents/Sales/CreateSale.jsx';
+import { UpdateSale } from '../../components/PagesComponents/Sales/UpdateSale.jsx';
+import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { MainLayout } from '../../layout/MainLayout.jsx';
 
-import '../components/PopsStyle/ListStyleGeneric.css'
+import '../../components/PopsStyle/ListStyleGeneric.css'
 
 export const SalesPage = () => {
   const token = useUser();

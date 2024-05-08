@@ -1,120 +1,118 @@
 /* Estilo para el contenedor principal */
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 form {
-    width: 90%;
-    padding-left: 50px;
+  width: 90%;
+  padding-left: 50px;
 }
 
-  
-  /* Estilo para los títulos */
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  /* Estilo para los campos de entrada y etiquetas */
-  input[type="text"],
-  input[type="password"],
-  input[type="number"],
-  input[type="email"],
-  input[type="date"],
-  input[type="checkbox"],
-  input[type="radio"],
-  input[type="file"],
-  textarea,
-  select,
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  /* Estilo para los campos de entrada */
-  input[type="text"],
-  input[type="password"],
-  input[type="number"],
-  input[type="email"],
-  input[type="date"],
-  input[type="checkbox"],
-  input[type="radio"],
-  input[type="file"],
-  textarea,
-  select {
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Asegura que el tamaño total del elemento incluya el padding y el borde */
-  }
-  
-  /* Estilo para los mensajes de ayuda */
-  .help-text {
-    color: #666;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  /* Estilo para los mensajes de error */
-  .error-message {
-    color: #ff0000;
-    font-size: 14px;
-    margin-top: 5px;
-  }
+/* Estilo para los títulos */
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
 
-  /* Estilo para los ancores */
-  a {
-    color: #007bff;
-    text-decoration: none;
-    margin: 10px 5px;
-    cursor: pointer;
-    font-style: italic;
-  }
+/* Estilo para los campos de entrada y etiquetas */
+input[type='text'],
+input[type='password'],
+input[type='number'],
+input[type='email'],
+input[type='date'],
+input[type='checkbox'],
+input[type='radio'],
+input[type='file'],
+textarea,
+select,
+label {
+  /* display: block; */
+  margin-bottom: 5px;
+}
 
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Estilo para los botónes */
-  .button-container {
-    display: flex;
-    justify-content: center;
-  }
+/* Estilo para los campos de entrada */
+input[type='text'],
+input[type='password'],
+input[type='number'],
+input[type='email'],
+input[type='date'],
+input[type='checkbox'],
+input[type='radio'],
+input[type='file'],
+textarea,
+select {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Asegura que el tamaño total del elemento incluya el padding y el borde */
+}
 
-  button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    margin: 10px 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+/* Estilo para los mensajes de ayuda */
+.help-text {
+  color: #666;
+  font-size: 14px;
+  margin-top: 5px;
+}
 
-  /* Estilo para el botón de enviar */
-  button[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    margin: 10px 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+/* Estilo para los mensajes de error */
+.error-message {
+  color: #ff0000;
+  font-size: 14px;
+  margin-top: 5px;
+}
 
-  
-  /* Estilo para el botón de enviar cuando está deshabilitado */
-  button[type="submit"]:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+/* Estilo para los ancores */
+a {
+  color: #007bff;
+  text-decoration: none;
+  margin: 10px 5px;
+  cursor: pointer;
+  font-style: italic;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Estilo para los botónes */
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Estilo para el botón de enviar */
+button[type='submit'] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Estilo para el botón de enviar cuando está deshabilitado */
+button[type='submit']:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

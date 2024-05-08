@@ -5,6 +5,7 @@ import { ClosedInvoice } from '../components/PagesComponents/Invoces/ClosedInvoi
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { useEffect, useState } from 'react';
 import { useUser } from '../context/authContext.jsx';
+import { MainLayout } from '../layout/MainLayout.jsx';
 
 export const InvoicePage = () => {
   const token = useUser();
@@ -84,6 +85,7 @@ export const InvoicePage = () => {
   };
 
   return (
+    <MainLayout>
     <section className="invoice_container">
       <li>
         <Link to="/">Home</Link>
@@ -112,5 +114,6 @@ export const InvoicePage = () => {
         })}
       </ol>
     </section>
+    </MainLayout>
   );
 };

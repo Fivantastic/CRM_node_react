@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import { useUser } from "../context/authContext.jsx";
+
+import { MainLayout } from "../layout/MainLayout.jsx";
 
 export const ProductPage = () => {
-    const token = useUser();
-    console.log(token);
+
     return (
+        <MainLayout>
         <div>
             <h1>Product Page</h1>
             <Link to="/home">Home</Link>
         </div>
+        </MainLayout>
     );
 }

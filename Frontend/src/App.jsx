@@ -21,30 +21,27 @@ import './App.css';
 
 function App() {
   return (
-    <>
-      <h1>Cosmic CRM</h1>
-      <Routes>
-        <Route path="/" element={<InitialPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/Profile" element={<ProfilePage />} />
-        <Route path="/user" element={<UserPage />} />
-        <Route path="/customer" element={<CustomerPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/user/reset-password/:registration_code" element={<ResetPassword />} />
-        <Route path="/validation/:registration_code" element={<ValidationPage />}/>
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="/sale" element={<SalesPage />} />
-        <Route path="/visit" element={<Visitpage />} />
-        <Route path="/deliveryNote" element={<DeliveryNotePage />} />
-        <Route path="/invoice" element={<InvoicePage />} />
-        <Route path="/payment" element={<PaymentPage />} />
-        <Route path="/shipment" element={<ShipmentPage />} />
+    <Routes>
+      <Route path="/" element={<InitialPage />} />
+      <Route path="/home" element={<HomePage />} />
+      <Route path="/Profile" element={<ProfilePage />} />
+      <Route path="/user" element={<UserPage />} />
+      <Route path="/customer" element={<CustomerPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/user/reset-password/:registration_code" element={<ResetPassword />} />
+      <Route path="/validation/:registration_code" element={<ValidationPage />}/>
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/product" element={<ProductPage />} />
+      <Route path="/sale" element={<SalesPage />} />
+      <Route path="/visit" element={<Visitpage />} />
+      <Route path="/deliveryNote" element={<DeliveryNotePage />} />
+      <Route path="/invoice" element={<InvoicePage />} />
+      <Route path="/payment" element={<PaymentPage />} />
+      <Route path="/shipment" element={<ShipmentPage />} />
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 }
 

@@ -5,6 +5,7 @@ import { UpdateCustomer } from '../components/PagesComponents/Customer/UpdateCus
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { useEffect, useState } from 'react';
 import { useUser } from '../context/authContext.jsx';
+import { MainLayout } from '../layout/MainLayout.jsx';
 
 export const CustomerPage = () => {
   const token = useUser();
@@ -92,6 +93,7 @@ export const CustomerPage = () => {
   };
 
   return (
+    <MainLayout>
     <section className="sale_container">
       <li>
         <Link to="/">Home</Link>
@@ -120,5 +122,6 @@ export const CustomerPage = () => {
         })}
       </ol>
     </section>
+    </MainLayout>
   );
 };

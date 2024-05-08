@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import LogoutButton from "../../components/buttons/LogoutButton.jsx";
 import { useSetUser, useUser } from "../../context/authContext.jsx";
+import { MainLayout } from "../../layout/MainLayout.jsx";
 
 export const HomePage = () => {
   const user = useUser(); 
   const setUser = useSetUser();
 
   return (
+    <MainLayout>
     <div>
       <h1>HomePage</h1>
       <nav>
@@ -28,5 +30,6 @@ export const HomePage = () => {
       </nav>
       {user && <LogoutButton setUser={setUser} />}
     </div>
+    </MainLayout>
   );
 };

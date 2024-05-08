@@ -5,6 +5,7 @@ import { SalesList } from '../components/PagesComponents/Sales/SalesList.jsx';
 import { CreateSale } from '../components/PagesComponents/Sales/CreateSale.jsx';
 import { UpdateSale } from '../components/PagesComponents/Sales/UpdateSale.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
+import { MainLayout } from '../layout/MainLayout.jsx';
 
 export const SalesPage = () => {
   const token = useUser();
@@ -82,6 +83,7 @@ export const SalesPage = () => {
   };
 
   return (
+    <MainLayout>
     <section className="sale_container">
       <li>
         <Link to="/">Home</Link>
@@ -110,5 +112,6 @@ export const SalesPage = () => {
         })}
       </ol>
     </section>
+    </MainLayout>
   );
 };

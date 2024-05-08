@@ -1,6 +1,6 @@
+import { MainLayout } from "../layout/MainLayout.jsx";
 import { useUser } from "../context/authContext.jsx";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { UserList } from "../components/PagesComponents/User/UserList.jsx";
 import { CreateUser } from "../components/PagesComponents/User/CreateUser.jsx";
 
@@ -92,21 +92,20 @@ export const UserPage = () => {
     
   
     return (
-      <section className="user_container">
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <h1 className="user_title">Users</h1>
-        <CreateUser onAddUser={addUser} token={token} />
-        <ul className="user_list_ul">
-          {userList.map((data) => {
-            return (
-              <div key={data.id_user}>
-                <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser}/>
-              </div>
-            );
-          })}
-        </ul>
-      </section>
+      <MainLayout>
+        <section className="user_container">
+          <h1 className="user_title">Users</h1>
+          <CreateUser onAddUser={addUser} token={token} />
+          <ul className="user_list_ul">
+            {userList.map((data) => {
+              return (
+                <div key={data.id_user}>
+                  <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser}/>
+                </div>
+              );
+            })}
+          </ul>
+        </section>
+      </MainLayout>
     );
   };

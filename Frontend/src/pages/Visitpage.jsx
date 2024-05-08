@@ -6,6 +6,7 @@ import { UpdateVisit } from '../components/PagesComponents/Visits/UpdateVisit.js
 import { VisitsList } from '../components/PagesComponents/Visits/VisitList.jsx';
 import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import '../components/PopsStyle/listStyle.css'
+import { MainLayout } from '../layout/MainLayout.jsx';
 
 export const Visitpage = () => {
   const token = useUser();
@@ -92,6 +93,7 @@ const addVisit = async () => {
   };
 
   return (
+    <MainLayout>
     <section className="visit_container">
       <li>
         <Link to="/">Home</Link>
@@ -108,5 +110,6 @@ const addVisit = async () => {
         ))}
       </ol>
     </section>
+    </MainLayout>
   );
 };

@@ -5,6 +5,7 @@ import { DeleteGenericModal } from '../components/forms/DeleteGenericModal.jsx';
 import { DeliveryNoteList } from '../components/DeliveryNotes/DeliveryNoteList.jsx';
 import { CreateDeliveryNote } from '../components/DeliveryNotes/CreateDeliveryNote.jsx';
 import UpdateDelivery from '../components/DeliveryNotes/UpdateDeliveryNote.jsx'; // Importamos el componente de actualización
+import { MainLayout } from '../layout/MainLayout.jsx';
 
 export const DeliveryNotePage = () => {
   const token = useUser();
@@ -63,6 +64,7 @@ export const DeliveryNotePage = () => {
 
 
   return (
+    <MainLayout>
     <div>
       <Link to="/">Home</Link>
       <h1>Notas de Entrega</h1>
@@ -83,6 +85,7 @@ export const DeliveryNotePage = () => {
         ))}
       </ul>
     </div>
+    </MainLayout>
   );
 };
 

@@ -1,7 +1,7 @@
 // import { useEffect } from "react";
 import Swal from "sweetalert2";
 
-export const ChangeStatus = ({id, newStatus, newStatusMessage,typeModule, typeModuleMessage, token}) => {
+export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , newStatus, newStatusMessage,typeModule, typeModuleMessage, token}) => {
 
   // TODO - Dev
   // console.log(`
@@ -10,19 +10,32 @@ export const ChangeStatus = ({id, newStatus, newStatusMessage,typeModule, typeMo
   // type: ${typeModule},
   // typeMessage: ${typeModuleMessage},
   // token: ${token}`);
-  
+
   const handleStatusChange = async () => {
-    Swal.fire({
-        title: "Advertencia",
-        text: `${newStatusMessage} este elemento?`,
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        cancelButtonText: "Volver atrás",
-        confirmButtonText: "Cambiar Estado"
-      }).then(async (result) => {
-        if (result.isConfirmed) {
+    // Toast de notificación de éxito / error
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+    });
+
+    // Swal.fire({
+    //     title: "Advertencia",
+    //     text: `${newStatusMessage} este elemento?`,
+    //     icon: "question",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#3085d6",
+    //     cancelButtonColor: "#d33",
+    //     cancelButtonText: "Volver atrás",
+    //     confirmButtonText: "Cambiar Estado"
+    //   }).then(async (result) => {
+    //     if (result.isConfirmed) {
             try {
                 const response = await fetch(
                   `http://localhost:3000/${typeModule}/status`,
@@ -46,20 +59,9 @@ export const ChangeStatus = ({id, newStatus, newStatusMessage,typeModule, typeMo
                   console.log(`${typeModuleMessage} actualizado con éxito:`, responseData);
             
                   // TODO - Lógica actualizar lista
+                  handleNewPaymentStatus(id, newStatus)
             
-                  // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
-                  const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'bottom-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                      toast.onmouseenter = Swal.stopTimer;
-                      toast.onmouseleave = Swal.resumeTimer;
-                    },
-                  });
-            
+                  // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos            
                   Toast.fire({
                     icon: 'success',
                     title: `${typeModuleMessage}: Estado actualizado`,
@@ -67,18 +69,26 @@ export const ChangeStatus = ({id, newStatus, newStatusMessage,typeModule, typeMo
                 } else {
                   // si la peticion es incorrecta
                   const errorData = await response.json();
-                  console.error(` ${typeModuleMessage}: Error al cambiar el estado`
-                  ,errorData );
+                  const errorMsg = ` ${typeModuleMessage}: Error al cambiar el estado`
+                  console.error(errorMsg ,errorData );
                   // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
+                  Toast.fire({
+                    icon: 'error',
+                    title: errorMsg,
+                  });
                 }
               } catch (error) {
                 // si la peticion falla
-                console.error(`Error al cambiar el estado de este elemendo en ${typeModuleMessage}:`, error);
+                const errorMsg = `Error al cambiar el estado de este elemento en ${typeModuleMessage}:`
+                console.error(errorMsg, error);
                 // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
-            
+                Toast.fire({
+                  icon: 'error',
+                  title: error || errorMsg
+                });
               }
-            }
-      });
+            // }
+      // });
 }
 
   return (

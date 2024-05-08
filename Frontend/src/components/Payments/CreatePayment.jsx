@@ -71,19 +71,11 @@ export const CreatePayment = ({onAddPayment, token}) => {
       type: 'text',
       placeholder: 'Introduce el identificador...',
       required: true,
-    },
-    {
-      name: 'amount',
-      label: 'Cantidad',
-      type: 'number',
-      placeholder: 'Introduce la cantidad del pago...',
-      required: true,
-    },
+    }
   ];
 
   const paymentSchema = Joi.object({
-    invoice_id: Joi.string().required().guid(),
-    amount: Joi.number().required().max(1000000),
+    invoice_id: Joi.string().required().guid()
   });
 
   const handleClickCreatePayment = () => {

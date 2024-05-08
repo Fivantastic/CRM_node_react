@@ -1,0 +1,52 @@
+/* Para cada elemento de la lista */
+li {list-style: none}
+
+.element {
+    /* max-width: 500px;
+  max-height: 150px; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+
+
+  padding: 10px 20px;
+  margin: 10px 0;
+  background-color: #ffffff;
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.element_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 0.2rem;
+}
+.element_title {
+    align-self: center;
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+.element_subtitle {
+    color: gray;
+    margin-bottom: 1.5rem;
+}
+
+.element_section {
+    margin-top: 0.6rem;
+}
+
+.status {
+    margin: 1rem;
+}
+
+.delete_icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

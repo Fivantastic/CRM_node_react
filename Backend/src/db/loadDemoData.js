@@ -246,14 +246,13 @@ export async function loadDemoData(db) {
       const payment = {
         id_payment: faker.string.uuid(),
         invoice_id: invoiceData[i].id_invoice,
-        amount: faker.finance.amount(),
         payment_status: faker.helpers.arrayElement(['pending', 'cancelled', 'paid']),
         payment_date: faker.date.past(),
       };
       paymentData.push(payment);
     }
     await db.query(
-      `INSERT INTO Payments (id_payment, invoice_id, amount, payment_status, payment_date) VALUES ?`,
+      `INSERT INTO Payments (id_payment, invoice_id, payment_status, payment_date) VALUES ?`,
       [paymentData.map(payment => Object.values(payment))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Payments.`));

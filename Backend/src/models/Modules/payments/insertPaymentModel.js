@@ -1,6 +1,6 @@
 import { getDBPool } from "../../../db/getPool.js";
-                                        // idPayment, invoice_id, amount, payment_date
-export const insertPaymentModel = async (id_payment, invoice_id, amount, payment_date)=> {
+                                        // idPayment, invoice_id, payment_date
+export const insertPaymentModel = async (id_payment, invoice_id, payment_date)=> {
     const pool = getDBPool();
 
     const fieldsToUpdate = [];
@@ -16,7 +16,6 @@ export const insertPaymentModel = async (id_payment, invoice_id, amount, payment
 
     addToUpdate('id_payment', id_payment);
     addToUpdate('invoice_id', invoice_id);
-    addToUpdate('amount', amount);
     addToUpdate('payment_date', payment_date);
 
     if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar
@@ -34,22 +33,21 @@ export const insertPaymentModel = async (id_payment, invoice_id, amount, payment
     }
 
     const selectQuery = `
-    SELECT Payments.id_payment,
-           Invoices.id_invoice,
-           Invoices.agentUser_id AS salesAgent,
-           Customers.name AS customer,
-           Customers.email AS customer_email,
-           Customers.phone AS customer_phone,
-           Invoices.total_price AS total_amount,
-           Payments.amount AS paid_amount,
-           Payments.payment_status,
-           Payments.payment_date,
-           Payments.create_at,
-           Payments.update_at
-    FROM Payments
-    LEFT JOIN Invoices ON Payments.invoice_id = Invoices.id_invoice
-    LEFT JOIN Customers ON Invoices.customer_id = Customers.id_customer
-    WHERE Payments.id_payment = ?
+      SELECT Payments.id_payment,
+         Invoices.id_invoice,
+         Invoices.agentUser_id AS salesAgent,
+         Customers.name AS customer,
+         Customers.email AS customer_email,
+         Customers.phone AS customer_phone,
+         Invoices.total_amount AS paid_amount, 
+         Payments.payment_status,
+         Payments.payment_date,
+         Payments.create_at,
+         Payments.update_at
+      FROM Payments
+      LEFT JOIN Invoices ON Payments.invoice_id = Invoices.id_invoice
+      LEFT JOIN Customers ON Invoices.customer_id = Customers.id_customer
+      WHERE Payments.id_payment = ?
     `;
     const [paymentResult] = await pool.query(selectQuery, [id_payment]);
 

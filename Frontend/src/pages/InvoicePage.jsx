@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { useUser } from '../context/authContext.jsx';
 import { MainLayout } from '../layout/MainLayout.jsx';
 
+import "../components/PopsStyle/ListStyleGeneric.css"
+
 export const InvoicePage = () => {
   const token = useUser();
   const [invoiceList, setInvoiceList] = useState([]);
@@ -92,10 +94,10 @@ export const InvoicePage = () => {
       </li>
       <h1 className="invoice_title">Facturas</h1>
       <CreateInvoice onAddInvoice={addInvoice} token={token} />
-      <ol>
+      <ol className='generic_list'>
         {invoiceList.map((data) => {
           return (
-            <div key={data.id_invoice}>
+            <div key={data.id_invoice} className='element'>
               <InvoicesList invoice={data} />
               <ClosedInvoice
                 invoice={data.id_invoice}

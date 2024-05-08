@@ -7,6 +7,8 @@ import { CreateDeliveryNote } from '../components/DeliveryNotes/CreateDeliveryNo
 import UpdateDelivery from '../components/DeliveryNotes/UpdateDeliveryNote.jsx'; // Importamos el componente de actualización
 import { MainLayout } from '../layout/MainLayout.jsx';
 
+import "../components/PopsStyle/ListStyleGeneric.css"
+
 export const DeliveryNotePage = () => {
   const token = useUser();
   const [deliveryNotesList, setDeliveryNotesList] = useState([]);
@@ -69,9 +71,9 @@ export const DeliveryNotePage = () => {
       <Link to="/">Home</Link>
       <h1>Notas de Entrega</h1>
       <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
-      <ul>
+      <ul className='generic_list'>
         {deliveryNotesList.map((data) => (
-          <li key={data.id_note}>
+          <li key={data.id_note} className='element'>
             <DeliveryNoteList deliveryNote={data} />
             <UpdateDelivery deliveryNote={data.id_note} token={token} /> {/* Agregamos el componente de actualización */}
             <DeleteGenericModal

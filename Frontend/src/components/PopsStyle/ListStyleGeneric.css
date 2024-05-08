@@ -2,15 +2,21 @@
 li {list-style: none}
 
 .generic_list{
-    display: flex;
+    /* display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    justify-content: justify; */
+    margin: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200, 1fr));
+  grid-gap: 10px; /* Espacio entre elementos */
     
 }
 
-.generic_list > * {
-    flex: 1 1 1;
-}
+/* .generic_list > * {
+  
+} */
 
 .element {
     /* max-width: 500px;
@@ -40,6 +46,7 @@ li {list-style: none}
 }
 .element_title {
     align-self: center;
+    text-align: center;
     font-size: 2rem;
     margin: 1rem 0;
 }
@@ -47,6 +54,7 @@ li {list-style: none}
 .element_subtitle {
     color: gray;
     margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 .element_section {
@@ -55,6 +63,7 @@ li {list-style: none}
 
 .status {
     margin: 1rem;
+    text-align: center;
 }
 
 .delete_icon {

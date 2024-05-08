@@ -27,6 +27,18 @@
 a {
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.sidebar-bottom {
+  width: 4rem;
+  min-height: 100vh;
+  height: 100%;
+  background-color: #14214e;
+  display: flex;
+  flex-direction: column;
+  transition: width 500ms ease;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-bottom.active {
@@ -58,9 +70,8 @@ a {
 }
 
 .sidebar-bottom.active .logo-wrapper {
-    width: 195px;
+  width: 195px;
 }
-
 
 .logo-wrapper > .iconSidebar {
   width: 3.25rem;
@@ -75,8 +86,8 @@ a {
 }
 
 .expand {
-    scale: 1.5;
-    transition: all 0.3s ease;
+  scale: 1.5;
+  transition: all 0.3s ease;
 }
 
 .linkPage,
@@ -161,7 +172,6 @@ a {
 .linkPage:hover {
   filter: drop-shadow(0px 0px 10px #fff);
   transition: all 0.3s ease;
-
 }
 
 .linkPage.active {
@@ -197,69 +207,69 @@ a {
 
 /* Definimos la animación de entrada */
 @keyframes slideIn {
-    0% {
-      opacity: 0;
-      transform: translateX(-100%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Definimos la animación de salida */
 @keyframes slideOut {
-    0% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    100% {
-      opacity: 0;
-      transform: translateX(-100%);
-    }
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
 }
 
 #logC {
-    position: absolute;
-    right: 10px;
-    width: 44px;
-    height: 43px;
-    transition: all 0.3s ease;
+  position: absolute;
+  right: 10px;
+  width: 44px;
+  height: 43px;
+  transition: all 0.3s ease;
 }
 
 #Logo_cosmic_blanco {
-    position: absolute;
-    z-index: 1;
-    left: 10px;
-    width: 233px;
-    height: 49px;
-    display: none;
-    color: #ffffff;
-    transform: translateX(-100%);
-    animation: slideIn 0.6s forwards;
+  position: absolute;
+  z-index: 1;
+  left: 10px;
+  width: 233px;
+  height: 49px;
+  display: none;
+  color: #ffffff;
+  transform: translateX(-100%);
+  animation: slideIn 0.6s forwards;
 }
 
 .sidebar-bottom.active #Logo_cosmic_blanco {
-    position: relative;
-    z-index: 1;
-    width: 233px;
-    height: 49px;
-    display: block;
-    color: #ffffff;
-    transition: opacity 0.3s ease, transform 0.3s ease; 
-    opacity: 1;
-    visibility: visible; 
-    transform: translateX(0); 
-    animation: slideIn 0.6s forwards; /* Animación de entrada */
+  position: relative;
+  z-index: 1;
+  width: 233px;
+  height: 49px;
+  display: block;
+  color: #ffffff;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  animation: slideIn 0.6s forwards; /* Animación de entrada */
 }
 
 .sidebar-bottom.inactive #Logo_cosmic_blanco {
     animation: slideOut 0.6s forwards; /* Animación de salida */
 }
 
-
-
- /* RESPONSIVE */
+ /* RESPONSIVE A DESKTOP */
 
  @media screen and (min-width: 600px) {
     .sidebar-bottom {

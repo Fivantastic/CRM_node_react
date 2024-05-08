@@ -51,8 +51,10 @@ export const PaymentPage = () => {
   // Actualizo el estado con la venta añadida
   
   // todo - no pilla la data nueva, solo los campos
-  const addPayment = () => {
-    setPaymentsList((prevPayment) => [...prevPayment, paymentsList]);
+  const addPayment = (newPayment) => {
+    setPaymentsList((prevPayment) => {
+      console.log('Nuevo payment:', newPayment);
+      return [...prevPayment, newPayment]});
   };
 
   //TODO Actualizo el estado con el pago eliminado

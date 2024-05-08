@@ -9,12 +9,14 @@ export const newPaymentController = async (req, res, next) => {
         await validateSchemaUtil(newPaymentSchema, req.body)
 
         // Insertar en BBDD
-        await newPaymentService(req.body)
+        const data = await newPaymentService(req.body)
+        console.log(data);
 
         // Enviar Respuesta
         res.send({
             status: 'ok',
-            message: 'Pago creado correctamente'
+            message: 'Pago creado correctamente',
+            data
         })
     } catch (error) {
         next(error)

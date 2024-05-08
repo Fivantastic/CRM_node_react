@@ -17,8 +17,8 @@ export const newPaymentService = async (body) => {
     const payment_id = crypto.randomUUID();
 
     // Insertamos la factura en la base de datos
-    const response = await insertPaymentModel(payment_id, invoice_id, amount, payment_date);
+    const data = await insertPaymentModel(payment_id, invoice_id, amount, payment_date);
 
     // Retornamos la respuesta
-    return response
+    return data;
 }

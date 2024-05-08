@@ -1,24 +1,30 @@
 .main-layout {
-    display: grid;
-    grid-template-areas:
-      'navbar header'
-      'navbar main ';
-    grid-template-columns: auto 1fr; 
-    grid-template-rows: 90px 1fr; 
-    height: 100vh; 
-  }
-  
-  .navbar-layout {
-    grid-area: navbar;
-  }
+  display: grid;
+  grid-template-areas:
+    'navbar header'
+    'navbar main ';
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 70px 1fr;
+  height: 100vh;
+  transition: grid-template-rows 0.3s ease; /* Agregamos transición */
+}
 
+.navbar-layout {
+  grid-area: navbar;
+}
 
-  
-  .header-layout {
-    grid-area: header;
-  }
-  
+.header-layout {
+  grid-area: header;
+}
+
+.main-layout {
+  grid-area: main;
+  overflow: auto;
+}
+
+@media screen and (min-width: 600px) {
   .main-layout {
-    grid-area: main;
-    overflow: auto;
+    grid-template-rows: 81px 1fr;
+    transition: grid-template-rows 0.3s ease; /* Agregamos transición */
   }
+}

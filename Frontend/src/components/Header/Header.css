@@ -1,4 +1,6 @@
 .header-container {
+    position: sticky;
+    z-index: -1;
     display: flex;
     justify-content: end;
     align-items: center;

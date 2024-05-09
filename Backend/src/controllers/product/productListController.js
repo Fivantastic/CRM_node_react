@@ -7,7 +7,7 @@ export const productListController = async (req, res, next) => {
   
       res.status(200).send({
         status: 'ok',
-        data: { listProducts },
+        data: listProducts,
       });
     } catch (error) {
       next(error);

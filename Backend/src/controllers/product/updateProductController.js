@@ -9,7 +9,7 @@ export const updateProductController = async (req, res, next) => {
 
     // Obtenemos el id del producto.
     const id_product = req.params.id_product;
-
+    console.log(id_product);
     // Actualizamos el Producto en la base de datos.
     const product = await updateProductService(id_product, req.body);
 

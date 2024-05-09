@@ -1,6 +1,6 @@
 // Importa las librerías y los archivos necesarios
 import Swal from 'sweetalert2';
-import defaultAvatar from '../../../public/profile.svg'; 
+import defaultAvatar from './profile.svg'; 
 import './UserInfoButtonStyle.css'
 
 // Define la función para mostrar la información del usuario

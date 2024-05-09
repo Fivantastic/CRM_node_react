@@ -1,4 +1,4 @@
-import LogoutButton from "../../components/buttons/LogoutButton.jsx";
+import LogoutButton from "../../components/buttons/Profile/LogoutButton.jsx";
 import { useSetUser, useUser } from "../../context/authContext.jsx";
 import { MainLayout } from "../../layout/MainLayout.jsx";
 

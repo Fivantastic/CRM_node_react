@@ -4,7 +4,7 @@ import { CreateProduct } from "../components/PagesComponents/Products/CreateProd
 import { UpdateProduct } from "../components/PagesComponents/Products/UpdateProduct";
 import { ProductList } from "../components/PagesComponents/Products/ListProduct";
 import { MainLayout } from "../layout/MainLayout";
-// import { DeleteGenericModal } from "../components/forms/DeleteGenericModal";
+import { DeleteGenericModal } from "../components/forms/DeleteGenericModal";
 
 
 // 1. Listar
@@ -12,7 +12,7 @@ export const ProductPage = () => {
     const token = useUser();
     const [productList, setProductList] = useState([]);
     const typeModule = 'product';
-    // const typeModuleMessage = 'Producto';
+    const typeModuleMessage = 'Producto';
 
     // Función para obtener la lista que tenemos en la base de datos
     const getProductList = async () => {
@@ -83,20 +83,21 @@ const addProduct = async () => {
     //! Funcion para eliminar un producto
       // Actualizo el estado con la venta eliminada y solicito la lista actualizada al servidor
 
-    //   const productDelete = async (id_product) => {
-    //     try {
-    //         // Eliminar el producto del estado local
-    //         setProductList((prevProduct) =>
-    //             prevProduct.filter((product) => product.id_product !== id_product)
-    //         );
+      const productDelete = async (id_product) => {
+        try {
+            // Eliminar el producto del estado local
+            setProductList((prevProduct) =>
+                prevProduct.filter((product) => product.id_product !== id_product)
+            );
             
-    //         // Actualizar el estado con el producto eliminado
-    //         // Solicitar la lista actualizada de productos al servidor utilizando la función reutilizada
-    //         await getProductList();
-    //     } catch (error) {
-    //         console.error('Error al eliminar el producto:', error);
-    //         // Mostrar un mensaje de error al usuario
-    //     }
+            // Actualizar el estado con el producto eliminado
+            // Solicitar la lista actualizada de productos al servidor utilizando la función reutilizada
+            await getProductList();
+        } catch (error) {
+            console.error('Error al eliminar el producto:', error);
+            // Mostrar un mensaje de error al usuario
+        }
+    }
 
     
         // Return dentro de la función del componente
@@ -111,7 +112,7 @@ const addProduct = async () => {
                             <li key={data.id_product} className="element_product_container">
                                 <ProductList product={data} />
                                 <UpdateProduct product={data.id_product} onUpdateProduct={updateProduct} />
-                                {/* <DeleteGenericModal id={product.id_product} onDelete={productDelete} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> */}
+                                <DeleteGenericModal id={data.id_product} onDelete={productDelete} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />
                             </li>
                             );
                             })
@@ -120,4 +121,4 @@ const addProduct = async () => {
                 </section>
             </MainLayout>
         );
-    }
+    };

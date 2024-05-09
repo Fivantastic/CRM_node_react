@@ -8,7 +8,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
 
         try {
            
-            const response = await fetch('http://localhost:3000/products/new', {
+            const response = await fetch('http://localhost:3000/product/register', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -65,21 +65,46 @@ export const CreateProduct = ({ onAddProduct, token }) => {
     const ProductFormFields = [
 
         {
-            id_product: 'id_product',
             name: 'name',
-            description: 'description',
-            price: 'price',
-            stock: 'stock',
-            product_status: 'product_status',
-            creation_at: 'creation_at',
-            update_at: 'update_at',
-        }
+            label: 'nombre del producto',
+            type: 'text',
+            placeholder: 'Introduce nombre del producto'
+        },
+        {
+            name: 'description',
+            label: 'descripción producto',
+            type: 'text',
+            placeholder: 'Introduce descripción del producto',
+        },
+        {
+            name: 'price',
+            label: 'price',
+            type: 'text',
+            placeholder: 'Introduce precio del producto',
+        },
+        {
+            name: 'stock',
+            label: 'stock',
+            type: 'text',
+            placeholder: 'introduce las cantidad'
+        },
+        {
+            name: 'product_status',
+            label: 'Estado',
+            type: 'select',
+            options: {
+              Estado: {
+                active: 'Activado',
+                inactive: 'Inactivo',
+              },
+            },
+          },
     ];
 
     const newProductSchema = Joi.object({
-        name: Joi.string().guid().required(),
-        description: Joi.string().guid().required(),
-        price: Joi.string().guid().required(),
+        name: Joi.string().required().min(3).max(30),
+        description: Joi.string().required(),
+        price: Joi.string().required(),
         stock: Joi.number().required().min(1).max(100),
         product_status: Joi.string().required().valid('active', 'inactive')
     });

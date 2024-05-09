@@ -64,24 +64,50 @@ const nameButton = 'Modificar';
 //Campos del formulario productos
 
 const updateProductFormFields = [
-    {
-        name: 'name',
-        description: 'description',
-        price: 'price',
-        stock: 'stock',
-        product_status: 'product_status',
-        creation_at: 'creation_at',
-        update_at: 'update_at',
+  {
+    name: 'name',
+    label: 'nombre del producto',
+    type: 'text',
+    placeholder: 'Introduce nombre del producto'
+},
+{
+    name: 'description',
+    label: 'descripción producto',
+    type: 'text',
+    placeholder: 'Introduce descripción del producto',
+},
+{
+    name: 'price',
+    label: 'price',
+    type: 'text',
+    placeholder: 'Introduce precio del producto',
+},
+{
+    name: 'stock',
+    label: 'stock',
+    type: 'text',
+    placeholder: 'introduce las cantidad'
+},
+{
+    name: 'product_status',
+    label: 'Estado',
+    type: 'select',
+    options: {
+      Estado: {
+        active: 'Activado',
+        inactive: 'Inactivo',
+      },
     },
+  },
 ];
 
 // Esquema de validación, sacado de la base de datos.
 const UpdateProductSchema = Joi.object({
-    name: Joi.string().guid().optional(),
-    description: Joi.string().guid().optional(),
-    price: Joi.string().guid().optional(),
-    stock: Joi.number().optional().min(1).max(100),
-    product_status: Joi.string().optional().valid('active', 'inactive')
+  name: Joi.string().optional().min(3).max(30),
+  description: Joi.string().optional(),
+  price: Joi.string().optional(),
+  stock: Joi.number().optional().min(1).max(100),
+  product_status: Joi.string().optional().valid('active', 'inactive')
 });
 
 // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body

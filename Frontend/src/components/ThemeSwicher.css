@@ -28,6 +28,10 @@
   transform: scale(0);
 }
 
+#switch {
+  display: none;
+}
+
 #switch:checked + .icon--moon {
   transform: rotate(360deg) scale(0);
 }

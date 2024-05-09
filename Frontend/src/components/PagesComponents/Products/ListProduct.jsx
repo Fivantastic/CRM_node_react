@@ -1,5 +1,4 @@
 export const ProductList = ({ product }) => {
-  console.log(product);
     return (
       <>
           <h2 className="element_product_title">ID del producto</h2>

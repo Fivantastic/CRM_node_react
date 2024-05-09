@@ -13,7 +13,7 @@ export const ThemeSwicher = () => {
           onClick={() => setTheme(!theme)}
           checked={theme}
           onChange={() => {}}
-          className="input"
+          className="input checkoff"
           type="checkbox"
         />
         <div className="icon icon--moon">

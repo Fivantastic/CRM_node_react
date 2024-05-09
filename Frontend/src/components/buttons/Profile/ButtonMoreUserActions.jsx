@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import './StyleButtonMoreActions.css';
+import '../EditButton.jsx';
 
 export const ButtonMoreUserActions = ({ id, activeUser, isActive, token }) => {
 

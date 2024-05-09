@@ -14,11 +14,19 @@ export const AuthProvider = ({ children }) => {
             }
         };
 
-        renewToken();
+        const renewTokenAndSetInterval = async () => {
+            await renewToken();
+            const intervalId = setInterval(renewToken, 840000); // Renueva el token cada 14 minutos
+            return intervalId;
+        };
 
-        const intervalId = setInterval(renewToken, 840000); // Renueva el token cada 14 minutos
+        const intervalIdPromise = renewTokenAndSetInterval();
 
-        return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
+        intervalIdPromise.then((intervalId) => {
+            return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
+        });
+
+        return () => {}; // Esta función de limpieza está vacía para evitar la advertencia de dependencia faltante
 
     }, [user, setUser]);
 
@@ -28,6 +36,7 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useUser = () => useContext(AuthContext).user;

@@ -92,7 +92,7 @@ export const UserPage = () => {
     return (
       <MainLayout>
         <section className="user_container">
-          <h1 className="user_title">Users</h1>
+          <h1 className="user_title">User List</h1>
           <CreateUser onAddUser={addUser} token={token} />
           <ol className="user_list generic_list">
             {userList.map((data) => {

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import './NavBar.css';
 import { LogoCosmicBlanco } from '../../assets/creado/logoCosmic.jsx';
 import { LogC } from '../../assets/creado/LogC.jsx';
+import './NavBar.css';
 
 
 export const NavBar = () => {
@@ -16,7 +16,7 @@ export const NavBar = () => {
         <header className="body-wrapper"> 
             <nav className={`sidebar-bottom ${isActive ? 'active' : ''}`}>
                 <div className="sidebar-header">
-                    <NavLink exact to="/" className="logo-wrapper">
+                    <NavLink exact="true" to="/" className="logo-wrapper">
                         <LogoCosmicBlanco className="hidden" />
                         <LogC className="iconSidebar crm"  />
                     </NavLink>
@@ -27,7 +27,7 @@ export const NavBar = () => {
                 <div className="sidebar-left"></div>
 
                 <div className="sidebar-links">
-                    <NavLink exact to="/home" className="linkPage" activeClassName="active">
+                    <NavLink exact="true" to="/home" className="linkPage" activeClassName="active">
                         <img className="iconSidebar" src="./home.svg" alt="" />
                         <span className="hidden">Home</span>
                     </NavLink>

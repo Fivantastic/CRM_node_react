@@ -8,7 +8,7 @@ export const ProfilePage = () => {
     return (
         <>
             <MainLayout>
-                <h1>UserPage</h1>
+            <h1>Profile Page</h1>
                 {user && <ChangePasswordPop token={user} />}
             </MainLayout>
         </>

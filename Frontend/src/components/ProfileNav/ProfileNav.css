@@ -1,102 +1,188 @@
-
-button,
-li,
-a {
+.btn-profile,
+.navli,
+.aNav {
   all: unset;
   box-sizing: border-box;
 }
 
 #dropdown {
-  --border-radius: 6px;
-  --shadow-color: 60deg 13% 61%;
-
   max-width: 220px;
   width: 100%;
-  background-color: #fff;
-  border-radius: var(--border-radius);
+  background-color: #14214E;
   position: relative;
-  box-shadow: 0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.3),
-    2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.3),
-    5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.3);
 }
 
 /* DROPDOWN/SUBMENU ITEMS AND TOGGLES */
-.dropdown-toggle,
-.menu-item,
-.submenu-item {
-  width: 100%;
-  padding: 12px 20px;
-  cursor: pointer;
+.navLink {
+  cursor: default;
+  justify-content: end;
 }
-:is(.menu-item, .submenu-item):first-child {
+
+.dropdown-toggle,
+.nameBar {
+  width: 100%;
+
+}
+
+:is(.nameBar):first-child {
   border-top-right-radius: inherit;
   border-top-left-radius: inherit;
 }
-:is(.menu-item, .submenu-item):last-child {
+:is(.nameBar):last-child {
   border-bottom-right-radius: inherit;
   border-bottom-left-radius: inherit;
 }
-:is(.menu-item, .submenu-item):hover {
-  background-color: #faf6ea;
-}
 
-.dropdown-toggle,
-.submenu-toggle {
+.dropdown-toggle {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
 }
 
-.dropdown-toggle > span {
-  color: #7b7b6e;
-}
-i {
-  color: #db8400;
-  transition: 0.25s ease;
-}
 .dropdown-toggle.open > i {
   rotate: 180deg;
 }
 
-/* MENU and SUBMENU */
 .dropdown {
   position: relative;
 }
 
-.menu,
-.submenu {
+.menuProfileNav {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
-  border-radius: var(--border-radius);
+  background-color: #14214E;
+  border-radius: 5px;
+  padding: 5px 10px;
   position: absolute;
-  left: 0;
+  z-index: 3;
+  right: 0;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
 }
-.menu {
-  width: 100%;
-  translate: 0 -12px;
+.menuProfileNav {
+  width: 160px;
+  translate: -10px 0;
+  transition: 0.25s ease;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
-.menu.open {
+.menuProfileNav.open {
   visibility: visible;
   opacity: 1;
-  translate: 0 12px;
+  translate: -10px 12px;
 }
 
-.submenu {
-  width: max-content;
-  visibility: hidden;
-  opacity: 0;
+/* Estilos del avatar */
+.avatarProfileNav {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  transition: 0.25s ease;
+}
+
+.nameProfileNav {
+  font-size: 1rem;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.roleProfileNav {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  padding-bottom: 5px;
+  padding-left: 3px;
+  color: #ffffff;
+  font-style: italic;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.489);
+}
+
+
+.btn-perfilNav {
+  letter-spacing: 2px;
+  text-align: end;
+  text-decoration: none;
+  font-size: 1.1rem;
+  width: 100%;
+  padding-right: 15px;
+  margin: 0.2rem 0.2rem 0.2rem 1rem;
+  margin-right: 0;
+  margin-left: 0;
+  gap: 1.5rem;
+  color: #ffffff;
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-perfilNav:hover {
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-perfilNav:active {
+  transform: scale(0.97);
+  transition: transform 0.05s ease;
+  opacity: 0.9;
+}
+
+
+.btn-perfilNav {
+  position: relative;
+}
+
+.btn-perfilNav:hover::after {
+  content: "";
   position: absolute;
   top: 0;
-  left: 100%;
-  translate: -12px 0;
+  right: 0;
+  border-radius: 0.5rem;
+  height: 100%;
+  width: 1px;
+  border-right:3px solid #ffffff;
+  transition: all 0.3s ease;
 }
 
-.menu-item:hover > .submenu-toggle + .submenu {
-  visibility: visible;
-  opacity: 1;
-  translate: 8px 0;
+.btn-profile.clicked {
+  transform: scale(0.97); 
+  transition: transform 0.05s ease;
+}
+
+.btn-profile.clicked:active {
+  transform: scale(1); 
+}
+
+
+
+
+@media screen and (min-width: 600px) { 
+
+  .nameProfileNav {
+    font-size: 1.3rem;
+  }
+
+  .roleProfileNav {
+    font-size: 0.9rem;
+  }
+
+  .menuProfileNav {
+    width: 200px;
+    translate: -10px 0;
+  }
+
+  .menuProfileNav.open {
+    translate: -10px 16px;
+  }
+
+  .avatarProfileNav {
+    width: 60px;
+    height: 60px;
+  }
+
+  .btn-perfilNav {
+    font-size: 1.3rem;
+  }
+  
 }

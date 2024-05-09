@@ -74,11 +74,13 @@ export const CreateInvoice = ({ onAddInvoice }) => {
       name: 'payment_method',
       label: 'Metodo De Pago',
       type: 'select',
-      options: [
-        { value: 'cash', label: 'Efectivo' },
-        { value: 'card', label: 'Tarjeta' },
-        { value: 'transfer', label: 'Transfecia' },
-      ],
+      options: {
+        Estado: {
+          cash: 'Efectivo',
+          card: 'Tarjeta',
+          transfer: 'Transfecia',
+        },
+      },
     },
     {
       name: 'due_date',

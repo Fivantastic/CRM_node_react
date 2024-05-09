@@ -1,14 +1,13 @@
-import { getDBPool } from "../../db/getPool.js";
+import { getDBPool } from '../../db/getPool.js';
 
 export const selectProductListModel = async () => {
+  const pool = getDBPool();
 
-    const pool = getDBPool();
+  // Obtener todos los productos
+  const result = await pool.query(`
+    SELECT id_product, name, description, price, stock, product_status
+    FROM Products
+  `);
 
-    const resoult = await pool.query(
-
-        "SELECT * FROM Products"
-    )
-
-    return resoult[0]
-
+  return result[0];
 };

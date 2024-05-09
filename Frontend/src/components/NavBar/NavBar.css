@@ -176,8 +176,18 @@ a {
 
 .linkPage.active {
   scale: 1.1;
-  border-left: 3px solid #fff;
   transition: all 0.3s ease;
+}
+
+.linkPage.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0.5rem;
+  width: 4px;
+  height: 100%;
+  background: #fff;
 }
 
 .linkPage > .iconSidebar {

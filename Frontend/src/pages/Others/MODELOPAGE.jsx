@@ -6,8 +6,6 @@
 // Aqui los imports que necesites te los listo
 //? Importamos para los efectos de react y su renderizacion
 import { useEffect, useState } from 'react';
-// ? Para poner la ruta que nos lleva a home de nuevo /home
-import { Link } from 'react-router-dom';
 //? LLamamos a nuestro context que es el TOKEN
 import { useUser } from '../../context/authContext.jsx';
 //? Llamamos al componete de crear 
@@ -133,9 +131,6 @@ const addVisit = async () => {
     //! TIENES QUE PASARLE LAS PROPS QUE NECESITAS DENTRO DE CADA COMPONENTE
   return (
     <section className="visit_container">
-      <li>
-        <Link to="/">Home</Link>
-      </li>
       <h1 className="visit_title">Visitas</h1>
       {/* Creamos una nueva visita */}
       <CreateVisit onAddVisit={addVisit} token={token} />

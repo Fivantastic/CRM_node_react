@@ -6,7 +6,7 @@ import { ThemeContext } from '../context/ThemeContext.jsx';
 
 export function MainLayout({ children }) {
   const { theme } = useContext(ThemeContext);
-  const changeMode = theme ? 'dark' : 'light';
+  const changeMode = theme ? 'light' : 'dark';
 
   return (
     <div className="main-layout-container">

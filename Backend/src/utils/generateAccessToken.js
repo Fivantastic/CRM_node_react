@@ -7,6 +7,7 @@ export function generateAccessToken(user) {
       {
         id_user: user.id_user,
         name: user.name,
+        lastName : user.last_name,
         role: user.role,
         avatar: user.avatar
       },

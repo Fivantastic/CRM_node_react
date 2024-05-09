@@ -249,6 +249,7 @@ export async function createDBSchema(db) {
   const password = ADMIN_PASSWORD;
   const hashed_password = await bcrypt.hash(password, 12);
   const registration_code = crypto.randomUUID();
+  const avatarRandom = 'https://i.pravatar.cc/150?u=3456';
 
   //! Aquí podría venir la lógica de enviar un correo electrónico con la contraseña y el registro.
 
@@ -273,8 +274,8 @@ export async function createDBSchema(db) {
 
   await db.query(
     `
-    INSERT INTO Users (id_user, name, last_name, email, phone, password, address_id, role, active, registration_code)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO Users (id_user, name, last_name, email, phone, password, address_id, role, avatar, active, registration_code)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `,
     [
       id_user,
@@ -285,6 +286,7 @@ export async function createDBSchema(db) {
       hashed_password,
       address.id_address,
       ADMIN_ROLE,
+      avatarRandom,
       ADMIN_ACTIVE,
       registration_code,
     ]

@@ -1,6 +1,5 @@
 import { useUser } from "../../context/authContext.jsx";
 import ChangePasswordPop from "../../components/PagesComponents/Profile/ChangePasswordPop.jsx";
-import { Link } from "react-router-dom";
 import { MainLayout } from "../../layout/MainLayout.jsx";
 
 export const ProfilePage = () => {
@@ -9,8 +8,7 @@ export const ProfilePage = () => {
     return (
         <>
             <MainLayout>
-                <li><Link to="/">Home</Link></li>
-                <div>UserPage</div>
+                <h1>UserPage</h1>
                 {user && <ChangePasswordPop token={user} />}
             </MainLayout>
         </>

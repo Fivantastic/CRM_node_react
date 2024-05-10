@@ -80,7 +80,7 @@ export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModule
           });
     }
     return (
-        <nav className="delete_icon">
+        <nav className="mainDeleteBtn">
             <SimpleDeleteButton onClick={handleDelete}/>
         </nav>
     )

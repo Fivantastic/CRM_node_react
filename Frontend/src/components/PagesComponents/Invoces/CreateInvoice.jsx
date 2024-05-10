@@ -74,11 +74,13 @@ export const CreateInvoice = ({ onAddInvoice }) => {
       name: 'payment_method',
       label: 'Metodo De Pago',
       type: 'select',
-      options: [
-        { value: 'cash', label: 'Efectivo' },
-        { value: 'card', label: 'Tarjeta' },
-        { value: 'transfer', label: 'Transfecia' },
-      ],
+      options: {
+        Metodo: {
+          cash: 'Efectivo',
+          card: 'Tarjeta',
+          transfer: 'Transfecia',
+        },
+      },
     },
     {
       name: 'due_date',
@@ -92,7 +94,7 @@ export const CreateInvoice = ({ onAddInvoice }) => {
     sale_id: Joi.string().guid().required(),
     payment_method: Joi.string().valid('cash', 'card', 'transfer').optional(),
     due_date: Joi.date().optional(),
-    /* invoice_status: Joi.string()
+    invoice_status: Joi.string()
       .valid(
         'pending',
         'paid',
@@ -103,7 +105,7 @@ export const CreateInvoice = ({ onAddInvoice }) => {
         'disputed',
         'sent'
       )
-      .required(), */
+      .required(),
   });
 
   const handleClickCreateInvoice = () => {
@@ -117,7 +119,7 @@ export const CreateInvoice = ({ onAddInvoice }) => {
   };
   return (
     <div>
-      <button onClick={handleClickCreateInvoice}>Crear Factura</button>
+      <button id='btnInvoiceCreate' className=" mainCreateBtn" onClick={handleClickCreateInvoice}>Crear Factura</button>
     </div>
   );
 };

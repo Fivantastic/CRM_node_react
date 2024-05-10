@@ -16,7 +16,8 @@ import { InitialPage } from './pages/Others/InitialPage.jsx';
 import { UserPage } from './pages/UserPage.jsx';
 import { CustomerPage } from './pages/Customer/CustomerPage.jsx';
 import { ProfilePage } from './pages/Others/ProfilePage.jsx';
-import { ProductPage } from './pages/ProductPage.jsx';
+import { ProductPage } from './pages/Sales/ProductPage.jsx';
+import './Styles/Pages/GeneralFroms.css';
 import './App.css';
 
 function App() {

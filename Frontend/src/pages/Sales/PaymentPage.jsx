@@ -101,14 +101,14 @@ export const PaymentPage = () => {
 
   return (
     <MainLayout>
-      <section className='payment_container'>
-        <h1>Pagos</h1>
+      <section className='payment_container mainContainer'>
+        <h1 className="payment_title mainTitle">Pagos</h1>
         <CreatePayment onAddPayment={addPayment} token={token} />
-        <ol className='payment_list generic_list'>
+        <ol className='payment_list main_olist'>
         {paymentsList.map((data) => {
             const currentStatus = data.payment_status
             return (
-              <li key={data.id_payment} className='element_payment_content' >
+              <li key={data.id_payment} className='element_payment_content main_ilist' >
                 <PaymentsList payment={data} />
                 {currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'cancelled'} newStatusMessage='Cancelar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />  }
                 {currentStatus !== "paid" && currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'paid'} newStatusMessage='Resolver' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }

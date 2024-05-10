@@ -43,15 +43,13 @@ export const ForgotPassword = () => {
 
 
     return (
-        <div>
-            <DynamicForm
-                title="Recuperar contraseña"
-                onSubmit={handleForgotPasswordSubmit}
-                schema={forgotPasswordUserSchema}
-                fields={forgotPasswordFormFields}
-                buttonText="Recuperar contraseña"
-                extraButtons={[]}
-            />
-        </div>
+        <DynamicForm
+            title="Recuperar contraseña"
+            onSubmit={handleForgotPasswordSubmit}
+            schema={forgotPasswordUserSchema}
+            fields={forgotPasswordFormFields}
+            buttonText="Recuperar contraseña"
+            extraButtons={[]}
+        />
     );
   };

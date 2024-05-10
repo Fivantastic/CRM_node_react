@@ -63,7 +63,6 @@ export const ValidationPage = () => {
 
     return (
         <>
-            
             {showImage && <img src="/cosmic.png" alt="Logo Cosmic" style={{ width: '100%', height: '100vh' }} />}
         </>
     );

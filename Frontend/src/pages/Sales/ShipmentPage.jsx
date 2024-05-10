@@ -121,6 +121,6 @@ const ShipmentPage = () => {
       </section>
     </MainLayout>
   );
-};
 
-export default ShipmentPage;
+}
+export default ShipmentPage

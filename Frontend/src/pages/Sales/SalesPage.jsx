@@ -6,7 +6,7 @@ import { UpdateSale } from '../../components/PagesComponents/Sales/UpdateSale.js
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 
-import '../../components/PopsStyle/ListStyleGeneric.css'
+import '../../components/PopsStyle/ListStyleGeneric.css';
 
 export const SalesPage = () => {
   const token = useUser();
@@ -85,13 +85,13 @@ export const SalesPage = () => {
 
   return (
     <MainLayout>
-    <section className="sale_container">
-      <h1 className="sale_title">Ventas</h1>
+    <section id='sale_container ' className="mainContainer">
+      <h1 id='sale_title' className=" mainTitle">Ventas</h1>
       <CreateSale onAddSale={addSale} token={token} />
-      <ol className='generic_list'>
+      <ol id='sales_list' className=' main_olist'>
         {salesList.map((data) => {
           return (
-            <li key={data.id_sale} className='element_sale_container'>
+            <li key={data.id_sale} id='element_sale_container' className=' main_ilist'>
               <SalesList sale={data} />
               <UpdateSale
                 sale={data.id_sale}

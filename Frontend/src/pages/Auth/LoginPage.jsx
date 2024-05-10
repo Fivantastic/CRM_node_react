@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext.jsx';
 import { useContext } from 'react';
 import'../../components/PopsStyle/PopLoginStyle.css';
@@ -141,8 +141,6 @@ export const LoginPage = () => {
   // ];
 
   return (
-    <div>
-      <li><Link to="/">Home</Link></li>
       <DynamicForm
         title="Login"
         onSubmit={handleLoginSubmit}
@@ -151,7 +149,6 @@ export const LoginPage = () => {
         buttonText={'Entrar'}
         extraButtons={[]}
       />
-    </div>
   );
 };
 

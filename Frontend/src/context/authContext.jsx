@@ -1,11 +1,14 @@
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { renewTokenIfExpired } from '../Services/authService.js';
 import { useLocalStorage } from '../hooks/useLocalStorage.js';
+import { getUserDataFromToken } from '../Services/GetUserDataToken.js';
 
 export const AuthContext = createContext();
+export const RoleContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useLocalStorage('session', '');
+    const [role, setRole] = useState('');
 
     useEffect(() => {
         const renewToken = async () => {
@@ -26,19 +29,31 @@ export const AuthProvider = ({ children }) => {
             return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
         });
 
-        return () => {}; // Esta función de limpieza está vacía para evitar la advertencia de dependencia faltante
+        // Extrae el rol del usuario del token
+        if (user) {
+            const { role } = getUserDataFromToken(user);
+            setRole(role);
+        }
+
+        return () => {}; 
 
     }, [user, setUser]);
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>
-            {children}
+            <RoleContext.Provider value={{ role, setRole }}>
+                {children}
+            </RoleContext.Provider>
         </AuthContext.Provider>
     );
 };
-
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useUser = () => useContext(AuthContext).user;
 // eslint-disable-next-line react-refresh/only-export-components
 export const useSetUser = () => useContext(AuthContext).setUser;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useRole = () => useContext(RoleContext).role;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useSetRole = () => useContext(RoleContext).setRole;

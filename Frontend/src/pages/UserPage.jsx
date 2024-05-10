@@ -91,13 +91,13 @@ export const UserPage = () => {
     
     return (
       <MainLayout>
-        <section className="user_container">
-          <h1 className="user_title">User List</h1>
+        <section id="user_container" className=" mainContainer">
+          <h1 id="user_title" className=" mainTitle">User List</h1>
           <CreateUser onAddUser={addUser} token={token} />
-          <ol className="user_list generic_list">
+          <ol id="user_list" className="main_olist">
             {userList.map((data) => {
               return (
-                <li key={data.id_user} className="element_user_container">
+                <li key={data.id_user} id="element_user_container" className=" main_ilist">
                   <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser}/>
                 </li>
               );

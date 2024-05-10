@@ -56,7 +56,6 @@ export const ResetPassword = () => {
     ];
     
     return (
-        <div>
             <DynamicForm 
                 title="Nueva contraseña"
                 onSubmit={handleResetPasswordSubmit}
@@ -66,6 +65,5 @@ export const ResetPassword = () => {
                 extraButtons={[]}
             
             />
-        </div>
     );
 }

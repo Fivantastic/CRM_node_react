@@ -1,6 +1,5 @@
 import Swal from 'sweetalert2';
 import defaultAvatar from '/profile.svg'; 
-import '../../PagesComponents/User/UserInfoButtonStyle.css'
 import './StyleProfileButton.css'
 
 // Define la función para mostrar la información del usuario

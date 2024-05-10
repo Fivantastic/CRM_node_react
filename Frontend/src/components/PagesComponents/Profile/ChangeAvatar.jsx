@@ -1,8 +1,7 @@
-import Swal from 'sweetalert2';
-import img from '../../../../public/person_add_24dp_FILL0_wght400_GRAD0_opsz24.svg';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { useUser } from '../../../context/authContext.jsx';
 import Joi from 'joi';
+import Swal from 'sweetalert2';
+import { useUser } from '../../../context/authContext.jsx';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
 export const ChangeAvatar = () => {
   const token = useUser();
@@ -94,7 +93,7 @@ export const ChangeAvatar = () => {
   return (
     <div>
       <button onClick={handleClickChangeAvatar} id="avatar-container">
-        <img id="incon-setting" src={img} alt="" />
+        <img id="incon-setting" src="./person_add_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
         <div id="content">
           <h3>Avatar</h3>
           <p id="info">Cambiar</p>

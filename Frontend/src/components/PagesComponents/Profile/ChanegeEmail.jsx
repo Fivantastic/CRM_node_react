@@ -1,5 +1,4 @@
 import Joi from 'joi';
-import img from '../../../../public/forward_to_inbox_24dp_FILL0_wght400_GRAD0_opsz24.svg';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
@@ -94,7 +93,7 @@ export const ChanegeEmail = () => {
   return (
     <div>
       <button onClick={handleClickChangeAvatar} id="avatar-container">
-        <img id="incon-setting" src={img} alt="" />
+        <img id="incon-setting" src='forward_to_inbox_24dp_FILL0_wght400_GRAD0_opsz24.svg' alt="" />
         <div id="content">
           <h3>Email</h3>
           <p id="info">Cambiar</p>

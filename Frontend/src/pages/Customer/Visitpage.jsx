@@ -96,12 +96,12 @@ const addVisit = async () => {
 
   return (
     <MainLayout>
-    <section className="visit_container">
-      <h1 className="visit_title">Visitas</h1>
+    <section id='visit_container' className=" mainContainer">
+      <h1 id='visit_title' className=" mainTitle">Visitas</h1>
       <CreateVisit onAddVisit={addVisit} token={token} />
-      <ol className="visit_list generic_list">
+      <ol id='visit_list' className="main_olist">
         {visitList.map((visit) => (
-          <li key={visit.id_visit} className='element_visit_container'>
+          <li key={visit.id_visit} id='element_visit_container' className=' main_ilist'>
             <VisitsList visit={visit} />
             <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit} />
             <DeleteGenericModal id={visit.id_visit} onDelete={deleteVisit} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />

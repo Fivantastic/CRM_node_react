@@ -122,7 +122,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
 
     return (
         <div>
-          <button onClick={handleClickCreateProduct}>Agregar producto</button>
+          <button className="btnProductCreate mainCreateBtn" onClick={handleClickCreateProduct}>Agregar producto</button>
         </div>
     );
 

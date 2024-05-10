@@ -84,8 +84,8 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
   };
 
   return (
-    <div>
-      <button onClick={handleClickCreateDeliveryNote}>Crear Nota de Entrega</button>
-    </div>
+    <>
+      <button className="btnNoteCreate mainCreateBtn" onClick={handleClickCreateDeliveryNote}>Crear Nota de Entrega</button>
+    </>
   );
 };

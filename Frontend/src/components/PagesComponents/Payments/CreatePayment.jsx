@@ -1,6 +1,6 @@
 import Joi from "joi";
-import DynamicFormPopUp from "../../forms/DynamicFormPopUp";
 import Swal from "sweetalert2";
+import DynamicFormPopUp from "../../forms/DynamicFormPopUp";
 
 export const CreatePayment = ({onAddPayment, token}) => {
   // Modelo swal

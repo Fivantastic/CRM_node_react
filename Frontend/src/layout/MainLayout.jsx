@@ -1,8 +1,8 @@
 import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext.jsx';
 import { Header } from '../components/Header/Header.jsx';
 import { NavBar } from '../components/NavBar/NavBar.jsx';
 import './mainLayout.css';
-import { ThemeContext } from '../context/ThemeContext.jsx';
 
 export function MainLayout({ children }) {
   const { theme } = useContext(ThemeContext);

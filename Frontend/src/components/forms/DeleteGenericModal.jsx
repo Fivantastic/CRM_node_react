@@ -1,7 +1,5 @@
 import Swal from "sweetalert2";
-// import { DeleteButton } from "../buttons/DeleteButtom.jsx";
 import { SimpleDeleteButton } from "../buttons/DeleteButtons/SimpleDeleteButton.jsx";
-
 
 export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage }) => {
     const handleDelete = async () => {

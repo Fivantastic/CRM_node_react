@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { useUser } from '../../context/authContext.jsx';
+import { useEffect, useState } from 'react';
+import { MainLayout } from '../../layout/MainLayout.jsx';
+import { CreatePayment } from '../../components/PagesComponents/Payments/CreatePayment.jsx';
 import { PaymentsList } from '../../components/PagesComponents/Payments/PaymentsList.jsx';
 import { ChangeStatus } from '../../components/forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
-import { CreatePayment } from '../../components/PagesComponents/Payments/CreatePayment.jsx';
-import { MainLayout } from '../../layout/MainLayout.jsx';
-
-import '../../components/PopsStyle/ListStyleGeneric.css'
-import Swal from 'sweetalert2';
 
 // Modelo swal
 const Toast = Swal.mixin({

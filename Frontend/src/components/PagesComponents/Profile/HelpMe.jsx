@@ -1,8 +1,7 @@
 import Joi from 'joi';
-import img from '../../../../public/help_24dp_FILL0_wght400_GRAD0_opsz24.svg';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
 export const HelpMe = () => {
   const token = useUser();
@@ -94,7 +93,7 @@ export const HelpMe = () => {
   return (
     <div>
       <button onClick={handleClickHelp} id="avatar-container">
-        <img id="incon-setting" src={img} alt="" />
+        <img id="incon-setting" src='help_24dp_FILL0_wght400_GRAD0_opsz24.svg' alt="" />
         <div id="content">
           <h3>Ayuda</h3>
           <p id="info">Cambiar</p>

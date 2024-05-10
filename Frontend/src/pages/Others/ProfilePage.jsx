@@ -13,9 +13,7 @@ export const ProfilePage = () => {
   return (
     <MainLayout>
       <section id="profile_container" className="mainContainer">
-        <h1 id="profile_title" className=" mainTitle">
-          Settings
-        </h1>
+        <h1 id="profile_title" className=" mainTitle">Settings</h1>
         <section id="account">
           {user && <ChangePasswordPop token={user} />}
           <ChangeAvatar />

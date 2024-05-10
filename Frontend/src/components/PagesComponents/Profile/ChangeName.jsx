@@ -1,8 +1,7 @@
 import Joi from 'joi';
-import img from '../../../../public/badge_24dp_FILL0_wght400_GRAD0_opsz24.svg';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
 export const ChangeName = () => {
   const token = useUser();
@@ -94,7 +93,7 @@ export const ChangeName = () => {
   return (
     <div>
       <button onClick={handleClickChangeName} id="avatar-container">
-        <img id="incon-setting" src={img} alt="" />
+        <img id="incon-setting" src='badge_24dp_FILL0_wght400_GRAD0_opsz24.svg' alt="" />
         <div id="content">
           <h3>Nombre</h3>
           <p id="info">Cambiar</p>

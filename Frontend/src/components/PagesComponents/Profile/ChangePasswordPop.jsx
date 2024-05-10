@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
-import img from '../../../../public/password_24dp_FILL0_wght400_GRAD0_opsz24.svg';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
 
@@ -123,7 +122,7 @@ const ChangePasswordPop = ({ token }) => {
   return (
     <div>
       <button onClick={handleClickChangePassword} id="avatar-container">
-        <img id="incon-setting" src={img} alt="" />
+        <img id="incon-setting" src='password_24dp_FILL0_wght400_GRAD0_opsz24.svg' alt="" />
         <div id="content">
           <h3>Contraseña</h3>
           <p id="info">Cambiar</p>

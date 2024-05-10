@@ -42,7 +42,7 @@ import { shipmentCreateController } from './Modules/shipment/shipmentCreateContr
 import { shipmentUpdateController } from './Modules/shipment/shipmentUpdateController.js';
 import { deleteShipmentController } from './Modules/shipment/deleteShipmentController.js';
 import { closeShipmentController } from './Modules/shipment/closeShipmentController.js';
-
+import { shipmentRouteController } from './Modules/shipment/shipmentRouteController.js'
 // Exportar todos los controladores
 export {
   getModuleController,
@@ -71,6 +71,7 @@ export {
   deleteDeliveryNoteController,
   shipmentCreateController,
   shipmentUpdateController,
+  shipmentRouteController,
   deleteShipmentController,
   closeShipmentController,
   getDeliveryNotesController,

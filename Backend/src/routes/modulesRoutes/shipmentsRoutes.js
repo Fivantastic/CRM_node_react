@@ -4,6 +4,7 @@ import {
   deleteShipmentController,
   shipmentCreateController,
   shipmentUpdateController,
+  shipmentRouteController,
 } from '../../controllers/modulesControllers.js';
 import { shipmentExist } from '../../middlewares/shipmentExist.js';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
@@ -38,3 +39,5 @@ shipmentRouter.put(
   shipmentExist,
   closeShipmentController
 );
+// Ruta para obtener la hoja de ruta de los repartidores
+shipmentRouter.get('/shipment/route', shipmentRouteController);

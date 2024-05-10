@@ -75,7 +75,7 @@ export const CreateInvoice = ({ onAddInvoice }) => {
       label: 'Metodo De Pago',
       type: 'select',
       options: {
-        Estados: {
+        Metodo: {
           cash: 'Efectivo',
           card: 'Tarjeta',
           transfer: 'Transfecia',
@@ -119,7 +119,12 @@ export const CreateInvoice = ({ onAddInvoice }) => {
   };
   return (
     <div>
-      <button className="btnInvoiceCreate mainCreateBtn" onClick={handleClickCreateInvoice}>Crear Factura</button>
+      <button
+        className="btnInvoiceCreate mainCreateBtn"
+        onClick={handleClickCreateInvoice}
+      >
+        Crear Factura
+      </button>
     </div>
   );
 };

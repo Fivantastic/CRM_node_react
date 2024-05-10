@@ -1,34 +1,37 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
+import img from '../../../../public/password_24dp_FILL0_wght400_GRAD0_opsz24.svg';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
-const ChangePasswordPop = ({token}) => {
 
-
-  const handleChangePassword = async ( formData) => {
+const ChangePasswordPop = ({ token }) => {
+  const handleChangePassword = async (formData) => {
     try {
       const { newPassword, repeatPassword } = formData;
 
       if (newPassword !== repeatPassword) {
         console.error('Las contraseñas no coinciden');
         return;
-      } 
-      
+      }
+
       // Crea el objeto de datos para la petición
       const data = {
         currentPassword: formData.currentPassword,
-        newPassword: formData.newPassword
+        newPassword: formData.newPassword,
       };
 
-      const response = await fetch('http://localhost:3000/user/change-password', {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        'http://localhost:3000/user/change-password',
+        {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const responseData = await response.json();
@@ -36,25 +39,23 @@ const ChangePasswordPop = ({token}) => {
 
         const Toast = Swal.mixin({
           toast: true,
-          position: "bottom-end",
+          position: 'bottom-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
-          }
+          },
         });
         Toast.fire({
-          icon: "success",
-          title: "Contraseña cambiada con exito"
+          icon: 'success',
+          title: 'Contraseña cambiada con exito',
         });
-
-
       } else {
         const errorData = await response.json();
         console.error('Error al cambiar la contraseña:', errorData);
-        
+
         if (errorData.code === 'INVALID_PASSWORD_CRM_ERROR') {
           Swal.fire({
             icon: 'error',
@@ -62,7 +63,6 @@ const ChangePasswordPop = ({token}) => {
           }).then((result) => {
             if (result.isConfirmed) {
               // Recarga de nuevo el boton de modificar contraseña modal
-              
             }
           });
         }
@@ -92,32 +92,42 @@ const ChangePasswordPop = ({token}) => {
       name: 'repeatPassword',
       type: 'password',
       label: 'Repetir nueva contraseña',
-    }
+    },
   ];
 
   const updatePasswordSchema = Joi.object({
     currentPassword: Joi.string()
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
-    .required()
-    .label('Contraseña actual'),
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
+      .required()
+      .label('Contraseña actual'),
     newPassword: Joi.string()
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
-    .required()
-    .label('Nueva contraseña'),
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
+      .required()
+      .label('Nueva contraseña'),
     repeatPassword: Joi.string()
-    .valid(Joi.ref('newPassword'))
-    .required()
-    .label('Repetir nueva contraseña'),
+      .valid(Joi.ref('newPassword'))
+      .required()
+      .label('Repetir nueva contraseña'),
   });
 
   const handleClickChangePassword = () => {
-    DynamicFormPopUp(title, updatePasswordFields, updatePasswordSchema, handleChangePassword, nameButton);
+    DynamicFormPopUp(
+      title,
+      updatePasswordFields,
+      updatePasswordSchema,
+      handleChangePassword,
+      nameButton
+    );
   };
 
   return (
     <div>
-      <button onClick={handleClickChangePassword}>
-        Cambiar contraseña
+      <button onClick={handleClickChangePassword} id="avatar-container">
+        <img id="incon-setting" src={img} alt="" />
+        <div id="content">
+          <h3>Contraseña</h3>
+          <p id="info">Cambiar</p>
+        </div>
       </button>
     </div>
   );

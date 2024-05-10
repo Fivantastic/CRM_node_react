@@ -5,6 +5,18 @@ import './StyleProfileButton.css'
 
 // Define la función para mostrar la información del usuario
 const showUserInfo = (userData) => {
+
+    const traducirRole = (role) => {
+      switch (role) {
+        case 'admin':
+          return 'Administrador';
+        case 'deliverer':
+          return 'Repartidor';
+        case 'salesAgent':
+          return 'Comercial';
+        default:
+      }
+    }  
     // Construye el contenido del modal con la información del usuario
     const addressConcatenated = userData.address ? `${userData.address} ${userData.number}, ${userData.floor ? 'Piso ' + userData.floor : ''} ${userData.letter_number ? 'Letra ' + userData.letter_number : ''}, ${userData.city}` : 'Dirección no disponible';
   
@@ -19,14 +31,14 @@ const showUserInfo = (userData) => {
           </div>
         </div>
         <div class="container-details">
-          <p><strong>Nombre:</strong> ${userData.name}</p>
-          <p><strong>Apellidos:</strong> ${userData.last_name}</p>
-          <p><strong>Email:</strong> ${userData.email}</p>
-          <p><strong>Teléfono:</strong> ${userData.phone}</p>
-          <p><strong>Dirección:</strong> ${addressConcatenated}</p>
-          <p><strong>Rol en la empresa:</strong> ${userData.role}</p>
-          <p><strong>Estado:</strong> ${isActive}</p>
-          <p><strong>Biografía:</strong> ${userData.biography}</p>
+          <p><strong>Nombre: </strong> ${userData.name}</p>
+          <p><strong>Apellidos: </strong> ${userData.last_name}</p>
+          <p><strong>Email: </strong> ${userData.email}</p>
+          <p><strong>Teléfono: </strong> ${userData.phone}</p>
+          <p><strong>Dirección: </strong> ${addressConcatenated}</p>
+          <p><strong>Rol en la empresa: </strong> ${traducirRole(userData.role)}</p>
+          <p><strong>Estado: </strong> ${isActive}</p>
+          <p><strong>Biografía: </strong> ${userData.biography}</p>
         </div>
       </section>
     `;

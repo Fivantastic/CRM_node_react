@@ -6,11 +6,12 @@ export const ProfilePage = () => {
     const user = useUser(); 
 
     return (
-        <>
-            <MainLayout>
-            <h1>User settings</h1>
+        <MainLayout>
+            <section id='profile_container' className='mainContainer'>
+                <h1 id='profile_title' className=' mainTitle'>User settings</h1>
                 {user && <ChangePasswordPop token={user} />}
-            </MainLayout>
-        </>
+            </section>
+         </MainLayout>
+
     );
 };

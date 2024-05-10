@@ -82,13 +82,13 @@ export const ProductPage = () => {
     };
     return (
         <MainLayout>
-            <section className="product_container mainContainer">
-                <h1 className="product_title mainTitle">Products</h1>
+            <section id="product_container " className="mainContainer">
+                <h1 id="product_title" className=" mainTitle">Products</h1>
                 <CreateProduct onAddProduct={addProduct} token={token} />
-                <ol className="product_list main_olist">
+                <ol id="product_list" className=" main_olist">
                     {productList.map((data)=> { 
                         return ( 
-                        <li key={data.id_product} className="element_product_container main_ilist">
+                        <li key={data.id_product} id="element_product_container " className="main_ilist">
                             <ProductList product={data} />
                             <UpdateProduct product={data.id_product} onUpdateProduct={updateProduct} />
                             <DeleteGenericModal id={data.id_product} onDelete={productDelete} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />

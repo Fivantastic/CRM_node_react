@@ -13,18 +13,19 @@ export const PaymentsList = ( { payment } ) => {
   
   return (
       <>
-        <h2 className="element_payment_title mainInsideTitle"><strong>Pago:</strong> {payment.paid_amount}€</h2>
-        <p className="element_payment_subtitle mainInsideSub"><strong>Fecha de pago:</strong> {paidDate.toLocaleDateString()}</p>
+        <h2 id="element_payment_title" className=" mainInsideTitle">Registro de Pago</h2>
+        <h3 id="element_payment_paid" className=" mainInsideTitle"><strong>Pago: </strong> {payment.paid_amount}€</h3>
+        <p id="element_payment_subtitle" className=" mainInsideSub"><strong>Fecha de pago: </strong> {paidDate.toLocaleDateString()}</p>
 
-        <h3 className="element_payment_section mainSubSection">Factura asociada</h3>
+        <h3 id="element_payment_section" className=" mainSubSection">Factura asociada</h3>
         <p>{payment.id_invoice}</p>
 
-        <h3 className="element_payment_section mainSubSection">Cliente</h3>
-        <p><strong>Nombre:</strong> {payment.customer}</p>
-        <p><strong>Email:</strong> {payment.customer_email}</p>
-        <p><strong>Telefono:</strong> {payment.customer_phone}</p>
+        <h3 id="element_payment_section " className="mainSubSection">Cliente</h3>
+        <p><strong>Nombre: </strong> {payment.customer}</p>
+        <p><strong>Email: </strong> {payment.customer_email}</p>
+        <p><strong>Telefono: </strong> {payment.customer_phone}</p>
 
-        <h3 className="payment_status  mainStatusSection" style={{color: statusColor}}>{message}</h3>
+        <h3 id="payment_status" className="mainStatusSection" style={{color: statusColor}}>{message}</h3>
       </>
   );
 };

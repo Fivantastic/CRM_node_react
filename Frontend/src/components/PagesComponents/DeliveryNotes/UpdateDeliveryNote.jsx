@@ -86,7 +86,7 @@ export const UpdateDelivery = ({ deliveryNote, token }) => {
 
   return (
     <>
-      <button className="btnNoteUpdate mainUpdateBtn" onClick={handleUpdateDelivery}>Actualizar Nota de Entrega</button>
+      <button id='btnNoteUpdate' className="mainUpdateBtn" onClick={handleUpdateDelivery}>Actualizar Albarán</button>
     </>
   );
 };

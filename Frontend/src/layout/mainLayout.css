@@ -13,30 +13,62 @@
 .navbar-layout {
   grid-area: navbar;
   position: sticky;
-  z-index: -1;
+  z-index: 2;
 }
 
 .header-layout {
   grid-area: header;
+  position: sticky;
+  z-index: 1;
+  background-color: #ffffff;
 }
 
 .main-layout {
   grid-area: main;
   overflow: auto;
+  z-index: 0;
+  background-color: #f0f0f6;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
 
+/* MODO DARK */
 .main-layout-container #dark {
   background-color: #333333;
   color: #ffffff;
   border: #ffffff;
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.944);
 }
+
+/* .navbar-layout #dark {
+ 
+} */
+
+/* .header-layout #dark {
+  background-color: #333333;
+} */
+
+.main-layout #dark {
+  background-color: #333333;
+  color:  black;
+  border: #ffffff;
+}
+
+/* MODO LIGHT */
 .main-layout-container #light {
-  background-color: #f0f0f6;
   color: rgb(12, 12, 12);
   border: #2b2a2a;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
+
+/* .navbar-layout #light {
+
+} */
+
+/* .header-layout #light {
+
+} */
+
+/* .main-layout #light {
+
+} */
 
 @media screen and (min-width: 600px) {
   .main-layout-container {

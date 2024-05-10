@@ -91,18 +91,20 @@ export const SalesPage = () => {
           return (
             <li key={data.id_sale} id='element_sale_container' className=' main_ilist'>
               <SalesList sale={data} />
-              <UpdateSale
-                sale={data.id_sale}
-                onUpdateSale={updateSale}
-                token={token}
-              />
-              <DeleteGenericModal
-                id={data.id_sale}
-                onDelete={deleteSale}
-                token={token}
-                typeModule={typeModule}
-                typeModuleMessage={typeModuleMessage}
-              />
+              <span id='sales_actions' className='main_actions'>
+                <UpdateSale
+                  sale={data.id_sale}
+                  onUpdateSale={updateSale}
+                  token={token}
+                />
+                <DeleteGenericModal
+                  id={data.id_sale}
+                  onDelete={deleteSale}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
+              </span>
             </li>
           );
         })}

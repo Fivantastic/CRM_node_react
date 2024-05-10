@@ -12,7 +12,9 @@ export function MainLayout({ children }) {
     <div className="main-layout-container">
       <NavBar className="navbar-layout" />
       <Header className="header-layout" />
-      <main className={`main-layout ${changeMode}`}>{children}</main>
+      <main className={`main-layout ${changeMode}`} id={`${changeMode}`}>
+        {children}
+      </main>
     </div>
   );
 }

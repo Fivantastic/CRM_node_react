@@ -6,16 +6,6 @@
   box-sizing: border-box;
 }
 
-main.dark {
-  background-color: #333333;
-  color: #ffffff;
-}
-main.light {
-  background-color: #f0f0f6;
-  color: rgb(12, 12, 12);
-}
-
 body {
   font-family: 'Montserrat', sans-serif;
-                                                
 }

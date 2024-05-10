@@ -6,7 +6,7 @@ import { UpdateSale } from '../../components/PagesComponents/Sales/UpdateSale.js
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 
-import '../../components/PopsStyle/ListStyleGeneric.css'
+import '../../components/PopsStyle/ListStyleGeneric.css';
 
 export const SalesPage = () => {
   const token = useUser();
@@ -85,31 +85,34 @@ export const SalesPage = () => {
 
   return (
     <MainLayout>
-    <section className="sale_container mainContainer">
-      <h1 className="sale_title mainTitle">Ventas</h1>
-      <CreateSale onAddSale={addSale} token={token} />
-      <ol className='sales_list main_olist'>
-        {salesList.map((data) => {
-          return (
-            <li key={data.id_sale} className='element_sale_container main_ilist'>
-              <SalesList sale={data} />
-              <UpdateSale
-                sale={data.id_sale}
-                onUpdateSale={updateSale}
-                token={token}
-              />
-              <DeleteGenericModal
-                id={data.id_sale}
-                onDelete={deleteSale}
-                token={token}
-                typeModule={typeModule}
-                typeModuleMessage={typeModuleMessage}
-              />
-            </li>
-          );
-        })}
-      </ol>
-    </section>
+      <section className="sale_container mainContainer">
+        <h1 className="sale_title mainTitle">Ventas</h1>
+        <CreateSale onAddSale={addSale} token={token} />
+        <ol className="sales_list main_olist">
+          {salesList.map((data) => {
+            return (
+              <li
+                key={data.id_sale}
+                className="element_sale_container main_ilist"
+              >
+                <SalesList sale={data} />
+                <UpdateSale
+                  sale={data.id_sale}
+                  onUpdateSale={updateSale}
+                  token={token}
+                />
+                <DeleteGenericModal
+                  id={data.id_sale}
+                  onDelete={deleteSale}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
+              </li>
+            );
+          })}
+        </ol>
+      </section>
     </MainLayout>
   );
 };

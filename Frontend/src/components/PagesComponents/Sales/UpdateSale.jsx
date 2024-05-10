@@ -64,14 +64,14 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
   const updateSaleFormFields = [
     {
       name: 'product',
-      label: 'Producto de venta',
+      label: 'Producto',
       type: 'text',
       placeholder: 'Introduce el producto...',
       required: true,
     },
     {
       name: 'quantity',
-      label: 'Cantidad de productos',
+      label: 'Cantidad',
       type: 'text',
       placeholder: 'Introduce la cantidad de producto...',
       required: true,

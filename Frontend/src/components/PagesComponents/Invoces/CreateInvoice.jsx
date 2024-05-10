@@ -75,7 +75,7 @@ export const CreateInvoice = ({ onAddInvoice }) => {
       label: 'Metodo De Pago',
       type: 'select',
       options: {
-        Estados: {
+        Metodo: {
           cash: 'Efectivo',
           card: 'Tarjeta',
           transfer: 'Transfecia',

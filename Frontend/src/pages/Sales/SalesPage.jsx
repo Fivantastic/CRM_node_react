@@ -6,7 +6,7 @@ import { UpdateSale } from '../../components/PagesComponents/Sales/UpdateSale.js
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 
-import '../../components/PopsStyle/ListStyleGeneric.css'
+import '../../components/PopsStyle/ListStyleGeneric.css';
 
 export const SalesPage = () => {
   const token = useUser();

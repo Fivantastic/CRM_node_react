@@ -85,13 +85,13 @@ export const SalesPage = () => {
 
   return (
     <MainLayout>
-    <section className="sale_container">
-      <h1 className="sale_title">Ventas</h1>
+    <section className="sale_container mainContainer">
+      <h1 className="sale_title mainTitle">Ventas</h1>
       <CreateSale onAddSale={addSale} token={token} />
-      <ol className='generic_list'>
+      <ol className='sales_list main_olist'>
         {salesList.map((data) => {
           return (
-            <li key={data.id_sale} className='element_sale_container'>
+            <li key={data.id_sale} className='element_sale_container main_ilist'>
               <SalesList sale={data} />
               <UpdateSale
                 sale={data.id_sale}

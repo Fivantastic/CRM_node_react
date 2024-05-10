@@ -92,6 +92,8 @@ export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , newStatus, n
 }
 
   return (
-    <button onClick={handleStatusChange}>{newStatusMessage}</button>
+    <>
+      <button className="btnPaymentChangeStatus mainChangeStatusBtn" onClick={handleStatusChange}>{newStatusMessage}</button>
+    </>
   )
 }

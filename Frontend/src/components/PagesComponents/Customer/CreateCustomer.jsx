@@ -113,8 +113,8 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
     );
   };
   return (
-    <div>
-      <button onClick={handleClickCreateCustomer}>Crear Cliente</button>
-    </div>
+    <>
+      <button className="btnCustomerCreate mainCreateBtn" onClick={handleClickCreateCustomer}>Crear Cliente</button>
+    </>
   );
 };

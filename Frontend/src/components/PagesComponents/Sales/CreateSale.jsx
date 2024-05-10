@@ -100,8 +100,8 @@ export const CreateSale = ({ onAddSale, token }) => {
     );
   };
   return (
-    <div>
-      <button onClick={handleClickCreateSale}>Crear Venta</button>
-    </div>
+    <>
+      <button className="btnSalesCreate mainCreateBtn" onClick={handleClickCreateSale}>Crear Venta</button>
+    </>
   );
 };

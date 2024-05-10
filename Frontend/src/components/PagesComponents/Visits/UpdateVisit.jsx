@@ -115,7 +115,7 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
 
   return (
     <>
-      <button onClick={handleUpdateVisit}>Actualizar Venta</button>
+      <button className="btnVisitUpdate mainVisitBtn" onClick={handleUpdateVisit}>Actualizar Venta</button>
     </>
   );
 };

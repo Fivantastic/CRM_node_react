@@ -95,13 +95,13 @@ export const CustomerPage = () => {
 
   return (
     <MainLayout>
-      <section className="customer_container">
-        <h1 className="customer_title">Clientes</h1>
+      <section className="customer_container mainContainer">
+        <h1 className="customer_title mainTitle">Clientes</h1>
         <CreateCustomer onAddCustomer={addCustomer} token={token} />
-        <ol className='customers_list generic_list'>
+        <ol className='customers_list main_olist'>
           {listCustomer.map((data) => {
             return (
-              <li key={data.id_customer} className='element'>
+              <li key={data.id_customer} className='element_customer_container main_ilist'>
                 <CustomerList customer={data} />
                 <UpdateCustomer
                   customer={data.id_customer}

@@ -66,27 +66,25 @@ export const DeliveryNotePage = () => {
 
   return (
     <MainLayout>
-    <section className='note_container'>
-      <h1 className='note_title'>Notas de Entrega</h1>
-      <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
-      <ol className='note_list generic_list'>
-        {deliveryNotesList.map((data) => (
-          <li key={data.id_note} className='element_note_container'>
-            <DeliveryNoteList deliveryNote={data} />
-            <UpdateDelivery deliveryNote={data.id_note} token={token} />
-            <DeleteGenericModal
-              id={data.id_note}
-              onDelete={deleteDeliveryNote}
-              token={token}
-              typeModule={typeModule}
-              typeModuleMessage={typeModuleMessage}
-            />
-          </li>
-        ))}
-      </ol>
-    </section>
+      <section className='note_container mainContainer'>
+        <h1 className='note_title mainTitle'>Notas de Entrega</h1>
+        <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
+        <ol className='note_list main_olist'>
+          {deliveryNotesList.map((data) => (
+            <li key={data.id_note} className='element_note_container main_ilist'>
+              <DeliveryNoteList deliveryNote={data} />
+              <UpdateDelivery deliveryNote={data.id_note} token={token} />
+              <DeleteGenericModal
+                id={data.id_note}
+                onDelete={deleteDeliveryNote}
+                token={token}
+                typeModule={typeModule}
+                typeModuleMessage={typeModuleMessage}
+              />
+            </li>
+          ))}
+        </ol>
+      </section>
     </MainLayout>
   );
 };
-
-export default DeliveryNotePage;

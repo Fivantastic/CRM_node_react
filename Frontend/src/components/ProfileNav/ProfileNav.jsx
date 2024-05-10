@@ -39,7 +39,7 @@ export const ProfileNav = () => {
         return 'Administrador';
       case 'deliverer':
         return 'Repartidor';
-      case 'saleAgent':
+      case 'salesAgent':
         return 'Comercial';
       default:
         return role;

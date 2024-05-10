@@ -101,7 +101,7 @@ export const CreatePayment = ({onAddPayment, token}) => {
   };
 
     return (
-        <div>
-            <button onClick={handleClickCreatePayment}>Crear Pago</button>
-        </div>
+        <>
+            <button className="btnPaymentCreate mainCreateBtn" onClick={handleClickCreatePayment}>Crear Pago</button>
+        </>
     )}

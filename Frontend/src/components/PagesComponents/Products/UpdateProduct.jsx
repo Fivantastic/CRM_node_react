@@ -122,9 +122,9 @@ const handleUpdateProduct = () => {
 };
 
 return (
-    <div>
-        <button onClick={handleUpdateProduct}>Actualizar Producto</button>
-    </div>
+    <>
+        <button className="btnProductUpdate mainUpdateBtn" onClick={handleUpdateProduct}>Actualizar Producto</button>
+    </>
 );
 
 } 

@@ -1,7 +1,7 @@
 import Joi from 'joi';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { useUser } from '../../../context/authContext.jsx';
 import Swal from 'sweetalert2';
+import { useUser } from '../../../context/authContext.jsx';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
 export const UpdateVisit = ({ visit, onUpdateSale }) => {
   // Asi obtienes el token del usuario de la sesión

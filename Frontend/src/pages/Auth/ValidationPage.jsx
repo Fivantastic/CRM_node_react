@@ -1,6 +1,6 @@
+import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
 
 export const ValidationPage = () => {
     const { registration_code } = useParams();

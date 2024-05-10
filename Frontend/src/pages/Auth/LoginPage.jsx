@@ -1,14 +1,12 @@
 import Joi from 'joi';
-import DynamicForm from '../../components/forms/DynamicForm.jsx';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/authContext.jsx';
-import { useContext } from 'react';
-import'../../components/PopsStyle/PopLoginStyle.css';
 import Swal from 'sweetalert2';
+import { useSetUser } from '../../context/authContext.jsx';
+import { useNavigate } from 'react-router-dom';
+import DynamicForm from '../../components/forms/DynamicForm.jsx';
 
 export const LoginPage = () => {
   const navigate = useNavigate(); 
-  const { setUser } = useContext(AuthContext);
+  const setUser = useSetUser();
 
   const handleLoginSubmit = async (data) => {
     try {
@@ -32,29 +30,6 @@ export const LoginPage = () => {
 
         // Actualizar el token en el localStorage y en el estado del contexto
         setUser(newToken); 
-
-        // Opcion Modal 1
-        // await Swal.fire({
-        //   title: "Login successful!",
-        //   text: "Welcome, " + username + ".",
-        //   icon: "success"
-        // }).then((result) => {
-        //   if (result.isConfirmed) {
-        //     navigate('/home');
-        //   }
-        // });
-
-        // Opcion Modal 2
-        // await Swal.fire({
-        //   title: "Login successful!",
-        //   text: "Welcome, " + username + ".",
-        //   icon: "success",
-        //   allowOutsideClick: false // Evitar que el usuario cierre el modal haciendo clic fuera de él
-        // }).then((result) => {
-        //   if (result.isConfirmed || result.dismiss === Swal.DismissReason.overlay || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.close) {
-        //     navigate('/home');
-        //   }
-        // });
 
         // Opcion Modal 3
         const Toast = Swal.mixin({

@@ -120,7 +120,7 @@ export const UpdateCustomer = ({ customer, token, onUpdateCustomer }) => {
 
   return (
     <>
-      <button className="btnCustomerUpdate mainUpdateBtn" onClick={handleUpdateCustomer}>Actualizar Cliente</button>
+      <button id='btnCustomerUpdate ' className="mainUpdateBtn" onClick={handleUpdateCustomer}>Actualizar Cliente</button>
     </>
   );
 };

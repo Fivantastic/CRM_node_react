@@ -1,11 +1,11 @@
 import { useUser } from '../../context/authContext.jsx';
 import ChangePasswordPop from '../../components/PagesComponents/Profile/ChangePasswordPop.jsx';
 import { MainLayout } from '../../layout/MainLayout.jsx';
-import '../../components/PagesComponents/Profile/changeAvatar.css';
 import { ChangeAvatar } from '../../components/PagesComponents/Profile/ChangeAvatar.jsx';
 import { ChanegeEmail } from '../../components/PagesComponents/Profile/ChanegeEmail.jsx';
 import { ChangeName } from '../../components/PagesComponents/Profile/ChangeName.jsx';
 import { HelpMe } from '../../components/PagesComponents/Profile/HelpMe.jsx';
+import '../../components/PagesComponents/Profile/ChangeAvatar.jsx';
 
 export const ProfilePage = () => {
   const user = useUser();

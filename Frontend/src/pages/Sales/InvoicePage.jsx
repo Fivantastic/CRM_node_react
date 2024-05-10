@@ -87,13 +87,13 @@ export const InvoicePage = () => {
 
   return (
     <MainLayout>
-      <section className="invoice_container mainContainer">
-        <h1 className="invoice_title mainTitle">Facturas</h1>
+      <section id='invoice_container' className=" mainContainer">
+        <h1 id='invoice_title' className=" mainTitle">Facturas</h1>
         <CreateInvoice onAddInvoice={addInvoice} token={token} />
-        <ol className='invoice_list main_olist'>
+        <ol id='invoice_list' className=' main_olist'>
           {invoiceList.map((data) => {
             return (
-              <li key={data.id_invoice} className='element_invoice_container main_ilist'>
+              <li key={data.id_invoice} id='element_invoice_container' className=' main_ilist'>
                 <InvoicesList invoice={data} />
                 <ClosedInvoice
                   invoice={data.id_invoice}

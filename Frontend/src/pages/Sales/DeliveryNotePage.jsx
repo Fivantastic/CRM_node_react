@@ -66,12 +66,12 @@ export const DeliveryNotePage = () => {
 
   return (
     <MainLayout>
-      <section className='note_container mainContainer'>
-        <h1 className='note_title mainTitle'>Notas de Entrega</h1>
+      <section id='note_container' className='note_container mainContainer'>
+        <h1 id='note_title' className=' mainTitle'>Notas de Entrega</h1>
         <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
         <ol className='note_list main_olist'>
           {deliveryNotesList.map((data) => (
-            <li key={data.id_note} className='element_note_container main_ilist'>
+            <li key={data.id_note} id='element_note_container' className='main_ilist'>
               <DeliveryNoteList deliveryNote={data} />
               <UpdateDelivery deliveryNote={data.id_note} token={token} />
               <DeleteGenericModal

@@ -6,9 +6,8 @@ export const HomePage = () => {
 
   return (
     <MainLayout>
-      <section>
-        <h1>Dashboard</h1>
-
+      <section id='dashboard_container' className='note_container mainContainer'>
+        <h1 id='dashboard_title' className=' mainTitle'>Dashboard</h1>
       </section>
     </MainLayout>
   );

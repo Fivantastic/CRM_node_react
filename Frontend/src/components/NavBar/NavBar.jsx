@@ -18,7 +18,7 @@ export const NavBar = () => {
         <header className="body-wrapper"> 
             <nav className={`sidebar-bottom ${isActive ? 'active' : ''}`}>
                 <div className="sidebar-header">
-                    <NavLink exact to="/" className="logo-wrapper">
+                    <NavLink exact="true" to="/" className="logo-wrapper">
                         <LogoCosmicBlanco className="hidden" />
                         <LogC className="iconSidebar crm"  />
                     </NavLink>
@@ -29,7 +29,7 @@ export const NavBar = () => {
                 <div className="sidebar-left"></div>
 
                 <div className="sidebar-links">
-                    <NavLink exact to="/home" className="linkPage" activeClassName="active">
+                    <NavLink exact="true" to="/home" className="linkPage" activeClassName="active">
                         <img className="iconSidebar" src="./dashboard2.svg" alt="" />
                         <span className="hidden">Dashboard</span>
                     </NavLink>

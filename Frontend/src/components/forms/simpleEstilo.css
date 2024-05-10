@@ -1,78 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.outsideContainerForm {
+  font-family: 'Montserrat', sans-serif;
+}
+
 /* Estilo para el contenedor principal */
-.container {
+.outsideContainerForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f6;
+  height: 100vh;
+}
+
+.insideContainerForm {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  background-color: #ffffff;
   border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-form {
-  width: 90%;
-  padding-left: 50px;
+.submitForm {
+  padding: 10px;
 }
 
 /* Estilo para los títulos */
-h1 {
-  font-size: 24px;
+.titleLegendForm {
+  font-size: 1.5rem;
+  font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 /* Estilo para los campos de entrada y etiquetas */
-input[type='text'],
-input[type='password'],
-input[type='number'],
-input[type='email'],
-input[type='date'],
-input[type='checkbox'],
-input[type='radio'],
-input[type='file'],
-textarea,
-select,
-label {
+.input[type='text'],
+.input[type='password'],
+.input[type='number'],
+.input[type='email'],
+.input[type='date'],
+.input[type='checkbox'],
+.input[type='radio'],
+.input[type='file'],
+.textareaForm,
+.selectForm,
+.labelForm {
   display: block;
   margin-bottom: 5px;
 }
 
 /* Estilo para los campos de entrada */
-input[type='text'],
-input[type='password'],
-input[type='number'],
-input[type='email'],
-input[type='date'],
-input[type='checkbox'],
-input[type='radio'],
-input[type='file'],
-textarea,
-select {
-  width: 80%;
+.input[type='text'],
+.input[type='password'],
+.input[type='number'],
+.input[type='email'],
+.input[type='date'],
+.input[type='checkbox'],
+.input[type='radio'],
+.input[type='file'],
+.textareaForm,
+.selectForm{
+  width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box; /* Asegura que el tamaño total del elemento incluya el padding y el borde */
+  box-sizing: border-box;
 }
 
 /* Estilo para los mensajes de ayuda */
-.help-text {
+.help-text-form {
   color: #666;
   font-size: 14px;
   margin-top: 5px;
 }
 
 /* Estilo para los mensajes de error */
-.error-message {
+.error-message-form {
   color: #ff0000;
   font-size: 14px;
   margin-top: 5px;
 }
 
 /* Estilo para los ancores */
-a {
+.linkFrom {
   color: #007bff;
   text-decoration: none;
   margin: 10px 5px;
@@ -80,17 +96,17 @@ a {
   font-style: italic;
 }
 
-a:hover {
+.linkFrom:hover {
   text-decoration: underline;
 }
 
 /* Estilo para los botónes */
-.button-container {
+.button-container-form {
   display: flex;
   justify-content: center;
 }
 
-button {
+.submitMainBtn {
   background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
@@ -101,7 +117,7 @@ button {
 }
 
 /* Estilo para el botón de enviar */
-button[type='submit'] {
+.submitMainBtn {
   background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
@@ -112,7 +128,7 @@ button[type='submit'] {
 }
 
 /* Estilo para el botón de enviar cuando está deshabilitado */
-button[type='submit']:disabled {
+submitMainBtn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }

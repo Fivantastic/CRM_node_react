@@ -93,18 +93,20 @@ export const InvoicePage = () => {
             return (
               <li key={data.id_invoice} id='element_invoice_container' className=' main_ilist'>
                 <InvoicesList invoice={data} />
-                <ClosedInvoice
-                  invoice={data.id_invoice}
-                  onUpdateInvoice={updateInvoice}
-                  token={token}
-                />
-                <DeleteGenericModal
-                  id={data.id_invoice}
-                  onDelete={deleteInvoice}
-                  token={token}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
-                />
+                <span id='invoice_actions' className='main_actions'>
+                  <ClosedInvoice
+                    invoice={data.id_invoice}
+                    onUpdateInvoice={updateInvoice}
+                    token={token}
+                  />
+                  <DeleteGenericModal
+                    id={data.id_invoice}
+                    onDelete={deleteInvoice}
+                    token={token}
+                    typeModule={typeModule}
+                    typeModuleMessage={typeModuleMessage}
+                  />
+                </span>
               </li>
             );
           })}

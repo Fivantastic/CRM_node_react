@@ -15,7 +15,7 @@ export const ProductList = ({ product }) => {
         <h3>Nombre: {product.name}</h3>
         <p><strong>Descripción: </strong>{product.description}</p>
         <p><strong>Precio: </strong>{product.price} €</p>
-        <p><strong>Stock: </strong>{product.stock} uni.</p>
+        <p><strong>Stock: </strong>{product.stock} u.</p>
         <p><strong>Estado: </strong>{traducirEstado(product.product_status)}</p>
       </>
     );

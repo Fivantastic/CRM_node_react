@@ -101,18 +101,20 @@ export const CustomerPage = () => {
             return (
               <li key={data.id_customer} id='element_customer_container' className='element_customer_container main_ilist'>
                 <CustomerList customer={data} />
-                <UpdateCustomer
-                  customer={data.id_customer}
-                  onUpdateCustomer={updateCustomer}
-                  token={token}
-                />
-                <DeleteGenericModal
-                  id={data.id_customer}
-                  onDelete={deleteCustomer}
-                  token={token}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
-                />
+                <span id='customer_actions' className='main_actions'>
+                  <UpdateCustomer
+                    customer={data.id_customer}
+                    onUpdateCustomer={updateCustomer}
+                    token={token}
+                  />
+                  <DeleteGenericModal
+                    id={data.id_customer}
+                    onDelete={deleteCustomer}
+                    token={token}
+                    typeModule={typeModule}
+                    typeModuleMessage={typeModuleMessage}
+                  />
+                </span>
               </li>
             );
           })}

@@ -99,8 +99,10 @@ const addVisit = async () => {
         {visitList.map((visit) => (
           <li key={visit.id_visit} id='element_visit_container' className=' main_ilist'>
             <VisitsList visit={visit} />
+            <span id='visit_actions' className='main_actions'>
             <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit} />
             <DeleteGenericModal id={visit.id_visit} onDelete={deleteVisit} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />
+            </span>
           </li>
         ))}
       </ol>

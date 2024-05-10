@@ -119,7 +119,7 @@ export const CreateInvoice = ({ onAddInvoice }) => {
   };
   return (
     <div>
-      <button className="btnInvoiceCreate mainCreateBtn" onClick={handleClickCreateInvoice}>Crear Factura</button>
+      <button id='btnInvoiceCreate' className=" mainCreateBtn" onClick={handleClickCreateInvoice}>Crear Factura</button>
     </div>
   );
 };

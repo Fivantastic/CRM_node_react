@@ -102,7 +102,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
   };
   return (
     <>
-      <button className="btnVisitCreate mainVisitBtn" onClick={handleClickCreateVisit}>Programar Visita</button>
+      <button id='btnVisitCreate' className=" mainCreateBtn" onClick={handleClickCreateVisit}>Programar Visita</button>
     </>
   );
 };

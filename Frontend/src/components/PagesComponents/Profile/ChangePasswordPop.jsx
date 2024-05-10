@@ -1,7 +1,8 @@
 import Joi from 'joi';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import img from '../../../../public/password_24dp_FILL0_wght400_GRAD0_opsz24.svg';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+
 
 const ChangePasswordPop = ({ token }) => {
   const handleChangePassword = async (formData) => {

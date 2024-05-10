@@ -1,7 +1,6 @@
 import { useUser } from '../../context/authContext.jsx';
 import ChangePasswordPop from '../../components/PagesComponents/Profile/ChangePasswordPop.jsx';
 import { MainLayout } from '../../layout/MainLayout.jsx';
-
 import '../../components/PagesComponents/Profile/changeAvatar.css';
 import { ChangeAvatar } from '../../components/PagesComponents/Profile/ChangeAvatar.jsx';
 import { ChanegeEmail } from '../../components/PagesComponents/Profile/ChanegeEmail.jsx';

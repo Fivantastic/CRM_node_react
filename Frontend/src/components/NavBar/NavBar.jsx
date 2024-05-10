@@ -1,10 +1,9 @@
+import { useRole } from '../../context/authContext.jsx';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LogoCosmicBlanco } from '../../assets/creado/logoCosmic.jsx';
 import { LogC } from '../../assets/creado/LogC.jsx';
+import { LogoCosmicBlanco } from '../../assets/creado/logoCosmic.jsx';
 import './NavBar.css';
-import { useRole } from '../../context/authContext.jsx';
-
 
 export const NavBar = () => {
     const [isActive, setIsActive] = useState(false);

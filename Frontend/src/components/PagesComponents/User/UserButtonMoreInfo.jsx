@@ -1,4 +1,3 @@
-// Importa las librerías y los archivos necesarios
 import Swal from 'sweetalert2';
 import defaultAvatar from './profile.svg'; 
 import './UserInfoButtonStyle.css'

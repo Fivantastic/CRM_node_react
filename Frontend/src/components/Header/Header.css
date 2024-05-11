@@ -11,6 +11,30 @@
   justify-content: end;
 }
 
+.iconReverse {
+  transform: scaleX(-1);
+  width: 32px; 
+  height: 32px; 
+}
+
+[dir="rtl"] .iconReverse {
+  transform: scaleX(1);
+}
+
+.action-icon {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.action-icon:hover {
+  cursor: pointer;
+}
+
+.action-icon:active {
+  transform: scale(0.9);
+}
+
 
 @media screen and (min-width: 600px) {
 }

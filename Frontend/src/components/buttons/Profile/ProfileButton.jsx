@@ -61,7 +61,7 @@ const showUserInfo = (userData) => {
     };
   
     return (
-        <button className="tab" onClick={handleClick}>
+        <button id='tab' className="tab" onClick={handleClick}>
             <svg
             width="104"
             height="100"

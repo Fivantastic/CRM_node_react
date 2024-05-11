@@ -8,7 +8,7 @@
 #dropdown {
   max-width: 220px;
   width: 100%;
-  background-color: #14214E;
+  background-color: #13214E;
   position: relative;
 }
 
@@ -50,7 +50,7 @@
 .menuProfileNav {
   display: flex;
   flex-direction: column;
-  background-color: #14214E;
+  background-color: #13214E;
   border-radius: 5px;
   padding: 5px 10px;
   position: absolute;
@@ -98,24 +98,59 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.489);
 }
 
-
 .btn-perfilNav {
-  letter-spacing: 2px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 1px;
   text-align: end;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   width: 100%;
-  padding-right: 15px;
+
   margin: 0.2rem 0.2rem 0.2rem 1rem;
   margin-right: 0;
   margin-left: 0;
-  gap: 1.5rem;
   color: #ffffff;
-  display: flex;
-  justify-content: end;
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
+.iconProfileNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+
+}
+
+/* Efecto de los botones de settings y logout */
+
+.btn-perfilNav:hover .iconProfileNavSettings {
+  animation: rotateAnimation 2s infinite linear;
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Definir la animación de boing */
+.btn-perfilNav:hover .iconProfileNavLogout {
+  animation: boing 0.5s infinite alternate;
+}
+
+@keyframes boing {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
 
 .btn-perfilNav:hover {
   transition: all 0.3s ease;
@@ -131,18 +166,6 @@
 
 .btn-perfilNav {
   position: relative;
-}
-
-.btn-perfilNav:hover::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0.5rem;
-  height: 100%;
-  width: 1px;
-  border-right:3px solid #ffffff;
-  transition: all 0.3s ease;
 }
 
 .btn-profile.clicked {
@@ -168,7 +191,7 @@
   }
 
   .menuProfileNav {
-    width: 200px;
+    width: 240px;
     translate: -10px 0;
   }
 

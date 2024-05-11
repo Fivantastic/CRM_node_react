@@ -90,8 +90,10 @@ export const ProductPage = () => {
                         return ( 
                         <li key={data.id_product} id="element_product_container " className="main_ilist">
                             <ProductList product={data} />
-                            <UpdateProduct product={data.id_product} onUpdateProduct={updateProduct} />
-                            <DeleteGenericModal id={data.id_product} onDelete={productDelete} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />
+                            <span id='product_actions' className='main_actions'>
+                                <UpdateProduct product={data.id_product} onUpdateProduct={updateProduct} />
+                                <DeleteGenericModal id={data.id_product} onDelete={productDelete} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />
+                            </span>
                         </li>
                         );
                         })

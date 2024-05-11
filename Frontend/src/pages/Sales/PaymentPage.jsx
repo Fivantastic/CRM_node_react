@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { useUser } from '../../context/authContext.jsx';
+import { useEffect, useState } from 'react';
+import { MainLayout } from '../../layout/MainLayout.jsx';
+import { CreatePayment } from '../../components/PagesComponents/Payments/CreatePayment.jsx';
 import { PaymentsList } from '../../components/PagesComponents/Payments/PaymentsList.jsx';
 import { ChangeStatus } from '../../components/forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
-import { CreatePayment } from '../../components/PagesComponents/Payments/CreatePayment.jsx';
-import { MainLayout } from '../../layout/MainLayout.jsx';
-
-import '../../components/PopsStyle/ListStyleGeneric.css'
-import Swal from 'sweetalert2';
 
 // Modelo swal
 const Toast = Swal.mixin({
@@ -110,11 +108,13 @@ export const PaymentPage = () => {
             return (
               <li key={data.id_payment} className='element_payment_content main_ilist' >
                 <PaymentsList payment={data} />
-                {currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'cancelled'} newStatusMessage='Cancelar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />  }
-                {currentStatus !== "paid" && currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'paid'} newStatusMessage='Resolver' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
-                {currentStatus !== "pending" && currentStatus !== "paid" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'pending'} newStatusMessage='Restaurar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+                <span id='payment_actions' className='main_actions'>
+                  {currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'cancelled'} newStatusMessage='Cancelar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />  }
+                  {currentStatus !== "paid" && currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'paid'} newStatusMessage='Resolver' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+                  {currentStatus !== "pending" && currentStatus !== "paid" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'pending'} newStatusMessage='Restaurar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
 
-                {currentStatus === "cancelled" && <DeleteGenericModal id={data.id_payment} onDelete={deletePayment} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+                  {currentStatus === "cancelled" && <DeleteGenericModal id={data.id_payment} onDelete={deletePayment} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+                </span>
               </li>
             );
           })}

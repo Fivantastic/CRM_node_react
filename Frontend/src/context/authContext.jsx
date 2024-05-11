@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { renewTokenIfExpired } from '../Services/authService.js';
 import { useLocalStorage } from '../hooks/useLocalStorage.js';
+import { renewTokenIfExpired } from '../Services/authService.js';
 import { getUserDataFromToken } from '../Services/GetUserDataToken.js';
 
 export const AuthContext = createContext();

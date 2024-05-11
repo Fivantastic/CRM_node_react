@@ -1,6 +1,5 @@
 import {jwtDecode} from 'jwt-decode';
 
-
 export const getUserDataFromToken = (token) => {
   try {
     // Decodifica el token JWT

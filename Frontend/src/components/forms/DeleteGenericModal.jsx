@@ -1,7 +1,5 @@
 import Swal from "sweetalert2";
-// import { DeleteButton } from "../buttons/DeleteButtom.jsx";
 import { SimpleDeleteButton } from "../buttons/DeleteButtons/SimpleDeleteButton.jsx";
-
 
 export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage }) => {
     const handleDelete = async () => {
@@ -80,8 +78,8 @@ export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModule
           });
     }
     return (
-        <nav className="mainDeleteBtn">
-            <SimpleDeleteButton onClick={handleDelete}/>
-        </nav>
+      <>
+        <SimpleDeleteButton className="mainDeleteBtn" onClick={handleDelete}/>
+      </>
     )
 }

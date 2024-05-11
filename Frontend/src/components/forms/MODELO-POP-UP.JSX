@@ -1,12 +1,8 @@
-//! COPIARLO Y MODIFICAR LO QUE NECESITES
-//!NO USAR ESTE
 
-// Los imports son estos...
-// Agrega mas si tu codigo necesita mas de una libreria o archivos
 import Joi from 'joi';
-import DynamicFormPopUp from './DynamicFormPopUp.js';
-import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2';
+import { useUser } from '../../context/authContext.jsx';
+import DynamicFormPopUp from './DynamicFormPopUp.js';
 
 // Ponle el nombre de la accion que seas, por ejemplo, crear un customer, o editar un customer
 // Ejemplo: createCustomer, updateCustomer, deleteCustomer.

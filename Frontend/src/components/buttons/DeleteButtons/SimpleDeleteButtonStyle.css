@@ -3,22 +3,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
   background-color:transparent;
   cursor: pointer;
-
+  border: none;
   transition-duration: 0.3s;
   position: relative;
   overflow: hidden;
 }
 .bin-bottom {
-  width: 15px;
+  width: 12px;
   z-index: 2;
 }
 .bin-top {
-  width: 17px;
+  width: 15px;
   transform-origin: right;
   transition-duration: 0.3s;
   z-index: 2;
@@ -49,5 +48,26 @@
   to {
     transform: translate(0%, 0%);
     opacity: 1;
+  }
+}
+
+
+@media screen and (min-width: 480px) {
+.bin-bottom {
+  width: 14px;
+}
+
+.bin-top {
+  width: 17px;
+}
+}
+
+@media screen and (min-width: 600px) {
+  .bin-bottom {
+    width: 16px;
+  }
+
+  .bin-top {
+    width: 19px;
   }
 }

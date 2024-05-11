@@ -34,15 +34,17 @@ export const UserList = ({ user, id, activeUser, onDelete }) => {
       <figure className={`container-avatar-active ${isActive ? 'active' : 'inactive'}`}>
         <img src={user.avatar || defaultAvatar} alt="Avatar del usuario" className="avatar" />
       </figure>
-      <article className="details">
-        <h2 className="userName">{`${user.name} ${user.last_name}`}</h2>
-        <p className="role">{translatedRole}</p> 
-      </article>
-      <nav className="actions">
-        <ProfileButton userData={userData} />
-        <ButtonMoreUserActions id={userId} activeUser={activeUser}  isActive={isActive}  token={token}  />
-        <DeleteGenericModal id={id} onDelete={onDelete} token={token} typeModule="user" typeModuleMessage="Usuario"/>
-      </nav>
+      <section className="container-details-actions">
+        <article className="details">
+          <h2 className="userName">{`${user.name} ${user.last_name}`}</h2>
+          <p className="role">{translatedRole}</p> 
+        </article>
+        <nav className="actions">
+          <ProfileButton userData={userData} />
+          <ButtonMoreUserActions id={userId} activeUser={activeUser}  isActive={isActive}  token={token}  />
+          <DeleteGenericModal id={id} onDelete={onDelete} token={token} typeModule="user" typeModuleMessage="Usuario"/>
+        </nav>
+      </section>
     </>
   );
 };

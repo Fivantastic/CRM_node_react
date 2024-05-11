@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
+import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
+import { useEffect, useState } from 'react';
 import { SalesList } from '../../components/PagesComponents/Sales/SalesList.jsx';
 import { CreateSale } from '../../components/PagesComponents/Sales/CreateSale.jsx';
 import { UpdateSale } from '../../components/PagesComponents/Sales/UpdateSale.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
-import { MainLayout } from '../../layout/MainLayout.jsx';
-
-import '../../components/PopsStyle/ListStyleGeneric.css';
 
 export const SalesPage = () => {
   const token = useUser();
@@ -93,18 +91,20 @@ export const SalesPage = () => {
           return (
             <li key={data.id_sale} id='element_sale_container' className=' main_ilist'>
               <SalesList sale={data} />
-              <UpdateSale
-                sale={data.id_sale}
-                onUpdateSale={updateSale}
-                token={token}
-              />
-              <DeleteGenericModal
-                id={data.id_sale}
-                onDelete={deleteSale}
-                token={token}
-                typeModule={typeModule}
-                typeModuleMessage={typeModuleMessage}
-              />
+              <span id='sales_actions' className='main_actions'>
+                <UpdateSale
+                  sale={data.id_sale}
+                  onUpdateSale={updateSale}
+                  token={token}
+                />
+                <DeleteGenericModal
+                  id={data.id_sale}
+                  onDelete={deleteSale}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
+              </span>
             </li>
           );
         })}

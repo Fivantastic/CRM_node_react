@@ -1,15 +1,14 @@
 .editBtn {
-    width: 55px;
-    height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    width: 52px;
+    height: 50px;
     border-radius: 20px;
     border: none;
     background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
     position: relative;
-    overflow: hidden;
     transition: all 0.3s;
   }
   .editBtn::before {
@@ -29,11 +28,12 @@
 
   
   .editBtn svg {
-    height: 17px;
+    height: 15px;
     fill: grey;
     z-index: 3;
     transition: all 0.2s;
     transform-origin: bottom;
+    overflow: visible;
   }
   .editBtn:hover svg {
     transform: rotate(-15deg) translateX(5px);
@@ -43,7 +43,7 @@
     width: 25px;
     height: 1.5px;
     position: absolute;
-    bottom: 19px;
+    bottom: 17px;
     left: -5px;
     background-color: grey;
     border-radius: 2px;
@@ -58,3 +58,15 @@
     transform-origin: right;
   }
   
+
+  @media screen and (min-width: 480px) {
+  .editBtn svg {
+    height: 17px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .editBtn svg {
+    height: 19px;
+  }
+}

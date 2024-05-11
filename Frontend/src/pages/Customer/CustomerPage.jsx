@@ -1,12 +1,10 @@
+import { MainLayout } from '../../layout/MainLayout.jsx';
+import { useUser } from '../../context/authContext.jsx';
+import { useEffect, useState } from 'react';
 import { CreateCustomer } from '../../components/PagesComponents/Customer/CreateCustomer.jsx';
 import { CustomerList } from '../../components/PagesComponents/Customer/CustomerList.jsx';
 import { UpdateCustomer } from '../../components/PagesComponents/Customer/UpdateCustomer.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
-import { useEffect, useState } from 'react';
-import { useUser } from '../../context/authContext.jsx';
-import { MainLayout } from '../../layout/MainLayout.jsx';
-
-import "../../components/PopsStyle/ListStyleGeneric.css"
 
 export const CustomerPage = () => {
   const token = useUser();
@@ -103,18 +101,20 @@ export const CustomerPage = () => {
             return (
               <li key={data.id_customer} id='element_customer_container' className='element_customer_container main_ilist'>
                 <CustomerList customer={data} />
-                <UpdateCustomer
-                  customer={data.id_customer}
-                  onUpdateCustomer={updateCustomer}
-                  token={token}
-                />
-                <DeleteGenericModal
-                  id={data.id_customer}
-                  onDelete={deleteCustomer}
-                  token={token}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
-                />
+                <span id='customer_actions' className='main_actions'>
+                  <UpdateCustomer
+                    customer={data.id_customer}
+                    onUpdateCustomer={updateCustomer}
+                    token={token}
+                  />
+                  <DeleteGenericModal
+                    id={data.id_customer}
+                    onDelete={deleteCustomer}
+                    token={token}
+                    typeModule={typeModule}
+                    typeModuleMessage={typeModuleMessage}
+                  />
+                </span>
               </li>
             );
           })}

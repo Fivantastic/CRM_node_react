@@ -34,7 +34,7 @@ export const loginUserController = async (req, res, next) => {
         if (!isValidPassword) {
             invalidPasswordError();
         }
-
+        console.log(user);
         // El usuario existe y la contraseña es correcta
         //Login exitoso
         const token = generateAccessToken(user);

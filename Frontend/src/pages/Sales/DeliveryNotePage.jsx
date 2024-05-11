@@ -1,12 +1,10 @@
-import  { useState, useEffect } from 'react';
+import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
-import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { useState, useEffect } from 'react';
 import { DeliveryNoteList } from '../../components/PagesComponents/DeliveryNotes/DeliveryNoteList.jsx';
 import { CreateDeliveryNote } from '../../components/PagesComponents/DeliveryNotes/CreateDeliveryNote.jsx';
-import UpdateDelivery from '../../components/PagesComponents/DeliveryNotes/UpdateDeliveryNote.jsx'; // Importamos el componente de actualización
-import { MainLayout } from '../../layout/MainLayout.jsx';
-
-import "../../components/PopsStyle/ListStyleGeneric.css"
+import { UpdateDelivery } from '../../components/PagesComponents/DeliveryNotes/UpdateDeliveryNote.jsx';
+import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 
 export const DeliveryNotePage = () => {
   const token = useUser();
@@ -67,20 +65,22 @@ export const DeliveryNotePage = () => {
   return (
     <MainLayout>
       <section id='note_container' className='note_container mainContainer'>
-        <h1 id='note_title' className=' mainTitle'>Notas de Entrega</h1>
+        <h1 id='note_title' className=' mainTitle'>Albaranes</h1>
         <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
         <ol className='note_list main_olist'>
           {deliveryNotesList.map((data) => (
             <li key={data.id_note} id='element_note_container' className='main_ilist'>
               <DeliveryNoteList deliveryNote={data} />
-              <UpdateDelivery deliveryNote={data.id_note} token={token} />
-              <DeleteGenericModal
-                id={data.id_note}
-                onDelete={deleteDeliveryNote}
-                token={token}
-                typeModule={typeModule}
-                typeModuleMessage={typeModuleMessage}
-              />
+              <span id='note_actions' className='main_actions'>
+                <UpdateDelivery deliveryNote={data.id_note} token={token} />
+                <DeleteGenericModal
+                  id={data.id_note}
+                  onDelete={deleteDeliveryNote}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                  />
+                </span>
             </li>
           ))}
         </ol>

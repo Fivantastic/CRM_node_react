@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
 export const CreateVisit = ({ onAddVisit, token }) => {
 

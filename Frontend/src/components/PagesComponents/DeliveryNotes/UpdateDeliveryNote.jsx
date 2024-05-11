@@ -1,8 +1,8 @@
 import Joi from 'joi';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
-const UpdateDelivery = ({ deliveryNote, token }) => {
+export const UpdateDelivery = ({ deliveryNote, token }) => {
   const handleUpdateDeliveryAction = async (formData) => {
     console.log(formData);
     try {
@@ -86,9 +86,9 @@ const UpdateDelivery = ({ deliveryNote, token }) => {
 
   return (
     <>
-      <button className="btnNoteUpdate mainUpdateBtn" onClick={handleUpdateDelivery}>Actualizar Nota de Entrega</button>
+      <button id='btnNoteUpdate' className="mainUpdateBtn" onClick={handleUpdateDelivery}>Actualizar Albarán</button>
     </>
   );
 };
 
-export default UpdateDelivery;
+

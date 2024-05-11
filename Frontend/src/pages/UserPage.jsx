@@ -97,7 +97,7 @@ export const UserPage = () => {
           <ol id="user_list" className="main_olist">
             {userList.map((data) => {
               return (
-                <li key={data.id_user} id="element_user_container" className=" main_ilist">
+                <li key={data.id_user} id="element_user_container" >
                   <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser}/>
                 </li>
               );

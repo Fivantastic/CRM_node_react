@@ -1,14 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useUser } from '../../context/authContext.jsx';
-import { CreateVisit } from '../../components/PagesComponents/Visits/CreateVisit.jsx';
-import { UpdateVisit } from '../../components/PagesComponents/Visits/UpdateVisit.jsx';
-import { VisitsList } from '../../components/PagesComponents/Visits/VisitList.jsx';
-import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
-import '../../components/PopsStyle/listStyle.css'
 import { MainLayout } from '../../layout/MainLayout.jsx';
-
-import '../../components/PopsStyle/ListStyleGeneric.css'
-
+import { useUser } from '../../context/authContext.jsx';
+import { useEffect, useState } from 'react';
+import { CreateVisit } from '../../components/PagesComponents/Visits/CreateVisit.jsx';
+import { VisitsList } from '../../components/PagesComponents/Visits/VisitList.jsx';
+import { UpdateVisit } from '../../components/PagesComponents/Visits/UpdateVisit.jsx';
+import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 
 export const Visitpage = () => {
   const token = useUser();
@@ -103,8 +99,10 @@ const addVisit = async () => {
         {visitList.map((visit) => (
           <li key={visit.id_visit} id='element_visit_container' className=' main_ilist'>
             <VisitsList visit={visit} />
+            <span id='visit_actions' className='main_actions'>
             <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit} />
             <DeleteGenericModal id={visit.id_visit} onDelete={deleteVisit} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />
+            </span>
           </li>
         ))}
       </ol>

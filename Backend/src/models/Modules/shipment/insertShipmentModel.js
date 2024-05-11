@@ -1,42 +1,50 @@
 import { getDBPool } from '../../../db/getPool.js';
 
-export const insertShipmentModel = async (
-  shipmentId,
-  customer_id,
-  address_id,
-  deliveryNote_id,
-  tracking_number,
-  additional_notes
-) => {
+export const insertShipmentModel = async ({
+  shipmentId, customer_id, address_id, product_name, 
+  product_quantity, shipment_status, additional_notes
+}) => {
   const pool = getDBPool();
 
-  const fieldsToUpdate = [];
-  const values = [];
+  try {
+    await pool.query('START TRANSACTION');
 
-  const addToUpdate = (field, value) => {
-    if (value !== undefined && value !== null) {
-      fieldsToUpdate.push(`${field} = ?`);
-      values.push(value);
+    // Primero, encontrar el producto correcto por nombre
+    const [productResult] = await pool.query(
+      `SELECT id_product, stock FROM Products WHERE name = ? AND product_status = 'active'`,
+      [product_name]
+    );
+    if (productResult.length === 0) {
+      await pool.query('ROLLBACK');
+      throw new Error('Product not found or is inactive');
     }
-  };
-  addToUpdate('id_shipment', shipmentId);
-  addToUpdate('customer_id', customer_id);
-  addToUpdate('address_id', address_id);
-  addToUpdate('deliveryNote_id', deliveryNote_id);
-  addToUpdate('tracking_number', tracking_number);
-  addToUpdate('additional_notes', additional_notes);
+    const productId = productResult[0].id_product;
 
-  if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar
+    // Asegurar que hay suficiente stock
+    if (productResult[0].stock < product_quantity) {
+      await pool.query('ROLLBACK');
+      throw new Error('Insufficient stock for the product');
+    }
 
-  const query = `INSERT INTO Shipments (id_shipment, customer_id, address_id, deliveryNote_id, tracking_number, additional_notes ) VALUES (?, ?, ?, ?, ?, ?)`;
-  values.push(shipmentId);
+    // Actualizar el stock del producto
+    await pool.query(
+      `UPDATE Products SET stock = stock - ? WHERE id_product = ?`,
+      [product_quantity, productId]
+    );
 
-  const [result] = await pool.query(query, values);
+    // Insertar los datos del envío en la tabla Shipments, usando el nombre correcto de la columna
+    await pool.query(
+      `INSERT INTO Shipments (id_shipment, customer_id, address_id, shipment_status, additional_notes) VALUES (?, ?, ?, ?, ?)`,
+      [shipmentId, customer_id, address_id, shipment_status, additional_notes]
+    );
 
-  if (result.affectedRows === 0) {
-    const error = new Error('No se ha podido insertar el envio');
-    error.code = 'INSERT_SHIPMENT_ERROR';
-    throw error;
+    // Confirmar todas las inserciones como una transacción única
+    await pool.query('COMMIT');
+
+    return { message: 'Shipment successfully inserted into database and product stock updated.' };
+  } catch (error) {
+    // Asegurarse de revertir la transacción en caso de error
+    await pool.query('ROLLBACK');
+    throw new Error(`Error during shipment insertion: ${error.message}`);
   }
-  return { message: 'Envio creado exitosamente' };
 };

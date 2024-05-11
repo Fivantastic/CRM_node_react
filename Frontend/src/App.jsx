@@ -10,7 +10,7 @@ import { Visitpage } from './pages/Customer/Visitpage.jsx';
 import { DeliveryNotePage } from './pages/Sales/DeliveryNotePage.jsx';
 import { InvoicePage } from './pages/Sales/InvoicePage.jsx';
 import { PaymentPage } from './pages/Sales/PaymentPage.jsx';
-import  ShipmentPage  from './pages/Sales/ShipmentPage.jsx';
+import { ShipmentPage }  from './pages/Sales/ShipmentPage.jsx';
 import { AboutPage } from './pages/About/AboutPage.jsx';
 import { InitialPage } from './pages/Others/InitialPage.jsx';
 import { UserPage } from './pages/UserPage.jsx';

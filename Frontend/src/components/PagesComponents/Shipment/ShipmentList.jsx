@@ -1,36 +1,22 @@
-import { ShipmentInfoButton } from '../../buttons/ShipmentInfoButton';
+export const ShipmentList = ({ shipment }) => {
+  return (
+    <>
+      <h2 id='element_shipment_title' className="mainInsideTitle">Detalles del envío</h2>
+      <h3 id='element_shipment_section' className="mainSubSection">Destinatario</h3>
+      <p><strong>Nombre: </strong> {shipment.customer_name}</p>
+      <p><strong>Compañía:</strong> ${shipment.company_name}</p>
+      <p><strong>Dirección: </strong> {shipment.delivery_address}</p>
+      <p><strong>NIF:</strong> ${shipment.NIF}</p>
+      <p><strong>Producto:</strong> ${shipment.product_name}</p>
+      <p><strong>Cantidad:</strong> ${shipment.product_quantity}</p>
+      <p><strong>Ciudad: </strong> {shipment.address_city}</p>
+      <p><strong>Teléfono:</strong> ${shipment.customer_phone}</p>
 
-export const ShipmentList = ({ Shipments }) => {
-    return (
-      <div>
-        <ul>
-          {Shipments.map((shipmentArray, index) => {
-            // Verificar que el array de envíos no esté vacío y que cada envío tenga un nombre de cliente
-            if (shipmentArray.length > 0 && shipmentArray.some(shipment => shipment.customer_name)) {
-              return (
-                <li key={index}>
-                  <ul>
-                    {shipmentArray.map((shipment, i) => {
-                      // Renderizar solo si el envío tiene todos los datos necesarios
-                      if (shipment.customer_name && shipment.company_name && shipment.customer_phone) {
-                        return (
-                          <li key={i}>
-                            {/* Botón para ver detalles del envío */}
-                            <ShipmentInfoButton shipmentData={shipment} />
-                          </li>
-                        );
-                      } else {
-                        return null; // No renderizar si faltan datos
-                      }
-                    })}
-                  </ul>
-                </li>
-              );
-            } else {
-              return null; // No renderizar si el array de envíos está vacío o no válido
-            }
-          })}
-        </ul>
-      </div>
-    );
+      <h3 id='element_shipment_section' className="mainSubSection">Estado del envío</h3>
+      <p>{shipment.delivery_status}</p>
+
+      <h3 id='element_shipment_section' className="mainSubSection">Repartidor</h3>
+      <p>{shipment.deliverer}</p>
+    </>
+  );
 };

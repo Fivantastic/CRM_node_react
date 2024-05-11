@@ -3,9 +3,9 @@ import { getDBPool } from '../../db/getPool.js';
 export const getModuleShipmentModel = async () => {
   const pool = getDBPool();
 
-  // Obtener todos los resultados de Shipments con datos relacionados
-  const result = await pool.query(
-    `SELECT 
+  try {
+    const result = await pool.query(
+      `SELECT 
         Shipments.id_shipment, 
         Shipments.customer_id, 
         Shipments.address_id, 
@@ -38,21 +38,24 @@ export const getModuleShipmentModel = async () => {
         DeliveryNotes.delivery_date, 
         DeliveryNotes.create_at AS deliveryNote_create_at, 
         DeliveryNotes.update_at AS deliveryNote_update_at
-    FROM 
+      FROM 
         Shipments
-    LEFT JOIN 
+      LEFT JOIN 
         Customers ON Shipments.customer_id = Customers.id_customer
-    LEFT JOIN 
+      LEFT JOIN 
         Addresses ON Shipments.address_id = Addresses.id_address
-    LEFT JOIN 
+      LEFT JOIN 
         DeliveryNotes ON Shipments.deliveryNote_id = DeliveryNotes.id_note
-    LEFT JOIN 
+      LEFT JOIN 
         Users ON DeliveryNotes.deliverer_id = Users.id_user
-    LEFT JOIN 
+      LEFT JOIN 
         SalesProducts ON DeliveryNotes.saleProduct_id = SalesProducts.id_saleProduct
-    LEFT JOIN 
+      LEFT JOIN 
         Products ON SalesProducts.product_id = Products.id_product`
-  );
+    );
 
-  return result;
+    return result[0];
+  } catch (error) {
+    throw error;
+  }
 };

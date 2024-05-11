@@ -1,126 +1,103 @@
-import  { useState, useEffect } from 'react';
-import { MainLayout } from '../../layout/MainLayout.jsx';
-import defaultAvatar from '/profile.svg';
+import { useEffect, useState } from 'react';
 import { useUser } from '../../context/authContext.jsx';
 import { ShipmentList } from '../../components/PagesComponents/Shipment/ShipmentList.jsx';
-import '/src/components/PagesComponents/Shipment/ShipmentStyle.css';
+import { CreateShipment } from '../../components/PagesComponents/Shipment/CreateShipment.jsx';
+import { UpdateShipment } from '../../components/PagesComponents/Shipment/UpdateShipment.jsx';
+import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { MainLayout } from '../../layout/MainLayout.jsx';
 
-const ShipmentPage = () => {
+export const ShipmentPage = () => {
   const token = useUser();
-  const [userList, setUserList] = useState([]);
-  const [routeData, setRouteData] = useState([]);
+  const [shipmentList, setShipmentList] = useState([]);
+
+  const typeModule = 'shipments';
+  const typeModuleMessage = 'Envío';
+
+  const getShipmentList = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/shipment/route`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Obtener envíos satisfactorio:', responseData);
+        setShipmentList(responseData.data);
+      } else {
+        const errorData = await response.json();
+        console.error('Obtener envíos fallido:', errorData);
+      }
+    } catch (error) {
+      console.error('Error al obtener la lista de envíos:', error);
+    }
+  };
 
   useEffect(() => {
-    getDeliveryUsers();
-    getRouteData();
+    getShipmentList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  const getDeliveryUsers = async () => {
+  const addShipment = async () => {
     try {
-      const response = await fetch('http://localhost:3000/user/list', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log('Usuarios recibidos satisfactoriamente:', responseData);
-
-        // Filtrar la lista de usuarios para mostrar solo los repartidores
-        const deliveryUsers = responseData.data.filter(
-          (user) => user.role === 'deliverer'
-        );
-
-        // Actualizar el estado con los datos de los repartidores
-        setUserList(deliveryUsers);
-      } else {
-        const errorData = await response.json();
-        console.error('Error al obtener la lista de usuarios:', errorData);
-      }
+      await getShipmentList();
     } catch (error) {
-      console.error('Error al obtener la lista de usuarios:', error);
+      console.error('Error al agregar el envío:', error);
     }
   };
 
-  const getRouteData = async () => {
+  const deleteShipment = async (id_shipment) => {
     try {
-      const response = await fetch('http://localhost:3000/shipment/route', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log(
-          'Datos de la hoja de ruta recibidos satisfactoriamente:',
-          responseData
-        );
-        setRouteData(responseData.data); // Actualizar el estado con los datos de la hoja de ruta
-      } else {
-        const errorData = await response.json();
-        console.error(
-          'Error al obtener los datos de la hoja de ruta:',
-          errorData
-        );
-      }
+      setShipmentList((prevShipments) =>
+        prevShipments.filter((shipment) => shipment.id_shipment !== id_shipment)
+      );
+      await getShipmentList();
     } catch (error) {
-      console.error('Error al obtener los datos de la hoja de ruta:', error);
+      console.error('Error al eliminar el envío:', error);
     }
   };
 
-  // Mapeo de roles
-  const roleMapping = {
-    salesAgent: 'Agente de Ventas',
-    deliverer: 'Repartidor',
-    admin: 'Administrador',
+  const updateShipment = async (id_shipment) => {
+    try {
+      setShipmentList((prevShipments) =>
+        prevShipments.filter((shipment) => shipment.id_shipment !== id_shipment)
+      );
+      await getShipmentList();
+    } catch (error) {
+      console.error('Error al actualizar el envío:', error);
+    }
   };
 
   return (
     <MainLayout>
-      <section className="user_container">
-        <h1 className="user_title">Lista de comerciales</h1>
-        <ul className="user_list_ul">
-          {userList.map((user) => {
+      <section id='shipment_container' className="mainContainer">
+        <h1 id='shipment_title' className="mainTitle">Envíos</h1>
+        <CreateShipment onAddShipment={addShipment} token={token} />
+        <ol id='shipments_list' className='main_olist'>
+          {shipmentList.map((data) => {
             return (
-              <li key={user.id_user} className="user">
-                <div className="container-avatar-active">
-                  <img
-                    src={user.avatar || defaultAvatar}
-                    alt="Avatar"
-                    className="avatar"
-                  />
-                </div>
-                <div className="details">
-                  <p className="userName">{user.name}</p>
-                  <p className="role">{roleMapping[user.role] || user.role}</p>
-                </div>
-                <div className="actions">
-                  <button onClick={() => {
-                  
-                  }}>
-                    Ver Envios
-                  </button>
-                  {/* Aquí mostramos el botón ShipmentInfoButton */}
-                  {routeData.length > 0 && (
-                    <ShipmentList Shipments={routeData} token={token} />
-                  )}
-                  
-                  
-                </div>
+              <li key={data.id_shipment} className='main_ilist'>
+                <ShipmentList shipment={data} />
+                <UpdateShipment
+                  shipment={data.id_shipment}
+                  onUpdateShipment={updateShipment}
+                  token={token}
+                />
+                <DeleteGenericModal
+                  id={data.id_shipment}
+                  onDelete={deleteShipment}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
               </li>
             );
           })}
-        </ul>
+        </ol>
       </section>
     </MainLayout>
   );
-
-}
-export default ShipmentPage
+};

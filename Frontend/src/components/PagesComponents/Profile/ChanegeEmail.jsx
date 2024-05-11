@@ -2,9 +2,11 @@ import Joi from 'joi';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
+import { getUserDataFromToken } from '../../../Services/GetUserDataToken.js';
 
 export const ChanegeEmail = () => {
   const token = useUser();
+  const { id_user } = getUserDataFromToken(token);
 
   const handleChangeEmail = async (formData) => {
     try {
@@ -14,15 +16,18 @@ export const ChanegeEmail = () => {
         newPassword: formData.newPassword,
       };
 
-      const response = await fetch('http://localhost:3000/user/update', {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `http://localhost:3000/user/update/${id_user}`,
+        {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const responseData = await response.json();
@@ -71,7 +76,7 @@ export const ChanegeEmail = () => {
   const updateEmailFields = [
     {
       name: 'email',
-      type: 'email',
+      type: 'text',
       label: 'Email',
     },
   ];
@@ -93,7 +98,11 @@ export const ChanegeEmail = () => {
   return (
     <div>
       <button onClick={handleClickChangeAvatar} id="avatar-container">
-        <img id="incon-setting" src='forward_to_inbox_24dp_FILL0_wght400_GRAD0_opsz24.svg' alt="" />
+        <img
+          id="incon-setting"
+          src="forward_to_inbox_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          alt=""
+        />
         <div id="content">
           <h3>Email</h3>
           <p id="info">Cambiar</p>

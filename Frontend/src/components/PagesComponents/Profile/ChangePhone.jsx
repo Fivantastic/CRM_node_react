@@ -1,12 +1,12 @@
 import Joi from 'joi';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
-export const ChangeName = () => {
+export const ChangePhone = () => {
   const token = useUser();
 
-  const handleChangeName = async (formData) => {
+  const handleChangePhone = async (formData) => {
     try {
       // Crea el objeto de datos para la petición
       const data = {
@@ -70,36 +70,36 @@ export const ChangeName = () => {
 
   const updateNameFields = [
     {
-      name: 'name',
+      name: 'phone',
       type: 'text',
-      label: 'Nombre',
+      label: 'Telefono',
     },
   ];
 
-  const updateNameSchema = Joi.object({
+  const phoneSchema = Joi.object({
     name: Joi.string().min(3).max(30).required(),
   });
 
-  const handleClickChangeName = () => {
+  const handleClickChangePhone = () => {
     DynamicFormPopUp(
       title,
       updateNameFields,
-      updateNameSchema,
-      handleChangeName,
+      phoneSchema,
+      handleChangePhone,
       nameButton
     );
   };
 
   return (
     <div>
-      <button onClick={handleClickChangeName} id="avatar-container">
+      <button onClick={handleClickChangePhone} id="avatar-container">
         <img
           id="incon-setting"
-          src="badge_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          src="phone_iphone_24dp_FILL0_wght400_GRAD0_opsz24.svg"
           alt=""
         />
         <div id="content">
-          <h3>Nombre</h3>
+          <h3>Telefono</h3>
           <p id="info">Cambiar</p>
         </div>
       </button>

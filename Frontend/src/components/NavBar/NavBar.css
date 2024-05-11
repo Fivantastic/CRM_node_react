@@ -27,6 +27,7 @@ a {
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 2;
+  border: none;
 }
 
 .sidebar-bottom.active {
@@ -39,10 +40,6 @@ a {
   align-items: center;
 }
 
-/* .sidebar-bottom.active .sidebar-links,
-.sidebar-bottom.active .sidebar-header{
-  
-} */
 
 .sidebar-links {
 height: calc(100vh - 70px);
@@ -102,26 +99,14 @@ height: calc(100vh - 70px);
 }
 
 .sidebar-links {
-  /* Firefox */
-  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
-
-  /* Webkit (Chrome, Safari, etc.) */
-  -webkit-scrollbar {
-    display: none; /* Oculta la barra de desplazamiento en navegadores Webkit */
-  }
-
-  /* Internet Explorer y Edge */
-  -ms-overflow-style: none; /* Oculta la barra de desplazamiento en Internet Explorer y Edge */
-  scrollbar-width: none; /* Oculta la barra de desplazamiento en Edge Chromium (a partir de la versión 79) */
-
-  /* Estilo para el track (fondo) de la barra de desplazamiento en Firefox */
+  scrollbar-width: none; 
+  -webkit-scrollbar {display: none;}
+  -ms-overflow-style: none;
+  scrollbar-width: none ;
   &::-webkit-scrollbar-track {
-    background: transparent; /* Fondo transparente */
-  }
-
-  /* Estilo para el thumb (barra deslizante) de la barra de desplazamiento en Firefox */
+    background: transparent;}
   &::-webkit-scrollbar-thumb {
-    background: transparent; /* Color transparente */
+    background: transparent;
   }
 }
 
@@ -139,8 +124,7 @@ height: calc(100vh - 70px);
   justify-content: star;
   width: 90%;
   padding: 0.5rem 0.5rem 0.5rem 1rem;
-  margin-right: 0;
-  margin-left: 0;
+  margin: 15px 0;
   gap: 1.5rem;
   text-decoration: none;
   color: white;
@@ -238,7 +222,7 @@ height: calc(100vh - 70px);
 #Logo_cosmic_blanco {
   position: absolute;
   z-index: 1;
-  left: 10px;
+  left: 17px;
   width: 233px;
   height: 49px;
   display: none;
@@ -312,7 +296,126 @@ height: calc(100vh - 70px);
     }
 
     .toggle-btn {
-        top: 10px;
+      scale: 1.2;
+        top: 20px;
         transition: all 0.3s ease;
       }
   }
+
+
+  /* Cambios a la derecha */
+
+  [dir="rtl"] .linkPage {
+    flex-direction: row-reverse;
+    justify-content: end;
+    margin-right: -5px;
+  }
+  
+  
+  [dir="rtl"] .linkPage.active::before {
+    right: 3px;
+  }
+  
+  [dir="rtl"] .toggle-btn {
+    position: absolute;
+    transform: rotate(180deg);
+    right: 90px;
+    transition: all 0.5s ease;
+  }
+  [dir="rtl"] .sidebar-bottom.active .toggle-btn {
+    transform: rotate(180deg);
+    right: 304px;
+    transition: all 0.5s ease;
+  }
+  
+  
+  [dir="rtl"] .sidebar-bottom.active .toggle-btn {
+    transform: rotate(0deg);
+  }
+
+  [dir="rtl"] #logC {
+    background-color: #14214E;
+    box-shadow: 20px 0px 0px 0px #14214E;
+    z-index: 5;
+ 
+  }
+  
+  /* Animación de entrada desde la derecha */
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%); 
+  }
+  25% {
+    opacity: 0;
+    transform: translateX(100%); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%); 
+  }
+}
+
+/* Estilos para #Logo_cosmic_blanco */
+[dir="rtl"] #Logo_cosmic_blanco {
+  position: absolute;
+  z-index: 1;
+  left: calc(0px - 80px); 
+  width: 233px;
+  height: 49px;
+  display: none;
+  color: #ffffff;
+  animation: fadeInRight 0.6s forwards; /* Iniciar con la animación de entrada */
+}
+
+[dir="rtl"] .sidebar-bottom.active #Logo_cosmic_blanco {
+  position: relative;
+  z-index: 1;
+  width: 233px;
+  height: 49px;
+  display: block;
+  color: #ffffff;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  animation: fadeInRight 0.6s forwards; /* Animación de entrada */
+}
+
+[dir="rtl"] .sidebar-bottom.inactive #Logo_cosmic_blanco {
+  animation: fadeOutRight 0.6s forwards; /* Animación de salida */
+}
+
+  
+  
+  /* RESPONSIVE A DESKTOP */
+@media screen and (min-width: 600px) {
+    [dir="rtl"] #logC {
+        right: 12px;
+        width: 55px;
+        height: 55px;
+    }
+  
+    [dir="rtl"] #Logo_cosmic_blanco {
+        scale: 1.35;
+        translate: 35px 0 ;
+    }
+  
+    [dir="rtl"] .toggle-btn {
+      right: 90px;
+
+    }
+  }
+  

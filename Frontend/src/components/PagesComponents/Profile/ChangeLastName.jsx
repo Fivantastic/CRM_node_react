@@ -1,12 +1,12 @@
 import Joi from 'joi';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
-export const ChangeName = () => {
+export const ChangeLastName = () => {
   const token = useUser();
 
-  const handleChangeName = async (formData) => {
+  const handleChangeLastName = async (formData) => {
     try {
       // Crea el objeto de datos para la petición
       const data = {
@@ -68,38 +68,38 @@ export const ChangeName = () => {
 
   const nameButton = 'Cambiar';
 
-  const updateNameFields = [
+  const updateLastNameFields = [
     {
-      name: 'name',
+      name: 'last_name',
       type: 'text',
-      label: 'Nombre',
+      label: 'Apellido',
     },
   ];
 
-  const updateNameSchema = Joi.object({
+  const updateLastNameSchema = Joi.object({
     name: Joi.string().min(3).max(30).required(),
   });
 
-  const handleClickChangeName = () => {
+  const handleClickChangeLastName = () => {
     DynamicFormPopUp(
       title,
-      updateNameFields,
-      updateNameSchema,
-      handleChangeName,
+      updateLastNameFields,
+      updateLastNameSchema,
+      handleChangeLastName,
       nameButton
     );
   };
 
   return (
     <div>
-      <button onClick={handleClickChangeName} id="avatar-container">
+      <button onClick={handleClickChangeLastName} id="avatar-container">
         <img
           id="incon-setting"
           src="badge_24dp_FILL0_wght400_GRAD0_opsz24.svg"
           alt=""
         />
         <div id="content">
-          <h3>Nombre</h3>
+          <h3>Apellido</h3>
           <p id="info">Cambiar</p>
         </div>
       </button>

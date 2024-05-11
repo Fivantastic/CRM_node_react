@@ -69,10 +69,7 @@ export const ProfileNav = () => {
       <ul className={`menuProfileNav ${isOpen ? 'open' : ''}`}>
         {userData && (
           <>
-
             <li className="nameBar navli navLink" key="nameBar">
-              <p className="nameProfileNav">{userData.name}</p>
-            <li className="nameBar navli navLink">
               <p className="nameProfileNav">{getFullName(userData.name, userData.lastName)}</p>
             </li>
             <li className="roleBar navli navLink" key="roleBar">
@@ -80,14 +77,14 @@ export const ProfileNav = () => {
             </li>
           </>
         )}
-        <NavLink exact to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
-          <p>Settings</p>
-          <img className="iconProfileNavSettings iconProfileNav" src="./settings.svg" alt="Imagen de configuración de perfil" />
-        </NavLink>
         <li className="btn-logout navli btn-perfilNav" key="logout">
           <LogoutButton setUser={setUser} />
           <img className="iconProfileNavLogout iconProfileNav" src="./iconLogout.svg" alt="Imagen de configuración de perfil" />
         </li>
+        <NavLink exact to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
+          <p>Settings</p>
+          <img className="iconProfileNavSettings iconProfileNav" src="./settings.svg" alt="Imagen de configuración de perfil" />
+        </NavLink>
       </ul>
     </nav>
   );

@@ -1,0 +1,9 @@
+.arrow:hover {
+    animation: boing 0.5s infinite alternate;
+  }
+  
+  @keyframes boing {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+  

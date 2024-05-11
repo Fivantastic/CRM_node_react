@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+  <!-- Línea izquierda vertical con ID -->
+  <path id="vertical-line-left" d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840"/>
+
+  <!-- Línea horizontal superior con ID -->
+  <path id="horizontal-line-top" d="M200-120q-33 0-56.5-23.5T120-200h280v80H200Z"/>
+
+  <!-- Flecha central con ID y efecto de boing -->
+  <path id="arrow" d="M360-622v80h327l-102 102 55 58 200-200-200-200-55 58 102 102H360v80Z" 
+    style="animation: boing 0.5s infinite alternate;" />
+
+  <!-- Línea horizontal inferior con ID -->
+  <path id="horizontal-line-bottom" d="M200-840q-33 0-56.5-23.5T120-920h280v80H200Z"/>
+</svg>

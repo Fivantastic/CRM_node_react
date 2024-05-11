@@ -32,6 +32,17 @@ export const ProfileNav = () => {
     }, 200);
   };
 
+  const getFullName = (name, lastName) => {
+    if (lastName && lastName.includes(' ')) {
+      return name + ' ' + lastName.split(' ')[0];
+    } else if (lastName == null) {
+      return name;
+    } else {
+      return name + ' ' + lastName;
+    }
+  };
+  
+
   // Convertir el rol
   const getRoleName = (role) => {
     switch (role) {
@@ -59,7 +70,7 @@ export const ProfileNav = () => {
         {userData && (
           <>
             <li className="nameBar navli navLink">
-              <p className="nameProfileNav">{userData.name}</p>
+              <p className="nameProfileNav">{getFullName(userData.name, userData.lastName)}</p>
             </li>
             <li className="roleBar navli navLink">
               <p className="roleProfileNav">{getRoleName(userData.role)}</p>
@@ -68,9 +79,11 @@ export const ProfileNav = () => {
         )}
         <NavLink exact to="/Profile" className="btn-home navli btn-perfilNav">
           <p>Settings</p>
+          <img className="iconProfileNavSettings iconProfileNav" src="./settings.svg" alt="Imagen de configuración de perfil" />
         </NavLink>
         <li className="btn-logout navli btn-perfilNav">
           <LogoutButton setUser={setUser} />
+          <img className="iconProfileNavLogout iconProfileNav" src="./iconLogout.svg" alt="Imagen de configuración de perfil" />
         </li>
       </ul>
     </nav>

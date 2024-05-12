@@ -34,9 +34,18 @@
   font-size: 0.8rem;
 }
 
+/* Boton de crear */
 .mainCreateBtn {
   font-size: 1rem;
-  padding: 5px 10px;
+  padding: 5px 15px;
+  width: auto;
+  border-radius: 20px;
+  background-color: transparent;
+  border: 1px solid #13214E;
+}
+
+.mainCreateBtn:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .mainUpdateBtn {
@@ -51,3 +60,5 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
+

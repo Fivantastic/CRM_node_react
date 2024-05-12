@@ -125,7 +125,7 @@ export const CreateUser = ({ onAddUser, token }) => {
   };
   return (
     <>
-      <button id='btnUserCreate' className=" mainCreateBtn" onClick={handleClickCreateUser}>Registrar usuario</button>
+      <button id='btnUserCreate' className=" mainCreateBtn" onClick={handleClickCreateUser}>Nuevo usuario</button>
     </>
   );
 };

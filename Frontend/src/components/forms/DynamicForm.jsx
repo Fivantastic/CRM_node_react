@@ -31,7 +31,7 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
                 <form className="submitForm" onSubmit={handleSubmit(onSubmit)}>
                     <legend className="titleLegendForm">{title}</legend>
                     {fields.map((field, index) => (
-                        <fielset className="fieldsetFrom" key={index}>
+                        <div className="fieldsetFrom" key={index}>
                             {field.type === 'textWithLink' ? (
                                 <p className="textWithLinkParag">
                                     {field.text}{' '}
@@ -98,7 +98,7 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
                                 {errors[field.name] && <p className="error-message-form">{errors[field.name]?.message}</p>}
                             </>
                             )}
-                        </fielset>
+                        </div>
                     ))}
                     <nav className="button-container-form">
                         {extraButtons.map((button, index) => {

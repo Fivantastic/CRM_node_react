@@ -67,23 +67,33 @@ export const CreateUser = ({ onAddUser, token }) => {
       type: 'text',
       label: 'Nombre',
       required: true,
+
+      idLabel: 'labelNameUserCreate',
+      idInput: `inputNameUserCreate`,
     },
     { 
       name: 'last_name',
       type: 'text',
       label: 'Apellidos',
       required: true,
+      idLabel: 'labelLastNameUserCreate',
+      idInput: `inputNameUserCreate`,
     },
     {
       name: 'email',
       type: 'email',
       label: 'Email',
+      idLabel: 'labelEmailUserCreate',
+      idInput: `inputEmailUserCreate`,
       required: true,
     },
     {
       name: 'role',
       type: 'select',
       label: 'Rol',
+      idLabel: 'labelRoleUserCreate',
+      idInput: `inputSelectUserCreate`,
+
       required: true,
       options: {
         Administradores: { 

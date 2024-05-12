@@ -39,14 +39,9 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       label: 'ID de cliente',
       type: 'text',
       placeholder: 'Introduce el ID de cliente...',
+      idLabel: 'labelNameShipmentUpdate',
+      idInput: 'inputNameShipmentUpdate',
       required: true,
-    },
-    {
-      name: 'address',
-      label: 'Dirección',
-      type: 'text',
-      placeholder: 'Introduce la dirección...',
-      required: false,
     },
 
    {
@@ -55,6 +50,10 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       type: 'text',
       placeholder: 'Introduce el número...',
       required: false,
+      placeholder: 'Introduce la dirección de entrega...',
+      idLabel: 'labelAddressShipmentUpdate',
+      idInput: 'inputAddressShipmentUpdate',
+      required: true,
     },
     {
       name: 'floor',
@@ -102,8 +101,10 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       name: 'additional_notes',
       label: 'Notas adicionales',
       type: 'text',
-      placeholder: 'Introduce notas adicionales...',
-      required: false,
+      placeholder: 'Introduce el estado del envío...',
+      idLabel: 'labelStatusShipmentUpdate',
+      idInput: 'inputStatusShipmentUpdate',
+      required: true,
     },
   ];
 

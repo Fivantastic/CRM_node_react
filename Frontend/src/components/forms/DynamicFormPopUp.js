@@ -5,7 +5,11 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
   const handleClickSubmit = async () => {
     const { value: formData } = await Swal.fire({
       title: title,
-      html: generateFormHtml(fields),
+      html: `
+        <form class="dynamicFromModal">
+          ${generateFormHtml(fields)}
+        </form>
+      `,
       focusConfirm: false,
       preConfirm: async () => {
         const values = {};
@@ -50,16 +54,38 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
     let html = '';
     fields.forEach(field => {
       if (field.type === 'select') {
-        html += `<label for="${field.name}">${field.label}</label>` +
-          `<select id="${field.name}" class="swal2-select"></select>`;
+        html += generateSelectField(field);
       } else {
-        html += `<label for="${field.name}">${field.label}</label>` +
-          `<input id="${field.name}" type="${field.type}" class="swal2-input">`;
+        html += generateRegularField(field);
       }
     });
     return html;
   };
-
+  
+  const generateRegularField = (field) => {
+    if (field.type === 'file') {
+      return `
+        <label for="${field.name}" id="${field.idLabel}" class="labelText">${field.label}</label>
+        <input id="${field.name}" type="file" class="inputFile" onChange="${field.onChange}">
+      `;
+    } else {
+      return `
+        <label for="${field.name}" id="${field.idLabel}" class="labelText">${field.label}</label>
+        <input id="${field.name}" type="${field.type}" class="inputText">
+      `;
+    }
+  };
+  
+  
+  const generateSelectField = (field) => {
+    return `
+    <label for="${field.name}" id="${field.idLabel}" class="labelText">${field.label}</label>
+      <select id="${field.name}" class="inputSelect">
+        ${generateSelectOptions(field.options)}
+      </select>
+    `;
+  };
+  
   const generateSelectOptions = (options) => {
     let selectOptionsHtml = '';
     if (options) {
@@ -84,6 +110,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
     }
     return selectOptionsHtml;
   };
+  
   
 
   handleClickSubmit();

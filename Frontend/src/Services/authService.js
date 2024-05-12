@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import { getUserDataFromToken } from "./GetUserDataToken.js";
 
 export async function renewTokenIfExpired(token, setUser) {
     if (!token) {
@@ -26,6 +27,9 @@ export async function renewTokenIfExpired(token, setUser) {
 
                 // Extraer el nuevo token de la respuesta
                 const newToken = responseData.token;
+
+                const tokencontext = getUserDataFromToken(newToken);
+                console.log('Token renovado datos:', tokencontext);
                 // Guardar el nuevo token en el contexto de autenticación
                 setUser(newToken);
                 // También puedes guardar el nuevo token en el localStorage si es necesario

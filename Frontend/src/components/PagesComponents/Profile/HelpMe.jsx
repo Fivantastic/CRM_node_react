@@ -8,12 +8,6 @@ export const HelpMe = () => {
 
   const handleHelpAction = async (formData) => {
     try {
-      // Crea el objeto de datos para la petición
-      const data = {
-        currentPassword: formData.currentPassword,
-        newPassword: formData.newPassword,
-      };
-
       const response = await fetch('http://localhost:3000/user/avatar', {
         method: 'PUT',
         credentials: 'include',
@@ -21,7 +15,7 @@ export const HelpMe = () => {
           'Content-Type': 'application/json',
           Authorization: `${token}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -93,10 +87,14 @@ export const HelpMe = () => {
   return (
     <div>
       <button onClick={handleClickHelp} id="avatar-container">
-        <img id="incon-setting" src='help_24dp_FILL0_wght400_GRAD0_opsz24.svg' alt="" />
+        <img
+          id="incon-setting"
+          src="help_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          alt=""
+        />
         <div id="content">
           <h3>Ayuda</h3>
-          <p id="info">Cambiar</p>
+          <p id="info">Preguntas</p>
         </div>
       </button>
     </div>

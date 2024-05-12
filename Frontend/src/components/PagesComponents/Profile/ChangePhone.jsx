@@ -2,31 +2,31 @@ import Joi from 'joi';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
+import { joiErrorMessages } from '../../../../../Backend/src/schemas/error/joiErrorMessage.js';
+import { getUserDataFromToken } from '../../../Services/GetUserDataToken.js';
 
 export const ChangePhone = () => {
   const token = useUser();
+  const { id_user } = getUserDataFromToken(token);
 
   const handleChangePhone = async (formData) => {
     try {
-      // Crea el objeto de datos para la petición
-      const data = {
-        currentPassword: formData.currentPassword,
-        newPassword: formData.newPassword,
-      };
-
-      const response = await fetch('http://localhost:3000/user/update', {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `http://localhost:3000/user/update/${id_user}`,
+        {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log('Email cambiada con éxito:', responseData);
+        console.log('Telefono cambiada con éxito:', responseData);
 
         const Toast = Swal.mixin({
           toast: true,
@@ -41,16 +41,16 @@ export const ChangePhone = () => {
         });
         Toast.fire({
           icon: 'success',
-          title: 'Email cambiado con exito',
+          title: 'Telefono cambiado con exito',
         });
       } else {
         const errorData = await response.json();
-        console.error('Error al cambiar la email:', errorData);
+        console.error('Error al cambiar el telefono:', errorData);
 
         if (errorData.code === 'INVALID_PASSWORD_CRM_ERROR') {
           Swal.fire({
             icon: 'error',
-            title: '¡Contraseña incorrecta!',
+            title: 'Telefono incorrecta!',
           }).then((result) => {
             if (result.isConfirmed) {
               // Recarga de nuevo el boton de modificar contraseña modal
@@ -59,12 +59,12 @@ export const ChangePhone = () => {
         }
       }
     } catch (error) {
-      console.error('Error al cambiar la email:', error);
+      console.error('Error al cambiar la telefono:', error);
       // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
     }
   };
 
-  const title = 'Cambiar Nombre';
+  const title = 'Cambiar Telefono';
 
   const nameButton = 'Cambiar';
 
@@ -77,7 +77,7 @@ export const ChangePhone = () => {
   ];
 
   const phoneSchema = Joi.object({
-    name: Joi.string().min(3).max(30).required(),
+    phone: Joi.number().required().messages(joiErrorMessages),
   });
 
   const handleClickChangePhone = () => {

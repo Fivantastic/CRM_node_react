@@ -166,8 +166,8 @@ height: calc(100vh - 70px);
 }
 
 .linkPage > .iconSidebar {
-  width: 20px;
-  height: 20px;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .sidebar-bottom .sidebar-links {
@@ -276,8 +276,8 @@ height: calc(100vh - 70px);
     }
 
     .linkPage > .iconSidebar {
-      width: 28px;
-      height: 28px;
+      width: 1.75rem;
+      height: 1.75rem;
     }
   
     .linkPage {

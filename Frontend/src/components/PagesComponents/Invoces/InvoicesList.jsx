@@ -59,8 +59,8 @@ export const InvoicesList = ({ invoice }) => {
         <p><strong>NIF: </strong> {invoice.NIF}</p>
         <p><strong>Dirección: </strong> {invoice.address}</p>
 
-        <h3 id="element_ivoice_section" className=" mainSubSection">Monto</h3>
-        <p><strong>Precio: </strong> {invoice.total_price} €</p>
+
+        <p><strong>Importe: </strong> {invoice.total_price} €</p>
         <p><strong>IVA: </strong> {invoice.including_tax} €</p>
         <p><strong>Total: </strong> {invoice.total_amount} €</p>
 

@@ -82,6 +82,8 @@ export const CreatePayment = ({onAddPayment, token}) => {
       label: 'Factura',
       type: 'text',
       placeholder: 'Introduce el identificador...',
+      idLabel: 'labelIdPaymentCreate',
+      idInput: 'inputIdPaymentCreate',
       required: true,
     }
   ];

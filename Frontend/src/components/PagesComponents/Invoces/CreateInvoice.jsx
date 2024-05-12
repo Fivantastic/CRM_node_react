@@ -68,17 +68,24 @@ export const CreateInvoice = ({ onAddInvoice }) => {
       label: 'Codigo De Venta',
       type: 'text',
       placeholder: 'Introduce el codigo...',
+      idLabel: 'labelNameInvoiceCreate',
+      idInput: 'inputNameInvoiceCreate',
       required: true,
     },
     {
       name: 'payment_method',
       label: 'Metodo De Pago',
       type: 'select',
+      required: true,
+      defaultValue: 'Transfecia',
+      idLabel: 'labelMethodInvoiceCreate',
+      idInput: 'inputMethodInvoiceCreate',
       options: {
         Metodo: {
+          transfer: 'Transferencia',
           cash: 'Efectivo',
           card: 'Tarjeta',
-          transfer: 'Transfecia',
+    
         },
       },
     },
@@ -87,6 +94,8 @@ export const CreateInvoice = ({ onAddInvoice }) => {
       label: 'Vencimiento Del Pago',
       type: 'date',
       placeholder: 'Introduce el fecha...',
+      idLabel: 'labelDateInvoiceCreate',
+      idInput: 'inputDateInvoiceCreate',
     },
   ];
 

@@ -39,6 +39,8 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       label: 'Nombre del destinatario',
       type: 'text',
       placeholder: 'Introduce el nombre del destinatario...',
+      idLabel: 'labelNameShipmentUpdate',
+      idInput: 'inputNameShipmentUpdate',
       required: true,
     },
     {
@@ -46,6 +48,8 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       label: 'Dirección de entrega',
       type: 'text',
       placeholder: 'Introduce la dirección de entrega...',
+      idLabel: 'labelAddressShipmentUpdate',
+      idInput: 'inputAddressShipmentUpdate',
       required: true,
     },
     
@@ -54,6 +58,8 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       label: 'Estado del envío',
       type: 'text',
       placeholder: 'Introduce el estado del envío...',
+      idLabel: 'labelStatusShipmentUpdate',
+      idInput: 'inputStatusShipmentUpdate',
       required: true,
     },
     

@@ -73,24 +73,32 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
       label: 'Cliente',
       type: 'text',
       placeholder: 'Introduce el cliente...',
+      idLabel: 'labelNameVisitUpdate',
+      idInput: 'inputNameVisitUpdate',
     },
     {
       name: 'id_user',
       label: 'Comercial',
       type: 'text',
       placeholder: 'Introduce el comercial...',
+      idLabel: 'labelUserVisitUpdate',
+      idInput: 'inputUserVisitUpdate',
     },
     {
       name: 'visit_date',
       label: 'Fecha',
       type: 'date',
       placeholder: 'Introduce la fecha...',
+      idLabel: 'labelDateVisitUpdate',
+      idInput: 'inputDateVisitUpdate',
     },
     {
       name: 'observations',
       label: 'Observaciones',
       type: 'textarea',
       placeholder: 'Introduce las observaciones...',
+      idLabel: 'labelObservationsVisitUpdate',
+      idInput: 'inputObservationsVisitUpdate',
     },
   ];
 

@@ -66,6 +66,8 @@ export const CreateSale = ({ onAddSale, token }) => {
       label: 'Producto ',
       type: 'text',
       placeholder: 'Introduce el producto...',
+      idLabel: 'labelNameSaleCreate',
+      idInput: 'inputNameSaleCreate',
       required: true,
     },
     {
@@ -73,6 +75,8 @@ export const CreateSale = ({ onAddSale, token }) => {
       label: 'Cantidad ',
       type: 'text',
       placeholder: 'Introduce la cantidad de producto...',
+      idLabel: 'labelQuantitySaleCreate',
+      idInput: 'inputQuantitySaleCreate',
       required: true,
     },
     {
@@ -80,6 +84,8 @@ export const CreateSale = ({ onAddSale, token }) => {
       label: 'Cliente',
       type: 'text',
       placeholder: 'Introduce el cliente...',
+      idLabel: 'labelCustomerSaleCreate',
+      idInput: 'inputCustomerSaleCreate',
       required: true,
     },
   ];

@@ -21,7 +21,7 @@ export const ProfilePage = () => {
         </h1>
         <section id="account">
           {user && <ChangePasswordPop token={user} />}
-          {/* <ChangeAvatar /> */}
+          {/* <ChangeAvatar />*/}
           <ImageUpload />
           <ChanegeEmail />
           <ChangeName />

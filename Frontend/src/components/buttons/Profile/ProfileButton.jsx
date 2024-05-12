@@ -3,8 +3,7 @@ import defaultAvatar from '/profile.svg';
 import './StyleProfileButton.css'
 
 // Define la función para mostrar la información del usuario
-const showUserInfo = (userData) => {
-
+const showUserInfo = ( userData, isActive) => {
     const traducirRole = (role) => {
       switch (role) {
         case 'admin':
@@ -19,8 +18,8 @@ const showUserInfo = (userData) => {
     // Construye el contenido del modal con la información del usuario
     const addressConcatenated = userData.address ? `${userData.address} ${userData.number}, ${userData.floor ? 'Piso ' + userData.floor : ''} ${userData.letter_number ? 'Letra ' + userData.letter_number : ''}, ${userData.city}` : 'Dirección no disponible';
   
-    const isActive = userData.active === 1 ? 'Activo' : 'Inactivo';
-    const activeClass = userData.active === 1 ? 'active' : 'inactive'; // Clase para el estado activo o inactivo
+    const active = isActive == true ? 'Activo' : 'Inactivo';
+    const activeClass = isActive == true ? 'active' : 'inactive'; // Clase para el estado activo o inactivo
   
     const userInfoHtml = `
       <section>
@@ -36,7 +35,7 @@ const showUserInfo = (userData) => {
           <p><strong>Teléfono: </strong> ${userData.phone}</p>
           <p><strong>Dirección: </strong> ${addressConcatenated}</p>
           <p><strong>Rol en la empresa: </strong> ${traducirRole(userData.role)}</p>
-          <p><strong>Estado: </strong> ${isActive}</p>
+          <p><strong>Estado: </strong> ${active}</p>
           <p><strong>Biografía: </strong> ${userData.biography}</p>
         </div>
       </section>
@@ -53,11 +52,11 @@ const showUserInfo = (userData) => {
   };
   
   // Define el componente UserButtonMoreInfo
-  export const ProfileButton = ({ userData }) => {
+  export const ProfileButton = ({ userData, isActive }) => {
     // Define la función que maneja el clic en el botón
     const handleClick = () => {
       // Muestra la información del usuario al hacer clic en el botón
-      showUserInfo(userData);
+      showUserInfo(userData, isActive);
     };
   
     return (

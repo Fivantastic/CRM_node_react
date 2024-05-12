@@ -87,6 +87,7 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
                                         className={`input ${errors[field.name] ? 'error' : ''}`}
                                         type={field.type}
                                         placeholder={field.placeholder}
+                                        required autoComplete='off'
                                         {...register(field.name, {
                                             required: field.required,
                                             minLength: field.minLength,

@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
-import './simpleEstilo.css';
+import '../../Styles/Pages/DymanicsPopUps.css'
+
 
 const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
   const handleClickSubmit = async () => {
@@ -70,8 +71,11 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
       `;
     } else {
       return `
-        <label for="${field.name}" id="${field.idLabel}" class="labelText">${field.label}</label>
-        <input id="${field.name}" type="${field.type}" class="inputText">
+      <div class="input-container">
+      <input id="${field.name}" type="${field.type}" class="inputText" required="">
+      <label for="${field.name}" id="${field.idLabel}" class="label labelText">${field.label}</label>
+      <div class="underline"></div>
+      </div>
       `;
     }
   };

@@ -39,32 +39,13 @@
 }
 
 /* Estilo para los campos de entrada y etiquetas */
-.input[type='text'],
-.input[type='password'],
-.input[type='number'],
-.input[type='email'],
-.input[type='date'],
-.input[type='checkbox'],
-.input[type='radio'],
-.input[type='file'],
-.textareaForm,
-.selectForm,
-.labelForm {
+.input{
   display: block;
   margin-bottom: 5px;
 }
 
 /* Estilo para los campos de entrada */
-.input[type='text'],
-.input[type='password'],
-.input[type='number'],
-.input[type='email'],
-.input[type='date'],
-.input[type='checkbox'],
-.input[type='radio'],
-.input[type='file'],
-.textareaForm,
-.selectForm{
+.input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;

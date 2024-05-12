@@ -1,9 +1,10 @@
-import { useSetUser, useUser } from '../../context/authContext.jsx';
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
+import CryptoJS from 'crypto-js'; // Importa CryptoJS para encriptación
 import LogoutButton from '../buttons/Profile/LogoutButton.jsx';
 import './ProfileNav.css';
+import { useSetUser, useUser } from '../../context/authContext.jsx';
+import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 
 export const ProfileNav = () => {
   const token = useUser();
@@ -16,9 +17,24 @@ export const ProfileNav = () => {
     if (token) {
       // Obtener datos del usuario desde el token
       const userDataFromToken = getUserDataFromToken(token);
+      
+      // Encripta los datos antes de guardarlos en el localStorage
+      const encryptedData = encryptUserData(userDataFromToken);
+      localStorage.setItem('userData', encryptedData);
+      
+      // Guarda los datos del usuario en el estado
       setUserData(userDataFromToken);
     }
   }, [token]);
+
+  useEffect(() => {
+    // Cuando se carga el componente, verifica si hay datos del usuario en el localStorage y desencripta si es necesario
+    const encryptedUserData = localStorage.getItem('userData');
+    if (encryptedUserData) {
+      const decryptedUserData = decryptUserData(encryptedUserData);
+      setUserData(decryptedUserData);
+    }
+  }, []);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -30,6 +46,18 @@ export const ProfileNav = () => {
     setTimeout(() => {
       setIsClicked(false);
     }, 200);
+  };
+
+  const encryptUserData = (data) => {
+    // Convierte el objeto de usuario a JSON y luego encripta
+    return CryptoJS.AES.encrypt(JSON.stringify(data), 'claveDeEncriptacion').toString();
+  };
+
+  const decryptUserData = (encryptedData) => {
+    // Desencripta y luego convierte a objeto
+    const bytes = CryptoJS.AES.decrypt(encryptedData, 'claveDeEncriptacion');
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    return decryptedData;
   };
 
   const getFullName = (name, lastName) => {
@@ -77,15 +105,16 @@ export const ProfileNav = () => {
             </li>
           </>
         )}
-        <li className="btn-logout navli btn-perfilNav" key="logout">
-          <LogoutButton setUser={setUser} />
-          <img className="iconProfileNavLogout iconProfileNav" src="./iconLogout.svg" alt="Imagen de configuración de perfil" />
-        </li>
         <NavLink exact to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
           <p>Settings</p>
           <img className="iconProfileNavSettings iconProfileNav" src="./settings.svg" alt="Imagen de configuración de perfil" />
         </NavLink>
+        <li className="btn-logout navli btn-perfilNav" key="logout">
+          <LogoutButton setUser={setUser} />
+          <img className="iconProfileNavLogout iconProfileNav" src="./iconLogout.svg" alt="Imagen de configuración de perfil" />
+        </li>
       </ul>
     </nav>
   );
 };
+

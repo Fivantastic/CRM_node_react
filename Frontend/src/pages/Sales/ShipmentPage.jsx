@@ -27,6 +27,7 @@ export const ShipmentPage = () => {
         const responseData = await response.json();
         console.log('Obtener envíos satisfactorio:', responseData);
         setShipmentList(responseData.data);
+        console.log(responseData.data);
       } else {
         const errorData = await response.json();
         console.error('Obtener envíos fallido:', errorData);

@@ -70,7 +70,7 @@ export const ProfileNav = () => {
           </>
         )}
 
-        <NavLink exact to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
+        <NavLink  exact="true" to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
           <p>Settings</p>
           <img
             className="iconProfileNavSettings iconProfileNav"

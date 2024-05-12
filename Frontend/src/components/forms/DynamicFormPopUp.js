@@ -5,7 +5,11 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
   const handleClickSubmit = async () => {
     const { value: formData } = await Swal.fire({
       title: title,
-      html: generateFormHtml(fields),
+      html: `
+        <form class="dynamicFromModal">
+          ${generateFormHtml(fields)}
+        </form>
+      `,
       focusConfirm: false,
       preConfirm: async () => {
         const values = {};
@@ -61,13 +65,13 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
   const generateRegularField = (field) => {
     if (field.type === 'file') {
       return `
-        <label for="${field.idInput}" id="${field.idLabel}" class="labelText">${field.label}</label>
-        <input id="${field.idInput}" type="file" class="inputFile" onChange="${field.onChange}">
+        <label for="${field.name}" id="${field.idLabel}" class="labelText">${field.label}</label>
+        <input id="${field.name}" type="file" class="inputFile" onChange="${field.onChange}">
       `;
     } else {
       return `
-        <label for="${field.idInput}" id="${field.idLabel}" class="labelText">${field.label}</label>
-        <input id="${field.idInput}" type="${field.type}" class="inputText">
+        <label for="${field.name}" id="${field.idLabel}" class="labelText">${field.label}</label>
+        <input id="${field.name}" type="${field.type}" class="inputText">
       `;
     }
   };

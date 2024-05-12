@@ -67,6 +67,8 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
       label: 'Producto',
       type: 'text',
       placeholder: 'Introduce el producto...',
+      idLabel: 'labelNameSaleUpdate',
+      idInput: 'inputNameSaleUpdate',
       required: true,
     },
     {
@@ -74,6 +76,8 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
       label: 'Cantidad',
       type: 'text',
       placeholder: 'Introduce la cantidad de producto...',
+      idLabel: 'labelQuantitySaleUpdate',
+      idInput: 'inputQuantitySaleUpdate',
       required: true,
     },
     {
@@ -81,12 +85,16 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
       label: 'Cliente',
       type: 'text',
       placeholder: 'Introduce el cliente...',
+      idLabel: 'labelCustomerSaleUpdate',
+      idInput: 'inputCustomerSaleUpdate',
       required: true,
     },
     {
       name: 'operation_status',
       label: 'Estado',
       type: 'select',
+      idLabel: 'labelStatusSaleUpdate',
+      idInput: 'inputStatusSaleUpdate',
       options: {
         Estado: {
           open: 'En Proceso',

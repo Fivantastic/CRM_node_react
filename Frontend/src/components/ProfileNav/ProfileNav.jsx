@@ -57,6 +57,7 @@ export const ProfileNav = () => {
     // Desencripta y luego convierte a objeto
     const bytes = CryptoJS.AES.decrypt(encryptedData, 'claveDeEncriptacion');
     const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    console.log('Decrypted data:', decryptedData);
     return decryptedData;
   };
 

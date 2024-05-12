@@ -49,8 +49,6 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       label: 'Número',
       type: 'text',
       placeholder: 'Introduce el número...',
-      required: false,
-      placeholder: 'Introduce la dirección de entrega...',
       idLabel: 'labelAddressShipmentUpdate',
       idInput: 'inputAddressShipmentUpdate',
       required: true,

@@ -10,13 +10,9 @@ export const ChangeAvatar = () => {
   const { id_user } = getUserDataFromToken(token);
 
   const handleChangeAvatar = async (formData) => {
+    const formDataToSend = new FormData();
+    formDataToSend.append('avatar', formData.file);
     try {
-      // Crear un nuevo objeto FormData
-      const formDataToSend = new FormData();
-
-      // Agregar el archivo de imagen al FormData
-      formDataToSend.append('avatar', formData.file);
-
       for (let pair of formDataToSend.entries()) {
         console.log(pair[0] + ', ' + pair[1]);
       }
@@ -82,6 +78,7 @@ export const ChangeAvatar = () => {
       name: 'file',
       type: 'file',
       label: 'Imagen',
+      onChange: (e) => e.target.files[0],
     },
   ];
 

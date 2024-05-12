@@ -50,14 +50,19 @@ export const ShipmentPage = () => {
     }
   };
 
-  const deleteShipment = async (id_shipment) => {
+   //Actualizo el estado con la venta eliminada y solicito la lista actualizada al servidor
+   const deleteShipment = async (id_shipment) => {
     try {
+      // Eliminar la venta del estado local
       setShipmentList((prevShipments) =>
-        prevShipments.filter((shipment) => shipment.id_shipment !== id_shipment)
+      prevShipments.filter((shipment) => shipment.id_shipment !== id_shipment)
       );
+
+      // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getShipmentList();
     } catch (error) {
-      console.error('Error al eliminar el envío:', error);
+      console.error('Error al eliminar la venta:', error);
+      // Mostrar un mensaje de error al usuario
     }
   };
 

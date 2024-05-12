@@ -23,9 +23,9 @@ export const renewTokenMiddleware = async (req, res, next) => {
         // Añadir el contenido decodificado a la solicitud
         req.user = decodedToken;
 
-        console.log(decodedToken);
+        console.log('decodedToken', decodedToken);
 
-        console.log(req.user);
+        console.log('req.user', req.user);
 
         // Si hay un ID de usuario en el token, verifica si existe en la base de datos
         if (decodedToken.id_user) {

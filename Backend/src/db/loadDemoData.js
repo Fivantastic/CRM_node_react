@@ -212,27 +212,36 @@ export async function loadDemoData(db) {
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Shipments.`));
   
-    // Insertar datos en la tabla Invoices
-    console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Invoices...`));
-    const invoiceData = [];
-    for (let i = 0; i < 5; i++) {
-      const invoice = {
-        id_invoice: faker.string.uuid(),
-        agentUser_id: userData[i].id_user,
-        sale_id: salesData[i].id_sale,
-        customer_id: customerData[i].id_customer,
-        company_name: customerData[i].company_name,
-        NIF: customerData[i].NIF,
-        address: addressData[i].address,
-        total_price: faker.finance.amount(),
-        including_tax: faker.finance.amount(),
-        total_amount: faker.finance.amount(),
-        payment_method: faker.helpers.arrayElement(['cash', 'card', 'transfer']),
-        invoice_status: faker.helpers.arrayElement(['pending', 'pending', 'pending', 'pending', 'pending', 'pending', 'pending', 'pending', 'paid', 'paid', 'paid', 'paid', 'paid', 'paid', 'paid', 'paid', 'overdue', 'partially_paid', 'cancelled', 'refunded', 'disputed', 'sent']),
-        due_date: faker.date.future(),
-      };
-      invoiceData.push(invoice);
-    }
+// Insertar datos en la tabla Invoices
+console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Invoices...`));
+const invoiceData = [];
+for (let i = 0; i < 5; i++) {
+  // Calcular el precio total de la factura
+  let totalPrice = productData[i].price * salesProductData[i].quantity;
+
+  // Calcular el precio total incluyendo impuestos
+  let includingTax = totalPrice * 0.21;
+  
+  let totalAmount = totalPrice + includingTax;
+
+  const invoice = {
+    id_invoice: faker.string.uuid(),
+    agentUser_id: userData[i].id_user,
+    sale_id: salesData[i].id_sale,
+    customer_id: customerData[i].id_customer,
+    company_name: customerData[i].company_name,
+    NIF: customerData[i].NIF,
+    address: addressData[i].address,
+    total_price: totalPrice.toFixed(2), 
+    including_tax: includingTax.toFixed(2), 
+    total_amount: totalAmount,
+    payment_method: faker.helpers.arrayElement(['cash', 'card', 'transfer']),
+    invoice_status: faker.helpers.arrayElement(['pending', 'pending', 'pending', 'pending', 'pending', 'pending', 'pending', 'pending', 'paid', 'paid', 'paid', 'paid', 'paid', 'paid', 'paid', 'paid', 'overdue', 'partially_paid', 'cancelled', 'refunded', 'disputed', 'sent']),
+    due_date: faker.date.future(),
+  };
+  invoiceData.push(invoice);
+}
+
     await db.query(
       `INSERT INTO Invoices (id_invoice, agentUser_id, sale_id, customer_id, company_name, NIF, address, total_price, including_tax, total_amount, payment_method, invoice_status, due_date) VALUES ?`,
       [invoiceData.map(invoice => Object.values(invoice))]

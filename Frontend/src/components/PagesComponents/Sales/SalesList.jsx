@@ -18,7 +18,7 @@ export const SalesList = ({ sale }) => {
 
   return (
     <>
-      <h2 id='element_sale_title ' className="mainInsideTitle">Referencia de venta</h2>
+      <h2 id='element_sale_title ' className="mainInsideTitle">Orden de venta</h2>
       <h3 id='element_sale_section ' className="mainSubSection">Comercial</h3>
       <p><strong>Nombre: </strong> {sale.salesAgent} {sale.salesAgent_lastName}</p>
 

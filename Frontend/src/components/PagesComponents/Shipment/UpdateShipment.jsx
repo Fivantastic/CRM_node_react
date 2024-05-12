@@ -35,32 +35,80 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
 
   const updateShipmentFormFields = [
     {
-      name: 'recipient_name',
-      label: 'Nombre del destinatario',
+      name: 'customer_id',
+      label: 'ID de cliente',
       type: 'text',
-      placeholder: 'Introduce el nombre del destinatario...',
+      placeholder: 'Introduce el ID de cliente...',
       required: true,
     },
     {
-      name: 'delivery_address',
-      label: 'Dirección de entrega',
+      name: 'address',
+      label: 'Dirección',
       type: 'text',
-      placeholder: 'Introduce la dirección de entrega...',
-      required: true,
+      placeholder: 'Introduce la dirección...',
+      required: false,
     },
-    
+
+   {
+      name: 'number',
+      label: 'Número',
+      type: 'text',
+      placeholder: 'Introduce el número...',
+      required: false,
+    },
     {
-      name: 'shipment_status',
-      label: 'Estado del envío',
+      name: 'floor',
+      label: 'Piso',
       type: 'text',
-      placeholder: 'Introduce el estado del envío...',
-      required: true,
+      placeholder: 'Introduce el piso...',
+      required: false,
     },
-    
+    {
+      name: 'letter_number',
+      label: 'Número de puerta',
+      type: 'text',
+      placeholder: 'Introduce el número de puerta...',
+      required: false,
+    },
+    {
+      name: 'city',
+      label: 'Ciudad',
+      type: 'text',
+      placeholder: 'Introduce la ciudad...',
+      required: false,
+    },
+    {
+      name: 'zip_code',
+      label: 'Código Postal',
+      type: 'text',
+      placeholder: 'Introduce el código postal...',
+      required: false,
+    },
+    {
+      name: 'country',
+      label: 'País',
+      type: 'text',
+      placeholder: 'Introduce el país...',
+      required: false,
+    },
+    {
+      name: 'deliveryNote_id',
+      label: 'ID de nota de entrega',
+      type: 'text',
+      placeholder: 'Introduce el ID de nota de entrega...',
+      required: false,
+    },
+    {
+      name: 'additional_notes',
+      label: 'Notas adicionales',
+      type: 'text',
+      placeholder: 'Introduce notas adicionales...',
+      required: false,
+    },
   ];
 
   const updateShipmentSchema = Joi.object({
-    customer_id: Joi.string().optional().max(36),
+    customer_id: Joi.string().optional(),
     address: Joi.string().optional(),
     number: Joi.string().optional(),
     floor: Joi.string().optional(),

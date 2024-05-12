@@ -41,7 +41,6 @@ export const ProfileNav = () => {
       return name + ' ' + lastName;
     }
   };
-  
 
   // Convertir el rol
   const getRoleName = (role) => {
@@ -57,20 +56,33 @@ export const ProfileNav = () => {
     }
   };
 
+  const avatar = userData ? userData.avatar : './profile.svg';
+
   return (
     <nav className="profileNavContainer">
-      <button 
-        className={`dropdown-toggle btn-profile ${isOpen ? 'open' : ''} ${isClicked ? 'clicked' : ''}`} 
-        onClick={() => {toggleDropdown(); handleClick();}}
+      <button
+        className={`dropdown-toggle btn-profile ${isOpen ? 'open' : ''} ${isClicked ? 'clicked' : ''}`}
+        onClick={() => {
+          toggleDropdown();
+          handleClick();
+        }}
       >
-        {userData && <img className="avatarProfileNav" src={userData.avatar || './profile.svg'} alt="Avatar del usuario" />}
+        {userData && (
+          <img
+            className="avatarProfileNav"
+            src={avatar}
+            alt="Avatar del usuario"
+          />
+        )}
       </button>
 
       <ul className={`menuProfileNav ${isOpen ? 'open' : ''}`}>
         {userData && (
           <>
             <li className="nameBar navli navLink" key="nameBar">
-              <p className="nameProfileNav">{getFullName(userData.name, userData.lastName)}</p>
+              <p className="nameProfileNav">
+                {getFullName(userData.name, userData.lastName)}
+              </p>
             </li>
             <li className="roleBar navli navLink" key="roleBar">
               <p className="roleProfileNav">{getRoleName(userData.role)}</p>
@@ -79,11 +91,24 @@ export const ProfileNav = () => {
         )}
         <li className="btn-logout navli btn-perfilNav" key="logout">
           <LogoutButton setUser={setUser} />
-          <img className="iconProfileNavLogout iconProfileNav" src="./iconLogout.svg" alt="Imagen de configuración de perfil" />
+          <img
+            className="iconProfileNavLogout iconProfileNav"
+            src="./iconLogout.svg"
+            alt="Imagen de configuración de perfil"
+          />
         </li>
-        <NavLink exact to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
+        <NavLink
+          exact
+          to="/Profile"
+          className="btn-home navli btn-perfilNav"
+          key="profile"
+        >
           <p>Settings</p>
-          <img className="iconProfileNavSettings iconProfileNav" src="./settings.svg" alt="Imagen de configuración de perfil" />
+          <img
+            className="iconProfileNavSettings iconProfileNav"
+            src="./settings.svg"
+            alt="Imagen de configuración de perfil"
+          />
         </NavLink>
       </ul>
     </nav>

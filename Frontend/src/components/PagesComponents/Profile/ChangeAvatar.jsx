@@ -13,12 +13,10 @@ export const ChangeAvatar = () => {
     try {
       // Crear un nuevo objeto FormData
       const formDataToSend = new FormData();
+
       // Agregar el archivo de imagen al FormData
-      formDataToSend.append('avatar', formData);
-      // Agregar cualquier otro campo necesario como cadena
-      /* formDataToSend.append('name', formData.name); */
-      /* // Agregar el mimetype si es necesario
-      formDataToSend.append('mimetype', formData.mimetype); */
+      formDataToSend.append('avatar', formData.file);
+
       for (let pair of formDataToSend.entries()) {
         console.log(pair[0] + ', ' + pair[1]);
       }
@@ -26,7 +24,7 @@ export const ChangeAvatar = () => {
       const response = await fetch(
         `http://localhost:3000/user/avatar/${id_user}`,
         {
-          method: 'POST',
+          method: 'PUT',
           credentials: 'include',
           headers: {
             Authorization: `${token}`,

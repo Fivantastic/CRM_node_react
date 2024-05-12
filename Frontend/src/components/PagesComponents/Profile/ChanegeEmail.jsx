@@ -3,6 +3,7 @@ import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
 import { getUserDataFromToken } from '../../../Services/GetUserDataToken.js';
+import { joiErrorMessages } from '../../../Schema/Error/JoiErrorMesasage.js';
 
 export const ChanegeEmail = () => {
   const token = useUser();
@@ -10,12 +11,6 @@ export const ChanegeEmail = () => {
 
   const handleChangeEmail = async (formData) => {
     try {
-      // Crea el objeto de datos para la petición
-      const data = {
-        currentPassword: formData.currentPassword,
-        newPassword: formData.newPassword,
-      };
-
       const response = await fetch(
         `http://localhost:3000/user/update/${id_user}`,
         {
@@ -25,7 +20,7 @@ export const ChanegeEmail = () => {
             'Content-Type': 'application/json',
             Authorization: `${token}`,
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(formData),
         }
       );
 
@@ -82,7 +77,11 @@ export const ChanegeEmail = () => {
   ];
 
   const updateEmailSchema = Joi.object({
-    email: Joi.string().email({ tlds: false }).required().label('Email'),
+    email: Joi.string()
+      .email({ tlds: false })
+      .required()
+      .label('Email')
+      .messages(joiErrorMessages),
   });
 
   const handleClickChangeAvatar = () => {

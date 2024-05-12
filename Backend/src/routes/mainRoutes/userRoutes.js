@@ -87,7 +87,7 @@ userRouter.get('/user/renew-token', renewTokenMiddleware, renewTokenController);
 
 // Ruta para actualizar avatar
 userRouter.put(
-  '/user/avatar',
+  '/user/avatar/:id_user',
   authenticateUser,
   userExist,
   updateUserAvatarController

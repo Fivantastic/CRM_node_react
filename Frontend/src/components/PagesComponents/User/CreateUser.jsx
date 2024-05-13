@@ -125,7 +125,9 @@ export const CreateUser = ({ onAddUser, token }) => {
   };
   return (
     <>
-      <button id='btnUserCreate' className=" mainCreateBtn" onClick={handleClickCreateUser}>Nuevo usuario</button>
+      <button id='btnUserCreate' className=" mainCreateBtn" onClick={handleClickCreateUser}>
+        <img id='imgUserCreate' src="./addUser.svg" alt="Boton agregar usuario" />
+      </button>
     </>
   );
 };

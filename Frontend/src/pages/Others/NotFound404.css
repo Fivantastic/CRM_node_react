@@ -1,0 +1,61 @@
+.error-section-404 {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+}
+
+.error-container-404 {
+    text-align: center;
+}
+
+.error-title-404 {
+    font-size: 190px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+}
+
+.error-text-404 {
+    font-size: 1.125rem;
+}
+
+.animate-blink-404 {
+    animation: blink 2s infinite;
+}
+
+.error-link-404 {
+    color: #fff;
+    text-decoration: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+li.error_link_404:hover {
+    color: #10b981;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}

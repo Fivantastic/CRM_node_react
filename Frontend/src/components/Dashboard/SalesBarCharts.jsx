@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useUser } from '../../context/authContext.jsx';
 import {
   Bar,
@@ -44,12 +44,17 @@ export const SalesBarCharts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  const chartData = useMemo(
+    () => (salesList.length > 0 ? salesList : <p>Loading...</p>),
+    [salesList]
+  );
+
   return (
     <>
       <section id="sales-charts">
-        <h2 id="customer-charts">Clentes</h2>
+        <h2 id="customer-charts">Clintes</h2>
         <ResponsiveContainer>
-          <BarChart data={salesList} width={500} height={300}>
+          <BarChart data={chartData} width={500} height={300}>
             <CartesianGrid strokeDasharray="4 2 1" />
             <XAxis dataKey="customer" />
             <YAxis />

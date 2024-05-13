@@ -5,6 +5,9 @@
   flex-direction: column;
   gap: 4rem;
 }
+#dashboard_title {
+  padding: 1rem;
+}
 
 #max-charts {
   display: flex;
@@ -12,6 +15,21 @@
   justify-content: center;
   flex-wrap: wrap;
   margin: 1rem;
-  gap: 5rem;
+  gap: 1rem;
   width: 100%;
+}
+
+#charts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  #charts {
+    display: flex;
+    flex-direction: column;
+    width: 115%;
+  }
 }

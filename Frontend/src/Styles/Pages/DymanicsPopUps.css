@@ -21,8 +21,33 @@
     background-color: transparent;
     outline: none;
   }
+
+  .inputSelect {
+    width: 300px;
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 5px 10px;
+  }
+
+  .input-container input[type="date"] { 
+    color: #ccc;
+  }
+
+  .input-container input[type="date"] :focus,
+  .input-container input[type="date"] :valid,
+  .input-container input[type="date"] :active,
+  .input-container input[type="date"] :hover,
+  .input-container input[type="date"] :focus-visible,
+  .input-container input[type="date"] :focus-within{
+    color: black;
+  }
+
   
-  .input-container .label {
+  .input-container .label,
+  .input-container .labelSelect,
+  .input-container .inputSelect option[value=""] ~ .labelSelect {
     position: absolute;
     top: 0;
     left: 0;
@@ -30,9 +55,12 @@
     transition: all 0.3s ease;
     pointer-events: none;
   }
+
+  /* que la option de select tenga valor */
   
   .input-container .inputText:focus ~ .label,
-  .input-container .inputText:valid ~ .label {
+  .input-container .inputText:valid ~ .label,
+  .input-container .inputSelect option:not(:default) ~ .labelSelect {
     top: -20px;
     font-size: 16px;
     color: #333;
@@ -60,9 +88,7 @@
     font-size: 16px;
 
   }
-.swal2-actions {
-  width: 100%;
-}
+
 
   .customConfirmBtnClass,
   .customCancelBtnClass {

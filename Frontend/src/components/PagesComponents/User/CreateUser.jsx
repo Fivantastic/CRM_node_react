@@ -55,7 +55,7 @@ export const CreateUser = ({ onAddUser, token }) => {
   };
 
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
-  const title = 'Registrar usuario';
+  const title = 'Crear usuario';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Crear';

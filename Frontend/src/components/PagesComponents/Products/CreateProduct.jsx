@@ -58,7 +58,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
     const title = 'Agregar producto';
 
     // Nombre que se muestra en el botón submit.
-    const nameButton = 'Agregar producto';
+    const nameButton = 'Agregar';
 
     // Campos del formulario personalizables
 

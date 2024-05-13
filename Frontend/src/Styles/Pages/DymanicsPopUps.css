@@ -35,19 +35,14 @@
     color: #ccc;
   }
 
-  .input-container input[type="date"] :focus,
-  .input-container input[type="date"] :valid,
-  .input-container input[type="date"] :active,
-  .input-container input[type="date"] :hover,
-  .input-container input[type="date"] :focus-visible,
-  .input-container input[type="date"] :focus-within{
+  .input-container input[type="date"]:focus,
+  .input-container input[type="date"]:valid {
     color: black;
   }
 
   
   .input-container .label,
-  .input-container .labelSelect,
-  .input-container .inputSelect option[value=""] ~ .labelSelect {
+  .input-container .inputSelect:not(:checked) + .labelSelect {
     position: absolute;
     top: 0;
     left: 0;
@@ -60,7 +55,7 @@
   
   .input-container .inputText:focus ~ .label,
   .input-container .inputText:valid ~ .label,
-  .input-container .inputSelect option:not(:default) ~ .labelSelect {
+  .input-container .inputSelect:checked ~ .labelSelect  {
     top: -20px;
     font-size: 16px;
     color: #333;

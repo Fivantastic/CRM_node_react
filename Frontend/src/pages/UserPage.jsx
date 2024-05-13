@@ -3,6 +3,9 @@ import { useUser } from "../context/authContext.jsx";
 import { useEffect, useState } from "react";
 import { UserList } from "../components/PagesComponents/User/UserList.jsx";
 import { CreateUser } from "../components/PagesComponents/User/CreateUser.jsx";
+import { ToggleMode } from "../components/NavPages/ToggleMode.jsx";
+import { SearchPages } from "../components/NavPages/SearchPages.jsx";
+import { FilterPages } from "../components/NavPages/FilterPages.jsx";
 
 export const UserPage = () => {
     const token = useUser(); 
@@ -88,12 +91,25 @@ export const UserPage = () => {
         // Mostrar un mensaje de error al usuario si es necesario
       }
     };
+
+    const filterOptions = [
+      { label: 'Activo', value: 'active' },
+      { label: 'Inactivo', value: 'inactive' },
+      { label: 'Administrador', value: 'admin' },
+      { label: 'Comercial', value: 'commercial' },
+      { label: 'Repartidor', value: 'delivery' },
+    ];
     
     return (
       <MainLayout>
         <section id="user_container" className=" mainContainer">
           <h1 id="user_title" className=" mainTitle">User List</h1>
+          <nav id="user_nav" className="mainNav">
+          <SearchPages />
           <CreateUser onAddUser={addUser} token={token} />
+          <FilterPages options={filterOptions} />
+          <ToggleMode />
+          </nav>
           <ol id="user_list" className="main_olist">
             {userList.map((data) => {
               return (

@@ -1,0 +1,51 @@
+#account {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  gap: 10px;
+}
+
+/* Avatar */
+#avatar-container {
+  border: 2px solid #6e6d6d;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 8rem;
+  height: 7.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #f0f0f6;
+}
+
+#btn-select-img {
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#btn-send {
+  cursor: pointer;
+  margin-top: 3px;
+  width: 100px;
+  background-color: #14214e;
+  color: aliceblue;
+  border-radius: 6px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+#content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#info {
+  font-size: 0.6rem;
+}
+
+#incon-setting {
+  padding: 0.5rem;
+}

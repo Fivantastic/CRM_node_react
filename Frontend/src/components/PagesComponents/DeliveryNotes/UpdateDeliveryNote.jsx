@@ -58,6 +58,10 @@ export const UpdateDelivery = ({ deliveryNote, token }) => {
       name: 'delivery_status',
       label: 'Estado',
       type: 'select',
+      defaultValue: 'pending',
+      required: true,
+      idLabel: 'labelStatusNoteUpdate',
+      idInput: 'inputStatusNoteUpdate',
       options: {
         Estados:{
         pending: 'En proceso' ,

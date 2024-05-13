@@ -58,7 +58,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
     const title = 'Agregar producto';
 
     // Nombre que se muestra en el botón submit.
-    const nameButton = 'Agregar producto';
+    const nameButton = 'Agregar';
 
     // Campos del formulario personalizables
 
@@ -68,30 +68,40 @@ export const CreateProduct = ({ onAddProduct, token }) => {
             name: 'name',
             label: 'nombre del producto',
             type: 'text',
-            placeholder: 'Introduce nombre del producto'
+            placeholder: 'Introduce nombre del producto',
+            idLabel: 'labelNameProductCreate',
+            idInput: 'inputNameProductCreate',
         },
         {
             name: 'description',
             label: 'descripción producto',
             type: 'text',
             placeholder: 'Introduce descripción del producto',
+            idLabel: 'labelDescriptionProductCreate',
+            idInput: 'inputDescriptionProductCreate',
         },
         {
             name: 'price',
             label: 'price',
             type: 'text',
             placeholder: 'Introduce precio del producto',
+            idLabel: 'labelPriceProductCreate',
+            idInput: 'inputPriceProductCreate',
         },
         {
             name: 'stock',
             label: 'stock',
             type: 'text',
             placeholder: 'introduce las cantidad'
+            ,idLabel: 'labelStockProductCreate',
+            idInput: 'inputStockProductCreate',
         },
         {
             name: 'product_status',
             label: 'Estado',
             type: 'select',
+            idLabel: 'labelStatusProductCreate',
+            idInput: 'inputStatusProductCreate',
             options: {
               Estado: {
                 active: 'Activado',

@@ -1,0 +1,104 @@
+.dynamicFromModal {
+    margin-bottom: 30px;
+}
+
+.input-container {
+    position: relative;
+    margin: 30px auto;
+    width: 300px;
+  }
+  
+  .input-container .inputText,
+  .input-container input[type="email"],
+  .input-container input[type="password"],
+  .input-container input[type="textarea"],
+  .input-container input[type="date"] {
+    font-size: 20px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 5px 0;
+    background-color: transparent;
+    outline: none;
+  }
+  
+  .input-container .label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ccc;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .input-container .inputText:focus ~ .label,
+  .input-container .inputText:valid ~ .label {
+    top: -20px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .input-container .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #333;
+    transform: scaleX(0);
+    transition: all 0.3s ease;
+  }
+  
+  .input-container .inputText:focus ~ .underline,
+  .input-container .inputText:valid ~ .underline {
+    transform: scaleX(1);
+  }
+
+  /* Hacer que el date siempre este en focus para que el label este arriba */
+  .input-container input[type="date"] ~ .label {
+    top: -20px;
+    font-size: 16px;
+
+  }
+.swal2-actions {
+  width: 100%;
+}
+
+  .customConfirmBtnClass,
+  .customCancelBtnClass {
+    position: absolute;
+    background-color: transparent;
+    border: transparent;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 16px;
+    margin: 5ps 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .customConfirmBtnClass {
+    left: 25%;
+    bottom: 20px;
+    color: #13214E;
+    /* color verde con opacidad */
+    background-color: rgba(0, 128, 0, 0.5);
+  }
+
+  .customCancelBtnClass {
+    right: 25%;
+    bottom: 20px;
+    color: #13214E;
+    /* color rojo con opacidad */
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+
+  .customConfirmBtnClass:hover {
+    background-color: rgba(0, 128, 0, 1);
+    color: white;
+  }
+
+  .customCancelBtnClass:hover {
+    background-color: rgba(255, 0, 0, 1);
+    color: white;
+  }

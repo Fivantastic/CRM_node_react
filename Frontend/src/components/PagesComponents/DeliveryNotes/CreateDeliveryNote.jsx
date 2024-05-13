@@ -55,6 +55,8 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
       label: 'ID de Venta',
       type: 'text',
       placeholder: 'Introduce el ID de venta...',
+      idLabel: 'labelNameNoteCreate',
+      idInput: 'inputNameNoteCreate',
       required: true,
     },
     {
@@ -62,6 +64,8 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
       label: 'ID del Repartidor',
       type: 'text',
       placeholder: 'Introduce el ID del repartidor...',
+      idLabel: 'labelDelivererNoteCreate',
+      idInput: 'inputDelivererNoteCreate',
       required: true,
     },
     {

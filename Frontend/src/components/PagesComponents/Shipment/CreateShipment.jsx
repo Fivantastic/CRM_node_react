@@ -55,6 +55,8 @@ export const CreateShipment = ({ onAddShipment, token }) => {
       label: 'ID de cliente',
       type: 'text',
       placeholder: 'Introduce el ID de cliente...',
+      idLabel: 'labelNameShipmentCreate',
+      idInput: 'inputNameShipmentCreate',
       required: true,
     },
     {
@@ -62,6 +64,8 @@ export const CreateShipment = ({ onAddShipment, token }) => {
       label: 'ID de dirección',
       type: 'text',
       placeholder: 'Introduce el ID de dirección...',
+      idLabel: 'labelAddressShipmentCreate',
+      idInput: 'inputAddressShipmentCreate',
       required: true,
     },
     {
@@ -69,6 +73,8 @@ export const CreateShipment = ({ onAddShipment, token }) => {
       label: 'ID de nota de entrega',
       type: 'text',
       placeholder: 'Introduce el ID de nota de entrega...',
+      idLabel: 'labelDeliveryNoteShipmentCreate',
+      idInput: 'inputDeliveryNoteShipmentCreate',
       required: true,
     },
     {
@@ -76,6 +82,8 @@ export const CreateShipment = ({ onAddShipment, token }) => {
       label: 'Notas adicionales',
       type: 'text',
       placeholder: 'Introduce notas adicionales...',
+      idLabel: 'labelAdditionalNotesShipmentCreate',
+      idInput: 'inputAdditionalNotesShipmentCreate',
       required: true,
     },
     {
@@ -83,6 +91,8 @@ export const CreateShipment = ({ onAddShipment, token }) => {
       label: 'Nombre del producto',
       type: 'text',
       placeholder: 'Introduce el nombre del producto...',
+      idLabel: 'labelProductNameShipmentCreate',
+      idInput: 'inputProductNameShipmentCreate',
       required: true,
     },
     {
@@ -90,12 +100,16 @@ export const CreateShipment = ({ onAddShipment, token }) => {
       label: 'Cantidad del producto',
       type: 'number',
       placeholder: 'Introduce la cantidad del producto...',
+      idLabel: 'labelProductQuantityShipmentCreate',
+      idInput: 'inputProductQuantityShipmentCreate',
       required: true,
     },
     {
       name: 'shipment_status',
       label: 'Estado',
       type: 'select',
+      idLabel: 'labelShipmentStatusShipmentCreate',
+      idInput: 'inputShipmentStatusShipmentCreate',
       options: {
         Estados:{
         inTransit: 'En proceso' ,

@@ -55,7 +55,7 @@ export const CreateUser = ({ onAddUser, token }) => {
   };
 
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
-  const title = 'Registrar usuario';
+  const title = 'Crear usuario';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Crear';
@@ -67,23 +67,33 @@ export const CreateUser = ({ onAddUser, token }) => {
       type: 'text',
       label: 'Nombre',
       required: true,
+
+      idLabel: 'labelNameUserCreate',
+      idInput: `inputNameUserCreate`,
     },
     { 
       name: 'last_name',
       type: 'text',
       label: 'Apellidos',
       required: true,
+      idLabel: 'labelLastNameUserCreate',
+      idInput: `inputNameUserCreate`,
     },
     {
       name: 'email',
       type: 'email',
       label: 'Email',
+      idLabel: 'labelEmailUserCreate',
+      idInput: `inputEmailUserCreate`,
       required: true,
     },
     {
       name: 'role',
       type: 'select',
       label: 'Rol',
+      idLabel: 'labelRoleUserCreate',
+      idInput: `inputSelectUserCreate`,
+
       required: true,
       options: {
         Administradores: { 
@@ -115,7 +125,7 @@ export const CreateUser = ({ onAddUser, token }) => {
   };
   return (
     <>
-      <button id='btnUserCreate' className=" mainCreateBtn" onClick={handleClickCreateUser}>Registrar usuario</button>
+      <button id='btnUserCreate' className=" mainCreateBtn" onClick={handleClickCreateUser}>Nuevo usuario</button>
     </>
   );
 };

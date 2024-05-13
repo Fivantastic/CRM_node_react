@@ -1,5 +1,3 @@
-function Dashboard(){
-    return
-}
-
-export default Dashboard
+export const Dashboard = () => {
+  return <></>;
+};

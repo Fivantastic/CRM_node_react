@@ -40,7 +40,7 @@ export const UserList = ({ user, id, activeUser, onDelete }) => {
           <p className="role">{translatedRole}</p> 
         </article>
         <nav className="actions">
-          <ProfileButton userData={userData} />
+          <ProfileButton userData={userData} isActive={isActive} />
           <ButtonMoreUserActions id={userId} activeUser={activeUser}  isActive={isActive}  token={token}  />
           <DeleteGenericModal id={id} onDelete={onDelete} token={token} typeModule="user" typeModuleMessage="Usuario"/>
         </nav>

@@ -6,9 +6,10 @@ export const updateUserAvatarController = async (req, res, next) => {
   try {
     // Validar el body con Joi. Si files no existe devolvemos un objeto vacío.
     await validateSchemaUtil(updateUserAvatarSchema, req.files || {});
+    console.log(req.files);
 
     // Obtenemos el id del usuario.
-    const userId = req.user.id_user;
+    const userId = req.user.id_user || req.params.id_user;
 
     // Guardamos el avatar en la carpeta de subida de archivos. Redimensionamos a un ancho de 100 píxeles.
     const avatarName = await updateAvatarUserService(

@@ -3,6 +3,9 @@ import Swal from 'sweetalert2';
 import { useSetUser } from '../../context/authContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
+import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
+import { getFullName } from '../../Services/getFullName.js';
+import { joiErrorMessages } from '../../Schema/Error/JoiErrorMesasage.js';
 
 export const LoginPage = () => {
   const navigate = useNavigate(); 
@@ -26,7 +29,7 @@ export const LoginPage = () => {
         const newToken = responseData.token;
 
         // Extraer el nombre de usuario de la respuesta
-        const username = responseData.user;
+        const { name, lastName} = getUserDataFromToken(newToken);
 
         // Actualizar el token en el localStorage y en el estado del contexto
         setUser(newToken); 
@@ -47,7 +50,7 @@ export const LoginPage = () => {
         
         Toast.fire({
           icon: "success",
-          title: "Bienvenido a Cosmic, " + username + "."
+          title: "Bienvenido a Cosmic, " + getFullName(name, lastName) + "."
         });
         
       } else {
@@ -79,11 +82,12 @@ export const LoginPage = () => {
     }
   };
 
+  // Especificar mensajes de error personalizados para el esquema de validación
   const loginUserSchema = Joi.object({
-    email: Joi.string().email({ tlds: false }).required().label('Email'),
+    email: Joi.string().email({ tlds: false }).required().label('Email').messages(joiErrorMessages),
     password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
                      .required()
-                     .label('Password')
+                     .label('Password').messages(joiErrorMessages)
   });
   
   const loginFormFields = [
@@ -126,7 +130,3 @@ export const LoginPage = () => {
       />
   );
 };
-
-
-
-

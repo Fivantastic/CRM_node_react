@@ -59,7 +59,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
   const title = 'Programar Visita';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
-  const nameButton = 'Programar Visita';
+  const nameButton = 'Crear';
 
   // Campos del formulario personalizables
   const VisitFormFields = [
@@ -68,18 +68,24 @@ export const CreateVisit = ({ onAddVisit, token }) => {
       label: 'Cliente',
       type: 'text',
       placeholder: 'Introduce el  cliente...',
+      idLabel: 'labelNameVisitCreate',
+      idInput: 'inputNameVisitCreate',
       required: true,
     },
     {
       name: 'visit_date',
       label: 'Fecha',
       type: 'date',
+      idLabel: 'labelDateVisitCreate',
+      idInput: 'inputDateVisitCreate',
       required: true,
     },
     {
       name: 'observations',
       label: 'Observaciones',
       type: 'textarea',
+      idLabel: 'labelObservationsVisitCreate',
+      idInput: 'inputObservationsVisitCreate',
       placeholder: 'Introduce las observaciones...',
       required: false,
     },

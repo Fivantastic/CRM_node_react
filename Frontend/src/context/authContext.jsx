@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
         const intervalIdPromise = renewTokenAndSetInterval();
 
         intervalIdPromise.then((intervalId) => {
-            return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
+            return () => clearInterval(intervalId);
         });
 
         // Extrae el rol del usuario del token

@@ -2,27 +2,27 @@ import Joi from 'joi';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { getUserDataFromToken } from '../../../Services/GetUserDataToken.js';
+import { joiErrorMessages } from '../../../Schema/Error/JoiErrorMesasage.js';
 
 export const ChangeName = () => {
   const token = useUser();
+  const { id_user } = getUserDataFromToken(token);
 
   const handleChangeName = async (formData) => {
     try {
-      // Crea el objeto de datos para la petición
-      const data = {
-        currentPassword: formData.currentPassword,
-        newPassword: formData.newPassword,
-      };
-
-      const response = await fetch('http://localhost:3000/user/update', {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `http://localhost:3000/user/update/${id_user}`,
+        {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         const responseData = await response.json();
@@ -71,13 +71,13 @@ export const ChangeName = () => {
   const updateNameFields = [
     {
       name: 'name',
-      type: 'email',
+      type: 'text',
       label: 'Nombre',
     },
   ];
 
   const updateNameSchema = Joi.object({
-    name: Joi.string().min(3).max(30).required(),
+    name: Joi.string().min(3).max(30).required().messages(joiErrorMessages),
   });
 
   const handleClickChangeName = () => {
@@ -93,7 +93,11 @@ export const ChangeName = () => {
   return (
     <div>
       <button onClick={handleClickChangeName} id="avatar-container">
-        <img id="incon-setting" src='badge_24dp_FILL0_wght400_GRAD0_opsz24.svg' alt="" />
+        <img
+          id="incon-setting"
+          src="badge_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          alt=""
+        />
         <div id="content">
           <h3>Nombre</h3>
           <p id="info">Cambiar</p>

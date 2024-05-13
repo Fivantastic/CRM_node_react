@@ -28,10 +28,17 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
 
         return values;
       },
+      width: '400px',
+      focusCancel: true,
       allowOutsideClick: false,
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
       confirmButtonText: `${buttonText}`,
+      buttonsStyling: false, 
+      customClass: {
+        confirmButton: 'customConfirmBtnClass',
+        cancelButton: 'customCancelBtnClass'
+      },
       willOpen: () => {
         fields.forEach(field => {
           const input = document.getElementById(field.name);

@@ -59,7 +59,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
   const title = 'Programar Visita';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
-  const nameButton = 'Programar Visita';
+  const nameButton = 'Crear';
 
   // Campos del formulario personalizables
   const VisitFormFields = [

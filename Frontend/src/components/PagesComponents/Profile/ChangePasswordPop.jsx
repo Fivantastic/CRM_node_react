@@ -74,7 +74,7 @@ const ChangePasswordPop = ({ token }) => {
 
   const title = 'Cambiar contraseña';
 
-  const nameButton = 'Cambiar contraseña';
+  const nameButton = 'Cambiar';
 
   const updatePasswordFields = [
     {

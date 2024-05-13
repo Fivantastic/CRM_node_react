@@ -90,15 +90,19 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
   
   const generateSelectField = (field) => {
     return `
-    <label for="${field.name}" id="${field.idLabel}" class="labelText">${field.label}</label>
+    <div class="input-container">
       <select id="${field.name}" class="inputSelect">
-        ${generateSelectOptions(field.options)}
+      ${generateSelectOptions(field.options)}
       </select>
+      <label for="${field.name}" id="${field.idLabel}" class="labelSelect ">${field.label}</label>
+      <div class="underline"></div>
+    </div>
     `;
   };
   
   const generateSelectOptions = (options) => {
-    let selectOptionsHtml = '';
+    let selectOptionsHtml = '<option value=""></option>'; 
+  
     if (options) {
       for (const group in options) {
         if (Object.prototype.hasOwnProperty.call(options, group)) {
@@ -121,6 +125,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
     }
     return selectOptionsHtml;
   };
+  
   
   
 

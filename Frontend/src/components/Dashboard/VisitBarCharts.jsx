@@ -14,6 +14,7 @@ import {
 export const VisitBarCharts = () => {
   const token = useUser();
   const [visitList, setVisitList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getVisitList = async () => {
     try {
@@ -43,27 +44,43 @@ export const VisitBarCharts = () => {
 
   useEffect(() => {
     getVisitList();
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  useEffect(() => {
+    const error = console.error;
+    console.error = (...args) => {
+      if (/defaultProps/.test(args[0])) return;
+      error(...args);
+    };
+  }, []);
+
   const chartData = useMemo(
-    () => (visitList.length > 0 ? visitList : <p>Loading...</p>),
-    [visitList]
+    () => (loading ? <p>Loading...</p> : visitList),
+    [loading, visitList]
   );
 
   return (
     <section id="product-charts">
       <h2 id="stock-charts">Visitas</h2>
-      <ResponsiveContainer>
-        <BarChart data={chartData} width={500} height={300}>
-          <CartesianGrid strokeDasharray="4 2 1" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="rating_visit" fill="#3a35cd" />
-        </BarChart>
-      </ResponsiveContainer>
+      {loading ? (
+        <div>Cargando...</div>
+      ) : (
+        <ResponsiveContainer>
+          <BarChart data={chartData} width={500} height={300}>
+            <CartesianGrid strokeDasharray="4 2 1" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="rating_visit" fill="#3a35cd" />
+          </BarChart>
+        </ResponsiveContainer>
+      )}
     </section>
   );
 };

@@ -15,6 +15,7 @@ import './Charts.css';
 export const StockProductBarCharts = () => {
   const token = useUser();
   const [productList, setProductList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Función para obtener la lista de productos de la base de datos
   const getProductList = async () => {
@@ -41,28 +42,45 @@ export const StockProductBarCharts = () => {
 
   useEffect(() => {
     getProductList();
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  useEffect(() => {
+    const error = console.error;
+    console.error = (...args) => {
+      if (/defaultProps/.test(args[0])) return;
+      error(...args);
+    };
+  }, []);
+
   const chartData = useMemo(
-    () => (productList.length > 0 ? productList : <p>Loading...</p>),
-    [productList]
+    () => (loading ? <p>Loading...</p> : productList),
+    [loading, productList]
   );
 
   return (
     <>
       <section id="product-charts">
         <h2 id="stock-charts">Productos</h2>
-        <ResponsiveContainer>
-          <BarChart data={chartData} width={500} height={300}>
-            <CartesianGrid strokeDasharray="4 2 1" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="stock" fill="#0e8743" />
-          </BarChart>
-        </ResponsiveContainer>
+        {loading ? (
+          <div>Cargando...</div>
+        ) : (
+          <ResponsiveContainer>
+            <BarChart data={chartData} width={500} height={300}>
+              <CartesianGrid strokeDasharray="4 2 1" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="stock" fill="#0e8743" />
+            </BarChart>
+          </ResponsiveContainer>
+        )}
       </section>
     </>
   );

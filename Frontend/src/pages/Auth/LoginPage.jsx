@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 import { getFullName } from '../../Services/getFullName.js';
-import { joiErrorMessages } from '../../Schema/Error/JoiErrorMesasage.js';
 
 export const LoginPage = () => {
   const navigate = useNavigate(); 
@@ -82,12 +81,11 @@ export const LoginPage = () => {
     }
   };
 
-  // Especificar mensajes de error personalizados para el esquema de validación
   const loginUserSchema = Joi.object({
-    email: Joi.string().email({ tlds: false }).required().label('Email').messages(joiErrorMessages),
+    email: Joi.string().email({ tlds: false }).required().label('Email'),
     password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
                      .required()
-                     .label('Password').messages(joiErrorMessages)
+                     .label('Password')
   });
   
   const loginFormFields = [
@@ -130,3 +128,7 @@ export const LoginPage = () => {
       />
   );
 };
+
+
+
+

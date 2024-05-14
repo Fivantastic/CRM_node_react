@@ -69,16 +69,24 @@ export const PaymentsBarCharts = () => {
         {loading ? (
           <div>Cargando...</div>
         ) : (
-          <ResponsiveContainer>
-            <BarChart data={chartData} width={500} height={300}>
-              <CartesianGrid strokeDasharray="4 2 1" />
-              <XAxis dataKey="customer" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="paid_amount" fill="#0e8743" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={{ height: '100%', width: '100%', margin: 0 }}>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', height: '200px' }}
+            >
+              <div style={{ flex: 1 }}>
+                <ResponsiveContainer>
+                  <BarChart data={chartData} width={500} height={300}>
+                    <CartesianGrid strokeDasharray="4 2 1" />
+                    <XAxis dataKey="customer" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="paid_amount" fill="#0e8743" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
         )}
       </section>
     </>

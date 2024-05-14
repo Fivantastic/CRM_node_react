@@ -24,12 +24,14 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin: 1rem;
 }
 
 @media screen and (max-width: 480px) {
   #charts {
-    display: flex;
     flex-direction: column;
     width: 115%;
+    margin: 1rem;
+    gap: 4rem;
   }
 }

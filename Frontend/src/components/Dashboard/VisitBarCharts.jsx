@@ -70,16 +70,24 @@ export const VisitBarCharts = () => {
       {loading ? (
         <div>Cargando...</div>
       ) : (
-        <ResponsiveContainer>
-          <BarChart data={chartData} width={500} height={300}>
-            <CartesianGrid strokeDasharray="4 2 1" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="rating_visit" fill="#3a35cd" />
-          </BarChart>
-        </ResponsiveContainer>
+        <div style={{ height: '100%', width: '100%', margin: 0 }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'row', height: '200px' }}
+          >
+            <div style={{ flex: 1 }}>
+              <ResponsiveContainer>
+                <BarChart data={chartData} width={500} height={300}>
+                  <CartesianGrid strokeDasharray="4 2 1" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="rating_visit" fill="#3a35cd" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
       )}
     </section>
   );

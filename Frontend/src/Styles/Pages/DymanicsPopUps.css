@@ -40,9 +40,8 @@
     color: black;
   }
 
-  
   .input-container .label,
-  .input-container .inputSelect:not(:checked) + .labelSelect {
+  .input-container .labelSelect {
     position: absolute;
     top: 0;
     left: 0;
@@ -50,12 +49,19 @@
     transition: all 0.3s ease;
     pointer-events: none;
   }
+  
+  .has-selection ~ .labelSelect,
+  .input-container .has-selection:focus ~ .labelSelect{
+    top: -20px;
+    font-size: 16px;
+    color: #333;
+  }
+  
 
   /* que la option de select tenga valor */
   
   .input-container .inputText:focus ~ .label,
-  .input-container .inputText:valid ~ .label,
-  .input-container .inputSelect:checked ~ .labelSelect  {
+  .input-container .inputText:valid ~ .label{
     top: -20px;
     font-size: 16px;
     color: #333;

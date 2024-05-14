@@ -1,6 +1,5 @@
 import Swal from 'sweetalert2';
-import '../../Styles/Pages/DymanicsPopUps.css'
-
+import '../../Styles/Pages/DymanicsPopUps.css';
 
 const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
   const handleClickSubmit = async () => {
@@ -48,6 +47,19 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
           if (field.type === 'select') {
             const selectElement = document.getElementById(field.name);
             selectElement.innerHTML = generateSelectOptions(field.options);
+            selectElement.selectedIndex = -1;
+            // Agregar clase al elemento select
+            selectElement.classList.add('no-selection');
+            // Agregar evento change al elemento select
+            selectElement.addEventListener('change', function() {
+              if (this.value !== "-1") {
+                this.classList.remove('no-selection');
+                this.classList.add('has-selection');
+              } else {
+                this.classList.remove('has-selection');
+                this.classList.add('no-selection');
+              }
+            });
           }
         });
       }
@@ -92,8 +104,8 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
     return `
     <div class="input-container">
       <select id="${field.name}" class="inputSelect">
-      ${generateSelectOptions(field.options)}
-      </select>
+        ${generateSelectOptions(field.options)}
+        </select>
       <label for="${field.name}" id="${field.idLabel}" class="labelSelect ">${field.label}</label>
       <div class="underline"></div>
     </div>
@@ -101,8 +113,8 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
   };
   
   const generateSelectOptions = (options) => {
-    let selectOptionsHtml = '<option value=""></option>'; 
-  
+    let selectOptionsHtml = '';
+
     if (options) {
       for (const group in options) {
         if (Object.prototype.hasOwnProperty.call(options, group)) {
@@ -125,9 +137,6 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
     }
     return selectOptionsHtml;
   };
-  
-  
-  
 
   handleClickSubmit();
 };

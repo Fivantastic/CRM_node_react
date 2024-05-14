@@ -17,6 +17,7 @@ import {
   deleteUserController,
   updateUserAvatarController,
   getUserListController,
+  getUserSearchController,
 } from '../../controllers/mainControllers.js';
 
 // Creamos el router
@@ -29,6 +30,9 @@ userRouter.get(
   adminAuthMiddleware,
   getUserListController
 );
+
+// Ruta para listar usuario por busqueda nombre y apellidos
+userRouter.get('/user/search', authenticateUser, getUserSearchController);
 
 // Ruta de registro solo para administradores
 userRouter.post(

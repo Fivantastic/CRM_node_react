@@ -19,6 +19,11 @@ export const UserPage = () => {
   
     // Tipo de modulo para el nombre de los mensajes al cliente
     const typeModuleMessage = 'Usuario';
+
+    useEffect(() => {
+      getUserList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [token]);
   
     const getUserList = async () => {
       try {
@@ -46,12 +51,37 @@ export const UserPage = () => {
         // Mostrar un mensaje de error al usuario
       }
     };
+
   
-    useEffect(() => {
-      getUserList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [token]);
+    const handleSearch = async (searchTerm) => {
+      try {
+          const response = await fetch(`http://localhost:3000/${typeModule}/search?searchTerm=${searchTerm}`, {
+              method: 'GET',
+              headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `${token}`,
+              },
+          });
   
+          if (response.ok) {
+              const responseData = await response.json();
+              console.log('Busqueda satisfactoria:', responseData);
+              // Verificar si el término de búsqueda actual es igual al término de búsqueda anterior antes de actualizar userList
+              if (searchTerm === searchTerm) {
+                  setUserList(responseData.data);
+              }
+          } else {
+              const errorData = await response.json();
+              console.error('Búsqueda fallida:', errorData);
+              // Mostrar un mensaje de error al usuario
+          }
+      } catch (error) {
+          console.error('Error al buscar usuarios:', error);
+          // Mostrar un mensaje de error al usuario
+      }
+  };
+  
+
 
     // Actualizo el estado con la venta añadida y solicito la lista actualizada al servidor
     const addUser = async () => {
@@ -117,11 +147,11 @@ export const UserPage = () => {
           <section id="user_container" className="mainContainer">
               <h1 id="user_title" className="mainTitle">User List</h1>
               <nav id="user_nav" className="mainNav">
-                  <SearchPages />
+                  <SearchPages onSearch={handleSearch} />
                   <CreateUser onAddUser={addUser} token={token} />
                   <FilterPages options={filterOptions} />
                   <SortPages options={sortOptions} />
-                  <ToggleMode onClick={() => setIsListView(prev => !prev)} /> {/* Cambia entre lista y tabla */}
+                  <ToggleMode onClick={() => setIsListView(prev => !prev)} />
               </nav>
               {isListView ? (
                   <ol id="user_list" className="main_olist">

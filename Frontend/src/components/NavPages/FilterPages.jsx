@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./filterPages.css";
 
 export const FilterPages = ({ options }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -18,10 +19,23 @@ export const FilterPages = ({ options }) => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="filter-menu">
+    <div className="filter-menu" ref={dropdownRef}>
       <button onClick={toggleMenu} className="filter-button">
-        {selectedOptions.length > 0 ? "✅" : <img src="./filterPages.svg" alt="Filter Icon" />}
+        {selectedOptions.length > 0 ? <img src="./filterPagesSoft.svg" alt="Black Filter Icon" /> : <img src="./filterPages.svg" alt="Filter Icon" />}
       </button>
       {isOpen && (
         <div className="options-container">

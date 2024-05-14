@@ -6,6 +6,7 @@ import { CreateUser } from "../components/PagesComponents/User/CreateUser.jsx";
 import { ToggleMode } from "../components/NavPages/ToggleMode.jsx";
 import { SearchPages } from "../components/NavPages/SearchPages.jsx";
 import { FilterPages } from "../components/NavPages/FilterPages.jsx";
+import { SortPages } from "../components/NavPages/SortPages.jsx";
 
 export const UserPage = () => {
     const token = useUser(); 
@@ -99,6 +100,18 @@ export const UserPage = () => {
       { label: 'Comercial', value: 'commercial' },
       { label: 'Repartidor', value: 'delivery' },
     ];
+
+    const sortOptions = [
+      { label: "Nombre (A - Z)", value: "nombre-asc" },
+      { label: "Nombre (Z - A)", value: "nombre-desc" },
+      { label: "Fecha (Antiguos)", value: "fecha-asc" },
+      { label: "Fecha (Recientes)", value: "fecha-desc" },
+      { label: "Rol (A - Z)", value: "rol-asc" },
+      { label: "Rol (Z - A)", value: "rol-desc" },
+    ];
+    
+    
+    
     
     return (
       <MainLayout>
@@ -108,6 +121,7 @@ export const UserPage = () => {
           <SearchPages />
           <CreateUser onAddUser={addUser} token={token} />
           <FilterPages options={filterOptions} />
+          <SortPages options={sortOptions}/>
           <ToggleMode />
           </nav>
           <ol id="user_list" className="main_olist">

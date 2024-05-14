@@ -7,10 +7,12 @@ import { ToggleMode } from "../components/NavPages/ToggleMode.jsx";
 import { SearchPages } from "../components/NavPages/SearchPages.jsx";
 import { FilterPages } from "../components/NavPages/FilterPages.jsx";
 import { SortPages } from "../components/NavPages/SortPages.jsx";
+import { UserListTable } from "../components/PagesComponents/User/UserListTable.jsx";
 
 export const UserPage = () => {
     const token = useUser(); 
     const [userList, setUserList] = useState([]);
+    const [isListView, setIsListView] = useState(true);
 
     // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
     const typeModule = 'user';
@@ -110,30 +112,29 @@ export const UserPage = () => {
       { label: "Rol (Z - A)", value: "rol-desc" },
     ];
     
-    
-    
-    
     return (
       <MainLayout>
-        <section id="user_container" className=" mainContainer">
-          <h1 id="user_title" className=" mainTitle">User List</h1>
-          <nav id="user_nav" className="mainNav">
-          <SearchPages />
-          <CreateUser onAddUser={addUser} token={token} />
-          <FilterPages options={filterOptions} />
-          <SortPages options={sortOptions}/>
-          <ToggleMode />
-          </nav>
-          <ol id="user_list" className="main_olist">
-            {userList.map((data) => {
-              return (
-                <li key={data.id_user} id="element_user_container" >
-                  <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser}/>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
+          <section id="user_container" className="mainContainer">
+              <h1 id="user_title" className="mainTitle">User List</h1>
+              <nav id="user_nav" className="mainNav">
+                  <SearchPages />
+                  <CreateUser onAddUser={addUser} token={token} />
+                  <FilterPages options={filterOptions} />
+                  <SortPages options={sortOptions} />
+                  <ToggleMode onClick={() => setIsListView(prev => !prev)} /> {/* Cambia entre lista y tabla */}
+              </nav>
+              {isListView ? (
+                  <ol id="user_list" className="main_olist">
+                      {userList.map(data => (
+                          <li key={data.id_user} id="element_user_container">
+                              <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser} />
+                          </li>
+                      ))}
+                  </ol>
+              ) : (
+                  <UserListTable user={userList} activeUser={activeUser} onDelete={deleteUser} />
+              )}
+          </section>
       </MainLayout>
-    );
-  };
+  );
+};

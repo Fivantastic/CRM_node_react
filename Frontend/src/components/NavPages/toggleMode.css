@@ -30,7 +30,7 @@
   }
   
   .checkbox-wrapper-35 .mode + .modeLabel::before {
-    background-color: #05012c;
+    background-color: #13214E;
     border-radius: 500px;
     height: 15px;
     margin-right: 8px;
@@ -112,7 +112,7 @@
   }
   
   .checkbox-wrapper-35 .mode:checked + .modeLabel::before {
-    background-color: #ffb500;
+    background-color: #ccc;
   }
   
   .checkbox-wrapper-35 .mode:checked + .modeLabel::after {

@@ -19,7 +19,7 @@ const showUserInfo = ( userData, isActive) => {
     const addressConcatenated = userData.address ? `${userData.address} ${userData.number}, ${userData.floor ? 'Piso ' + userData.floor : ''} ${userData.letter_number ? 'Letra ' + userData.letter_number : ''}, ${userData.city}` : 'Dirección no disponible';
   
     const active = isActive == true ? 'Activo' : 'Inactivo';
-    const activeClass = isActive == true ? 'active' : 'inactive'; // Clase para el estado activo o inactivo
+    const activeClass = isActive == true ? 'active' : 'inactive';
   
     const userInfoHtml = `
       <section>
@@ -58,9 +58,11 @@ const showUserInfo = ( userData, isActive) => {
       // Muestra la información del usuario al hacer clic en el botón
       showUserInfo(userData, isActive);
     };
+
+    const activeClass = isActive == true ? 'active' : 'inactive';
   
     return (
-        <button id='tab' className="tab" onClick={handleClick}>
+        <button id='tab' className={`tab ${activeClass}`} onClick={handleClick}>
             <svg
             width="104"
             height="100"

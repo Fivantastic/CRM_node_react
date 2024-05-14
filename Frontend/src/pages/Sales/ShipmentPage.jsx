@@ -5,6 +5,7 @@ import ShipmentsCrud from '../../components/PagesComponents/Shipment/ShipmentCru
 import DeliveryRoutes from '../../components/PagesComponents/Shipment/DeliveryRoute.jsx'
 
 
+
 export const ShipmentPage = () => {
   const [showCrud, setShowCrud] = useState(false); // Estado para controlar la visualización del CRUD de envíos
   const [showRoutes, setShowRoutes] = useState(false); // Estado para controlar la visualización de las rutas de entrega

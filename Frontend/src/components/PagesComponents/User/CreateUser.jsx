@@ -93,7 +93,7 @@ export const CreateUser = ({ onAddUser, token }) => {
       label: 'Rol',
       idLabel: 'labelRoleUserCreate',
       idInput: `inputSelectUserCreate`,
-
+      value: '',
       required: true,
       options: {
         Administradores: { 

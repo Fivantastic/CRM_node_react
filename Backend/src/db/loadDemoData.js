@@ -14,7 +14,7 @@ export async function loadDemoData(db) {
     // Insertar datos en la tabla Addresses
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Addresses...`));
     const addressData = [];
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 200; i++) {
       const calle = faker.location.street();
       const address = {
         id_address: faker.string.uuid(),
@@ -37,7 +37,7 @@ export async function loadDemoData(db) {
     // Insertar datos en la tabla Users
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Users...`));
     const userData = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 80; i++) {
       const id_user = faker.string.uuid();
       const password = ADMIN_PASSWORD;
       const hashedPassword = await bcrypt.hash(password, 12);
@@ -71,7 +71,7 @@ export async function loadDemoData(db) {
     // Insertar datos en la tabla Customers
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Customers...`));
     const customerData = [];
-    for (let i = 20; i < 30; i++) {
+    for (let i = 100; i < 200; i++) {
       const firstName = faker.person.firstName();
       const NIF_completo = generarNIF();
       const customer = {
@@ -94,12 +94,12 @@ export async function loadDemoData(db) {
     // Insertar datos en la tabla Products
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Products...`));
     const productData = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 300; i++) {
       const product = {
         id_product: faker.string.uuid(),
         name: faker.commerce.product(),
         description: faker.lorem.paragraph(),
-        price: faker.commerce.price(),
+        price: faker.commerce.price({min: 10, max: 150}),
         stock: faker.number.int(1000), 
         product_status: faker.helpers.arrayElement(['active', 'inactive']),
       };
@@ -114,7 +114,7 @@ export async function loadDemoData(db) {
     // Insertar datos en la tabla SalesProducts
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla SalesProducts...`));
     const salesProductData = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
       const saleProduct = {
         id_saleProduct: faker.string.uuid(),
         product_id: productData[i].id_product,
@@ -129,18 +129,24 @@ export async function loadDemoData(db) {
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla SalesProducts.`));
 
+    // Definir contadores separados para salesAgents y deliverers
+    let salesAgentCount = 0;
+    let delivererCount = 0;
+
     // Insertar datos en la tabla Sales
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Sales...`));
     const salesData = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 50; i++) {
+      let userIndex = salesAgentCount % 80; // Garantiza que solo se tomen salesAgents existentes
       const sale = {
         id_sale: faker.string.uuid(),
-        user_id: userData[i].id_user,
+        user_id: userData[userIndex].id_user,
         saleProduct_id: salesProductData[i].id_saleProduct,
         customer_id: customerData[i].id_customer,
         operation_status: faker.helpers.arrayElement(['open', 'closed']),
       };
       salesData.push(sale);
+      salesAgentCount++;
     }
     await db.query(
       `INSERT INTO Sales (id_sale, user_id, saleProduct_id, customer_id, operation_status) VALUES ?`,
@@ -151,10 +157,11 @@ export async function loadDemoData(db) {
     // Insertar datos en la tabla Visits
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Visits...`));
     const visitData = [];
-    for (let i = 3; i < 8; i++) {
+    for (let i = 0; i < 50; i++) {
+      let userIndex = salesAgentCount % 80; // Garantiza que solo se tomen salesAgents existentes
       const visit = {
         id_visit: faker.string.uuid(),
-        user_id: userData[i].id_user,
+        user_id: userData[userIndex].id_user,
         customer_id: customerData[i].id_customer,
         visit_status: faker.helpers.arrayElement(['scheduled', 'completed']),
         visit_date: faker.date.past(),
@@ -163,6 +170,7 @@ export async function loadDemoData(db) {
         rating_comment: faker.lorem.paragraph(),
       };
       visitData.push(visit);
+      salesAgentCount++;
     }
     await db.query(
       `INSERT INTO Visits (id_visit, user_id, customer_id, visit_status, visit_date, observations, rating_visit, rating_comment) VALUES ?`,
@@ -173,18 +181,19 @@ export async function loadDemoData(db) {
     // Insertar datos en la tabla DeliveryNotes
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla DeliveryNotes...`));
     const deliveryNoteData = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 50; i++) {
+      let userIndex = delivererCount % 80; // Garantiza que solo se tomen deliverers existentes
       const deliveryNote = {
-        
         id_note: faker.string.uuid(),
         sale_id: salesData[i].id_sale,
-        deliverer_id: userData[i].id_user,
+        deliverer_id: userData[userIndex].id_user,
         delivery_status: faker.helpers.arrayElement(['pending', 'delivering', 'delivered','pending','pending','pending','pending','pending',]),
         address_id: addressData[i].id_address,
         saleProduct_id: salesProductData[i].id_saleProduct,
         delivery_date: faker.date.soon({ days: 3 }),
       };
       deliveryNoteData.push(deliveryNote);
+      delivererCount++;
     }
     await db.query(
       `INSERT INTO DeliveryNotes (id_note, sale_id, deliverer_id, delivery_status, address_id, saleProduct_id, delivery_date) VALUES ?`,
@@ -194,7 +203,7 @@ export async function loadDemoData(db) {
 
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Shipments...`));
     const shipmentData = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 50; i++) {
       const shipment = {
         id_shipment: faker.string.uuid(),
         customer_id: customerData[i].id_customer,
@@ -215,7 +224,7 @@ export async function loadDemoData(db) {
 // Insertar datos en la tabla Invoices
 console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Invoices...`));
 const invoiceData = [];
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 50; i++) {
   // Calcular el precio total de la factura
   let totalPrice = productData[i].price * salesProductData[i].quantity;
 
@@ -251,7 +260,7 @@ for (let i = 0; i < 5; i++) {
     // Insertar datos en la tabla Payments
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Payments...`));
     const paymentData = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 50; i++) {
       const payment = {
         id_payment: faker.string.uuid(),
         invoice_id: invoiceData[i].id_invoice,
@@ -269,7 +278,7 @@ for (let i = 0; i < 5; i++) {
     // Insertar datos en la tabla Modules
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Modules...`));
     const moduleData = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
 
       let agentUser_id = null;
       let deliveryUser_id = null;
@@ -335,6 +344,9 @@ for (let i = 0; i < 5; i++) {
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Modules.`));
   
     console.log(chalk.bold.green(`✅ Base de datos inicializada con éxito...`));
+
+    console.log('salesAgentCount', salesAgentCount);
+    console.log('delivererCount', delivererCount);
   
   } catch (error) {
     console.error(chalk.bold.red(`❌ Error al insertar datos ficticios: ${error.message}`));

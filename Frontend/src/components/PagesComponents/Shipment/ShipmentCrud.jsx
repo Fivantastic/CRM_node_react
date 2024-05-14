@@ -5,6 +5,7 @@ import { CreateShipment } from '../../PagesComponents/Shipment/CreateShipment.js
 import { UpdateShipment } from '../../PagesComponents/Shipment/UpdateShipment.jsx';
 import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal.jsx';
 
+
 const ShipmentsCrud = () => {
   const token = useUser();
   const [shipmentList, setShipmentList] = useState([]);

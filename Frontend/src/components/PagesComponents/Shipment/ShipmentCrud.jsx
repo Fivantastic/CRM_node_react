@@ -6,6 +6,7 @@ import { UpdateShipment } from '../../PagesComponents/Shipment/UpdateShipment.js
 import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal.jsx';
 const URL = import.meta.env.VITE_URL;
 
+
 const ShipmentsCrud = () => {
   const token = useUser();
   const [shipmentList, setShipmentList] = useState([]);

@@ -188,6 +188,7 @@ export async function loadDemoData(db) {
         sale_id: salesData[i].id_sale,
         deliverer_id: userData[userIndex].id_user,
         delivery_status: faker.helpers.arrayElement(['pending', 'delivering', 'delivered','pending','pending','pending','pending','pending',]),
+        customer_id: customerData[i].id_customer,
         address_id: addressData[i].id_address,
         saleProduct_id: salesProductData[i].id_saleProduct,
         delivery_date: faker.date.soon({ days: 3 }),
@@ -196,7 +197,7 @@ export async function loadDemoData(db) {
       delivererCount++;
     }
     await db.query(
-      `INSERT INTO DeliveryNotes (id_note, sale_id, deliverer_id, delivery_status, address_id, saleProduct_id, delivery_date) VALUES ?`,
+      `INSERT INTO DeliveryNotes (id_note, sale_id, deliverer_id, delivery_status, customer_id, address_id, saleProduct_id, delivery_date) VALUES ?`,
       [deliveryNoteData.map(deliveryNote => Object.values(deliveryNote))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla DeliveryNotes.`));

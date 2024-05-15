@@ -124,6 +124,10 @@ export const UserPage = () => {
       await getUserList();
     } catch (error) {
       console.error('Error al agregar el usuario:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al agregar el usuario',
+    });
     }
   };
 
@@ -133,6 +137,10 @@ export const UserPage = () => {
       await getUserList();
     } catch (error) {
       console.error('Error al eliminar el usuario:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar el usuario',
+    });
     }
   };
 
@@ -145,6 +153,10 @@ export const UserPage = () => {
       );
     } catch (error) {
       console.error('Error al cambiar el estado del usuario:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al cambiar el estado del usuario',
+    });
     }
   };
 

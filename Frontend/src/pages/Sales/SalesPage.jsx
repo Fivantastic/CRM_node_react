@@ -95,6 +95,10 @@ export const SalesPage = () => {
       await getSaleList();
     } catch (error) {
       console.error('Error al agregar la venta:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al agregar la venta',
+    });
     }
   };
 
@@ -108,6 +112,10 @@ export const SalesPage = () => {
       await getSaleList();
     } catch (error) {
       console.error('Error al eliminar la venta:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar la venta',
+    });
     }
   };
 
@@ -119,7 +127,11 @@ export const SalesPage = () => {
       );
       await getSaleList();
     } catch (error) {
-      console.error('Error al actualizar la factura:', error);
+      console.error('Error al actualizar la venta:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar la venta',
+    });
     }
   };
 

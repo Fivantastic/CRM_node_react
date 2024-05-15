@@ -38,6 +38,10 @@ export const InvoicePage = () => {
         const errorData = await response.json();
         console.error('Obetener fallido:', errorData);
         // Mostrar un mensaje de error al usuario
+        Toast.fire({
+          icon: 'error',
+          title: 'Error al obtener la lista de facturas',
+      });
       }
     } catch (error) {
       console.error('Error al obtener la lista de facturas:', error);
@@ -59,6 +63,10 @@ export const InvoicePage = () => {
       await getSaleList();
     } catch (error) {
       console.error('Error al agregar la factura:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al agregar la factura',
+    });
     }
   };
 
@@ -72,6 +80,10 @@ export const InvoicePage = () => {
       await getSaleList();
     } catch (error) {
       console.error('Error al eliminar la factura:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar la factura',
+    });
     }
   };
 
@@ -85,6 +97,10 @@ export const InvoicePage = () => {
       await getSaleList();
     } catch (error) {
       console.error('Error al actualizar la factura:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar la factura',
+    });
     }
   };
 

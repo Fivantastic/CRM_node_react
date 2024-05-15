@@ -36,7 +36,7 @@ export const DeliveryNotePage = () => {
       console.error('Error al obtener la lista de notas de entrega:', error);
       Toast.fire({
         icon: 'error',
-        title: 'Error al obtener la lista de facturas',
+        title: 'Error al obtener las notas de entrega',
     });
     }
   };
@@ -62,6 +62,10 @@ export const DeliveryNotePage = () => {
     } catch (error) {
       console.error('Error al eliminar la venta:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar la nota de entrega',
+    });
     }
   };
 

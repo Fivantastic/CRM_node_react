@@ -8,6 +8,8 @@ import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.js
 import { SearchPages } from "../../components/NavPages/SearchPages.jsx";
 import { FilterPages } from "../../components/NavPages/FilterPages.jsx";
 import { SortPages } from "../../components/NavPages/SortPages.jsx";
+import { Toast } from '../../components/alerts/Toast.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const DeliveryNotePage = () => {
   const token = useUser();
@@ -30,6 +32,7 @@ export const DeliveryNotePage = () => {
       console.log('Fetching delivery notes with query:', queryParams.toString());
 
       const response = await fetch(`http://localhost:3000/${typeModule}?${queryParams.toString()}`, {
+
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -47,6 +50,14 @@ export const DeliveryNotePage = () => {
       }
     } catch (error) {
       console.error('Error al obtener la lista de notas de entrega:', error);
+    }
+  };
+
+
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener las notas de entrega',
+    });
     }
   };
 
@@ -125,8 +136,17 @@ export const DeliveryNotePage = () => {
         <ol className='note_list main_olist'>
           {filteredDeliveryNotesList.map((data) => (
             <li key={data.id_note} id='element_note_container' className='main_ilist'>
-              <DeliveryNoteList deliveryNote={data} />
-              <span id='note_actions' className='main_actions'>
+
+      // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar la nota de entrega',
+    });
+    }
+  };
+
+       <DeliveryNoteList deliveryNote={data} />
+              <span id="note_actions" className="main_actions">
                 <UpdateDelivery deliveryNote={data.id_note} token={token} />
                 <DeleteGenericModal
                   id={data.id_note}

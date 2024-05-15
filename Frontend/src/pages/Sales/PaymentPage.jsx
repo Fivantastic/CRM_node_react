@@ -1,4 +1,4 @@
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import { useUser } from '../../context/authContext.jsx';
 import { useEffect, useState } from 'react';
 import { MainLayout } from '../../layout/MainLayout.jsx';
@@ -6,19 +6,21 @@ import { CreatePayment } from '../../components/PagesComponents/Payments/CreateP
 import { PaymentsList } from '../../components/PagesComponents/Payments/PaymentsList.jsx';
 import { ChangeStatus } from '../../components/forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../components/alerts/Toast.jsx';
+const URL = import.meta.env.VITE_URL;
 
-// Modelo swal
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  },
-});
+// // Modelo swal
+// const Toast = Swal.mixin({
+//   toast: true,
+//   position: 'top-end',
+//   showConfirmButton: false,
+//   timer: 3000,
+//   timerProgressBar: true,
+//   didOpen: (toast) => {
+//     toast.onmouseenter = Swal.stopTimer;
+//     toast.onmouseleave = Swal.resumeTimer;
+//   },
+// });
 
 export const PaymentPage = () => {
   const token = useUser();
@@ -33,7 +35,7 @@ export const PaymentPage = () => {
   useEffect(() => {
     const getSaleList = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
+        const response = await fetch(`${URL}/${typeModule}/list`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -56,7 +58,7 @@ export const PaymentPage = () => {
         Toast.fire({
           icon: 'error',
           title: 'Error al obtener la lista de pagos',
-          });
+        });
       }
     };
 
@@ -65,60 +67,120 @@ export const PaymentPage = () => {
 
   // Actualizo el estado con la venta añadida
   const addPayment = (newPayment) => {
-    setPaymentsList((prevPayment) => {
-      console.log('Nuevo payment:', newPayment);
-      return [...prevPayment, newPayment]});
+    try {
+      setPaymentsList((prevPayment) => {
+        console.log('Nuevo payment:', newPayment);
+        return [...prevPayment, newPayment];
+      }) 
+    }catch (error){
+      console.error('Error al crear el pago', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al crear el pago',
+    });
+    }
   };
 
   // Actualizo el estado con el pago eliminado
   const deletePayment = (id_payment) => {
-    setPaymentsList((prevPayments) =>
-      prevPayments.filter((payment) => payment.id_payment !== id_payment)
-    );
+    try {
+      setPaymentsList((prevPayments) =>
+        prevPayments.filter((payment) => payment.id_payment !== id_payment)
+      );
+    } catch (error) {
+      console.error('Error al eliminar el pago', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar el pago',
+    });
+    }
   };
 
-  // TODO - Actualizar componente en cambio de estado
-  function handleNewPaymentStatus (idPayment, newStatus) {
+  // Actualizar componente en cambio de estado
+  function handleNewPaymentStatus(idPayment, newStatus) {
     try {
       setPaymentsList((prevPaymentsList) =>
         // Por cada pago de la lista...
         prevPaymentsList.map((payment) =>
-        // Si el id del pago coincide...
-          payment.id_payment === idPayment ? { ...payment, payment_status: newStatus } : payment
+          // Si el id del pago coincide...
+          payment.id_payment === idPayment
+            ? { ...payment, payment_status: newStatus }
+            : payment
         )
       );
     } catch (error) {
-      console.error('Error al cambiar el estado del usuario:', error);
-
+      console.error('Error al cambiar el estado del pago:', error);
       Toast.fire({
-        icon: 'error',
-        title: 'Por favor, recarga la página',
-        });
+        icon: 'warning',
+        title: 'Error, recarga la página para ver los cambios',
+      });
     }
   }
 
   return (
     <MainLayout>
-      <section className='payment_container mainContainer'>
+      <section className="payment_container mainContainer">
         <h1 className="payment_title mainTitle">Pagos</h1>
         <CreatePayment onAddPayment={addPayment} token={token} />
-        <ol className='payment_list main_olist'>
-        {paymentsList.map((data) => {
-            const currentStatus = data.payment_status
+        <ol className="payment_list main_olist">
+          {paymentsList.map((data) => {
+            const currentStatus = data.payment_status;
             return (
-              <li key={data.id_payment} className='element_payment_content main_ilist' >
+              <li
+                key={data.id_payment}
+                className="element_payment_content main_ilist"
+              >
                 <PaymentsList payment={data} />
-                <span id='payment_actions' className='main_actions'>
-                  {currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'cancelled'} newStatusMessage='Cancelar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />  }
-                  {currentStatus !== "paid" && currentStatus !== "cancelled" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'paid'} newStatusMessage='Resolver' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
-                  {currentStatus !== "pending" && currentStatus !== "paid" && <ChangeStatus id={data.id_payment} onClick={handleNewPaymentStatus} newStatus={'pending'} newStatusMessage='Restaurar' token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+                <span id="payment_actions" className="main_actions">
+                  {currentStatus !== 'cancelled' && (
+                    <ChangeStatus
+                      id={data.id_payment}
+                      onClick={handleNewPaymentStatus}
+                      newStatus={'cancelled'}
+                      newStatusMessage="Cancelar"
+                      token={token}
+                      typeModule={typeModule}
+                      typeModuleMessage={typeModuleMessage}
+                    />
+                  )}
+                  {currentStatus !== 'paid' &&
+                    currentStatus !== 'cancelled' && (
+                      <ChangeStatus
+                        id={data.id_payment}
+                        onClick={handleNewPaymentStatus}
+                        newStatus={'paid'}
+                        newStatusMessage="Resolver"
+                        token={token}
+                        typeModule={typeModule}
+                        typeModuleMessage={typeModuleMessage}
+                      />
+                    )}
+                  {currentStatus !== 'pending' && currentStatus !== 'paid' && (
+                    <ChangeStatus
+                      id={data.id_payment}
+                      onClick={handleNewPaymentStatus}
+                      newStatus={'pending'}
+                      newStatusMessage="Restaurar"
+                      token={token}
+                      typeModule={typeModule}
+                      typeModuleMessage={typeModuleMessage}
+                    />
+                  )}
 
-                  {currentStatus === "cancelled" && <DeleteGenericModal id={data.id_payment} onDelete={deletePayment} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} /> }
+                  {currentStatus === 'cancelled' && (
+                    <DeleteGenericModal
+                      id={data.id_payment}
+                      onDelete={deletePayment}
+                      token={token}
+                      typeModule={typeModule}
+                      typeModuleMessage={typeModuleMessage}
+                    />
+                  )}
                 </span>
               </li>
             );
           })}
-        </ol> 
+        </ol>
       </section>
     </MainLayout>
   );

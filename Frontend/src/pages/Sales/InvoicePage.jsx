@@ -5,6 +5,8 @@ import { CreateInvoice } from '../../components/PagesComponents/Invoces/CreateIn
 import { InvoicesList } from '../../components/PagesComponents/Invoces/InvoicesList.jsx';
 import { ClosedInvoice } from '../../components/PagesComponents/Invoces/ClosedInvoice.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../components/alerts/Toast.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const InvoicePage = () => {
   const token = useUser();
@@ -18,7 +20,7 @@ export const InvoicePage = () => {
 
   const getSaleList = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/${typeModule}`, {
+      const response = await fetch(`${URL}/${typeModule}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -36,10 +38,17 @@ export const InvoicePage = () => {
         const errorData = await response.json();
         console.error('Obetener fallido:', errorData);
         // Mostrar un mensaje de error al usuario
+        Toast.fire({
+          icon: 'error',
+          title: 'Error al obtener la lista de facturas',
+      });
       }
     } catch (error) {
-      console.error('Error al obtener la lista de ventas:', error);
-      // Mostrar un mensaje de error al usuario
+      console.error('Error al obtener la lista de facturas:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de facturas',
+    });
     }
   };
 
@@ -54,6 +63,10 @@ export const InvoicePage = () => {
       await getSaleList();
     } catch (error) {
       console.error('Error al agregar la factura:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al agregar la factura',
+    });
     }
   };
 
@@ -67,6 +80,10 @@ export const InvoicePage = () => {
       await getSaleList();
     } catch (error) {
       console.error('Error al eliminar la factura:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar la factura',
+    });
     }
   };
 
@@ -80,20 +97,30 @@ export const InvoicePage = () => {
       await getSaleList();
     } catch (error) {
       console.error('Error al actualizar la factura:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar la factura',
+    });
     }
   };
 
   return (
     <MainLayout>
-      <section id='invoice_container' className=" mainContainer">
-        <h1 id='invoice_title' className=" mainTitle">Facturas</h1>
+      <section id="invoice_container" className=" mainContainer">
+        <h1 id="invoice_title" className=" mainTitle">
+          Facturas
+        </h1>
         <CreateInvoice onAddInvoice={addInvoice} token={token} />
-        <ol id='invoice_list' className=' main_olist'>
+        <ol id="invoice_list" className=" main_olist">
           {invoiceList.map((data) => {
             return (
-              <li key={data.id_invoice} id='element_invoice_container' className=' main_ilist'>
+              <li
+                key={data.id_invoice}
+                id="element_invoice_container"
+                className=" main_ilist"
+              >
                 <InvoicesList invoice={data} />
-                <span id='invoice_actions' className='main_actions'>
+                <span id="invoice_actions" className="main_actions">
                   <ClosedInvoice
                     invoice={data.id_invoice}
                     onUpdateInvoice={updateInvoice}

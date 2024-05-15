@@ -4,6 +4,8 @@ import { ShipmentList } from '../../PagesComponents/Shipment/ShipmentList.jsx';
 import { CreateShipment } from '../../PagesComponents/Shipment/CreateShipment.jsx';
 import { UpdateShipment } from '../../PagesComponents/Shipment/UpdateShipment.jsx';
 import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../alerts/Toast.jsx';
+const URL = import.meta.env.VITE_URL;
 
 
 const ShipmentsCrud = () => {
@@ -15,7 +17,7 @@ const ShipmentsCrud = () => {
 
   const getShipmentList = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/shipment/route`, {
+      const response = await fetch(`${URL}/shipment/route`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -33,6 +35,10 @@ const ShipmentsCrud = () => {
       }
     } catch (error) {
       console.error('Error al obtener la lista de envíos:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de envíos',
+    });
     }
   };
 
@@ -72,13 +78,15 @@ const ShipmentsCrud = () => {
   };
 
   return (
-    <section id='shipment_container' className="mainContainer">
-      <h1 id='shipment_title' className="mainTitle">Envíos</h1>
+    <section id="shipment_container" className="mainContainer">
+      <h1 id="shipment_title" className="mainTitle">
+        Envíos
+      </h1>
       <CreateShipment onAddShipment={addShipment} token={token} />
-      <ol id='shipments_list' className='main_olist'>
+      <ol id="shipments_list" className="main_olist">
         {shipmentList.map((data) => {
           return (
-            <li key={data.id_shipment} className='main_ilist'>
+            <li key={data.id_shipment} className="main_ilist">
               <ShipmentList shipment={data} />
               <UpdateShipment
                 shipment={data.id_shipment}

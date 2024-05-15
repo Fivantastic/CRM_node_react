@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import defaultAvatar from '/profile.svg';
 import { useUser } from '../../../context/authContext.jsx';
+const URL = import.meta.env.VITE_URL;
 import './DeliveryRoutes.css'; // Archivo de estilos para la representación visual de la ruta
 import shipmentIcon from '../../../../public/shipmentRoute.svg';
+import { Toast } from '../../alerts/Toast.jsx';
 
 const DeliveryRoutes = () => {
   const token = useUser();
@@ -32,7 +34,7 @@ const DeliveryRoutes = () => {
 
   const getDeliveryUsers = async () => {
     try {
-      const response = await fetch('http://localhost:3000/user/list', {
+      const response = await fetch(`${URL}/user/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -48,10 +50,18 @@ const DeliveryRoutes = () => {
         );
       } else {
         const errorData = await response.json();
-        console.error('Error al obtener la lista de usuarios:', errorData);
+        console.error('Error al obtener las rutas de reparto', errorData);
+        Toast.fire({
+          icon: 'error',
+          title: 'Error al obtener las rutas de reparto',
+      });
       }
     } catch (error) {
-      console.error('Error al obtener la lista de usuarios:', error);
+      console.error('Error al obtener las rutas de reparto', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener las rutas de reparto',
+    });
     }
   };
 

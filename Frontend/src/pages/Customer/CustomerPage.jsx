@@ -5,6 +5,8 @@ import { CreateCustomer } from '../../components/PagesComponents/Customer/Create
 import { CustomerList } from '../../components/PagesComponents/Customer/CustomerList.jsx';
 import { UpdateCustomer } from '../../components/PagesComponents/Customer/UpdateCustomer.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../components/alerts/Toast.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const CustomerPage = () => {
   const token = useUser();
@@ -18,7 +20,7 @@ export const CustomerPage = () => {
 
   const getCustomerList = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
+      const response = await fetch(`${URL}/${typeModule}/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -38,8 +40,11 @@ export const CustomerPage = () => {
         // Mostrar un mensaje de error al usuario
       }
     } catch (error) {
-      console.error('Error al obtener la lista de ventas:', error);
-      // Mostrar un mensaje de error al usuario
+      console.error('Error al obtener la lista de clientes:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de clientes',
+    });
     }
   };
 
@@ -54,8 +59,12 @@ export const CustomerPage = () => {
       // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getCustomerList();
     } catch (error) {
-      console.error('Error al agregar la venta:', error);
+      console.error('Error al agregar al clientes:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al agregar al clientes',
+    });
     }
   };
 
@@ -70,8 +79,12 @@ export const CustomerPage = () => {
       // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getCustomerList();
     } catch (error) {
-      console.error('Error al eliminar la venta:', error);
+      console.error('Error al eliminar el cliente:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de clientes',
+    });
     }
   };
 
@@ -86,22 +99,32 @@ export const CustomerPage = () => {
       // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getCustomerList();
     } catch (error) {
-      console.error('Error al actualizar la venta:', error);
+      console.error('Error al actualizar el cliente:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar al cliente',
+    });
     }
   };
 
   return (
     <MainLayout>
       <section id="customer_container" className="mainContainer">
-        <h1 id="customer_title" className=" mainTitle">Clientes</h1>
+        <h1 id="customer_title" className=" mainTitle">
+          Clientes
+        </h1>
         <CreateCustomer onAddCustomer={addCustomer} token={token} />
-        <ol id="customer_list" className=' main_olist'>
+        <ol id="customer_list" className=" main_olist">
           {listCustomer.map((data) => {
             return (
-              <li key={data.id_customer} id='element_customer_container' className='element_customer_container main_ilist'>
+              <li
+                key={data.id_customer}
+                id="element_customer_container"
+                className="element_customer_container main_ilist"
+              >
                 <CustomerList customer={data} />
-                <span id='customer_actions' className='main_actions'>
+                <span id="customer_actions" className="main_actions">
                   <UpdateCustomer
                     customer={data.id_customer}
                     onUpdateCustomer={updateCustomer}

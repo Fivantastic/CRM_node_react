@@ -2,7 +2,7 @@ import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 
-export const UpdateDelivery = ({ deliveryNote, token }) => {
+export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
   const handleUpdateDeliveryAction = async (formData) => {
     console.log(formData);
     try {
@@ -16,13 +16,16 @@ export const UpdateDelivery = ({ deliveryNote, token }) => {
             Authorization: `${token}`,
           },
           body: JSON.stringify(formData),
-          
         }
       );
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log('Actualización de nota de entrega satisfactoria:', responseData);
+        console.log(
+          'Actualización de nota de entrega satisfactoria:',
+          responseData
+        );
+        onDeliveryNote(deliveryNote);
 
         const Toast = Swal.mixin({
           toast: true,
@@ -42,10 +45,16 @@ export const UpdateDelivery = ({ deliveryNote, token }) => {
         });
       } else {
         const errorData = await response.json();
-        console.error('Error en la actualización de la nota de entrega:', errorData);
+        console.error(
+          'Error en la actualización de la nota de entrega:',
+          errorData
+        );
       }
     } catch (error) {
-      console.error('Error durante la actualización de la nota de entrega:', error);
+      console.error(
+        'Error durante la actualización de la nota de entrega:',
+        error
+      );
     }
   };
 
@@ -53,7 +62,6 @@ export const UpdateDelivery = ({ deliveryNote, token }) => {
   const nameButton = 'Actualizar';
 
   const updateDeliveryFormFields = [
-    
     {
       name: 'delivery_status',
       label: 'Estado',
@@ -63,18 +71,17 @@ export const UpdateDelivery = ({ deliveryNote, token }) => {
       idLabel: 'labelStatusNoteUpdate',
       idInput: 'inputStatusNoteUpdate',
       options: {
-        Estados:{
-        pending: 'En proceso' ,
-        cancelled: 'Cancelado' ,
-        delivering: 'Cerrado' ,
-        delivered: 'Entregado'
-    }
-    },
+        Estados: {
+          pending: 'En proceso',
+          cancelled: 'Cancelado',
+          delivering: 'Cerrado',
+          delivered: 'Entregado',
+        },
+      },
     },
   ];
 
   const updateDeliverySchema = Joi.object({
-
     delivery_status: Joi.string().required(),
   });
 
@@ -90,9 +97,13 @@ export const UpdateDelivery = ({ deliveryNote, token }) => {
 
   return (
     <>
-      <button id='btnNoteUpdate' className="mainUpdateBtn" onClick={handleUpdateDelivery}>Actualizar Albarán</button>
+      <button
+        id="btnNoteUpdate"
+        className="mainUpdateBtn"
+        onClick={handleUpdateDelivery}
+      >
+        Actualizar Albarán
+      </button>
     </>
   );
 };
-
-

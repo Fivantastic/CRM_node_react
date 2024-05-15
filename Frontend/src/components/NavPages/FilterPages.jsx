@@ -1,20 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import "./filterPages.css";
+import { useEffect, useRef, useState } from 'react';
+import './filterPages.css';
 
 export const FilterPages = ({ options, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState({});
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const dropdownRef = useRef(null);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleCheckboxChange = (option) => {
-    const updatedOptions = {
-      ...selectedOptions,
-      [option.value]: !selectedOptions[option.value]
-    };
-    setSelectedOptions(updatedOptions);
-    onChange(updatedOptions);
+    const currentIndex = selectedOptions.indexOf(option.value);
+    const newSelectedOptions = [...selectedOptions];
+
+    if (currentIndex === -1) {
+      newSelectedOptions.push(option.value);
+    } else {
+      newSelectedOptions.splice(currentIndex, 1);
+    }
+
+    setSelectedOptions(newSelectedOptions);
+    onChange(newSelectedOptions); // Pasar un array de valores seleccionados
   };
 
   useEffect(() => {
@@ -24,9 +29,9 @@ export const FilterPages = ({ options, onChange }) => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -35,7 +40,7 @@ export const FilterPages = ({ options, onChange }) => {
   return (
     <div className="filter-menu" ref={dropdownRef}>
       <button onClick={toggleMenu} className="filter-button">
-        {Object.values(selectedOptions).some(val => val) ? (
+        {Object.values(selectedOptions).some((val) => val) ? (
           <img src="./filterPagesSoft.svg" alt="Black Filter Icon" />
         ) : (
           <img src="./filterPages.svg" alt="Filter Icon" />
@@ -49,7 +54,7 @@ export const FilterPages = ({ options, onChange }) => {
                 className="filter-checkbox"
                 type="checkbox"
                 value={option.value}
-                checked={selectedOptions[option.value] || false}
+                checked={selectedOptions.includes(option.value)}
                 onChange={() => handleCheckboxChange(option)}
               />
               {option.label}

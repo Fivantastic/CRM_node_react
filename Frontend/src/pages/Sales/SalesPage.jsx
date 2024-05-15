@@ -10,6 +10,7 @@ import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SalesListTable } from '../../components/PagesComponents/Sales/SalesListTable.jsx';
+import { Toast } from '../../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const SalesPage = () => {
@@ -46,7 +47,10 @@ export const SalesPage = () => {
       }
     } catch (error) {
       console.error('Error al obtener la lista de ventas:', error);
-      // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de ventas',
+    });
     }
   };
   useEffect(() => {

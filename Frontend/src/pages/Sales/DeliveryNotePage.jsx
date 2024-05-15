@@ -5,6 +5,7 @@ import { DeliveryNoteList } from '../../components/PagesComponents/DeliveryNotes
 import { CreateDeliveryNote } from '../../components/PagesComponents/DeliveryNotes/CreateDeliveryNote.jsx';
 import { UpdateDelivery } from '../../components/PagesComponents/DeliveryNotes/UpdateDeliveryNote.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const DeliveryNotePage = () => {
@@ -33,6 +34,10 @@ export const DeliveryNotePage = () => {
       }
     } catch (error) {
       console.error('Error al obtener la lista de notas de entrega:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de facturas',
+    });
     }
   };
   useEffect(() => {

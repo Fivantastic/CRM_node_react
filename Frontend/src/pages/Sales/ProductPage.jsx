@@ -5,6 +5,7 @@ import { UpdateProduct } from '../../components/PagesComponents/Products/UpdateP
 import { ProductList } from '../../components/PagesComponents/Products/ListProduct';
 import { MainLayout } from '../../layout/MainLayout';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal';
+import { Toast } from '../../components/alerts/Toast';
 const URL = import.meta.env.VITE_URL;
 
 export const ProductPage = () => {
@@ -36,6 +37,10 @@ export const ProductPage = () => {
       }
     } catch (error) {
       console.error('Error al obtener la lista de productos', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de productos',
+    });
     }
   };
 

@@ -1,4 +1,4 @@
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import { useUser } from '../../context/authContext.jsx';
 import { useEffect, useState } from 'react';
 import { MainLayout } from '../../layout/MainLayout.jsx';
@@ -6,20 +6,21 @@ import { CreatePayment } from '../../components/PagesComponents/Payments/CreateP
 import { PaymentsList } from '../../components/PagesComponents/Payments/PaymentsList.jsx';
 import { ChangeStatus } from '../../components/forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
-// Modelo swal
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  },
-});
+// // Modelo swal
+// const Toast = Swal.mixin({
+//   toast: true,
+//   position: 'top-end',
+//   showConfirmButton: false,
+//   timer: 3000,
+//   timerProgressBar: true,
+//   didOpen: (toast) => {
+//     toast.onmouseenter = Swal.stopTimer;
+//     toast.onmouseleave = Swal.resumeTimer;
+//   },
+// });
 
 export const PaymentPage = () => {
   const token = useUser();

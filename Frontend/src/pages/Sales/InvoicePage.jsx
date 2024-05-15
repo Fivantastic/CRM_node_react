@@ -5,6 +5,7 @@ import { CreateInvoice } from '../../components/PagesComponents/Invoces/CreateIn
 import { InvoicesList } from '../../components/PagesComponents/Invoces/InvoicesList.jsx';
 import { ClosedInvoice } from '../../components/PagesComponents/Invoces/ClosedInvoice.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const InvoicePage = () => {
@@ -39,8 +40,11 @@ export const InvoicePage = () => {
         // Mostrar un mensaje de error al usuario
       }
     } catch (error) {
-      console.error('Error al obtener la lista de ventas:', error);
-      // Mostrar un mensaje de error al usuario
+      console.error('Error al obtener la lista de facturas:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de facturas',
+    });
     }
   };
 

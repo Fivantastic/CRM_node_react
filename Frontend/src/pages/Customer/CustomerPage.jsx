@@ -5,6 +5,7 @@ import { CreateCustomer } from '../../components/PagesComponents/Customer/Create
 import { CustomerList } from '../../components/PagesComponents/Customer/CustomerList.jsx';
 import { UpdateCustomer } from '../../components/PagesComponents/Customer/UpdateCustomer.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const CustomerPage = () => {
@@ -39,8 +40,11 @@ export const CustomerPage = () => {
         // Mostrar un mensaje de error al usuario
       }
     } catch (error) {
-      console.error('Error al obtener la lista de ventas:', error);
-      // Mostrar un mensaje de error al usuario
+      console.error('Error al obtener la lista de clientes:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de clientes',
+    });
     }
   };
 

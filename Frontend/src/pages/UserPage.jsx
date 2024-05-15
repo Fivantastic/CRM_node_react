@@ -13,12 +13,12 @@ const URL = import.meta.env.VITE_URL;
 export const UserPage = () => {
   const token = useUser();
   const [userList, setUserList] = useState([]);
+  const [filteredUserList, setFilteredUserList] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState({});
   const [isListView, setIsListView] = useState(true);
 
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
   const typeModule = 'user';
 
-  // Tipo de modulo para el nombre de los mensajes al cliente
   const typeModuleMessage = 'Usuario';
 
   useEffect(() => {
@@ -26,9 +26,19 @@ export const UserPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
+  useEffect(() => {
+    setFilteredUserList(userList);  // Asegura que la lista completa se muestre inicialmente
+  }, [userList]);
+
+  useEffect(() => {
+    applyFilters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFilters, userList]);
+
   const getUserList = async () => {
     try {
-      const response = await fetch(`${URL}/${typeModule}/list`, {
+      const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
+
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -38,85 +48,91 @@ export const UserPage = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(
-          `${typeModuleMessage} recibido satisfactorio:`,
-          responseData
-        );
-
-        // Actualizar el estado con los datos obtenidos
+        console.log(`${typeModuleMessage} recibido satisfactoriamente:`, responseData);
         setUserList(responseData.data);
+        setFilteredUserList(responseData.data); // Aplica filtros a la lista obtenida
       } else {
         const errorData = await response.json();
-        console.error('Obtener fallido:', errorData);
-        // Mostrar un mensaje de error al usuario
+        console.error('Error al obtener la lista:', errorData);
       }
     } catch (error) {
-      console.error('Error al obtener la lista de ventas:', error);
-      // Mostrar un mensaje de error al usuario
+      console.error('Error al obtener la lista de usuarios:', error);
     }
   };
 
   const handleSearch = async (searchTerm) => {
     try {
-      const response = await fetch(
-        `${URL}/${typeModule}/search?searchTerm=${searchTerm}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3000/${typeModule}/search?searchTerm=${searchTerm}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+      });
 
       if (response.ok) {
         const responseData = await response.json();
         console.log('Busqueda satisfactoria:', responseData);
-        // Verificar si el término de búsqueda actual es igual al término de búsqueda anterior antes de actualizar userList
-        if (searchTerm === searchTerm) {
-          setUserList(responseData.data);
-        }
+        setUserList(responseData.data);
+        setFilteredUserList(responseData.data);
       } else {
         const errorData = await response.json();
         console.error('Búsqueda fallida:', errorData);
-        // Mostrar un mensaje de error al usuario
       }
     } catch (error) {
       console.error('Error al buscar usuarios:', error);
-      // Mostrar un mensaje de error al usuario
     }
   };
 
-  // Actualizo el estado con la venta añadida y solicito la lista actualizada al servidor
+  const handleFilterChange = (filters) => {
+    setSelectedFilters(filters);
+  };
+
+  const applyFilters = () => {
+    const isAnyFilterActive = Object.values(selectedFilters).some(value => value);
+  
+    if (isAnyFilterActive) {
+      let filtered = userList.filter(user => {
+        // Filtrar por actividad
+        const activeFilter = selectedFilters['1'] ? user.active :
+                             selectedFilters['0'] ? !user.active : 
+                             true;
+  
+        // Filtrar por roles
+        const roleFilter = Object.keys(selectedFilters).some(key => 
+          (['admin', 'salesAgent', 'deliverer'].includes(key) && selectedFilters[key] && user.role === key)) ||
+          !['admin', 'salesAgent', 'deliverer'].some(role => role in selectedFilters);
+  
+        // Combinar los filtros (tiene que cumplir con ambos)
+        return activeFilter && roleFilter;
+      });
+      setFilteredUserList(filtered);
+    } else {
+      // Si no hay filtros seleccionados, muestra la lista completa
+      setFilteredUserList(userList);
+    }
+  };
+  
+
   const addUser = async () => {
     try {
-      // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getUserList();
     } catch (error) {
-      console.error('Error al agregar la venta:', error);
-      // Mostrar un mensaje de error al usuario
+      console.error('Error al agregar el usuario:', error);
     }
   };
 
-  // Actualizo el estado con la venta eliminada y solicito la lista actualizada al servidor
   const deleteUser = async (id_user) => {
     try {
-      // Eliminar la venta del estado local
-      setUserList((prevUser) =>
-        prevUser.filter((user) => user.id_user !== id_user)
-      );
-
-      // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
+      setUserList((prevUser) => prevUser.filter((user) => user.id_user !== id_user));
       await getUserList();
     } catch (error) {
-      console.error('Error al eliminar la venta:', error);
-      // Mostrar un mensaje de error al usuario
+      console.error('Error al eliminar el usuario:', error);
     }
   };
 
   const activeUser = (id_user) => {
     try {
-      // Actualizar el estado local del usuario directamente
       setUserList((prevUserList) =>
         prevUserList.map((user) =>
           user.id_user === id_user ? { ...user, active: !user.active } : user
@@ -124,59 +140,48 @@ export const UserPage = () => {
       );
     } catch (error) {
       console.error('Error al cambiar el estado del usuario:', error);
-      // Mostrar un mensaje de error al usuario si es necesario
     }
   };
 
   const filterOptions = [
-    { label: 'Activo', value: 'active' },
-    { label: 'Inactivo', value: 'inactive' },
-    { label: 'Administrador', value: 'admin' },
-    { label: 'Comercial', value: 'commercial' },
-    { label: 'Repartidor', value: 'delivery' },
+    { label: 'Activo', key: 'active', value: '1' },
+    { label: 'Inactivo', key: 'active', value: '0' },
+    { label: 'Administrador', key: 'role', value: 'admin' },
+    { label: 'Comercial', key: 'role', value: 'salesAgent' },
+    { label: 'Repartidor', key: 'role', value: 'deliverer' },
   ];
 
   const sortOptions = [
-    { label: 'Nombre (A - Z)', value: 'nombre-asc' },
-    { label: 'Nombre (Z - A)', value: 'nombre-desc' },
-    { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
-    { label: 'Fecha (Recientes)', value: 'fecha-desc' },
-    { label: 'Rol (A - Z)', value: 'rol-asc' },
-    { label: 'Rol (Z - A)', value: 'rol-desc' },
+    { label: "Nombre (A - Z)", value: "nombre-asc" },
+    { label: "Nombre (Z - A)", value: "nombre-desc" },
+    { label: "Fecha (Antiguos)", value: "fecha-asc" },
+    { label: "Fecha (Recientes)", value: "fecha-desc" },
+    { label: "Rol (A - Z)", value: "rol-asc" },
+    { label: "Rol (Z - A)", value: "rol-desc" },
   ];
 
   return (
     <MainLayout>
       <section id="user_container" className="mainContainer">
-        <h1 id="user_title" className="mainTitle">
-          User List
-        </h1>
+        <h1 id="user_title" className="mainTitle">User List</h1>
         <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateUser onAddUser={addUser} token={token} />
-          <FilterPages options={filterOptions} />
+          <FilterPages options={filterOptions} onChange={handleFilterChange} />
           <SortPages options={sortOptions} />
-          <ToggleMode onClick={() => setIsListView((prev) => !prev)} />
+          <ToggleMode onClick={() => setIsListView(prev => !prev)} />
         </nav>
         {isListView ? (
           <ol id="user_list" className="main_olist">
-            {userList.map((data) => (
+            {filteredUserList.map(data => (
               <li key={data.id_user} id="element_user_container">
-                <UserList
-                  user={data}
-                  id={data.id_user}
-                  activeUser={activeUser}
-                  onDelete={deleteUser}
-                />
+                <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser} />
+
               </li>
             ))}
           </ol>
         ) : (
-          <UserListTable
-            user={userList}
-            activeUser={activeUser}
-            onDelete={deleteUser}
-          />
+          <UserListTable user={filteredUserList} activeUser={activeUser} onDelete={deleteUser} />
         )}
       </section>
     </MainLayout>

@@ -12,7 +12,8 @@ export const selectSalesSearchModel = async (search) => {
        LEFT JOIN Users ON Sales.user_id = Users.id_user
        LEFT JOIN SalesProducts ON Sales.saleProduct_id = SalesProducts.id_saleProduct
        LEFT JOIN Products ON SalesProducts.product_id = Products.id_product
-       LEFT JOIN Customers ON Sales.customer_id = Customers.id_customer WHERE Users.name LIKE? OR Users.last_name LIKE? OR Products.name LIKE? OR Customers.name LIKE?`,
+       LEFT JOIN Customers ON Sales.customer_id = Customers.id_customer 
+       WHERE Users.name LIKE? OR Users.last_name LIKE? OR Products.name LIKE? OR Customers.name `,
     [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`]
   );
   console.log(`Resultados encontrados: ${rows.length}`);

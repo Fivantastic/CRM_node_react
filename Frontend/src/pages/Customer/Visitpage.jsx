@@ -5,6 +5,7 @@ import { CreateVisit } from '../../components/PagesComponents/Visits/CreateVisit
 import { VisitsList } from '../../components/PagesComponents/Visits/VisitList.jsx';
 import { UpdateVisit } from '../../components/PagesComponents/Visits/UpdateVisit.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const Visitpage = () => {
@@ -38,8 +39,11 @@ export const Visitpage = () => {
         // Mostrar un mensaje de error al usuario
       }
     } catch (error) {
-      console.error('Error al obtener la lista de ventas:', error);
-      // Mostrar un mensaje de error al usuario
+      console.error('Error al obtener la lista de visitas:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de visitas',
+    });
     }
   };
 

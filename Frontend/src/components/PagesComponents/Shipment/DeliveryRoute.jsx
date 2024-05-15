@@ -4,6 +4,7 @@ import { useUser } from '../../../context/authContext.jsx';
 const URL = import.meta.env.VITE_URL;
 import './DeliveryRoutes.css'; // Archivo de estilos para la representación visual de la ruta
 import shipmentIcon from '../../../../public/shipmentRoute.svg';
+import { Toast } from '../../alerts/Toast.jsx';
 
 const DeliveryRoutes = () => {
   const token = useUser();
@@ -50,6 +51,10 @@ const DeliveryRoutes = () => {
       } else {
         const errorData = await response.json();
         console.error('Error al obtener la lista de usuarios:', errorData);
+        Toast.fire({
+          icon: 'error',
+          title: 'Error al obtener la lista de usuarios',
+      });
       }
     } catch (error) {
       console.error('Error al obtener la lista de usuarios:', error);

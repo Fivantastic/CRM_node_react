@@ -8,6 +8,7 @@ import { SearchPages } from '../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../components/NavPages/SortPages.jsx';
 import { UserListTable } from '../components/PagesComponents/User/UserListTable.jsx';
+import { Toast } from '../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const UserPage = () => {
@@ -57,6 +58,10 @@ export const UserPage = () => {
       }
     } catch (error) {
       console.error('Error al obtener la lista de usuarios:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de usuarios',
+    });
     }
   };
 

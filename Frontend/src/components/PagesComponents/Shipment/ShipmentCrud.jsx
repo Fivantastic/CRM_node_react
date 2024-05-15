@@ -4,6 +4,7 @@ import { ShipmentList } from '../../PagesComponents/Shipment/ShipmentList.jsx';
 import { CreateShipment } from '../../PagesComponents/Shipment/CreateShipment.jsx';
 import { UpdateShipment } from '../../PagesComponents/Shipment/UpdateShipment.jsx';
 import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal.jsx';
+import { Toast } from '../../alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
 
@@ -34,6 +35,10 @@ const ShipmentsCrud = () => {
       }
     } catch (error) {
       console.error('Error al obtener la lista de envíos:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de envíos',
+    });
     }
   };
 

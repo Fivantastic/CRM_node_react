@@ -1,13 +1,14 @@
-import { MainLayout } from "../layout/MainLayout.jsx";
-import { useUser } from "../context/authContext.jsx";
-import { useEffect, useState } from "react";
-import { UserList } from "../components/PagesComponents/User/UserList.jsx";
-import { CreateUser } from "../components/PagesComponents/User/CreateUser.jsx";
-import { ToggleMode } from "../components/NavPages/ToggleMode.jsx";
-import { SearchPages } from "../components/NavPages/SearchPages.jsx";
-import { FilterPages } from "../components/NavPages/FilterPages.jsx";
-import { SortPages } from "../components/NavPages/SortPages.jsx";
-import { UserListTable } from "../components/PagesComponents/User/UserListTable.jsx";
+import { MainLayout } from '../layout/MainLayout.jsx';
+import { useUser } from '../context/authContext.jsx';
+import { useEffect, useState } from 'react';
+import { UserList } from '../components/PagesComponents/User/UserList.jsx';
+import { CreateUser } from '../components/PagesComponents/User/CreateUser.jsx';
+import { ToggleMode } from '../components/NavPages/ToggleMode.jsx';
+import { SearchPages } from '../components/NavPages/SearchPages.jsx';
+import { FilterPages } from '../components/NavPages/FilterPages.jsx';
+import { SortPages } from '../components/NavPages/SortPages.jsx';
+import { UserListTable } from '../components/PagesComponents/User/UserListTable.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const UserPage = () => {
   const token = useUser();
@@ -17,6 +18,7 @@ export const UserPage = () => {
   const [isListView, setIsListView] = useState(true);
 
   const typeModule = 'user';
+
   const typeModuleMessage = 'Usuario';
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export const UserPage = () => {
   const getUserList = async () => {
     try {
       const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
+
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -173,6 +176,7 @@ export const UserPage = () => {
             {filteredUserList.map(data => (
               <li key={data.id_user} id="element_user_container">
                 <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser} />
+
               </li>
             ))}
           </ol>

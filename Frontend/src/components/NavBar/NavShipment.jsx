@@ -13,7 +13,7 @@ const NavShipment = () => {
           <button onClick={() => setShowRoutes(!showRoutes)}>Ver Hoja de Rutas</button>
         </li>
         <li>
-          <button onClick={() => setShowCrud(!showCrud)}>Mostrar CRUD de Envíos</button>
+          <button onClick={() => setShowCrud(!showCrud)}>Mostrar Envíos</button>
         </li>
       </ul>
       {/* Muestra las rutas de entrega si showRoutes es true */}

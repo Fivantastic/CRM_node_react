@@ -16,6 +16,7 @@ import { insertSalesController } from './Modules/sales/insertSalesController.js'
 import { updateSalesController } from './Modules/sales/updateSalesController.js';
 import { deleteSalesController } from './Modules/sales/deleteSalesController.js';
 import { getSalesController } from './Modules/sales/getSalesController.js';
+import { getSalesSearchController } from './Modules/sales/getSalesSearchController.js';
 
 // Imports Facturas
 import { newInvoiceController } from './Modules/invoices/newInvoiceController.js';
@@ -29,20 +30,18 @@ import { cancelPaymentController } from './Modules/payments/cancelPaymentControl
 import { deletePaymentController } from './Modules/payments/deletePaymentController.js';
 import { getPaymentsController } from './Modules/payments/getPaymentsController.js';
 
-
 // Imports Albarán
 import { createDeliveryNoteController } from './Modules/deliveryNote/createDeliveryNoteController.js';
 import { closeDeliveryNoteController } from './Modules/deliveryNote/closeDeliveryNoteController.js';
 import { deleteDeliveryNoteController } from './Modules/deliveryNote/deleteDeliveryNoteController.js';
 import { getDeliveryNotesController } from './Modules/deliveryNote/getDeliveryNoteController.js';
 
-
 // Imports envios
 import { shipmentCreateController } from './Modules/shipment/shipmentCreateController.js';
 import { shipmentUpdateController } from './Modules/shipment/shipmentUpdateController.js';
 import { deleteShipmentController } from './Modules/shipment/deleteShipmentController.js';
 import { closeShipmentController } from './Modules/shipment/closeShipmentController.js';
-import { shipmentRouteController } from './Modules/shipment/shipmentRouteController.js'
+import { shipmentRouteController } from './Modules/shipment/shipmentRouteController.js';
 // Exportar todos los controladores
 export {
   getModuleController,
@@ -58,6 +57,7 @@ export {
   updateSalesController,
   deleteSalesController,
   getSalesController,
+  getSalesSearchController,
   newInvoiceController,
   deleteInvoiceController,
   getInvoiceController,

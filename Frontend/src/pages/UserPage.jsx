@@ -37,7 +37,7 @@ export const UserPage = () => {
 
   const getUserList = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
+      const response = await fetch(`${URL}/${typeModule}/list`, {
 
         method: 'GET',
         headers: {
@@ -62,7 +62,7 @@ export const UserPage = () => {
 
   const handleSearch = async (searchTerm) => {
     try {
-      const response = await fetch(`http://localhost:3000/${typeModule}/search?searchTerm=${searchTerm}`, {
+      const response = await fetch(`${URL}/${typeModule}/search?searchTerm=${searchTerm}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

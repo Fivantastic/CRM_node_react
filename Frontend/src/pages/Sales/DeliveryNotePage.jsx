@@ -5,6 +5,7 @@ import { DeliveryNoteList } from '../../components/PagesComponents/DeliveryNotes
 import { CreateDeliveryNote } from '../../components/PagesComponents/DeliveryNotes/CreateDeliveryNote.jsx';
 import { UpdateDelivery } from '../../components/PagesComponents/DeliveryNotes/UpdateDeliveryNote.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const DeliveryNotePage = () => {
   const token = useUser();
@@ -12,31 +13,29 @@ export const DeliveryNotePage = () => {
   const typeModule = 'deliveryNotes';
   const typeModuleMessage = 'DeliveryNote';
 
-  
-    const fetchDeliveryNotes = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/${typeModule}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-        });
+  const fetchDeliveryNotes = async () => {
+    try {
+      const response = await fetch(`${URL}/${typeModule}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+      });
 
-        if (response.ok) {
-          const responseData = await response.json();
-          console.log('Obtener notas de entrega satisfactorio:', responseData);
-          setDeliveryNotesList(responseData.data);
-        } else {
-          const errorData = await response.json();
-          console.error('Obtener notas de entrega fallido:', errorData);
-        }
-      } catch (error) {
-        console.error('Error al obtener la lista de notas de entrega:', error);
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Obtener notas de entrega satisfactorio:', responseData);
+        setDeliveryNotesList(responseData.data);
+      } else {
+        const errorData = await response.json();
+        console.error('Obtener notas de entrega fallido:', errorData);
       }
-   
-   };
-    useEffect(() => {
+    } catch (error) {
+      console.error('Error al obtener la lista de notas de entrega:', error);
+    }
+  };
+  useEffect(() => {
     fetchDeliveryNotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
@@ -61,17 +60,22 @@ export const DeliveryNotePage = () => {
     }
   };
 
-
   return (
     <MainLayout>
-      <section id='note_container' className='note_container mainContainer'>
-        <h1 id='note_title' className=' mainTitle'>Albaranes</h1>
+      <section id="note_container" className="note_container mainContainer">
+        <h1 id="note_title" className=" mainTitle">
+          Albaranes
+        </h1>
         <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
-        <ol className='note_list main_olist'>
+        <ol className="note_list main_olist">
           {deliveryNotesList.map((data) => (
-            <li key={data.id_note} id='element_note_container' className='main_ilist'>
+            <li
+              key={data.id_note}
+              id="element_note_container"
+              className="main_ilist"
+            >
               <DeliveryNoteList deliveryNote={data} />
-              <span id='note_actions' className='main_actions'>
+              <span id="note_actions" className="main_actions">
                 <UpdateDelivery deliveryNote={data.id_note} token={token} />
                 <DeleteGenericModal
                   id={data.id_note}
@@ -79,8 +83,8 @@ export const DeliveryNotePage = () => {
                   token={token}
                   typeModule={typeModule}
                   typeModuleMessage={typeModuleMessage}
-                  />
-                </span>
+                />
+              </span>
             </li>
           ))}
         </ol>

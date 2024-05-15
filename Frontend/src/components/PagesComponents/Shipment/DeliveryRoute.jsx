@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import defaultAvatar from '/profile.svg';
 import { useUser } from '../../../context/authContext.jsx';
+const URL = import.meta.env.VITE_URL;
 import './DeliveryRoutes.css'; // Archivo de estilos para la representación visual de la ruta
 import shipmentIcon from '../../../../public/shipmentRoute.svg';
 
@@ -32,7 +33,7 @@ const DeliveryRoutes = () => {
 
   const getDeliveryUsers = async () => {
     try {
-      const response = await fetch('http://localhost:3000/user/list', {
+      const response = await fetch(`${URL}/user/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

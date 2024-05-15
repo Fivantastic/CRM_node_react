@@ -5,6 +5,7 @@ import { CreateCustomer } from '../../components/PagesComponents/Customer/Create
 import { CustomerList } from '../../components/PagesComponents/Customer/CustomerList.jsx';
 import { UpdateCustomer } from '../../components/PagesComponents/Customer/UpdateCustomer.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const CustomerPage = () => {
   const token = useUser();
@@ -18,7 +19,7 @@ export const CustomerPage = () => {
 
   const getCustomerList = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/${typeModule}/list`, {
+      const response = await fetch(`${URL}/${typeModule}/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -94,14 +95,20 @@ export const CustomerPage = () => {
   return (
     <MainLayout>
       <section id="customer_container" className="mainContainer">
-        <h1 id="customer_title" className=" mainTitle">Clientes</h1>
+        <h1 id="customer_title" className=" mainTitle">
+          Clientes
+        </h1>
         <CreateCustomer onAddCustomer={addCustomer} token={token} />
-        <ol id="customer_list" className=' main_olist'>
+        <ol id="customer_list" className=" main_olist">
           {listCustomer.map((data) => {
             return (
-              <li key={data.id_customer} id='element_customer_container' className='element_customer_container main_ilist'>
+              <li
+                key={data.id_customer}
+                id="element_customer_container"
+                className="element_customer_container main_ilist"
+              >
                 <CustomerList customer={data} />
-                <span id='customer_actions' className='main_actions'>
+                <span id="customer_actions" className="main_actions">
                   <UpdateCustomer
                     customer={data.id_customer}
                     onUpdateCustomer={updateCustomer}

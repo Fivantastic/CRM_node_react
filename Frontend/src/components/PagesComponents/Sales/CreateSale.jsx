@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import './SalesListTable.css';
 
 export const CreateSale = ({ onAddSale, token }) => {
   // Aqui hace la peticion al servidor
@@ -107,7 +108,17 @@ export const CreateSale = ({ onAddSale, token }) => {
   };
   return (
     <>
-      <button id='btnSalesCreate' className=" mainCreateBtn" onClick={handleClickCreateSale}>Crear Venta</button>
+      <button
+        id="btnSalesCreate"
+        className=" mainCreateBtn"
+        onClick={handleClickCreateSale}
+      >
+        <img
+          id="imgUserCreate"
+          src="../../../../list_alt_add_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          alt="Boton agregar usuario"
+        />
+      </button>
     </>
   );
 };

@@ -59,8 +59,12 @@ export const CustomerPage = () => {
       // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getCustomerList();
     } catch (error) {
-      console.error('Error al agregar la venta:', error);
+      console.error('Error al agregar al clientes:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al agregar al clientes',
+    });
     }
   };
 
@@ -75,8 +79,12 @@ export const CustomerPage = () => {
       // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getCustomerList();
     } catch (error) {
-      console.error('Error al eliminar la venta:', error);
+      console.error('Error al eliminar el cliente:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al obtener la lista de clientes',
+    });
     }
   };
 
@@ -91,8 +99,12 @@ export const CustomerPage = () => {
       // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getCustomerList();
     } catch (error) {
-      console.error('Error al actualizar la venta:', error);
+      console.error('Error al actualizar el cliente:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar al cliente',
+    });
     }
   };
 

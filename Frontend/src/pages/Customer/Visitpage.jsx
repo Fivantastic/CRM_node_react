@@ -60,6 +60,10 @@ export const Visitpage = () => {
     } catch (error) {
       console.error('Error al agregar la visita:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al agregar la visita',
+    });
     }
   };
 
@@ -74,8 +78,12 @@ export const Visitpage = () => {
       // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getVisitList();
     } catch (error) {
-      console.error('Error al eliminar la venta:', error);
+      console.error('Error al eliminar la visita:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar la visita',
+    });
     }
   };
 
@@ -91,6 +99,10 @@ export const Visitpage = () => {
     } catch (error) {
       console.error('Error al actualizar la visita:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar la visita',
+    });
     }
   };
 

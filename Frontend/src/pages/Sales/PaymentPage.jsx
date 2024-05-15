@@ -67,20 +67,36 @@ export const PaymentPage = () => {
 
   // Actualizo el estado con la venta añadida
   const addPayment = (newPayment) => {
-    setPaymentsList((prevPayment) => {
-      console.log('Nuevo payment:', newPayment);
-      return [...prevPayment, newPayment];
+    try {
+      setPaymentsList((prevPayment) => {
+        console.log('Nuevo payment:', newPayment);
+        return [...prevPayment, newPayment];
+      }) 
+    }catch (error){
+      console.error('Error al crear el pago', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al crear el pago',
     });
+    }
   };
 
   // Actualizo el estado con el pago eliminado
   const deletePayment = (id_payment) => {
-    setPaymentsList((prevPayments) =>
-      prevPayments.filter((payment) => payment.id_payment !== id_payment)
-    );
+    try {
+      setPaymentsList((prevPayments) =>
+        prevPayments.filter((payment) => payment.id_payment !== id_payment)
+      );
+    } catch (error) {
+      console.error('Error al eliminar el pago', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar el pago',
+    });
+    }
   };
 
-  // TODO - Actualizar componente en cambio de estado
+  // Actualizar componente en cambio de estado
   function handleNewPaymentStatus(idPayment, newStatus) {
     try {
       setPaymentsList((prevPaymentsList) =>
@@ -93,11 +109,10 @@ export const PaymentPage = () => {
         )
       );
     } catch (error) {
-      console.error('Error al cambiar el estado del usuario:', error);
-
+      console.error('Error al cambiar el estado del pago:', error);
       Toast.fire({
-        icon: 'error',
-        title: 'Por favor, recarga la página',
+        icon: 'warning',
+        title: 'Error, recarga la página para ver los cambios',
       });
     }
   }

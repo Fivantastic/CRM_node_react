@@ -54,6 +54,10 @@ export const ProductPage = () => {
       await getProductList();
     } catch (error) {
       console.error('Error al agregar el producto:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al agregar el producto',
+    });
     }
   };
 
@@ -67,6 +71,10 @@ export const ProductPage = () => {
       await getProductList();
     } catch (error) {
       console.error('Error al actualizar el producto', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar el producto',
+    });
     }
   };
 
@@ -81,6 +89,10 @@ export const ProductPage = () => {
     } catch (error) {
       console.error('Error al eliminar el producto:', error);
       // Mostrar un mensaje de error al usuario
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar el producto',
+    });
     }
   };
   return (

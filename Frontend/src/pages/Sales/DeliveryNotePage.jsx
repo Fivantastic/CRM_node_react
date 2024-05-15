@@ -1,20 +1,21 @@
-import { useState, useEffect } from 'react';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
+import { useState, useEffect } from 'react';
 import { DeliveryNoteList } from '../../components/PagesComponents/DeliveryNotes/DeliveryNoteList.jsx';
 import { CreateDeliveryNote } from '../../components/PagesComponents/DeliveryNotes/CreateDeliveryNote.jsx';
 import { UpdateDelivery } from '../../components/PagesComponents/DeliveryNotes/UpdateDeliveryNote.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
-import { SearchPages } from "../../components/NavPages/SearchPages.jsx";
-import { FilterPages } from "../../components/NavPages/FilterPages.jsx";
-import { SortPages } from "../../components/NavPages/SortPages.jsx";
+import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
+import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
+import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { Toast } from '../../components/alerts/Toast.jsx';
-const URL = import.meta.env.VITE_URL;
 
 export const DeliveryNotePage = () => {
   const token = useUser();
   const [deliveryNotesList, setDeliveryNotesList] = useState([]);
-  const [filteredDeliveryNotesList, setFilteredDeliveryNotesList] = useState([]); // Nuevo estado para la lista filtrada
+  const [filteredDeliveryNotesList, setFilteredDeliveryNotesList] = useState(
+    []
+  ); // Nuevo estado para la lista filtrada
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState([]);
   const [sortOption, setSortOption] = useState('');
@@ -29,16 +30,21 @@ export const DeliveryNotePage = () => {
         sort: sortOption,
       });
 
-      console.log('Fetching delivery notes with query:', queryParams.toString());
+      console.log(
+        'Fetching delivery notes with query:',
+        queryParams.toString()
+      );
 
-      const response = await fetch(`http://localhost:3000/${typeModule}?${queryParams.toString()}`, {
-
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3000/${typeModule}?${queryParams.toString()}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const responseData = await response.json();
@@ -50,14 +56,6 @@ export const DeliveryNotePage = () => {
       }
     } catch (error) {
       console.error('Error al obtener la lista de notas de entrega:', error);
-    }
-  };
-
-
-      Toast.fire({
-        icon: 'error',
-        title: 'Error al obtener las notas de entrega',
-    });
     }
   };
 
@@ -74,7 +72,10 @@ export const DeliveryNotePage = () => {
     console.log('Delivery notes list:', deliveryNotesList);
 
     if (filters.length > 0) {
-      filteredList = deliveryNotesList.filter(note => filters.includes(note.delivery_status));
+      // Asumiendo que 'filters' es un array de strings (por ejemplo, ['pending', 'delivered'])
+      filteredList = deliveryNotesList.filter((note) =>
+        filters.some((filter) => note.delivery_status === filter)
+      );
     }
 
     console.log('Filtered delivery notes list:', filteredList);
@@ -94,21 +95,6 @@ export const DeliveryNotePage = () => {
     setSortOption(selectedSortOption);
   };
 
-  const addDeliveryNote = (newDeliveryNote) => {
-    setDeliveryNotesList([...deliveryNotesList, newDeliveryNote]);
-  };
-
-  const deleteDeliveryNote = async (id_note) => {
-    try {
-      setDeliveryNotesList((prevVisit) =>
-        prevVisit.filter((deliveryNote) => deliveryNote.id_note !== id_note)
-      );
-      await fetchDeliveryNotes();
-    } catch (error) {
-      console.error('Error al eliminar la venta:', error);
-    }
-  };
-
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },
     { label: 'Entregado', value: 'delivered' },
@@ -117,39 +103,77 @@ export const DeliveryNotePage = () => {
   ];
 
   const sortOptions = [
-    { label: "Fecha (Antiguos)", value: "fecha-asc" },
-    { label: "Fecha (Recientes)", value: "fecha-desc" },
-    { label: "Estado (A - Z)", value: "estado-asc" },
-    { label: "Estado (Z - A)", value: "estado-desc" },
+    { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
+    { label: 'Fecha (Recientes)', value: 'fecha-desc' },
+    { label: 'Estado (A - Z)', value: 'estado-asc' },
+    { label: 'Estado (Z - A)', value: 'estado-desc' },
   ];
 
-  return (
-    <MainLayout>
-      <section id='note_container' className='note_container mainContainer'>
-        <h1 id='note_title' className=' mainTitle'>Albaranes</h1>
-        <nav className="mainNav">
-          <SearchPages onSearch={handleSearch} />
-          <FilterPages options={filterOptions} onFilterChange={handleFilterChange} />
-          <SortPages options={sortOptions} onSort={handleSortChange} />
-        </nav>
-        <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
-        <ol className='note_list main_olist'>
-          {filteredDeliveryNotesList.map((data) => (
-            <li key={data.id_note} id='element_note_container' className='main_ilist'>
+  const addDeliveryNote = (newDeliveryNote) => {
+    setDeliveryNotesList([...deliveryNotesList, newDeliveryNote]);
+  };
 
+  //Actualizo el estado con la venta eliminada y solicito la lista actualizada al servidor
+  const deleteDeliveryNote = async (id_note) => {
+    try {
+      // Eliminar la venta del estado local
+      setDeliveryNotesList((prevVisit) =>
+        prevVisit.filter((deliveryNote) => deliveryNote.id_note !== id_note)
+      );
+
+      // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
+      await fetchDeliveryNotes();
+    } catch (error) {
+      console.error('Error al eliminar la venta:', error);
       // Mostrar un mensaje de error al usuario
-      Toast.fire({
-        icon: 'error',
-        title: 'Error al eliminar la nota de entrega',
-    });
     }
   };
 
-       <DeliveryNoteList deliveryNote={data} />
+  // Actualizo el estado con la venta eliminada
+  const updateDeleveryNotes = async (id_note) => {
+    try {
+      setDeliveryNotesList((prevSales) =>
+        prevSales.filter((deleveryNotes) => deleveryNotes.id_note !== id_note)
+      );
+
+      await fetchDeliveryNotes();
+    } catch (error) {
+      console.error('Error al actualizar la factura:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar la factura',
+      });
+    }
+  };
+
+  return (
+    <MainLayout>
+      <section id="note_container" className="note_container mainContainer">
+        <h1 id="note_title" className=" mainTitle">
+          Albaranes
+        </h1>
+        <nav className="mainNav">
+          <SearchPages onSearch={handleSearch} />
+          <FilterPages options={filterOptions} onChange={handleFilterChange} />
+          <SortPages options={sortOptions} onSort={handleSortChange} />
+        </nav>
+        <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
+        <ol className="note_list main_olist">
+          {filteredDeliveryNotesList.map((data) => (
+            <li
+              key={data.id_note}
+              id="element_note_container"
+              className="main_ilist"
+            >
+              <DeliveryNoteList deliveryNote={data} />
               <span id="note_actions" className="main_actions">
-                <UpdateDelivery deliveryNote={data.id_note} token={token} />
+                <UpdateDelivery
+                  deliveryNote={data.id_note}
+                  onDeliveryNote={updateDeleveryNotes}
+                  token={token}
+                  typeModule={typeModule}
+                />
                 <DeleteGenericModal
-                  id={data.id_note}
                   onDelete={deleteDeliveryNote}
                   token={token}
                   typeModule={typeModule}
@@ -163,4 +187,5 @@ export const DeliveryNotePage = () => {
     </MainLayout>
   );
 };
+
 export default DeliveryNotePage;

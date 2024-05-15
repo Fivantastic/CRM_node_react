@@ -5,14 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 import { getFullName } from '../../Services/getFullName.js';
+const URL = import.meta.env.VITE_URL;
 
 export const LoginPage = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const setUser = useSetUser();
 
   const handleLoginSubmit = async (data) => {
     try {
-      const response = await fetch('http://localhost:3000/user/login', {
+      const response = await fetch(`${URL}/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,15 +29,15 @@ export const LoginPage = () => {
         const newToken = responseData.token;
 
         // Extraer el nombre de usuario de la respuesta
-        const { name, lastName} = getUserDataFromToken(newToken);
+        const { name, lastName } = getUserDataFromToken(newToken);
 
         // Actualizar el token en el localStorage y en el estado del contexto
-        setUser(newToken); 
+        setUser(newToken);
 
         // Opcion Modal 3
         const Toast = Swal.mixin({
           toast: true,
-          position: "bottom-end",
+          position: 'bottom-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -44,18 +45,17 @@ export const LoginPage = () => {
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
             navigate('/home');
-          }
+          },
         });
-        
+
         Toast.fire({
-          icon: "success",
-          title: "Bienvenido a Cosmic, " + getFullName(name, lastName) + "."
+          icon: 'success',
+          title: 'Bienvenido a Cosmic, ' + getFullName(name, lastName) + '.',
         });
-        
       } else {
         const errorData = await response.json();
         console.error('Login fallido:', errorData);
-        
+
         // Si el usuario no esta activo muestra un mensaje de error modal
         if (errorData.code === 'ACCOUNT_INACTIVE_CRM_ERROR') {
           Swal.fire({
@@ -83,11 +83,12 @@ export const LoginPage = () => {
 
   const loginUserSchema = Joi.object({
     email: Joi.string().email({ tlds: false }).required().label('Email'),
-    password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
-                     .required()
-                     .label('Password')
+    password: Joi.string()
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
+      .required()
+      .label('Password'),
   });
-  
+
   const loginFormFields = [
     {
       name: 'email',
@@ -106,7 +107,7 @@ export const LoginPage = () => {
     {
       type: 'textWithLink',
       linkText: '¿Olvidaste tu contraseña?',
-      link: 'http://localhost:5173/forgot-password' 
+      link: 'http://localhost:5173/forgot-password',
     },
   ];
 
@@ -118,17 +119,13 @@ export const LoginPage = () => {
   // ];
 
   return (
-      <DynamicForm
-        title="Login"
-        onSubmit={handleLoginSubmit}
-        schema={loginUserSchema}
-        fields={loginFormFields}
-        buttonText={'Entrar'}
-        extraButtons={[]}
-      />
+    <DynamicForm
+      title="Login"
+      onSubmit={handleLoginSubmit}
+      schema={loginUserSchema}
+      fields={loginFormFields}
+      buttonText={'Entrar'}
+      extraButtons={[]}
+    />
   );
 };
-
-
-
-

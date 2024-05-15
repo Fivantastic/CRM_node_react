@@ -2,6 +2,7 @@ import express from 'express';
 import {
   deleteSalesController,
   getSalesController,
+  getSalesSearchController,
   insertSalesController,
   updateSalesController,
 } from '../../controllers/modulesControllers.js';
@@ -16,6 +17,13 @@ salesRouter.post(
   authenticateUser,
   checkRoleAgent,
   insertSalesController
+);
+
+salesRouter.get(
+  '/sales/search',
+  authenticateUser,
+  checkRoleAgent,
+  getSalesSearchController
 );
 
 // Modificar venta

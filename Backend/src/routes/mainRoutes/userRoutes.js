@@ -32,7 +32,7 @@ userRouter.get(
 );
 
 // Ruta para listar usuario por busqueda nombre y apellidos
-userRouter.get('/user/search', authenticateUser, getUserSearchController);
+userRouter.get('/user/search', authenticateUser, adminAuthMiddleware, getUserSearchController);
 
 // Ruta de registro solo para administradores
 userRouter.post(

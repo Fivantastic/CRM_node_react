@@ -35,8 +35,6 @@ export const FilterPages = ({ options, onChange }) => {
     };
   }, []);
 
-  console.log(selectedOptions);
-
   return (
     <div className="filter-menu" ref={dropdownRef}>
       <button onClick={toggleMenu} className="filter-button">

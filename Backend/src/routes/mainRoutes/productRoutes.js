@@ -53,3 +53,6 @@ productRouter.put(
   adminAuthMiddleware,
   updateProductController
 );
+
+// Ruta para listar productos por nombre de producto
+// productSearchRouter.get('/product/search', authenticateUser, getProductSearchController);

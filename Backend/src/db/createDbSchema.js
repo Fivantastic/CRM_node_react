@@ -39,6 +39,7 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla Users...`));
   await db.query(`CREATE TABLE Users (
         id_user CHAR(36) PRIMARY KEY,
+        ref_US CHAR(9) UNIQUE NOT NULL,
         name VARCHAR(255) NOT NULL,
         last_name VARCHAR(255),
         email VARCHAR(255) UNIQUE NOT NULL,
@@ -58,6 +59,7 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla Customers...`));
   await db.query(`CREATE TABLE Customers (
         id_customer CHAR(36) PRIMARY KEY,
+        ref_CT CHAR(9) UNIQUE NOT NULL,
         name VARCHAR(255),
         email VARCHAR(255) NOT NULL,
         phone VARCHAR(20),
@@ -72,6 +74,7 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla Products...`));
   await db.query(`CREATE TABLE Products (
         id_product CHAR(36) PRIMARY KEY,
+        ref_PR CHAR(10) UNIQUE NOT NULL,
         name VARCHAR(255) NOT NULL,
         description TEXT,
         price DECIMAL(10,2) NOT NULL,
@@ -95,6 +98,7 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla Sales...`)); 
   await db.query(`CREATE TABLE Sales (
         id_sale CHAR(36) PRIMARY KEY,
+        ref_SL CHAR(10) UNIQUE NOT NULL,
         user_id CHAR(36),
         saleProduct_id CHAR(36),
         customer_id CHAR(36),
@@ -109,6 +113,7 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla Visits...`));
   await db.query(`CREATE TABLE Visits (
         id_visit CHAR(36) PRIMARY KEY,
+        ref_VT CHAR(10) UNIQUE NOT NULL,
         user_id CHAR(36) NOT NULL,
         customer_id CHAR(36) NOT NULL,
         visit_status ENUM('scheduled', 'cancelled', 'completed') DEFAULT 'scheduled',
@@ -126,6 +131,7 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla DeliveryNotes...`));
   await db.query(`CREATE TABLE DeliveryNotes (
         id_note CHAR(36) PRIMARY KEY,
+        ref_DN CHAR(10) UNIQUE NOT NULL,
         sale_id CHAR(36),
         deliverer_id CHAR(36),
         delivery_status ENUM('pending', 'cancelled', 'delivering', 'delivered') DEFAULT 'pending',
@@ -145,6 +151,7 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla Shipments...`));
   await db.query(`CREATE TABLE Shipments (
         id_shipment CHAR(36) PRIMARY KEY,
+        ref_SH CHAR(10) UNIQUE NOT NULL,
         customer_id CHAR(36),
         address_id CHAR(36),
         deliveryNote_id CHAR(36),
@@ -161,6 +168,7 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla Invoices...`));
   await db.query(`CREATE TABLE Invoices (
         id_invoice CHAR(36) PRIMARY KEY,
+        ref_IN CHAR(10) UNIQUE NOT NULL,
         agentUser_id CHAR(36),
         sale_id CHAR(36),
         customer_id CHAR(36),
@@ -196,6 +204,7 @@ export async function createDBSchema(db) {
     console.log(chalk.bold.blue(`->✏️ Creando tabla Payments...`));
   await db.query(`CREATE TABLE Payments (
         id_payment CHAR(36) PRIMARY KEY,
+        ref_PM CHAR(10) UNIQUE NOT NULL,
         invoice_id CHAR(36),
         payment_status ENUM('pending', 'cancelled', 'paid') DEFAULT 'pending',
         payment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -207,6 +216,7 @@ export async function createDBSchema(db) {
   console.log(chalk.bold.blue(`->✏️ Creando tabla Modules...`));
   await db.query(`CREATE TABLE Modules (
         id_module CHAR(36) PRIMARY KEY,
+        ref_MD CHAR(10) UNIQUE NOT NULL,
         agentUser_id CHAR(36),
         deliveryUser_id CHAR(36),
         service_type ENUM('sale', 'visit') NOT NULL,
@@ -250,6 +260,10 @@ export async function createDBSchema(db) {
   const hashed_password = await bcrypt.hash(password, 12);
   const registration_code = crypto.randomUUID();
   const avatarRandom = 'https://i.pravatar.cc/150?u=3456';
+  const currentRef = 'US-ZZ001';
+  
+  // Generar la nueva referencia basada en la referencia actual
+  
 
   //! Aquí podría venir la lógica de enviar un correo electrónico con la contraseña y el registro.
 
@@ -274,11 +288,12 @@ export async function createDBSchema(db) {
 
   await db.query(
     `
-    INSERT INTO Users (id_user, name, last_name, email, phone, password, address_id, role, avatar, active, registration_code)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO Users (id_user, ref_US, name, last_name, email, phone, password, address_id, role, avatar, active, registration_code)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `,
     [
       id_user,
+      currentRef,
       ADMIN_NAME,
       ADMIN_LAST_NAME,
       ADMIN_EMAIL,

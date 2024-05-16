@@ -19,7 +19,9 @@ app.use(morgan('dev'));
 // Middleware Cors sin cookies
 app.use(cors(
   {origin: true,
-  credentials: true}
+  credentials: true,
+  accessControlAllowOrigin: true
+}
 ));
 
 // Middleware Recursos Estaticos

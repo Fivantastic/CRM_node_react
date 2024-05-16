@@ -8,13 +8,15 @@ import { selectPaymentByIdInvoice } from "./loadDataModels/selectPaymentByIdInvo
 import { selectDeliveryNoteByIdSale } from "./loadDataModels/selectDeliveryNoteByIdSale.js";
 import { selectShipmentByIdDeliveryNote } from "./loadDataModels/selectShipmentByIdDeliveryNote.js";
 import { selectUserByIdVisit } from "./loadDataModels/selectUserByIdVisit.js";
+import { generateReference3DigitsFromRef } from "../utils/generateReference3Digits.js";
+import { generateReference5DigitsFromRef } from "../utils/generateReference5Digits.js";
+import { getMaxReference3Digits, getMaxReference5Digits } from "../models/getMaxReference.js";
 
 export async function loadDemoData(db) {
   try {
-    // Insertar datos en la tabla Addresses
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Addresses...`));
     const addressData = [];
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 250; i++) {
       const calle = faker.location.street();
       const address = {
         id_address: faker.string.uuid(),
@@ -34,23 +36,25 @@ export async function loadDemoData(db) {
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Addresses.`));
 
-    // Insertar datos en la tabla Users
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Users...`));
     const userData = [];
+    let currentRefUser = 'US-UA000';
+
     for (let i = 0; i < 80; i++) {
       const id_user = faker.string.uuid();
       const password = ADMIN_PASSWORD;
       const hashedPassword = await bcrypt.hash(password, 12);
       const firstName = faker.person.firstName();
       const lastName = faker.person.lastName();
+
+      currentRefUser = generateReference3DigitsFromRef('US', 'U', currentRefUser);
+
       const user = {
         id_user: id_user,
+        ref_US: currentRefUser,
         name: firstName,
         last_name: lastName,
-        email: faker.internet.email({ 
-          firstName: firstName,
-          lastName: lastName,
-          provider: 'cosmic.com' }),
+        email: faker.internet.email({ firstName }),
         phone: faker.phone.number(), 
         password: hashedPassword,
         address_id: addressData[i].id_address,
@@ -63,40 +67,49 @@ export async function loadDemoData(db) {
       userData.push(user);
     }
     await db.query(
-      `INSERT INTO Users (id_user, name, last_name, email, phone, password, address_id, role, active, registration_code, avatar, biography) VALUES ?`,
+      `INSERT INTO Users (id_user, ref_US, name, last_name, email, phone, password, address_id, role, active, registration_code, avatar, biography) VALUES ?`,
       [userData.map(user => Object.values(user))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Users.`));
 
-    // Insertar datos en la tabla Customers
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Customers...`));
     const customerData = [];
-    for (let i = 100; i < 200; i++) {
+    let currentRefCustomer = await getMaxReference3Digits('Customers', 'ref_CT') || 'CT-CA000';
+    
+    for (let i = 0; i < 100; i++) {
       const firstName = faker.person.firstName();
       const NIF_completo = generarNIF();
+
+      currentRefCustomer = generateReference3DigitsFromRef('CT', 'C', currentRefCustomer);
+
       const customer = {
         id_customer: faker.string.uuid(),
+        ref_CT: currentRefCustomer,
         name: firstName,
-        email: faker.internet.email({firstName}),
+        email: faker.internet.email({ firstName }),
         phone: faker.phone.number(),
         company_name: faker.company.name(),
         NIF: NIF_completo,
-        address_id: addressData[i].id_address
+        address_id: addressData[i + 100].id_address
       };
       customerData.push(customer);
     }
     await db.query(
-      `INSERT INTO Customers (id_customer, name, email, phone, company_name, NIF, address_id) VALUES ?`,
+      `INSERT INTO Customers (id_customer, ref_CT, name, email, phone, company_name, NIF, address_id) VALUES ?`,
       [customerData.map(customer => Object.values(customer))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Customers.`));
 
-    // Insertar datos en la tabla Products
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Products...`));
     const productData = [];
+    let currentRefProduct = await getMaxReference5Digits('Products', 'ref_PR')  || 'PR-AA00000';
+
     for (let i = 0; i < 300; i++) {
+      currentRefProduct = await generateReference5DigitsFromRef('PR', currentRefProduct);
+
       const product = {
         id_product: faker.string.uuid(),
+        ref_PR: currentRefProduct,
         name: faker.commerce.product(),
         description: faker.lorem.paragraph(),
         price: faker.commerce.price({min: 10, max: 150}),
@@ -106,12 +119,11 @@ export async function loadDemoData(db) {
       productData.push(product);
     }
     await db.query(
-      `INSERT INTO Products (id_product, name, description, price, stock, product_status) VALUES ?`,
+      `INSERT INTO Products (id_product, ref_PR, name, description, price, stock, product_status) VALUES ?`,
       [productData.map(product => Object.values(product))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Products.`));
 
-    // Insertar datos en la tabla SalesProducts
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla SalesProducts...`));
     const salesProductData = [];
     for (let i = 0; i < 100; i++) {
@@ -129,39 +141,40 @@ export async function loadDemoData(db) {
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla SalesProducts.`));
 
-    // Definir contadores separados para salesAgents y deliverers
-    let salesAgentCount = 0;
-    let delivererCount = 0;
-
-    // Insertar datos en la tabla Sales
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Sales...`));
     const salesData = [];
+    let currentRefSale = await getMaxReference5Digits('Sales', 'ref_SL') || 'SL-AA00000';
+
     for (let i = 0; i < 50; i++) {
-      let userIndex = salesAgentCount % 80; // Garantiza que solo se tomen salesAgents existentes
+      currentRefSale = generateReference5DigitsFromRef('SL', currentRefSale);
+
       const sale = {
         id_sale: faker.string.uuid(),
-        user_id: userData[userIndex].id_user,
+        ref_SL: currentRefSale,
+        user_id: userData[i % 80].id_user,
         saleProduct_id: salesProductData[i].id_saleProduct,
         customer_id: customerData[i].id_customer,
         operation_status: faker.helpers.arrayElement(['open', 'closed']),
       };
       salesData.push(sale);
-      salesAgentCount++;
     }
     await db.query(
-      `INSERT INTO Sales (id_sale, user_id, saleProduct_id, customer_id, operation_status) VALUES ?`,
+      `INSERT INTO Sales (id_sale, ref_SL, user_id, saleProduct_id, customer_id, operation_status) VALUES ?`,
       [salesData.map(sale => Object.values(sale))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Sales.`));
 
-    // Insertar datos en la tabla Visits
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Visits...`));
     const visitData = [];
+    let currentRefVisit = await getMaxReference5Digits('Visits', 'ref_VT') || 'VT-AA00000';
+
     for (let i = 0; i < 50; i++) {
-      let userIndex = salesAgentCount % 80; // Garantiza que solo se tomen salesAgents existentes
+      currentRefVisit = generateReference5DigitsFromRef('VT', currentRefVisit);
+
       const visit = {
         id_visit: faker.string.uuid(),
-        user_id: userData[userIndex].id_user,
+        ref_VT: currentRefVisit,
+        user_id: userData[i % 80].id_user,
         customer_id: customerData[i].id_customer,
         visit_status: faker.helpers.arrayElement(['scheduled', 'completed']),
         visit_date: faker.date.past(),
@@ -170,43 +183,49 @@ export async function loadDemoData(db) {
         rating_comment: faker.lorem.paragraph(),
       };
       visitData.push(visit);
-      salesAgentCount++;
     }
     await db.query(
-      `INSERT INTO Visits (id_visit, user_id, customer_id, visit_status, visit_date, observations, rating_visit, rating_comment) VALUES ?`,
+      `INSERT INTO Visits (id_visit, ref_VT, user_id, customer_id, visit_status, visit_date, observations, rating_visit, rating_comment) VALUES ?`,
       [visitData.map(visit => Object.values(visit))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Visits.`));
 
-    // Insertar datos en la tabla DeliveryNotes
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla DeliveryNotes...`));
     const deliveryNoteData = [];
+    let currentRefDeliveryNote = await getMaxReference5Digits('DeliveryNotes', 'ref_DN') || 'DN-AA00000';
+
     for (let i = 0; i < 50; i++) {
-      let userIndex = delivererCount % 80; // Garantiza que solo se tomen deliverers existentes
+      currentRefDeliveryNote = generateReference5DigitsFromRef('DN', currentRefDeliveryNote);
+
       const deliveryNote = {
         id_note: faker.string.uuid(),
+        ref_DN: currentRefDeliveryNote,
         sale_id: salesData[i].id_sale,
-        deliverer_id: userData[userIndex].id_user,
-        delivery_status: faker.helpers.arrayElement(['pending', 'delivering', 'delivered','pending','pending','pending','pending','pending',]),
+        deliverer_id: userData[i % 80].id_user,
+        delivery_status: faker.helpers.arrayElement(['pending', 'delivering', 'delivered']),
         customer_id: customerData[i].id_customer,
         address_id: addressData[i].id_address,
         saleProduct_id: salesProductData[i].id_saleProduct,
         delivery_date: faker.date.soon({ days: 3 }),
       };
       deliveryNoteData.push(deliveryNote);
-      delivererCount++;
     }
     await db.query(
-      `INSERT INTO DeliveryNotes (id_note, sale_id, deliverer_id, delivery_status, customer_id, address_id, saleProduct_id, delivery_date) VALUES ?`,
+      `INSERT INTO DeliveryNotes (id_note, ref_DN, sale_id, deliverer_id, delivery_status, customer_id, address_id, saleProduct_id, delivery_date) VALUES ?`,
       [deliveryNoteData.map(deliveryNote => Object.values(deliveryNote))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla DeliveryNotes.`));
 
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Shipments...`));
     const shipmentData = [];
+    let currentRefShipment = await getMaxReference5Digits('Shipments', 'ref_SH') || 'SH-AA00000';
+
     for (let i = 0; i < 50; i++) {
+      currentRefShipment = generateReference5DigitsFromRef('SH', currentRefShipment);
+
       const shipment = {
         id_shipment: faker.string.uuid(),
+        ref_SH: currentRefShipment,
         customer_id: customerData[i].id_customer,
         address_id: addressData[i].id_address,
         deliveryNote_id: deliveryNoteData[i].id_note,
@@ -217,53 +236,56 @@ export async function loadDemoData(db) {
       shipmentData.push(shipment);
     }
     await db.query(
-      `INSERT INTO Shipments (id_shipment, customer_id, address_id, deliveryNote_id, shipment_status, tracking_number, additional_notes) VALUES ?`,
+      `INSERT INTO Shipments (id_shipment, ref_SH, customer_id, address_id, deliveryNote_id, shipment_status, tracking_number, additional_notes) VALUES ?`,
       [shipmentData.map(shipment => Object.values(shipment))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Shipments.`));
-  
-// Insertar datos en la tabla Invoices
-console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Invoices...`));
-const invoiceData = [];
-for (let i = 0; i < 50; i++) {
-  // Calcular el precio total de la factura
-  let totalPrice = productData[i].price * salesProductData[i].quantity;
 
-  // Calcular el precio total incluyendo impuestos
-  let includingTax = totalPrice * 0.21;
-  
-  let totalAmount = totalPrice + includingTax;
+    console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Invoices...`));
+    const invoiceData = [];
+    let currentRefInvoice = await getMaxReference5Digits('Invoices', 'ref_IN') || 'IN-AA00001';
 
-  const invoice = {
-    id_invoice: faker.string.uuid(),
-    agentUser_id: userData[i].id_user,
-    sale_id: salesData[i].id_sale,
-    customer_id: customerData[i].id_customer,
-    company_name: customerData[i].company_name,
-    NIF: customerData[i].NIF,
-    address: addressData[i].address,
-    total_price: totalPrice.toFixed(2), 
-    including_tax: includingTax.toFixed(2), 
-    total_amount: totalAmount,
-    payment_method: faker.helpers.arrayElement(['cash', 'card', 'transfer']),
-    invoice_status: faker.helpers.arrayElement(['pending', 'pending', 'pending', 'pending', 'pending', 'pending', 'pending', 'pending', 'paid', 'paid', 'paid', 'paid', 'paid', 'paid', 'paid', 'paid', 'overdue', 'partially_paid', 'cancelled', 'refunded', 'disputed', 'sent']),
-    due_date: faker.date.future(),
-  };
-  invoiceData.push(invoice);
-}
+    for (let i = 0; i < 50; i++) {
+      let totalPrice = productData[i].price * salesProductData[i].quantity;
+      let includingTax = totalPrice * 0.21;
+      let totalAmount = totalPrice + includingTax;
 
+      currentRefInvoice = generateReference5DigitsFromRef('IN', currentRefInvoice);
+
+      const invoice = {
+        id_invoice: faker.string.uuid(),
+        ref_IN: currentRefInvoice,
+        agentUser_id: userData[i].id_user,
+        sale_id: salesData[i].id_sale,
+        customer_id: customerData[i].id_customer,
+        company_name: customerData[i].company_name,
+        NIF: customerData[i].NIF,
+        address: addressData[i].address,
+        total_price: totalPrice.toFixed(2), 
+        including_tax: includingTax.toFixed(2), 
+        total_amount: totalAmount,
+        payment_method: faker.helpers.arrayElement(['cash', 'card', 'transfer']),
+        invoice_status: faker.helpers.arrayElement(['pending', 'paid', 'overdue', 'partially_paid', 'cancelled', 'refunded', 'disputed', 'sent']),
+        due_date: faker.date.future(),
+      };
+      invoiceData.push(invoice);
+    }
     await db.query(
-      `INSERT INTO Invoices (id_invoice, agentUser_id, sale_id, customer_id, company_name, NIF, address, total_price, including_tax, total_amount, payment_method, invoice_status, due_date) VALUES ?`,
+      `INSERT INTO Invoices (id_invoice, ref_IN, agentUser_id, sale_id, customer_id, company_name, NIF, address, total_price, including_tax, total_amount, payment_method, invoice_status, due_date) VALUES ?`,
       [invoiceData.map(invoice => Object.values(invoice))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Invoices.`));
-  
-    // Insertar datos en la tabla Payments
+
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Payments...`));
     const paymentData = [];
+    let currentRefPayment = await getMaxReference5Digits('Payments', 'ref_PM') || 'PM-AA00001';
+
     for (let i = 0; i < 50; i++) {
+      currentRefPayment = generateReference5DigitsFromRef('PM', currentRefPayment);
+
       const payment = {
         id_payment: faker.string.uuid(),
+        ref_PM: currentRefPayment,
         invoice_id: invoiceData[i].id_invoice,
         payment_status: faker.helpers.arrayElement(['pending', 'cancelled', 'paid']),
         payment_date: faker.date.past(),
@@ -271,15 +293,17 @@ for (let i = 0; i < 50; i++) {
       paymentData.push(payment);
     }
     await db.query(
-      `INSERT INTO Payments (id_payment, invoice_id, payment_status, payment_date) VALUES ?`,
+      `INSERT INTO Payments (id_payment, ref_PM, invoice_id, payment_status, payment_date) VALUES ?`,
       [paymentData.map(payment => Object.values(payment))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Payments.`));
-  
-    // Insertar datos en la tabla Modules
+
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Modules...`));
     const moduleData = [];
+    let currentRefModule = await getMaxReference5Digits('Modules', 'ref_MD') || 'MD-AA00000';
+
     for (let i = 0; i < 100; i++) {
+      currentRefModule = generateReference5DigitsFromRef('MD', currentRefModule);
 
       let agentUser_id = null;
       let deliveryUser_id = null;
@@ -295,21 +319,17 @@ for (let i = 0; i < 50; i++) {
         service_type = 'sale';
         sale_id = salesData[i].id_sale;
 
-        // obtener id de factura
         const invoice = await selectInvoiceByIdSale(sale_id);
         invoice_id = invoice.id_invoice;
         agentUser_id = invoice.agentUser_id;
 
-        //obtener id pago de la factura
         const payment = await selectPaymentByIdInvoice(invoice_id);
         payment_id = payment.id_payment;
 
-        //obtener id de delivery note de la venta
         const deliveryNote = await selectDeliveryNoteByIdSale(sale_id);
         deliveryNote_id = deliveryNote.id_note;
         deliveryUser_id  = deliveryNote.deliverer_id;
 
-        //obtener id de shipment del albaran
         const shipment = await selectShipmentByIdDeliveryNote(deliveryNote_id);
         shipment_id = shipment.id_shipment;
 
@@ -322,6 +342,7 @@ for (let i = 0; i < 50; i++) {
 
       const module = {
         id_module: faker.string.uuid(),
+        ref_MD: currentRefModule,
         agentUser_id: agentUser_id,
         deliveryUser_id: deliveryUser_id,
         service_type: service_type,
@@ -331,24 +352,20 @@ for (let i = 0; i < 50; i++) {
         invoice_id: invoice_id,
         payment_id: payment_id,
         shipment_id: shipment_id,
-        rating_module: faker.helpers.arrayElement([1, 2, 3, 4, 5, 5, 5, 5, 5, 5]),
+        rating_module: faker.helpers.arrayElement([1, 2, 3, 4, 5]),
         rating_comment: faker.lorem.paragraph(),
       };
       moduleData.push(module);
     }
 
     await db.query(
-      `INSERT INTO Modules (id_module, agentUser_id, deliveryUser_id, service_type, sale_id, visit_id, deliveryNote_id, invoice_id, payment_id, shipment_id, rating_module, rating_comment) VALUES ?`,
+      `INSERT INTO Modules (id_module, ref_MD, agentUser_id, deliveryUser_id, service_type, sale_id, visit_id, deliveryNote_id, invoice_id, payment_id, shipment_id, rating_module, rating_comment) VALUES ?`,
       [moduleData.map(module => Object.values(module))]
     );
-
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Modules.`));
-  
+
     console.log(chalk.bold.green(`✅ Base de datos inicializada con éxito...`));
 
-    console.log('salesAgentCount', salesAgentCount);
-    console.log('delivererCount', delivererCount);
-  
   } catch (error) {
     console.error(chalk.bold.red(`❌ Error al insertar datos ficticios: ${error.message}`));
   }

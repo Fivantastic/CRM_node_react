@@ -1,6 +1,6 @@
 import { getDBPool } from '../../../db/getPool.js';
 
-export const insertVisitModel = async (visitId, user_id, customerId, visitDate, observations) => {
+export const insertVisitModel = async (visitId, ref, user_id, customerId, visitDate, observations) => {
     const pool = await getDBPool();
 
     const fieldsToUpdate = [];
@@ -14,6 +14,7 @@ export const insertVisitModel = async (visitId, user_id, customerId, visitDate, 
 
     };
     addToUpdate('id_visit', visitId);
+    addToUpdate('ref_VT', ref);
     addToUpdate('user_id', user_id);
     addToUpdate('customer_id', customerId);
     addToUpdate('visit_date', visitDate);
@@ -21,7 +22,7 @@ export const insertVisitModel = async (visitId, user_id, customerId, visitDate, 
 
     if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar, salir
 
-    const query = `INSERT INTO Visits (id_visit, user_id, customer_id, visit_date, observations) VALUES (?, ?, ?, ?, ?)`;
+    const query = `INSERT INTO Visits (id_visit, ref_VT, user_id, customer_id, visit_date, observations) VALUES (?, ?, ?, ?, ?, ?)`;
     values.push(user_id);
 
     const [result] = await pool.query(query, values);

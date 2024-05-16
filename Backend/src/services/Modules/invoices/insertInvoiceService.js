@@ -7,6 +7,8 @@ import { invalidCredentials, notFoundError } from "../../error/errorService.js";
 import { selectInvoiceIdBySaleIdModel } from "../../../models/Modules/invoices/selectInvoiceIdBySaleIdModel.js";
 import { extractFullAddress } from "../../../utils/extractFullAddress.js";
 import { generateExpiryDate } from "../../../utils/generateExpiryDate.js";
+import { getMaxReference5Digits } from "../../../models/getMaxReference.js";
+import { generateReference5DigitsFromRef } from "../../../utils/generateReference5Digits.js";
 
 
 export const newInvoiceService = async (userId, body) => {
@@ -59,8 +61,14 @@ export const newInvoiceService = async (userId, body) => {
     // Obtenemos la fecha de expiración
     const expiry_date = await generateExpiryDate(due_date);
 
+    // Obtenemos la referencia máxima de la tabla Invoices
+    const maxRef = await getMaxReference5Digits('Invoices', 'ref_IN');
+
+    // Generamos la nueva referencia de Invoices
+    const ref = generateReference5DigitsFromRef('IN', maxRef);
+
     // Insertamos la factura en la base de datos
-    const response = await insertInvoiceModel(idInvoice, userId, sale_id, saleOrder.customer_id, company_name, NIF, addressComplete, total_price, including_tax, total_amount, payment_method, expiry_date);
+    const response = await insertInvoiceModel(idInvoice, ref, userId, sale_id, saleOrder.customer_id, company_name, NIF, addressComplete, total_price, including_tax, total_amount, payment_method, expiry_date);
 
     // Retornamos la respuesta
     return response;

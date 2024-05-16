@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./sortPages.css"; // Estilo CSS para el menú desplegable
+import "./sortPages.css";
 
 export const SortPages = ({ options, onSort }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,9 +11,10 @@ export const SortPages = ({ options, onSort }) => {
   };
 
   const handleOptionSelect = (option) => {
-    if (selectedOption === option) {
+    if (selectedOption && selectedOption.value === option.value) {
       // Si se hace clic en la opción seleccionada, la deselecciona
       setSelectedOption(null);
+      onSort(null); // Llama a la función de ordenamiento con null para deseleccionar
     } else {
       setSelectedOption(option);
       onSort(option); // Llama a la función de ordenamiento
@@ -48,7 +49,7 @@ export const SortPages = ({ options, onSort }) => {
             <div
               key={option.value}
               className={`dropdown-option ${
-                selectedOption === option ? "selected" : ""
+                selectedOption && selectedOption.value === option.value ? "selected" : ""
               }`}
               onClick={() => handleOptionSelect(option)}
             >

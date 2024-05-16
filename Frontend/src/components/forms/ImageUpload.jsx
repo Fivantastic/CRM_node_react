@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 import { useUser } from '../../context/authContext.jsx';
 import Swal from 'sweetalert2'; // Asegúrate de importar SweetAlert2
+const URL = import.meta.env.VITE_URL;
 
 function ImageUpload() {
   const [selectedImage, setSelectedImage] = useState(null);
   const token = useUser();
-  const { id_user } = getUserDataFromToken(token);
 
   const handleImageUpload = async () => {
     if (!selectedImage) {
@@ -18,16 +17,13 @@ function ImageUpload() {
     formData.append('avatar', selectedImage);
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/user/avatar/${id_user}`,
-        {
-          method: 'PUT',
-          headers: {
-            Authorization: `${token}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(`${URL}/user/update`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `${token}`,
+        },
+        body: formData,
+      });
 
       if (response.ok) {
         const responseData = await response.json();

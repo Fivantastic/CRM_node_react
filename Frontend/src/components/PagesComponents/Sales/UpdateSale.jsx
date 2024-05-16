@@ -1,6 +1,8 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { EditButton } from '../../buttons/EditButton.jsx';
+import './SalesListTable.css';
 
 export const UpdateSale = ({ onUpdateSale, sale, token }) => {
   // Aqui hace la peticion al servidor
@@ -27,7 +29,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: 'bottom-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -125,8 +127,10 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
   };
 
   return (
-    <>
-      <button id='btnSalesUpdate ' className="mainUpdateBtn" onClick={handleUpdateSale}>Actualizar Venta</button>
-    </>
+    <EditButton
+      id="btnSalesUpdate"
+      className="mainUpdateBtn"
+      onClick={handleUpdateSale}
+    />
   );
 };

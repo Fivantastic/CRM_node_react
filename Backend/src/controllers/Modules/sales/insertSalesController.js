@@ -16,20 +16,11 @@ export const insertSalesController = async (req, res, next) => {
     // Validamos el body
     await validateSchemaUtil(newSaleProductSchema, req.body);
 
+    // Busco el producto
     const seachSaleProduct = await selectProductModel(product);
-    /* console.log(seachSaleProduct);
-    console.log('product', seachSaleProduct.id_product); */
 
-    const seachQuantity = await selectQuantityModel(
-      quantity,
-      seachSaleProduct.id_product
-    );
-    /* console.log(seachQuantity);
-    console.log('saleProducto', seachQuantity.id_saleProduct); */
-
+    // Busco el cliente
     const seachCustomer = await selectCustomerModel(customer);
-    /* console.log(seachCustomer);
-    console.log('customer', seachCustomer.id_customer); */
 
     //compruebo la cantidad del producto y si hay stock
     const checkQuantity = await controlStockProductService(
@@ -42,7 +33,7 @@ export const insertSalesController = async (req, res, next) => {
       limitedStock(quantity);
     }
 
-    // colocamos un id de venta
+    // colocamos un id de producto ha la venta
     const saleProduct_id = crypto.randomUUID();
 
     // Insarto el producto en saleProduct
@@ -51,6 +42,12 @@ export const insertSalesController = async (req, res, next) => {
       seachSaleProduct.id_product,
       quantity,
       seachSaleProduct.description
+    );
+
+    // Obtengo el producto ha lla venta y la cantidad
+    const seachQuantity = await selectQuantityModel(
+      quantity,
+      seachSaleProduct.id_product
     );
 
     // Inserto la venta en la base de datos

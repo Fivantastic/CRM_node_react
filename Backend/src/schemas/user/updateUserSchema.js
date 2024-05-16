@@ -1,5 +1,6 @@
 import joi from 'joi';
 import { joiErrorMessages } from '../error/joiErrorMessage.js';
+import { imgSchema } from '../error/imgSchema.js';
 
 // Esquema para validar el body de la petición.
 export const updateUserSchema = joi.object({
@@ -8,7 +9,7 @@ export const updateUserSchema = joi.object({
   email: joi.string().email().optional().messages(joiErrorMessages),
   phone: joi.number().optional().messages(joiErrorMessages),
   bio: joi.string().optional().messages(joiErrorMessages),
-  avatar: joi.string().optional().messages(joiErrorMessages),
+  avatar: imgSchema.optional(),
 });
 
 export const deleteUserSchema = joi.object({

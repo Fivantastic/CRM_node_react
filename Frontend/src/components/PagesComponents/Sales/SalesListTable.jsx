@@ -1,7 +1,9 @@
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { useUser } from '../../../context/authContext.jsx';
+import { useSalesList } from '../../../hooks/PagesHooks/useSalesList.js';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import '../Sales/SalesListTable.css';
+import { UpdateSale } from './UpdateSale.jsx';
 
 export const SalesListTable = ({ sale, onDelete }) => {
   const token = useUser();
@@ -21,6 +23,8 @@ export const SalesListTable = ({ sale, onDelete }) => {
         return estado;
     }
   };
+
+  const { updateSale } = useSalesList(token);
 
   return (
     <section id="sales_table">
@@ -68,6 +72,11 @@ export const SalesListTable = ({ sale, onDelete }) => {
                 <p>{dueDate.toLocaleDateString()}</p>
               </div>
               <div id="salesTableBodyRowActions">
+                <UpdateSale
+                  sale={sale.id_sale}
+                  onUpdateSale={updateSale}
+                  token={token}
+                />
                 <DeleteGenericModal
                   id={sale.id_user}
                   onDelete={onDelete}

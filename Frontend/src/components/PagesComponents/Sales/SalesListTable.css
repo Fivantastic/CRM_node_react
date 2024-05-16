@@ -1,4 +1,5 @@
-#btnSalesCreate {
+#btnSalesCreate,
+#btnSalesUpdate {
   border: none;
   cursor: pointer;
   background-color: transparent;

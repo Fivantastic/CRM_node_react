@@ -3,6 +3,8 @@ import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { createDeliveryNoteController, closeDeliveryNoteController, deleteDeliveryNoteController,getDeliveryNotesController } from '../../controllers/modulesControllers.js'; 
 import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
+import { getDeliveryNoteSearchController } from '../../controllers/Modules/deliveryNote/getDeliveryNoteSearchController.js'; 
+
 
 // Crea una instancia del enrutador de Express
 const router = express.Router();
@@ -33,6 +35,9 @@ router.delete(
   adminAuthMiddleware,
   deleteDeliveryNoteController
 );
+
+// Ruta para buscar notas de entrega por término de búsqueda
+router.get('/deliveryNotes/search', authenticateUser, adminAuthMiddleware, getDeliveryNoteSearchController);
 
 // Exporta el enrutador
 export default router;

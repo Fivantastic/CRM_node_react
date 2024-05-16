@@ -25,6 +25,7 @@ export const DeliveryNoteList = ({ deliveryNote }) => {
       <h3 id="element_note_section" className=" mainSubSection">Datos de la venta</h3>
       <p><strong>ID de la venta: </strong> {deliveryNote.sale_id}</p>
       <p><strong>Nombre del repartidor: </strong> {deliveryNote.deliverer}</p>
+      <p><strong>Fecha: </strong> {deliveryNote.create_at}</p>
       <h3 id="note_status" className=" mainStatusSection"> {traducirEstadoEntrega(deliveryNote.delivery_status)}</h3>
     </>
   );

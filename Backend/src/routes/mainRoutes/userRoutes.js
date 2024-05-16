@@ -1,7 +1,6 @@
 import express from 'express';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
-import { userExist } from '../../middlewares/userExist.js';
 import { renewTokenMiddleware } from '../../middlewares/renewTokenMiddleware.js';
 import {
   changePasswordController,
@@ -15,7 +14,6 @@ import {
   validateUserController,
   renewTokenController,
   deleteUserController,
-  updateUserAvatarController,
   getUserListController,
   getUserSearchController,
 } from '../../controllers/mainControllers.js';
@@ -32,7 +30,12 @@ userRouter.get(
 );
 
 // Ruta para listar usuario por busqueda nombre y apellidos
-userRouter.get('/user/search', authenticateUser, adminAuthMiddleware, getUserSearchController);
+userRouter.get(
+  '/user/search',
+  authenticateUser,
+  adminAuthMiddleware,
+  getUserSearchController
+);
 
 // Ruta de registro solo para administradores
 userRouter.post(
@@ -68,7 +71,7 @@ userRouter.post('/user/login', loginUserController);
 userRouter.post('/user/logout', authenticateUser, logoutUserController);
 
 // Ruta para actualización
-userRouter.put('/user/update/:id_user', authenticateUser, updateUserController);
+userRouter.put('/user/update', authenticateUser, updateUserController);
 
 // Ruta para cambio de contraseña
 userRouter.put(
@@ -88,11 +91,3 @@ userRouter.put(
 
 // Ruta para renovación de token
 userRouter.get('/user/renew-token', renewTokenMiddleware, renewTokenController);
-
-// Ruta para actualizar avatar
-userRouter.put(
-  '/user/avatar/:id_user',
-  authenticateUser,
-  userExist,
-  updateUserAvatarController
-);

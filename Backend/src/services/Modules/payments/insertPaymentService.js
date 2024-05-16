@@ -1,4 +1,6 @@
 import { insertPaymentModel } from "../../../models/Modules/payments/insertPaymentModel.js";
+import { getMaxReference5Digits } from "../../../models/getMaxReference.js";
+import { generateReference5DigitsFromRef } from "../../../utils/generateReference5Digits.js";
 import { notFoundError } from "../../error/errorService.js";
 import { selectInvoiceByIdService } from "../../product/selectInvoiceByIdService.js";
 
@@ -16,8 +18,14 @@ export const newPaymentService = async (body) => {
     // ? Creamos una id para el pago
     const payment_id = crypto.randomUUID();
 
+    // Obtenemos la referencia máxima de la tabla Payments
+    const maxRef = await getMaxReference5Digits('Payments', 'ref_PM');
+
+    // Generamos la nueva referencia de Payments
+    const ref = generateReference5DigitsFromRef('PM', maxRef);
+
     // Insertamos la factura en la base de datos
-    const data = await insertPaymentModel(payment_id, invoice_id, payment_date);
+    const data = await insertPaymentModel(payment_id, ref, invoice_id, payment_date);
 
     // Retornamos la respuesta
     return data;

@@ -1,7 +1,7 @@
 import { getDBPool } from '../../../db/getPool.js';
 
 export const insertShipmentModel = async ({
-  shipmentId, customer_id, address_id, product_name, 
+  shipmentId, ref, customer_id, address_id, product_name, 
   product_quantity, shipment_status, additional_notes
 }) => {
   const pool = getDBPool();
@@ -34,8 +34,8 @@ export const insertShipmentModel = async ({
 
     // Insertar los datos del envío en la tabla Shipments, usando el nombre correcto de la columna
     await pool.query(
-      `INSERT INTO Shipments (id_shipment, customer_id, address_id, shipment_status, additional_notes) VALUES (?, ?, ?, ?, ?)`,
-      [shipmentId, customer_id, address_id, shipment_status, additional_notes]
+      `INSERT INTO Shipments (id_shipment, ref_SH, customer_id, address_id, shipment_status, additional_notes) VALUES (?, ?, ?, ?, ?, ?)`,
+      [shipmentId, ref, customer_id, address_id, shipment_status, additional_notes]
     );
 
     // Confirmar todas las inserciones como una transacción única

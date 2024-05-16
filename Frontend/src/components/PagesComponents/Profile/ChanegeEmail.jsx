@@ -2,27 +2,23 @@ import Joi from 'joi';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
-import { getUserDataFromToken } from '../../../Services/GetUserDataToken.js';
 import { joiErrorMessages } from '../../../Schema/Error/JoiErrorMesasage.js';
+const URL = import.meta.env.VITE_URL;
 
 export const ChanegeEmail = () => {
   const token = useUser();
-  const { id_user } = getUserDataFromToken(token);
 
   const handleChangeEmail = async (formData) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/user/update/${id_user}`,
-        {
-          method: 'PUT',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${URL}/user/update`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         const responseData = await response.json();

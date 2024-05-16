@@ -1,6 +1,6 @@
 import { getDBPool } from "../../../db/getPool.js";
 
-export const insertInvoiceModel = async (idInvoice, userId, sale_id, customer_id, company_name, NIF, addressComplete, total_price, including_tax, total_amount, payment_method, due_date) => {
+export const insertInvoiceModel = async (idInvoice, ref, userId, sale_id, customer_id, company_name, NIF, addressComplete, total_price, including_tax, total_amount, payment_method, due_date) => {
     const pool = getDBPool();
 
     const fieldsToUpdate = [];
@@ -12,6 +12,7 @@ export const insertInvoiceModel = async (idInvoice, userId, sale_id, customer_id
     };
 
     addToUpdate('id_invoice', idInvoice);
+    addToUpdate('ref_IN', ref);
     addToUpdate('agentUser_id', userId);
     addToUpdate('sale_id', sale_id);
     addToUpdate('customer_id', customer_id);

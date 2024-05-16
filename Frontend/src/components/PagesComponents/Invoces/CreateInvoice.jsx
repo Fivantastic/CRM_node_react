@@ -102,19 +102,7 @@ export const CreateInvoice = ({ onAddInvoice }) => {
   const invoiceSchema = Joi.object({
     sale_id: Joi.string().guid().required(),
     payment_method: Joi.string().valid('cash', 'card', 'transfer').optional(),
-    due_date: Joi.date().optional(),
-    invoice_status: Joi.string()
-      .valid(
-        'pending',
-        'paid',
-        'overdue',
-        'partially_paid',
-        'cancelled',
-        'refunded',
-        'disputed',
-        'sent'
-      )
-      .required(),
+    due_date: Joi.date().optional()
   });
 
   const handleClickCreateInvoice = () => {

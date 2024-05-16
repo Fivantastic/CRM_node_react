@@ -3,6 +3,8 @@ import { selectAddressCustomerByIdModel } from "../../../models/customer/selectA
 import { invalidCredentials } from "../../error/errorService.js";
 import { insertVisitModel } from "../../../models/Modules/visits/insertVisitModel.js";
 import { insertModuleVisitsModel } from "../../../models/Modules/visits/insertModuleVisitsModel.js";
+import { generateReference5DigitsFromRef } from "../../../utils/generateReference5Digits.js";
+import { getMaxReference5Digits } from "../../../models/getMaxReference.js";
 
 
 export const insertNewVisitService = async (user_id, id_customer, visit_date, observations) => {
@@ -11,6 +13,12 @@ export const insertNewVisitService = async (user_id, id_customer, visit_date, ob
 
     // Creamos un id para el modulo
     const moduleId = crypto.randomUUID();
+
+    // Obtenemos la referencia máxima de la tabla Visits
+    const maxRef = await getMaxReference5Digits('Visits', 'ref_VT');
+
+    // Generamos la nueva referencia de Visits
+    const ref = generateReference5DigitsFromRef('VT', maxRef);
     
     // Obtenemos el cliente
     const customer = await selectCustomerByIdModel(id_customer);
@@ -31,10 +39,19 @@ export const insertNewVisitService = async (user_id, id_customer, visit_date, ob
     }
     
     // Insertamos la visita en la base de datos.
-    await insertVisitModel(visitId, user_id, id_customer, visit_date, observations);
+    await insertVisitModel(visitId, ref, user_id, id_customer, visit_date, observations);
+
+    // Obtenemos la referencia máxima de la tabla Modules
+    const maxRefModule = await getMaxReference5Digits('Modules', 'ref_MD');
+
+    // Generamos la nueva referencia de Modules
+    const refModule = generateReference5DigitsFromRef('MD', maxRefModule);
+
+    const service_type = 'visit';
+
     
     // Insertamos el modulo en la base de datos.
-    await insertModuleVisitsModel(moduleId, user_id, visitId)
+    await insertModuleVisitsModel(moduleId, refModule, user_id, service_type, visitId)
 
     // Retornamos el cliente y la direccion.
     return { customer, address };

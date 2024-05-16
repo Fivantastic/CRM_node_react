@@ -19,7 +19,7 @@ invoicesRouter.post(
 );
 
 // Modificacion de una factura
-//? En las apps de facturas no se puede modificar la factura, solo borrarla
+//? En las apps de facturas no se puede modificar la factura, ni borrarla
 
 // Borrado de una factura
 invoicesRouter.delete(

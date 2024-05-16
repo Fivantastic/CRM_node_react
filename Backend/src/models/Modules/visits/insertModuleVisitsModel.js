@@ -1,6 +1,6 @@
 import { getDBPool } from '../../../db/getPool.js';
 
-export const insertModuleVisitsModel = async (moduleId, user_id, visitId) => {
+export const insertModuleVisitsModel = async (moduleId, refModule, user_id, service_type, visitId) => {
     const pool = await getDBPool();
 
     const fieldsToUpdate = [];
@@ -14,7 +14,9 @@ export const insertModuleVisitsModel = async (moduleId, user_id, visitId) => {
 
     };
     addToUpdate('id_module', moduleId);
+    addToUpdate('ref_MD', refModule);
     addToUpdate('agentUser_id', user_id);
+    addToUpdate('service_type', service_type);
     addToUpdate('visit_id', visitId);
 
     if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar, salir

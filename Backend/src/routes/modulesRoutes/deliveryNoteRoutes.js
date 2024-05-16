@@ -7,37 +7,19 @@ import { getDeliveryNoteSearchController } from '../../controllers/Modules/deliv
 
 
 // Crea una instancia del enrutador de Express
-const router = express.Router();
+export const deliveryNoteRouter = express.Router();
 
 // Ruta para obtener las notas de entrega
-router.get('/deliveryNotes', getDeliveryNotesController);
+deliveryNoteRouter.get('/deliveryNotes', getDeliveryNotesController);
 
 // Ruta para crear albarán de reparto
-router.post(
-  '/delivery-notes',
-  authenticateUser,
-  checkRoleDelivery,
-  createDeliveryNoteController
-);
+deliveryNoteRouter.post('/delivery-notes', authenticateUser, checkRoleDelivery, createDeliveryNoteController);
 
 // Ruta para cerrar el reparto y autenticar los roles
-router.put(
-  '/deliveryNotes/close/:deliveryNote_id',
-  authenticateUser,
-  checkRoleDelivery,
-  closeDeliveryNoteController
-);
+deliveryNoteRouter.put('/deliveryNotes/close/:deliveryNote_id', authenticateUser,  checkRoleDelivery, closeDeliveryNoteController);
 
 // Ruta para eliminar un albarán
-router.delete(
-  '/deliveryNotes/delete/:deliveryNote_id',
-  authenticateUser,
-  adminAuthMiddleware,
-  deleteDeliveryNoteController
-);
+deliveryNoteRouter.delete('/deliveryNotes/delete/:deliveryNote_id',authenticateUser,adminAuthMiddleware, deleteDeliveryNoteController);
 
 // Ruta para buscar notas de entrega por término de búsqueda
-router.get('/deliveryNotes/search', authenticateUser, adminAuthMiddleware, getDeliveryNoteSearchController);
-
-// Exporta el enrutador
-export default router;
+deliveryNoteRouter.get('/deliveryNotes/search', authenticateUser, adminAuthMiddleware, getDeliveryNoteSearchController);

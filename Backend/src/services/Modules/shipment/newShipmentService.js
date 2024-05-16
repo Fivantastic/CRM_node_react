@@ -4,6 +4,8 @@ import { selectAddressByIdModel } from '../../../models/Modules/shipment/selectA
 import { selectDeliveryNoteByIdModel } from '../../../models/Modules/shipment/selectDeliveryNoteByIdModel.js';
 import { notFoundError } from '../../error/errorService.js';
 import crypto from 'crypto';
+import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
+import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
 
 export const newShipmentService = async ({
   customer_id, address_id, deliveryNote_id, additional_notes,
@@ -30,10 +32,16 @@ export const newShipmentService = async ({
   // Crear el id del envío
   const shipmentId = crypto.randomUUID();
 
+  // Obtenemos la referencia máxima de la tabla Shipments
+  const maxRef = await getMaxReference5Digits('Shipments', 'ref_SH');
+
+  // Generamos la nueva referencia de Shipments
+  const ref = generateReference5DigitsFromRef('SH', maxRef);
+
   // Crear el envío y actualizar el stock del producto
   try {
     const result = await insertShipmentModel({
-      shipmentId, customer_id, address_id, product_name, 
+      shipmentId, ref, customer_id, address_id, product_name, 
       product_quantity, shipment_status, additional_notes
     });
 

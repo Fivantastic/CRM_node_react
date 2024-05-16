@@ -13,24 +13,13 @@ import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
 export const shipmentRouter = express.Router();
 
 // Creacion de un envio
-shipmentRouter.post('/shipment/create', shipmentCreateController);
+shipmentRouter.post('/shipment/create', authenticateUser, shipmentCreateController);
 
 // Modificacion de un envio
-shipmentRouter.put(
-  '/shipment/update/:shipmentId',
-  authenticateUser,
-  shipmentExist,
-  shipmentUpdateController
-);
+shipmentRouter.put('/shipment/update/:shipmentId', authenticateUser, shipmentExist, shipmentUpdateController);
 
 // Borrado de un envio
-shipmentRouter.delete(
-  '/shipment/delete/:shipmentId',
-  authenticateUser,
-  adminAuthMiddleware,
-  shipmentExist,
-  deleteShipmentController
-);
+shipmentRouter.delete('/shipment/delete/:shipmentId', authenticateUser, adminAuthMiddleware, shipmentExist, deleteShipmentController);
 
 // Completar un envio
 shipmentRouter.put(

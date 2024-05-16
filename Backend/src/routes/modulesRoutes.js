@@ -4,7 +4,7 @@ import { visitsRouter } from './modulesRoutes/visitsRoutes.js';
 import { salesRouter } from './modulesRoutes/salesRoutes.js';
 import { invoicesRouter } from './modulesRoutes/invoicesRoutes.js';
 import { paymentsRouter } from './modulesRoutes/paymentsRoutes.js';
-import deliveryNoteRouter from './modulesRoutes/deliveryNoteRoutes.js';
+import { deliveryNoteRouter } from './modulesRoutes/deliveryNoteRoutes.js';
 import { shipmentRouter } from './modulesRoutes/shipmentsRoutes.js';
 
 

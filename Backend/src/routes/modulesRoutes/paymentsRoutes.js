@@ -12,21 +12,9 @@ export const paymentsRouter = express.Router();
 paymentsRouter.post('/payments/create', authenticateUser, newPaymentController);
 
 //Cambiar el estado del pago: a 'pending', 'cancelled' o 'paid'
-paymentsRouter.put(
-  '/payments/status',
-  authenticateUser,
-  cancelPaymentController
-); // No paso el payment_id por seguridad y privacidad
+paymentsRouter.put('/payments/status', authenticateUser, cancelPaymentController);
 
 // Eliminar un pago
-paymentsRouter.delete(
-  '/payments/delete/:paymentsId',
-  authenticateUser,
-  deletePaymentController
-);
+paymentsRouter.delete('/payments/delete/:paymentsId', authenticateUser, deletePaymentController);
 
-paymentsRouter.get(
-  '/payments/list',
-  authenticateUser,
-  getPaymentsController
-)
+paymentsRouter.get('/payments/list', authenticateUser, getPaymentsController);

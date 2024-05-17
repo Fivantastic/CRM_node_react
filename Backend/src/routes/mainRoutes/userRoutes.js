@@ -22,44 +22,19 @@ import {
 export const userRouter = express.Router();
 
 // Ruta para listado de usuarios
-userRouter.get(
-  '/user/list',
-  authenticateUser,
-  adminAuthMiddleware,
-  getUserListController
-);
+userRouter.get('/user/list', authenticateUser, adminAuthMiddleware, getUserListController);
 
 // Ruta para listar usuario por busqueda nombre y apellidos
-userRouter.get(
-  '/user/search',
-  authenticateUser,
-  adminAuthMiddleware,
-  getUserSearchController
-);
+userRouter.get('/user/search', authenticateUser, adminAuthMiddleware, getUserSearchController);
 
 // Ruta de registro solo para administradores
-userRouter.post(
-  '/user/register',
-  authenticateUser,
-  adminAuthMiddleware,
-  newUserController
-);
+userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController);
 
 // Ruta de activación/desactivación solo para administradores
-userRouter.put(
-  '/user/toggleActivation',
-  authenticateUser,
-  adminAuthMiddleware,
-  toggleActiveStatusController
-);
+userRouter.put('/user/toggleActivation', authenticateUser, adminAuthMiddleware, toggleActiveStatusController);
 
 // Ruta de eliminación de un usuario solo para administradores
-userRouter.delete(
-  '/user/delete/:id_user',
-  authenticateUser,
-  adminAuthMiddleware,
-  deleteUserController
-);
+userRouter.delete('/user/delete/:id_user', authenticateUser, adminAuthMiddleware, deleteUserController);
 
 // Ruta de validación
 userRouter.put('/user/validate/:registration_code', validateUserController);
@@ -74,20 +49,13 @@ userRouter.post('/user/logout', authenticateUser, logoutUserController);
 userRouter.put('/user/update', authenticateUser, updateUserController);
 
 // Ruta para cambio de contraseña
-userRouter.put(
-  '/user/change-password',
-  authenticateUser,
-  changePasswordController
-);
+userRouter.put('/user/change-password', authenticateUser, changePasswordController);
 
 // Ruta para solicitud de recuperación de contraseña
 userRouter.put('/user/forgot-password-request', forgotPasswordController);
 
 // Ruta para recuperación de contraseña
-userRouter.put(
-  '/user/reset-password/:registration_code',
-  resetPasswordController
-);
+userRouter.put('/user/reset-password/:registration_code',resetPasswordController);
 
 // Ruta para renovación de token
 userRouter.get('/user/renew-token', renewTokenMiddleware, renewTokenController);

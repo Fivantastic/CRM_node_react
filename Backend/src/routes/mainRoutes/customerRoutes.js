@@ -5,6 +5,7 @@ import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
 import { 
     deleteCustomerController,
     getCustomerListController, 
+    getCustomerSearchController, 
     newCustomerController, 
     updateCustomerController 
 } from '../../controllers/mainControllers.js';
@@ -13,11 +14,14 @@ import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddl
 // Creamos un router
 export const customerRouter = express.Router();
 
-// Agregar cliente
-customerRouter.post('/customer/register', authenticateUser, checkRoleAgent, newCustomerController);
-
 // Obtener lista de clientes
 customerRouter.get('/customer/list', authenticateUser, checkRoleAgent, getCustomerListController);
+
+// Buscar cliente
+customerRouter.get('/customer/search', authenticateUser, checkRoleAgent, getCustomerSearchController);
+
+// Agregar cliente
+customerRouter.post('/customer/register', authenticateUser, checkRoleAgent, newCustomerController);
 
 // Modificar cliente
 customerRouter.put('/customer/:customerId',authenticateUser, checkRoleAgent, customerExists, updateCustomerController);

@@ -61,11 +61,13 @@ export async function createDBSchema(db) {
         id_customer CHAR(36) PRIMARY KEY,
         ref_CT CHAR(9) UNIQUE NOT NULL,
         name VARCHAR(255),
+        last_name VARCHAR(255),
         email VARCHAR(255) NOT NULL,
         phone VARCHAR(20),
         company_name VARCHAR(255),
         NIF VARCHAR(20),
         address_id CHAR(36),
+        active BOOLEAN NOT NULL DEFAULT true,
         create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (address_id) REFERENCES Addresses(id_address)

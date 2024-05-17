@@ -5,7 +5,7 @@ export const getUserListModal = async () => {
 
   // Obtener todos los usuarios con sus direcciones asociadas
   const result = await pool.query(`
-    SELECT Users.id_user, Users.name, Users.last_name, Users.email, Users.phone,
+    SELECT Users.id_user, Users.ref_US, Users.name, Users.last_name, Users.email, Users.phone,
            Users.role, Users.active, Users.avatar, Users.biography,
            Addresses.address, Addresses.number, Addresses.floor, Addresses.letter_number,
            Addresses.city, Addresses.zip_code, Addresses.country

@@ -44,7 +44,6 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  opacity: 0.9;
 }
 
 .container-avatar-active {

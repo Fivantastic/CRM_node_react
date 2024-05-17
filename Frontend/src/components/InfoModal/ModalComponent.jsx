@@ -25,7 +25,7 @@ export const ModalComponent = ({ show, onClose, fields }) => {
 
   return (
     <div className="modal-backdrop">
-      <div className={`modal-content ${animationClass}`}>
+      <div id="modal-info" className={`modal-content ${animationClass}`}>
         <div className="modal-header">
           <h2 className="modal-title">Detalles</h2>
         </div>

@@ -1,8 +1,10 @@
 import { useUser } from "../../../context/authContext.jsx";
 import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 import { UpdateCustomer } from "./UpdateCustomer.jsx";
-import { MoreInfo } from "../../InfoModal/MoreInfo.jsx";
+
 import '../../../Styles/Pages/StyleCustomerList.css';
+import { MoreInfo } from "../../InfoModal/MoreInfo.jsx";
+
 
 export const CustomerList = ({ customer, updateCustomer, deleteCustomer }) => {
 

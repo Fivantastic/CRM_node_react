@@ -15,17 +15,16 @@ export const searchModulesController = async (req, res, next) => {
 
     let responseData = {};
 
-    // Busco los datos en la base de datos
-    const searchSale = await getModuleSalesModel(searchTerm);
-    const searchVisit = await getModuleVisitModel(searchTerm);
-    const searchDeliveryNote = await getModuleDeliveryNoteModel(searchTerm);
-    const searchInvoice = await getModuleInvoiceModel(searchTerm);
-    const searchPayment = await getModulePaymentModel(searchTerm);
-    const searchShipment = await getModuleShipmentModel(searchTerm);
-    const searchModules = await getModuleModel(searchTerm);
-
     // Muestro la info por su respectivo rol
     if (userRole === 'admin') {
+      const searchSale = await getModuleSalesModel(searchTerm);
+      const searchVisit = await getModuleVisitModel(searchTerm);
+      const searchDeliveryNote = await getModuleDeliveryNoteModel(searchTerm);
+      const searchInvoice = await getModuleInvoiceModel(searchTerm);
+      const searchPayment = await getModulePaymentModel(searchTerm);
+      const searchShipment = await getModuleShipmentModel(searchTerm);
+      const searchModules = await getModuleModel(searchTerm);
+
       responseData = {
         sales: searchSale,
         visits: searchVisit,
@@ -36,11 +35,16 @@ export const searchModulesController = async (req, res, next) => {
         Module: searchModules,
       };
     } else if (userRole === 'salesAgent') {
+      const searchSale = await getModuleSalesModel(searchTerm);
+      const searchVisit = await getModuleVisitModel(searchTerm);
       responseData = {
         visits: searchVisit,
         sales: searchSale,
       };
     } else if (userRole === 'deliverer') {
+      const searchDeliveryNote = await getModuleDeliveryNoteModel(searchTerm);
+      const searchShipment = await getModuleShipmentModel(searchTerm);
+
       responseData = {
         deliveryNotes: searchDeliveryNote,
         shipment: searchShipment,

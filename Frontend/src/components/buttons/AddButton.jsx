@@ -1,4 +1,4 @@
-export const AddButon = ({ onClick }) => {
+export const AddButton = ({ onClick }) => {
   return (
     <button className="addBtn" onClick={onClick}>
       <svg

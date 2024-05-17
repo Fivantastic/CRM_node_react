@@ -4,7 +4,7 @@ import { useSalesList } from '../../../hooks/PagesHooks/useSalesList.js';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateVisit } from './UpdateVisit.jsx';
 import '../Visits/VisitListTable.css';
-import { AddButon } from '../../buttons/addButton.jsx';
+import { AddButton } from '../../buttons/AddButton.jsx';
 
 export const VisitListTable = ({ visit, onDelete }) => {
   const token = useUser();
@@ -54,7 +54,7 @@ export const VisitListTable = ({ visit, onDelete }) => {
                 {traducirEstadoVisita(visit.visit_status)}
               </div>
               <div id="visitTableBodyRowActions">
-                <AddButon />
+                <AddButton />
                 <UpdateVisit
                   visit={visit.id_visit}
                   onUpdateVisit={updateVisit}

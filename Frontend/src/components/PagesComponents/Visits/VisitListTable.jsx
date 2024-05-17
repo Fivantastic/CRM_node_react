@@ -54,7 +54,6 @@ export const VisitListTable = ({ visit, onDelete }) => {
                 {traducirEstadoVisita(visit.visit_status)}
               </div>
               <div id="visitTableBodyRowActions">
-                <AddButon />
                 <UpdateVisit
                   visit={visit.id_visit}
                   onUpdateVisit={updateVisit}

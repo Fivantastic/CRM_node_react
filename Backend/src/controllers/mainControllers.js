@@ -26,6 +26,7 @@ import { getCustomerListController } from './customer/getCustomerController.js';
 import { newCustomerController } from './customer/newCustomerController.js';
 import { updateCustomerController } from './customer/updateCustomerController.js';
 import { deleteCustomerController } from './customer/deleteCustomerController.js';
+import { getCustomerSearchController } from './customer/getCustomerSearchController.js';
 
 export {
   changePasswordController,
@@ -41,14 +42,17 @@ export {
   deleteUserController,
   getUserListController,
   getUserSearchController,
+
   deleteProductController,
   getProductController,
   newProductController,
   productListController,
   updateProductController,
   selectSaleProductController,
+  
   getCustomerListController,
   newCustomerController,
   updateCustomerController,
   deleteCustomerController,
+  getCustomerSearchController
 };

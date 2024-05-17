@@ -31,7 +31,7 @@ export const ShipmentList = ({ shipment }) => {
       <p><strong>Cantidad:</strong> {shipment.product_quantity} u.</p>
       <p><strong>Ciudad: </strong> {shipment.address_city}</p>
       <p><strong>Teléfono:</strong> {shipment.customer_phone}</p>
-
+      <p><strong>Fecha:</strong> {shipment.shipment_create_at}</p>
       <h3 id='element_shipment_section' className="mainSubSection">Estado del envío</h3>
       <p>{traducirEstadoEntrega(shipment.delivery_status)}</p>
 

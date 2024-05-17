@@ -9,6 +9,9 @@ import {
 import { shipmentExist } from '../../middlewares/shipmentExist.js';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
+import { getShipmentSearchController } from '../../controllers/Modules/shipment/getShipmentSearchController.js';
+import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
+
 
 export const shipmentRouter = express.Router();
 
@@ -29,4 +32,7 @@ shipmentRouter.put(
   closeShipmentController
 );
 // Ruta para obtener la hoja de ruta de los repartidores
-shipmentRouter.get('/shipment/route', shipmentRouteController);
+shipmentRouter.get('/shipment/list', shipmentRouteController, authenticateUser, checkRoleDelivery);
+
+// Ruta para buscar envíos por término de búsqueda
+shipmentRouter.get('/shipments/search', authenticateUser, adminAuthMiddleware, getShipmentSearchController);

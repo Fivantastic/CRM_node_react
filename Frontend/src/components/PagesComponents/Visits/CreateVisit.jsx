@@ -1,9 +1,9 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import './VisitListTable.css';
 
 export const CreateVisit = ({ onAddVisit, token }) => {
-
   // Aqui hace la peticion al servidor
   const handleVisitCreate = async (formData) => {
     try {
@@ -12,7 +12,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `${token}`, 
+          Authorization: `${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -22,7 +22,6 @@ export const CreateVisit = ({ onAddVisit, token }) => {
         const responseData = await response.json();
         console.log('Visita satisfactorio:', responseData);
 
-        
         onAddVisit(responseData.data);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
@@ -94,7 +93,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
   const newVisitSchema = Joi.object({
     id_customer: Joi.string().guid().required(),
     visit_date: Joi.date().required(),
-    observations: Joi.string().optional()
+    observations: Joi.string().optional(),
   });
 
   const handleClickCreateVisit = () => {
@@ -108,7 +107,17 @@ export const CreateVisit = ({ onAddVisit, token }) => {
   };
   return (
     <>
-      <button id='btnVisitCreate' className=" mainCreateBtn" onClick={handleClickCreateVisit}>Programar Visita</button>
+      <button
+        id="btnVisitCreate"
+        className=" mainCreateBtn"
+        onClick={handleClickCreateVisit}
+      >
+        <img
+          id="imgVisitCreate"
+          src="../calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          alt="Boton agregar visita"
+        />
+      </button>
     </>
   );
 };

@@ -1,4 +1,3 @@
-// controllers/Modules/shipment/shipmentCreateController.js
 import { newShipmentService } from '../../../services/Modules/shipment/newShipmentService.js';
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 import { newShipmentSchema } from '../../../schemas/Modules/shipment/newShipmentSchema.js';

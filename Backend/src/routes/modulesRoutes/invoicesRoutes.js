@@ -6,6 +6,7 @@ import {
   deleteInvoiceController,
   newInvoiceController,
   getInvoiceController,
+  getInvoiceSearchController,
 } from '../../controllers/modulesControllers.js';
 
 export const invoicesRouter = express.Router();
@@ -44,3 +45,11 @@ invoicesRouter.get(
   checkRoleAgent,
   getInvoiceController
 );
+
+// Buscar facturas
+invoicesRouter.get(
+  '/invoice/search',
+  authenticateUser,
+  checkRoleAgent,
+  getInvoiceSearchController
+)

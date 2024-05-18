@@ -1,129 +1,66 @@
 // import Swal from 'sweetalert2';
 import { useUser } from '../../context/authContext.jsx';
-import { useEffect, useState } from 'react';
 import { MainLayout } from '../../layout/MainLayout.jsx';
-import { CreatePayment } from '../../components/PagesComponents/Payments/CreatePayment.jsx';
+import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
+import { SortPages } from '../../components/NavPages/SortPages.jsx';
+import { CreatePayment } from '../../components/PagesComponents/Payments/CreatePayment.jsx'
 import { PaymentsList } from '../../components/PagesComponents/Payments/PaymentsList.jsx';
 import { ChangeStatus } from '../../components/forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
-import { Toast } from '../../components/alerts/Toast.jsx';
-const URL = import.meta.env.VITE_URL;
-
-// // Modelo swal
-// const Toast = Swal.mixin({
-//   toast: true,
-//   position: 'top-end',
-//   showConfirmButton: false,
-//   timer: 3000,
-//   timerProgressBar: true,
-//   didOpen: (toast) => {
-//     toast.onmouseenter = Swal.stopTimer;
-//     toast.onmouseleave = Swal.resumeTimer;
-//   },
-// });
+import { usePaymentsList } from '../../hooks/PagesHooks/usePaymentsList.js'
+import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
+import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
+import { useState } from 'react';
 
 export const PaymentPage = () => {
   const token = useUser();
-  const [paymentsList, setPaymentsList] = useState([]);
 
   // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
   const typeModule = 'payments';
-
-  // Tipo de modulo para el nombre de los mensajes al cliente
+  // mensajes al cliente
   const typeModuleMessage = 'Pagos';
 
-  useEffect(() => {
-    const getSaleList = async () => {
-      try {
-        const response = await fetch(`${URL}/${typeModule}/list`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-        });
+  const {
+    filteredList,
+    handleSearch,
+    handleFilterChange,
+    handleSortChange,
+    addPayment,
+    deletePayment,
+    handleNewPaymentStatus
+  } = usePaymentsList(token)
+  const [isListView, setIsListView] = useState(true);
 
-        if (response.ok) {
-          const responseData = await response.json();
-          console.log('Obtener satisfactorio:', responseData);
+  // Opciones de filtro
+  const filterOptions = [
+    { label: 'Pendiente', value: 'pending' },
+    { label: 'Resuelto', value: 'paid' },
+    { label: 'Cancelado', value: 'cancelled' },
+  ];
 
-          // Actualizar el estado con los datos obtenidos
-          setPaymentsList(responseData.data);
-        } else {
-          const errorData = await response.json();
-          console.error('Obetener fallido:', errorData);
-        }
-      } catch (error) {
-        console.error('Error al obtener la lista de pagos:', error);
-        Toast.fire({
-          icon: 'error',
-          title: 'Error al obtener la lista de pagos',
-        });
-      }
-    };
-
-    getSaleList();
-  }, [token]);
-
-  // Actualizo el estado con la venta añadida
-  const addPayment = (newPayment) => {
-    try {
-      setPaymentsList((prevPayment) => {
-        console.log('Nuevo payment:', newPayment);
-        return [...prevPayment, newPayment];
-      }) 
-    }catch (error){
-      console.error('Error al crear el pago', error);
-      Toast.fire({
-        icon: 'error',
-        title: 'Error al crear el pago',
-    });
-    }
-  };
-
-  // Actualizo el estado con el pago eliminado
-  const deletePayment = (id_payment) => {
-    try {
-      setPaymentsList((prevPayments) =>
-        prevPayments.filter((payment) => payment.id_payment !== id_payment)
-      );
-    } catch (error) {
-      console.error('Error al eliminar el pago', error);
-      Toast.fire({
-        icon: 'error',
-        title: 'Error al eliminar el pago',
-    });
-    }
-  };
-
-  // Actualizar componente en cambio de estado
-  function handleNewPaymentStatus(idPayment, newStatus) {
-    try {
-      setPaymentsList((prevPaymentsList) =>
-        // Por cada pago de la lista...
-        prevPaymentsList.map((payment) =>
-          // Si el id del pago coincide...
-          payment.id_payment === idPayment
-            ? { ...payment, payment_status: newStatus }
-            : payment
-        )
-      );
-    } catch (error) {
-      console.error('Error al cambiar el estado del pago:', error);
-      Toast.fire({
-        icon: 'warning',
-        title: 'Error, recarga la página para ver los cambios',
-      });
-    }
-  }
+  const sortOptions = [
+    { label: "Factura (A - Z)", value: "factura-asc" },
+    { label: "Factura (Z - A)", value: "factura-desc" },
+    { label: "Fecha (Antiguos)", value: "fecha-asc" },
+    { label: "Fecha (Recientes)", value: "fecha-desc" },
+    { label: "Estado (A - Z)", value: "status-asc" },
+    { label: "Estado (Z - A)", value: "status-desc" },
+  ];
 
   return (
     <MainLayout>
       <section className="payment_container mainContainer">
         <h1 className="payment_title mainTitle">Pagos</h1>
+        <nav id="user_nav" className="mainNav">
+        <SearchPages onSearch={handleSearch}/>
         <CreatePayment onAddPayment={addPayment} token={token} />
+        <SortPages options={sortOptions} onSort={handleSortChange} />
+        <FilterPages options={filterOptions} onChange={handleFilterChange} />
+        <ToggleMode onClick={() => setIsListView(prev => !prev)} />
+        </nav>
+        {isListView ? (
         <ol className="payment_list main_olist">
-          {paymentsList.map((data) => {
+          {filteredList.map((data) => {
             const currentStatus = data.payment_status;
             return (
               <li
@@ -181,6 +118,9 @@ export const PaymentPage = () => {
             );
           })}
         </ol>
+        ) : (
+          <h2>En construcción... </h2>
+        )}
       </section>
     </MainLayout>
   );

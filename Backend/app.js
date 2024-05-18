@@ -21,7 +21,7 @@ app.use(cors(
   {origin: true,
   credentials: true,
   accessControlAllowOrigin: true
-}
+} 
 ));
 
 // Middleware Recursos Estaticos

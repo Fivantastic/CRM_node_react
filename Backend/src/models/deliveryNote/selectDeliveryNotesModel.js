@@ -9,7 +9,8 @@ export const selectDeliveryNotesModel = async () => {
     const result = await pool.query(
         `SELECT 
         DeliveryNotes.id_note, 
-        DeliveryNotes.sale_id, 
+        DeliveryNotes.sale_id,
+        DeliveryNotes.ref_DN, 
         Users.name AS deliverer, 
         Users.last_name AS deliverer_last_name,  
         Addresses.address AS delivery_address, 

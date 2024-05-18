@@ -33,7 +33,7 @@ export const UserPage = () => {
     { label: 'Repartidor', value: 'deliverer' },
   ];
 
-  // Opciones de ordenamiento
+  // Opciones de ordenamiento 
   const sortOptions = [
     { label: "Nombre (A - Z)", value: "nombre-asc" },
     { label: "Nombre (Z - A)", value: "nombre-desc" },

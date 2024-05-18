@@ -5,6 +5,7 @@ import { UpdateVisit } from './UpdateVisit.jsx';
 import '../Visits/VisitListTable.css';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 
+
 export const VisitListTable = ({ visit, onUpdateSale, onDelete }) => {
   const token = useUser();
   const visitData = visit;

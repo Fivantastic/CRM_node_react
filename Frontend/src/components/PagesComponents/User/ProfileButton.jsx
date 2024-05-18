@@ -25,7 +25,8 @@ export const ProfileButton = ({ userData, isActive }) => {
       }
     };
 
-    console.log(isActive);
+     // Concatena el nombre y los apellidos del cliente
+    const nameComplete = `${userData.name} ${userData.last_name}`;
 
     // Construye el contenido del modal con la información del usuario
     const addressConcatenated = userData.address ? `${userData.address} ${userData.number}, ${userData.floor ? 'Piso ' + userData.floor : ''} ${userData.letter_number ? 'Letra ' + userData.letter_number : ''}, ${userData.city}` : 'Dirección no disponible';
@@ -41,8 +42,7 @@ export const ProfileButton = ({ userData, isActive }) => {
           </div>
         </div>
         <div class="container-details-modal">
-          <p><strong>Nombre: </strong> ${userData.name}</p>
-          <p><strong>Apellidos: </strong> ${userData.last_name}</p>
+          <p><strong>Nombre: </strong> ${nameComplete} </p>
           <p><strong>Email: </strong> ${userData.email}</p>
           <p><strong>Teléfono: </strong> ${userData.phone}</p>
           <p><strong>Dirección: </strong> ${addressConcatenated}</p>

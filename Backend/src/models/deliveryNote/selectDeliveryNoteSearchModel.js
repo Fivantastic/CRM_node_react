@@ -7,6 +7,7 @@ export const selectDeliveryNoteSearchModel = async (search) => {
         `SELECT 
         DeliveryNotes.id_note, 
         DeliveryNotes.sale_id, 
+        DeliveryNotes.ref_DN, 
         Users.name AS deliverer, 
         Users.last_name AS deliverer_last_name,  
         Addresses.address AS delivery_address, 
@@ -39,9 +40,10 @@ export const selectDeliveryNoteSearchModel = async (search) => {
     LEFT JOIN
         Customers ON DeliveryNotes.customer_id = Customers.id_customer
             WHERE 
+            DeliveryNotes.ref_DN LIKE ? OR
             Customers.name LIKE ? OR
             Products.name LIKE ?`,
-        [`%${search}%`, `%${search}%`]
+        [`%${search}%`, `%${search}%`, `%${search}%`]
     );
 
     return rows;

@@ -6,7 +6,8 @@ export const getModuleShipmentModel = async () => {
   try {
     const result = await pool.query(
       `SELECT 
-        Shipments.id_shipment, 
+        Shipments.id_shipment,
+        Shipments.ref_SH,
         Shipments.customer_id, 
         Shipments.address_id, 
         Shipments.deliveryNote_id, 

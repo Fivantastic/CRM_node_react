@@ -4,6 +4,8 @@ import { createDeliveryNoteController, closeDeliveryNoteController, deleteDelive
 import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
 import { getDeliveryNoteSearchController } from '../../controllers/Modules/deliveryNote/getDeliveryNoteSearchController.js'; 
+import { getOpenSalesController } from '../../controllers/Modules/deliveryNote/salesDeliveryController.js';
+
 
 
 // Crea una instancia del enrutador de Express
@@ -23,3 +25,6 @@ deliveryNoteRouter.delete('/deliveryNotes/delete/:deliveryNote_id',authenticateU
 
 // Ruta para buscar notas de entrega por término de búsqueda
 deliveryNoteRouter.get('/deliveryNotes/search', authenticateUser, adminAuthMiddleware, getDeliveryNoteSearchController);
+
+// Ruta de extracción de estados de la tabla Sales
+deliveryNoteRouter.get('/deliveryNotes/open-sales', getOpenSalesController);

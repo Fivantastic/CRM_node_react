@@ -1,24 +1,24 @@
+// services/deliveryNoteService.js
 import { insertDeliveryNoteModel } from '../../../models/deliveryNote/deliveryNoteModels.js';
-import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
-import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
+import { getPendingSales } from '../../../utils/getPendingSales.js';
+import crypto from 'crypto';
 
 export const createDeliveryNoteService = async (deliveryNoteData) => {
-  // Obtenemos los datos
-  const { sale_id, deliverer_id,  customer_id, address_id, saleProduct_id } =
-  deliveryNoteData;
+  const { sale_id, deliverer_id, address_id, saleProduct_id } = deliveryNoteData;
 
-  // Obtenemos la referencia máxima de la tabla DeliveryNote
-  const maxRef = await getMaxReference5Digits('DeliveryNotes', 'ref_DN');
+  // Verificamos si la venta está pendiente
+  const pendingSales = await getPendingSales();
+  const isSalePending = pendingSales.some(sale => sale.id_sale === sale_id);
 
-  // Generamos la nueva referencia de DeliveryNote
-  const ref = generateReference5DigitsFromRef('DN', maxRef);
+  if (!isSalePending) {
+    throw new Error('No se puede crear una nota de entrega para una venta que no está pendiente.');
+  }
 
-  await insertDeliveryNoteModel(
-  sale_id,
-  ref,
-  deliverer_id,
-  customer_id,
-  address_id,
-  saleProduct_id
-  );
+  // Generar ref para la nota de entrega
+  const ref_DN = `DN-${crypto.randomBytes(5).toString('hex').toUpperCase()}`;
+
+  // Insertar la nota de entrega
+  await insertDeliveryNoteModel(sale_id, ref_DN, deliverer_id, address_id, saleProduct_id);
+
+  return 'Albarán creado con éxito';
 };

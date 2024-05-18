@@ -5,6 +5,7 @@ export const insertCustomerModel = async (
   id_customer,
   ref,
   name,
+  last_name,
   email,
   phone,
   company_name,
@@ -16,9 +17,9 @@ export const insertCustomerModel = async (
 
   // Insertamos el cliente en la base de datos.
   const [result] = await pool.query(
-    `INSERT INTO Customers (id_customer, ref_CT, name, email, phone, company_name,
-      NIF, address_id) VALUES (?,?, ?,?,?,?,?,?)`,
-    [id_customer, ref, name, email, phone, company_name, NIF, id_address]
+    `INSERT INTO Customers (id_customer, ref_CT, name, last_name, email, phone, company_name,
+      NIF, address_id) VALUES (?,?,?,?,?,?,?,?,?)`,
+    [id_customer, ref, name, last_name, email, phone, company_name, NIF, id_address]
   );
 
   // Verificar si el insert afectó a alguna línea.

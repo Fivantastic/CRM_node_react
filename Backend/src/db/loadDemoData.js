@@ -54,7 +54,11 @@ export async function loadDemoData(db) {
         ref_US: currentRefUser,
         name: firstName,
         last_name: lastName,
-        email: faker.internet.email({ firstName }),
+        email: faker.internet.email({ 
+          firstName: firstName,
+          lastName: lastName,
+          provider: 'cosmic.com',
+         }),
         phone: faker.phone.number(), 
         password: hashedPassword,
         address_id: addressData[i].id_address,
@@ -78,6 +82,7 @@ export async function loadDemoData(db) {
     
     for (let i = 0; i < 100; i++) {
       const firstName = faker.person.firstName();
+      const lastName = faker.person.lastName();
       const NIF_completo = generarNIF();
 
       currentRefCustomer = generateReference3DigitsFromRef('CT', 'C', currentRefCustomer);
@@ -86,7 +91,11 @@ export async function loadDemoData(db) {
         id_customer: faker.string.uuid(),
         ref_CT: currentRefCustomer,
         name: firstName,
-        email: faker.internet.email({ firstName }),
+        last_name: lastName,
+        email: faker.internet.email({ 
+          firstName: firstName,
+          lastName: lastName,
+        }),
         phone: faker.phone.number(),
         company_name: faker.company.name(),
         NIF: NIF_completo,
@@ -95,7 +104,7 @@ export async function loadDemoData(db) {
       customerData.push(customer);
     }
     await db.query(
-      `INSERT INTO Customers (id_customer, ref_CT, name, email, phone, company_name, NIF, address_id) VALUES ?`,
+      `INSERT INTO Customers (id_customer, ref_CT, name, last_name, email, phone, company_name, NIF, address_id) VALUES ?`,
       [customerData.map(customer => Object.values(customer))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Customers.`));

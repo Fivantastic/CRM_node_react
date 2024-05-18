@@ -1,0 +1,75 @@
+#customerCreateModal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "Nombre Direccion"
+    "Apellidos Numero"
+    "Email Ciudad"
+    "Telefono CP"
+    "Empresa pais"
+    "NIF activo"
+    ;
+    column-gap: 15px;
+
+}
+
+
+#inputNameCustomerCreateContainer {
+    grid-area: Nombre;
+}
+
+#inputLastNameCustomerCreateContainer {
+    grid-area: Apellidos;
+}
+
+#inputEmailCustomerCreateContainer {
+    grid-area: Email;
+}
+
+#inputPhoneCustomerCreateContainer {
+    grid-area: Telefono;
+}
+
+#inputAddressCustomerCreateContainer {
+    grid-area: Direccion;
+}
+
+#inputNumberCustomerCreateContainer {
+    grid-area: Numero;
+}
+
+#inputCityCustomerCreateContainer {
+    grid-area: Ciudad;
+}
+
+#inputZipCodeCustomerCreateContainer {
+    grid-area: CP;
+}
+
+#inputCountryCustomerCreateContainer {
+    grid-area: pais;
+}
+
+#inputNIFCustomerCreateContainer {
+    grid-area: NIF;
+}
+
+#inputCompanyCustomerCreateContainer {
+    grid-area: Empresa;
+}
+
+#inputNameCustomerCreateContainer,
+#inputLastNameCustomerCreateContainer,
+#inputPhoneCustomerCreateContainer,
+#inputAddressCustomerCreateContainer,
+#inputNumberCustomerCreateContainer,
+#inputCityCustomerCreateContainer,
+#inputZipCodeCustomerCreateContainer,
+#inputCountryCustomerCreateContainer,
+#inputEmailCustomerCreateContainer,
+#inputNIFCustomerCreateContainer,
+#inputCompanyCustomerCreateContainer {
+    margin : 10px 10px;
+}
+
+

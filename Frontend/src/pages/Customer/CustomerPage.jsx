@@ -3,20 +3,47 @@ import { useUser } from '../../context/authContext.jsx';
 import { useEffect, useState } from 'react';
 import { CreateCustomer } from '../../components/PagesComponents/Customer/CreateCustomer.jsx';
 import { CustomerList } from '../../components/PagesComponents/Customer/CustomerList.jsx';
-import { UpdateCustomer } from '../../components/PagesComponents/Customer/UpdateCustomer.jsx';
-import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 import { Toast } from '../../components/alerts/Toast.jsx';
+import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
+import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
+import { SortPages } from '../../components/NavPages/SortPages.jsx';
+import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
+import '../../Styles/Pages/StyleCustomerPage.css';
 const URL = import.meta.env.VITE_URL;
 
 export const CustomerPage = () => {
   const token = useUser();
   const [listCustomer, setListCustomer] = useState([]);
+  const [ initialCustomerList, setInitialCustomerList ] = useState([]);
+  const [filteredCustomerList, setFilteredCustomerList] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [sortOption, setSortOption] = useState(null);
+  const [isListView, setIsListView] = useState(true);
 
   // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
   const typeModule = 'customer';
 
-  // Tipo de modulo para el nombre de los mensajes al cliente
-  const typeModuleMessage = 'Cliente';
+
+    // UseEffect para obtener la lista de clientes
+    useEffect(() => {
+      getCustomerList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [token]);
+
+    // UseEffect para aplicar los filtros
+    useEffect(() => {
+    applyFilters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedFilters, listCustomer]);
+
+    // UseEffect para aplicar el ordenamiento
+    useEffect(() => {
+    if (filteredCustomerList.length > 0) {
+    sortUsers(filteredCustomerList);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sortOption]);
+
 
   const getCustomerList = async () => {
     try {
@@ -32,8 +59,9 @@ export const CustomerPage = () => {
         const responseData = await response.json();
         console.log('Obtener satisfactorio:', responseData);
 
-        // Actualizar el estado con los datos obtenidos
         setListCustomer(responseData.data);
+        setInitialCustomerList(responseData.data);
+        setFilteredCustomerList(responseData.data);
       } else {
         const errorData = await response.json();
         console.error('Obtener fallido:', errorData);
@@ -48,10 +76,93 @@ export const CustomerPage = () => {
     }
   };
 
-  useEffect(() => {
-    getCustomerList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+    // Función para buscar usuarios
+    const handleSearch = async (searchTerm) => {
+      try {
+        const response = await fetch(`${URL}/${typeModule}/search?searchTerm=${searchTerm}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          },
+        });
+  
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('Búsqueda satisfactoria:', responseData);
+          setListCustomer(responseData.data);
+          setFilteredCustomerList(responseData.data);
+        } else {
+          const errorData = await response.json();
+          console.error('Búsqueda fallida:', errorData);
+        }
+      } catch (error) {
+        console.error('Error al buscar usuarios:', error);
+      }
+    };
+
+      // Función para cambiar los filtros
+  const handleFilterChange = (filters) => {
+    setSelectedFilters(filters);
+  };
+
+  // Función para cambiar el ordenamiento
+  const handleSortChange = (option) => {
+    setSortOption(option ? option.value : null);
+    if (!option) {
+      setFilteredCustomerList([...initialCustomerList]);
+    }
+  };
+
+  // Función para aplicar los filtros
+  const applyFilters = () => {
+    let filtered = listCustomer;
+
+    if (selectedFilters.length > 0) {
+      filtered = listCustomer.filter(customer => {
+        let activeFilter = true;
+
+        if (selectedFilters.includes('1')) {
+          activeFilter = customer.active;
+        } else if (selectedFilters.includes('0')) {
+          activeFilter = !customer.active;
+        }
+        return activeFilter;
+      });
+    }
+
+    setFilteredCustomerList(filtered);
+    sortUsers(filtered);
+  };
+
+  // Función para ordenar la lista de usuarios
+  const sortUsers = (list) => {
+    if (!sortOption) {
+      setFilteredCustomerList(list);
+      return;
+    }
+
+    let sortedList = [...list];
+
+    switch (sortOption) {
+      case 'nombre-asc':
+        sortedList.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'nombre-desc':
+        sortedList.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'fecha-asc':
+        sortedList.sort((a, b) => new Date(a.create_at) - new Date(b.create_at));
+        break;
+      case 'fecha-desc':
+        sortedList.sort((a, b) => new Date(b.create_at) - new Date(a.create_at));
+        break;
+      default:
+        break;
+    }
+
+    setFilteredCustomerList(sortedList);
+  };
 
   // Actualizo el estado con la venta añadida y solicito la lista actualizada al servidor
   const addCustomer = async () => {
@@ -108,41 +219,44 @@ export const CustomerPage = () => {
     }
   };
 
+    // Opciones de filtro
+    const filterOptions = [
+      { label: 'Activo', value: '1' },
+      { label: 'Inactivo', value: '0' },
+    ];
+  
+    // Opciones de ordenamiento
+    const sortOptions = [
+      { label: "Nombre (A - Z)", value: "nombre-asc" },
+      { label: "Nombre (Z - A)", value: "nombre-desc" },
+      { label: "Fecha (Antiguos)", value: "fecha-asc" },
+      { label: "Fecha (Recientes)", value: "fecha-desc" },
+    ];
+
   return (
     <MainLayout>
       <section id="customer_container" className="mainContainer">
-        <h1 id="customer_title" className=" mainTitle">
-          Clientes
-        </h1>
-        <CreateCustomer onAddCustomer={addCustomer} token={token} />
-        <ol id="customer_list" className=" main_olist">
-          {listCustomer.map((data) => {
-            return (
-              <li
-                key={data.id_customer}
-                id="element_customer_container"
-                className="element_customer_container main_ilist"
-              >
-                <CustomerList customer={data} />
-                <span id="customer_actions" className="main_actions">
-                  <UpdateCustomer
-                    customer={data.id_customer}
-                    onUpdateCustomer={updateCustomer}
-                    token={token}
-                  />
-                  <DeleteGenericModal
-                    id={data.id_customer}
-                    onDelete={deleteCustomer}
-                    token={token}
-                    typeModule={typeModule}
-                    typeModuleMessage={typeModuleMessage}
-                  />
-                </span>
+        <h1 id="customer_title" className="mainTitle">Customer List</h1>
+        <nav id="customer_nav" className="mainNav">
+          <SearchPages onSearch={handleSearch} />
+          <CreateCustomer onAddCustomer={addCustomer} token={token} />
+          <FilterPages options={filterOptions} onChange={handleFilterChange} />
+          <SortPages options={sortOptions} onSort={handleSortChange} />
+          <ToggleMode onClick={() => setIsListView(prev => !prev)} />
+        </nav>
+        {isListView ? (
+          <ol id="customer_list" className="main_olist">
+            {filteredCustomerList.map(customer => (
+              <li key={customer.id_customer} id="element_customer_container">
+                <CustomerList customer={customer} updateCustomer={updateCustomer} onDelete={deleteCustomer} />
               </li>
-            );
-          })}
-        </ol>
+            ))}
+          </ol>
+        ) : (
+          <div>En construcción</div>
+        )}
       </section>
     </MainLayout>
   );
+  
 };

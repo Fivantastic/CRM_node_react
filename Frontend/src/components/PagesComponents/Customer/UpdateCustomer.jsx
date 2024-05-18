@@ -1,6 +1,7 @@
 import joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { EditButton } from '../../buttons/EditButton.jsx';
 
 export const UpdateCustomer = ({ customer, token, onUpdateCustomer }) => {
   // Aqui hace la peticion al servidor
@@ -129,8 +130,6 @@ export const UpdateCustomer = ({ customer, token, onUpdateCustomer }) => {
   };
 
   return (
-    <>
-      <button id='btnCustomerUpdate ' className="mainUpdateBtn" onClick={handleUpdateCustomer}>Actualizar Cliente</button>
-    </>
+    <EditButton id='btnCustomerUpdate ' className="mainUpdateBtn" onClick={handleUpdateCustomer}/>
   );
 };

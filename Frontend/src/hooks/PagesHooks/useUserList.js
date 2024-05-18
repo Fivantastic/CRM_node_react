@@ -71,6 +71,7 @@ export const useUserList = (token) => {
 
       if (response.ok) {
         const responseData = await response.json();
+        console.log('Buscar satisfactorio:', responseData);
         setUserList(responseData.data);
         setFilteredUserList(responseData.data);
       } else {

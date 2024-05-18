@@ -1,5 +1,3 @@
-// import { useState, useEffect } from 'react';
-// import { Toast } from '../../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 import { useEffect, useState } from "react";
 import { Toast } from "../../components/alerts/Toast";
@@ -55,6 +53,10 @@ const [paymentsList, setPaymentsList] = useState([]);
       } else {
         const errorData = await response.json();
         console.error('Obetener fallido:', errorData);
+        Toast.fire({
+          icon: 'error',
+          title: 'Error al obtener la lista de pagos',
+      });
       }
     } catch (error) {
       console.error('Error al obtener la lista de pagos:', error.message);
@@ -66,6 +68,29 @@ const [paymentsList, setPaymentsList] = useState([]);
   };  
 
   // TODO - Buscar Pagos
+  const handleSearch = async (searchTerm) => {
+    try {
+      const response = await fetch(`${URL}/payments/search?searchTerm=${searchTerm}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Buscar satisfactorio:', responseData);
+        setPaymentsList(responseData.data);
+        setFilteredList(responseData.data);
+      } else {
+        const errorData = await response.json();
+        console.error('Búsqueda fallida:', errorData);
+      }
+    } catch (error) {
+      console.error('Error al buscar pagos:', error);
+    }
+  };
   
   // Cambiar Filtros
   const handleFilterChange = (filters) => {
@@ -89,18 +114,11 @@ const [paymentsList, setPaymentsList] = useState([]);
         // let activeFilter = true;
         let statusFilter = true;
 
-            // ? Aquí filtra por activo / inactivo
-    //     if (selectedFilters.includes('1')) {
-    //       activeFilter = user.active;
-    //     } else if (selectedFilters.includes('0')) {
-    //       activeFilter = !user.active;
-    //     }
-
-            // Filtrar por status
-        if (selectedFilters.some(filter => ['paid', 'cancelled', 'pending'].includes(filter))) {
-          statusFilter = selectedFilters.some(filter => filter === payment.payment_status);
-          
-        }
+        // Filtrar por status
+      if (selectedFilters.some(filter => ['paid', 'cancelled', 'pending'].includes(filter))) {
+        statusFilter = selectedFilters.some(filter => filter === payment.payment_status);
+        
+      }
 
         // return activeFilter && statusFilter;
         return statusFilter;
@@ -146,7 +164,8 @@ const [paymentsList, setPaymentsList] = useState([]);
 
     }
 
-    console.log('Después del orden', sortedList);
+    setFilteredList(sortedList);
+    console.log('Después del orden', sortedList.map( a => a.payment_status));
   }
 
 
@@ -208,7 +227,7 @@ const [paymentsList, setPaymentsList] = useState([]);
 
   // Retornar los hooks
   return {
-    // manejar búsqueda,
+    handleSearch,
     handleFilterChange,    
     handleSortChange,
     filteredList,

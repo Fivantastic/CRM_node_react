@@ -8,6 +8,9 @@ import { PaymentsList } from '../../components/PagesComponents/Payments/Payments
 import { ChangeStatus } from '../../components/forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 import { usePaymentsList } from '../../hooks/PagesHooks/usePaymentsList.js'
+import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
+import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
+import { useState } from 'react';
 
 export const PaymentPage = () => {
   const token = useUser();
@@ -19,12 +22,14 @@ export const PaymentPage = () => {
 
   const {
     filteredList,
+    handleSearch,
     handleFilterChange,
     handleSortChange,
     addPayment,
     deletePayment,
     handleNewPaymentStatus
   } = usePaymentsList(token)
+  const [isListView, setIsListView] = useState(true);
 
   // Opciones de filtro
   const filterOptions = [
@@ -47,11 +52,13 @@ export const PaymentPage = () => {
       <section className="payment_container mainContainer">
         <h1 className="payment_title mainTitle">Pagos</h1>
         <nav id="user_nav" className="mainNav">
+        <SearchPages onSearch={handleSearch}/>
+        <CreatePayment onAddPayment={addPayment} token={token} />
         <SortPages options={sortOptions} onSort={handleSortChange} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
-
+        <ToggleMode onClick={() => setIsListView(prev => !prev)} />
         </nav>
-        <CreatePayment onAddPayment={addPayment} token={token} />
+        
         <ol className="payment_list main_olist">
           {filteredList.map((data) => {
             const currentStatus = data.payment_status;

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 import { getFullName } from '../../Services/getFullName.js';
+import '../../Styles/Auth/LoginPage.css';
 const URL = import.meta.env.VITE_URL;
 
 export const LoginPage = () => {
@@ -111,21 +112,22 @@ export const LoginPage = () => {
     },
   ];
 
-  // const extraButtons = [
-  //   {
-  //     type: 'reset',
-  //     label: 'Borrar',
-  //   }
-  // ];
-
   return (
-    <DynamicForm
-      title="Login"
-      onSubmit={handleLoginSubmit}
-      schema={loginUserSchema}
-      fields={loginFormFields}
-      buttonText={'Entrar'}
-      extraButtons={[]}
-    />
+    <main className="login-page-container">
+      <section className="login-page-animation-container">
+        <img className="login-page-image" src="./Mesa_de_trabajo_1.png" alt="imagen de login" />
+
+      </section>
+      <section className="login-page-form-container">
+        <DynamicForm
+          title="Login"
+          onSubmit={handleLoginSubmit}
+          schema={loginUserSchema}
+          fields={loginFormFields}
+          buttonText={'Entrar'}
+          extraButtons={[]}
+          />
+      </section>
+    </main>
   );
 };

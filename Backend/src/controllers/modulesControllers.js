@@ -24,12 +24,16 @@ import { newInvoiceController } from './Modules/invoices/newInvoiceController.js
 import { deleteInvoiceController } from './Modules/invoices/deleteInvoiceController.js';
 import { statusUpdateInvoiceController } from './Modules/invoices/statusUpdateInvoiceController.js';
 import { getInvoiceController } from './Modules/invoices/getInvoiceController.js';
+import { getInvoiceSearchController } from './Modules/invoices/getInvoiceSearchController.js';
+
 
 // Imports Pagos
 import { newPaymentController } from './Modules/payments/newPaymentController.js';
 import { cancelPaymentController } from './Modules/payments/cancelPaymentController.js';
 import { deletePaymentController } from './Modules/payments/deletePaymentController.js';
 import { getPaymentsController } from './Modules/payments/getPaymentsController.js';
+import { getPaymentSearchController } from './Modules/payments/getPaymentSearchController.js';
+
 
 // Imports Albarán
 import { createDeliveryNoteController } from './Modules/deliveryNote/createDeliveryNoteController.js';
@@ -55,26 +59,34 @@ export {
   newVisitController,
   updateVisitController,
   getVisitSearchController,
+
   insertSalesController,
   updateSalesController,
   deleteSalesController,
   getSalesController,
   getSalesSearchController,
+
   newInvoiceController,
   deleteInvoiceController,
   getInvoiceController,
   statusUpdateInvoiceController,
+  getInvoiceSearchController,
+
   newPaymentController,
   cancelPaymentController,
   deletePaymentController,
   getPaymentsController,
+  getPaymentSearchController,
+  
+
   createDeliveryNoteController,
   closeDeliveryNoteController,
   deleteDeliveryNoteController,
+  getDeliveryNotesController,
+
   shipmentCreateController,
   shipmentUpdateController,
   shipmentRouteController,
   deleteShipmentController,
   closeShipmentController,
-  getDeliveryNotesController,
 };

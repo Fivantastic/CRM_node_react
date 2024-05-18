@@ -4,8 +4,10 @@ import {
   cancelPaymentController,
   deletePaymentController,
   getPaymentsController,
+  getPaymentSearchController
 } from '../../controllers/modulesControllers.js';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
+
 
 export const paymentsRouter = express.Router();
 // Creacion de un pago
@@ -18,3 +20,4 @@ paymentsRouter.put('/payments/status', authenticateUser, cancelPaymentController
 paymentsRouter.delete('/payments/delete/:paymentsId', authenticateUser, deletePaymentController);
 
 paymentsRouter.get('/payments/list', authenticateUser, getPaymentsController);
+paymentsRouter.get('/payments/search', authenticateUser, getPaymentSearchController);

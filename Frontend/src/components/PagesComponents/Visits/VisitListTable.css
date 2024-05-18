@@ -12,7 +12,7 @@
 }
 
 #visit_table {
-  max-width: 60%;
+  max-width: 90%;
   border-radius: 8px;
   padding: 10px 15px;
   margin-top: 15px;
@@ -41,6 +41,9 @@
   display: flex;
   justify-content: space-between;
 }
+#VisitTableHeadRowRef {
+  margin-right: 100px;
+}
 
 #visitTableHeadRowName,
 #visitTableBodyRowName {
@@ -52,24 +55,24 @@
   width: 100px;
 }
 
-#visitTableHeadRowDescription,
+/* #visitTableHeadRowDescription,
 #saleTableBodyRowDescription {
   width: 100px;
 }
-
+ */
 #visitTableHeadRowRating,
 #saleTableBodyRowRating {
   width: 140px;
 }
 
-#visitTableHeadRowComents,
+/* #visitTableHeadRowComents,
 #saleTableBodyRowComents {
   width: 100px;
-}
+} */
 
 #visitTableHeadRowStatus,
 #saleTableBodyRowStatus {
-  width: 100px;
+  width: 90px;
 }
 
 #visitTableHeadRowActions {
@@ -78,4 +81,5 @@
 #visitTableBodyRowActions {
   display: flex;
   width: 110px;
+  gap: 10px;
 }

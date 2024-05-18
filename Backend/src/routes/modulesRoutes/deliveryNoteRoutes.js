@@ -3,36 +3,28 @@ import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { createDeliveryNoteController, closeDeliveryNoteController, deleteDeliveryNoteController,getDeliveryNotesController } from '../../controllers/modulesControllers.js'; 
 import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
+import { getDeliveryNoteSearchController } from '../../controllers/Modules/deliveryNote/getDeliveryNoteSearchController.js'; 
+import { getOpenSalesController } from '../../controllers/Modules/deliveryNote/salesDeliveryController.js';
+
+
 
 // Crea una instancia del enrutador de Express
-const router = express.Router();
+export const deliveryNoteRouter = express.Router();
 
 // Ruta para obtener las notas de entrega
-router.get('/deliveryNotes', getDeliveryNotesController);
+deliveryNoteRouter.get('/deliveryNotes', getDeliveryNotesController);
 
 // Ruta para crear albarán de reparto
-router.post(
-  '/delivery-notes',
-  authenticateUser,
-  checkRoleDelivery,
-  createDeliveryNoteController
-);
+deliveryNoteRouter.post('/delivery-notes', authenticateUser, checkRoleDelivery, createDeliveryNoteController);
 
 // Ruta para cerrar el reparto y autenticar los roles
-router.put(
-  '/deliveryNotes/close/:deliveryNote_id',
-  authenticateUser,
-  checkRoleDelivery,
-  closeDeliveryNoteController
-);
+deliveryNoteRouter.put('/deliveryNotes/close/:deliveryNote_id', authenticateUser,  checkRoleDelivery, closeDeliveryNoteController);
 
 // Ruta para eliminar un albarán
-router.delete(
-  '/deliveryNotes/delete/:deliveryNote_id',
-  authenticateUser,
-  adminAuthMiddleware,
-  deleteDeliveryNoteController
-);
+deliveryNoteRouter.delete('/deliveryNotes/delete/:deliveryNote_id',authenticateUser,adminAuthMiddleware, deleteDeliveryNoteController);
 
-// Exporta el enrutador
-export default router;
+// Ruta para buscar notas de entrega por término de búsqueda
+deliveryNoteRouter.get('/deliveryNotes/search', authenticateUser, adminAuthMiddleware, getDeliveryNoteSearchController);
+
+// Ruta de extracción de estados de la tabla Sales
+deliveryNoteRouter.get('/deliveryNotes/open-sales', getOpenSalesController);

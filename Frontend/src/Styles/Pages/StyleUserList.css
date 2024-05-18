@@ -1,23 +1,22 @@
-
- #element_user_container {
+/* Contenedor del elemento usuario */
+#element_user_container {
   max-width: 320px;
   max-height: 200px;
   min-width: 200px;
   display: grid;
-  grid-template-columns: 100px  1fr;
+  grid-template-columns: 100px 1fr;
   align-items: center;
   margin: 15px 10px 15px 0;
   padding: 0 5px;
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-} 
+}
 
 .container-details-actions {
   display: grid;
   grid-template-rows: 1fr 35px;
 }
-
 
 .details {
   min-height: 60px;
@@ -45,11 +44,9 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  opacity: 0.9;
-
 }
 
- .container-avatar-active {
+.container-avatar-active {
   width: 75px;
   height: 75px;
   display: flex;
@@ -65,7 +62,7 @@
   height: 100%;
   border-radius: 50%;
   transform: scale(0.96);
-} 
+}
 
 .userName {
   font-size: 0.8rem;
@@ -85,6 +82,56 @@
   background-color: #ee3933;
 }
 
+/* Contenedor de los Detalles en el Modal */
+.container-details-modal {
+  text-align: left;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.container-details-modal p {
+  margin: 10px 0;
+  font-size: 1em;
+  color: #555555;
+}
+
+.container-details-modal p strong {
+  color: #333333;
+}
+
+/* Clases para el Estado Activo e Inactivo */
+.active {
+  color: green;
+}
+
+.inactive {
+  color: red;
+}
+
+/* Estilo adicional para la Sección */
+.container-details-modal section {
+  margin-bottom: 20px;
+}
+
+/* Mejora visual del Modal */
+.swal2-popup {
+  font-size: 1.1em;
+  font-family: 'Arial', sans-serif;
+  border-radius: 10px !important;
+}
+
+.swal2-title {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.swal2-content {
+  padding: 0;
+}
+
 @media screen and (max-width: 390px) {
   #element_user_container {
     display: flex;
@@ -102,17 +149,14 @@
   }
   
   .details {
-    min-width: 200px; ;
+    min-width: 200px;
   }
 
-  
   .userName {
     width: 200px;
     font-size: 0.9rem;
   }
 }
- 
-
 
 @media screen and (min-width: 480px) {
   #element_user_container {
@@ -138,7 +182,6 @@
     width: 220px;
   }
 }
-
 
 @media screen and (min-width: 600px) {
   #element_user_container {
@@ -168,7 +211,7 @@
   }
 }
 
-.container-avatar-active-inside {
+.container-avatar-active-inside-modal {
   width: 140px; 
   height: 140px;
   border-radius: 50%;

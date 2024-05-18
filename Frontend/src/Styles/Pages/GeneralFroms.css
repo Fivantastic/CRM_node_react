@@ -44,17 +44,20 @@
 
 /* Boton de crear */
 .mainCreateBtn {
-  font-size: 1rem;
-  padding: 5px 15px;
-  width: auto;
-  border-radius: 20px;
-  background-color: transparent;
   border: none;
-  transition: all 0.3s ease;
+  padding: 0;
+  background-color: transparent;
 }
 
 .mainCreateBtn:hover {
   scale: 1.05;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.mainCreateBtn:hover {
+  background-color: transparent;
+  scale: 1.1;
   transition: all 0.3s ease;
 }
 
@@ -71,24 +74,16 @@
   align-items: center;
 }
 
-#btnUserCreate {
-  border: none;
-  padding: 0;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
 
-#imgUserCreate {
+.imgCreateBtn {
   width: 1.75rem;
   height: 1.75rem;
 }
 
-.imgCreateBtn {
-  border: none;
-}
 
 #btnUserCreate:hover {
   background-color: transparent;
   scale: 1.1;
   transition: all 0.3s ease;
 }
+

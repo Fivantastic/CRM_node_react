@@ -30,8 +30,8 @@ export const SalesPage = () => {
   const [isListView, setIsListView] = useState(true);
 
   const filterOptions = [
-    { label: ' Proceso ', value: 'open' },
-    { label: 'Cancelado ', value: 'cancelled' },
+    { label: 'Proceso', value: 'open' },
+    { label: 'Cancelado', value: 'cancelled' },
     { label: 'Cerrado ', value: 'closed' },
   ];
 

@@ -13,6 +13,7 @@ export const deleteCustomerController = async (req, res, next) => {
 
     console.log(custumerAddress.address_id);
 
+    
     // Eliminar el cliente de la base de datos.
     const deleteCustomer = await deleteCustomerModel(
       id_customer,

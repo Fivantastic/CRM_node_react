@@ -1,0 +1,81 @@
+#btnVisitCreate {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#btnSalesCreate,
+#btnSalesUpdate {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#visit_table {
+  max-width: 60%;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-top: 15px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+#visitTableHead {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+#visitTableBody {
+  display: flex;
+  flex-direction: column;
+}
+
+#visitTableHead .headRow {
+  font-weight: bold;
+  text-align: start;
+}
+
+#visitTableBodyRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+#visitTableHeadRowName,
+#visitTableBodyRowName {
+  width: 100px;
+}
+
+#visitTableHeadRowDate,
+#visitTableBodyDate {
+  width: 100px;
+}
+
+#visitTableHeadRowDescription,
+#saleTableBodyRowDescription {
+  width: 100px;
+}
+
+#visitTableHeadRowRating,
+#saleTableBodyRowRating {
+  width: 140px;
+}
+
+#visitTableHeadRowComents,
+#saleTableBodyRowComents {
+  width: 100px;
+}
+
+#visitTableHeadRowStatus,
+#saleTableBodyRowStatus {
+  width: 100px;
+}
+
+#visitTableHeadRowActions {
+  width: 100px;
+}
+#visitTableBodyRowActions {
+  display: flex;
+  width: 110px;
+}

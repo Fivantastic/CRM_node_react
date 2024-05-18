@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import defaultAvatar from '/profile.svg'; 
-import { ProfileButton } from "../../buttons/Profile/ProfileButton.jsx";
+import { ProfileButton } from "./ProfileButton.jsx";
 import { ButtonMoreUserActions } from "../../buttons/Profile/ButtonMoreUserActions.jsx";
 import { useUser } from "../../../context/authContext.jsx";
 import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
-import '../../../Styles/Pages/StyleUserList.css'
+import '../../../Styles/Pages/StyleUserList.css';
 
 // Objeto de mapeo de roles
 const roleMapping = {
@@ -14,9 +14,9 @@ const roleMapping = {
 };
 
 export const UserList = ({ user, id, activeUser, onDelete }) => {
-    const token = useUser();
-    const userData = user;
-    const userId = id;
+  const token = useUser();
+  const userData = user;
+  const userId = id;
 
   // Estado para controlar si el usuario está activo o no
   const [isActive, setIsActive] = useState(user.active);
@@ -41,7 +41,7 @@ export const UserList = ({ user, id, activeUser, onDelete }) => {
         </article>
         <nav className="actions">
           <ProfileButton userData={userData} isActive={isActive} />
-          <ButtonMoreUserActions id={userId} activeUser={activeUser}  isActive={isActive}  token={token}  />
+          <ButtonMoreUserActions id={userId} activeUser={activeUser} isActive={isActive} token={token} />
           <DeleteGenericModal id={id} onDelete={onDelete} token={token} typeModule="user" typeModuleMessage="Usuario"/>
         </nav>
       </section>

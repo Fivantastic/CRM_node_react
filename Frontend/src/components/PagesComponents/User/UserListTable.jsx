@@ -1,6 +1,6 @@
 import { useUser } from "../../../context/authContext.jsx";
 import { ButtonMoreUserActions } from "../../buttons/Profile/ButtonMoreUserActions.jsx";
-import { ProfileButton } from "../../buttons/Profile/ProfileButton.jsx";
+import { ProfileButton } from "./ProfileButton.jsx";
 import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 import './UserListTable.css';
 

@@ -1,7 +1,9 @@
 import { insertSaleProductModel } from '../../../models/Modules/sales/insertSaleProductModel.js';
 import { selectCustomerByIdModel } from '../../../models/Modules/sales/selectCustomerByIdModel.js';
 import { selectProductByIdModel } from '../../../models/Modules/sales/selectProductByIdModel.js';
+import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
 import { selectUserByIdModel } from '../../../models/user/selectUserByIdModel.js';
+import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
 import { notFoundError } from '../../error/errorService.js';
 
 export const insertSalesService = async (
@@ -32,9 +34,16 @@ export const insertSalesService = async (
   const id_sale = crypto.randomUUID();
   console.log('inserSalesService', id_customer);
 
+  // Obtenemos la referencia máxima de la tabla Sales
+  const maxRef = await getMaxReference5Digits('Sales', 'ref_SL');
+
+  // Generamos la nueva referencia de Sales
+  const ref = generateReference5DigitsFromRef('SL', maxRef);
+
   // Insertamos la venta de producto en la base de datos
   const response = await insertSaleProductModel(
     id_sale,
+    ref,
     id_user,
     id_saleProduct,
     id_customer

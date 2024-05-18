@@ -24,6 +24,7 @@ export const ShipmentList = ({ shipment }) => {
       <h2 id='element_shipment_title' className="mainInsideTitle">Detalles del envío</h2>
       <h3 id='element_shipment_section' className="mainSubSection">Destinatario</h3>
       <p><strong>Nombre: </strong> {shipment.customer_name}</p>
+      <p><strong>REF: </strong> {shipment.ref_SH}</p>
       <p><strong>Compañía:</strong> {shipment.company_name}</p>
       <p><strong>Dirección: </strong> {shipment.delivery_address}</p>
       <p><strong>NIF:</strong> {shipment.NIF}</p>
@@ -31,7 +32,7 @@ export const ShipmentList = ({ shipment }) => {
       <p><strong>Cantidad:</strong> {shipment.product_quantity} u.</p>
       <p><strong>Ciudad: </strong> {shipment.address_city}</p>
       <p><strong>Teléfono:</strong> {shipment.customer_phone}</p>
-
+      <p><strong>Fecha:</strong> {shipment.shipment_create_at}</p>
       <h3 id='element_shipment_section' className="mainSubSection">Estado del envío</h3>
       <p>{traducirEstadoEntrega(shipment.delivery_status)}</p>
 

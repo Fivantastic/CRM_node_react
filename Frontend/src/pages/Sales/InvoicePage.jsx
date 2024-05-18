@@ -66,8 +66,8 @@ export const InvoicePage = () => {
         <SortPages options={sortOptions} onSort={handleSortChange} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
         <ToggleMode onClick={() => setIsListView(prev => !prev)} />
-
         </nav>
+        {isListView ? (
         <ol id="invoice_list" className=" main_olist">
           {filteredList.map((data) => {
             return (
@@ -95,6 +95,9 @@ export const InvoicePage = () => {
             );
           })}
         </ol>
+        ) : (
+          <h2>En construcción...</h2>
+        )}
       </section>
     </MainLayout>
   );

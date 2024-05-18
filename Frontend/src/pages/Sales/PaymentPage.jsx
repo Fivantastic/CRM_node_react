@@ -58,7 +58,7 @@ export const PaymentPage = () => {
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
         <ToggleMode onClick={() => setIsListView(prev => !prev)} />
         </nav>
-        
+        {isListView ? (
         <ol className="payment_list main_olist">
           {filteredList.map((data) => {
             const currentStatus = data.payment_status;
@@ -118,6 +118,9 @@ export const PaymentPage = () => {
             );
           })}
         </ol>
+        ) : (
+          <h2>En construcción... </h2>
+        )}
       </section>
     </MainLayout>
   );

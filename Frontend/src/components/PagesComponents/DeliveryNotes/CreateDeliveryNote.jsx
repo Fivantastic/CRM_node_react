@@ -1,8 +1,30 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { useOpenSales } from '../../../hooks/PagesHooks/useOpenSales.js';
+import { useState, useEffect } from 'react';
 
 export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
+  const openSales = useOpenSales(token);
+  const [selectedSale, setSelectedSale] = useState(null);
+  const [formValues, setFormValues] = useState({
+    deliverer_id: '',
+    address_id: '',
+    customer_id: '',
+    saleProduct_id: ''
+  });
+
+  useEffect(() => {
+    if (selectedSale !== null) {
+      setFormValues({
+        deliverer_id: selectedSale.deliverer_id || '',
+        address_id: selectedSale.address_id || '',
+        customer_id: selectedSale.id_customer || '',
+        saleProduct_id: selectedSale.id_saleProduct || ''
+      });
+    }
+  }, [selectedSale]);
+
   const handleDeliveryNoteCreatedAction = async (formData) => {
     try {
       const response = await fetch('http://localhost:3000/delivery-notes', {
@@ -10,7 +32,7 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `${token}`, 
+          Authorization: `${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -46,20 +68,33 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
     }
   };
 
+  const handleSaleChange = (e) => {
+    const saleId = e.target.value;
+    const sale = openSales.find(sale => sale.id_sale === saleId);
+    setSelectedSale(sale);
+  };
+
   const title = 'Crear Nota de Entrega';
   const nameButton = 'Crear';
 
   const deliveryNoteFormFields = [
     {
+      key: `sale_id`, 
       name: 'sale_id',
-      label: 'ID de Venta',
-      type: 'text',
-      placeholder: 'Introduce el ID de venta...',
-      idLabel: 'labelNameNoteCreate',
-      idInput: 'inputNameNoteCreate',
+      label: 'Venta',
+      type: 'select',
+      options: openSales.map(sale => ({
+        value: sale.id_sale,
+        label: sale.customer_name
+      })),
+      idLabel: 'labelSaleIdNoteCreate',
+      idInput: 'inputSaleIdNoteCreate',
       required: true,
+      onChange: handleSaleChange,
+      value: selectedSale?.id_sale || ''
     },
     {
+      key: `deliverer_id`, 
       name: 'deliverer_id',
       label: 'ID del Repartidor',
       type: 'text',
@@ -67,27 +102,44 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
       idLabel: 'labelDelivererNoteCreate',
       idInput: 'inputDelivererNoteCreate',
       required: true,
+      value: formValues.deliverer_id,
+      readOnly: true
     },
     {
+      key: `address_id`, 
       name: 'address_id',
       label: 'ID de la Dirección',
       type: 'text',
       placeholder: 'Introduce el ID de la dirección...',
+      idLabel: 'labelAddressIdNoteCreate',
+      idInput: 'inputAddressIdNoteCreate',
       required: true,
+      value: formValues.address_id,
+      readOnly: true
     },
     {
+      key: `customer_id`, 
       name: 'customer_id',
       label: 'ID del Cliente',
       type: 'text',
       placeholder: 'Introduce el ID del cliente...',
+      idLabel: 'labelCustomerIdNoteCreate',
+      idInput: 'inputCustomerIdNoteCreate',
       required: true,
+      value: formValues.customer_id,
+      readOnly: true
     },
     {
+      key: `saleProduct_id`, 
       name: 'saleProduct_id',
       label: 'ID del Producto de la Venta',
       type: 'text',
       placeholder: 'Introduce el ID del producto de la venta...',
+      idLabel: 'labelSaleProductIdNoteCreate',
+      idInput: 'inputSaleProductIdNoteCreate',
       required: true,
+      value: formValues.saleProduct_id,
+      readOnly: true
     },
   ];
 
@@ -105,7 +157,8 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
       deliveryNoteFormFields,
       deliveryNoteSchema,
       handleDeliveryNoteCreatedAction,
-      nameButton
+      nameButton,
+      formValues 
     );
   };
 

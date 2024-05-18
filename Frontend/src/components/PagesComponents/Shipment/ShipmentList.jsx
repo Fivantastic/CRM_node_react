@@ -24,6 +24,7 @@ export const ShipmentList = ({ shipment }) => {
       <h2 id='element_shipment_title' className="mainInsideTitle">Detalles del envío</h2>
       <h3 id='element_shipment_section' className="mainSubSection">Destinatario</h3>
       <p><strong>Nombre: </strong> {shipment.customer_name}</p>
+      <p><strong>REF: </strong> {shipment.ref_SH}</p>
       <p><strong>Compañía:</strong> {shipment.company_name}</p>
       <p><strong>Dirección: </strong> {shipment.delivery_address}</p>
       <p><strong>NIF:</strong> {shipment.NIF}</p>

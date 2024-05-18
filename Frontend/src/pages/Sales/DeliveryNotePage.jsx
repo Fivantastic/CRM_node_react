@@ -8,7 +8,7 @@ import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { Toast } from '../../components/alerts/Toast.jsx';
-import { useDeliveryList } from '../../hooks/PagesHooks/useDeliveryList.js'; // Asegúrate de que la ruta es correcta
+import { useDeliveryList } from '../../hooks/PagesHooks/useDeliveryList.js'; 
 
 export const DeliveryNotePage = () => {
   const token = useUser();

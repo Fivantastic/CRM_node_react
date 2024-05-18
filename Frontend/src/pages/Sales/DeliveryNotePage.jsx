@@ -9,6 +9,7 @@ import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { Toast } from '../../components/alerts/Toast.jsx';
 import { useDeliveryList } from '../../hooks/PagesHooks/useDeliveryList.js'; 
+import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 
 export const DeliveryNotePage = () => {
   const token = useUser();
@@ -23,6 +24,7 @@ export const DeliveryNotePage = () => {
     getAlbaranList,
     setFilteredAlbaranList,
   } = useDeliveryList(token);
+  // const [isListView, setIsListView] = useState(true);
 
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },
@@ -77,12 +79,13 @@ export const DeliveryNotePage = () => {
         <h1 id="note_title" className=" mainTitle">
           Albaranes
         </h1>
-        <nav className="mainNav">
+        <nav id="note_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
+          <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
           <SortPages options={sortOptions} onSort={handleSortChange} />
+           <ToggleMode  /* onClick={() => setIsListView(prev => !prev)}*/ /> 
         </nav>
-        <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
         <ol className="note_list main_olist">
           {filteredAlbaranList.map((data) => (
             <li

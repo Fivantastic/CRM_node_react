@@ -5,7 +5,7 @@ export const selectUserVisitsByIdModel = async () => {
 
   // Obtener todas las visitas
   const result = await pool.query(`
-    SELECT Visits.id_visit, Customers.name AS customer_name, Visits.visit_status, Visits.visit_date, Visits.observations, Visits.rating_visit, Visits.rating_comment
+    SELECT Visits.id_visit, Visits.ref_VT, Customers.name AS customer_name, Visits.visit_status, Visits.visit_date, Visits.observations, Visits.rating_visit, Visits.rating_comment
     FROM Visits
     LEFT JOIN Customers ON Visits.customer_id = Customers.id_customer
   `);

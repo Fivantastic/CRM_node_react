@@ -1,14 +1,19 @@
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { useUser } from '../../../context/authContext.jsx';
-import { useSalesList } from '../../../hooks/PagesHooks/useSalesList.js';
-import { AddButton } from '../../buttons/AddButton.jsx';
+import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import '../Sales/SalesListTable.css';
 import { UpdateSale } from './UpdateSale.jsx';
 
-export const SalesListTable = ({ sale, onDelete }) => {
+export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   const token = useUser();
   const salesData = sale;
+
+  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
+  const typeModule = 'sales';
+
+  // Tipo de modulo para el nombre de los mensajes al cliente
+  const typeModuleMessage = 'Cliente';
 
   const dueDate = getNormalizedDate(sale.create_at);
 
@@ -24,26 +29,43 @@ export const SalesListTable = ({ sale, onDelete }) => {
         return estado;
     }
   };
+  const nameComplete = `${sale.salesAgent} ${sale.last_name}`;
 
-  const { updateSale } = useSalesList(token);
+  const moreInfoFields = [
+    { name: 'ref_CT', label: 'Ref', value: sale.ref_CT },
+    { name: 'Comercial', label: 'Comercial', value: nameComplete },
+    { name: 'Producto', label: 'Producto', value: sale.product_name },
 
+    { name: 'Precio', label: 'Precio', value: sale.product_price },
+    { name: 'Cantidad', label: 'Cantidad', value: sale.quantity },
+    { name: 'Cliente', label: 'Cliente', value: sale.customer },
+
+    { name: 'Email', label: 'Email', value: sale.customer_email },
+    { name: 'Telefono', label: 'Telefono', value: sale.customer_phone },
+    {
+      name: 'Estado De la Venta',
+      label: 'Estado De la Venta',
+      value: traducirEstadoVenta(sale.operation_status),
+    },
+    {
+      name: 'Fecha De Creación',
+      label: 'Fecha De Creación',
+      value: dueDate.toLocaleDateString(),
+    },
+  ];
   return (
     <section id="sales_table">
       <div id="salesTableHead">
-        <div id="salesTableHeadRowNameSalesAgent">Comencial</div>
+        <div id="salesTableHeadRowNameSalesAgent">Ref</div>
         <div id="salesTableHeadRowProduct">Producto</div>
-        <div id="salesTableHeadRowCustomer">Cliente</div>
         <div id="salesTableHeadRowEstatus">Estado</div>
-        <div id="salesTableHeadRowDate">Fecha</div>
         <div id="salesTableHeadRowActions">Acciones</div>
       </div>
       <div id="salesTableBody">
         {salesData.length > 0 &&
           salesData.map((sale) => (
             <div key={sale.id_sale} id="salesTableBodyRow">
-              <div id="salesTableBodyRowName">
-                {sale.salesAgent} {sale.salesAgent_lastName}
-              </div>
+              <div id="salesTableBodyRowName">{sale.ref_SL}</div>
               <div id="salesTableBodyProduct">
                 <p>
                   <strong>Nombre: </strong> {sale.product_name}
@@ -55,37 +77,22 @@ export const SalesListTable = ({ sale, onDelete }) => {
                   <strong>Cantidad: </strong> {sale.quantity} u.{' '}
                 </p>
               </div>
-              <div id="saleTableBodyRowCustomer">
-                <p>
-                  <strong>Nombre: </strong> {sale.customer}
-                </p>
-                <p id="email">
-                  <strong>Email: </strong> {sale.customer_email}
-                </p>
-                <p>
-                  <strong>Telefono: </strong> {sale.customer_phone}
-                </p>
-              </div>
               <div id="saleTableBodyRowEstatus">
                 <p>{traducirEstadoVenta(sale.operation_status)}</p>
               </div>
-              <div id="salesTableBodyRowDate">
-                <p>{dueDate.toLocaleDateString()}</p>
-              </div>
               <div id="salesTableBodyRowActions">
-                <AddButton />
-
+                <MoreInfo fields={moreInfoFields} />
                 <UpdateSale
                   sale={sale.id_sale}
-                  onUpdateSale={updateSale}
+                  onUpdateSale={onUpdateSale}
                   token={token}
                 />
                 <DeleteGenericModal
-                  id={sale.id_user}
+                  id={sale.id_sale}
                   onDelete={onDelete}
                   token={token}
-                  typeModule="user"
-                  typeModuleMessage="Usuario"
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
                 />
               </div>
             </div>

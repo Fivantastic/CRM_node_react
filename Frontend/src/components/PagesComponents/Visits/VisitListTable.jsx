@@ -1,12 +1,11 @@
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { useUser } from '../../../context/authContext.jsx';
-import { useSalesList } from '../../../hooks/PagesHooks/useSalesList.js';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateVisit } from './UpdateVisit.jsx';
 import '../Visits/VisitListTable.css';
-import { AddButton } from '../../buttons/AddButton.jsx';
+import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 
-export const VisitListTable = ({ visit, onDelete }) => {
+export const VisitListTable = ({ visit, onUpdateSale, onDelete }) => {
   const token = useUser();
   const visitData = visit;
 
@@ -25,12 +24,31 @@ export const VisitListTable = ({ visit, onDelete }) => {
     }
   };
 
-  const { updateVisit } = useSalesList(token);
+  const moreInfoFields = [
+    { name: 'ref_CT', label: 'Ref', value: visit.ref_VT },
+    { name: 'Nombre', label: 'Nombre', value: visit.customer_name },
+    {
+      name: 'Fecha de la visita',
+      label: 'Fecha de la visita',
+      value: fechaNormal.toLocaleDateString(),
+    },
+
+    { name: 'Observacines', label: 'Observacines', value: visit.observations },
+    {
+      name: 'Valoración de la visita',
+      label: 'Valoración de la visita',
+      value: visit.rating_visit,
+    },
+    { name: 'Comentarios', label: 'Comentarios', value: visit.rating_comment },
+
+    { name: 'Estado', label: 'Estado', value: visit.visit_status },
+  ];
 
   return (
     <section id="visit_table">
       {/* <div id="visitTableHeadRowNameCustomer">Cliente</div> */}
       <div id="visitTableHead">
+        <div id="VisitTableHeadRowRef">Ref</div>
         <div id="visitTableHeadRowName">Nombre</div>
         <div id="visitTableHeadRowDate">Fecha de la visita</div>
         {/* <div id="visitTableHeadRowDescription">Observacones</div> */}
@@ -43,6 +61,7 @@ export const VisitListTable = ({ visit, onDelete }) => {
         {visitData.length > 0 &&
           visitData.map((visit) => (
             <div key={visit.id_visit} id="visitTableBodyRow">
+              <div id="visitTableBodyRowRef">Ref: {visit.ref_VT}</div>
               <div id="visitTableBodyRowName">{visit.customer_name}</div>
               <div id="visitTableBodyDate">
                 {fechaNormal.toLocaleDateString()}
@@ -54,10 +73,10 @@ export const VisitListTable = ({ visit, onDelete }) => {
                 {traducirEstadoVisita(visit.visit_status)}
               </div>
               <div id="visitTableBodyRowActions">
-                <AddButton />
+                <MoreInfo fields={moreInfoFields} />
                 <UpdateVisit
                   visit={visit.id_visit}
-                  onUpdateVisit={updateVisit}
+                  onUpdateVisit={onUpdateSale}
                 />
                 <DeleteGenericModal
                   id={visit.id_visit}

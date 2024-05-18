@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './ModalComponent.css';
 
-export const ModalComponent = ({ show, onClose, fields }) => {
+export const ModalComponent = ({ show, onClose, fields, modalIds }) => {
   const [animationClass, setAnimationClass] = useState('');
 
   useEffect(() => {
@@ -23,19 +23,28 @@ export const ModalComponent = ({ show, onClose, fields }) => {
 
   if (!show && animationClass !== 'modal-hide') return null;
 
+  const {
+    idModalContainer = 'modal-container',
+    idModalHeader = 'modal-header',
+    idModalTitle = 'modal-title',
+    idModalBody = 'modal-body',
+    idModalFooter = 'modal-footer',
+    idModalBtnClose = 'close-modal-button'
+  } = modalIds;
+
   return (
     <div className="modal-backdrop">
-      <div id="modal-info" className={`modal-content ${animationClass}`}>
-        <div className="modal-header">
-          <h2 className="modal-title">Detalles</h2>
+      <div id={idModalContainer} className={`modal-content ${animationClass}`}>
+        <div id={idModalHeader} className="modal-header">
+          <h2 id={idModalTitle} className="modal-title">Detalles</h2>
         </div>
-        <div className="modal-body">
+        <div id={idModalBody} className="modal-body">
           {fields.map((field, index) => (
-            <p className="modal-field" key={index}><strong>{field.label}:</strong> {field.value}</p>
+            <p id={field.id || ''} className="modal-field" key={index}><strong>{field.label}:</strong> {field.value}</p>
           ))}
         </div>
-        <div className="modal-footer">
-          <button className="close-modal-button" onClick={handleClose}>Cerrar</button>
+        <div id={idModalFooter} className="modal-footer">
+          <button id={idModalBtnClose} className="close-modal-button" onClick={handleClose}>Cerrar</button>
         </div>
       </div>
     </div>

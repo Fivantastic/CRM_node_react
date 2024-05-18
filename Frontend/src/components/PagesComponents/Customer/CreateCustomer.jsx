@@ -1,6 +1,7 @@
 import joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { joiErrorMessages } from '../../../Schema/Error/JoiErrorMesasage.js';
 
 export const CreateCustomer = ({ onAddCustomer, token }) => {
   // Aqui hace la peticion al servidor
@@ -59,6 +60,9 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Crear';
 
+  // Id de la ventana customizable
+  const dynamicIdModal = 'customerCreateModal';
+
   // Campos del formulario personalizables
   const customerFormFields = [
     {
@@ -68,6 +72,17 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       placeholder: 'Introduce el nombre...',
       idLabel: 'labelNameCustomerCreate',
       idInput: `inputNameCustomerCreate`,
+      idInputContainer: `inputNameCustomerCreateContainer`,
+      required: true,
+    },
+    {
+      name: 'last_name',
+      label: 'Apellidos',
+      type: 'text',
+      placeholder: 'Introduce los apellidos...',
+      idLabel: 'labelLastNameCustomerCreate',
+      idInput: `inputLastNameCustomerCreate`,
+      idInputContainer: `inputLastNameCustomerCreateContainer`,
       required: true,
     },
     {
@@ -76,6 +91,7 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       type: 'email',
       idLabel: 'labelEmailCustomerCreate',
       idInput: `inputEmailCustomerCreate`,
+      idInputContainer: `inputEmailCustomerCreateContainer`,
       placeholder: 'Introduce el email...',
       required: true,
     },
@@ -86,6 +102,8 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       idLabel: 'labelPhoneCustomerCreate',
       idInput: `inputPhoneCustomerCreate`,
       placeholder: 'Introduce el telefono...',
+      idInputContainer: `inputPhoneCustomerCreateContainer`,
+      required: true,
     },
     {
       name: 'company_name',
@@ -94,6 +112,8 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       idLabel: 'labelCompanyCustomerCreate',
       idInput: `inputCompanyCustomerCreate`,
       placeholder: 'Introduce el Empresa...',
+      idInputContainer: `inputCompanyCustomerCreateContainer`,
+      required: false,
     },
     {
       name: 'NIF',
@@ -102,15 +122,73 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       idLabel: 'labelNIFCustomerCreate',
       idInput: `inputNIFCustomerCreate`,
       placeholder: 'Introduce el NIF...',
+      idInputContainer: `inputNIFCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'address',
+      label: 'Dirección',
+      type: 'text',
+      idLabel: 'labelAddressCustomerCreate',
+      idInput: `inputAddressCustomerCreate`,
+      placeholder: 'Introduce la dirección...',
+      idInputContainer: `inputAddressCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'number',
+      label: 'Numero',
+      type: 'text',
+      idLabel: 'labelNumberCustomerCreate',
+      idInput: `inputNumberCustomerCreate`,
+      placeholder: 'Introduce el numero...', 
+      idInputContainer: `inputNumberCustomerCreateContainer`, 
+      required: false,
+    },
+    {
+      name: 'city',
+      label: 'Ciudad',
+      type: 'text',
+      idLabel: 'labelCityCustomerCreate',
+      idInput: `inputCityCustomerCreate`,
+      placeholder: 'Introduce la ciudad...',
+      idInputContainer: `inputCityCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'zip_code',
+      label: 'C.P.',
+      type: 'text',
+      idLabel: 'labelZipCodeCustomerCreate',
+      idInput: `inputZipCodeCustomerCreate`,
+      placeholder: 'Introduce el C.P...',
+      idInputContainer: `inputZipCodeCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'country',
+      label: 'Pais',
+      type: 'text',
+      idLabel: 'labelCountryCustomerCreate',
+      idInput: `inputCountryCustomerCreate`,
+      placeholder: 'Introduce el pais...',
+      idInputContainer: `inputCountryCustomerCreateContainer`,
+      required: false,
     },
   ];
 
   const customerSchema = joi.object({
-    name: joi.string().min(3).max(30).required(),
-    email: joi.string().email({ tlds: false }).required().label('Email'),
-    phone: joi.string().min(9).max(30).optional(),
-    company_name: joi.string().min(0).max(30).optional(),
-    NIF: joi.string().optional(),
+    name: joi.string().min(3).max(30).required().messages(joiErrorMessages),
+    last_name: joi.string().min(3).max(30).required().messages(joiErrorMessages),
+    email: joi.string().email({ tlds: false }).required().messages(joiErrorMessages),
+    phone: joi.string().min(9).max(30).optional().messages(joiErrorMessages),
+    company_name: joi.string().min(0).max(30).optional().messages(joiErrorMessages),
+    NIF: joi.string().optional().messages(joiErrorMessages),
+    address: joi.string().optional().messages(joiErrorMessages),
+    number: joi.string().optional().messages(joiErrorMessages),
+    city: joi.string().optional().messages(joiErrorMessages),
+    zip_code: joi.string().optional().messages(joiErrorMessages),
+    country: joi.string().optional().messages(joiErrorMessages),
   });
 
   const handleClickCreateCustomer = () => {
@@ -119,7 +197,8 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       customerFormFields,
       customerSchema,
       handleCustomerCreatedAccion,
-      nameButton
+      nameButton,
+      dynamicIdModal
     );
   };
   return (

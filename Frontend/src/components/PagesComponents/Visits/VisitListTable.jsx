@@ -3,7 +3,6 @@ import { useUser } from '../../../context/authContext.jsx';
 import { useSalesList } from '../../../hooks/PagesHooks/useSalesList.js';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateVisit } from './UpdateVisit.jsx';
-import { AddButon } from '../../buttons/AddButton.jsx';
 import '../Visits/VisitListTable.css';
 
 export const VisitListTable = ({ visit, onDelete }) => {

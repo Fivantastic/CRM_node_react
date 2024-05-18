@@ -49,11 +49,13 @@
   width: auto;
   border-radius: 20px;
   background-color: transparent;
-  border: 1px solid #13214E;
+  border: none;
+  transition: all 0.3s ease;
 }
 
 .mainCreateBtn:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  scale: 1.05;
+  transition: all 0.3s ease;
 }
 
 .mainUpdateBtn {
@@ -79,6 +81,10 @@
 #imgUserCreate {
   width: 1.75rem;
   height: 1.75rem;
+}
+
+.imgCreateBtn {
+  border: none;
 }
 
 #btnUserCreate:hover {

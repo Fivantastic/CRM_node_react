@@ -136,7 +136,7 @@ export const useSalesList = (token) => {
       setFilteredSalesList(list);
       return;
     }
-
+ 
     let sortedList = [...list];
 
     switch (sortOption) {

@@ -121,7 +121,7 @@ export const CreateInvoice = ({ onAddInvoice }) => {
         className=" mainCreateBtn"
         onClick={handleClickCreateInvoice}
       >
-        Crear Factura
+        <img id='imgCreateInvoiceBtn' className='imgCreateBtn' src="./addInvoice.svg" alt="icono agregar factura" />
       </button>
     </div>
   );

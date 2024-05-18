@@ -8,6 +8,7 @@ import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
+import '../../Styles/Pages/StyleCustomerPage.css';
 const URL = import.meta.env.VITE_URL;
 
 export const CustomerPage = () => {

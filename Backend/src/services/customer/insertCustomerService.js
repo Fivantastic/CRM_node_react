@@ -9,7 +9,21 @@ import crypto from 'crypto';
 export const insertCustomerService = async (body) => {
   try {
     // Obtener los datos del body.
-    const { name, email, phone, company_name, NIF } = body;
+    const { 
+      name, 
+      last_name,
+      email, 
+      phone, 
+      company_name, 
+      NIF, 
+      address, 
+      number, 
+      floor, 
+      letter_number, 
+      city, 
+      zip_code, 
+      country
+      } = body;
 
     // Buscamos en la base de datos algún usuario con ese email.
     const existCustomer = await selectCustomerByEmailModel(email);
@@ -32,13 +46,23 @@ export const insertCustomerService = async (body) => {
     const id_address = crypto.randomUUID();
 
     // Insertamos la dirección en la base de datos.
-    await insertAddressCustomerModel(id_address);
+    await insertAddressCustomerModel(
+      id_address,
+      address,  
+      number,
+      floor,
+      letter_number,
+      city,
+      zip_code,
+      country
+    );
 
     // Insertamos el usuario en la base de datos
     const response = await insertCustomerModel(
       id_customer,
       ref,
       name,
+      last_name,
       email,
       phone,
       company_name,

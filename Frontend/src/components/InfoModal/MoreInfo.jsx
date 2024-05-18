@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ModalComponent } from './ModalComponent';
 import { MoreInfoButton } from '../buttons/MoreInfoButton.jsx';
 
-export const MoreInfo = ({ fields }) => {
+export const MoreInfo = ({ fields, modalIds }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleClick = () => {
@@ -16,7 +16,7 @@ export const MoreInfo = ({ fields }) => {
   return (
     <>
       <MoreInfoButton onClick={handleClick} />
-      <ModalComponent show={showModal} onClose={handleClose} fields={fields} />
+      <ModalComponent show={showModal} onClose={handleClose} fields={fields} modalIds={modalIds} />
     </>
   );
 };

@@ -4,6 +4,7 @@ import { UpdateCustomer } from "./UpdateCustomer.jsx";
 import { MoreInfo } from "../../InfoModal/MoreInfo.jsx";
 import '../../../Styles/Pages/StyleCustomerList.css';
 
+
 export const CustomerList = ({ customer, updateCustomer, deleteCustomer }) => {
 
   const token = useUser();
@@ -27,15 +28,24 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer }) => {
 
   // Lista de campos para crear la información del botón de más info
   const moreInfoFields = [
-    { name: 'ref_CT', label: 'Ref', value: customer.ref_CT },
-    { name: 'name', label: 'Nombre', value: nameComplete },
-    { name: 'phone', label: 'Teléfono', value: customer.phone },
-    { name: 'email', label: 'Email', value: customer.email },
-    { name: 'company_name', label: 'Empresa', value: customer.company_name },
-    { name: 'NIF', label: 'NIF', value: customer.NIF },
-    { name: 'address', label: 'Dirección', value: addressConcatenated },
-    { name: 'active', label: 'Estado', value: active },
+    { label: 'Ref', value: customer.ref_CT, id: 'element_customer_ref' },
+    { label: 'Nombre', value: nameComplete, id: 'element_customer_name' },
+    { label: 'Teléfono', value: customer.phone, id: 'element_customer_phone' },
+    { label: 'Email', value: customer.email, id: 'element_customer_email' },
+    { label: 'Empresa', value: customer.company_name, id: 'element_customer_company' },
+    { label: 'NIF', value: customer.NIF, id: 'element_customer_NIF' },
+    { label: 'Dirección', value: addressConcatenated, id: 'element_customer_address' },
+    { label: 'Estado', value: active, id: 'element_customer_active' },
   ];
+
+  const modalIds = {
+    idModalContainer: 'customerModalContainer',
+    idModalHeader: 'customerModalHeader',
+    idModalTitle: 'customerModalTitle',
+    idModalBody: 'customerModalBody',
+    idModalFooter: 'customerModalFooter',
+    idModalBtnClose: 'customerModalBtnClose',
+  };
 
   return (
     <>
@@ -49,7 +59,7 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer }) => {
       <p className="mainInsideSub"><strong>Estado: </strong> {active}</p>
 
       <nav className="actions">
-        <MoreInfo fields={moreInfoFields} />
+        <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
         <UpdateCustomer
           customer={customer.id_customer}
           onUpdateCustomer={updateCustomer}

@@ -3,7 +3,7 @@
     max-height: 300px;
     min-width: 200px;
     margin: 15px 10px 15px 0;
-    padding: 20px;
+    padding: 20px 20px 5px 20px;
     border-radius: 8px;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -27,12 +27,28 @@
     bottom: -10px;
     left: 0;
   }
-  
-  #element_customer_subtitle {
-    font-size: 1em;
-    color: #777777;
-    margin-bottom: 10px;
+
+  #element_customer_subtitle{
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
+
+  .refTitle {
+    min-width: 130px;
+  }
+  
+  .companyTitle {
+    font-size: 1.1rem;
+  }
+  
+
   
   #element_customer_section {
     font-size: 1.2em;

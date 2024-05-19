@@ -234,9 +234,8 @@ export const CustomerPage = () => {
     ];
 
   return (
-    <MainLayout>
+    <MainLayout title="Clientes">
       <section id="customer_container" className="mainContainer">
-        <h1 id="customer_title" className="mainTitle">Customer List</h1>
         <nav id="customer_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateCustomer onAddCustomer={addCustomer} token={token} />

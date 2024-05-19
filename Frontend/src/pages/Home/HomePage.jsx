@@ -1,7 +1,8 @@
-import { MaxInvoice } from '../../components/Dashboard/MaxInvoice.jsx';
-import { MaxShiments } from '../../components/Dashboard/MaxShiments.jsx';
+import { InvoicesBarCharts } from '../../components/Dashboard/InvoicesBarCharts.jsx';
+import { MaxInvoices } from '../../components/Dashboard/MaxInvoice.jsx';
+
+import { MaxShipments } from '../../components/Dashboard/MaxShipments.jsx';
 import { MaximSale } from '../../components/Dashboard/MaximSale.jsx';
-import { PaymentsBarCharts } from '../../components/Dashboard/PaymentsBarCharts.jsx';
 import { SalesBarCharts } from '../../components/Dashboard/SalesBarCharts.jsx';
 import { StockProductBarCharts } from '../../components/Dashboard/StockProductBarCharts.jsx';
 import { VisitBarCharts } from '../../components/Dashboard/VisitBarCharts.jsx';
@@ -17,15 +18,15 @@ export const HomePage = () => {
       >
         <section id="max-charts">
           <MaximSale />
-          <MaxShiments />
-          <MaxInvoice />
+          <MaxShipments />
+          <MaxInvoices />
         </section>
         <section id="charts">
           <SalesBarCharts />
           <StockProductBarCharts />
         </section>
         <section id="charts">
-          <PaymentsBarCharts />
+          <InvoicesBarCharts />
           <VisitBarCharts />
         </section>
       </section>

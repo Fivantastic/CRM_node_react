@@ -1,6 +1,6 @@
 import './Max.css';
 
-export const MaxShiments = () => {
+export const MaxShipments = () => {
   return (
     <div className="card">
       <div className="title">

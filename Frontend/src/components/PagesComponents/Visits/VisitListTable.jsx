@@ -5,7 +5,6 @@ import { UpdateVisit } from './UpdateVisit.jsx';
 import { MoreVisits } from './MoreVisits.jsx';
 import '../Visits/VisitListTable.css';
 
-
 export const VisitListTable = ({ visit, onUpdateSale, onDelete }) => {
   const token = useUser();
 
@@ -22,6 +21,15 @@ export const VisitListTable = ({ visit, onUpdateSale, onDelete }) => {
     }
   };
 
+
+  const modalIds = {
+    idModalContainer: 'visitModalContainer',
+    idModalHeader: 'visitModalHeader',
+    idModalTitle: 'visitModalTitle',
+    idModalBody: 'visitModalBody',
+    idModalFooter: 'visitModalFooter',
+    idModalBtnClose: 'visitModalBtnClose',
+  };
 
   return (
     <section id="visit_table">

@@ -12,6 +12,8 @@ import {
 } from 'recharts';
 import './Charts.css';
 
+const URL = import.meta.env.VITE_URL;
+
 export const SalesBarCharts = () => {
   const token = useUser();
   const [salesList, setSalesList] = useState([]);
@@ -19,7 +21,7 @@ export const SalesBarCharts = () => {
 
   const getSaleList = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/sales/list`, {
+      const response = await fetch(`${URL}/sales/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -58,15 +60,33 @@ export const SalesBarCharts = () => {
     };
   }, []);
 
-  const chartData = useMemo(
-    () => (loading ? <p>Loading...</p> : salesList),
-    [loading, salesList]
-  );
+  const prepareChartData = () => {
+    if (!salesList || loading) return [];
+
+    // Asumiendo que cada venta tiene una propiedad 'date' en formato YYYY-MM-DD
+    const groupedByMonth = salesList.reduce((acc, sale) => {
+      const month = new Date(sale.create_at).toLocaleString('default', {
+        month: 'long',
+      });
+      acc[month] = (acc[month] || 0) + sale.quantity;
+      return acc;
+    }, {});
+
+    // Convertir el objeto agrupado en un array de objetos compatibles con Recharts
+    const chartData = Object.entries(groupedByMonth).map(([name, value]) => ({
+      name,
+      Max: value,
+    }));
+
+    return chartData;
+  };
+
+  const chartData = useMemo(prepareChartData, [salesList, loading]);
 
   return (
     <>
       <section id="sales-charts">
-        <h2 id="customer-charts">Clintes</h2>
+        <h2 id="customer-charts">Ventas</h2>
         {loading ? (
           <div>Cargando...</div>
         ) : (
@@ -77,12 +97,12 @@ export const SalesBarCharts = () => {
               <div style={{ flex: 1 }}>
                 <ResponsiveContainer>
                   <BarChart data={chartData} width={500} height={300}>
-                    <CartesianGrid strokeDasharray="4 2 1" />
-                    <XAxis dataKey="customer" />
-                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
+                    <XAxis dataKey="name" tickLine={false} axisLine={true} />
+                    <YAxis tickFormatter={(tick) => `${tick}`} />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="quantity" fill="#3a35cd" />
+                    <Bar dataKey="Max" fill="#3a35cd" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>

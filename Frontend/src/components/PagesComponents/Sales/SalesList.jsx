@@ -52,6 +52,15 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
     },
   ];
 
+  const modalIds = {
+    idModalContainer: 'salesModalContainer',
+    idModalHeader: 'salesrModalHeader',
+    idModalTitle: 'salesModalTitle',
+    idModalBody: 'salesModalBody',
+    idModalFooter: 'salesModalFooter',
+    idModalBtnClose: 'salesModalBtnClose',
+  };
+
   return (
     <>
       <h2 id="element_sale_title " className="mainInsideTitle">

@@ -2,87 +2,64 @@ import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateVisit } from './UpdateVisit.jsx';
+import { ToggleVisitStatusButton } from '../../buttons/StatesBtn/ToggleVisitStatusButton.jsx';
+import '../../../Styles/Pages/StyleVisitList.css';
 
 export const VisitsList = ({
   visit,
-  updateVisit,
-  deleteVisit,
-  token,
+  onDelete,
+  onUpdateVisit,
   typeModule,
   typeModuleMessage,
+  token
 }) => {
-
-  console.log(visit.visit_date);
-  
   const fechaNormal = getNormalizedDate(visit.visit_date);
 
   const traducirEstadoVisita = (estado) => {
     switch (estado) {
       case 'scheduled':
-        return 'Programada';
+        return { text: 'Programada', color: 'blue' };
       case 'cancelled':
-        return 'Cancelada';
+        return { text: 'Cancelada', color: 'red' };
       case 'completed':
-        return 'Clompletada';
+        return { text: 'Completada', color: 'green' };
       default:
-        return estado;
+        return { text: estado, color: 'black' };
     }
   };
 
-  const nameComplete = `${visit.customer_name} `;
+  const estadoVisita = traducirEstadoVisita(visit.visit_status);
 
   const moreInfoFields = [
-    { name: 'ref_CT', label: 'Ref', value: visit.ref_VT },
-    { name: 'Nombre', label: 'Nombre', value: nameComplete },
-    {
-      name: 'Fecha de la visita',
-      label: 'Fecha de la visita',
-      value: fechaNormal.toLocaleDateString(),
-    },
-
-    { name: 'Observacones', label: 'Observacones', value: visit.observations },
-    {
-      name: 'Valoración de la visita',
-      label: 'Valoración de la visita',
-      value: visit.rating_visit,
-    },
-    { name: 'Comentarios', label: 'Comentarios', value: visit.rating_comment },
-
-    { name: 'Estado', label: 'Estado', value: visit.visit_status },
+    { label: 'Ref', value: visit.ref_VT },
+    { label: 'Nombre', value: `${visit.customer_name} ${visit.customer_last_name}` || visit.customer_name },
+    { label: 'Telefono', value: visit.customer_phone },
+    { label: 'Email', value: visit.customer_email },
+    { label: 'Fecha de la visita', value: fechaNormal.toLocaleDateString() },
+    { label: 'Estado', value: estadoVisita.text, color: estadoVisita.color },
+    { label: 'Dirección', value: `${visit.address} ${visit.number}, ${visit.city}, ${visit.country}` },
+    { label: 'Observaciones', value: visit.observations },
   ];
 
   return (
     <>
-      <h2 id="element_visit_section" className=" mainSubSection">
-        Cliente
-      </h2>
-      <p id="element_visit_subtitle" className="mainInsideSub">
-        Ref: {visit.ref_VT}
-      </p>
-      <p>
-        <strong>Nombre: </strong> {visit.customer_name}
-      </p>
-      <p>
-        <strong>Fecha de la visita: </strong> {fechaNormal.toLocaleDateString()}
-      </p>
-      {/* <p>
-        <strong>Observacones: </strong> {visit.observations}
-      </p> */}
-      <p>
-        <strong>Valoración de la visita: </strong> {visit.rating_visit}
-      </p>
-      {/* <p>
-        <strong>Comentarios: </strong> {visit.rating_comment}
-      </p> */}
-      <p>
-        <strong>Estado: </strong> {traducirEstadoVisita(visit.visit_status)}
-      </p>
+      <p id="element_visit_subtitle" className="mainInsideSub">Ref: {visit.ref_VT}</p>
+      <p id="VisitName" className="mainInsideSub VisitP"><strong>Nombre: </strong> {visit.customer_name} {visit.customer_last_name}</p>
+      <p id="VisitPhone" className="mainInsideSub VisitP"><strong>Telefono: </strong> {visit.customer_phone}</p>
+      <p id="VisitDate" className="mainInsideSub VisitP"><strong>Fecha de la visita: </strong> {fechaNormal.toLocaleDateString()}</p>
+      <p id="VisitState" className={`mainInsideSub VisitP ${visit.visit_status}`} style={{ color: estadoVisita.color }}><strong>Estado: </strong> {estadoVisita.text}</p>
       <span id="visit_actions" className="main_actions">
         <MoreInfo fields={moreInfoFields} modalIds={[]} />
-        <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit} />
+        <ToggleVisitStatusButton
+          id={visit.id_visit}
+          currentStatus={visit.visit_status}
+          updateVisit={onUpdateVisit}
+          token={token}
+        />
+        <UpdateVisit visit={visit.id_visit} onUpdateVisit={onUpdateVisit} />
         <DeleteGenericModal
           id={visit.id_visit}
-          onDelete={deleteVisit}
+          onDelete={onDelete}
           token={token}
           typeModule={typeModule}
           typeModuleMessage={typeModuleMessage}

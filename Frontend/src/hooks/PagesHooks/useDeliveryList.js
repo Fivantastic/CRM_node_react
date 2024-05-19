@@ -30,7 +30,7 @@ export const useDeliveryList = (token) => {
 
   const getAlbaranList = async () => {
     try {
-      const response = await fetch(`${URL}/${typeModule}`, {
+      const response = await fetch(`${URL}/${typeModule}/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export const useDeliveryList = (token) => {
 
   const handleSearch = async (searchTerm) => {
     try {
-      const response = await fetch(`${URL}/deliveryNotes/search?searchTerm=${searchTerm}`, {
+      const response = await fetch(`${URL}/${typeModule}/search?searchTerm=${searchTerm}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

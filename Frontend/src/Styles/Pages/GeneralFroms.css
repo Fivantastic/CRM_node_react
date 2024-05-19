@@ -87,3 +87,12 @@
   transition: all 0.3s ease;
 }
 
+/* Clases para el Estado Activo e Inactivo */
+.active {
+  color: green;
+}
+
+.inactive {
+  color: red;
+}
+

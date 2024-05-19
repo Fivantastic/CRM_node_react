@@ -25,7 +25,7 @@ export const Visitpage = () => {
   } = useVisitsList(token);
 
   const [isListView, setIsListView] = useState(true);
-  console.log(filteredVisitList);
+
   const filterOptions = [
     { label: 'Programada', value: 'scheduled' },
     { label: 'Cancelada', value: 'cancelled' },
@@ -64,13 +64,14 @@ export const Visitpage = () => {
                     onUpdateVisit={updateVisit}
                     typeModule={typeModule}
                     typeModuleMessage={typeModuleMessage}
+                    token={token}
                   />
                 </li>
               );
             })}
           </ol>
         ) : (
-          <VisitListTable visit={filteredVisitList} onUpdateSale={updateVisit} onDelete={deleteVisit} />
+          <VisitListTable visit={filteredVisitList} onUpdateVisit={updateVisit} onDelete={deleteVisit} token={token} />
         )}
       </section>
     </MainLayout>

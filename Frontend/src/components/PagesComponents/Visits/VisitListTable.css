@@ -1,18 +1,5 @@
-#btnVisitCreate {
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
-}
-
-#btnSalesCreate,
-#btnSalesUpdate {
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
-}
-
 #visit_table {
-  max-width: 90%;
+  max-width: 850px;
   border-radius: 8px;
   padding: 10px 15px;
   margin-top: 15px;
@@ -23,8 +10,7 @@
 #visitTableHead {
   display: flex;
   justify-content: space-between;
-  font-weight: 700;
-  margin-bottom: 1rem;
+
 }
 
 #visitTableBody {
@@ -32,54 +18,51 @@
   flex-direction: column;
 }
 
-#visitTableHead .headRow {
+.visitTableHead .headRow {
   font-weight: bold;
   text-align: start;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
 }
 
 #visitTableBodyRow {
   display: flex;
   justify-content: space-between;
+
+  align-items: center;
+  height: 50px;
 }
-#VisitTableHeadRowRef {
-  margin-right: 100px;
+
+#VisitTableHeadRowRef,
+.visitTableBodyRowRef {
+  width: 150px;
 }
 
 #visitTableHeadRowName,
-#visitTableBodyRowName {
-  width: 100px;
+.visitTableBodyRowName {
+  width: 150px;
 }
 
 #visitTableHeadRowDate,
-#visitTableBodyDate {
-  width: 100px;
+.visitTableBodyDate {
+  width: 150px;
 }
-
-/* #visitTableHeadRowDescription,
-#saleTableBodyRowDescription {
-  width: 100px;
-}
- */
-#visitTableHeadRowRating,
-#saleTableBodyRowRating {
-  width: 140px;
-}
-
-/* #visitTableHeadRowComents,
-#saleTableBodyRowComents {
-  width: 100px;
-} */
 
 #visitTableHeadRowStatus,
-#saleTableBodyRowStatus {
-  width: 90px;
+.visitTableBodyRowStatus {
+  width: 100px;
+}
+
+#visitTableHeadRowActions,
+.visitTableBodyRowActions {
+  width: 200px;
 }
 
 #visitTableHeadRowActions {
-  width: 100px;
+  padding-left: 15px;
 }
-#visitTableBodyRowActions {
+
+.visitTableBodyRowActions {
   display: flex;
-  width: 110px;
-  gap: 10px;
+  align-items: center;
 }

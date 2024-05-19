@@ -1,0 +1,23 @@
+.cancelBtn {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.iconCancel {
+    width: 28px;
+    height: 28px;
+    transition: all 0.3s ease;
+}
+
+.iconCancel:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+    transform: rotate(90deg);
+}

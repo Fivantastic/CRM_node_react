@@ -30,23 +30,23 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
   const nameComplete = `${sale.salesAgent} ${sale.last_name}`;
 
   const moreInfoFields = [
-    { name: 'ref_CT', label: 'Ref', value: sale.ref_CT },
-    { name: 'Comercial', label: 'Comercial', value: nameComplete },
-    { name: 'Producto', label: 'Producto', value: sale.product_name },
+    { label: 'Ref', value: sale.ref_SL },
+    { label: 'Comercial', value: nameComplete },
+    { label: 'Producto', value: sale.product_name },
 
-    { name: 'Precio', label: 'Precio', value: sale.product_price },
-    { name: 'Cantidad', label: 'Cantidad', value: sale.quantity },
-    { name: 'Cliente', label: 'Cliente', value: sale.customer },
+    { label: 'Precio', value: sale.product_price },
+    { label: 'Cantidad', value: sale.quantity },
+    { label: 'Cliente', value: sale.customer },
 
-    { name: 'Email', label: 'Email', value: sale.customer_email },
-    { name: 'Telefono', label: 'Telefono', value: sale.customer_phone },
+    { label: 'Email', value: sale.customer_email },
+    { label: 'Telefono', value: sale.customer_phone },
     {
-      name: 'Estado De la Venta',
+      
       label: 'Estado De la Venta',
       value: traducirEstadoVenta(sale.operation_status),
     },
     {
-      name: 'Fecha De Creación',
+      
       label: 'Fecha De Creación',
       value: dueDate.toLocaleDateString(),
     },
@@ -77,7 +77,7 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
       </h3>
       <p>{traducirEstadoVenta(sale.operation_status)}</p>
       <span id="sales_actions_list" className="main_actions">
-        <MoreInfo fields={moreInfoFields} />
+        <MoreInfo fields={moreInfoFields} modalIds={[]}/>
         <UpdateSale
           sale={sale.id_sale}
           onUpdateSale={onUpdateSale}

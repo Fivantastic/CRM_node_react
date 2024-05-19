@@ -55,16 +55,13 @@ export const InvoicePage = () => {
   
 
   return (
-    <MainLayout>
+    <MainLayout title="Facturas">
       <section id="invoice_container" className=" mainContainer">
-        <h1 id="invoice_title" className=" mainTitle">
-          Facturas
-        </h1>
         <nav id="user_nav" className="mainNav">
         <SearchPages onSearch={handleSearch}/>
         <CreateInvoice onAddInvoice={addInvoice} token={token} />
-        <SortPages options={sortOptions} onSort={handleSortChange} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
+        <SortPages options={sortOptions} onSort={handleSortChange} />
         <ToggleMode onClick={() => setIsListView(prev => !prev)} />
         </nav>
         {isListView ? (

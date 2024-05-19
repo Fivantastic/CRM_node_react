@@ -12,7 +12,7 @@ export const ShipmentPage = () => {
 
 
   return (
-    <MainLayout>
+    <MainLayout title="Envíos">
       <NavShipment setShowCrud={setShowCrud} setShowRoutes={setShowRoutes} /> {/* Pasamos las funciones para actualizar el estado de visualización del CRUD y de las rutas */}
       {showCrud && <ShipmentsCrud />} {/* Renderiza el componente de CRUD de envíos si showCrud es true */}
       {showRoutes && <DeliveryRoutes />} {/* Renderiza el componente de las rutas de entrega si showRoutes es true */}

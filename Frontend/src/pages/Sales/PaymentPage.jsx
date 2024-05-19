@@ -48,14 +48,13 @@ export const PaymentPage = () => {
   ];
 
   return (
-    <MainLayout>
+    <MainLayout title="Pagos">
       <section className="payment_container mainContainer">
-        <h1 className="payment_title mainTitle">Pagos</h1>
         <nav id="user_nav" className="mainNav">
         <SearchPages onSearch={handleSearch}/>
         <CreatePayment onAddPayment={addPayment} token={token} />
-        <SortPages options={sortOptions} onSort={handleSortChange} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
+        <SortPages options={sortOptions} onSort={handleSortChange} />
         <ToggleMode onClick={() => setIsListView(prev => !prev)} />
         </nav>
         {isListView ? (

@@ -14,11 +14,8 @@ export const ProfilePage = () => {
   const user = useUser();
 
   return (
-    <MainLayout>
+    <MainLayout title="Settings">
       <section id="profile_container" className="mainContainer">
-        <h1 id="profile_title" className=" mainTitle">
-          Settings
-        </h1>
         <section id="account">
           {user && <ChangePasswordPop token={user} />}
           {/* <ChangeAvatar />*/}

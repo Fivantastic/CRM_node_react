@@ -74,11 +74,8 @@ export const DeliveryNotePage = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout title="Albaranes">
       <section id="note_container" className="note_container mainContainer">
-        <h1 id="note_title" className=" mainTitle">
-          Albaranes
-        </h1>
         <nav id="note_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />

@@ -70,9 +70,6 @@ const ShipmentsCrud = () => {
 
   return (
     <section id="shipment_container" className="mainContainer">
-      <h1 id="shipment_title" className="mainTitle">
-        Envíos
-      </h1>
       <nav className="mainNav">
         <SearchPages onSearch={handleSearch} />
         <CreateShipment onAddShipment={addShipment} token={token} />

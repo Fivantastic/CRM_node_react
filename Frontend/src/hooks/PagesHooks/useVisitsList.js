@@ -9,33 +9,26 @@ export const useVisitsList = (token) => {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [sortOption, setSortOption] = useState(null);
 
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
   const typeModule = 'visits';
-
-  // Tipo de modulo para el nombre de los mensajes al cliente
   const typeModuleMessage = 'Visita';
 
-  // UseEffect para obtener la lista de usuarios
   useEffect(() => {
     getVisitList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  // UseEffect para aplicar los filtros
   useEffect(() => {
     applyFilters();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilters, visitList]);
 
-  // UseEffect para aplicar el ordenamiento
   useEffect(() => {
     if (filteredVisitList.length > 0) {
       sortSales(filteredVisitList);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOption]);
 
-  // Función para obtener la lista de usuarios
   const getVisitList = async () => {
     try {
       const response = await fetch(`${URL}/${typeModule}/list`, {
@@ -53,7 +46,7 @@ export const useVisitsList = (token) => {
         setFilteredVisitList(responseData.data);
       } else {
         const errorData = await response.json();
-        console.error('Obetener fallido:', errorData);
+        console.error('Obtener fallido:', errorData);
       }
     } catch (error) {
       console.error('Error al obtener la lista de visitas:', error);
@@ -64,7 +57,6 @@ export const useVisitsList = (token) => {
     }
   };
 
-  // Función para buscar usuarios
   const handleSearch = async (searchTerm) => {
     try {
       const response = await fetch(
@@ -87,16 +79,14 @@ export const useVisitsList = (token) => {
         console.error('Búsqueda fallida:', errorData);
       }
     } catch (error) {
-      console.error('Error al buscar usuarios:', error);
+      console.error('Error al buscar visitas:', error);
     }
   };
 
-  // Función para cambiar los filtros
   const handleFilterChange = (filters) => {
     setSelectedFilters(filters);
   };
 
-  // Función para cambiar el ordenamiento
   const handleSortChange = (option) => {
     setSortOption(option ? option.value : null);
     if (!option) {
@@ -104,25 +94,12 @@ export const useVisitsList = (token) => {
     }
   };
 
-  // Función para aplicar los filtros
   const applyFilters = () => {
     let filtered = visitList;
 
     if (selectedFilters.length > 0) {
       filtered = visitList.filter((visit) => {
-        let activeFilter = true;
-
-        if (
-          selectedFilters.some((filter) =>
-            ['scheduled', 'cancelled', 'completed'].includes(filter)
-          )
-        ) {
-          activeFilter = selectedFilters.some(
-            (filter) => filter === visit.visit_status
-          );
-        }
-
-        return activeFilter;
+        return selectedFilters.includes(visit.visit_status);
       });
     }
 
@@ -130,7 +107,6 @@ export const useVisitsList = (token) => {
     sortSales(filtered);
   };
 
-  // Función para ordenar la lista de usuarios
   const sortSales = (list) => {
     if (!sortOption) {
       setFilteredVisitList(list);
@@ -171,46 +147,47 @@ export const useVisitsList = (token) => {
     try {
       await getVisitList();
     } catch (error) {
-      console.error('Error al agregar el usuario:', error);
+      console.error('Error al agregar la visita:', error);
       Toast.fire({
         icon: 'error',
-        title: 'Error al agregar el usuario',
+        title: 'Error al agregar la visita',
       });
     }
   };
 
   const deleteVisit = async (id_visit) => {
     try {
-      setVisitList((prevUser) =>
-        prevUser.filter((visit) => visit.id_visit !== id_visit)
+      setVisitList((prevVisits) =>
+        prevVisits.filter((visit) => visit.id_visit !== id_visit)
       );
       await getVisitList();
     } catch (error) {
-      console.error('Error al eliminar el usuario:', error);
+      console.error('Error al eliminar la visita:', error);
       Toast.fire({
         icon: 'error',
-        title: 'Error al eliminar el usuario',
+        title: 'Error al eliminar la visita',
       });
     }
   };
 
-  // Actualizo el estado con la venta eliminada
-  const updateVisit = async (id_visit) => {
+  const updateVisit = (id_visit, newStatus) => {
     try {
-      setVisitList((prevSales) =>
-        prevSales.filter((visit) => visit.id_visit !== id_visit)
+      setVisitList((prevVisitList) =>
+        prevVisitList.map((visit) =>
+          visit.id_visit === id_visit
+            ? { ...visit, visit_status: newStatus }
+            : visit
+        )
       );
-      await getVisitList();
     } catch (error) {
-      console.error('Error al actualizar la venta:', error);
+      console.error('Error al cambiar el estado de la visita:', error);
       Toast.fire({
         icon: 'error',
-        title: 'Error al actualizar la venta',
+        title: 'Error al cambiar el estado de la visita',
       });
     }
   };
 
-  // Retornar los hooks
   return {
     filteredVisitList,
     handleSearch,

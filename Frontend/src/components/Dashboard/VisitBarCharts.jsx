@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+const URL = import.meta.env.VITE_URL;
 
 export const VisitBarCharts = () => {
   const token = useUser();
@@ -18,7 +19,7 @@ export const VisitBarCharts = () => {
 
   const getVisitList = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/visits/list`, {
+      const response = await fetch(`${URL}/visits/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -28,16 +29,20 @@ export const VisitBarCharts = () => {
 
       if (response.ok) {
         const responseData = await response.json();
+        // Ordenar y filtrar los datos aquí
+        const sortedAndFilteredData = responseData.data
+          .sort((a, b) => b.rating_visit - a.rating_visit)
+          .slice(2, 10);
 
-        // Actualizar el estado con los datos obtenidos
-        setVisitList(responseData.data);
+        // Actualizar el estado con los datos ordenados y filtrados
+        setVisitList(sortedAndFilteredData);
       } else {
         const errorData = await response.json();
-        console.error('Obetener fallido:', errorData);
+        console.error('Obtener fallido:', errorData);
         // Mostrar un mensaje de error al usuario
       }
     } catch (error) {
-      console.error('Error al obtener la lista de ventas:', error);
+      console.error('Error al obtener la lista de visitas:', error);
       // Mostrar un mensaje de error al usuario
     }
   };

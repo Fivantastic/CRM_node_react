@@ -1,5 +1,6 @@
 .filter-menu {
   position: relative;
+  z-index: 4;
 }
 
 .filter-button {

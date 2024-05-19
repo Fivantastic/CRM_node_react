@@ -11,7 +11,7 @@ import { getDeliverersController } from '../../controllers/Modules/deliveryNote/
 export const deliveryNoteRouter = express.Router();
 
 // Ruta para obtener las notas de entrega
-deliveryNoteRouter.get('/deliveryNotes', getDeliveryNotesController);
+deliveryNoteRouter.get('/deliveryNotes/list', getDeliveryNotesController);
 
 // Ruta para crear albarán de reparto
 deliveryNoteRouter.post('/delivery-notes', authenticateUser, checkRoleDelivery, createDeliveryNoteController);

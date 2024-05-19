@@ -12,14 +12,16 @@ import {
 } from 'recharts';
 import './Charts.css';
 
-export const PaymentsBarCharts = () => {
+const URL = import.meta.env.VITE_URL;
+
+export const InvoicesBarCharts = () => {
   const token = useUser();
-  const [paymentsList, setPaymentsList] = useState([]);
+  const [invoiceList, setInvoiceList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getSaleList = async () => {
+  const getInvoicesList = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/payments/list`, {
+      const response = await fetch(`${URL}/invoice`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -32,17 +34,18 @@ export const PaymentsBarCharts = () => {
         console.log('Obtener satisfactorio:', responseData);
 
         // Actualizar el estado con los datos obtenidos
-        setPaymentsList(responseData.data);
+        setInvoiceList(responseData.data);
       } else {
         const errorData = await response.json();
         console.error('Obetener fallido:', errorData);
       }
     } catch (error) {
-      console.error('Error al obtener la lista de pagos:', error);
+      console.error('Error al obtener la lista de facturas:', error);
     }
   };
+
   useEffect(() => {
-    getSaleList();
+    getInvoicesList();
     setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -57,15 +60,39 @@ export const PaymentsBarCharts = () => {
     };
   }, []);
 
-  const chartData = useMemo(
-    () => (loading ? <p>Loading...</p> : paymentsList),
-    [loading, paymentsList]
-  );
+  const prepareChartData = () => {
+    if (!invoiceList || loading) return [];
+
+    const groupedByMonth = invoiceList.reduce((acc, curr) => {
+      const month = new Date(curr.creation_at).toLocaleString('default', {
+        month: 'long',
+      });
+
+      // Verificar y convertir total_amount a número
+      const amount = Number(curr.total_amount);
+      if (isNaN(amount)) {
+        return acc;
+      }
+
+      acc[month] = (acc[month] || 0) + amount;
+      return acc;
+    }, {});
+
+    // Convertir el objeto agrupado en un array de objetos compatibles con Recharts
+    const chartData = Object.entries(groupedByMonth).map(([name, value]) => ({
+      name,
+      ingresos: value,
+    }));
+
+    return chartData;
+  };
+
+  const chartData = useMemo(prepareChartData, [invoiceList, loading]);
 
   return (
     <>
       <section id="payments-charts">
-        <h2 id="stock-charts">Pagos</h2>
+        <h2 id="stock-charts">Ingresos</h2>
         {loading ? (
           <div>Cargando...</div>
         ) : (
@@ -77,11 +104,11 @@ export const PaymentsBarCharts = () => {
                 <ResponsiveContainer>
                   <BarChart data={chartData} width={500} height={300}>
                     <CartesianGrid strokeDasharray="4 2 1" />
-                    <XAxis dataKey="customer" />
-                    <YAxis />
+                    <XAxis dataKey="name" tickLine={false} axisLine={true} />
+                    <YAxis tickFormatter={(tick) => `${tick}`} />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="paid_amount" fill="#0e8743" />
+                    <Bar dataKey="ingresos" fill="#0e8743" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>

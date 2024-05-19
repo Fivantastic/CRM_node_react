@@ -56,7 +56,7 @@ visitsRouter.delete(
 
 // Completar una visita y enviar valoacion al cliente
 visitsRouter.put(
-  '/visits/complete/:visitId',
+  '/visits/updateStatus',
   authenticateUser,
   checkRoleAgent,
   closeVisitController

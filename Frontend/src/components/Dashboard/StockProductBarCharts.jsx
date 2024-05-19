@@ -12,15 +12,16 @@ import {
 } from 'recharts';
 import './Charts.css';
 
+const URL = import.meta.env.VITE_URL;
+
 export const StockProductBarCharts = () => {
   const token = useUser();
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Función para obtener la lista de productos de la base de datos
   const getProductList = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/product/list`, {
+      const response = await fetch(`${URL}/product/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +31,13 @@ export const StockProductBarCharts = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        setProductList(responseData.data);
+        // Ordenar los productos por stock ascendente
+        let sortedProducts = [...responseData.data].sort(
+          (a, b) => a.stock - b.stock
+        );
+        // Tomar solo los primeros 10 productos ordenados por stock
+        let productsToShow = sortedProducts.slice(0, 10);
+        setProductList(productsToShow);
       } else {
         const errorData = await response.json();
         console.error('Obtener producto fallido', errorData);
@@ -59,7 +66,12 @@ export const StockProductBarCharts = () => {
   }, []);
 
   const chartData = useMemo(
-    () => (loading ? <p>Loading...</p> : productList),
+    () =>
+      loading || !productList.length ? (
+        <p>No hay productos para mostrar</p>
+      ) : (
+        productList
+      ),
     [loading, productList]
   );
 
@@ -78,8 +90,8 @@ export const StockProductBarCharts = () => {
                 <ResponsiveContainer>
                   <BarChart data={chartData} width={500} height={300}>
                     <CartesianGrid strokeDasharray="4 2 1" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
+                    <XAxis dataKey="name" tickLine={false} axisLine={true} />
+                    <YAxis tickFormatter={(tick) => `${tick}`} />
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="stock" fill="#0e8743" />

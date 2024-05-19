@@ -9,8 +9,7 @@ import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SalesListTable } from '../../components/PagesComponents/Sales/SalesListTable.jsx';
 import { useSalesList } from '../../hooks/PagesHooks/useSalesList.js';
-import { UpdateSale } from '../../components/PagesComponents/Sales/UpdateSale.jsx';
-import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
+/* import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx'; */
 
 export const SalesPage = () => {
   const token = useUser();
@@ -43,11 +42,8 @@ export const SalesPage = () => {
   ];
 
   return (
-    <MainLayout>
+    <MainLayout title="Ventas">
       <section id="sale_container " className="mainContainer">
-        <h1 id="sale_title" className=" mainTitle">
-          Ventas
-        </h1>
         <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateSale onAddSale={addSale} token={token} />
@@ -64,27 +60,19 @@ export const SalesPage = () => {
                   id="element_sale_container"
                   className=" main_ilist"
                 >
-                  <SalesList sale={data} onDelete={deleteSale} />
-                  <span id="sales_actions" className="main_actions">
-                    <UpdateSale
-                      sale={data.id_sale}
-                      onUpdateSale={updateSale}
-                      token={token}
-                    />
-                    <DeleteGenericModal
-                      id={data.id_sale}
-                      onDelete={deleteSale}
-                      token={token}
-                      typeModule={typeModule}
-                      typeModuleMessage={typeModuleMessage}
-                    />
-                  </span>
+                  <SalesList
+                    sale={data}
+                    onUpdateSale={updateSale}
+                    onDelete={deleteSale}
+                    typeModule={typeModule}
+                    typeModuleMessage={typeModuleMessage}
+                  />
                 </li>
               );
             })}
           </ol>
         ) : (
-          <SalesListTable sale={filteredSalesList} onDelete={deleteSale} />
+          <SalesListTable sale={filteredSalesList} onUpdateSale={updateSale} onDelete={deleteSale} />
         )}
       </section>
     </MainLayout>

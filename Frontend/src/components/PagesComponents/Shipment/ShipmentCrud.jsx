@@ -7,6 +7,7 @@ import { SearchPages } from '../../../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../../components/NavPages/SortPages.jsx';
 import  useShipmentList  from '../../../hooks/PagesHooks/useShipmentList.js';
+import { ToggleMode } from '../../NavPages/ToggleMode.jsx';
 
 const ShipmentsCrud = () => {
   const token = useUser();
@@ -21,6 +22,8 @@ const ShipmentsCrud = () => {
     getShipmentList,
     setFilteredShipmentList,
   } = useShipmentList(token);
+  // const [isListView, setIsListView] = useState(true);
+
 
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },
@@ -67,15 +70,13 @@ const ShipmentsCrud = () => {
 
   return (
     <section id="shipment_container" className="mainContainer">
-      <h1 id="shipment_title" className="mainTitle">
-        Envíos
-      </h1>
       <nav className="mainNav">
         <SearchPages onSearch={handleSearch} />
+        <CreateShipment onAddShipment={addShipment} token={token} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
         <SortPages options={sortOptions} onSort={handleSortChange} />
+        <ToggleMode /*onClick={() => setIsListView(prev => !prev)} */ />
       </nav>
-      <CreateShipment onAddShipment={addShipment} token={token} />
       <ol id="shipments_list" className="main_olist">
         {filteredShipmentList.map((data) => (
           <li key={data.id_shipment} className="main_ilist">

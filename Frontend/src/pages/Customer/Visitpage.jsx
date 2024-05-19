@@ -40,11 +40,8 @@ export const Visitpage = () => {
   ];
 
   return (
-    <MainLayout>
+    <MainLayout title="Visitas">
       <section id="visit_container" className=" mainContainer">
-        <h1 id="visit_title" className=" mainTitle">
-          Visitas
-        </h1>
         <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateVisit onAddVisit={addVisit} token={token} />
@@ -53,6 +50,7 @@ export const Visitpage = () => {
           <ToggleMode onClick={() => setIsListView((prev) => !prev)} />
         </nav>
         {isListView ? (
+        
           <ol id="visit_list" className="main_olist">
             {filteredVisitList.map((visit) => {
               return (
@@ -67,13 +65,14 @@ export const Visitpage = () => {
                     onUpdateVisit={updateVisit}
                     typeModule={typeModule}
                     typeModuleMessage={typeModuleMessage}
+                    token={token}
                   />
                 </li>
               );
             })}
           </ol>
         ) : (
-          <VisitListTable visit={filteredVisitList} onDelete={deleteVisit} />
+          <VisitListTable visit={filteredVisitList} onUpdateVisit={updateVisit} onDelete={deleteVisit} token={token} />
         )}
       </section>
     </MainLayout>

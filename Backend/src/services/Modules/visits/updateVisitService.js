@@ -4,7 +4,7 @@ import { selectUserByIdModel } from "../../../models/user/selectUserByIdModel.js
 import { getVisitData } from "../../../models/Modules/visits/getVisitData.js";
 import { updateVisitModel } from "../../../models/Modules/visits/updateVisitModel.js";
 
-export const updateVisitService = async (visitId, id_user, id_customer, visit_date, observations) => {
+export const updateVisitService = async (visitId, id_user, visit_date, observations) => {
     // Verifica si id_user existe
     const userData = await selectUserByIdModel(id_user);
     if (!userData) {
@@ -12,14 +12,6 @@ export const updateVisitService = async (visitId, id_user, id_customer, visit_da
     }
     
     const userId = userData.id_user;
-    
-    // Verifica si id_customer existe
-    const customerData = await selectCustomerByIdModel(id_customer);
-    if (!customerData) {
-        invalidCredentials('El cliente no existe');
-    }
-
-    const customerId = customerData.id_customer;
 
     // Obtiene la información de la visita existente
     const existingVisitData = await getVisitData(visitId);

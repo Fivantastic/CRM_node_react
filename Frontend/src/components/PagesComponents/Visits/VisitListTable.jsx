@@ -1,64 +1,58 @@
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
-import { useUser } from '../../../context/authContext.jsx';
-import { useSalesList } from '../../../hooks/PagesHooks/useSalesList.js';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateVisit } from './UpdateVisit.jsx';
+import { MoreVisits } from './MoreVisits.jsx';
+import { ToggleVisitStatusButton } from '../../buttons/StatesBtn/ToggleVisitStatusButton.jsx';
 import '../Visits/VisitListTable.css';
 
-export const VisitListTable = ({ visit, onDelete }) => {
-  const token = useUser();
-  const visitData = visit;
-
-  const fechaNormal = getNormalizedDate(visit.visit_date);
+export const VisitListTable = ({ visit, onUpdateVisit, onDelete, token }) => {
 
   const traducirEstadoVisita = (estado) => {
     switch (estado) {
       case 'scheduled':
-        return 'Programada';
+        return { text: 'Programada', color: 'blue' };
       case 'cancelled':
-        return 'Cancelada';
+        return { text: 'Cancelada', color: 'red' };
       case 'completed':
-        return 'Completada';
+        return { text: 'Completada', color: 'green' };
       default:
-        return estado;
+        return { text: estado, color: 'black' };
     }
   };
 
-  const { updateVisit } = useSalesList(token);
-
   return (
     <section id="visit_table">
-      {/* <div id="visitTableHeadRowNameCustomer">Cliente</div> */}
-      <div id="visitTableHead">
-        <div id="visitTableHeadRowName">Nombre</div>
-        <div id="visitTableHeadRowDate">Fecha de la visita</div>
-        {/* <div id="visitTableHeadRowDescription">Observacones</div> */}
-        <div id="visitTableHeadRowRating">Valoración de la visita</div>
-        {/* <div id="visitTableHeadRowComents">Comentarios</div> */}
-        <div id="visitTableHeadRowStatus">Estado</div>
-        <div id="visitTableHeadRowActions">Acciones</div>
+      <div id="visitTableHead" className="visitTableHead">
+        <div id="VisitTableHeadRowRef" className="headRow">Ref</div>
+        <div id="visitTableHeadRowName" className="headRow">Nombre</div>
+        <div id="visitTableHeadRowDate" className="headRow">Fecha de la visita</div>
+        <div id="visitTableHeadRowStatus" className="headRow">Estado</div>
+        <div id="visitTableHeadRowActions" className="headRow">Acciones</div>
       </div>
       <div id="visitTableBody">
-        {visitData.length > 0 &&
-          visitData.map((visit) => (
-            <div key={visit.id_visit} id="visitTableBodyRow">
-              <div id="visitTableBodyRowName">{visit.customer_name}</div>
-              <div id="visitTableBodyDate">
-                {fechaNormal.toLocaleDateString()}
+        {visit.length > 0 && visit.map((visitItem) => {
+          const estadoVisita = traducirEstadoVisita(visitItem.visit_status);
+          return (
+            <div key={visitItem.id_visit} id="visitTableBodyRow">
+              <div className="visitTableBodyRowRef">Ref: {visitItem.ref_VT}</div>
+              <div className="visitTableBodyRowName">{visitItem.customer_name}</div>
+              <div className="visitTableBodyDate">
+                {getNormalizedDate(visitItem.visit_date).toLocaleDateString()}
               </div>
-              {/* <div id="saleTableBodyRowDescription">{visit.observations}</div> */}
-              <div id="saleTableBodyRowRating">{visit.rating_visit}</div>
-              {/* <div id="saleTableBodyRowComents">{visit.rating_comment}</div> */}
-              <div id="saleTableBodyRowStatus">
-                {traducirEstadoVisita(visit.visit_status)}
+              <div className="visitTableBodyRowStatus" style={{ color: estadoVisita.color }}>
+                {estadoVisita.text}
               </div>
-              <div id="visitTableBodyRowActions">
-                <UpdateVisit
-                  visit={visit.id_visit}
-                  onUpdateVisit={updateVisit}
+              <div className="visitTableBodyRowActions">
+                <MoreVisits visit={visitItem} />
+                <ToggleVisitStatusButton
+                  id={visitItem.id_visit}
+                  currentStatus={visitItem.visit_status}
+                  updateVisit={onUpdateVisit}
+                  token={token}
                 />
+                <UpdateVisit visit={visitItem.id_visit} onUpdateVisit={onUpdateVisit} />
                 <DeleteGenericModal
-                  id={visit.id_visit}
+                  id={visitItem.id_visit}
                   onDelete={onDelete}
                   token={token}
                   typeModule="visit"
@@ -66,7 +60,8 @@ export const VisitListTable = ({ visit, onDelete }) => {
                 />
               </div>
             </div>
-          ))}
+          );
+        })}
       </div>
     </section>
   );

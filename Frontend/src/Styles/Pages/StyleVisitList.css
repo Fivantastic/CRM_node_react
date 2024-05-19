@@ -1,0 +1,48 @@
+#element_visit_container {
+  max-width: 350px;
+}
+
+#element_visit_subtitle {
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#VisitName,
+#VisitPhone,
+#VisitDate,
+#VisitState {
+  font-size: 0.95em;
+  color: #555555;
+}
+
+.mainInsideSub strong {
+  font-weight: bold;
+  color: #333333;
+}
+
+#visit_actions {
+  display: flex;
+  align-items: center;
+}
+
+
+
+/* Colores para los diferentes estados de la visita */
+.scheduled {
+  color: blue ;
+}
+
+.cancelled {
+  color: red ;
+}
+
+.completed {
+  color: green;
+}

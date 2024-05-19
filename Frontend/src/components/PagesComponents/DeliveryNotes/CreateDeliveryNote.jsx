@@ -116,6 +116,12 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
   };
 
   return (
-    <button className="btnNoteCreate mainCreateBtn" onClick={handleClickCreateDeliveryNote}>Crear Nota de Entrega</button>
+
+    <>
+      <button className="btnNoteCreate mainCreateBtn" onClick={handleClickCreateDeliveryNote}>
+        <img id='imgCreateNoteBtn' className='imgCreateBtn' src="./addNote.svg" alt="icono agregar Albaran" />
+      </button>
+    </>
+
   );
 };

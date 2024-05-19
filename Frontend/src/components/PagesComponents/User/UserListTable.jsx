@@ -21,7 +21,7 @@ export const UserListTable = ({ user, activeUser, onDelete }) => {
                 return 'Desconocido';
         }
     }
-    
+
     return (
         <section id="user_table" className="userTable">
             <div className="userTableHead">
@@ -31,7 +31,7 @@ export const UserListTable = ({ user, activeUser, onDelete }) => {
                 <div className="userTableHeadRowActions headRow">Acciones</div>
             </div>
             <div className="userTableBody">
-                {userData.length > 0 && userData.map(userData => (
+                {userData && userData.length > 0 ? (userData.map((userData) => (
                     <div key={userData.id_user} className="userTableBodyRow">
                         <div className="userTableBodyRowName">{`${userData.name} ${userData.last_name}`}</div>
                         <div className="userTableBodyRowRole">{traducirRole(userData.role)}</div>
@@ -42,7 +42,10 @@ export const UserListTable = ({ user, activeUser, onDelete }) => {
                             <DeleteGenericModal id={userData.id_user} onDelete={onDelete} token={token} typeModule="user" typeModuleMessage="Usuario" />
                         </div>
                     </div>
-                ))}
+                ))
+                ) : (
+                 <div>No hay usuarios disponibles</div>
+              )}
             </div>
         </section>
     );

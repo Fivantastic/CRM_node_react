@@ -14,13 +14,13 @@ export const selectCustomerSearchModel = async (search) => {
             Customers.company_name, 
             Customers.NIF,
             Customers.active, 
-            Addresses.address AS street, 
-            Addresses.number AS street_number, 
-            Addresses.floor AS floor, 
-            Addresses.letter_number AS letter_number, 
+            Addresses.address, 
+            Addresses.number, 
+            Addresses.floor, 
+            Addresses.letter_number, 
             Addresses.city, 
             Addresses.zip_code, 
-            Addresses.country 
+            Addresses.country
         FROM Customers 
         INNER JOIN Addresses ON Customers.address_id = Addresses.id_address 
         WHERE Customers.name LIKE ? OR Customers.email LIKE ? OR Customers.ref_CT LIKE ?`,

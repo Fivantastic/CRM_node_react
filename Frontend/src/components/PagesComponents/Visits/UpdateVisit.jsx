@@ -70,18 +70,9 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
   // Campos del formulario personalizables
   const updateVisitFormFields = [
     {
-      name: 'id_customer',
-      label: 'Cliente',
-      type: 'text',
-      placeholder: 'Introduce el cliente...',
-      idLabel: 'labelNameVisitUpdate',
-      idInput: 'inputNameVisitUpdate',
-    },
-    {
       name: 'id_user',
       label: 'Comercial',
       type: 'text',
-      placeholder: 'Introduce el comercial...',
       idLabel: 'labelUserVisitUpdate',
       idInput: 'inputUserVisitUpdate',
     },
@@ -89,7 +80,6 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
       name: 'visit_date',
       label: 'Fecha',
       type: 'date',
-      placeholder: 'Introduce la fecha...',
       idLabel: 'labelDateVisitUpdate',
       idInput: 'inputDateVisitUpdate',
     },
@@ -97,7 +87,6 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
       name: 'observations',
       label: 'Observaciones',
       type: 'textarea',
-      placeholder: 'Introduce las observaciones...',
       idLabel: 'labelObservationsVisitUpdate',
       idInput: 'inputObservationsVisitUpdate',
     },
@@ -105,7 +94,6 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
 
   // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
   const updateVisitSchema = Joi.object({
-    id_customer: Joi.string().guid().optional(),
     id_user: Joi.string().guid().optional(),
     visit_date: Joi.date().optional(),
     observations: Joi.string().optional(),

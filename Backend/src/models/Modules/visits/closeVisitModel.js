@@ -1,15 +1,10 @@
-import { getDBPool } from "../../../db/getPool.js";
+import { getDBPool } from '../../../db/getPool.js';
 
-export const closeVisitModel = async (visitId, close_visit) => {
-    const pool = await getDBPool();
-    const [rows] = await pool.query(
-        "UPDATE Visits SET visit_status = ? WHERE id_visit = ?",
-        [close_visit, visitId]
-    );
+export const updateVisitStatusModel = async (visitId, newStatus) => {
+  const pool = await getDBPool();
 
-    if (rows.affectedRows === 0) {
-        const error = new Error("No se ha podido cerrar la visita");
-        error.code = "STATUS_VISIT_ERROR";
-        throw error;
-    }
-}
+  await pool.query(
+    `UPDATE Visits SET visit_status = ?, update_at = NOW() WHERE id_visit = ?`,
+    [newStatus, visitId]
+  );
+};

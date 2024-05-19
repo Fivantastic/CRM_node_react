@@ -90,10 +90,16 @@
 
   }
 
+  .swal2-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
 
   .customConfirmBtnClass,
   .customCancelBtnClass {
-    position: absolute;
     background-color: transparent;
     border: transparent;
     border-radius: 20px;
@@ -105,18 +111,14 @@
   }
 
   .customConfirmBtnClass {
-    left: 25%;
-    bottom: 20px;
     color: #13214E;
-    /* color verde con opacidad */
+
     background-color: rgba(0, 128, 0, 0.5);
   }
 
   .customCancelBtnClass {
-    right: 25%;
-    bottom: 20px;
     color: #13214E;
-    /* color rojo con opacidad */
+
     background-color: rgba(255, 0, 0, 0.5);
   }
 

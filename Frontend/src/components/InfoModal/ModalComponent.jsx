@@ -40,7 +40,7 @@ export const ModalComponent = ({ show, onClose, fields, modalIds }) => {
         </div>
         <div id={idModalBody} className="modal-body">
           {fields.map((field, index) => (
-            <p id={field.id || ''} className="modal-field" key={index}><strong>{field.label}:</strong> {field.value}</p>
+            <p id={field.id || ''} className="modal-field" key={index} style={field.color ? { color: field.color } : {}}><strong>{field.label}:</strong> {field.value}</p>
           ))}
         </div>
         <div id={idModalFooter} className="modal-footer">

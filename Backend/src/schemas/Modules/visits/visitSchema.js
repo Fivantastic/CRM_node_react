@@ -16,6 +16,10 @@ export const updateVisitSchema = Joi.object({
     observations: Joi.string().optional().messages(joiErrorMessages), // Observación de la visita
 });
 
+export const updateVisitIDSchema = Joi.object({
+    visitId: Joi.string().guid().required().messages(joiErrorMessages), // ID de la visita
+});
+
 export const feedbackVisitSchema = Joi.object({
     rating_visit: Joi.number().required().min(1).max(5).messages(joiErrorMessages), 
     comment_visit: Joi.string().optional().messages(joiErrorMessages)

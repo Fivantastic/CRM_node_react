@@ -103,11 +103,11 @@
 
 /* Clases para el Estado Activo e Inactivo */
 .active {
-  color: #24d424;
+  color: green;
 }
 
 .inactive {
-  color: #d72721;
+  color: red;
 }
 
 /* Estilo adicional para la Sección */

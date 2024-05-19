@@ -53,6 +53,7 @@ export const Visitpage = () => {
           <ToggleMode onClick={() => setIsListView((prev) => !prev)} />
         </nav>
         {isListView ? (
+        
           <ol id="visit_list" className="main_olist">
             {filteredVisitList.map((visit) => {
               return (

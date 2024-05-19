@@ -18,11 +18,11 @@ export const DeliveryNotePage = () => {
 
   const {
     filteredAlbaranList,
+    setFilteredAlbaranList,
     handleSearch,
     handleFilterChange,
     handleSortChange,
     getAlbaranList,
-    setFilteredAlbaranList,
   } = useDeliveryList(token);
   // const [isListView, setIsListView] = useState(true);
 
@@ -36,20 +36,22 @@ export const DeliveryNotePage = () => {
   const sortOptions = [
     { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
     { label: 'Fecha (Recientes)', value: 'fecha-desc' },
-   
   ];
 
   const addDeliveryNote = (newDeliveryNote) => {
+    console.log('Añadiendo nuevo albarán:', newDeliveryNote);
+    if (!newDeliveryNote.id_note) {
+      console.error('El nuevo albarán no tiene id_note:', newDeliveryNote);
+      return;
+    }
     setFilteredAlbaranList((prevList) => [...prevList, newDeliveryNote]);
   };
 
   const deleteDeliveryNote = async (id_note) => {
     try {
-      // Eliminar la venta del estado local
       setFilteredAlbaranList((prevList) =>
         prevList.filter((deliveryNote) => deliveryNote.id_note !== id_note)
       );
-      // Solicitar la lista actualizada de ventas al servidor utilizando la función reutilizada
       await getAlbaranList();
     } catch (error) {
       console.error('Error al eliminar la venta:', error);
@@ -59,7 +61,6 @@ export const DeliveryNotePage = () => {
 
   const updateDeleveryNotes = async (id_note) => {
     try {
-      // Actualizar el estado de filteredAlbaranList
       setFilteredAlbaranList((prevList) =>
         prevList.filter((deleveryNotes) => deleveryNotes.id_note !== id_note)
       );

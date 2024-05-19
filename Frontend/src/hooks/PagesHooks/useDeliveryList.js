@@ -14,19 +14,20 @@ export const useDeliveryList = (token) => {
   
   useEffect(() => {
     getAlbaranList();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [token]);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   useEffect(() => {
     applyFilters(); 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [selectedFilters, albaranList]);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFilters, albaranList]);
 
   useEffect(() => {
     if (filteredAlbaranList.length > 0) {
       sortAlbaranes(filteredAlbaranList);
-    }    // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [sortOption]);
+    }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortOption]);
 
   const getAlbaranList = async () => {
     try {
@@ -126,8 +127,10 @@ export const useDeliveryList = (token) => {
 
   return {
     filteredAlbaranList,
+    setFilteredAlbaranList,  // Asegúrate de exportar esta función
     handleSearch,
     handleFilterChange,
     handleSortChange,
+    getAlbaranList,
   };
 };

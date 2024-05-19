@@ -2,30 +2,21 @@ import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { useOpenSales } from '../../../hooks/PagesHooks/useOpenSales.js';
-import { useState, useEffect } from 'react';
+import { useDeliverers } from '../../../hooks/PagesHooks/useDeliverers.js';
+import { useState } from 'react';
 
 export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
   const openSales = useOpenSales(token);
-  const [selectedSale, setSelectedSale] = useState(null);
+  const deliverers = useDeliverers(token);
+
   const [formValues, setFormValues] = useState({
-    deliverer_id: '',
-    address_id: '',
-    customer_id: '',
-    saleProduct_id: ''
+    ref_SL: '',
+    deliverer_id: ''
   });
 
-  useEffect(() => {
-    if (selectedSale !== null) {
-      setFormValues({
-        deliverer_id: selectedSale.deliverer_id || '',
-        address_id: selectedSale.address_id || '',
-        customer_id: selectedSale.id_customer || '',
-        saleProduct_id: selectedSale.id_saleProduct || ''
-      });
-    }
-  }, [selectedSale]);
-
   const handleDeliveryNoteCreatedAction = async (formData) => {
+    console.log('Form Data being sent to backend:', formData);
+
     try {
       const response = await fetch('http://localhost:3000/delivery-notes', {
         method: 'POST',
@@ -40,24 +31,19 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Nota de entrega creada satisfactoriamente:', responseData);
+        console.log(responseData.data);
 
+        // Asegúrate de que onAddDeliveryNote recibe el objeto de datos correcto
         onAddDeliveryNote(responseData.data);
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
+        Swal.fire({
+          icon: 'success',
+          title: 'Nota de entrega creada con éxito',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-
-        Toast.fire({
-          icon: 'success',
-          title: 'Nota de entrega creada con éxito',
+          position: 'top-end',
+          toast: true,
         });
       } else {
         const errorData = await response.json();
@@ -68,10 +54,12 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
     }
   };
 
-  const handleSaleChange = (e) => {
-    const saleId = e.target.value;
-    const sale = openSales.find(sale => sale.id_sale === saleId);
-    setSelectedSale(sale);
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
   const title = 'Crear Nota de Entrega';
@@ -79,94 +67,61 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
 
   const deliveryNoteFormFields = [
     {
-      key: `sale_id`, 
-      name: 'sale_id',
+      key: 'ref_SL', 
+      name: 'ref_SL',
       label: 'Venta',
       type: 'select',
       options: openSales.map(sale => ({
-        value: sale.id_sale,
+        value: sale.ref_SL,
         label: sale.customer_name
       })),
-      idLabel: 'labelSaleIdNoteCreate',
-      idInput: 'inputSaleIdNoteCreate',
+      idLabel: 'labelRefSLNoteCreate',
+      idInput: 'inputRefSLNoteCreate',
       required: true,
-      onChange: handleSaleChange,
-      value: selectedSale?.id_sale || ''
+      onChange: handleFieldChange,
+      value: formValues.ref_SL
     },
     {
-      key: `deliverer_id`, 
+      key: 'deliverer_id', 
       name: 'deliverer_id',
-      label: 'ID del Repartidor',
-      type: 'text',
-      placeholder: 'Introduce el ID del repartidor...',
+      label: 'Repartidor',
+      type: 'select',
+      options: deliverers.map(deliverer => ({
+        value: deliverer.id_user, 
+        label: `${deliverer.name} ${deliverer.last_name}` 
+      })),
       idLabel: 'labelDelivererNoteCreate',
       idInput: 'inputDelivererNoteCreate',
       required: true,
-      value: formValues.deliverer_id,
-      readOnly: true
-    },
-    {
-      key: `address_id`, 
-      name: 'address_id',
-      label: 'ID de la Dirección',
-      type: 'text',
-      placeholder: 'Introduce el ID de la dirección...',
-      idLabel: 'labelAddressIdNoteCreate',
-      idInput: 'inputAddressIdNoteCreate',
-      required: true,
-      value: formValues.address_id,
-      readOnly: true
-    },
-    {
-      key: `customer_id`, 
-      name: 'customer_id',
-      label: 'ID del Cliente',
-      type: 'text',
-      placeholder: 'Introduce el ID del cliente...',
-      idLabel: 'labelCustomerIdNoteCreate',
-      idInput: 'inputCustomerIdNoteCreate',
-      required: true,
-      value: formValues.customer_id,
-      readOnly: true
-    },
-    {
-      key: `saleProduct_id`, 
-      name: 'saleProduct_id',
-      label: 'ID del Producto de la Venta',
-      type: 'text',
-      placeholder: 'Introduce el ID del producto de la venta...',
-      idLabel: 'labelSaleProductIdNoteCreate',
-      idInput: 'inputSaleProductIdNoteCreate',
-      required: true,
-      value: formValues.saleProduct_id,
-      readOnly: true
-    },
+      onChange: handleFieldChange,
+      value: formValues.deliverer_id
+    }
   ];
 
   const deliveryNoteSchema = Joi.object({
-    sale_id: Joi.string().required(),
-    deliverer_id: Joi.string().required(),
-    address_id: Joi.string().required(),
-    customer_id: Joi.string().required(),
-    saleProduct_id: Joi.string().required(),
+    ref_SL: Joi.string().required(),
+    deliverer_id: Joi.string().guid().required()
   });
 
   const handleClickCreateDeliveryNote = () => {
+    console.log('Current form values before opening popup:', formValues);
     DynamicFormPopUp(
       title,
       deliveryNoteFormFields,
       deliveryNoteSchema,
       handleDeliveryNoteCreatedAction,
       nameButton,
-      formValues 
+      formValues
     );
   };
 
   return (
+
     <>
       <button className="btnNoteCreate mainCreateBtn" onClick={handleClickCreateDeliveryNote}>
         <img id='imgCreateNoteBtn' className='imgCreateBtn' src="./addNote.svg" alt="icono agregar Albaran" />
       </button>
     </>
+
   );
 };

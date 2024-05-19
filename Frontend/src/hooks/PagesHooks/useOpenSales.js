@@ -1,4 +1,3 @@
-// hooks/PagesHooks/useOpenSales.js
 import { useState, useEffect } from 'react';
 
 export const useOpenSales = (token) => {
@@ -20,9 +19,11 @@ export const useOpenSales = (token) => {
           setOpenSales(data.data);
         } else {
           console.error('Error al obtener las ventas abiertas');
+          setOpenSales([]); // Asegura que se establece un array vacío en caso de error
         }
       } catch (error) {
         console.error('Error al realizar la solicitud:', error);
+        setOpenSales([]); // Asegura que se establece un array vacío en caso de error
       }
     };
 

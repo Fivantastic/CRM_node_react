@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import '../../Styles/Pages/DymanicsPopUps.css';
 
-const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
+const DynamicDeliveryPopUp = (title, fields, schema, onSubmit, buttonText, initialValues = {}) => {
   const handleClickSubmit = async () => {
     const { value: formData } = await Swal.fire({
       title: title,
@@ -33,7 +33,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
       confirmButtonText: `${buttonText}`,
-      buttonsStyling: false, 
+      buttonsStyling: false,
       customClass: {
         confirmButton: 'customConfirmBtnClass',
         cancelButton: 'customCancelBtnClass'
@@ -41,18 +41,21 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
       willOpen: () => {
         fields.forEach(field => {
           const input = document.getElementById(field.name);
-          if (input && field.defaultValue) {
-            input.value = field.defaultValue;
+          if (input) {
+            console.log(`Setting initial value for ${field.name}:`, initialValues[field.name]);
+            input.value = initialValues[field.name] || '';
           }
           if (field.type === 'select') {
             const selectElement = document.getElementById(field.name);
             selectElement.innerHTML = generateSelectOptions(field.options);
-            selectElement.selectedIndex = -1;
-            // Agregar clase al elemento select
+            selectElement.value = initialValues[field.name] || '';
             selectElement.classList.add('no-selection');
-            // Agregar evento change al elemento select
+            if (selectElement.value) {
+              selectElement.classList.add('has-selection');
+              selectElement.classList.remove('no-selection');
+            }
             selectElement.addEventListener('change', function() {
-              if (this.value !== "-1") {
+              if (this.value !== "") {
                 this.classList.remove('no-selection');
                 this.classList.add('has-selection');
               } else {
@@ -81,7 +84,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
     });
     return html;
   };
-  
+
   const generateRegularField = (field) => {
     if (field.type === 'file') {
       return `
@@ -91,29 +94,28 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
     } else {
       return `
       <div class="input-container">
-      <input id="${field.name}" type="${field.type}" class="inputText" required="">
+      <input id="${field.name}" type="${field.type}" class="inputText">
       <label for="${field.name}" id="${field.idLabel}" class="label labelText">${field.label}</label>
       <div class="underline"></div>
       </div>
       `;
     }
   };
-  
-  
+
   const generateSelectField = (field) => {
     return `
     <div class="input-container">
       <select id="${field.name}" class="inputSelect">
         ${generateSelectOptions(field.options)}
-        </select>
+      </select>
       <label for="${field.name}" id="${field.idLabel}" class="labelSelect ">${field.label}</label>
       <div class="underline"></div>
     </div>
     `;
   };
-  
+
   const generateSelectOptions = (options) => {
-    let selectOptionsHtml = '';
+    let selectOptionsHtml = '<option value="">Seleccione...</option>';
 
     if (options) {
       for (const group in options) {
@@ -141,4 +143,4 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
   handleClickSubmit();
 };
 
-export default DynamicFormPopUp;
+export default DynamicDeliveryPopUp;

@@ -1,5 +1,5 @@
 .userTable {
-    max-width: 800px;
+    max-width: 700px;
     border-radius: 8px;
     padding: 10px 15px;
     margin-top: 15px;
@@ -20,12 +20,16 @@
 .userTableHead .headRow {
     font-weight: bold;
     text-align: start;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+
 }
 
 .userTableBodyRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 50px;
 
 }
 
@@ -33,7 +37,7 @@
 
 .userTableHeadRowName,
 .userTableBodyRowName { 
-    width: 200px;
+    width: 280px;
 }
 
 .userTableHeadRowRole,
@@ -56,5 +60,6 @@
 }
 .userTableBodyRowActions {
     display: flex;
+    align-items: center;
     
 }

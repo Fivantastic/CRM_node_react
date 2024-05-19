@@ -53,6 +53,16 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
       value: dueDate.toLocaleDateString(),
     },
   ];
+
+  const modalIds = {
+    idModalContainer: 'salesModalContainer',
+    idModalHeader: 'salesrModalHeader',
+    idModalTitle: 'salesModalTitle',
+    idModalBody: 'salesModalBody',
+    idModalFooter: 'salesModalFooter',
+    idModalBtnClose: 'salesModalBtnClose',
+  };
+
   return (
     <section id="sales_table">
       <div id="salesTableHead">
@@ -81,7 +91,7 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
                 <p>{traducirEstadoVenta(sale.operation_status)}</p>
               </div>
               <div id="salesTableBodyRowActions">
-                <MoreInfo fields={moreInfoFields} />
+                <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
                 <UpdateSale
                   sale={sale.id_sale}
                   onUpdateSale={onUpdateSale}

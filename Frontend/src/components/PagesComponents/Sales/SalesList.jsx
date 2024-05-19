@@ -52,6 +52,15 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
     },
   ];
 
+  const modalIds = {
+    idModalContainer: 'salesModalContainer',
+    idModalHeader: 'salesrModalHeader',
+    idModalTitle: 'salesModalTitle',
+    idModalBody: 'salesModalBody',
+    idModalFooter: 'salesModalFooter',
+    idModalBtnClose: 'salesModalBtnClose',
+  };
+
   return (
     <>
       <h2 id="element_sale_title " className="mainInsideTitle">
@@ -77,7 +86,7 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
       </h3>
       <p>{traducirEstadoVenta(sale.operation_status)}</p>
       <span id="sales_actions_list" className="main_actions">
-        <MoreInfo fields={moreInfoFields} />
+        <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
         <UpdateSale
           sale={sale.id_sale}
           onUpdateSale={onUpdateSale}

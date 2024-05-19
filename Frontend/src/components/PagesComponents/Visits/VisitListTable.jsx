@@ -5,7 +5,6 @@ import { UpdateVisit } from './UpdateVisit.jsx';
 import '../Visits/VisitListTable.css';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 
-
 export const VisitListTable = ({ visit, onUpdateSale, onDelete }) => {
   const token = useUser();
   const visitData = visit;
@@ -45,6 +44,15 @@ export const VisitListTable = ({ visit, onUpdateSale, onDelete }) => {
     { name: 'Estado', label: 'Estado', value: visit.visit_status },
   ];
 
+  const modalIds = {
+    idModalContainer: 'visitModalContainer',
+    idModalHeader: 'visitModalHeader',
+    idModalTitle: 'visitModalTitle',
+    idModalBody: 'visitModalBody',
+    idModalFooter: 'visitModalFooter',
+    idModalBtnClose: 'visitModalBtnClose',
+  };
+
   return (
     <section id="visit_table">
       {/* <div id="visitTableHeadRowNameCustomer">Cliente</div> */}
@@ -74,7 +82,7 @@ export const VisitListTable = ({ visit, onUpdateSale, onDelete }) => {
                 {traducirEstadoVisita(visit.visit_status)}
               </div>
               <div id="visitTableBodyRowActions">
-                <MoreInfo fields={moreInfoFields} />
+                <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
                 <UpdateVisit
                   visit={visit.id_visit}
                   onUpdateVisit={onUpdateSale}

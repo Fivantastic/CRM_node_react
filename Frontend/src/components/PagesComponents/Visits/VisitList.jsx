@@ -26,7 +26,7 @@ export const VisitsList = ({
     }
   };
 
-  const nameComplete = `${visit.customer_name} `;
+  const nameComplete = `${visit.visit_name} `;
 
   const moreInfoFields = [
     { name: 'ref_CT', label: 'Ref', value: visit.ref_VT },
@@ -48,6 +48,15 @@ export const VisitsList = ({
     { name: 'Estado', label: 'Estado', value: visit.visit_status },
   ];
 
+  const modalIds = {
+    idModalContainer: 'visitModalContainer',
+    idModalHeader: 'visitModalHeader',
+    idModalTitle: 'visitModalTitle',
+    idModalBody: 'visitModalBody',
+    idModalFooter: 'visitModalFooter',
+    idModalBtnClose: 'visitModalBtnClose',
+  };
+
   return (
     <>
       <h2 id="element_visit_section" className=" mainSubSection">
@@ -57,7 +66,7 @@ export const VisitsList = ({
         Ref: {visit.ref_VT}
       </p>
       <p>
-        <strong>Nombre: </strong> {visit.customer_name}
+        <strong>Nombre: </strong> {visit.visit_name}
       </p>
       <p>
         <strong>Fecha de la visita: </strong> {fechaNormal.toLocaleDateString()}
@@ -75,7 +84,7 @@ export const VisitsList = ({
         <strong>Estado: </strong> {traducirEstadoVisita(visit.visit_status)}
       </p>
       <span id="visit_actions" className="main_actions">
-        <MoreInfo fields={moreInfoFields} />
+        <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
         <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit} />
         <DeleteGenericModal
           id={visit.id_visit}

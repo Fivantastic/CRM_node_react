@@ -11,10 +11,7 @@ import './Home.css';
 
 export const HomePage = () => {
   return (
-    <MainLayout>
-      <h1 id="dashboard_title" className=" mainTitle">
-        Dashboard
-      </h1>
+    <MainLayout title="Dashboard">
       <section
         id="dashboard_container"
         className="note_container mainContainer"

@@ -44,9 +44,8 @@ export const ProductPage = () => {
   //Manejadores de eventos
   return (
     
-    <MainLayout>
+    <MainLayout title="Productos">
       <section id="product_container " className="mainContainer">
-        <h1 id="product_title" className=" mainTitle">Products</h1>
         <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateProduct onAddUser={addProduct} token={token} />

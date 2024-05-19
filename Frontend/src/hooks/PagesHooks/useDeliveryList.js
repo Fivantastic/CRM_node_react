@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Toast } from '../../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
-const typeModule = 'deliveryNotes';
 
 export const useDeliveryList = (token) => {
   const [albaranList, setAlbaranList] = useState([]);
@@ -10,7 +9,9 @@ export const useDeliveryList = (token) => {
   const [filteredAlbaranList, setFilteredAlbaranList] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [sortOption, setSortOption] = useState(null);
-
+  
+  const typeModule = 'deliveryNotes';
+  
   useEffect(() => {
     getAlbaranList();
         // eslint-disable-next-line react-hooks/exhaustive-deps

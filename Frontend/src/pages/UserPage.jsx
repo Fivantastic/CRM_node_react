@@ -45,9 +45,8 @@ export const UserPage = () => {
 
   // Manejadores de eventos
   return (
-    <MainLayout>
+    <MainLayout title="Usuarios">
       <section id="user_container" className="mainContainer">
-        <h1 id="user_title" className="mainTitle">User List</h1>
         <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateUser onAddUser={addUser} token={token} />

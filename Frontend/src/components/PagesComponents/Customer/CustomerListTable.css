@@ -1,4 +1,4 @@
-.userTable {
+.customerTable {
     max-width: 700px;
     border-radius: 8px;
     padding: 10px 15px;
@@ -7,59 +7,64 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
 
-.userTableHead {
+.customerTableHead {
     display: flex;
     justify-content: space-between;
 }
 
-.userTableBody {
+.customerTableBody {
     display: flex;
     flex-direction: column;
 }
 
-.userTableHead .headRow {
+.customerTableHead {
     font-weight: bold;
     text-align: start;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #ccc;
-
+    column-gap: 10px;
 }
 
-.userTableBodyRow {
+.headRow {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.customerTableBodyRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    column-gap: 10px;
     height: 50px;
-
 }
 
 /* Puedes ajustar los estilos adicionales según sea necesario */
 
-.userTableHeadRowName,
-.userTableBodyRowName { 
-    width: 280px;
-}
-
-.userTableHeadRowRole,
-.userTableBodyRowRole {
+.customerTableHeadRowReference,
+.customerTableBodyRowReference {
     width: 100px;
+
 }
 
-.userTableHeadRowActive,
-.userTableBodyRowActive {
-    width: 60px;
+.customerTableHeadRowCompany,
+.customerTableBodyRowCompany {
+    width: 240px;
 }
 
-.userTableBodyRowActions,
-.userTableHeadRowActions {
-    width: 180px;
+
+.customerTableHeadRowStatus,
+.customerTableBodyRowStatus {
+    width: 80px;
 }
 
-.userTableHeadRowActions{
-    padding-left: 20px; 
+.customerTableHeadRowActions,
+.customerTableBodyRowActions {
+    width: 150px;
 }
-.userTableBodyRowActions {
+
+.customerTableHeadRowActions {
+    padding-left: 15px;
+}
+
+.customerTableBodyRowActions {
     display: flex;
     align-items: center;
-    
 }

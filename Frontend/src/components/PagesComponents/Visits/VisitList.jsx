@@ -11,6 +11,9 @@ export const VisitsList = ({
   typeModule,
   typeModuleMessage,
 }) => {
+
+  console.log(visit.visit_date);
+  
   const fechaNormal = getNormalizedDate(visit.visit_date);
 
   const traducirEstadoVisita = (estado) => {
@@ -84,7 +87,7 @@ export const VisitsList = ({
         <strong>Estado: </strong> {traducirEstadoVisita(visit.visit_status)}
       </p>
       <span id="visit_actions" className="main_actions">
-        <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
+        <MoreInfo fields={moreInfoFields} modalIds={[]} />
         <UpdateVisit visit={visit.id_visit} onUpdateVisit={updateVisit} />
         <DeleteGenericModal
           id={visit.id_visit}

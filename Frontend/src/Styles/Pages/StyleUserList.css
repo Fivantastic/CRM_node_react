@@ -75,11 +75,11 @@
 }
 
 .container-avatar-active.active {
-  background-color: #5deb5d;
+  background-color: #24d424;
 }
 
 .container-avatar-active.inactive {
-  background-color: #ee3933;
+  background-color: #d72721;
 }
 
 /* Contenedor de los Detalles en el Modal */
@@ -103,11 +103,11 @@
 
 /* Clases para el Estado Activo e Inactivo */
 .active {
-  color: green;
+  color: #24d424;
 }
 
 .inactive {
-  color: red;
+  color: #d72721;
 }
 
 /* Estilo adicional para la Sección */

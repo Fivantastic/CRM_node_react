@@ -1,6 +1,6 @@
 .header-container {
-  display: flex;
-  justify-content: end;
+  display: grid;
+  grid-template-columns:1fr 60px 80px;
   align-items: center;
   padding: 10px 20px;
 
@@ -9,6 +9,12 @@
 .profileNavContainer {
   margin-right: 10px;
   justify-content: end;
+}
+
+.header-title-pages{
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-left: 50px;
 }
 
 .iconReverse {

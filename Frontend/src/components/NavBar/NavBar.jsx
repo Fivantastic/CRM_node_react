@@ -43,7 +43,7 @@ export const NavBar = () => {
                                 <span className="hidden">Customer</span>
                             </NavLink>
                             <NavLink to="/product" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
-                                <img className="iconSidebar" src="./product.svg" alt="" />
+                                <img className="iconSidebar" src="./Product.svg" alt="" />
                                 <span className="hidden">Product</span>
                             </NavLink>
                             <NavLink to="/visit" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>

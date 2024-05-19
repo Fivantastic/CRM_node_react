@@ -30,6 +30,7 @@ export const VisitsList = ({
 
   const estadoVisita = traducirEstadoVisita(visit.visit_status);
 
+
   const moreInfoFields = [
     { label: 'Ref', value: visit.ref_VT },
     { label: 'Nombre', value: `${visit.customer_name} ${visit.customer_last_name}` || visit.customer_name },
@@ -41,6 +42,15 @@ export const VisitsList = ({
     { label: 'Observaciones', value: visit.observations },
   ];
 
+  const modalIds = {
+    idModalContainer: 'visitModalContainer',
+    idModalHeader: 'visitModalHeader',
+    idModalTitle: 'visitModalTitle',
+    idModalBody: 'visitModalBody',
+    idModalFooter: 'visitModalFooter',
+    idModalBtnClose: 'visitModalBtnClose',
+  };
+
   return (
     <>
       <p id="element_visit_subtitle" className="mainInsideSub">Ref: {visit.ref_VT}</p>
@@ -48,6 +58,7 @@ export const VisitsList = ({
       <p id="VisitPhone" className="mainInsideSub VisitP"><strong>Telefono: </strong> {visit.customer_phone}</p>
       <p id="VisitDate" className="mainInsideSub VisitP"><strong>Fecha de la visita: </strong> {fechaNormal.toLocaleDateString()}</p>
       <p id="VisitState" className={`mainInsideSub VisitP ${visit.visit_status}`} style={{ color: estadoVisita.color }}><strong>Estado: </strong> {estadoVisita.text}</p>
+
       <span id="visit_actions" className="main_actions">
         <MoreInfo fields={moreInfoFields} modalIds={[]} />
         <ToggleVisitStatusButton

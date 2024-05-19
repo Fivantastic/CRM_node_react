@@ -2,6 +2,7 @@ import Joi from 'joi';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { EditButton } from '../../buttons/EditButton.jsx';
 
 export const UpdateProduct = ({ product, onUpdateProduct }) => {
   // Asi obtienes el token del usuario de la sesión
@@ -133,8 +134,14 @@ const handleUpdateProduct = () => {
 
 return (
     <>
-        <button className="btnProductUpdate mainUpdateBtn" onClick={handleUpdateProduct}>Actualizar Producto</button>
-    </>
+      <EditButton
+      id="btnProductUpdate"
+      className="mainUpdateBtn"
+      onClick={handleUpdateProduct}
+    />
+   
+   </>
+    
 );
 
 } 

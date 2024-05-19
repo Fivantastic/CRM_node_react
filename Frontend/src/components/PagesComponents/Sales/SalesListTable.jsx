@@ -26,8 +26,9 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
         return estado;
     }
   };
+  
   const nameComplete = `${sale.salesAgent} ${sale.last_name}`;
-
+  
   return (
     <section id="sales_table">
       <div id="salesTableHead">

@@ -1,14 +1,15 @@
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
 import { useState } from 'react';
+import { useCustomerList } from '../../hooks/PagesHooks/useCustomerList.js';
 import { CreateCustomer } from '../../components/PagesComponents/Customer/CreateCustomer.jsx';
 import { CustomerList } from '../../components/PagesComponents/Customer/CustomerList.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
+import { CustomerListTable } from '../../components/PagesComponents/Customer/CustomerListTable.jsx';
 import '../../Styles/Pages/StyleCustomerPage.css';
-import { useCustomerList } from '../../hooks/PagesHooks/useCustomerList.js';
 
 export const CustomerPage = () => {
   const token = useUser();
@@ -58,7 +59,7 @@ export const CustomerPage = () => {
             ))}
           </ol>
         ) : (
-          <div>En construcción</div>
+          <CustomerListTable customer={filteredCustomerList} updateCustomer={updateCustomer} onDelete={deleteCustomer} />
         )}
       </section>
     </MainLayout>

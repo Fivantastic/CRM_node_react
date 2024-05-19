@@ -58,10 +58,9 @@
     grid-area: Empresa;
 }
 
-#inputNameCustomerCreateContainer,
+
 #inputLastNameCustomerCreateContainer,
 #inputPhoneCustomerCreateContainer,
-#inputAddressCustomerCreateContainer,
 #inputNumberCustomerCreateContainer,
 #inputCityCustomerCreateContainer,
 #inputZipCodeCustomerCreateContainer,
@@ -69,7 +68,12 @@
 #inputEmailCustomerCreateContainer,
 #inputNIFCustomerCreateContainer,
 #inputCompanyCustomerCreateContainer {
-    margin : 10px 10px;
+    margin: 10px 10px;
+}
+
+#inputNameCustomerCreateContainer,
+#inputAddressCustomerCreateContainer {
+    margin : 16px 10px;
 }
 
 

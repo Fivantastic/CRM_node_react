@@ -72,7 +72,7 @@ export const SalesPage = () => {
             })}
           </ol>
         ) : (
-          <SalesListTable sale={filteredSalesList} onDelete={deleteSale} />
+          <SalesListTable sale={filteredSalesList} onUpdateSale={updateSale} onDelete={deleteSale} />
         )}
       </section>
     </MainLayout>

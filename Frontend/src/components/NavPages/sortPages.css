@@ -1,5 +1,6 @@
 .sort-dropdown {
     position: relative;
+    z-index: 4;
   }
   
   .dropdown-toggle {

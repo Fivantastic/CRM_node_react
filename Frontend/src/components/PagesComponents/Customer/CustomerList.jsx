@@ -6,7 +6,6 @@ import '../../../Styles/Pages/StyleCustomerList.css';
 
 
 export const CustomerList = ({ customer, updateCustomer, deleteCustomer }) => {
-
   const token = useUser();
 
   // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
@@ -24,7 +23,7 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer }) => {
 
   // Construye el contenido del modal con la información del usuario
   const addressConcatenated = customer.address 
-    ? `${customer.address} ${customer.number}, ${customer.city}` 
+    ? `${customer.address} ${customer.number}, ${customer.city}, ${customer.country}` 
     : 'Dirección no disponible';
     
 

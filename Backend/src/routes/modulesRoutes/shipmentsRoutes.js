@@ -12,6 +12,8 @@ import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
 import { getShipmentSearchController } from '../../controllers/Modules/shipment/getShipmentSearchController.js';
 import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
 import { getPendingDeliveryNotesController } from '../../controllers/Modules/shipment/getPendingDeliveryNotesController.js'
+import { shipmentByDelivererController } from '../../controllers/Modules/shipment/shipmentByDelivererController.js'
+
 export const shipmentRouter = express.Router();
 
 // Creacion de un envio
@@ -39,3 +41,7 @@ shipmentRouter.get('/shipments/search', authenticateUser, adminAuthMiddleware, g
 
 // Nueva ruta para obtener las notas de entrega pendientes
 shipmentRouter.get('/shipments/pending-delivery-notes', authenticateUser, getPendingDeliveryNotesController);
+
+// Ruta para obtener los envios asociados a los repartidores 
+shipmentRouter.get('/shipments/deliverer', shipmentByDelivererController);
+

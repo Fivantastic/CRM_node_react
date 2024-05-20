@@ -5,7 +5,7 @@ export const selectProductListModel = async () => {
 
   // Obtener todos los productos
   const result = await pool.query(`
-    SELECT id_product, name, description, price, stock, product_status
+    SELECT id_product, ref_PR, name, description, price, stock, product_status, creation_at
     FROM Products
   `);
 

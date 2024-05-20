@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import './VisitChartsData.css';
+import './visitChartsData.css'
 import { useEffect, useMemo, useState } from 'react';
 
 export const VisitChartsData = ({ setValueRatingRange, moduleList }) => {

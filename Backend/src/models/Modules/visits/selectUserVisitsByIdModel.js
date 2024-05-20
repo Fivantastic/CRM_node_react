@@ -15,8 +15,6 @@ export const selectUserVisitsByIdModel = async () => {
       Visits.visit_status, 
       Visits.visit_date, 
       Visits.observations, 
-      Visits.rating_visit, 
-      Visits.rating_comment,
       Addresses.address,
       Addresses.number,
       Addresses.floor,

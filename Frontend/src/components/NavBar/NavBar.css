@@ -162,6 +162,14 @@ height: calc(100vh - 70px);
   height: 1.5rem;
 }
 
+#iconSidebarProduct {
+  width: 1.6rem;
+  height: 1.6rem;
+  padding-left: 2px;
+
+
+}
+
 .sidebar-bottom .sidebar-links {
   padding-bottom: 1.5rem;
 }

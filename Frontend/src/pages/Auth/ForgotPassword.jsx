@@ -35,14 +35,26 @@ export const ForgotPassword = () => {
       name: 'email',
       label: 'Email',
       type: 'text',
-      placeholder: 'Introduce tu email...',
+      idInput: 'emailForgot',
       required: true,
     },
   ];
 
+  const idFromForgot = {
+    idTitleContainer:'idTitleContainerForgot',
+    idLogo:'idLogoForgot',
+    idSection:'idSectionForgot',
+    idFrom:'idFromForgot',
+    subTitle:"Welkome back! Please login to your account",
+    submitBtn:"submitBtnForgot",
+  }
+
   return (
     <DynamicForm
       title="Recuperar contraseña"
+      imgTitle="./Logo_cosmic.svg"
+      imgTitleActive='true'
+      idCustom={idFromForgot}
       onSubmit={handleForgotPasswordSubmit}
       schema={forgotPasswordUserSchema}
       fields={forgotPasswordFormFields}

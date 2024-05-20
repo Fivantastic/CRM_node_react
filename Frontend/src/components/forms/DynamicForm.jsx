@@ -1,107 +1,91 @@
 import { useForm } from 'react-hook-form';
-import './simpleEstilo.css';
+import { joiResolver } from '@hookform/resolvers/joi';
+import { CustomCheckbox } from '../checkbox/CustomCheckbox.jsx';
+import { useEffect, useState } from 'react';
 
-function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons }) {
-    const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm({
-        resolver: async data => {
-            try {
-                const values = await schema.validateAsync(data);
-                return { 
-                    values, 
-                    errors: {} 
-                };
-            } catch (error) {
-                return {
-                    values: {},
-                    errors: error.details.reduce((acc, curr) => {
-                        acc[curr.context.key] = { message: curr.message };
-                        return acc;
-                    }, {})
-                };
-            }
-        }
+function DynamicForm({ title, imgTitle, imgTitleActive, idCustom, onSubmit, schema, fields, buttonText, extraButtons }) {
+    const { register, handleSubmit, formState: { errors, isSubmitted }, setValue } = useForm({
+        resolver: joiResolver(schema),
+        mode: 'onSubmit',
+        reValidateMode: 'onSubmit',
     });
 
-    const watchedFields = watch();
-    const allFieldsFilled = Object.values(watchedFields).every(value => value !== "");
+    const [fieldValues, setFieldValues] = useState({});
+    const [visibleErrors, setVisibleErrors] = useState({});
+
+    const handleFieldChange = (fieldName, value) => {
+        setFieldValues((prevValues) => ({
+            ...prevValues,
+            [fieldName]: value
+        }));
+        setValue(fieldName, value); // Ensuring react-hook-form's internal state is updated
+    };
+
+    useEffect(() => {
+        if (isSubmitted && Object.keys(errors).length > 0) {
+            setVisibleErrors(errors);
+            const timer = setTimeout(() => {
+                setVisibleErrors({});
+            }, 5000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [errors, isSubmitted]);
 
     return (
         <main className="outsideContainerForm">
-            <section className="insideContainerForm"> 
-                <form className="submitForm" onSubmit={handleSubmit(onSubmit)}>
-                    <legend className="titleLegendForm">{title}</legend>
+            <section id={idCustom.idSection || ''} className="insideContainerForm">
+                <div id={idCustom.idTitleContainer || ''} className="titleContainerForm">
+                    {imgTitleActive === 'true' ? (
+                        <img id={idCustom.idLogo || ''} className="imgTitleForm" src={imgTitle} alt="Logo Cosmic" />
+                    ) : (
+                        <legend className="titleLegendForm">{title}</legend>
+                    )}
+                    <p id='subTitleLogin' className="subTitleForm">{idCustom.subTitle}</p>
+                </div>
+                <form id={idCustom.idFrom || ''} className="submitForm" onSubmit={handleSubmit(onSubmit)}>
                     {fields.map((field, index) => (
-                        <div className="fieldsetFrom" key={index}>
+                        <div id={field.idInputContainer || ''} className="input-container-login" key={index}>
                             {field.type === 'textWithLink' ? (
-                                <p className="textWithLinkParag">
+                                <p id={field.id || ''} className="textWithLinkParag">
                                     {field.text}{' '}
-                                    <a className="linkFrom" href={field.link}>{field.linkText || 'Link'}</a>
+                                    <a id={field.idLink || ''} className="linkFrom" href={field.link}>{field.linkText || 'Link'}</a>
                                 </p>
-                        ) : (
-                            <>
-                                <label className="labelForm" htmlFor={field.name}>{field.label}</label>
-                                {field.type === 'select' ? (
-                                    <select className='selectForm'
-                                        id={field.name}
-                                        {...register(field.name, {
-                                            required: field.required
-                                        })}
-                                    >
+                            ) : field.type === 'select' ? (
+                                <>
+                                    <select id={field.name} className="inputSelect" {...register(field.name)}>
                                         {field.options.map(option => (
                                             <option key={option.value} value={option.value}>
                                                 {option.label}
                                             </option>
                                         ))}
                                     </select>
-                                ) : field.type === 'textarea' ? (
-                                    <textarea 
-                                        id={field.name}
-                                        className="textareaForm"
-                                        placeholder={field.placeholder}
-                                        {...register(field.name, {
-                                            required: field.required,
-                                            minLength: field.minLength,
-                                            maxLength: field.maxLength
-                                        })}
-                                    />
-                                ) : field.type === 'checkbox' ? (
+                                    <label htmlFor={field.name} id={field.idLabel} className="labelSelect">{field.label}</label>
+                                    <div className="underline"></div>
+                                </>
+                            ) : field.type === 'checkbox' ? (
+                                <CustomCheckbox
+                                    field={field}
+                                    register={register}
+                                />
+                            ) : (
+                                <>
                                     <input
-                                        id={field.name}
-                                        className={`input ${errors[field.name] ? 'error' : ''}`}
-                                        type="checkbox"
-                                        {...register(field.name)}
-                                    />
-                                ) : field.type === 'radio' ? (
-                                    <input
-                                        id={field.name}
-                                        className={`input ${errors[field.name] ? 'error' : ''}`}
-                                        type="radio"
-                                        value={field.value}
-                                        {...register(field.name, {
-                                            required: field.required
-                                        })}
-                                    />
-                                ) : (
-                                    <input
-                                        id={field.name}
-                                        className={`input ${errors[field.name] ? 'error' : ''}`}
+                                        id={field.idInput}
                                         type={field.type}
-                                        placeholder={field.placeholder}
-                                        required autoComplete='off'
-                                        {...register(field.name, {
-                                            required: field.required,
-                                            minLength: field.minLength,
-                                            maxLength: field.maxLength
-                                        })}
+                                        className={`inputText-login ${fieldValues[field.name] ? 'filled' : ''}`}
+                                        {...register(field.name)}
+                                        onChange={(e) => handleFieldChange(field.name, e.target.value)}
                                     />
-                                )}
-                                {field.help && <p className="help-text-form">{field.help}</p>}
-                                {errors[field.name] && <p className="error-message-form">{errors[field.name]?.message}</p>}
-                            </>
+                                    <label htmlFor={field.idInput} id={field.idLabel} className="label-login">{field.label}</label>
+                                    <div className="underline-login"></div>
+                                </>
                             )}
+                            {field.help && <p className="help-text-form">{field.help}</p>}
+                            {visibleErrors[field.name] && <p className="error-message-form">{visibleErrors[field.name]?.message}</p>}
                         </div>
                     ))}
-                    <nav className="button-container-form">
+                    <nav id={idCustom.idNavLogin || ''} className="button-container-form">
                         {extraButtons.map((button, index) => {
                             if (button.type === 'submit') {
                                 return <button id='submitBtnLoginExtra' className='submitMainBtnExtra' key={index} type="submit">{button.label}</button>;
@@ -111,7 +95,7 @@ function DynamicForm({ title, onSubmit, schema, fields, buttonText, extraButtons
                                 return <button id='extraBtnLogin' className='extraMainBtn' key={index} type="button" onClick={button.onClick}>{button.label}</button>;
                             }
                         })}
-                        <button id='submitBtnLogin' className='submitMainBtn' type="submit" disabled={!isValid || !allFieldsFilled}>{buttonText}</button>
+                        <button id={idCustom.submitBtn || ''} className='submitMainBtn' type="submit">{buttonText}</button>
                     </nav>
                 </form>
             </section>

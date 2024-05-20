@@ -6,8 +6,9 @@ import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal
 import { SearchPages } from '../../../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../../components/NavPages/SortPages.jsx';
-import  useShipmentList  from '../../../hooks/PagesHooks/useShipmentList.js';
+import useShipmentList from '../../../hooks/PagesHooks/useShipmentList.js';
 import { ToggleMode } from '../../NavPages/ToggleMode.jsx';
+//import { ShipmentsListTable } from '../../PagesComponents/Shipment/ShipmentsListTable.jsx';
 
 const ShipmentsCrud = () => {
   const token = useUser();
@@ -22,8 +23,6 @@ const ShipmentsCrud = () => {
     getShipmentList,
     setFilteredShipmentList,
   } = useShipmentList(token);
-  // const [isListView, setIsListView] = useState(true);
-
 
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },

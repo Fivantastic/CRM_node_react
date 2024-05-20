@@ -7,16 +7,16 @@ export const shipmentUpdateController = async (req, res, next) => {
     // Validar el body con Joi.
     await validateSchemaUtil(updateShipmentSchema, req.body);
 
-    // Obtenemos el id del envio.
+    // Obtenemos el id del envío.
     const shipmentId = req.params.shipmentId;
 
-    // Actualizamos el envio en la base de datos.
+    // Actualizamos el envío en la base de datos.
     const shipment = await updateShipmentService(shipmentId, req.body);
 
-    // Devolvemos el envio actualizado.
+    // Devolvemos el envío actualizado.
     res.send({
       status: 'ok',
-      message: 'Envio actualizado',
+      message: 'Envío actualizado',
       data: { shipment },
     });
   } catch (error) {

@@ -1,6 +1,5 @@
 import { insertDeliveryNoteModel } from '../../../models/deliveryNote/deliveryNoteModels.js';
 import { getPendingSales } from '../../../utils/getPendingSales.js';
-import crypto from 'crypto';
 import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
 import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
 

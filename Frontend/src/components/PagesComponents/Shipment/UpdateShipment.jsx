@@ -30,93 +30,27 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
     }
   };
 
-  const title = 'Actualizar Envío';
+  const title = 'Actualizar Estado de Envío';
   const nameButton = 'Actualizar';
 
   const updateShipmentFormFields = [
     {
-      name: 'customer_id',
-      label: 'ID de cliente',
-      type: 'text',
-      placeholder: 'Introduce el ID de cliente...',
-      idLabel: 'labelNameShipmentUpdate',
-      idInput: 'inputNameShipmentUpdate',
-      required: true,
-    },
-
-   {
-      name: 'number',
-      label: 'Número',
-      type: 'text',
-      placeholder: 'Introduce el número...',
-      idLabel: 'labelAddressShipmentUpdate',
-      idInput: 'inputAddressShipmentUpdate',
-      required: true,
-    },
-    {
-      name: 'floor',
-      label: 'Piso',
-      type: 'text',
-      placeholder: 'Introduce el piso...',
-      required: false,
-    },
-    {
-      name: 'letter_number',
-      label: 'Número de puerta',
-      type: 'text',
-      placeholder: 'Introduce el número de puerta...',
-      required: false,
-    },
-    {
-      name: 'city',
-      label: 'Ciudad',
-      type: 'text',
-      placeholder: 'Introduce la ciudad...',
-      required: false,
-    },
-    {
-      name: 'zip_code',
-      label: 'Código Postal',
-      type: 'text',
-      placeholder: 'Introduce el código postal...',
-      required: false,
-    },
-    {
-      name: 'country',
-      label: 'País',
-      type: 'text',
-      placeholder: 'Introduce el país...',
-      required: false,
-    },
-    {
-      name: 'deliveryNote_id',
-      label: 'ID de nota de entrega',
-      type: 'text',
-      placeholder: 'Introduce el ID de nota de entrega...',
-      required: false,
-    },
-    {
-      name: 'additional_notes',
-      label: 'Notas adicionales',
-      type: 'text',
-      placeholder: 'Introduce el estado del envío...',
-      idLabel: 'labelStatusShipmentUpdate',
-      idInput: 'inputStatusShipmentUpdate',
+      name: 'shipment_status',
+      label: 'Estado del envío',
+      type: 'select',
+      options: [
+        { value: 'pending', label: 'Pendiente' },
+        { value: 'inTransit', label: 'En Tránsito' },
+        { value: 'delivered', label: 'Entregado' },
+        { value: 'delayed', label: 'Retrasado' },
+        { value: 'cancelled', label: 'Cancelado' },
+      ],
       required: true,
     },
   ];
 
   const updateShipmentSchema = Joi.object({
-    customer_id: Joi.string().optional(),
-    address: Joi.string().optional(),
-    number: Joi.string().optional(),
-    floor: Joi.string().optional(),
-    letter_number: Joi.string().optional(),
-    city: Joi.string().optional(),
-    zip_code: Joi.string().optional(),
-    country: Joi.string().optional(),
-    deliveryNote_id: Joi.string().max(36),
-    additional_notes: Joi.string().optional(),
+    shipment_status: Joi.string().valid('pending', 'inTransit', 'delivered', 'delayed', 'cancelled').required(),
   });
 
   const handleUpdateShipment = () => {
@@ -131,7 +65,9 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
 
   return (
     <>
-      <button id='btnShipmentUpdate' className="mainUpdateBtn" onClick={handleUpdateShipment}>Actualizar Envío</button>
+      <button id="btnShipmentUpdate" className="mainUpdateBtn" onClick={handleUpdateShipment}>
+        Actualizar Estado
+      </button>
     </>
   );
 };

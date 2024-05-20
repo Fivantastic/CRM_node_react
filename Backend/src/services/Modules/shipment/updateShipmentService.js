@@ -1,44 +1,15 @@
-import { insertNewAddressModel } from '../../../models/Modules/shipment/insertNewAddressModel.js';
-import { selectShipmentByIdModel } from '../../../models/Modules/shipment/selectShipmentByIdModel.js';
 import { updateShipmentModel } from '../../../models/Modules/shipment/updateShipmentModel.js';
+import { selectShipmentByIdModel } from '../../../models/Modules/shipment/selectShipmentByIdModel.js';
 
 export const updateShipmentService = async (shipmentId, body) => {
-  const {
-    customer_id,
-    address,
-    number,
-    floor,
-    letter_number,
-    city,
-    zip_code,
-    country,
-    deliveryNote_id,
-    additional_notes,
-  } = body;
+  const { shipment_status } = body;
 
-  // Insertamos la nueva dirección
-  const newAddressId = await insertNewAddressModel(
-    address,
-    number,
-    floor,
-    letter_number,
-    city,
-    zip_code,
-    country
-  );
+  // Actualizar el envío en la base de datos.
+  await updateShipmentModel(shipmentId, { shipment_status });
 
-  // Actualizar el envio en la base de datos.
-  await updateShipmentModel(
-    shipmentId,
-    customer_id,
-    newAddressId,
-    deliveryNote_id,
-    additional_notes
-  );
-
-  // Obtener el envio actualizado.
+  // Obtener el envío actualizado.
   const shipment = await selectShipmentByIdModel(shipmentId);
 
-  // Devolver el envio actualizado.
+  // Devolver el envío actualizado.
   return shipment;
 };

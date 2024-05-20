@@ -6,6 +6,7 @@ import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 import { getFullName } from '../../Services/getFullName.js';
 import '../../Styles/Auth/LoginPage.css';
+import { InitialLayout } from '../../layout/InitialLayout.jsx';
 
 const URL = import.meta.env.VITE_URL;
 
@@ -114,7 +115,7 @@ export const LoginPage = () => {
             linkText: 'Forgot Password',
             idInputContainer: 'forgotPasswordContainer',
             idLink: 'forgotPassword',
-            link: 'http://localhost:5173/forgot-password',
+            link: '/forgot-password',
         }
     ];
 
@@ -129,10 +130,7 @@ export const LoginPage = () => {
     }
 
     return (
-        <main className="login-page-container">
-            <section className="login-page-animation-container">
-                <img className="login-page-image" src="./Mesa_de_trabajo_1.png" alt="imagen de login" />
-            </section>
+        <InitialLayout className="login-page-container">
             <section className="login-page-form-container">
                 <DynamicForm
                     title="Login"
@@ -146,6 +144,6 @@ export const LoginPage = () => {
                     extraButtons={[]}
                 />
             </section>
-        </main>
+        </InitialLayout>
     );
 };

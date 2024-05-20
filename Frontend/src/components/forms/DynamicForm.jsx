@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { CustomCheckbox } from '../checkbox/CustomCheckbox.jsx';
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function DynamicForm({ title, imgTitle, imgTitleActive, idCustom, onSubmit, schema, fields, buttonText, extraButtons }) {
     const { register, handleSubmit, formState: { errors, isSubmitted }, setValue } = useForm({
@@ -49,7 +50,12 @@ function DynamicForm({ title, imgTitle, imgTitleActive, idCustom, onSubmit, sche
                             {field.type === 'textWithLink' ? (
                                 <p id={field.id || ''} className="textWithLinkParag">
                                     {field.text}{' '}
-                                    <a id={field.idLink || ''} className="linkFrom" href={field.link}>{field.linkText || 'Link'}</a>
+                                    <NavLink 
+                                    to={field.link}
+                                    id={field.idLink || ''} 
+                                    className="linkFrom" >
+                                    {field.linkText}
+                                    </NavLink>
                                 </p>
                             ) : field.type === 'select' ? (
                                 <>

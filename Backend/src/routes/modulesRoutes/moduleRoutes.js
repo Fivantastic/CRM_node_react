@@ -4,6 +4,7 @@ import { moduleExist } from '../../middlewares/serviceExist.js';
 import {
   deleteModuleController,
   getModuleController,
+  getModuleListController,
   searchModulesController,
 } from '../../controllers/modulesControllers.js';
 
@@ -11,10 +12,18 @@ import {
 export const moduleRouter = express.Router();
 
 // Obtener lista de modulos
+moduleRouter.get('/module/list', authenticateUser, getModuleListController);
+
+// Obtener lista de modulos
 moduleRouter.get('/module/search', authenticateUser, searchModulesController);
 
 // Obtener un modulo
-moduleRouter.get('/module/:moduleId', moduleExist, getModuleController);
+moduleRouter.get(
+  '/module/:moduleId',
+  authenticateUser,
+  moduleExist,
+  getModuleController
+);
 
 // Eliminar modulo
 moduleRouter.delete(

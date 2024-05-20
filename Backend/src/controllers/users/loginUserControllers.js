@@ -9,7 +9,9 @@ import { generateAccessToken } from '../../utils/generateAccessToken.js';
 export const loginUserController = async (req, res, next) => {
     try {
         //Validar los datos de entrada
-        const { email, password } = validateSignInRequest(req.body);
+        const { email, password, remember } = validateSignInRequest(req.body);
+
+        console.log('remember', remember);
 
         // Validamos el body
         await validateSchemaUtil(loginUserSchema, req.body);

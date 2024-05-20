@@ -19,12 +19,213 @@
     object-position: center;
 }
 
+.outsideContainerForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+#idTitleContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#sectionLogin {
+    max-width: 550px;
+    min-width: 500px;
+    min-height: 600px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+   
+}
+
+#idFormLogin {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "email email"
+        "password password"
+        "remember forgotPassword"
+        "submit submit";
+}
+
+#idLogoLogin {
+    width: 440px;
+}
+
+.subTitleForm {
+    color: #13214E;
+    font-size: 1.1rem;
+    opacity: 0.6;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+#emailContainer {
+    grid-area: email;
+}
+
+#passwordContainer {
+    grid-area: password;
+}
+
+#rememberContainer {
+    height: 32px;
+    grid-area: remember;
+    color: #13214E;
+}
+
+#forgotPasswordContainer {
+    height: 32px;
+    grid-area: forgotPassword;
+    display: flex;
+    justify-content: end;
+}
+
+#forgotPasswordContainer p {
+    align-content: center;
+}
+
+
+#idNavLogin {
+    grid-area: submit;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos de inputs */
+
+
+/* Estilo para los campos de entrada y etiquetas */
+
+.input-container-login {
+    position: relative;
+    margin: 30px auto;
+    width: 100%;
+}
+
+.checkboxLogin {
+    display: block;
+}
+
+.input-container-login .inputText-login,
+.input-container-login #emailContainer,
+.input-container-login #passwordContainer {
+    font-size: 20px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 5px 0;
+    background-color: transparent;
+    outline: none;
+}
+
+.input-container-login .label-login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ccc;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.input-container-login .inputText-login:focus ~ .label-login,
+.input-container-login .inputText-login.filled ~ .label-login {
+    top: -20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.input-container-login .underline-login {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #333;
+    transform: scaleX(0);
+    transition: all 0.3s ease;
+}
+
+.input-container-login .inputText-login:focus ~ .underline-login,
+.input-container-login .inputText-login.filled ~ .underline-login {
+    transform: scaleX(1);
+}
+
+
+
+  
+  /* Estilo para los mensajes de ayuda */
+  .help-text-form {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  /* Estilo para los mensajes de error */
+  .error-message-form {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  /* Estilo para los ancores */
+  .linkFrom {
+    color: #13214E;
+    text-decoration: none;
+    margin: 10px 5px;
+    cursor: pointer;
+    text-align: end;
+
+  }
+  
+  /* .linkFrom:hover {
+    text-decoration: underline;
+  } */
+  
+  
+  .submitMainBtn {
+    color: #13214E;
+    background-color: transparent;
+    border: 1px solid #13214E;
+    font-size: 1.5rem;
+    padding: 15px 100px;  
+    margin-top: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .submitMainBtn:hover {
+    background-color: #13214E;
+    color: #fff;
+  }
+  
+  
+  /* Estilo para el botón de enviar cuando está deshabilitado */
+  submitMainBtn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
 
 
 
 
 
-@media screen and (max-width: 800px) {
+
+@media screen and (max-width: 1020px) {
 
     .login-page-container {
         grid-template-columns: 1fr;

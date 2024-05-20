@@ -1,12 +1,23 @@
 import Swal from 'sweetalert2';
 import '../../Styles/Pages/DymanicsPopUps.css';
 
-const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
+const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicIdModal) => {
+  // Crear un mapeo entre idInput y name
+  const idToNameMap = {};
+  fields.forEach(field => {
+    idToNameMap[field.idInput] = field.name;
+  });
+
+  // Modifico la id el dynamicIdModal es null, para no generar conflictos
+  if (!dynamicIdModal) {
+    dynamicIdModal = 'dynamicFormModal';
+  }
+
   const handleClickSubmit = async () => {
     const { value: formData } = await Swal.fire({
       title: title,
       html: `
-        <form class="dynamicFromModal">
+        <form id=${dynamicIdModal} class="dynamicFromModal">
           ${generateFormHtml(fields)}
         </form>
       `,
@@ -14,7 +25,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
       preConfirm: async () => {
         const values = {};
         fields.forEach(field => {
-          values[field.name] = document.getElementById(field.name).value;
+          values[idToNameMap[field.idInput]] = document.getElementById(field.idInput).value;
         });
 
         // Validar los datos con el esquema
@@ -27,7 +38,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
 
         return values;
       },
-      width: '400px',
+      width: 'auto',
       focusCancel: true,
       allowOutsideClick: false,
       showCancelButton: true,
@@ -40,12 +51,12 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
       },
       willOpen: () => {
         fields.forEach(field => {
-          const input = document.getElementById(field.name);
+          const input = document.getElementById(field.idInput);
           if (input && field.defaultValue) {
             input.value = field.defaultValue;
           }
           if (field.type === 'select') {
-            const selectElement = document.getElementById(field.name);
+            const selectElement = document.getElementById(field.idInput);
             selectElement.innerHTML = generateSelectOptions(field.options);
             selectElement.selectedIndex = -1;
             // Agregar clase al elemento select
@@ -81,57 +92,63 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText) => {
     });
     return html;
   };
-  
+
   const generateRegularField = (field) => {
     if (field.type === 'file') {
       return `
-        <label for="${field.name}" id="${field.idLabel}" class="labelText">${field.label}</label>
-        <input id="${field.name}" type="file" class="inputFile" onChange="${field.onChange}">
+      <div id="${field.idInputContainer || ''}" class="input-container">
+        <label for="${field.idInput}" id="${field.idLabel}" class="labelText">${field.label}</label>
+        <input id="${field.idInput}" type="file" class="inputFile" onChange="${field.onChange}">
+        <div class="underline"></div>
+      </div>
       `;
     } else {
       return `
-      <div class="input-container">
-      <input id="${field.name}" type="${field.type}" class="inputText" required="">
-      <label for="${field.name}" id="${field.idLabel}" class="label labelText">${field.label}</label>
+      <div id="${field.idInputContainer || ''}" class="input-container">
+      <input id="${field.idInput}" type="${field.type}" class="inputText" required="">
+      <label for="${field.idInput}" id="${field.idLabel}" class="label labelText">${field.label}</label>
       <div class="underline"></div>
       </div>
       `;
     }
   };
-  
-  
+
   const generateSelectField = (field) => {
     return `
-    <div class="input-container">
-      <select id="${field.name}" class="inputSelect">
+    <div id="${field.idInputContainer || ''}" class="input-container">
+      <select id="${field.idInput}" class="inputSelect">
         ${generateSelectOptions(field.options)}
         </select>
-      <label for="${field.name}" id="${field.idLabel}" class="labelSelect ">${field.label}</label>
+      <label for="${field.idInput}" id="${field.idLabel}" class="labelSelect ">${field.label}</label>
       <div class="underline"></div>
     </div>
     `;
   };
-  
+
   const generateSelectOptions = (options) => {
     let selectOptionsHtml = '';
 
-    if (options) {
+    if (Array.isArray(options)) {
+      options.forEach(option => {
+        selectOptionsHtml += `<option value="${option.value}">${option.label}</option>`;
+      });
+    } else {
       for (const group in options) {
         if (Object.prototype.hasOwnProperty.call(options, group)) {
-          if (group !== '') {
-            selectOptionsHtml += `<optgroup label="${group}">`;
-          }
+          selectOptionsHtml += `<optgroup label="${group}">`;
           const groupOptions = options[group];
-          if (groupOptions) {
+          if (Array.isArray(groupOptions)) {
+            groupOptions.forEach(option => {
+              selectOptionsHtml += `<option value="${option.value}">${option.label}</option>`;
+            });
+          } else {
             for (const key in groupOptions) {
               if (Object.prototype.hasOwnProperty.call(groupOptions, key)) {
                 selectOptionsHtml += `<option value="${key}">${groupOptions[key]}</option>`;
               }
             }
           }
-          if (group !== '') {
-            selectOptionsHtml += `</optgroup>`;
-          }
+          selectOptionsHtml += `</optgroup>`;
         }
       }
     }

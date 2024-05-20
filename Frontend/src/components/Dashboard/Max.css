@@ -35,7 +35,7 @@
 .title-text {
   margin-left: 0.5rem;
   color: #374151;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .percent {
@@ -84,6 +84,6 @@
 
 @media screen and (max-width: 480px) {
   .card {
-    width: 100%;
+    margin-right: 160px;
   }
 }

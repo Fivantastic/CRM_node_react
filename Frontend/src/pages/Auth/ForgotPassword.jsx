@@ -1,5 +1,7 @@
 import Joi from 'joi';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
+import { InitialLayout } from '../../layout/InitialLayout.jsx';
+import { NavLink } from 'react-router-dom';
 const URL = import.meta.env.VITE_URL;
 
 export const ForgotPassword = () => {
@@ -35,19 +37,34 @@ export const ForgotPassword = () => {
       name: 'email',
       label: 'Email',
       type: 'text',
-      placeholder: 'Introduce tu email...',
+      idInput: 'emailForgot',
       required: true,
     },
   ];
 
+  const idFromForgot = {
+    idTitleContainer:'idTitleContainerForgot',
+    idLogo:'idLogoForgot',
+    idSection:'idSectionForgot',
+    idFrom:'idFromForgot',
+    subTitle:"Welkome back! Please login to your account",
+    submitBtn:"submitBtnForgot",
+  }
+
   return (
-    <DynamicForm
-      title="Recuperar contraseña"
-      onSubmit={handleForgotPasswordSubmit}
-      schema={forgotPasswordUserSchema}
-      fields={forgotPasswordFormFields}
-      buttonText="Recuperar contraseña"
-      extraButtons={[]}
-    />
+    <InitialLayout>
+      <DynamicForm
+        title="Recuperar contraseña"
+        imgTitle="./Logo_cosmic.svg"
+        imgTitleActive='true'
+        idCustom={idFromForgot}
+        onSubmit={handleForgotPasswordSubmit}
+        schema={forgotPasswordUserSchema}
+        fields={forgotPasswordFormFields}
+        buttonText="Recuperar contraseña"
+        extraButtons={[]}
+      />
+            <NavLink to="/login">Volver</NavLink>
+    </InitialLayout>
   );
 };

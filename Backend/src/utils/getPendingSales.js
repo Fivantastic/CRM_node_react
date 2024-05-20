@@ -1,6 +1,6 @@
 import { getDBPool } from '../db/getPool.js';
 
-export const getPendingSales = async () => {
+export const getPendingSales = async (id_sale) => {
   const pool = getDBPool();
   const query = `
     SELECT 
@@ -16,7 +16,6 @@ export const getPendingSales = async () => {
     WHERE s.operation_status = 'open'
   `;
   const [rows] = await pool.query(query);
-  console.log('Pending sales:', rows); // Añade este log
 
   return rows;
 };

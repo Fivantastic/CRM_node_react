@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.initial-layout-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .full-screen {
+    background-color: black;
+    color: white;
+
+  }
+
+  .logo-cosmic-intro {
+    width: 550px;
+    transform: translateY(-50px);
+    transition: all 0.5s ease;
+  }
+
+  .logo-cosmic-intro-dos{
+    width: 500px;
+    transform: translateY(-50px);
+  }
+  
+  .split-screen {
+    flex-direction: row;
+
+  }
+  
+  .welcome-screen {
+    text-align: center;
+  }
+  
+  .login-screen {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .left-panel, .right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .left-panel {
+    background-color: black;
+    color: white;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .start-button {
+    position: absolute;
+    bottom: 40%;
+    left: 44.5%;
+
+  }
+
+  .start-button {
+    width: 10em;
+
+    height: 3.5em;
+    border: 3px ridge #149CEA;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    transition: 1s;
+    border-radius: 0.3em;
+    font-family: 'montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .start-button::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 3%;
+    width: 95%;
+    height: 40%;
+    background-color: black;
+    transition: 0.5s;
+    transform-origin: center;
+  }
+  
+  .start-button::before {
+    content: "";
+    transform-origin: center;
+    position: absolute;
+    top: 80%;
+    left: 3%;
+    width: 95%;
+    height: 40%;
+    background-color: black;
+    transition: 0.5s;
+  }
+  
+  .start-button:hover::before, .start-button:hover::after {
+    transform: scale(0)
+  }
+  
+  .start-button:hover {
+    box-shadow: inset 0px 0px 25px #1479EA;
+  }
+  

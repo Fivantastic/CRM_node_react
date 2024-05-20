@@ -188,13 +188,11 @@ export async function loadDemoData(db) {
         visit_status: faker.helpers.arrayElement(['scheduled', 'completed']),
         visit_date: faker.date.past(),
         observations: faker.lorem.sentence(),
-        rating_visit: faker.helpers.arrayElement([null, null, null, '1', '2', '3', '4', '5']),
-        rating_comment: faker.lorem.paragraph(),
       };
       visitData.push(visit);
     }
     await db.query(
-      `INSERT INTO Visits (id_visit, ref_VT, user_id, customer_id, visit_status, visit_date, observations, rating_visit, rating_comment) VALUES ?`,
+      `INSERT INTO Visits (id_visit, ref_VT, user_id, customer_id, visit_status, visit_date, observations) VALUES ?`,
       [visitData.map(visit => Object.values(visit))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Visits.`));

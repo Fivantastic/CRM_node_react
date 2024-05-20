@@ -1,5 +1,4 @@
 import { selectCustomersListModel } from '../../models/customer/selectCustomerListModel.js';
-import { success } from '../../utils/success.js';
 
 export const getCustomerListController = async (req, res, next) => {
   try {

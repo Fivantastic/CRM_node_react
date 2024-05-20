@@ -21,6 +21,7 @@ export const ProductList = ({ product }) => {
       <>
         <h2 id="element_product_title" className=" mainInsideTitle">Producto</h2>
         <h3>Nombre: {product.name}</h3>
+        <p><strong>Ref:</strong>{product.ref_PR}</p>
         <p><strong>Descripción: </strong>{product.description}</p>
         <p><strong>Precio: </strong>{product.price} €</p>
         <p><strong>Stock: </strong>{product.stock} u.</p>

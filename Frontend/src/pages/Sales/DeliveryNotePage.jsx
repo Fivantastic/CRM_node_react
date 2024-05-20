@@ -7,7 +7,6 @@ import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.js
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../components/NavPages/SortPages.jsx';
-import { Toast } from '../../components/alerts/Toast.jsx';
 import { useDeliveryList } from '../../hooks/PagesHooks/useDeliveryList.js'; 
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 
@@ -18,11 +17,12 @@ export const DeliveryNotePage = () => {
 
   const {
     filteredAlbaranList,
-    setFilteredAlbaranList,
     handleSearch,
     handleFilterChange,
     handleSortChange,
-    getAlbaranList,
+    addDeliveryNote,
+    deleteDeliveryNote,
+    updateDeleveryNotes,
   } = useDeliveryList(token);
   // const [isListView, setIsListView] = useState(true);
 
@@ -37,42 +37,6 @@ export const DeliveryNotePage = () => {
     { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
     { label: 'Fecha (Recientes)', value: 'fecha-desc' },
   ];
-
-  const addDeliveryNote = (newDeliveryNote) => {
-    console.log('Añadiendo nuevo albarán:', newDeliveryNote);
-    if (!newDeliveryNote.id_note) {
-      console.error('El nuevo albarán no tiene id_note:', newDeliveryNote);
-      return;
-    }
-    setFilteredAlbaranList((prevList) => [...prevList, newDeliveryNote]);
-  };
-
-  const deleteDeliveryNote = async (id_note) => {
-    try {
-      setFilteredAlbaranList((prevList) =>
-        prevList.filter((deliveryNote) => deliveryNote.id_note !== id_note)
-      );
-      await getAlbaranList();
-    } catch (error) {
-      console.error('Error al eliminar la venta:', error);
-      // Mostrar un mensaje de error al usuario
-    }
-  };
-
-  const updateDeleveryNotes = async (id_note) => {
-    try {
-      setFilteredAlbaranList((prevList) =>
-        prevList.filter((deleveryNotes) => deleveryNotes.id_note !== id_note)
-      );
-      await getAlbaranList();
-    } catch (error) {
-      console.error('Error al actualizar la factura:', error);
-      Toast.fire({
-        icon: 'error',
-        title: 'Error al actualizar la factura',
-      });
-    }
-  };
 
   return (
     <MainLayout title="Albaranes">

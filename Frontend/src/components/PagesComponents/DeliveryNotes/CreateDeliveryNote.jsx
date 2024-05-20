@@ -6,17 +6,17 @@ import { useDeliverers } from '../../../hooks/PagesHooks/useDeliverers.js';
 import { useState } from 'react';
 
 export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
-  const openSales = useOpenSales(token);
-  const deliverers = useDeliverers(token);
+  const [reload, setReload] = useState(false);
+  const openSales = useOpenSales(token, reload);
+  const deliverers = useDeliverers(token, reload);
 
   const [formValues, setFormValues] = useState({
-    ref_SL: '',
+    id_sale: '',
     deliverer_id: ''
   });
 
   const handleDeliveryNoteCreatedAction = async (formData) => {
-    console.log('Form Data being sent to backend:', formData);
-
+    console.log(formData);
     try {
       const response = await fetch('http://localhost:3000/delivery-notes', {
         method: 'POST',
@@ -27,27 +27,30 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (response.ok) {
         const responseData = await response.json();
         console.log('Nota de entrega creada satisfactoriamente:', responseData);
-        console.log(responseData.data);
-
-        // Asegúrate de que onAddDeliveryNote recibe el objeto de datos correcto
-        onAddDeliveryNote(responseData.data);
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Nota de entrega creada con éxito',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          position: 'top-end',
-          toast: true,
-        });
+  
+        if (responseData.data && responseData.data.id_note) {
+          onAddDeliveryNote(responseData.data);
+          Swal.fire({
+            icon: 'success',
+            title: 'Nota de entrega creada con éxito',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            position: 'top-end',
+            toast: true,
+          });
+  
+          // Recargar datos de ventas y repartidores
+          setReload(!reload);
+        } else {
+          console.error('La respuesta del servidor no contiene id_note:', responseData);
+        }
       } else {
-        const errorData = await response.json();
-        console.error('Error al crear la nota de entrega:', errorData);
+        console.error('Error al crear la nota de entrega:', await response.text());
       }
     } catch (error) {
       console.error('Error durante la creación de la nota de entrega:', error);
@@ -67,29 +70,33 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
 
   const deliveryNoteFormFields = [
     {
-      key: 'ref_SL', 
-      name: 'ref_SL',
+      key: 'id_sale', 
+      name: 'id_sale',
       label: 'Venta',
       type: 'select',
-      options: openSales.map(sale => ({
-        value: sale.ref_SL,
-        label: sale.customer_name
-      })),
+      options: {
+        'Órdenes de venta': openSales.map(sale => ({
+          value: sale.id_sale,
+          label: `${sale.ref_SL} - ${sale.customer_name}`
+        }))
+      },
       idLabel: 'labelRefSLNoteCreate',
       idInput: 'inputRefSLNoteCreate',
       required: true,
       onChange: handleFieldChange,
-      value: formValues.ref_SL
+      value: formValues.id_sale
     },
     {
       key: 'deliverer_id', 
       name: 'deliverer_id',
       label: 'Repartidor',
       type: 'select',
-      options: deliverers.map(deliverer => ({
-        value: deliverer.id_user, 
-        label: `${deliverer.name} ${deliverer.last_name}` 
-      })),
+      options: {
+        'Repartidores': deliverers.map(deliverer => ({
+          value: deliverer.id_user,
+          label: `${deliverer.ref_US} - ${deliverer.name} ${deliverer.last_name}` 
+        }))
+      },
       idLabel: 'labelDelivererNoteCreate',
       idInput: 'inputDelivererNoteCreate',
       required: true,
@@ -99,12 +106,11 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
   ];
 
   const deliveryNoteSchema = Joi.object({
-    ref_SL: Joi.string().required(),
+    id_sale: Joi.string().guid().required(),
     deliverer_id: Joi.string().guid().required()
   });
 
   const handleClickCreateDeliveryNote = () => {
-    console.log('Current form values before opening popup:', formValues);
     DynamicFormPopUp(
       title,
       deliveryNoteFormFields,
@@ -116,12 +122,10 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
   };
 
   return (
-
     <>
       <button className="btnNoteCreate mainCreateBtn" onClick={handleClickCreateDeliveryNote}>
         <img id='imgCreateNoteBtn' className='imgCreateBtn' src="./addNote.svg" alt="icono agregar Albaran" />
       </button>
     </>
-
   );
 };

@@ -1,6 +1,7 @@
 import { getDBPool } from '../../db/getPool.js';
 
 export const insertDeliveryNoteModel = async (
+  id_note,
   sale_id,
   ref_DN,
   deliverer_id,
@@ -10,14 +11,12 @@ export const insertDeliveryNoteModel = async (
 ) => {
   const pool = getDBPool();
 
-  const id_note = crypto.randomUUID();
-
-  const query = `
+  const insertQuery = `
     INSERT INTO DeliveryNotes (id_note, ref_DN, sale_id, deliverer_id, address_id, customer_id, saleProduct_id)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  const [result] = await pool.query (query, [
+  await pool.query(insertQuery, [
     id_note,
     ref_DN,
     sale_id,
@@ -27,5 +26,10 @@ export const insertDeliveryNoteModel = async (
     saleProduct_id
   ]);
 
-  return id_note;
+  const selectQuery = `
+    SELECT * FROM DeliveryNotes WHERE id_note = ?
+  `;
+
+  const [rows] = await pool.query(selectQuery, [id_note]);
+  return rows[0]; // Devolver el primer (y único) registro del resultado de la consulta
 };

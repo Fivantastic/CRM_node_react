@@ -125,12 +125,49 @@ export const useDeliveryList = (token) => {
     setFilteredAlbaranList(sortedList);
   };
 
+  const addDeliveryNote = (newDeliveryNote) => {
+    if (!newDeliveryNote.id_note) {
+      console.error('El nuevo albarán no tiene id_note:', newDeliveryNote);
+      return;
+    }
+    setFilteredAlbaranList((prevList) => [...prevList, newDeliveryNote]);
+  };
+  
+
+  const deleteDeliveryNote = async (id_note) => {
+    try {
+      setFilteredAlbaranList((prevList) =>
+        prevList.filter((deliveryNote) => deliveryNote.id_note !== id_note)
+      );
+      await getAlbaranList();
+    } catch (error) {
+      console.error('Error al eliminar la venta:', error);
+      // Mostrar un mensaje de error al usuario
+    }
+  };
+
+  const updateDeleveryNotes = async (id_note) => {
+    try {
+      setFilteredAlbaranList((prevList) =>
+        prevList.filter((deleveryNotes) => deleveryNotes.id_note !== id_note)
+      );
+      await getAlbaranList();
+    } catch (error) {
+      console.error('Error al actualizar la factura:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar la factura',
+      });
+    }
+  };
+
   return {
     filteredAlbaranList,
-    setFilteredAlbaranList,  // Asegúrate de exportar esta función
     handleSearch,
     handleFilterChange,
     handleSortChange,
-    getAlbaranList,
+    addDeliveryNote,
+    deleteDeliveryNote,
+    updateDeleveryNotes,
   };
 };

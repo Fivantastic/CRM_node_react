@@ -54,14 +54,6 @@ export const NavBar = () => {
                                 <img className="iconSidebar" src="./sale.svg" alt="" />
                                 <span className="hidden">Sales Orders</span>
                             </NavLink>
-                            <NavLink to="/invoice" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
-                                <img className="iconSidebar" src="./delivery.svg" alt="" />
-                                <span className="hidden">Invoices</span>
-                            </NavLink>
-                            <NavLink to="/payment" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
-                                <img className="iconSidebar" src="./payment.svg" alt="" />
-                                <span className="hidden">Payments</span>
-                            </NavLink>
                             <NavLink to="/deliveryNote" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="./note.svg" alt="" />
                                 <span className="hidden">Delivery Note</span>
@@ -69,6 +61,14 @@ export const NavBar = () => {
                             <NavLink to="/shipment" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="./shipment.svg" alt="" />
                                 <span className="hidden">Shipments</span>
+                            </NavLink>
+                            <NavLink to="/invoice" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
+                                <img className="iconSidebar" src="./delivery.svg" alt="" />
+                                <span className="hidden">Invoices</span>
+                            </NavLink>
+                            <NavLink to="/payment" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
+                                <img className="iconSidebar" src="./payment.svg" alt="" />
+                                <span className="hidden">Payments</span>
                             </NavLink>
                         </>
                     )}

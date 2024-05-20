@@ -10,6 +10,7 @@ import {
   updateProductController,
 } from '../../controllers/mainControllers.js';
 import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
+import { getProductSearchController } from '../../controllers/product/getProductSearchController.js';
 
 export const productRouter = express.Router();
 
@@ -55,4 +56,4 @@ productRouter.put(
 );
 
 // Ruta para listar productos por nombre de producto
-// productSearchRouter.get('/product/search', authenticateUser, getProductSearchController);
+productRouter.get('/product/search', authenticateUser, getProductSearchController);

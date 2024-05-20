@@ -54,20 +54,20 @@ const DeliveryRoutes = () => {
         Toast.fire({
           icon: 'error',
           title: 'Error al obtener las rutas de reparto',
-      });
+        });
       }
     } catch (error) {
       console.error('Error al obtener las rutas de reparto', error);
       Toast.fire({
         icon: 'error',
         title: 'Error al obtener las rutas de reparto',
-    });
+      });
     }
   };
 
-  const getShipmentsForUser = async () => {
+  const getShipmentsForUser = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:3000/shipment/route`, {
+      const response = await fetch(`${URL}/shipment/list?userId=${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -149,34 +149,33 @@ const DeliveryRoutes = () => {
                                   {shipment.customer_name}
                                 </p>
                                 <p>
-                                  <strong>Compañía:</strong> $
+                                  <strong>Compañía:</strong>
                                   {shipment.company_name}
                                 </p>
                                 <p>
-                                  <strong>Dirección: </strong>{' '}
+                                  <strong>Dirección: </strong>
                                   {shipment.delivery_address}
                                 </p>
                                 <p>
-                                  <strong>NIF:</strong> ${shipment.NIF}
+                                  <strong>NIF:</strong>
+                                  {shipment.NIF}
                                 </p>
                                 <p>
-                                  <strong>Producto:</strong> $
+                                  <strong>Producto:</strong>
                                   {shipment.product_name}
                                 </p>
                                 <p>
-                                  <strong>Cantidad:</strong> $
+                                  <strong>Cantidad:</strong>
                                   {shipment.product_quantity}
                                 </p>
                                 <p>
-                                  <strong>Ciudad: </strong>{' '}
+                                  <strong>Ciudad: </strong>
                                   {shipment.address_city}
                                 </p>
                                 <p>
-                                  <strong>Teléfono:</strong> $
+                                  <strong>Teléfono:</strong>
                                   {shipment.customer_phone}
                                 </p>
-
-                                {/* Otros detalles del envío */}
                               </div>
                             )}
                           </div>

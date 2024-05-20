@@ -1,6 +1,8 @@
 import Joi from 'joi';
 import { useParams } from 'react-router-dom';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
+import { InitialLayout } from '../../layout/InitialLayout.jsx';
+import { NavLink } from 'react-router-dom';
 const URL = import.meta.env.VITE_URL;
 
 export const ResetPassword = () => {
@@ -51,22 +53,34 @@ export const ResetPassword = () => {
       name: 'newPassword',
       label: 'Nueva contraseña',
       type: 'password',
+      idInputContainer: 'passwordContainer',
+      idInput: 'passwordLogin',
+      required: true,
     },
     {
       name: 'repeatPassword',
       label: 'Repetir nueva contraseña',
       type: 'password',
+      idInputContainer: 'passwordContainer',
+      idInput: 'passwordLogin',
+      required: true,
     },
   ];
 
   return (
-    <DynamicForm
-      title="Nueva contraseña"
-      onSubmit={handleResetPasswordSubmit}
-      schema={resetPasswordUserSchema}
-      fields={resetPasswordFields}
-      buttonText={'Restablecer contraseña'}
-      extraButtons={[]}
-    />
+    <InitialLayout>
+      <DynamicForm
+        title="Nueva contraseña"
+        imgTitle="./Logo_cosmic.svg"
+        imgTitleActive='true'
+        idCustom={[]}
+        onSubmit={handleResetPasswordSubmit}
+        schema={resetPasswordUserSchema}
+        fields={resetPasswordFields}
+        buttonText={'Restablecer contraseña'}
+        extraButtons={[]}
+      />
+      <NavLink to="/login">Volver</NavLink>
+    </InitialLayout>
   );
 };

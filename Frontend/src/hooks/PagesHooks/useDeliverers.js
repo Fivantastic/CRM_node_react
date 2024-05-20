@@ -17,7 +17,6 @@ export const useDeliverers = (token) => {
 
         if (response.ok) {
           const responseData = await response.json();
-          console.log('Deliverers data:', responseData); // Añade este log
           setDeliverers(responseData.data);
         } else {
           console.error('Error fetching deliverers:', response.statusText);

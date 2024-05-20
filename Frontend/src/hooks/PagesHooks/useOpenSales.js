@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useOpenSales = (token) => {
+export const useOpenSales = (token, reload) => {
   const [openSales, setOpenSales] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,6 @@ export const useOpenSales = (token) => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Open sales data:', data); // Añade este log
           setOpenSales(data.data);
         } else {
           console.error('Error al obtener las ventas abiertas');
@@ -28,7 +27,7 @@ export const useOpenSales = (token) => {
     };
 
     fetchOpenSales();
-  }, [token]);
+  }, [token, reload]);
 
   return openSales;
 };

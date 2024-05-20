@@ -34,7 +34,7 @@ export const VisitChartsData = ({ setValueRatingRange, moduleList }) => {
     <section id="product-charts">
       <h2 id="stock-charts">Valoraciónes</h2>
       {loading ? (
-        <div>Cargando...</div>
+        <div className="loading">Cargando...</div>
       ) : (
         <>
           <section className="filters_charts">
@@ -69,25 +69,16 @@ export const VisitChartsData = ({ setValueRatingRange, moduleList }) => {
               5
             </button>
           </section>
-
-          <div style={{ height: '100%', width: '100%', margin: 0 }}>
-            <div
-              style={{ display: 'flex', flexDirection: 'row', height: '200px' }}
-            >
-              <div style={{ flex: 1 }}>
-                <ResponsiveContainer>
-                  <BarChart data={chartData} width={500} height={300}>
-                    <CartesianGrid strokeDasharray="4 2 1" />
-                    <XAxis dataKey="service_type" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="rating_module" fill="#3a35cd" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </div>
+          <ResponsiveContainer>
+            <BarChart data={chartData} width={500} height={300}>
+              <CartesianGrid strokeDasharray="4 2 1" />
+              <XAxis dataKey="service_type" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="rating_module" fill="#3a35cd" />
+            </BarChart>
+          </ResponsiveContainer>
         </>
       )}
     </section>

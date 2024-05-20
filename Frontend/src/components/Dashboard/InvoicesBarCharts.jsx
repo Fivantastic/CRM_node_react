@@ -94,26 +94,18 @@ export const InvoicesBarCharts = () => {
       <section id="payments-charts">
         <h2 id="stock-charts">Ingresos</h2>
         {loading ? (
-          <div>Cargando...</div>
+          <div className="loading">Cargando...</div>
         ) : (
-          <div style={{ height: '100%', width: '100%', margin: 0 }}>
-            <div
-              style={{ display: 'flex', flexDirection: 'row', height: '200px' }}
-            >
-              <div style={{ flex: 1 }}>
-                <ResponsiveContainer>
-                  <BarChart data={chartData} width={500} height={300}>
-                    <CartesianGrid strokeDasharray="4 2 1" />
-                    <XAxis dataKey="name" tickLine={false} axisLine={true} />
-                    <YAxis tickFormatter={(tick) => `${tick}`} />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="ingresos" fill="#0e8743" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </div>
+          <ResponsiveContainer>
+            <BarChart data={chartData} width={500} height={300}>
+              <CartesianGrid strokeDasharray="4 2 1" />
+              <XAxis dataKey="name" tickLine={false} axisLine={true} />
+              <YAxis tickFormatter={(tick) => `${tick}`} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="ingresos" fill="#0e8743" />
+            </BarChart>
+          </ResponsiveContainer>
         )}
       </section>
     </>

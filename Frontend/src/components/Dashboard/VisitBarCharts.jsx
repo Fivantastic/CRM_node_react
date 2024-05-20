@@ -55,7 +55,7 @@ export const VisitBarCharts = () => {
             break;
 
           default:
-            filteredData = [];
+            filteredData = responseData.data;
         }
 
         // Ordenar y seleccionar un rango de datos

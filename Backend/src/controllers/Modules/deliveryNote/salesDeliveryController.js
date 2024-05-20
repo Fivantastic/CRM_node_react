@@ -1,14 +1,11 @@
 import { getPendingSales } from '../../../utils/getPendingSales.js';
+import { success } from '../../../utils/success.js';
 
 export const getOpenSalesController = async (req, res, next) => {
   try {
     const pendingSales = await getPendingSales();
 
-    res.status(200).json({
-      status: 'ok',
-      message: 'Delivery Notes',
-      data: { pendingSales },
-    });
+    res.json(success({ data: pendingSales }));
   } catch (error) {
     next(error);
   }

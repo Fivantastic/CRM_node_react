@@ -1,4 +1,5 @@
 import { selectDeliveryNoteService } from '../../../services/Modules/deleveryNote/selectDeliveryNoteService.js';
+import { success } from '../../../utils/success.js';
 
 export const deleteDeliveryNoteController = async (req, res, next) => {
   try {
@@ -9,10 +10,7 @@ export const deleteDeliveryNoteController = async (req, res, next) => {
     const deleteDeliveryNote = await selectDeliveryNoteService(deliveryNote_id);
 
     // Respondemos al albaran.
-    res.status(200).send({
-      status: 'ok',
-      data: deleteDeliveryNote,
-    });
+    res.status(200).send(success(deleteDeliveryNote));
   } catch (error) {
     next(error);
   }

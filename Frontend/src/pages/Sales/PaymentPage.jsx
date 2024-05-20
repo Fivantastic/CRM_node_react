@@ -5,8 +5,6 @@ import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { CreatePayment } from '../../components/PagesComponents/Payments/CreatePayment.jsx'
 import { PaymentsList } from '../../components/PagesComponents/Payments/PaymentsList.jsx';
-import { ChangeStatus } from '../../components/forms/ChangeStatus.jsx';
-import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 import { usePaymentsList } from '../../hooks/PagesHooks/usePaymentsList.js'
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
@@ -61,14 +59,19 @@ export const PaymentPage = () => {
         {isListView ? (
         <ol className="payment_list main_olist">
           {filteredList.map((data) => {
-            const currentStatus = data.payment_status;
             return (
               <li
                 key={data.id_payment}
                 className="element_payment_content main_ilist"
               >
-                <PaymentsList payment={data} />
-                <span id="payment_actions" className="main_actions">
+                <PaymentsList 
+                  payment={data} 
+                  onDelete={deletePayment}
+                  handleNewPaymentStatus={handleNewPaymentStatus}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                  token={token} />
+                {/* <span id="payment_actions" className="main_actions">
                   {currentStatus !== 'cancelled' && (
                     <ChangeStatus
                       id={data.id_payment}
@@ -113,7 +116,7 @@ export const PaymentPage = () => {
                       typeModuleMessage={typeModuleMessage}
                     />
                   )}
-                </span>
+                </span> */}
               </li>
             );
           })}

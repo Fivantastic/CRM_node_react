@@ -1,14 +1,13 @@
 import { useUser } from '../../../context/authContext.jsx';
-import { ShipmentList } from '../../PagesComponents/Shipment/ShipmentList.jsx';
-import { CreateShipment } from '../../PagesComponents/Shipment/CreateShipment.jsx';
-import { UpdateShipment } from '../../PagesComponents/Shipment/UpdateShipment.jsx';
+import { ShipmentList } from '../../../components/PagesComponents/Shipment/ShipmentList.jsx';
+import { CreateShipment } from '../../../components/PagesComponents/Shipment/CreateShipment.jsx';
+import { UpdateShipment } from '../../../components/PagesComponents/Shipment/UpdateShipment.jsx';
 import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal.jsx';
 import { SearchPages } from '../../../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../../components/NavPages/SortPages.jsx';
-import useShipmentList from '../../../hooks/PagesHooks/useShipmentList.js';
+import  useShipmentList  from '../../../hooks/PagesHooks/useShipmentList.js';
 import { ToggleMode } from '../../NavPages/ToggleMode.jsx';
-//import { ShipmentsListTable } from '../../PagesComponents/Shipment/ShipmentsListTable.jsx';
 
 const ShipmentsCrud = () => {
   const token = useUser();
@@ -23,6 +22,8 @@ const ShipmentsCrud = () => {
     getShipmentList,
     setFilteredShipmentList,
   } = useShipmentList(token);
+  // const [isListView, setIsListView] = useState(true);
+
 
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },

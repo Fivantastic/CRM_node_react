@@ -13,11 +13,7 @@ export const createDeliveryNoteController = async (req, res, next) => {
     // Llamar al servicio para crear la nota de entrega
     const result = await createDeliveryNoteService(id_sale, deliverer_id);
 
-    res.status(200).send({
-      status: 'ok',
-      message: 'Albarán creado con éxito',
-      data: result,
-    });
+    res.json(success({ message: 'Albarán creado con éxito', data: result }));
   } catch (error) {
     next(error);
   }

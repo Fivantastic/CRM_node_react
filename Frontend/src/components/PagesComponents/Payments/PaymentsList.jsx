@@ -13,7 +13,7 @@ export const PaymentsList = ( { payment } ) => {
   
   return (
       <>
-        <h2 id="element_payment_title" className=" mainInsideTitle">Registro de Pago</h2>
+        <h2 id="element_payment_title" className=" mainInsideTitle">{payment.ref_PM}</h2>
         <h3 id="element_payment_paid" className=" mainInsideTitle"><strong>Pago: </strong> {payment.paid_amount}€</h3>
         <p id="element_payment_subtitle" className=" mainInsideSub"><strong>Fecha de pago: </strong> {paidDate.toLocaleDateString()}</p>
 

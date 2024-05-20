@@ -7,6 +7,7 @@ export const selectPaymentsListModel = async () => {
   const result =
   await pool.query(`
   SELECT Payments.id_payment,
+         Payments.ref_PM,
          Invoices.id_invoice,
          Invoices.agentUser_id AS salesAgent,
          Customers.name AS customer,

@@ -15,6 +15,7 @@ export const LoginPage = () => {
   const handleLoginSubmit = async (data) => {
     try {
       const response = await fetch(`${URL}/user/login`, {
+        // const response = await fetch(`http://localhost:3000/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

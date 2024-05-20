@@ -7,6 +7,7 @@ export const selectPaymentSearchModel = async (search) => {
 
  const [rows] = await pool.query(`
  SELECT Payments.id_payment,
+        Payments.ref_PM,
         Invoices.id_invoice,
         Invoices.agentUser_id AS salesAgent,
         Customers.name AS customer,
@@ -25,7 +26,8 @@ export const selectPaymentSearchModel = async (search) => {
  OR Customers.email LIKE? 
  OR Invoices.id_invoice LIKE? 
  OR Invoices.total_amount LIKE? 
-`,[`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`] ); //? Tengo que poner el nombre o el 'as x'?
+ OR Payments.ref_PM LIKE?
+`,[`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`] );
 
   console.log(`Resultados encontrados: ${rows.length}`);
   return rows;

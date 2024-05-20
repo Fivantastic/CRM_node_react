@@ -10,6 +10,7 @@ import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.js
 import { usePaymentsList } from '../../hooks/PagesHooks/usePaymentsList.js'
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
+import { PaymentsListTable } from '../../components/PagesComponents/Payments/PaymentsListTable.jsx';
 import { useState } from 'react';
 
 export const PaymentPage = () => {
@@ -39,10 +40,10 @@ export const PaymentPage = () => {
   ];
 
   const sortOptions = [
-    { label: "Factura (A - Z)", value: "factura-asc" },
-    { label: "Factura (Z - A)", value: "factura-desc" },
-    { label: "Fecha (Antiguos)", value: "fecha-asc" },
-    { label: "Fecha (Recientes)", value: "fecha-desc" },
+    { label: "Importe (Asc)", value: "importe-asc" },
+    { label: "Importe (Desc)", value: "importe-desc" },
+    { label: "Referencia (Antiguos)", value: "ref-asc" },
+    { label: "Referencia (Recientes)", value: "ref-desc" },
     { label: "Estado (A - Z)", value: "status-asc" },
     { label: "Estado (Z - A)", value: "status-desc" },
   ];
@@ -118,7 +119,7 @@ export const PaymentPage = () => {
           })}
         </ol>
         ) : (
-          <h2>En construcción... </h2>
+          <PaymentsListTable payment={filteredList} onUpdatePayment={handleNewPaymentStatus} onDelete={deletePayment} />
         )}
       </section>
     </MainLayout>

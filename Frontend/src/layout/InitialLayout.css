@@ -39,6 +39,7 @@
 }
 
 .left-pane {
+  justify-content: end;
   background-color: black;
   color: white;
 }
@@ -49,20 +50,53 @@
   transition: width 1s ease; 
 }
 
-.start-button {
-  margin-top: 20px;
+.img-cosmic-intro {
+  position: absolute;
+  width: 500px;
+  bottom: 56%;
 }
+
 
 a {
   text-decoration: none;
   color: inherit;
 }
 
+.videoInitial {
+  width: 100%;
+  height: 100%;
+
+}
+
+.video-Movil {  
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .start-button {
   position: absolute;
-  bottom: 35%;
-  left: 46%;
-  transition: all 0.5s ease;
+  bottom: 40%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.img-cosmic-intro {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s forwards;
 }
 
 .start-button {
@@ -112,7 +146,12 @@ a {
   box-shadow: inset 0px 0px 25px #1479EA;
 }
 
+
+
 @media screen and (max-width: 800px) {
+
+
+
   .animated-initial {
     transition: width 1s ease;
   }
@@ -132,5 +171,15 @@ a {
 
   .right-pane {
     visibility: visible;
+  }
+
+
+}
+
+@media screen and (max-width: 600px) {
+
+  .img-cosmic-intro {
+    width: 350px;
+    bottom: 55%;
   }
 }

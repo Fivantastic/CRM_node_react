@@ -1,0 +1,26 @@
+@keyframes neon {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px #13214E)
+                drop-shadow(0 0 10px #13214E)
+                drop-shadow(0 0 20px #13214E)
+                drop-shadow(0 0 30px #13214E)
+                drop-shadow(0 0 40px #13214E)
+                drop-shadow(0 0 50px #13214E)
+                drop-shadow(0 0 60px #13214E);
+        fill: #13214E;
+    }
+    50% {
+        filter: drop-shadow(0 0 10px #ffffff)
+                drop-shadow(0 0 20px #ffffff)
+                drop-shadow(0 0 30px #ffffff)
+                drop-shadow(0 0 40px #ffffff)
+                drop-shadow(0 0 50px #ffffff)
+                drop-shadow(0 0 60px #ffffff);
+        fill: #ffffff;
+    }
+}
+
+.neon .cls-3 {
+    animation: neon 1.5s infinite alternate;
+    background-color: transparent;
+}

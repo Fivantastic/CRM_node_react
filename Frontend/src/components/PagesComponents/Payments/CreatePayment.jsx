@@ -105,7 +105,7 @@ export const CreatePayment = ({onAddPayment, token}) => {
     return (
         <>
             <button id="btnPaymentCreate" className=" mainCreateBtn" onClick={handleClickCreatePayment}> 
-              <img id="imgCreatePaymentBtn" className='imgCreateBtn' src="./addPay.svg" alt="icono de agregar pago" />
+              <img id="imgCreatePaymentBtn" className='imgCreateBtn' src="/addPay.svg" alt="icono de agregar pago" />
             </button>
         </>
     )}

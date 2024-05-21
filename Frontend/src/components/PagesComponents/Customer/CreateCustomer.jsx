@@ -189,7 +189,7 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
   return (
     <>
       <button id='btnCustomerCreate' className=" mainCreateBtn" onClick={handleClickCreateCustomer}>
-        <img id='iconCustomerCreate' className='imgCreateBtn' src="./AddCustomer.svg" alt="icono agregar cliente" />
+        <img id='iconCustomerCreate' className='imgCreateBtn' src="/AddCustomer.svg" alt="icono agregar cliente" />
       </button>
     </>
   );

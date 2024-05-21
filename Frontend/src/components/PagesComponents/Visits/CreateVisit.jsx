@@ -108,7 +108,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
       >
         <img
           id="imgVisitCreate"
-          src="../calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          src="/calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg"
           alt="Boton agregar visita"
         />
       </button>

@@ -1,6 +1,6 @@
-import Joi from 'joi';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { InitialLayout } from '../../layout/InitialLayout.jsx';
+import { forgotPasswordUserSchema } from '../../Schema/Error/AuthSchema.js';
 import { NavLink } from 'react-router-dom';
 const URL = import.meta.env.VITE_URL;
 
@@ -28,15 +28,12 @@ export const ForgotPassword = () => {
     }
   };
 
-  const forgotPasswordUserSchema = Joi.object({
-    email: Joi.string().email({ tlds: false }).required().label('Email'),
-  });
-
   const forgotPasswordFormFields = [
     {
       name: 'email',
       label: 'Email',
       type: 'text',
+      idInputContainer: 'emailContainerForgot',
       idInput: 'emailForgot',
       required: true,
     },
@@ -45,9 +42,10 @@ export const ForgotPassword = () => {
   const idFromForgot = {
     idTitleContainer:'idTitleContainerForgot',
     idLogo:'idLogoForgot',
-    idSection:'idSectionForgot',
+    idSection:'sectionLogin',
     idFrom:'idFromForgot',
-    subTitle:"Welkome back! Please login to your account",
+    idSubTitle:'idTitleForgot',
+    subTitle:"Enter your email and we send you a password reset link.",
     submitBtn:"submitBtnForgot",
   }
 
@@ -61,10 +59,10 @@ export const ForgotPassword = () => {
         onSubmit={handleForgotPasswordSubmit}
         schema={forgotPasswordUserSchema}
         fields={forgotPasswordFormFields}
-        buttonText="Recuperar contraseña"
+        buttonText="Send request"
         extraButtons={[]}
       />
-            <NavLink to="/login">Volver</NavLink>
+      <NavLink to="/login">Volver</NavLink>
     </InitialLayout>
   );
 };

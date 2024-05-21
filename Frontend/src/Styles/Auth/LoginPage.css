@@ -1,22 +1,9 @@
+/* Estilos Mobile-First */
 .login-page-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100vh;
-}
-
-.login-page-animation-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000000;
-}
-
-.login-page-image {
-    overflow: hidden;
-    height: 100vh;
-    object-fit: cover;
-    object-position: center;
 }
 
 .outsideContainerForm {
@@ -24,30 +11,27 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
+}
 
 #idTitleContainer {
+    width: 350px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 #sectionLogin {
-    max-width: 550px;
-    min-width: 500px;
-    min-height: 600px;
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
+    align-items: center;
     margin: 0 auto;
     padding: 20px;
-   
 }
 
 #idFormLogin {
-    width: 100%;
+    width: 95%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
@@ -57,22 +41,17 @@
         "submit submit";
 }
 
-#idLogoLogin {
-    width: 440px;
+#idFormReset {
+    width: 90%;
 }
 
-.subTitleForm {
-    color: #13214E;
-    font-size: 1.1rem;
-    opacity: 0.6;
-    margin-bottom: 20px;
-    margin-top: 15px;
-    letter-spacing: 1px;
-    text-align: center;
-}
 
 #emailContainer {
     grid-area: email;
+}
+
+#idFromForgot {
+    width: 90%;
 }
 
 #passwordContainer {
@@ -80,22 +59,25 @@
 }
 
 #rememberContainer {
+    font-size: 0.8rem;
     height: 32px;
     grid-area: remember;
     color: #13214E;
+    margin-top: 0;
 }
 
 #forgotPasswordContainer {
+    font-size: 0.8rem;
     height: 32px;
     grid-area: forgotPassword;
     display: flex;
     justify-content: end;
+    margin-top: 0;
 }
 
 #forgotPasswordContainer p {
     align-content: center;
 }
-
 
 #idNavLogin {
     grid-area: submit;
@@ -105,14 +87,36 @@
     align-items: center;
 }
 
+#idLogoLogin,
+#idLogoForgot,
+#idLogoReset {
+    width: 350px;
+}
+
+.subTitleForm {
+    width: 350px;
+    color: #13214E;
+    font-size: 0.95rem;
+    opacity: 0.6;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+
+#idNavLogin,
+.button-container-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Estilos de inputs */
-
-
-/* Estilo para los campos de entrada y etiquetas */
-
 .input-container-login {
     position: relative;
-    margin: 30px auto;
+    margin: 25px auto;
     width: 100%;
 }
 
@@ -123,9 +127,10 @@
 .input-container-login .inputText-login,
 .input-container-login #emailContainer,
 .input-container-login #passwordContainer {
-    font-size: 20px;
+    font-size: 18px;
     width: 100%;
     border: none;
+    color: #13214E;
     border-bottom: 2px solid #ccc;
     padding: 5px 0;
     background-color: transparent;
@@ -145,7 +150,7 @@
 .input-container-login .inputText-login.filled ~ .label-login {
     top: -20px;
     font-size: 16px;
-    color: #333;
+    color: #13214E;
 }
 
 .input-container-login .underline-login {
@@ -154,7 +159,7 @@
     left: 0;
     height: 2px;
     width: 100%;
-    background-color: #333;
+    background-color: #13214E;
     transform: scaleX(0);
     transition: all 0.3s ease;
 }
@@ -164,74 +169,126 @@
     transform: scaleX(1);
 }
 
-
-
-  
-  /* Estilo para los mensajes de ayuda */
-  .help-text-form {
+/* Estilo para los mensajes de ayuda */
+.help-text-form {
     color: #666;
     font-size: 14px;
     margin-top: 5px;
-  }
-  
-  /* Estilo para los mensajes de error */
-  .error-message-form {
+}
+
+/* Estilo para los mensajes de error */
+.error-message-form {
+    position: absolute;
     color: #ff0000;
     font-size: 14px;
     margin-top: 5px;
-  }
-  
-  /* Estilo para los ancores */
-  .linkFrom {
+    font-style: italic;
+}
+
+/* Estilo para los ancores */
+.linkFrom {
     color: #13214E;
     text-decoration: none;
-    margin: 10px 5px;
     cursor: pointer;
     text-align: end;
+}
 
-  }
-  
-  /* .linkFrom:hover {
-    text-decoration: underline;
-  } */
-  
-  
-  .submitMainBtn {
+.submitMainBtn {
     color: #13214E;
     background-color: transparent;
     border: 1px solid #13214E;
-    font-size: 1.5rem;
-    padding: 15px 100px;  
     margin-top: 20px;
     border-radius: 8px;
     cursor: pointer;
-  }
+}
 
-  .submitMainBtn:hover {
+.submitMainBtn:hover {
     background-color: #13214E;
     color: #fff;
-  }
-  
-  
-  /* Estilo para el botón de enviar cuando está deshabilitado */
-  submitMainBtn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
+}
+
+#submitBtnLogin {
+    font-size: 1.3rem;
+    padding: 10px 80px;  
+}
+
+#submitBtnForgot {
+    font-size: 1.3rem;
+    padding: 10px 80px;
+}
+
+#submitBtnReset {
+    font-size: 1.3rem;
+    padding: 10px 80px;
+}
 
 
 
-
-
-
-@media screen and (max-width: 1020px) {
-
+/* Estilos para pantallas más grandes */
+@media screen and (min-width: 800px) {
     .login-page-container {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        height: 100vh;
     }
     
-    .login-page-animation-container{
-        display: none;
+    .outsideContainerForm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+    
+    #idTitleContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
     }
+    
+    #sectionLogin {
+        max-width: 400px;
+        min-width: 400px;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        margin: 0 auto;
+        padding: 20px;
+       
+    }
+    
+    #idFormLogin {
+        width: 95%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "email email"
+            "password password"
+            "remember forgotPassword"
+            "submit submit";
+    }
+    
+    #idLogoLogin,
+    #idLogoForgot,
+    #idLogoReset {
+        width: 400px;
+    }
+    
+    .subTitleForm {
+        width: 400px;
+        font-size: 0.95rem;
+
+    }
+
+    #forgotPasswordContainer,
+    #rememberContainer {
+        font-size: 0.9rem;
+    }
+    
+    #forgotPasswordContainer p {
+        align-content: center;
+    }
+
 }

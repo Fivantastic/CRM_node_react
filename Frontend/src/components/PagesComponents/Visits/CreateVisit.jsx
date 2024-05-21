@@ -1,6 +1,6 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { newVisitSchema } from '../../../Schema/Error/createSchema.js';
 import './VisitListTable.css';
 
 export const CreateVisit = ({ onAddVisit, token }) => {
@@ -89,12 +89,6 @@ export const CreateVisit = ({ onAddVisit, token }) => {
       required: false,
     },
   ];
-
-  const newVisitSchema = Joi.object({
-    id_customer: Joi.string().guid().required(),
-    visit_date: Joi.date().required(),
-    observations: Joi.string().optional(),
-  });
 
   const handleClickCreateVisit = () => {
     DynamicFormPopUp(

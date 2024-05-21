@@ -1,7 +1,7 @@
-import joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { EditButton } from '../../buttons/EditButton.jsx';
+import { updateCustomerSchema } from '../../../Schema/Error/updateSchema.js';
 
 export const UpdateCustomer = ({ customer, token, onUpdateCustomer }) => {
   // Aqui hace la peticion al servidor
@@ -108,15 +108,6 @@ export const UpdateCustomer = ({ customer, token, onUpdateCustomer }) => {
       placeholder: 'Introduce el NIF...',
     },
   ];
-
-  // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
-  const updateCustomerSchema = joi.object({
-    name: joi.string().min(3).max(30).optional(),
-    email: joi.string().email({ tlds: false }).optional().label('Email'),
-    phone: joi.string().min(9).max(30).optional(),
-    company_name: joi.string().min(0).max(30).optional(),
-    NIF: joi.string().optional(),
-  });
 
   // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
   const handleUpdateCustomer = () => {

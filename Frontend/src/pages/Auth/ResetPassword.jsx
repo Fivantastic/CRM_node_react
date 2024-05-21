@@ -1,7 +1,7 @@
-import Joi from 'joi';
 import { useParams } from 'react-router-dom';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { InitialLayout } from '../../layout/InitialLayout.jsx';
+import { resetPasswordUserSchema } from '../../Schema/Error/AuthSchema.js';
 import { NavLink } from 'react-router-dom';
 const URL = import.meta.env.VITE_URL;
 
@@ -37,47 +37,48 @@ export const ResetPassword = () => {
       //pops de error
     }
   };
-  const resetPasswordUserSchema = Joi.object({
-    newPassword: Joi.string()
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
-      .required()
-      .label('Nueva contraseña'),
-    repeatPassword: Joi.string()
-      .valid(Joi.ref('newPassword'))
-      .required()
-      .label('Repetir nueva contraseña'),
-  });
 
   const resetPasswordFields = [
     {
       name: 'newPassword',
-      label: 'Nueva contraseña',
+      label: 'New password',
       type: 'password',
-      idInputContainer: 'passwordContainer',
-      idInput: 'passwordLogin',
+      idInputContainer: 'passwordContainerReset',
+      idInput: 'passwordLoginReset',
       required: true,
     },
     {
       name: 'repeatPassword',
-      label: 'Repetir nueva contraseña',
+      label: 'Repeat new password',
       type: 'password',
-      idInputContainer: 'passwordContainer',
-      idInput: 'passwordLogin',
+      idInputContainer: 'passwordContainerResetNew',
+      idInput: 'passwordResetNew',
       required: true,
     },
   ];
+
+  const idFormReset = {
+    idTitleContainer: 'idTitleContainerReset',
+    idLogo: 'idLogoReset',
+    idSection: 'sectionLogin',
+    idFrom: 'idFormReset',
+    idSubTitle:'idTitleReset',
+    subTitle: "Enter your new password to update your account.",
+    idNavLogin: "idNavReset",
+    submitBtn: "submitBtnReset",
+}
 
   return (
     <InitialLayout>
       <DynamicForm
         title="Nueva contraseña"
-        imgTitle="./Logo_cosmic.svg"
+        imgTitle="/Logo_cosmic.svg"
         imgTitleActive='true'
-        idCustom={[]}
+        idCustom={idFormReset}
         onSubmit={handleResetPasswordSubmit}
         schema={resetPasswordUserSchema}
         fields={resetPasswordFields}
-        buttonText={'Restablecer contraseña'}
+        buttonText={'Reset password'}
         extraButtons={[]}
       />
       <NavLink to="/login">Volver</NavLink>

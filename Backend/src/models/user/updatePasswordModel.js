@@ -7,8 +7,13 @@ export const updatePasswordModel = async (id_user, hashedPassword) => {
     SET password = ?
     WHERE id_user = ?
   `;
-
-  await pool.execute(query, [hashedPassword, id_user]);
   
-  return { message: 'Contraseña actualizada correctamente' };
+  try {
+    const [result] = await pool.execute(query, [hashedPassword, id_user]);
+    console.log(`Actualizando contraseña: ${JSON.stringify(result)}`);
+    return { message: 'Contraseña actualizada correctamente' };
+  } catch (error) {
+    console.error(`Error al actualizar contraseña: ${error.message}`);
+    throw error;
+  }
 };

@@ -24,7 +24,7 @@ export const Visitpage = () => {
     typeModuleMessage,
   } = useVisitsList(token);
 
-  const [isListView, setIsListView] = useState(true);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
   const filterOptions = [
     { label: 'Programada', value: 'scheduled' },
@@ -47,7 +47,7 @@ export const Visitpage = () => {
           <CreateVisit onAddVisit={addVisit} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
           <SortPages options={sortOptions} onSort={handleSortChange} />
-          <ToggleMode onClick={() => setIsListView((prev) => !prev)} />
+          <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView}  />
         </nav>
         {isListView ? (
         

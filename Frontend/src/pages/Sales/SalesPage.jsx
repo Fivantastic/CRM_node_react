@@ -26,7 +26,7 @@ export const SalesPage = () => {
     typeModuleMessage,
   } = useSalesList(token);
 
-  const [isListView, setIsListView] = useState(true);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
   const filterOptions = [
     { label: 'Proceso', value: 'open' },
@@ -49,7 +49,7 @@ export const SalesPage = () => {
           <CreateSale onAddSale={addSale} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
           <SortPages options={sortOptions} onSort={handleSortChange} />
-          <ToggleMode onClick={() => setIsListView((prev) => !prev)} />
+          <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
           <ol id="sales_list" className=" main_olist">

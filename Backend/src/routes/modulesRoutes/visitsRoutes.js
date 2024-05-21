@@ -63,4 +63,4 @@ visitsRouter.put(
 );
 
 // Recibir e insertar la valoracion del cliente
-visitsRouter.put('/visits/feedback/:visitId', feedbackVisitController);
+visitsRouter.put('/visits/feedback/:ref_VT', feedbackVisitController);

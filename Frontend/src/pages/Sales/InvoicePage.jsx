@@ -2,13 +2,12 @@ import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
 import { CreateInvoice } from '../../components/PagesComponents/Invoces/CreateInvoice.jsx';
 import { InvoicesList } from '../../components/PagesComponents/Invoces/InvoicesList.jsx';
-import { ClosedInvoice } from '../../components/PagesComponents/Invoces/ClosedInvoice.jsx';
-import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx';
 import { useInvoicesList } from '../../hooks/PagesHooks/useInvoicesList.js'
 import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
+import { InvoicesListTable } from '../../components/PagesComponents/Invoices/InvoicesListTable.jsx';
 import { useState } from 'react';
 
 export const InvoicePage = () => {
@@ -31,20 +30,19 @@ export const InvoicePage = () => {
   const [isListView, setIsListView] = useState(true);
 
   const filterOptions = [
+    { label: 'Enviada', value: 'sent' },
     { label: 'Pendiente', value: 'pending' },
-    { label: 'Pagado', value: 'paid' },
-    { label: 'Atrasado', value: 'overdue' },
-    { label: 'Parcialmente Pagado', value: 'partially_paid' },
-    { label: 'Cancelado', value: 'cancelled' },
-    { label: 'Reembolsado', value: 'refunded' },
-    { label: 'Reclamado', value: 'disputed' },
-    { label: 'Enviado', value: 'sent' },
+    { label: 'Pago parcial', value: 'partially_paid' },
+    { label: 'Atrasada', value: 'overdue' },
+    { label: 'Pagada', value: 'paid' },
+    { label: 'Reclamada', value: 'disputed' },
+    { label: 'Reembolsada', value: 'refunded' },
+    { label: 'Cancelada', value: 'cancelled' },    
   ];
 
-  // TODO Adaptarlas al caso
   const sortOptions = [ 
-    { label: "Factura (A - Z)", value: "factura-asc" },
-    { label: "Factura (Z - A)", value: "factura-desc" },
+    { label: "Referencia (A - Z)", value: "ref-asc" },
+    { label: "Referencia (Z - A)", value: "ref-desc" },
     { label: "Comercial (A - Z)", value: "comercial-asc" },
     { label: "Comercial (Z - A)", value: "comercial-desc" },
     { label: "Vencimiento (Próximos)", value: "fecha-desc" },
@@ -73,27 +71,20 @@ export const InvoicePage = () => {
                 id="element_invoice_container"
                 className=" main_ilist"
               >
-                <InvoicesList invoice={data} />
-                <span id="invoice_actions" className="main_actions">
-                  <ClosedInvoice
-                    invoice={data.id_invoice}
-                    onUpdateInvoice={updateInvoice}
-                    token={token}
-                  />
-                  <DeleteGenericModal
-                    id={data.id_invoice}
-                    onDelete={deleteInvoice}
-                    token={token}
-                    typeModule={typeModule}
-                    typeModuleMessage={typeModuleMessage}
-                  />
-                </span>
+                <InvoicesList 
+                  invoice={data} 
+                  onDelete={deleteInvoice}
+                  handleNewInvoiceStatus={updateInvoice}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                  token={token}
+                />
               </li>
             );
           })}
         </ol>
         ) : (
-          <h2>En construcción...</h2>
+          <InvoicesListTable invoices={filteredList} onUpdate={updateInvoice} onDelete={deleteInvoice} />
         )}
       </section>
     </MainLayout>

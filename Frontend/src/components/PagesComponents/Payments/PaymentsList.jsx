@@ -32,13 +32,12 @@ const estadoPago = traducirEstadoPago(payment.payment_status)
 const moreInfoFields = [
   { label: 'Ref', value: payment.ref_PM },
   { label: 'Cantidad', value: payment.paid_amount + '€'},
-  { label: 'Cliente', value: `${payment.customer}`},
+  { label: 'Cliente', value: payment.customer},
   { label: 'Telefono', value: payment.customer_phone },
   { label: 'Email', value: payment.customer_email },
   { label: 'Fecha del pago', value: paidDate.toLocaleDateString() },
   { label: 'Estado', value: estadoPago.text, color: estadoPago.color },
-  { label: 'Factura asociada', value: payment.id_invoice },
-  { label: 'Id del comercial', value: `${payment.salesAgent}` },
+  { label: 'Factura asociada', value: payment.ref_IN },
 ];
 
   return (

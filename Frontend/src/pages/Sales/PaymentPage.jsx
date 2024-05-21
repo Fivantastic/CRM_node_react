@@ -40,8 +40,8 @@ export const PaymentPage = () => {
   const sortOptions = [
     { label: "Importe (Asc)", value: "importe-asc" },
     { label: "Importe (Desc)", value: "importe-desc" },
-    { label: "Referencia (Antiguos)", value: "ref-asc" },
-    { label: "Referencia (Recientes)", value: "ref-desc" },
+    { label: "Referencia (A - Z)", value: "ref-asc" },
+    { label: "Referencia (Z -A)", value: "ref-desc" },
     { label: "Estado (A - Z)", value: "status-asc" },
     { label: "Estado (Z - A)", value: "status-desc" },
   ];
@@ -71,58 +71,12 @@ export const PaymentPage = () => {
                   typeModule={typeModule}
                   typeModuleMessage={typeModuleMessage}
                   token={token} />
-                {/* <span id="payment_actions" className="main_actions">
-                  {currentStatus !== 'cancelled' && (
-                    <ChangeStatus
-                      id={data.id_payment}
-                      onClick={handleNewPaymentStatus}
-                      newStatus={'cancelled'}
-                      newStatusMessage="Cancelar"
-                      token={token}
-                      typeModule={typeModule}
-                      typeModuleMessage={typeModuleMessage}
-                    />
-                  )}
-                  {currentStatus !== 'paid' &&
-                    currentStatus !== 'cancelled' && (
-                      <ChangeStatus
-                        id={data.id_payment}
-                        onClick={handleNewPaymentStatus}
-                        newStatus={'paid'}
-                        newStatusMessage="Resolver"
-                        token={token}
-                        typeModule={typeModule}
-                        typeModuleMessage={typeModuleMessage}
-                      />
-                    )}
-                  {currentStatus !== 'pending' && currentStatus !== 'paid' && (
-                    <ChangeStatus
-                      id={data.id_payment}
-                      onClick={handleNewPaymentStatus}
-                      newStatus={'pending'}
-                      newStatusMessage="Restaurar"
-                      token={token}
-                      typeModule={typeModule}
-                      typeModuleMessage={typeModuleMessage}
-                    />
-                  )}
-
-                  {currentStatus === 'cancelled' && (
-                    <DeleteGenericModal
-                      id={data.id_payment}
-                      onDelete={deletePayment}
-                      token={token}
-                      typeModule={typeModule}
-                      typeModuleMessage={typeModuleMessage}
-                    />
-                  )}
-                </span> */}
               </li>
             );
           })}
         </ol>
         ) : (
-          <PaymentsListTable payment={filteredList} onUpdatePayment={handleNewPaymentStatus} onDelete={deletePayment} />
+          <PaymentsListTable payments={filteredList} onUpdatePayment={handleNewPaymentStatus} onDelete={deletePayment} />
         )}
       </section>
     </MainLayout>

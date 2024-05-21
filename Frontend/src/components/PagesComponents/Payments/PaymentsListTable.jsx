@@ -1,12 +1,10 @@
+import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { useUser } from '../../../context/authContext.jsx';
+import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 import { ChangeStatus } from '../../forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
-// import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
-// import '../Payments/PaymentsListTable.css';
-// import { MorePayments } from './MorePayments.jsx';
-// import { UpdatePayment } from './UpdatePayment.jsx';
 
-export const PaymentsListTable = ({payment, onUpdatePayment, onDelete}) => {
+export const PaymentsListTable = ({payments, onUpdatePayment, onDelete}) => {
       const token = useUser();
 
   // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
@@ -18,17 +16,15 @@ export const PaymentsListTable = ({payment, onUpdatePayment, onDelete}) => {
   const traducirEstadoPago = (estado) => {
     switch (estado) {
       case 'pending':
-        return 'Pendiente';
+        return { text: 'Pendiente', color: 'blue' };
       case 'cancelled':
-        return 'Cancelado';
+        return { text: 'Cancelado', color: 'red' };
       case 'paid':
-        return 'Cerrado';
+        return { text: 'Pagado', color: 'green' };
       default:
-        return estado;
+        return { text: estado, color: 'black' };
     }
   };
-  
-//   const nameComplete = `${payment.paymentsAgent} ${payment.last_name}`;
   
   return (
     <section id="sales_table">
@@ -39,15 +35,23 @@ export const PaymentsListTable = ({payment, onUpdatePayment, onDelete}) => {
         <div id="salesTableHeadRowActions">Acciones</div>
       </div>
       <div id="salesTableBody">
-        {payment.length > 0 &&
-          payment.map((payment) => {
-            const status = payment.payment_status
-            let statusColor = '';
+        {payments.length > 0 &&
+          payments.map((payment) => {
+            console.log(payment);
 
-            if (status === 'pending') { statusColor = 'orange';
-            } else if (status === 'cancelled') {statusColor = 'gray';
-            } else if (status === 'paid') { statusColor = 'green';
-            }
+            const paidDate = getNormalizedDate(payment.payment_date);
+            const estadoPago = traducirEstadoPago(payment.payment_status)
+          
+            const moreInfoFields = [
+              { label: 'Ref', value: payment.ref_PM },
+              { label: 'Cantidad', value: payment.paid_amount + '€'},
+              { label: 'Cliente', value: payment.customer},
+              { label: 'Telefono', value: payment.customer_phone },
+              { label: 'Email', value: payment.customer_email },
+              { label: 'Fecha del pago', value: paidDate.toLocaleDateString() },
+              { label: 'Estado', value: estadoPago.text, color: estadoPago.color },
+              { label: 'Factura asociada', value: payment.ref_IN },
+            ];
             
             return(
             <div key={payment.id_payment} id="salesTableBodyRow">
@@ -58,45 +62,19 @@ export const PaymentsListTable = ({payment, onUpdatePayment, onDelete}) => {
                 </p>
               </div>
               <div id="salesTableBodyRowEstatus">
-                <p style={{color:statusColor, fontWeight:"bold"}}>{traducirEstadoPago(payment.payment_status)}</p>
+                <p style={{color:estadoPago.color}}>{estadoPago.text}</p>
               </div>
               <div id="salesTableBodyRowActions">
-                {/* <MorePayments payment={payment} /> */}
-                {status !== 'cancelled' && (
-                    <ChangeStatus
-                      id={payment.id_payment}
-                      onClick={onUpdatePayment}
-                      newStatus={'cancelled'}
-                      newStatusMessage="Cancelar"
-                      token={token}
-                      typeModule={typeModule}
-                      typeModuleMessage={typeModuleMessage}
-                    />
-                  )}
-                  {status !== 'paid' &&
-                    status !== 'cancelled' && (
-                      <ChangeStatus
-                        id={payment.id_payment}
-                        onClick={onUpdatePayment}
-                        newStatus={'paid'}
-                        newStatusMessage="Resolver"
-                        token={token}
-                        typeModule={typeModule}
-                        typeModuleMessage={typeModuleMessage}
-                      />
-                    )}
-                  {status !== 'pending' && status !== 'paid' && (
-                    <ChangeStatus
-                      id={payment.id_payment}
-                      onClick={onUpdatePayment}
-                      newStatus={'pending'}
-                      newStatusMessage="Restaurar"
-                      token={token}
-                      typeModule={typeModule}
-                      typeModuleMessage={typeModuleMessage}
-                    />
-                  )}
-                  {status === 'cancelled' && (
+                <MoreInfo fields={moreInfoFields} modalIds={[]} />
+
+
+                <ChangeStatus
+                  id={payment.id_payment}
+                  currentStatus={payment.payment_status}
+                  onClick={onUpdatePayment}
+                  token={token}
+                />
+                  {payment.payment_status === 'cancelled' && (
                     <DeleteGenericModal
                       id={payment.id_payment}
                       onDelete={onDelete}

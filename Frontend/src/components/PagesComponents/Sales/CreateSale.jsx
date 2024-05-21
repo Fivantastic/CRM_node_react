@@ -115,7 +115,7 @@ export const CreateSale = ({ onAddSale, token }) => {
       >
         <img
           id="imgUserCreate"
-          src="../../../../list_alt_add_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          src="/list_alt_add_24dp_FILL0_wght400_GRAD0_opsz24.svg"
           alt="Boton agregar usuario"
         />
       </button>

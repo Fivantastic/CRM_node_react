@@ -133,7 +133,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
     return (
         <div>
           <button className="btnProductCreate mainCreateBtn" onClick={handleClickCreateProduct}>
-            <img id='imgProductCreate' className='imgCreateBtn' src="./productAdd.svg" alt="logoproduct" />
+            <img id='imgProductCreate' className='imgCreateBtn' src="/productAdd.svg" alt="logoproduct" />
           </button>
         </div>
     );

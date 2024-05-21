@@ -38,9 +38,9 @@ export const SortPages = ({ options, onSort }) => {
     <div className="sort-dropdown" ref={dropdownRef}>
       <div className="dropdown-toggle" onClick={toggleMenu}>
         {selectedOption ? (
-          <img src="./sortSoft.svg" alt="Boton de ordenamiento" />
+          <img src="/sortSoft.svg" alt="Boton de ordenamiento" />
         ) : (
-          <img src="./sort.svg" alt="Boton de ordenamiento" />
+          <img src="/sort.svg" alt="Boton de ordenamiento" />
         )}
       </div>
       {isOpen && (

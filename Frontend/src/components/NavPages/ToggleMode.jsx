@@ -19,8 +19,8 @@ export const ToggleMode = ({ onClick }) => {
                 id="mode"
                 type="checkbox"
                 className="mode"
-                checked={isListView} // Establece el estado checked del checkbox según el modo actual
-                onChange={handleModeChange} // Maneja el cambio de modo
+                checked={isListView}
+                onChange={handleModeChange} 
             />
             <label className="modeLabel" htmlFor="mode">
                 <span className="switch-x-text">Modo </span>

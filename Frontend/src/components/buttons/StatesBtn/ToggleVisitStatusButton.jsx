@@ -107,7 +107,7 @@ export const ToggleVisitStatusButton = ({ id, currentStatus, updateVisit, token 
   if (currentStatus === 'cancelled') {
     return (
     <div className="disabledVisit">
-      <img className="disabledVisitimg"  src="./blockCancel.svg" alt="Visita cancelada" />
+      <img className="disabledVisitimg"  src="/blockCancel.svg" alt="Visita cancelada" />
     </div>
     );
   }

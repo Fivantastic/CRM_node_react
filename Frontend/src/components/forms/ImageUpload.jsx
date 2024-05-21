@@ -86,7 +86,7 @@ function ImageUpload() {
       <button onClick={selectImage} id="btn-select-img">
         <img
           id="incon-setting"
-          src="./person_add_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          src="/person_add_24dp_FILL0_wght400_GRAD0_opsz24.svg"
           alt=""
         />
         <div id="content">

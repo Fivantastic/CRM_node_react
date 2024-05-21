@@ -2,20 +2,21 @@ import { useState } from 'react';
 const URL = import.meta.env.VITE_URL;
 import { useParams } from 'react-router-dom';
 import './ratingVisit.css';
+import { Toast } from '../../components/alerts/Toast.jsx';
+import { SuccesRating } from '../../components/alerts/SuccesRating.jsx';
 
 export const RatingVisit = () => {
   const [rating_visit, setRating_visit] = useState(0);
   const [comment_visit, setComment_visit] = useState('');
-
+  const [isSuccess, setIsSuccess] = useState(true);
   const { ref_VT } = useParams();
 
-  console.log(rating_visit);
-  const handleRatingChange = (event) => {
-    setRating_visit(event.target.value);
+  const handleRatingChange = (e) => {
+    setRating_visit(e.target.value);
   };
 
-  const handleCommentChange = (event) => {
-    setComment_visit(event.target.value);
+  const handleCommentChange = (e) => {
+    setComment_visit(e.target.value);
   };
 
   const handleRatingVisitSubmit = async (data) => {
@@ -32,11 +33,19 @@ export const RatingVisit = () => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Rating enviado con éxito:', responseData);
-        // Redirigir a la página principal o realizar otra acción
+        Toast.fire({
+          icon: 'success',
+          position: 'top-end',
+          title: 'Valoración enviada con exito!',
+        });
       } else {
         const errorData = await response.json();
         console.error('Rating falló:', errorData);
-        // Mostrar mensaje de error
+        Toast.fire({
+          icon: 'error',
+          position: 'top-end',
+          title: 'Error al enviar la valoración',
+        });
       }
     } catch (error) {
       console.error('Error durante el rating:', error);
@@ -44,74 +53,83 @@ export const RatingVisit = () => {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     handleRatingVisitSubmit({
       rating_visit,
       comment_visit,
     });
+    setIsSuccess(false);
   };
 
   return (
     <section className="rating_container">
-      <img src="../../../public/" alt="Logo" />
-      <p className="rating_agent">Valora la visita de nuestro agente</p>
-      <form onSubmit={handleSubmit}>
-        <section className="rating_body">
-          <div className="rating">
-            <input
-              value="5"
-              name="ratting_visit"
-              id="star5"
-              type="radio"
-              onChange={handleRatingChange}
-            />
-            <label htmlFor="star5"></label>
-            <input
-              value="4"
-              name="rating_visit"
-              id="star4"
-              type="radio"
-              onChange={handleRatingChange}
-            />
-            <label htmlFor="star4"></label>
-            <input
-              value="3"
-              name="rating_visit"
-              id="star3"
-              type="radio"
-              onChange={handleRatingChange}
-            />
-            <label htmlFor="star3"></label>
-            <input
-              value="2"
-              name="rating_visit"
-              id="star2"
-              type="radio"
-              onChange={handleRatingChange}
-            />
-            <label htmlFor="star2"></label>
-            <input
-              value="1"
-              name="rating_visit"
-              id="star1"
-              type="radio"
-              onChange={handleRatingChange}
-            />
-            <label htmlFor="star1"></label>
-          </div>
-          <textarea
-            id="comment_visit"
-            name="comment_visit"
-            value={comment_visit}
-            onChange={handleCommentChange}
-          ></textarea>
+      <img className="title_rating" src="../../../Logo_cosmic.svg" alt="Logo" />
+      {isSuccess ? (
+        <>
+          <p className="rating_agent">Valora la visita de nuestro agente</p>
+          <form onSubmit={handleSubmit}>
+            <section className="rating_body">
+              <div className="rating">
+                <input
+                  value="5"
+                  name="ratting_visit"
+                  id="star5"
+                  type="radio"
+                  onChange={handleRatingChange}
+                />
+                <label htmlFor="star5"></label>
+                <input
+                  value="4"
+                  name="rating_visit"
+                  id="star4"
+                  type="radio"
+                  onChange={handleRatingChange}
+                />
+                <label htmlFor="star4"></label>
+                <input
+                  value="3"
+                  name="rating_visit"
+                  id="star3"
+                  type="radio"
+                  onChange={handleRatingChange}
+                />
+                <label htmlFor="star3"></label>
+                <input
+                  value="2"
+                  name="rating_visit"
+                  id="star2"
+                  type="radio"
+                  onChange={handleRatingChange}
+                />
+                <label htmlFor="star2"></label>
+                <input
+                  value="1"
+                  name="rating_visit"
+                  id="star1"
+                  type="radio"
+                  onChange={handleRatingChange}
+                />
+                <label htmlFor="star1"></label>
+              </div>
+              <textarea
+                className="textarea_rating"
+                id="comment_visit"
+                name="comment_visit"
+                value={comment_visit}
+                placeholder="Comentario"
+                onChange={handleCommentChange}
+              ></textarea>
 
-          <button className="btn_rating" type="submit">
-            Enviar
-          </button>
-        </section>
-      </form>
+              <button className="btn_rating" type="submit">
+                Enviar
+              </button>
+            </section>
+          </form>
+        </>
+      ) : (
+        <SuccesRating />
+      )}
     </section>
   );
 };

@@ -9,27 +9,30 @@ import { generateAccessToken } from '../../utils/generateAccessToken.js';
 export const loginUserController = async (req, res, next) => {
     try {
         //Validar los datos de entrada
-        const { email, password } = validateSignInRequest(req.body);
+        const { email, password, remember } = validateSignInRequest(req.body);
+
+        console.log('remember', remember);
+
 
         // Validamos el body
         await validateSchemaUtil(loginUserSchema, req.body);
 
         //obtener el usuario
         const user = await selectUserByEmailModel(email);
-
+        console.log('paso 2');
         //validar el usuario
         if (!user){
             invalidCredentials('El usuario/email no existe');
         }
-  
+        console.log('paso 3');
         //validar el estado
         if (user.active != 1) {
             AccountInactiveError(); 
         }
-        
+        console.log('paso 4');
         //comparar la contraseña
         const isValidPassword = await bcrypt.compare(password, user.password);
-
+        console.log('paso 5');
         //validar la contraseña
         if (!isValidPassword) {
             invalidPasswordError();
@@ -37,7 +40,8 @@ export const loginUserController = async (req, res, next) => {
         // El usuario existe y la contraseña es correcta
         //Login exitoso
         const token = generateAccessToken(user);
-        
+        console.log('paso 6');
+        console.log(token);
         // Eliminar el token de la cookie si existe
         // res.clearCookie('token');
 

@@ -1,8 +1,19 @@
 import Joi from 'joi';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp';
 import Swal from 'sweetalert2';
+import DynamicFormPopUp from '../../forms/DynamicFormPopUp';
+import usePendingDeliveryNotes from '../../../hooks/PagesHooks/usePendingDeliveryNotes';
+import { useState } from 'react';
 
 export const CreateShipment = ({ onAddShipment, token }) => {
+  const [reload, setReload] = useState(false);
+  const pendingDeliveryNotes = usePendingDeliveryNotes(token, reload);
+
+  const [formValues, setFormValues] = useState({
+    deliveryNote_id: '',
+    shipment_status: '',
+    additional_notes: ''
+  });
+
   const handleShipmentCreatedAction = async (formData) => {
     try {
       const response = await fetch('http://localhost:3000/shipment/create', {
@@ -19,31 +30,37 @@ export const CreateShipment = ({ onAddShipment, token }) => {
         const responseData = await response.json();
         console.log('Envío creado satisfactoriamente:', responseData);
 
-        onAddShipment(responseData.data);
+        if (responseData.id_shipment) {
+          onAddShipment(responseData);
+          Swal.fire({
+            icon: 'success',
+            title: 'Envío creado con éxito!',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            position: 'top-end',
+            toast: true,
+          });
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'bottom-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-
-        Toast.fire({
-          icon: 'success',
-          title: 'Envío creado con éxito!',
-        });
+          // Recargar datos de notas de entrega
+          setReload(!reload);
+        } else {
+          console.error('La respuesta del servidor no contiene id_shipment:', responseData);
+        }
       } else {
-        const errorData = await response.json();
-        console.error('Creación de envío fallida:', errorData);
+        console.error('Error al crear el envío:', await response.text());
       }
     } catch (error) {
-      console.error('Error durante la creación de envío:', error);
+      console.error('Error durante la creación del envío:', error);
     }
+  };
+
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
   const title = 'Crear Envío';
@@ -51,87 +68,60 @@ export const CreateShipment = ({ onAddShipment, token }) => {
 
   const createShipmentFormFields = [
     {
-      name: 'customer_id',
-      label: 'ID de cliente',
-      type: 'text',
-      placeholder: 'Introduce el ID de cliente...',
-      idLabel: 'labelNameShipmentCreate',
-      idInput: 'inputNameShipmentCreate',
-      required: true,
-    },
-    {
-      name: 'address_id',
-      label: 'ID de dirección',
-      type: 'text',
-      placeholder: 'Introduce el ID de dirección...',
-      idLabel: 'labelAddressShipmentCreate',
-      idInput: 'inputAddressShipmentCreate',
-      required: true,
-    },
-    {
+      key: 'deliveryNote_id',
       name: 'deliveryNote_id',
-      label: 'ID de nota de entrega',
-      type: 'text',
-      placeholder: 'Introduce el ID de nota de entrega...',
+      label: 'Nota de entrega',
+      type: 'select',
+      options: {
+        'Notas de entrega pendientes': pendingDeliveryNotes.map(note => ({
+          value: note.id_note,
+          label: `${note.ref_DN} - ${note.customer_name}`
+        }))
+      },
       idLabel: 'labelDeliveryNoteShipmentCreate',
       idInput: 'inputDeliveryNoteShipmentCreate',
       required: true,
+      onChange: handleFieldChange,
+      value: formValues.deliveryNote_id
     },
     {
+      key: 'shipment_status',
+      name: 'shipment_status',
+      label: 'Estado',
+      type: 'select',
+      options: {
+        'Estados': {
+          inTransit: 'En proceso',
+          cancelled: 'Cancelado',
+          delayed: 'Retrasado',
+          delivered: 'Entregado'
+        }
+      },
+      idLabel: 'labelShipmentStatusShipmentCreate',
+      idInput: 'inputShipmentStatusShipmentCreate',
+      required: true,
+      onChange: handleFieldChange,
+      value: formValues.shipment_status
+    },
+    {
+      key: 'additional_notes',
       name: 'additional_notes',
       label: 'Notas adicionales',
       type: 'text',
       placeholder: 'Introduce notas adicionales...',
       idLabel: 'labelAdditionalNotesShipmentCreate',
       idInput: 'inputAdditionalNotesShipmentCreate',
-      required: true,
-    },
-    {
-      name: 'product_name',
-      label: 'Nombre del producto',
-      type: 'text',
-      placeholder: 'Introduce el nombre del producto...',
-      idLabel: 'labelProductNameShipmentCreate',
-      idInput: 'inputProductNameShipmentCreate',
-      required: true,
-    },
-    {
-      name: 'product_quantity',
-      label: 'Cantidad del producto',
-      type: 'number',
-      placeholder: 'Introduce la cantidad del producto...',
-      idLabel: 'labelProductQuantityShipmentCreate',
-      idInput: 'inputProductQuantityShipmentCreate',
-      required: true,
-    },
-    {
-      name: 'shipment_status',
-      label: 'Estado',
-      type: 'select',
-      idLabel: 'labelShipmentStatusShipmentCreate',
-      idInput: 'inputShipmentStatusShipmentCreate',
-      options: {
-        Estados:{
-        inTransit: 'En proceso' ,
-        cancelled: 'Cancelado' ,
-        delayed: 'Retrasado' ,
-        delivered: 'Entregado'
+      required: false,
+      onChange: handleFieldChange,
+      value: formValues.additional_notes
     }
-    },
-    },
   ];
 
   const createShipmentSchema = Joi.object({
-    customer_id: Joi.string().required(),
-    address_id: Joi.string().required(),
-    deliveryNote_id: Joi.string(),
-    additional_notes: Joi.string(),
-    product_name: Joi.string().required(),
-    product_quantity: Joi.number().required(),
-    shipment_status: Joi.string().required(),
-  }).messages({
-
-  });
+    deliveryNote_id: Joi.string().guid().required(),
+    shipment_status: Joi.string().valid('inTransit', 'cancelled', 'delayed', 'delivered').required(),
+    additional_notes: Joi.string().allow('', null)
+  }).messages({});
 
   const handleClickCreateShipment = () => {
     DynamicFormPopUp(
@@ -139,14 +129,15 @@ export const CreateShipment = ({ onAddShipment, token }) => {
       createShipmentFormFields,
       createShipmentSchema,
       handleShipmentCreatedAction,
-      nameButton
+      nameButton,
+      formValues
     );
   };
 
   return (
     <>
       <button id='btnShipmentCreate' className="mainCreateBtn" onClick={handleClickCreateShipment}>
-        <img id='imgCreateShipmentBtn' className='imgCreateBtn' src="./shipmentRoute.svg" alt="" />
+        <img id='imgCreateShipmentBtn' className='imgCreateBtn' src="./shipmentRoute.svg" alt="icono agregar Envío" />
       </button>
     </>
   );

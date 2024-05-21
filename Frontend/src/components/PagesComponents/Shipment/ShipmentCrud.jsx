@@ -1,7 +1,7 @@
 import { useUser } from '../../../context/authContext.jsx';
-import { ShipmentList } from '../../PagesComponents/Shipment/ShipmentList.jsx';
-import { CreateShipment } from '../../PagesComponents/Shipment/CreateShipment.jsx';
-import { UpdateShipment } from '../../PagesComponents/Shipment/UpdateShipment.jsx';
+import { ShipmentList } from '../../../components/PagesComponents/Shipment/ShipmentList.jsx';
+import { CreateShipment } from '../../../components/PagesComponents/Shipment/CreateShipment.jsx';
+import { UpdateShipment } from '../../../components/PagesComponents/Shipment/UpdateShipment.jsx';
 import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal.jsx';
 import { SearchPages } from '../../../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../../../components/NavPages/FilterPages.jsx';

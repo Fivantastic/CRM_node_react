@@ -1,25 +1,17 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUser } from '../../context/authContext.jsx';
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Legend,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { VisitChartsData } from './VisitChartsData.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const VisitBarCharts = () => {
   const token = useUser();
-  const [visitList, setVisitList] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [moduleList, setModuleList] = useState([]);
 
-  const getVisitList = async () => {
+  const [valueRatingRange, setValueRatingRange] = useState(0);
+
+  const getModuleList = async () => {
     try {
-      const response = await fetch(`${URL}/visits/list`, {
+      const response = await fetch(`${URL}/module/list`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -29,32 +21,66 @@ export const VisitBarCharts = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        // Ordenar y filtrar los datos aquí
-        const sortedAndFilteredData = responseData.data
-          .sort((a, b) => b.rating_visit - a.rating_visit)
-          .slice(2, 10);
+
+        // Modificar la lógica de filtrado basándose en valueRatingRange
+        let filteredData;
+        switch (valueRatingRange) {
+          case 0:
+            filteredData = responseData.data;
+            break;
+          case 1:
+            filteredData = responseData.data.filter(
+              (module) => module.rating_module == 1
+            );
+            break;
+          case 2:
+            filteredData = responseData.data.filter(
+              (module) => module.rating_module == 2
+            );
+            break;
+          case 3:
+            filteredData = responseData.data.filter(
+              (module) => module.rating_module == 3
+            );
+            break;
+          case 4:
+            filteredData = responseData.data.filter(
+              (module) => module.rating_module == 4
+            );
+            break;
+          case 5:
+            filteredData = responseData.data.filter(
+              (module) => module.rating_module == 5
+            );
+            break;
+
+          default:
+            filteredData = responseData.data;
+        }
+
+        // Ordenar y seleccionar un rango de datos
+        const sortedAndFilteredData = filteredData
+          .sort((a, b) => b.rating_module - a.rating_module)
+          .slice(5, 10);
 
         // Actualizar el estado con los datos ordenados y filtrados
-        setVisitList(sortedAndFilteredData);
+        setModuleList(sortedAndFilteredData);
       } else {
         const errorData = await response.json();
         console.error('Obtener fallido:', errorData);
         // Mostrar un mensaje de error al usuario
       }
     } catch (error) {
-      console.error('Error al obtener la lista de visitas:', error);
+      console.error('Error al obtener la lista de modulos:', error);
       // Mostrar un mensaje de error al usuario
     }
   };
 
   useEffect(() => {
-    getVisitList();
+    getModuleList();
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [token, valueRatingRange]);
 
   useEffect(() => {
     const error = console.error;
@@ -64,36 +90,14 @@ export const VisitBarCharts = () => {
     };
   }, []);
 
-  const chartData = useMemo(
-    () => (loading ? <p>Loading...</p> : visitList),
-    [loading, visitList]
-  );
+  const changeValueRatingRange = (newRange) => {
+    setValueRatingRange(newRange);
+  };
 
   return (
-    <section id="product-charts">
-      <h2 id="stock-charts">Visitas</h2>
-      {loading ? (
-        <div>Cargando...</div>
-      ) : (
-        <div style={{ height: '100%', width: '100%', margin: 0 }}>
-          <div
-            style={{ display: 'flex', flexDirection: 'row', height: '200px' }}
-          >
-            <div style={{ flex: 1 }}>
-              <ResponsiveContainer>
-                <BarChart data={chartData} width={500} height={300}>
-                  <CartesianGrid strokeDasharray="4 2 1" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="rating_visit" fill="#3a35cd" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-      )}
-    </section>
+    <VisitChartsData
+      setValueRatingRange={changeValueRatingRange}
+      moduleList={moduleList}
+    />
   );
 };

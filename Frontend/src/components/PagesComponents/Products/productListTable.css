@@ -1,8 +1,8 @@
-/* #btnProductCreate {
+ #btnProductCreate {
     border: none;
     cursor: pointer;
     background-color: transparent;
-} */
+}
 
 
 #btnProductUpdate {
@@ -20,63 +20,88 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
 
+/* #productTableHead,
+#productTableBody {
+    display: flex;
+    flex-direction: column;
+} */
+
+
 #productTableHead {
     display: flex;
     justify-content: space-between;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
 }
 
-#productTableHead .headRow {
-    font-weight: bold;
+#productTableBody {
+    display: flex;
+    flex-direction: column;
+}
+
+#prductTableHead .headRow,
+#productTableBodyRow .bodyRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
     text-align: start;
 }
 
 #productTableBodyRow {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid #eee;
 }
 
-#productTableHeadRef {
-    margin-right: 100px;
+#productTableBodyRow:last-child {
+    border-bottom: none;
+}
+
+#productTableHead .headRow,
+#prductTablebodyRow .bodyRow {
+    flex:8;
+    text-align: center;
+}
+
+#productTableHeadRowRef,
+#productTableBodyRef {
+    width: 150px;
 }
 
 #productTableHeadRowName,
-#productTableBodyRowName {
-    width: 100px;
+#productTableBodyName {
+    width: 150px;
 }
 
-#productTableHeadDescription,
-#productTableBodyDescription {
-    width: 220px;
+#productTableHeadRowPrice,
+#productTableBodyPrice {
+    width: 150px;
 }
 
-#productTableHeadprice,
-#productTableBodyprice {
-    width: 90px;
+#productTableHeadRowStock, #productTableBodyStock {
+    width: 150px;
 }
 
-#productTableHeadStock,
-#productTableBodyStock {
-    width: 100px;
+#productTableHeadRowStatus, #productTableBodyStatus {
+    width: 150px;
 }
 
-#productTableHeadStatus,
-#productTableBodyStatus {
-    width: 100px;
+#productTableHeadRowDate, #productTableBodyDate {
+    width: 150px;
 }
 
-#productTableHeadRowDate,
-#productTableBodyDate {
-    width: 100px;
+#productTableBodyActions,
+#productTableHeadRowActions {
+  width: 150px;
 }
 
 #productTableHeadRowActions {
-    width: 100px;
+  padding-left: 10px;
 }
-
 #productTableBodyActions {
-    display: flex;
-    width: 200px;
-    gap: 10px;
+  display: flex;
+  padding-left: 10px;
+  gap: 10px;
 }

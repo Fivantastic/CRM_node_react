@@ -1,6 +1,6 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { newUserSchema } from '../../../Schema/Error/createSchema.js';
 
 export const CreateUser = ({ onAddUser, token }) => {
 
@@ -77,7 +77,7 @@ export const CreateUser = ({ onAddUser, token }) => {
       label: 'Apellidos',
       required: true,
       idLabel: 'labelLastNameUserCreate',
-      idInput: `inputNameUserCreate`,
+      idInput: `inputLastNameUserCreate`,
     },
     {
       name: 'email',
@@ -107,12 +107,6 @@ export const CreateUser = ({ onAddUser, token }) => {
     },
   ];
   
-  const newUserSchema = Joi.object({
-    name: Joi.string().required().label('Name'),
-    last_name: Joi.string().required().label('Last Name'),
-    email: Joi.string().email({ tlds: false }).required().label('Email'),
-    role: Joi.string().valid('salesAgent', 'admin', 'deliverer').required().label('Role')
-  });
 
   const handleClickCreateUser = () => {
     DynamicFormPopUp(

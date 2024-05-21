@@ -1,12 +1,12 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
+import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { useSetUser } from '../../context/authContext.jsx';
 import { useNavigate } from 'react-router-dom';
-import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 import { getFullName } from '../../Services/getFullName.js';
-import '../../Styles/Auth/LoginPage.css';
+import { loginUserSchema } from '../../Schema/Error/AuthSchema.js';
 import { InitialLayout } from '../../layout/InitialLayout.jsx';
+import '../../Styles/Auth/LoginPage.css';
 
 const URL = import.meta.env.VITE_URL;
 
@@ -75,15 +75,6 @@ export const LoginPage = () => {
         }
     };
 
-    const loginUserSchema = Joi.object({
-        email: Joi.string().email({ tlds: false }).required().label('Email'),
-        password: Joi.string()
-            .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
-            .required()
-            .label('Password'),
-        remember: Joi.boolean().optional().label('Remember'),
-    });
-
     const loginFormFields = [
         {
             name: 'email',
@@ -120,10 +111,11 @@ export const LoginPage = () => {
     ];
 
     const idFormLogin = {
-        idTitleContainer: 'idTitleContainer',
+        idTitleContainer: 'idTitleContainerLogin',
         idLogo: 'idLogoLogin',
         idSection: 'sectionLogin',
         idFrom: 'idFormLogin',
+        idSubTitle:'idTitleLogin',
         subTitle: "Welcome back! Please login to your account.",
         idNavLogin: "idNavLogin",
         submitBtn: "submitBtnLogin",
@@ -134,7 +126,7 @@ export const LoginPage = () => {
             <section className="login-page-form-container">
                 <DynamicForm
                     title="Login"
-                    imgTitle="./Logo_cosmic.svg"
+                    imgTitle="/Logo_cosmic.svg"
                     imgTitleActive='true'
                     idCustom={idFormLogin}
                     onSubmit={handleLoginSubmit}

@@ -1,5 +1,5 @@
-import Joi from 'joi';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { updateUserSchema } from '../../../Schema/Error/updateUserSchema.js';
 
 import Swal from 'sweetalert2';
 
@@ -92,20 +92,12 @@ export const UpdateUser = ({ id, updateUser, token }) => {
     },
   ];
 
-  // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
-  const updateVisitSchema = Joi.object({
-    id_customer: Joi.string().guid().optional(),
-    id_user: Joi.string().guid().optional(),
-    visit_date: Joi.date().optional(),
-    observations: Joi.string().optional(),
-  });
-
   // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
   const handleUpdateVisit = () => {
     DynamicFormPopUp(
       title,
       updateVisitFormFields,
-      updateVisitSchema,
+      updateUserSchema,
       handleButtonUpdateVisit,
       nameButton
     );

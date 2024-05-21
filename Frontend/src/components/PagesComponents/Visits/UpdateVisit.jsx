@@ -1,8 +1,8 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { EditButton } from '../../buttons/EditButton.jsx';
+import { updateVisitSchema } from '../../../Schema/Error/updateSchema.js';
 
 export const UpdateVisit = ({ visit, onUpdateSale }) => {
   // Asi obtienes el token del usuario de la sesión
@@ -91,13 +91,6 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
       idInput: 'inputObservationsVisitUpdate',
     },
   ];
-
-  // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
-  const updateVisitSchema = Joi.object({
-    id_user: Joi.string().guid().optional(),
-    visit_date: Joi.date().optional(),
-    observations: Joi.string().optional(),
-  });
 
   // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
   const handleUpdateVisit = () => {

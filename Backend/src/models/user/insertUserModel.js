@@ -3,6 +3,7 @@ import { getDBPool } from '../../db/getPool.js';
 // Función que realiza una consulta a la base de datos para crear un nuevo usuario.
 export const insertUserModel = async (
     id_user, 
+    ref,
     name, 
     last_name, 
     email, 
@@ -15,8 +16,8 @@ export const insertUserModel = async (
 
   // Insertamos el user en la base de datos.
   const [result] = await pool.query(
-    `INSERT INTO Users (id_user, name, last_name, email, password, role, registration_code) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-    [id_user, name, last_name, email, password, role, registration_code]
+    `INSERT INTO Users (id_user, ref_US, name, last_name, email, password, role, registration_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    [id_user, ref, name, last_name, email, password, role, registration_code]
   );
 
   // Verificar si el insert afectó a alguna línea.

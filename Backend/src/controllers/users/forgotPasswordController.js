@@ -14,7 +14,6 @@ export const forgotPasswordController = async (req, res, next) => {
 
     //! Comentado para evitar envío de correos electrónicos luego remplazar el de abajo
     const new_registration_code = await forgotPasswordService(email);
-    await forgotPasswordService(email);
 
     //! Comentado para evitar envío de correos electrónicos
     // Enviar correo electrónico de cambio de contraseña

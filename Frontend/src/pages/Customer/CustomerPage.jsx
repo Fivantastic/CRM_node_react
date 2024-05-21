@@ -24,7 +24,7 @@ export const CustomerPage = () => {
     updateCustomer,
   } = useCustomerList(token);
 
-  const [isListView, setIsListView] = useState(true);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
     // Opciones de filtro
     const filterOptions = [
@@ -48,7 +48,7 @@ export const CustomerPage = () => {
           <CreateCustomer onAddCustomer={addCustomer} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
           <SortPages options={sortOptions} onSort={handleSortChange} />
-          <ToggleMode onClick={() => setIsListView(prev => !prev)} />
+          <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView}  />
         </nav>
         {isListView ? (
           <ol id="customer_list" className="main_olist">

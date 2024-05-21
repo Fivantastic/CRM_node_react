@@ -1,13 +1,8 @@
-import { useState } from 'react';
 import './toggleMode.css';
 
-export const ToggleMode = ({ onClick }) => {
-    // Estado para controlar el modo
-    const [isListView, setIsListView] = useState(true);
-
+export const ToggleMode = ({ onClick, isListView }) => {
     // Función para manejar el cambio de modo
     const handleModeChange = () => {
-        setIsListView(prevMode => !prevMode);
         onClick(); // Llama a la función onClick pasada como prop para notificar el cambio de modo
     };
 

@@ -27,7 +27,7 @@ export const InvoicePage = () => {
     deleteInvoice,
     updateInvoice
   } = useInvoicesList(token)
-  const [isListView, setIsListView] = useState(true);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
   const filterOptions = [
     { label: 'Enviada', value: 'sent' },
@@ -60,7 +60,7 @@ export const InvoicePage = () => {
         <CreateInvoice onAddInvoice={addInvoice} token={token} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
         <SortPages options={sortOptions} onSort={handleSortChange} />
-        <ToggleMode onClick={() => setIsListView(prev => !prev)} />
+        <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
         <ol id="invoice_list" className=" main_olist">

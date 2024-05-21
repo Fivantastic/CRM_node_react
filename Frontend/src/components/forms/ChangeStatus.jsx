@@ -1,7 +1,10 @@
 // import { useEffect } from "react";
 import Swal from "sweetalert2";
+import { Toast } from "../alerts/Toast";
+import { CancelButton } from "../buttons/StatesBtn/CancelButton";
+import { CompletButton } from "../buttons/StatesBtn/CompletButton";
 
-export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , newStatus, newStatusMessage,typeModule, typeModuleMessage, token}) => {
+export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , currentStatus, token}) => {
 
   // TODO - Dev
   // console.log(`
@@ -12,88 +15,112 @@ export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , newStatus, n
   // token: ${token}`);
 
   const handleStatusChange = async () => {
-    // Toast de notificación de éxito / error
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'bottom-end',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      },
-    });
+    console.log(currentStatus);
+      if (currentStatus === 'pending') {
+        const { value: action } = await Swal.fire({
+          title: '¿Qué acción deseas realizar?',
+          text: 'Puedes resolver o cancelar el pago.',
+          icon: 'question',
+          allowOutsideClick: false,
+          showCancelButton: true,
+          confirmButtonText: 'Resolver',
+          confirmButtonColor: '#28a745', // Verde para completar
+          cancelButtonColor: '#6c757d', // Color para salir
+          showDenyButton: true,
+          denyButtonText: 'Cancelar Pago',
+          denyButtonColor: '#dc3545', // Rojo para cancelar
+        });
 
-    // Swal.fire({
-    //     title: "Advertencia",
-    //     text: `${newStatusMessage} este elemento?`,
-    //     icon: "question",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     cancelButtonText: "Volver atrás",
-    //     confirmButtonText: "Cambiar Estado"
-    //   }).then(async (result) => {
-    //     if (result.isConfirmed) {
-            try {
-                const response = await fetch(
-                  `http://localhost:3000/${typeModule}/status`,
-                  {
-                    method: 'PUT',
-                    credentials: 'include',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: `${token}`,
-                    },
-                    body: JSON.stringify({
-                      payment_id: id,
-                      new_status: newStatus
-                    }),
-                  }
-                );
-          
-                if (response.ok) {
-                  //si la peticion es correcta
-                  const responseData = await response.json();
-                  console.log(`${typeModuleMessage} actualizado con éxito:`, responseData);
-            
-                  // TODO - Lógica actualizar lista
-                  handleNewPaymentStatus(id, newStatus)
-            
-                  // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos            
-                  // Toast.fire({
-                  //   icon: 'success',
-                  //   title: `${typeModuleMessage}: Estado actualizado`,
-                  // });
-                } else {
-                  // si la peticion es incorrecta
-                  const errorData = await response.json();
-                  const errorMsg = ` ${typeModuleMessage}: Error al cambiar el estado`
-                  console.error(errorMsg ,errorData );
-                  // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
-                  Toast.fire({
-                    icon: 'error',
-                    title: errorMsg,
-                  });
-                }
-              } catch (error) {
-                // si la peticion falla
-                const errorMsg = `Error al cambiar el estado de este elemento en ${typeModuleMessage}:`
-                console.error(errorMsg, error);
-                // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
-                Toast.fire({
-                  icon: 'error',
-                  title: error || errorMsg
-                });
-              }
-            // }
-      // });
-}
+        if (action) {
+          updateStatus('paid');
+        } else if (action === false) {
+          updateStatus('cancelled');
+        }
+    } else if (currentStatus === 'paid') {
+        const confirmed = await Swal.fire({
+          title: '¿Estás seguro?',
+          text: '¿Quieres cancelar el pago?',
+          icon: 'question',
+          allowOutsideClick: false,
+          showCancelButton: true,
+          confirmButtonColor: '#dc3545', // Rojo para cancelar
+          cancelButtonColor: '#6c757d',
+          confirmButtonText: 'Sí, Cancelar',
+          cancelButtonText: 'Salir',
+        });
+  
+        if (confirmed.isConfirmed) {
+          updateStatus('cancelled');
+        }
+      }
+    };
 
-  return (
-    <>
-      <button className="btnPaymentChangeStatus mainChangeStatusBtn" onClick={handleStatusChange}>{newStatusMessage}</button>
-    </>
+    const updateStatus = async (newStatus) => {
+      try {
+          const response = await fetch(
+            `http://localhost:3000/payments/status`,
+            {
+              method: 'PUT',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${token}`,
+              },
+              body: JSON.stringify({
+                payment_id: id,
+                new_status: newStatus
+              }),
+            }
+          );
+    
+          if (response.ok) {
+            //si la peticion es correcta
+            const responseData = await response.json();
+            console.log(`Pago actualizado con éxito:`, responseData);
+            Toast.fire({
+              icon: 'success',
+              title: `Pago ${newStatus === 'paid'? 'resuelto' : 'cancelado'} con éxito`,
+            })
+            
+            handleNewPaymentStatus(id, newStatus)
+          } else {
+            Toast.fire({
+              icon: 'error',
+              title: 'Hubo un problema al actualizar el pago',
+            });
+          }
+        } catch (error) {
+            // Mostrar un mensaje de error si hay algún error en la petición
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+
+        Toast.fire({
+          icon: 'error',
+          title: 'Hubo un problema al realizar la operación',
+        });
+      }
+    };
+
+  if (currentStatus === 'cancelled') {
+    return (
+      <div className="disabledVisit">
+      <img className="disabledVisitimg"  src="./blockCancel.svg" alt="Visita cancelada" />
+    </div>
+    )
+  }
+
+  return currentStatus === 'paid' ? (
+    <CancelButton onClick={handleStatusChange} />
+  ) : (
+    <CompletButton onClick={handleStatusChange} />
   )
 }

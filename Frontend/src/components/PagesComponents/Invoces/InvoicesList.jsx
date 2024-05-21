@@ -1,52 +1,84 @@
 import { getNormalizedDate } from "../../../Services/getNormalizedDate.js";
+import { MoreInfo } from "../../InfoModal/MoreInfo.jsx";
+import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
+import { ClosedInvoice } from "./ClosedInvoice.jsx";
 
-export const InvoicesList = ({ invoice }) => {
+export const InvoicesList = ({ 
+  invoice,
+  onDelete,
+  handleNewInvoiceStatus,
+  typeModule,
+  typeModuleMessage,
+  token
+ }) => {
   const dueDate = getNormalizedDate(invoice.due_date);
   const creationDate = getNormalizedDate(invoice.creation_at);
 
-  const traducirEstadoVenta = (estado) => {
+  const traducirEstadoFactura = (estado) => {
     switch (estado) {
       case 'pending':
-        return 'Pendiente';
-      case 'paid':
-        return 'Pagado';
-      case 'overdue':
-        return 'Atrasado';
-      case 'cancelled':
-        return 'Cancelado';
+        return { text: 'Pendiente', color: 'blue' };
       case 'partially_paid':
-        return 'Parcialmente pagado';
+      return { text: 'Pago Parcial', color: 'blue' };
+      case 'overdue':
+        return { text: 'Vencida', color: 'orange' };
+      case 'paid':
+        return { text: 'Pagada', color: 'green' };
+      case 'cancelled':
+        return { text: 'Cancelada', color: 'red' };
       case 'refunded':
-        return 'Reembolsado';
+        return { text: 'Reembolsada', color: 'black' };
       case 'disputed':
-        return 'Reclamado';
+        return { text: 'Reclamada', color: 'black' };
       case 'sent':
-        return 'Enviado';  
-      case 'delivering':
-        return 'En reparto';
-      case 'delivered':
-        return 'Entregado';
-      case 'cash':
-        return 'Efectivo';
-      case 'card':
-        return 'Tarjeta';
-      case 'transfer':
-        return 'Transferencia';
-      default:
-        return estado;
-    }
+        return { text: 'Enviada', color: 'black' };
+   }
   };
+
+  const traducirMetodoPago = (metodo) => {
+    switch (metodo) {
+      case 'cash':
+        return { text: 'Efectivo', color: 'black' };
+      case 'card':
+        return { text: 'Tarjeta', color: 'black' };
+      case 'transfer':
+        return { text: 'Transferencia', color: 'black' };
+      default:
+        return { text: metodo, color: 'black' };
+    }  
+  }
+    
+
+  const invoiceStatus = traducirEstadoFactura(invoice.invoice_status)
+  const invoiceMethod = traducirMetodoPago(invoice.payment_method)
+
+  const moreInfoFields = [
+    { label: 'Factura', value: invoice.id_invoice },
+    { label: 'Referencia De Venta', value: invoice.codigo_venta },
+    { label: 'Comercial', value: `${invoice.agent_name} ${invoice.agent_Last_name}` },
+    { label: 'Producto', value: invoice.product },
+    { label: 'Precio del Producto', value: invoice.product_price + ' €' },
+    { label: 'Cantidad', value: invoice.quantity + ' u.' },
+    { label: 'Cliente', value: invoice.customer_name },
+    { label: 'Empresa', value: invoice.company_name },
+    { label: 'NIF', value: invoice.NIF },
+    { label: 'Dirección', value: invoice.address },
+    { label: 'Importe', value: invoice.total_price + ' €' },
+    { label: 'IVA', value: invoice.including_tax + ' €' },
+    { label: 'Total', value: invoice.total_amount + ' €' },
+    { label: 'Método De Pago', value: invoiceMethod.text },
+    { label: 'Fecha De Vencimiento Del Pago', value: dueDate.toLocaleDateString() },
+    { label: 'Estado De la Venta', value: invoiceMethod.text, color: invoiceMethod.color },
+    { label: 'Fecha De Creación', value: creationDate.toLocaleDateString() }
+  ];
+  
 
   return (
       <>
-        <h2 id="element_ivoice_title" className=" mainInsideTitle">Factura</h2>
-        <p id="element_invoice_subtitle" className=" mainInsideSub">{invoice.id_invoice}</p>
+        <h2 id="element_ivoice_title" className=" mainInsideTitle">{invoice.ref_IN}</h2>
 
-        <h3 id="element_ivoice_section" className=" mainSubSection">Referencia De Venta</h3>
-        <p>{invoice.codigo_venta}</p>
-
-        <h3 id="element_ivoice_section" className=" mainSubSection">Comercial</h3>
-        <p><strong>Nombre: </strong> {invoice.agent_name} {invoice.agent_Last_name}</p>
+        <h3><strong>Total:</strong> {invoice.total_amount} €</h3>
+        <p><strong>Comercial: </strong> {invoice.agent_name} {invoice.agent_Last_name}</p>
 
         <h3 id="element_ivoice_section" className=" mainSubSection">Producto</h3>
         <p><strong>Nombre: </strong> {invoice.product}</p>
@@ -56,25 +88,32 @@ export const InvoicesList = ({ invoice }) => {
         <h3 id="element_ivoice_section" className=" mainSubSection">Cliente</h3>
         <p><strong>Nombre: </strong> {invoice.customer_name}</p>
         <p><strong>Empresa: </strong> {invoice.company_name}</p>
-        <p><strong>NIF: </strong> {invoice.NIF}</p>
-        <p><strong>Dirección: </strong> {invoice.address}</p>
-
-
-        <p><strong>Importe: </strong> {invoice.total_price} €</p>
-        <p><strong>IVA: </strong> {invoice.including_tax} €</p>
-        <p><strong>Total: </strong> {invoice.total_amount} €</p>
 
         <h3 id="element_ivoice_section" className=" mainSubSection">Método De Pago</h3>
-        <p><strong>Método: </strong> {traducirEstadoVenta(invoice.payment_method)}</p>
+        <p>{invoiceMethod.text}</p>
 
         <h3 id="element_ivoice_section" className=" mainSubSection">Fecha De Vencimiento Del Pago</h3>
         <p>{dueDate.toLocaleDateString()}</p>
 
         <h3 id="element_ivoice_section" className=" mainSubSection">Estado De la Venta</h3>
-        <p id="invoice_status">{traducirEstadoVenta(invoice.invoice_status)}</p>
+        <p id="invoice_status" style={{color: invoiceStatus.color}}><strong>{invoiceStatus.text}</strong></p>
 
-        <h3 id="element_ivoice_section" className=" mainSubSection">Fecha De Creación</h3>
-        <p id="invoice_date">{creationDate.toLocaleDateString()}</p>
+        <span id="invoice_actions" className="main_actions">
+          <MoreInfo fields={moreInfoFields} modalIds={[]} />
+          <ClosedInvoice
+            invoice={invoice.id_invoice}
+            currentStatus={invoice.invoice_status}
+            onUpdateInvoice={handleNewInvoiceStatus}
+            token={token}
+          />
+          <DeleteGenericModal
+            id={invoice.id_invoice}
+            onDelete={onDelete}
+            token={token}
+            typeModule={typeModule}
+            typeModuleMessage={typeModuleMessage}
+          />
+        </span>
       </>
   );
 };

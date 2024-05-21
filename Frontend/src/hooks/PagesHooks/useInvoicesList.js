@@ -148,11 +148,11 @@ const [invoicesList, setInvoicesList] = useState([]);
       // crear la lista
     let sortedList = [...list];
     switch (sortOption) {
-      case 'factura-asc':
-        sortedList.sort((a, b) => a.id_invoice.localeCompare(b.id_invoice));
+      case 'ref-asc':
+        sortedList.sort((a, b) => a.ref_IN.localeCompare(b.ref_IN));
         break;
-      case 'factura-desc':
-        sortedList.sort((a, b) => b.id_invoice.localeCompare(a.id_invoice));
+      case 'ref-desc':
+        sortedList.sort((a, b) => b.ref_IN.localeCompare(a.ref_IN));
         break;
       case 'comercial-asc':
         sortedList.sort((a, b) => a.agent_name.localeCompare(b.agent_name));

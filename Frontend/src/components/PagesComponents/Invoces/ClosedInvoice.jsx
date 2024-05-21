@@ -1,8 +1,10 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { CompletButton } from '../../buttons/StatesBtn/CompletButton.jsx';
+import { CancelButton } from '../../buttons/StatesBtn/CancelButton.jsx';
 
-export const ClosedInvoice = ({ onUpdateInvoice, invoice, token }) => {
+export const ClosedInvoice = ({ onUpdateInvoice, currentStatus, invoice, token }) => {
   /* const token = useUser(); */
   // Aqui hace la peticion al servidor
   const handleclosedInvoiceAccion = async (formData) => {
@@ -58,10 +60,10 @@ export const ClosedInvoice = ({ onUpdateInvoice, invoice, token }) => {
   };
 
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
-  const title = 'Cerrar Factura';
+  const title = 'Nuevo estado de factura';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
-  const nameButton = 'Cerrar';
+  const nameButton = 'Cambiar';
 
   // Campos del formulario personalizables
   const updateSaleFormFields = [
@@ -71,13 +73,13 @@ export const ClosedInvoice = ({ onUpdateInvoice, invoice, token }) => {
       type: 'select',
       options: {
         Estado: {
-          paid: 'Pagado',
+          paid: 'Pagada',
+          partially_paid: 'Parcialmente pagada',
           overdue: 'Atrasada',
-          partially_paid: 'Parcialmente pagado',
-          cancelled: 'Cancelado',
           refunded: 'Reintegrada',
           disputed: 'Disputa',
-          sent: 'Enviado',
+          sent: 'Enviada',
+          cancelled: 'Cancelada',
         },
       },
     },
@@ -110,9 +112,18 @@ export const ClosedInvoice = ({ onUpdateInvoice, invoice, token }) => {
     );
   };
 
-  return (
-    <>
-      <button id='btnInvoiceClose' className=" mainCloseBtn" onClick={handleClosedInvoice}>Cerrar Factura</button>
-    </>
-  );
+  if (currentStatus === 'cancelled') {
+    return (
+      <div className="disabledVisit">
+      <img className="disabledVisitimg"  src="./blockCancel.svg" alt="Visita cancelada" />
+    </div>
+    )
+  }
+
+
+  return currentStatus === 'paid' ? (
+    <CancelButton onClick={handleClosedInvoice} />
+  ) : (
+    <CompletButton onClick={handleClosedInvoice} />
+  )
 };

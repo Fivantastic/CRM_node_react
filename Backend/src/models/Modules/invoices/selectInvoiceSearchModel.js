@@ -6,6 +6,7 @@ export const selectInvoiceSearchModel = async (search) => {
     // Si searchTerm está definido, aplica el filtro de búsqueda
 
   const [rows] = await pool.query(`SELECT 
+    Invoices.ref_IN,
     Invoices.id_invoice, 
     Invoices.sale_id AS codigo_venta, 
     Users.name AS agent_name, 
@@ -36,8 +37,9 @@ export const selectInvoiceSearchModel = async (search) => {
     OR Users.last_name LIKE?
     OR Products.name LIKE?
     OR Products.price LIKE? 
-    OR Invoices.total_amount LIKE?`,
-    [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`]);
+    OR Invoices.total_amount LIKE?
+    OR Invoices.ref_IN LIKE?`,
+    [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`]);
 
     console.log(`Resultados encontrados: ${rows.length}`);
     return rows;

@@ -67,7 +67,7 @@ const [paymentsList, setPaymentsList] = useState([]);
     }
   };  
 
-  // TODO - Buscar Pagos
+  // Buscar Pagos
   const handleSearch = async (searchTerm) => {
     try {
       const response = await fetch(`${URL}/payments/search?searchTerm=${searchTerm}`, {
@@ -97,7 +97,7 @@ const [paymentsList, setPaymentsList] = useState([]);
     setSelectedFilters(filters); // Funciona bien
   };
 
-// ???????   Cambiar el ordenamiento
+// Cambiar el ordenamiento
   const handleSortChange = (option) => {
     setSortOption(option ? option.value : null);
     if (!option) {
@@ -141,17 +141,17 @@ const [paymentsList, setPaymentsList] = useState([]);
       // crear la lista
     let sortedList = [...list];
     switch (sortOption) {
-      case 'nombre-asc':
-        sortedList.sort((a, b) => a.invoice_id.localeCompare(b.invoice_id));
+      case 'importe-asc':
+        sortedList.sort((a, b) => a.paid_amount - b.paid_amount);
         break;
-      case 'nombre-desc':
-        sortedList.sort((a, b) => b.invoice_id.localeCompare(a.invoice_id));
+      case 'importe-desc':
+        sortedList.sort((a, b) => b.paid_amount - a.paid_amount);
         break;
-      case 'fecha-asc':
-        sortedList.sort((a, b) => new Date(a.create_at) - new Date(b.create_at));
+      case 'ref-asc':
+        sortedList.sort((a, b) => a.ref_PM.localeCompare(b.ref_PM));
         break;
-      case 'fecha-desc':
-        sortedList.sort((a, b) => new Date(b.create_at) - new Date(a.create_at));
+      case 'ref-desc':
+        sortedList.sort((a, b) => b.ref_PM.localeCompare(a.ref_PM));
         break;
       case 'status-asc':
         sortedList.sort((a, b) => a.payment_status.localeCompare(b.payment_status));
@@ -165,7 +165,7 @@ const [paymentsList, setPaymentsList] = useState([]);
     }
 
     setFilteredList(sortedList);
-    console.log('Después del orden', sortedList.map( a => a.payment_status));
+    // console.log('Después del orden', sortedList.map( a => a.ref_PM));
   }
 
 

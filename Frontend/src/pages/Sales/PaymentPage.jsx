@@ -41,7 +41,7 @@ export const PaymentPage = () => {
 
   return (
     <MainLayout title="Pagos">
-      <section className="payment_container mainContainer">
+      <section id="payment_container" className="mainContainer">
         <nav id="user_nav" className="mainNav">
         <SearchPages onSearch={handleSearch}/>
         <CreatePayment onAddPayment={addPayment} token={token} />

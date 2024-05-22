@@ -1,84 +1,75 @@
 import { useUser } from '../../../context/authContext.jsx';
 import { ToggleSalesStatusButton } from '../../buttons/StatesBtn/ToggleSalesStatusButton.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
-import '../Sales/SalesListTable.css';
 import { MoreSales } from './MoreSales.jsx';
 import { UpdateSale } from './UpdateSale.jsx';
+import '../Sales/SalesListTable.css';
 
 export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   const token = useUser();
 
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
-  const typeModule = 'sales';
-
-  // Tipo de modulo para el nombre de los mensajes al cliente
-  const typeModuleMessage = 'Cliente';
-
   const traducirEstadoVenta = (estado) => {
     switch (estado) {
       case 'open':
-        return 'Pendiente';
+        return { text: 'Pendiente', color: 'blue' };
       case 'cancelled':
-        return 'Cancelada';
+        return { text: 'Cancelada', color: 'red' };
       case 'closed':
-        return 'Cerrada';
+        return { text: 'Cerrada', color: 'green' };
       default:
-        return estado;
+        return { text: estado, color: 'black' };
     }
   };
-
-  const nameComplete = `${sale.salesAgent} ${sale.last_name}`;
 
   return (
     <section id="sales_table">
       <div id="salesTableHead">
-        <div id="salesTableHeadRowNameSalesAgent">Ref</div>
+        <div id="salesTableHeadRowRef">Referencia</div>
+        <div id="salesTableHeadRowName">Cliente</div>
         <div id="salesTableHeadRowProduct">Producto</div>
+        <div id="salesTableHeadRowQuantity">Cantidad</div>
+        <div id="salesTableHeadRowSalesAgent">Comercial</div>
         <div id="salesTableHeadRowEstatus">Estado</div>
         <div id="salesTableHeadRowActions">Acciones</div>
       </div>
       <div id="salesTableBody">
         {sale.length > 0 &&
-          sale.map((sale) => (
-            <div key={sale.id_sale} id="salesTableBodyRow">
-              <div id="salesTableBodyRowName">{sale.ref_SL}</div>
-              <div id="salesTableBodyProduct">
-                <p>
-                  <strong>Nombre: </strong> {nameComplete}
-                </p>
-                <p>
-                  <strong>Precio: </strong> {sale.product_price} €
-                </p>
-                <p>
-                  <strong>Cantidad: </strong> {sale.quantity} u.{' '}
-                </p>
+          sale.map((sale) => {
+            const statusSale = traducirEstadoVenta(sale.operation_status);
+            return (
+              <div key={sale.id_sale} className="salesTableBodyRow">
+                <div className="salesTableBodyRowRef">{sale.ref_SL}</div>
+                <div className="salesTableBodyName">{sale.company_name}</div>  
+                <div className="salesTableBodyRowProduct">{sale.product_name}</div>
+                <div className="salesTableBodyRowQuantity"> {sale.quantity} u.</div>
+                <div className="salesTableBodyRowSalesAgent">{sale.salesAgent}</div>
+                <div className="salesTableBodyRowEstatus" style={{ color: statusSale.color }}>
+                  {statusSale.text}
+                </div>
+                <span className="salesTableBodyRowActions">
+                  <MoreSales sale={sale} />
+                  <ToggleSalesStatusButton
+                    id={sale.id_sale}
+                    currentStatus={sale.operation_status}
+                    onUpdateSale={onUpdateSale}
+                    token={token}
+                  />
+                  <UpdateSale
+                    sale={sale.id_sale}
+                    onUpdateSale={onUpdateSale}
+                    token={token}
+                  />
+                  <DeleteGenericModal
+                    id={sale.id_sale}
+                    onDelete={onDelete}
+                    token={token}
+                    typeModule="sales"
+                    typeModuleMessage="Venta"
+                  />
+                </span>
               </div>
-              <div id="saleTableBodyRowEstatus">
-                <p>{traducirEstadoVenta(sale.operation_status)}</p>
-              </div>
-              <div id="salesTableBodyRowActions">
-                <MoreSales sale={sale} />
-                <ToggleSalesStatusButton
-                  id={sale.id_sale}
-                  currentStatus={sale.operation_status}
-                  onUpdateSale={onUpdateSale}
-                  token={token}
-                />
-                <UpdateSale
-                  sale={sale.id_sale}
-                  onUpdateSale={onUpdateSale}
-                  token={token}
-                />
-                <DeleteGenericModal
-                  id={sale.id_sale}
-                  onDelete={onDelete}
-                  token={token}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
-                />
-              </div>
-            </div>
-          ))}
+            );
+          })}
       </div>
     </section>
   );

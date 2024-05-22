@@ -1,0 +1,108 @@
+#invoice_list {
+    width: 700px;
+    display: grid;
+    grid-template-columns: 300px 300px;
+    column-gap: 20px;
+
+}
+
+
+#invoices_table {
+    max-width: 750px;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+#invoicesTableHead {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+#invoicesTableBody {
+    display: flex;
+    flex-direction: column;
+}
+
+#invoicesTableHead {
+    font-weight: bold;
+    text-align: start;
+    column-gap: 10px;
+}
+
+.invoicesTableBodyRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 10px;
+    height: 50px;
+    border-bottom: 1px solid #eee;
+}
+
+.invoicesTableBodyRow:hover {
+    background-color: #eee;
+}
+
+/* Puedes ajustar los estilos adicionales según sea necesario */
+
+.invoicesTableBodyRowRef{
+    padding-left: 5px;
+}
+
+
+#invoicesTableHeadRowRef,
+.invoicesTableBodyRowRef {
+    width: 150px;
+}
+
+#invoicesTableHeadRowRefSales,
+.invoicesTableBodyRowRefSales {
+    width: 150px;
+}
+
+#invoicesTableHeadRowPrice,
+.invoicesTableBodyPrice {
+    width: 120px;
+}
+
+
+#invoicesTableHeadRowDate,
+.invoicesTavleBodyRowDate {
+    width: 120px;
+}
+
+#invoicesTableHeadRowEstatus,
+.invoicesTableBodyRowEstatus {
+    width: 150px;
+}
+
+#invoicesTableHeadRowActions,
+.invoicesTableBodyRowActions {
+    width: 120px;
+}
+
+#invoicesTableHeadRowActions {
+    padding-left: 15px;
+}
+
+.invoicesTableBodyRowActions {
+    display: flex;
+    align-items: center;
+}
+
+
+@media  screen and (max-width: 715px) {
+
+    #invoice_list {
+        width: 320px;
+        display: grid;
+        grid-template-columns: 320px;
+        place-content: center;
+    
+    }
+    
+}

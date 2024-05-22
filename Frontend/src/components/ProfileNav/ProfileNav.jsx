@@ -16,11 +16,10 @@ export const ProfileNav = () => {
 
   useEffect(() => {
     if (token) {
-      console.log('Token obtenido:', token);
+
 
       // Obtener datos del usuario desde el token
       const userDataFromToken = getUserDataFromToken(token);
-      console.log('Datos del usuario desde el token:', userDataFromToken);
 
       // Guarda los datos del usuario en el estado
       setUserData(userDataFromToken);

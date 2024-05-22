@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
 import { CreateInvoice } from '../../components/PagesComponents/Invoces/CreateInvoice.jsx';
@@ -7,16 +8,15 @@ import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
-import { InvoicesListTable } from '../../components/PagesComponents/Invoices/InvoicesListTable.jsx';
-import { useState } from 'react';
+import { InvoicesListTable } from '../../components/PagesComponents/Invoces/InvoicesListTable.jsx';
 
 export const InvoicePage = () => {
   const token = useUser();
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
-  const typeModule = 'invoice';
+  // // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
+  // const typeModule = 'invoice';
 
-  // Tipo de modulo para el nombre de los mensajes al cliente
-  const typeModuleMessage = 'Factura';
+  // // Tipo de modulo para el nombre de los mensajes al cliente
+  // const typeModuleMessage = 'Factura';
 
   const {
     filteredList,
@@ -24,7 +24,6 @@ export const InvoicePage = () => {
     handleFilterChange,
     handleSortChange,
     addInvoice,
-    deleteInvoice,
     updateInvoice
   } = useInvoicesList(token)
   const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
@@ -73,10 +72,7 @@ export const InvoicePage = () => {
               >
                 <InvoicesList 
                   invoice={data} 
-                  onDelete={deleteInvoice}
                   handleNewInvoiceStatus={updateInvoice}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
                   token={token}
                 />
               </li>
@@ -84,7 +80,7 @@ export const InvoicePage = () => {
           })}
         </ol>
         ) : (
-          <InvoicesListTable invoices={filteredList} onUpdate={updateInvoice} onDelete={deleteInvoice} />
+          <InvoicesListTable invoices={filteredList} onUpdate={updateInvoice} />
         )}
       </section>
     </MainLayout>

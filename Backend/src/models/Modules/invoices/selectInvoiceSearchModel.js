@@ -24,7 +24,8 @@ export const selectInvoiceSearchModel = async (search) => {
     Invoices.invoice_status, 
     Invoices.due_date, 
     Invoices.creation_at, 
-    Invoices.update_at
+    Invoices.update_at,
+    Sales.ref_SL
     FROM Invoices
     LEFT JOIN Users ON Invoices.agentUser_id = Users.id_user
     LEFT JOIN Sales ON Invoices.sale_id = Sales.id_sale
@@ -38,8 +39,10 @@ export const selectInvoiceSearchModel = async (search) => {
     OR Products.name LIKE?
     OR Products.price LIKE? 
     OR Invoices.total_amount LIKE?
-    OR Invoices.ref_IN LIKE?`,
-    [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`]);
+    OR Invoices.ref_IN LIKE?
+    OR Sales.ref_SL LIKE?`,
+    
+    [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`]);
 
     console.log(`Resultados encontrados: ${rows.length}`);
     return rows;

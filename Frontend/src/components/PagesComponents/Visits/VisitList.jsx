@@ -49,14 +49,14 @@ export const VisitsList = ({
     { label: 'Observaciones', value: visit.observations },
   ];
 
-  /*  const modalIds = {
+   const modalIds = {
     idModalContainer: 'visitModalContainer',
     idModalHeader: 'visitModalHeader',
     idModalTitle: 'visitModalTitle',
     idModalBody: 'visitModalBody',
     idModalFooter: 'visitModalFooter',
     idModalBtnClose: 'visitModalBtnClose',
-  }; */
+  }; 
 
   return (
     <>

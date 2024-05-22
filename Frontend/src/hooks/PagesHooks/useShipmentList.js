@@ -12,20 +12,20 @@ const useShipmentList = (token) => {
 
   useEffect(() => {
     getShipmentList();
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   useEffect(() => {
     applyFilters();
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [selectedFilters, shipmentList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFilters, shipmentList]);
 
   useEffect(() => {
     if (filteredShipmentList.length > 0) {
       sortShipments(filteredShipmentList);
     }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
- }, [sortOption]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortOption]);
 
   const getShipmentList = async () => {
     try {
@@ -61,7 +61,7 @@ const useShipmentList = (token) => {
 
   const handleSearch = async (searchTerm) => {
     try {
-      const response = await fetch(`${URL}/shipments/search?searchTerm=${searchTerm}`, {
+      const response = await fetch(`${URL}/${typeModule}/search?searchTerm=${searchTerm}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -123,12 +123,46 @@ const useShipmentList = (token) => {
     setFilteredShipmentList(sortedList);
   };
 
+  const addShipment = async () => {
+    try {
+      await getShipmentList();
+    } catch (error) {
+      console.error('Error al agregar el envío:', error);
+    }
+  };
+
+  const deleteShipment = async (id_shipment) => {
+    try {
+      setFilteredShipmentList((prevShipments) =>
+        prevShipments.filter((shipment) => shipment.id_shipment !== id_shipment)
+      );
+      await getShipmentList();
+    } catch (error) {
+      console.error('Error al eliminar el envío:', error);
+    }
+  };
+
+  const updateShipment = async (id_shipment) => {
+    try {
+      setFilteredShipmentList((prevShipments) =>
+        prevShipments.filter((shipment) => shipment.id_shipment !== id_shipment)
+      );
+      await getShipmentList();
+    } catch (error) {
+      console.error('Error al actualizar el envío:', error);
+    }
+  };
+
   return {
     filteredShipmentList,
     handleSearch,
     handleFilterChange,
     handleSortChange,
     getShipmentList,
+    setFilteredShipmentList,
+    addShipment,
+    deleteShipment,
+    updateShipment,
   };
 };
 

@@ -1,8 +1,12 @@
 /* Estilo tamaño de todos los ol */
+#shipment_container {
+  max-width: 750px;
+}
+
 #user_container,
 #customer_container,
 #product_container,
-#invoice_container {
+#invoice_container{
   max-width: 800px;
 }
 

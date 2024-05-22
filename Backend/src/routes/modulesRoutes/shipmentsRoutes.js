@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  closeShipmentController,
+  closeShipmentStatusController,
   deleteShipmentController,
   shipmentCreateController,
   shipmentUpdateController,
@@ -11,8 +11,8 @@ import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { adminAuthMiddleware } from '../../middlewares/adminAuthMiddleware.js';
 import { getShipmentSearchController } from '../../controllers/Modules/shipment/getShipmentSearchController.js';
 import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
-import { getPendingDeliveryNotesController } from '../../controllers/Modules/shipment/getPendingDeliveryNotesController.js'
-import { shipmentByDelivererController } from '../../controllers/Modules/shipment/shipmentByDelivererController.js'
+import { getPendingDeliveryNotesController } from '../../controllers/Modules/shipment/getPendingDeliveryNotesController.js';
+import { shipmentByDelivererController } from '../../controllers/Modules/shipment/shipmentByDelivererController.js';
 
 export const shipmentRouter = express.Router();
 
@@ -25,12 +25,12 @@ shipmentRouter.put('/shipment/update/:shipmentId', authenticateUser, shipmentExi
 // Borrado de un envio
 shipmentRouter.delete('/shipment/delete/:shipmentId', authenticateUser, adminAuthMiddleware, shipmentExist, deleteShipmentController);
 
-// Completar un envio
+//Completar un envio
 shipmentRouter.put(
   '/shipment/closed/:shipmentId',
   authenticateUser,
   shipmentExist,
-  closeShipmentController
+  closeShipmentStatusController
 );
 
 // Ruta para obtener la hoja de ruta de los repartidores
@@ -44,4 +44,3 @@ shipmentRouter.get('/shipments/pending-delivery-notes', authenticateUser, getPen
 
 // Ruta para obtener los envios asociados a los repartidores 
 shipmentRouter.get('/shipments/deliverer', shipmentByDelivererController);
-

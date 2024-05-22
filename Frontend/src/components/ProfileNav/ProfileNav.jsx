@@ -21,6 +21,7 @@ export const ProfileNav = () => {
       // Obtener datos del usuario desde el token
       const userDataFromToken = getUserDataFromToken(token);
 
+
       // Guarda los datos del usuario en el estado
       setUserData(userDataFromToken);
     } else {

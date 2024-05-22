@@ -1,32 +1,38 @@
-export const DeliveryNoteList = ({ deliveryNote }) => {
+import { getNormalizedDate } from "../../../Services/getNormalizedDate.js";
 
+export const DeliveryNoteList = ({ deliveryNote }) => {
   const traducirEstadoEntrega = (estado) => {
     switch (estado) {
       case 'pending':
-        return 'Pendiente';
+        return { text: 'Pendiente', color: 'blue' };
       case 'delivered':
-        return 'Entregado';
+        return { text: 'Entregado', color: 'green' };
       case 'cancelled':
-        return 'Cancelado';
+        return { text: 'Cancelado', color: 'red' };
       case 'delivering':
-        return 'En reparto';
+        return { text: 'En reparto', color: 'orange' };
       default:
-        return estado;
+        return { text: estado, color: 'black' };
     }
-  }
+  };
+
+  const fechaEntrega = getNormalizedDate(deliveryNote.delivery_date);
+
+  const addressComplete = `${deliveryNote.delivery_address}, ${deliveryNote.address_number}, ${'nº ' + deliveryNote.address_floor}, ${deliveryNote.address_city}, ${deliveryNote.address_zip_code}, ${deliveryNote.address_country}`
+
+  const statusEntrega = traducirEstadoEntrega(deliveryNote.delivery_status);
 
   return (
     <>
-      <h2 id="element_note_title " className="mainInsideTitle">Entrega</h2>
-      <p id="element_note_subtitle" className=" mainInsideSub">{deliveryNote.ref_DN}</p>
-      <h3>Producto: {deliveryNote.product_name}</h3>
-      <p><strong>Nombre del Cliente: </strong> {deliveryNote.customer_name}</p>
-      <p><strong>Teléfono del Cliente: </strong> {deliveryNote.customer_phone}</p>
-      <h3 id="element_note_section" className=" mainSubSection">Datos de la venta</h3>
-      <p><strong>ID de la venta: </strong> {deliveryNote.sale_id}</p>
-      <p><strong>Nombre del repartidor: </strong> {deliveryNote.deliverer}</p>
-      <p><strong>Fecha: </strong> {deliveryNote.create_at}</p>
-      <h3 id="note_status" className=" mainStatusSection"> {traducirEstadoEntrega(deliveryNote.delivery_status)}</h3>
+      <p id="element_visit_subtitle" className="mainInsideSub">Ref: {deliveryNote.ref_DN}</p>
+      <p className="mainInsideSub"><strong>Empresa: </strong> {deliveryNote.company_name}</p>
+      <p className="mainInsideSub"><strong>Teléfono: </strong> {deliveryNote.customer_phone}</p>
+      <p className="mainInsideSub"><strong>Dirección: </strong> {addressComplete}</p>
+      <p className="mainInsideSub"><strong>Ref. venta: </strong> {deliveryNote.ref_SL}</p>
+      <p className="mainInsideSub"><strong>Producto: </strong> {deliveryNote.product_name}</p>
+      <p className="mainInsideSub"><strong>Cantidad: </strong> {deliveryNote.product_quantity + ' u.'}</p>
+      <p className="mainInsideSub"><strong>Fecha de entrega: </strong> {fechaEntrega.toLocaleDateString()}</p>
+      <p className="mainInsideSub"><strong>Estado: </strong> <span style={{ color: statusEntrega.color }}>{statusEntrega.text}</span></p>
     </>
   );
 };

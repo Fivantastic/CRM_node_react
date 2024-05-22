@@ -1,4 +1,3 @@
-// mainLayout.jsx
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext.jsx';
 import { Header } from '../components/Header/Header.jsx';

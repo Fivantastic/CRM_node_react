@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  closeSalesController,
   deleteSalesController,
   getSalesController,
   getSalesSearchController,
@@ -32,6 +33,14 @@ salesRouter.put(
   authenticateUser,
   checkRoleAgent,
   updateSalesController
+);
+
+// Cerrar vemta
+salesRouter.put(
+  '/sales/updateStatus',
+  /* authenticateUser,
+  checkRoleAgent, */
+  closeSalesController
 );
 
 // Eliminar venta

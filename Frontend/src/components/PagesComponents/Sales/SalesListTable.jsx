@@ -1,4 +1,5 @@
 import { useUser } from '../../../context/authContext.jsx';
+import { ToggleSalesStatusButton } from '../../buttons/StatesBtn/ToggleSalesStatusButton.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import '../Sales/SalesListTable.css';
 import { MoreSales } from './MoreSales.jsx';
@@ -13,7 +14,6 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   // Tipo de modulo para el nombre de los mensajes al cliente
   const typeModuleMessage = 'Cliente';
 
-
   const traducirEstadoVenta = (estado) => {
     switch (estado) {
       case 'open':
@@ -26,9 +26,9 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
         return estado;
     }
   };
-  
+
   const nameComplete = `${sale.salesAgent} ${sale.last_name}`;
-  
+
   return (
     <section id="sales_table">
       <div id="salesTableHead">
@@ -58,6 +58,12 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
               </div>
               <div id="salesTableBodyRowActions">
                 <MoreSales sale={sale} />
+                <ToggleSalesStatusButton
+                  id={sale.id_sale}
+                  currentStatus={sale.operation_status}
+                  onUpdateSale={onUpdateSale}
+                  token={token}
+                />
                 <UpdateSale
                   sale={sale.id_sale}
                   onUpdateSale={onUpdateSale}

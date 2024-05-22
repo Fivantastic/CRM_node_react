@@ -1,6 +1,7 @@
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { useUser } from '../../../context/authContext.jsx';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
+import { ToggleSalesStatusButton } from '../../buttons/StatesBtn/ToggleSalesStatusButton.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateSale } from './UpdateSale.jsx';
 
@@ -17,15 +18,17 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
   const traducirEstadoVenta = (estado) => {
     switch (estado) {
       case 'open':
-        return 'Pendiente';
+        return { text: 'Pendiente', color: 'blue' };
       case 'cancelled':
-        return 'Cancelada';
+        return { text: 'Cancelada', color: 'red' };
       case 'closed':
-        return 'Cerrada';
+        return { text: 'Cerrada', color: 'green' };
       default:
-        return estado;
+        return { text: estado, color: 'black' };
     }
   };
+
+  const statusSale = traducirEstadoVenta(sale.operation_status);
 
   const nameComplete = `${sale.salesAgent} ${sale.last_name}`;
 
@@ -41,25 +44,24 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
     { label: 'Email', value: sale.customer_email },
     { label: 'Telefono', value: sale.customer_phone },
     {
-      
       label: 'Estado De la Venta',
-      value: traducirEstadoVenta(sale.operation_status),
+      value: statusSale.text,
+      color: statusSale.color,
     },
     {
-      
       label: 'Fecha De Creación',
       value: dueDate.toLocaleDateString(),
     },
   ];
 
-  const modalIds = {
+  /*  const modalIds = {
     idModalContainer: 'salesModalContainer',
     idModalHeader: 'salesrModalHeader',
     idModalTitle: 'salesModalTitle',
     idModalBody: 'salesModalBody',
     idModalFooter: 'salesModalFooter',
     idModalBtnClose: 'salesModalBtnClose',
-  };
+  }; */
 
   return (
     <>
@@ -81,12 +83,23 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
       <p>
         <strong>Cantidad: </strong> {sale.quantity} u.{' '}
       </p>
-      <h3 id="element_sale_section" className=" mainSubSection">
+      <h3 id="element_sale_section" className="mainSubSection">
         Estado De la Venta
       </h3>
-      <p>{traducirEstadoVenta(sale.operation_status)}</p>
+      <p
+        className={`${sale.operation_status}`}
+        style={{ color: statusSale.color }}
+      >
+        <strong>{statusSale.text} </strong>
+      </p>
       <span id="sales_actions_list" className="main_actions">
-        <MoreInfo fields={moreInfoFields} modalIds={[]}/>
+        <MoreInfo fields={moreInfoFields} modalIds={[]} />
+        <ToggleSalesStatusButton
+          id={sale.id_sale}
+          currentStatus={sale.operation_status}
+          onUpdateSale={onUpdateSale}
+          token={token}
+        />
         <UpdateSale
           sale={sale.id_sale}
           onUpdateSale={onUpdateSale}

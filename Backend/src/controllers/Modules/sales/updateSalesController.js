@@ -4,6 +4,7 @@ import { selectSaleProducModel } from '../../../models/Modules/sales/selectSaleP
 import { updateSaleProductModel } from '../../../models/Modules/sales/updateSaleProductModel.js';
 import { updateSaleProductSchema } from '../../../schemas/Modules/sale/updateSaleProductSchema.js';
 import { updateSalesService } from '../../../services/Modules/sales/updateSalesService.js';
+import { updateStatusSaleService } from '../../../services/Modules/sales/updateStatusSaleService.js';
 import { limitedStock } from '../../../services/error/errorService.js';
 import { controlStockProductService } from '../../../services/product/controlStockProductService.js';
 import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
@@ -12,7 +13,19 @@ export const updateSalesController = async (req, res, next) => {
   // Todo: All
   try {
     const id_sale = req.params.id_sale;
-    const { product, quantity, customer, operation_status } = req.body;
+    const { product, quantity, customer } = req.body;
+
+    let message = '';
+    let data = {};
+    console.log(req.body);
+
+    // Actualizo el estado de la venta
+    /* if (req.body !== newStatus) {
+      const statusUpdate = await updateStatusSaleService(id_sale, newStatus);
+      message += `Venta ${newStatus === 'completed' ? 'completada y email enviado' : 'cancelada'} con éxito`;
+      data.statusUpdate = statusUpdate;
+      console.log(message, data);
+    } */
 
     // Validamos el body
     await validateSchemaUtil(updateSaleProductSchema, req.body);
@@ -48,13 +61,15 @@ export const updateSalesController = async (req, res, next) => {
     const updatedSale = await updateSalesService(
       id_sale,
       seachSaleProductId.id_saleProduct,
-      seachCustomer.id_customer,
-      operation_status
+      seachCustomer.id_customer
     );
+    message += 'Venta actualizada';
+    data.updatedSale = updatedSale;
 
     res.status(200).send({
       status: 'ok',
-      message: updatedSale,
+      message: message.trim(),
+      data: data,
     });
   } catch (error) {
     next(error);

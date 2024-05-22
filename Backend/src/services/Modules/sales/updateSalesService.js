@@ -7,8 +7,7 @@ import { notFoundError } from '../../error/errorService.js';
 export const updateSalesService = async (
   id_sale,
   id_saleProduct,
-  id_customer,
-  operation_status
+  id_customer
 ) => {
   // Obtengo el id de la venta
   const sale = await selectSaleByIdModel(id_sale);
@@ -30,12 +29,7 @@ export const updateSalesService = async (
   }
 
   // Actualizamos la venta de producto en la base de datos
-  const response = await updateSaleModel(
-    id_sale,
-    id_saleProduct,
-    id_customer,
-    operation_status
-  );
+  const response = await updateSaleModel(id_sale, id_saleProduct, id_customer);
 
   return response;
 };

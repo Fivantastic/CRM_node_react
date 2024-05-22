@@ -11,4 +11,5 @@ export const joiErrorMessages = {
   'string.min': 'El campo "{#label}" debe tener al menos {#limit} caracteres',
   'string.max': 'El campo "{#label}" no debe exceder los {#limit} caracteres',
   'object.unknown': 'No se permiten campos adicionales en este objeto',
+  'boolean.base': 'El valor de "{#label}" debe ser un booleano'
 };

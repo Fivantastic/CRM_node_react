@@ -4,6 +4,9 @@ import { newProductSchema } from '../../../Schema/Error/createSchema.js';
 
 export const CreateProduct = ({ onAddProduct, token }) => {  
   const handleProductCreate = async (formData) => {
+    // Convertir el valor del estado a booleano
+    formData.active = formData.active === 'true' ? true : false;
+    
     try {
       const response = await fetch('http://localhost:3000/product/register', {
         method: 'POST',
@@ -79,16 +82,16 @@ export const CreateProduct = ({ onAddProduct, token }) => {
         idInput: 'inputDescriptionProductCreate',
     },
     {
-        name: 'product_status',
+        name: 'active',
         label: 'Estado',
         type: 'select',
         idLabel: 'labelStatusProductCreate',
         idInput: 'inputStatusProductCreate',
         options: {
-        Estado: {
-            active: 'Activado',
-            inactive: 'Inactivo',
-        },
+          Estado: {
+            true: 'Activado',
+            false: 'Inactivo',
+          },
         },
     },
   ];

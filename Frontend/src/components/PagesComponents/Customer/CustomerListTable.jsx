@@ -36,7 +36,7 @@ export const CustomerListTable = ({ customer, updateCustomer, deleteCustomer }) 
             </div>
           ))
         ) : (
-          <div>No hay clientes disponibles</div>
+          <div className='noResult'>No hay clientes disponibles</div>
         )}
       </div>
     </section>

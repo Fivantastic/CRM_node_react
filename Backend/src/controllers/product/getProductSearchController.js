@@ -9,7 +9,7 @@ export const getProductSearchController = async (req, res, next) => {
 
         //Llamanos al servivio
         const response = await getProductSearchService(searchTerm);
-        console.log('response', response);
+
         res.status(200).json({
             status: 'ok',
             message: 'lista Productos',

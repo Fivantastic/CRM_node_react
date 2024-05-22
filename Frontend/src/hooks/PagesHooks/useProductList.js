@@ -101,13 +101,12 @@ export const useProductList = (token) => {
       filtered = productList.filter((product) => {
         let activeFilter = true;
   
-        // Comprobamos si ambos filtros de actividad están presentes
-        if (selectedFilters.includes('active') && selectedFilters.includes('inactive')) {
+        if (selectedFilters.includes('1') && selectedFilters.includes('0')) {
           activeFilter = true; // Muestra tanto activos como inactivos
-        } else if (selectedFilters.includes('active')) {
-          activeFilter = product.product_status === 'active';
-        } else if (selectedFilters.includes('inactive')) {
-          activeFilter = product.product_status === 'inactive';
+        } else if (selectedFilters.includes('1')) {
+          activeFilter = product.active;
+        } else if (selectedFilters.includes('0')) {
+          activeFilter = !product.active;
         }
   
         return activeFilter;
@@ -135,10 +134,10 @@ export const useProductList = (token) => {
         sortedList.sort((a, b) => b.name.localeCompare(a.name));
         break;
       case 'fecha-asc':
-        sortedList.sort((a, b) => new Date(a.creation_at) - new Date(b.creation_at));
+        sortedList.sort((a, b) => a.ref_PR.localeCompare(b.ref_PR));
         break;
       case 'fecha-desc':
-        sortedList.sort((a, b) => new Date(b.creation_at) - new Date(a.creation_at));
+        sortedList.sort((a, b) => b.ref_PR.localeCompare(a.ref_PR));
         break;
       default:
         break;
@@ -186,18 +185,18 @@ export const useProductList = (token) => {
     );
   };
 
-  const activeProduct = (id_product, isActive) => {
+  const activeProduct = (id_product) => {
     setProductList((prevList) =>
       prevList.map((product) =>
         product.id_product === id_product
-          ? { ...product, product_status: isActive ? 'active' : 'inactive' }
+          ? { ...product, active: !product.active }
           : product
       )
     );
     setFilteredProductList((prevList) =>
       prevList.map((product) =>
         product.id_product === id_product
-          ? { ...product, product_status: isActive ? 'active' : 'inactive' }
+          ? { ...product, active: !product.active }
           : product
       )
     );

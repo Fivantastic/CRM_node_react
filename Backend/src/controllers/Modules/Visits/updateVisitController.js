@@ -9,9 +9,6 @@ export const updateVisitController = async (req, res, next) => {
 
         // Validamos el id que recibimos por params
         await validateSchemaUtil(updateVisitIDSchema, req.params);
-        
-        //obtenemos el id_user del token
-        const userId = req.user.id_user;
 
         // Obtenemos el id de la visita
         const visitId = req.params.visitId;

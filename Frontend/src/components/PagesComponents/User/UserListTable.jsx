@@ -44,7 +44,7 @@ export const UserListTable = ({ user, activeUser, onDelete }) => {
                     </div>
                 ))
                 ) : (
-                 <div>No hay usuarios disponibles</div>
+                 <div className='noResult'>No hay usuarios disponibles</div>
               )}
             </div>
         </section>

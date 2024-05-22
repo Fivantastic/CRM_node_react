@@ -37,5 +37,5 @@ export  const newProductSchema = Joi.object({
   description: Joi.string().required().messages(joiErrorMessages),
   price: Joi.string().required().messages(joiErrorMessages),
   stock: Joi.number().required().min(1).max(10000).messages(joiErrorMessages),
-  product_status: Joi.string().required().valid('active', 'inactive').messages(joiErrorMessages)
+  active: Joi.boolean().optional().messages(joiErrorMessages)
 });

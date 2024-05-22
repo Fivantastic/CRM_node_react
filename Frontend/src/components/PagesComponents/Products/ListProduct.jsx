@@ -1,6 +1,7 @@
-import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
+import '../../../Styles/Pages/StyleProductList.css';
 
 export const ProductList = ({ product }) => {
+
   const traducirEstado = (estado) => {
     switch (estado) {
     case 'active':
@@ -11,22 +12,16 @@ export const ProductList = ({ product }) => {
       return estado;
     }
   };
-  const dueDate = getNormalizedDate(product.creation_at);
-  // const formatearFecha = (fecha) => {
-  //   const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  //   return new Date(fecha).toLocaleDateString('es-Es', options);
-  // };
 
     return (
       <>
-        <h2 id="element_product_title" className=" mainInsideTitle">Producto</h2>
-        <h3>Nombre: {product.name}</h3>
-        <p><strong>Ref:</strong>{product.ref_PR}</p>
-        <p><strong>Descripción: </strong>{product.description}</p>
-        <p><strong>Precio: </strong>{product.price} €</p>
-        <p><strong>Stock: </strong>{product.stock} u.</p>
-        <p><strong>Estado: </strong>{traducirEstado(product.product_status)}</p>
-        <p><strong>Fecha de creación:</strong>{dueDate.toLocaleDateString()}</p>
+        <div id="element_customer_subtitle" className="mainInsideSub">
+        <p className="refTitle">Ref: {product.ref_PR}</p>
+        </div>
+        <p className='productName productP'><strong>Nombre:  </strong> {product.name}</p>
+        <p className='productPrice productP'><strong>Precio:  </strong> {product.price} €</p>
+        <p className='productStock productP'><strong>Stock:  </strong> {product.stock} u.</p>
+        <p className='productStatus productP'><strong>Estado:  </strong> {traducirEstado(product.product_status)}</p>
       </>
     );
   };

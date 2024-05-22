@@ -22,3 +22,11 @@ export const updateVisitSchema = Joi.object({
   visit_date: Joi.date().optional().messages(joiErrorMessages),
   observations: Joi.string().optional().messages(joiErrorMessages),
 });
+
+export  const UpdateProductSchema = Joi.object({
+  name: Joi.string().optional().min(3).max(30).messages(joiErrorMessages),
+  description: Joi.string().optional().messages(joiErrorMessages),
+  price: Joi.string().optional().messages(joiErrorMessages),
+  stock: Joi.number().optional().min(1).max(10000).messages(joiErrorMessages),
+  product_status: Joi.string().optional().valid('active', 'inactive').messages(joiErrorMessages)
+});

@@ -43,7 +43,7 @@ export const CustomerPage = () => {
   return (
     <MainLayout title="Clientes">
       <section id="customer_container" className="mainContainer">
-        <nav id="customer_nav" className="mainNav">
+        <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateCustomer onAddCustomer={addCustomer} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />

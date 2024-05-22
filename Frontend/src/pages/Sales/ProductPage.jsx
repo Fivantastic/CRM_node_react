@@ -11,11 +11,12 @@ import { MainLayout } from '../../layout/MainLayout';
 import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal';
 import { useProductList } from '../../hooks/PagesHooks/useProductList.js';
 import { ProductListTable } from '../../components/PagesComponents/Products/ProductListTable.jsx';
+import { MoreProduct } from '../../components/PagesComponents/Products/MoreProduct.jsx';
+import { StatusProductController } from '../../components/PagesComponents/Products/StatusProductController.jsx';
 
 
 export const ProductPage = () => {
   const token = useUser();
-  // Importamos el hook personalizado
   const {
     filteredProductList,
     handleSearch,
@@ -24,55 +25,53 @@ export const ProductPage = () => {
     addProduct,
     deleteProduct,
     updateProduct,
+    activeProduct,
     typeModule,
     typeModuleMessage,
   } = useProductList(token);
   const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
-  //Opciones de filtro
   const filterOptions = [
-  { label: 'Activo', value: 'active' },
-  { label: 'Inactivo', value: 'inactive' },
+    { label: 'Activo', value: 'active' },
+    { label: 'Inactivo', value: 'inactive' },
   ];
 
-  // Opciones de ordenamiento
   const sortOptions = [
     { label: "Nombre (A - Z)", value: "nombre-asc" },
     { label: "Nombre (Z - A)", value: "nombre-desc" },
     { label: "Fecha (Antiguos)", value: "fecha-asc" },
     { label: "Fecha (Recientes)", value: "fecha-desc" },
-  ]
+  ];
 
-  //Manejadores de eventos
   return (
-    
     <MainLayout title="Productos">
-      <section id="product_container " className="mainContainer">
+      <section id="product_container" className="mainContainer">
         <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
-          <CreateProduct onAddUser={addProduct} token={token} />
+          <CreateProduct onAddProduct={addProduct} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
           <SortPages options={sortOptions} onSort={handleSortChange} />
-          <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
+          <ToggleMode onClick={() => setIsListView((prev) => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
-        
-        <ol id="product_list" className=" main_olist">
-          {filteredProductList.map((data) => {
-            return (
-              <li
-                key={data.id_product}
-                id="element_product_container "
-                className="main_ilist"
-              >
-                <ProductList product={data} />
+          <ol id="product_list" className="main_olist">
+            {filteredProductList.map((product) => (
+              <li key={product.id_product} id="element_product_container" className="main_ilist">
+                <ProductList product={product} activeProduct={activeProduct} />
                 <span id="product_actions" className="main_actions">
+                  <MoreProduct product={product} />
+                  <StatusProductController
+                    id={product.id_product}
+                    activeProduct={activeProduct}
+                    onUpdateProduct={updateProduct}
+                    token={token}
+                  />
                   <UpdateProduct
-                    product={data.id_product}
+                    product={product.id_product}
                     onUpdateProduct={updateProduct}
                   />
                   <DeleteGenericModal
-                    id={data.id_product}
+                    id={product.id_product}
                     onDelete={deleteProduct}
                     token={token}
                     typeModule={typeModule}
@@ -80,15 +79,13 @@ export const ProductPage = () => {
                   />
                 </span>
               </li>
-            );
-          })}
-        </ol>
+            ))}
+          </ol>
         ) : (
-          <ProductListTable product={filteredProductList} onDelete={deleteProduct} />
-        )
-        }
+          <ProductListTable product={filteredProductList} onUpdateProduct={updateProduct} onDelete={deleteProduct} isActive={activeProduct} />
+        )}
       </section>
     </MainLayout>
-  
   );
 };
+

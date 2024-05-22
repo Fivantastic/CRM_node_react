@@ -5,13 +5,13 @@ import { insertProductService } from "../../services/product/insertProductServic
 export const newProductController = async (req, res, next) => {
     try {
         // Obtenemos el cuerpo de los productos
-        const { name, description, price, stock, product_status } = req.body;
+        const { name, description, price, stock, active } = req.body;
 
         //validamos el body
         await validateSchemaUtil(newProductSchema, req.body);
 
         // Insertamos el producto en la base de datos
-        await insertProductService(name, description, price, stock, product_status);
+        await insertProductService(name, description, price, stock, active);
         
         // Respuesta al Admin
         res.status(201).send({

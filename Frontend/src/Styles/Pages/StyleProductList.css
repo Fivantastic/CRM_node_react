@@ -9,6 +9,14 @@
     font-size: 1rem;
 }
 
+.active {
+    color: green;
+}
+
+.inactive {
+    color: red;
+}
+
 @media screen and (max-width: 600px) {
 
     #product_list {

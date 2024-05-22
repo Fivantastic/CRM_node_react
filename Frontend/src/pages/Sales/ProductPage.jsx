@@ -14,7 +14,6 @@ import { ProductListTable } from '../../components/PagesComponents/Products/Prod
 import { MoreProduct } from '../../components/PagesComponents/Products/MoreProduct.jsx';
 import { StatusProductController } from '../../components/PagesComponents/Products/StatusProductController.jsx';
 
-
 export const ProductPage = () => {
   const token = useUser();
   const {
@@ -32,8 +31,8 @@ export const ProductPage = () => {
   const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
   const filterOptions = [
-    { label: 'Activo', value: 'active' },
-    { label: 'Inactivo', value: 'inactive' },
+    { label: 'Activo', value: '1' },
+    { label: 'Inactivo', value: '0' },
   ];
 
   const sortOptions = [
@@ -62,8 +61,8 @@ export const ProductPage = () => {
                   <MoreProduct product={product} />
                   <StatusProductController
                     id={product.id_product}
+                    isActive={product.active}
                     activeProduct={activeProduct}
-                    onUpdateProduct={updateProduct}
                     token={token}
                   />
                   <UpdateProduct
@@ -88,4 +87,3 @@ export const ProductPage = () => {
     </MainLayout>
   );
 };
-

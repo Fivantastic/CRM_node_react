@@ -81,7 +81,7 @@ export async function createDBSchema(db) {
         description TEXT,
         price DECIMAL(10,2) NOT NULL,
         stock INT NOT NULL,
-        product_status ENUM('active', 'inactive') NOT NULL,
+        active BOOLEAN NOT NULL DEFAULT true,
         creation_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
     )`);

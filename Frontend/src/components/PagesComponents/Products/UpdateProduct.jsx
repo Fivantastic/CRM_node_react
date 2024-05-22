@@ -8,6 +8,9 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
   const token = useUser();
 
   const handleButtonUpdateProduct = async (formData) => {
+    // Convertir el valor del estado a booleano
+    formData.active = formData.active === 'true' ? true : false;
+
     try {
       const response = await fetch(
         `http://localhost:3000/product/update/${product}`,
@@ -90,20 +93,19 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
       idInput: 'inputStockProductCreate',
     },
     {
-      name: 'product_status',
+      name: 'active',
       label: 'Estado',
       type: 'select',
       idLabel: 'labelStatusProductCreate',
       idInput: 'inputStatusProductCreate',
       options: {
         Estado: {
-          active: 'Activado',
-          inactive: 'Inactivo',
+          true: 'Activado',
+          false: 'Inactivo',
         },
       },
-    },
+  },
   ];
-
 
   const handleUpdateProduct = () => {
     DynamicFormPopUp(

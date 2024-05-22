@@ -82,7 +82,7 @@ export const VisitsList = ({
       </p>
 
       <span id="visit_actions" className="main_actions">
-        <MoreInfo fields={moreInfoFields} modalIds={[]} />
+        <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
         <ToggleVisitStatusButton
           id={visit.id_visit}
           currentStatus={visit.visit_status}

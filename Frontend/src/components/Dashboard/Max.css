@@ -1,4 +1,4 @@
-.card {
+.card_Dashboard {
   padding: 1rem;
   background-color: #fff;
   border-radius: 16px;
@@ -85,5 +85,6 @@
 @media screen and (max-width: 480px) {
   .card {
     margin-right: 160px;
+    width: 100%;
   }
 }

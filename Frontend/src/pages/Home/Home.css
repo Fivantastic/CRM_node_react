@@ -34,9 +34,7 @@
 @media screen and (max-width: 480px) {
   #charts {
     flex-direction: column;
-    width: 70%;
-    margin-right: 160px;
-    /* margin: 1rem; */
+    width: 100%;
     gap: 4rem;
   }
 }

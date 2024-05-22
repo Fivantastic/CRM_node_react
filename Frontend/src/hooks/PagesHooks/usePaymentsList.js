@@ -209,21 +209,20 @@ const [paymentsList, setPaymentsList] = useState([]);
   }
 
   // Eliminar
-  const deletePayment = (id_payment) => {
-    try {
-      setPaymentsList((prevPayments) =>
-        prevPayments.filter((payment) => payment.id_payment !== id_payment)
-      );
-    } catch (error) {
-      console.error('Error al eliminar el pago', error);
-      Toast.fire({
-        icon: 'error',
-        title: 'Error al eliminar el pago',
-    });
-    }
-  };
+  // const deletePayment = (id_payment) => {
+  //   try {
+  //     setPaymentsList((prevPayments) =>
+  //       prevPayments.filter((payment) => payment.id_payment !== id_payment)
+  //     );
+  //   } catch (error) {
+  //     console.error('Error al eliminar el pago', error);
+  //     Toast.fire({
+  //       icon: 'error',
+  //       title: 'Error al eliminar el pago',
+  //   });
+  //   }
+  // };
 
-  // _____________________________________________________________________________
 
   // Retornar los hooks
   return {
@@ -232,7 +231,6 @@ const [paymentsList, setPaymentsList] = useState([]);
     handleSortChange,
     filteredList,
     addPayment,
-    deletePayment,
     handleNewPaymentStatus
   }
 }

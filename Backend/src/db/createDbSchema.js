@@ -187,20 +187,7 @@ export async function createDBSchema(db) {
         FOREIGN KEY (sale_id) REFERENCES Sales(id_sale),
         FOREIGN KEY (customer_id) REFERENCES Customers(id_customer)
     )`);
-      
-  // console.log(chalk.bold.blue(`->✏️ Creando tabla Payments...`));
-  // await db.query(`CREATE TABLE Payments (
-  //       id_payment CHAR(36) PRIMARY KEY,
-  //       invoice_id CHAR(36),
-  //       amount DECIMAL(10,2) NOT NULL,
-  //       payment_status ENUM('pending', 'cancelled', 'paid') DEFAULT 'pending',
-  //       payment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-  //       create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  //       update_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  //       FOREIGN KEY (invoice_id) REFERENCES Invoices(id_invoice)
-  //   )`);
-
-    // Sin amount, ya que queremos que cubra el coste de la factura
+    
     console.log(chalk.bold.blue(`->✏️ Creando tabla Payments...`));
   await db.query(`CREATE TABLE Payments (
         id_payment CHAR(36) PRIMARY KEY,

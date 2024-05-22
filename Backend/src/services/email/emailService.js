@@ -123,3 +123,24 @@ export const sendEmailForVisitFeedback = async (ref_VT, email) => {
     throw error;
   }
 };
+
+export const sendEmailForShipmentDelivery = async (trackingNumber, email) => {
+  try {
+    // Construir la URL de seguimiento con el número de seguimiento
+    const trackingUrl = `http://localhost:5173/track-shipment/${trackingNumber}`;
+
+    // Configurar el mensaje de correo electrónico
+    const mailOptions = {
+      from: MAIL_TRAP_AUTH_USER,
+      to: email,
+      subject: 'Su envío ha sido entregado',
+      html: `¡Hola! Nos complace informarle que su envío ha sido entregado. Puede rastrear los detalles de su envío <a href="${trackingUrl}">aquí</a>. ¡Gracias por confiar en nosotros!`,
+    };
+
+    // Enviar el correo electrónico
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error('Error al enviar el correo electrónico de entrega:', error);
+    throw error;
+  }
+};

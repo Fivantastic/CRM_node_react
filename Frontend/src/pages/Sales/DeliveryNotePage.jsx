@@ -41,7 +41,7 @@ export const DeliveryNotePage = () => {
   return (
     <MainLayout title="Albaranes">
       <section id="note_container" className="note_container mainContainer">
-        <nav id="note_nav" className="mainNav">
+        <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateDeliveryNote onAddDeliveryNote={addDeliveryNote} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />

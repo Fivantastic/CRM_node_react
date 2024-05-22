@@ -96,28 +96,31 @@ export const useUserList = (token) => {
     }
   };
 
-  // Función para aplicar los filtros
-  const applyFilters = () => {
-    let filtered = userList;
+// Función para aplicar los filtros
+const applyFilters = () => {
+  let filtered = userList;
 
-    if (selectedFilters.length > 0) {
-      filtered = userList.filter(user => {
-        let activeFilter = true;
-        let roleFilter = true;
+  if (selectedFilters.length > 0) {
+    filtered = userList.filter(user => {
+      let activeFilter = true;
+      let roleFilter = true;
 
-        if (selectedFilters.includes('1')) {
-          activeFilter = user.active;
-        } else if (selectedFilters.includes('0')) {
-          activeFilter = !user.active;
-        }
+      // Comprobamos si ambos filtros de actividad están presentes
+      if (selectedFilters.includes('1') && selectedFilters.includes('0')) {
+        activeFilter = true; // Muestra tanto activos como inactivos
+      } else if (selectedFilters.includes('1')) {
+        activeFilter = user.active;
+      } else if (selectedFilters.includes('0')) {
+        activeFilter = !user.active;
+      }
 
-        if (selectedFilters.some(filter => ['admin', 'salesAgent', 'deliverer'].includes(filter))) {
-          roleFilter = selectedFilters.some(filter => filter === user.role);
-        }
+      if (selectedFilters.some(filter => ['admin', 'salesAgent', 'deliverer'].includes(filter))) {
+        roleFilter = selectedFilters.some(filter => filter === user.role);
+      }
 
-        return activeFilter && roleFilter;
-      });
-    }
+      return activeFilter && roleFilter;
+    });
+  }
 
     setFilteredUserList(filtered);
     sortUsers(filtered);

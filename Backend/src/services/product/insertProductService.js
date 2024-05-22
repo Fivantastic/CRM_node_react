@@ -12,7 +12,7 @@ export const insertProductService = async (name, description, price, stock, prod
    // Generamos la nueva referencia de Products
    const ref = generateReference5DigitsFromRef('PR', maxRef);
    
-    await insertProductModel(id_product, ref_PR, name, description, price, stock, product_status)
+    await insertProductModel(id_product, ref, name, description, price, stock, product_status)
 
    } catch(error) {
       error.statusCode = 500

@@ -12,7 +12,7 @@
 }
 
 #product_table {
-  max-width: 90%;
+  max-width: 750px;
   border-radius: 8px;
   padding: 10px 15px;
   margin-top: 15px;
@@ -20,11 +20,6 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* #productTableHead,
-#productTableBody {
-    display: flex;
-    flex-direction: column;
-} */
 
 
 #productTableHead {
@@ -39,69 +34,71 @@
     flex-direction: column;
 }
 
+.productTableBodyRow:hover {
+    background-color: #eee;
+}
+
 #prductTableHead .headRow,
-#productTableBodyRow .bodyRow {
+.productTableBodyRow .bodyRow {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
     text-align: start;
 }
 
-#productTableBodyRow {
+.productTableBodyRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 5px;
     height: 50px;
     border-bottom: 1px solid #eee;
 }
 
-#productTableBodyRow:last-child {
+.productTableBodyRow:last-child {
     border-bottom: none;
 }
 
 #productTableHead .headRow,
-#prductTablebodyRow .bodyRow {
+.prductTablebodyRow .bodyRow {
     flex:8;
     text-align: center;
 }
 
 #productTableHeadRowRef,
-#productTableBodyRef {
-    width: 150px;
+.productTableBodyRef {
+    width: 120px;
 }
 
 #productTableHeadRowName,
-#productTableBodyName {
+.productTableBodyName {
     width: 150px;
 }
 
 #productTableHeadRowPrice,
-#productTableBodyPrice {
-    width: 150px;
+.productTableBodyPrice {
+    width: 100px;
 }
 
-#productTableHeadRowStock, #productTableBodyStock {
-    width: 150px;
+#productTableHeadRowStock, .productTableBodyStock {
+    width: 80px;
 }
 
-#productTableHeadRowStatus, #productTableBodyStatus {
-    width: 150px;
+#productTableHeadRowStatus, .productTableBodyStatus {
+    width: 80px;
 }
 
-#productTableHeadRowDate, #productTableBodyDate {
-    width: 150px;
-}
 
-#productTableBodyActions,
+.productTableBodyActions,
 #productTableHeadRowActions {
-  width: 150px;
+  width: 200px;
 }
 
 #productTableHeadRowActions {
   padding-left: 10px;
 }
-#productTableBodyActions {
+.productTableBodyActions {
   display: flex;
-  padding-left: 10px;
+
   gap: 10px;
 }

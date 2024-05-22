@@ -31,3 +31,11 @@ export  const newVisitSchema = Joi.object({
   visit_date: Joi.date().required().messages(joiErrorMessages),
   observations: Joi.string().optional().messages(joiErrorMessages),
 });
+
+export  const newProductSchema = Joi.object({
+  name: Joi.string().required().min(3).max(30).messages(joiErrorMessages),
+  description: Joi.string().required().messages(joiErrorMessages),
+  price: Joi.string().required().messages(joiErrorMessages),
+  stock: Joi.number().required().min(1).max(10000).messages(joiErrorMessages),
+  product_status: Joi.string().required().valid('active', 'inactive').messages(joiErrorMessages)
+});

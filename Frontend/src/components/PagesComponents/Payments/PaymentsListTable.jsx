@@ -6,7 +6,7 @@ import { ChangeStatus } from '../../forms/ChangeStatus.jsx';
 import './PaymentsListTable.css';
 
 export const PaymentsListTable = ({payments, onUpdatePayment }) => {
-      const token = useUser();
+  const token = useUser();
 
   const traducirEstadoPago = (estado) => {
     switch (estado) {
@@ -34,7 +34,6 @@ export const PaymentsListTable = ({payments, onUpdatePayment }) => {
       <div id="salesTableBody">
         {payments.length > 0 &&
           payments.map((payment) => {
-            console.log(payment);
 
             const paidDate = getNormalizedDate(payment.payment_date);
             const estadoPago = traducirEstadoPago(payment.payment_status)

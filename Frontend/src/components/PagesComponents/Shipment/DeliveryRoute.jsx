@@ -9,7 +9,7 @@ import './DeliveryRoutes.css'; // Archivo de estilos para la representación vis
 
 const URL = import.meta.env.VITE_URL;
 
-const DeliveryRoutes = () => {
+export const DeliveryRoutes = () => {
   const token = useUser();
   const [deliveryUsers, setDeliveryUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -111,69 +111,69 @@ const DeliveryRoutes = () => {
     : [];
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Lista de repartidores
-      </Typography>
-      <List>
-        {deliveryUsers.map((user) => (
-          <Box key={user.id_user} mb={2}>
-            <Card>
-              <CardContent>
-                <Grid container spacing={2} alignItems="center">
-                  <Grid item>
-                    <Avatar src={user.avatar || defaultAvatar} alt="Avatar" />
+    <section id="delivery_route" className="delivery_route">
+      <Container>
+        <Typography variant="h4" gutterBottom>
+          Lista de repartidores
+        </Typography>
+        <List>
+          {deliveryUsers.map((user) => (
+            <Box key={user.id_user} mb={2}>
+              <Card>
+                <CardContent>
+                  <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                      <Avatar src={user.avatar || defaultAvatar} alt="Avatar" />
+                    </Grid>
+                    <Grid item xs>
+                      <Typography variant="h6">{user.name}</Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        Repartidor
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <IconButton onClick={() => handleViewShipments(user.id_user)}>
+                        {selectedUser === user.id_user ? <ExpandLess /> : <ExpandMore />}
+                      </IconButton>
+                    </Grid>
                   </Grid>
-                  <Grid item xs>
-                    <Typography variant="h6">{user.name}</Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Repartidor
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <IconButton onClick={() => handleViewShipments(user.id_user)}>
-                      {selectedUser === user.id_user ? <ExpandLess /> : <ExpandMore />}
-                    </IconButton>
-                  </Grid>
-                </Grid>
-                <Collapse in={selectedUser === user.id_user} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {filteredShipments.length > 0 ? (
-                      filteredShipments.map((shipment) => (
-                        <ListItem key={shipment.id_shipment} button onClick={() => handlePickupPointClick(shipment.id_shipment)}>
-                          <ListItemAvatar>
-                            <Avatar src={shipmentIcon} alt="Shipment" />
-                          </ListItemAvatar>
-                          <ListItemText primary={shipment.customer_name} secondary={shipment.delivery_address} />
-                          {shipment.id_shipment === selectedShipment && (
-                            <Box className="popup" ref={popupRef}>
-                              <Typography variant="h6">Detalles del envío</Typography>
-                              <Typography><strong>Nombre:</strong> {shipment.customer_name}</Typography>
-                              <Typography><strong>Compañía:</strong> {shipment.company_name}</Typography>
-                              <Typography><strong>Dirección:</strong> {shipment.delivery_address}</Typography>
-                              <Typography><strong>NIF:</strong> {shipment.NIF}</Typography>
-                              <Typography><strong>Producto:</strong> {shipment.product_name}</Typography>
-                              <Typography><strong>Cantidad:</strong> {shipment.product_quantity}</Typography>
-                              <Typography><strong>Ciudad:</strong> {shipment.address_city}</Typography>
-                              <Typography><strong>Teléfono:</strong> {shipment.customer_phone}</Typography>
-                            </Box>
-                          )}
+                  <Collapse in={selectedUser === user.id_user} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {filteredShipments.length > 0 ? (
+                        filteredShipments.map((shipment) => (
+                          <ListItem key={shipment.id_shipment} button onClick={() => handlePickupPointClick(shipment.id_shipment)}>
+                            <ListItemAvatar>
+                              <Avatar src={shipmentIcon} alt="Shipment" />
+                            </ListItemAvatar>
+                            <ListItemText primary={shipment.customer_name} secondary={shipment.delivery_address} />
+                            {shipment.id_shipment === selectedShipment && (
+                              <Box className="popup" ref={popupRef}>
+                                <Typography variant="h6">Detalles del envío</Typography>
+                                <Typography><strong>Nombre:</strong> {shipment.customer_name}</Typography>
+                                <Typography><strong>Compañía:</strong> {shipment.company_name}</Typography>
+                                <Typography><strong>Dirección:</strong> {shipment.delivery_address}</Typography>
+                                <Typography><strong>NIF:</strong> {shipment.NIF}</Typography>
+                                <Typography><strong>Producto:</strong> {shipment.product_name}</Typography>
+                                <Typography><strong>Cantidad:</strong> {shipment.product_quantity}</Typography>
+                                <Typography><strong>Ciudad:</strong> {shipment.address_city}</Typography>
+                                <Typography><strong>Teléfono:</strong> {shipment.customer_phone}</Typography>
+                              </Box>
+                            )}
+                          </ListItem>
+                        ))
+                      ) : (
+                        <ListItem>
+                          <ListItemText primary="Este repartidor no tiene envíos asociados" />
                         </ListItem>
-                      ))
-                    ) : (
-                      <ListItem>
-                        <ListItemText primary="Este repartidor no tiene envíos asociados" />
-                      </ListItem>
-                    )}
-                  </List>
-                </Collapse>
-              </CardContent>
-            </Card>
-          </Box>
-        ))}
-      </List>
-    </Container>
+                      )}
+                    </List>
+                  </Collapse>
+                </CardContent>
+              </Card>
+            </Box>
+          ))}
+        </List>
+      </Container>
+    </section>
   );
 };
-
-export default DeliveryRoutes;

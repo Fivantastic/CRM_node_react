@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp';
+import { EditButton } from '../../buttons/EditButton.jsx';
 
 export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
   const handleUpdateShipmentAction = async (formData) => {
@@ -64,10 +65,6 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
   };
 
   return (
-    <>
-      <button id="btnShipmentUpdate" className="mainUpdateBtn" onClick={handleUpdateShipment}>
-        Actualizar Estado
-      </button>
-    </>
+      <EditButton id="btnShipmentUpdate" className="mainUpdateBtn" onClick={handleUpdateShipment}/>
   );
 };

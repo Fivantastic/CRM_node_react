@@ -1,4 +1,4 @@
-// import Swal from 'sweetalert2';
+import { useState } from 'react';
 import { useUser } from '../../context/authContext.jsx';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
@@ -9,7 +9,6 @@ import { usePaymentsList } from '../../hooks/PagesHooks/usePaymentsList.js'
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
 import { PaymentsListTable } from '../../components/PagesComponents/Payments/PaymentsListTable.jsx';
-import { useState } from 'react';
 
 export const PaymentPage = () => {
   const token = useUser();

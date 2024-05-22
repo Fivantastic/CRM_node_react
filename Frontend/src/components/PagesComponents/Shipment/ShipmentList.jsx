@@ -3,41 +3,35 @@ export const ShipmentList = ({ shipment }) => {
   const traducirEstadoEntrega = (estado) => {
     switch (estado) {
       case 'pending':
-        return 'Pendiente';
+        return { text: 'Pendiente', color: 'blue' };
       case 'delivered':
-        return 'Entregado';
+        return { text: 'Entregado', color: 'green' };
       case 'cancelled':
-        return 'Cancelado';
+        return { text: 'Cancelado', color: 'red' };
       case 'inTransit':
-        return 'En reparto';
-      case 'returned':
-        return 'Devuelto';
+        return { text: 'En tránsito', color: 'orange' };
       case 'delayed':
-        return 'Retrasado';
+        return { text: 'Retrasado', color: 'purple' };
       default:
-        return estado;
+        return { text: estado, color: 'black' };
     }
-  }
+  };
+
+  const statusEntrega = traducirEstadoEntrega(shipment.delivery_status);
+
+  const addressComplet = `${shipment.delivery_address}, ${'nº ' +shipment.address_number}, ${shipment.address_city}, ${shipment.address_zip_code}, ${shipment.address_country}`
 
   return (
     <>
-      <h2 id='element_shipment_title' className="mainInsideTitle">Detalles del envío</h2>
-      <h3 id='element_shipment_section' className="mainSubSection">Destinatario</h3>
-      <p><strong>Nombre: </strong> {shipment.customer_name}</p>
-      <p><strong>REF: </strong> {shipment.ref_SH}</p>
-      <p><strong>Compañía:</strong> {shipment.company_name}</p>
-      <p><strong>Dirección: </strong> {shipment.delivery_address}</p>
-      <p><strong>NIF:</strong> {shipment.NIF}</p>
-      <p><strong>Producto:</strong> {shipment.product_name}</p>
-      <p><strong>Cantidad:</strong> {shipment.product_quantity} u.</p>
-      <p><strong>Ciudad: </strong> {shipment.address_city}</p>
-      <p><strong>Teléfono:</strong> {shipment.customer_phone}</p>
-      <p><strong>Fecha:</strong> {shipment.shipment_create_at}</p>
-      <h3 id='element_shipment_section' className="mainSubSection">Estado del envío</h3>
-      <p>{traducirEstadoEntrega(shipment.delivery_status)}</p>
-
-      <h3 id='element_shipment_section' className="mainSubSection">Repartidor</h3>
-      <p>{shipment.deliverer}</p>
+      <p id="element_visit_subtitle" className="mainInsideSub">Ref: {shipment.ref_SH}</p>
+      <p className="mainInsideSub"><strong>Empresa: </strong> {shipment.company_name}</p>
+      <p className="mainInsideSub"><strong>Teléfono: </strong> {shipment.customer_phone}</p>
+      <p className="mainInsideSub"><strong>Dirección: </strong>{addressComplet}</p>
+      <p className="mainInsideSub"><strong>Ref. Albarán: </strong> {shipment.ref_DN}</p>
+      <p className="mainInsideSub"><strong>Fecha estimada: </strong> {shipment.delivery_date}</p>
+      <p className="mainInsideSub"><strong>Estado: </strong><span style={{ color: statusEntrega.color }}>
+        {statusEntrega.text}</span></p>
+      <p className="mainInsideSub"><strong>Repartidor: </strong> {shipment.deliverer}</p>
     </>
   );
 };

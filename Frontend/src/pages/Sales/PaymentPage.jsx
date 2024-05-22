@@ -13,19 +13,12 @@ import { useState } from 'react';
 
 export const PaymentPage = () => {
   const token = useUser();
-
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
-  const typeModule = 'payments';
-  // mensajes al cliente
-  const typeModuleMessage = 'Pagos';
-
   const {
     filteredList,
     handleSearch,
     handleFilterChange,
     handleSortChange,
     addPayment,
-    deletePayment,
     handleNewPaymentStatus
   } = usePaymentsList(token)
   const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
@@ -66,17 +59,14 @@ export const PaymentPage = () => {
               >
                 <PaymentsList 
                   payment={data} 
-                  onDelete={deletePayment}
                   handleNewPaymentStatus={handleNewPaymentStatus}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
                   token={token} />
               </li>
             );
           })}
         </ol>
         ) : (
-          <PaymentsListTable payments={filteredList} onUpdatePayment={handleNewPaymentStatus} onDelete={deletePayment} />
+          <PaymentsListTable payments={filteredList} onUpdatePayment={handleNewPaymentStatus} />
         )}
       </section>
     </MainLayout>

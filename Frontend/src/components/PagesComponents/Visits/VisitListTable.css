@@ -40,12 +40,12 @@
 
 #VisitTableHeadRowRef,
 .visitTableBodyRowRef {
-  width: 150px;
+  width: 140px;
 }
 
 #visitTableHeadRowName,
 .visitTableBodyRowName {
-  width: 150px;
+  width: 120px;
 }
 
 #visitTableHeadRowDate,

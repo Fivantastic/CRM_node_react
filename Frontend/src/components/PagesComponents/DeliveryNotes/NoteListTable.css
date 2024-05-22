@@ -1,0 +1,105 @@
+#note_list {
+  width: 850px;
+  display: grid;
+  grid-template-columns: 350px 350px;
+  column-gap: 20px;
+}
+
+#note_table {
+  max-width: 1100px;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-top: 15px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+#noteTableHead {
+  display: flex;
+  justify-content: space-between;
+}
+
+#noteTableBody {
+  display: flex;
+  flex-direction: column;
+}
+
+#noteTableHead {
+  font-weight: bold;
+  text-align: start;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.noteTableBodyRow {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding-left: 5px;
+  align-items: center;
+  height: 50px;
+}
+
+.noteTableBodyRow:hover {
+  background-color: #eee;
+}
+
+#noteTableHeadRowRef,
+.noteTableBodyRowRef {
+  width: 120px;
+}
+
+#noteTableHeadRowRefSales,
+.noteTableBodyRowRefSales {
+  width: 120px;
+
+}
+
+#noteTableHeadRowCompany,
+.noteTableBodyRowCompany {
+  width: 200px;
+}
+
+#noteTableHeadRowProduct,
+.noteTableBodyRowProduct {
+  width: 100px;
+
+}
+
+#noteTableHeadRowQuantity,
+.noteTableBodyRowQuantity {
+  width: 50px;
+
+}
+
+#noteTableHeadRowDate,
+.noteTableBodyRowDate {
+  width: 180px;
+}
+
+#noteTableHeadRowStatus,
+.noteTableBodyRowStatus {
+  width: 90px;
+
+}
+
+#noteTableHeadRowActions,
+.noteTableBodyRowActions {
+  width: 150px;
+}
+
+#noteTableHeadRowActions {
+  padding-left: 20px;
+}
+
+.noteTableBodyRowActions {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 815px) {
+  #note_list {
+    width: 350px;
+    grid-template-columns: 320px;
+  }
+}

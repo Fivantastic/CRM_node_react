@@ -14,9 +14,12 @@
   max-width: 900px;
 }
 
-
 #sale_container {
   max-width: 1000px;
+}
+
+#note_container {
+  max-width: 1150px;
 }
 
 .mainContainer {

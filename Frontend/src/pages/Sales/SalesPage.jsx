@@ -42,8 +42,8 @@ export const SalesPage = () => {
   ];
 
   return (
-    <MainLayout title="Ventas">
-      <section id="sale_container " className="mainContainer">
+    <MainLayout title="Ordenes de venta">
+      <section id="sale_container" className="mainContainer">
         <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateSale onAddSale={addSale} token={token} />

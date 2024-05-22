@@ -3,15 +3,10 @@ import { CancelButton } from './CancelButton.jsx';
 import { CompletButton } from './CompletButton.jsx';
 const URL = import.meta.env.VITE_URL;
 
-export const ToggleSalesStatusButton = ({
-  id,
-  currentStatus,
-  onUpdateSale,
-  token,
-}) => {
+export const ToggleSalesStatusButton = ({ id, currentStatus, onUpdateSale, token }) => {
   const handleClick = async () => {
     if (currentStatus === 'open') {
-      const { value: action } = await Swal.fire({
+      const result = await Swal.fire({
         title: '¿Qué acción deseas realizar?',
         text: 'Puedes completar o cancelar la venta.',
         icon: 'question',
@@ -25,10 +20,24 @@ export const ToggleSalesStatusButton = ({
         denyButtonColor: '#dc3545', // Rojo para cancelar
       });
 
-      if (action) {
+      if (result.isConfirmed) {
         updateStatus('closed');
-      } else if (action === false) {
-        updateStatus('cancelled');
+      } else if (result.isDenied) {
+        const confirmed = await Swal.fire({
+          title: '¿Estás seguro?',
+          text: '¿Quieres cancelar la venta?',
+          icon: 'question',
+          allowOutsideClick: false,
+          showCancelButton: true,
+          confirmButtonColor: '#dc3545', // Rojo para cancelar
+          cancelButtonColor: '#6c757d',
+          confirmButtonText: 'Sí, cancelar',
+          cancelButtonText: 'Salir',
+        });
+
+        if (confirmed.isConfirmed) {
+          updateStatus('cancelled');
+        }
       }
     } else if (currentStatus === 'closed') {
       const confirmed = await Swal.fire({
@@ -48,12 +57,11 @@ export const ToggleSalesStatusButton = ({
       }
     }
   };
+
   const updateStatus = async (newStatus) => {
-    console.log(newStatus);
     try {
       const response = await fetch(`${URL}/sales/updateStatus`, {
         method: 'PUT',
-        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `${token}`,
@@ -61,7 +69,6 @@ export const ToggleSalesStatusButton = ({
         body: JSON.stringify({ id, newStatus }),
       });
 
-      console.log(response);
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -75,14 +82,13 @@ export const ToggleSalesStatusButton = ({
       });
 
       if (response.ok) {
-        // Actualizar el estado de la visita en el frontend
+        // Actualizar el estado de la venta en el frontend
         onUpdateSale(id, newStatus);
-        console.log('newStatus', newStatus);
 
         // Mostrar un mensaje de éxito
         Toast.fire({
           icon: 'success',
-          title: `Estado de venta actualizado`,
+          title: `Venta ${newStatus === 'closed' ? 'completada' : 'cancelada'} con éxito`,
         });
       } else {
         // Mostrar un mensaje de error si la petición falla
@@ -118,7 +124,7 @@ export const ToggleSalesStatusButton = ({
         <img
           className="disabledVisitimg"
           src="./blockCancel.svg"
-          alt="Visita cancelada"
+          alt="Venta cancelada"
         />
       </div>
     );

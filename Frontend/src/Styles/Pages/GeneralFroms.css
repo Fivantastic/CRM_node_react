@@ -1,3 +1,24 @@
+/* Estilo tamaño de todos los ol */
+#user_container,
+#customer_container,
+#product_container,
+#invoice_container {
+  max-width: 800px;
+}
+
+#payment_container {
+  max-width: 850px;
+}
+
+#visit_container {
+  max-width: 900px;
+}
+
+
+#sale_container {
+  max-width: 1000px;
+}
+
 .mainContainer {
   padding: 10px 15px;
 }

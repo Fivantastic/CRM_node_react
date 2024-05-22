@@ -21,10 +21,10 @@ export const ProductList = ({ product }) => {
       <div id="element_customer_subtitle" className="mainInsideSub">
         <p className="refTitle">Ref: {product.ref_PR}</p>
       </div>
-      <p className='productName productP'><strong>Nombre:  </strong> {product.name}</p>
-      <p className='productPrice productP'><strong>Precio:  </strong> {product.price} €</p>
-      <p className='productStock productP'><strong>Stock:  </strong> {product.stock} u.</p>
-      <p className='productStatus productP'><strong>Estado:  </strong><span className={activeClass}> {traducirEstado(isActive)}</span></p>
+      <p className="mainInsideSub"><strong>Nombre:  </strong> {product.name}</p>
+      <p className="mainInsideSub"><strong>Precio:  </strong> {product.price} €</p>
+      <p className="mainInsideSub"><strong>Stock:  </strong> {product.stock} u.</p>
+      <p className="mainInsideSub"><strong>Estado:  </strong><span className={activeClass}> {traducirEstado(isActive)}</span></p>
     </>
   );
 };

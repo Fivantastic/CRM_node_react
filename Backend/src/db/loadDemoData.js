@@ -123,12 +123,12 @@ export async function loadDemoData(db) {
         description: faker.lorem.paragraph(),
         price: faker.commerce.price({min: 10, max: 150}),
         stock: faker.number.int(1000), 
-        product_status: faker.helpers.arrayElement(['active', 'inactive']),
+        active: faker.datatype.boolean(),
       };
       productData.push(product);
     }
     await db.query(
-      `INSERT INTO Products (id_product, ref_PR, name, description, price, stock, product_status) VALUES ?`,
+      `INSERT INTO Products (id_product, ref_PR, name, description, price, stock, active) VALUES ?`,
       [productData.map(product => Object.values(product))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Products.`));

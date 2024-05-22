@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { CompletButton } from '../../buttons/StatesBtn/CompletButton.jsx';
 
-export const StatusProductController = ({ id, activeProduct, isActive, token }) => {
+export const StatusProductController = ({ id, isActive, activeProduct, token }) => {
   const handleClick = async () => {
     const confirmButtonText = isActive ? 'Desactivar' : 'Activar';
     const confirmButtonColor = isActive ? '#dc3545' : '#28a745';

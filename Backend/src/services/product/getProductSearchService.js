@@ -3,7 +3,6 @@ import { selectProductSearchModel } from '../../models/products/selectProductSea
 export const getProductSearchService = async (search) => {
   // Buscamos en la base de datos el producto.
 
-  console.log(search);
   const product = await selectProductSearchModel(search);
 
   return product;

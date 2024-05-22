@@ -60,7 +60,7 @@ export const VisitsList = ({
       <p id="VisitState" className={`mainInsideSub VisitP ${visit.visit_status}`} style={{ color: estadoVisita.color }}><strong>Estado: </strong> {estadoVisita.text}</p>
 
       <span id="visit_actions" className="main_actions">
-        <MoreInfo fields={moreInfoFields} modalIds={[]} />
+        <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
         <ToggleVisitStatusButton
           id={visit.id_visit}
           currentStatus={visit.visit_status}

@@ -1,5 +1,5 @@
 import { newVisitSchema } from "../../../schemas/Modules/visits/visitSchema.js";
-// import { sendConfirmationVisitEmail } from "../../../services/email/emailService.js";
+import { sendConfirmationVisitEmail } from "../../../services/email/emailService.js";
 import { insertNewVisitService } from "../../../services/Modules/visits/insertNewVisitService.js";
 import { validateSchemaUtil } from "../../../utils/validateSchemaUtil.js";
 
@@ -18,12 +18,12 @@ export const newVisitController = async (req, res, next) => {
         const { customer, Address } = await insertNewVisitService(user_id, id_customer, visit_date, observations);
 
         //Extraer los datos del cliente
-        // const { name, email } = customer;
+        const { name, email } = customer;
 
         // Enviar correo electrónico de bienvenida
-        // await sendConfirmationVisitEmail(name, email, visit_date );
+        await sendConfirmationVisitEmail(name, email, visit_date );
 
-        // console.log('Correo enviado');
+        console.log('Correo enviado');
 
         // Devolvemos el usuario actualizado.
         res.send({

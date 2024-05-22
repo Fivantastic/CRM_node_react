@@ -2,7 +2,7 @@ import { useUser } from '../../../context/authContext.jsx';
 import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 import { UpdateProduct } from "./UpdateProduct.jsx";
 import { MoreProduct } from "./MoreProduct.jsx";
-import '../Products/productListTable.css';
+import './productListTable.css';
 import { StatusProductController } from './StatusProductController.jsx';
 
 export const ProductListTable = ({ product, onUpdateProduct, onDelete, isActive }) => {
@@ -26,17 +26,16 @@ export const ProductListTable = ({ product, onUpdateProduct, onDelete, isActive 
               <div className="productTableBodyPrice">{product.price} €</div>
               <div className="productTableBodyStock">{product.stock} u.</div>
               <div
-                className="productTableBodyStatus"
-                style={{ color: product.product_status === 'active' ? 'green' : 'red' }}
+                className={`productTableBodyStatus ${product.active ? 'active' : 'inactive'}`}
               >
-                {product.product_status === 'active' ? 'Activo' : 'Inactivo'}
+                {product.active ? 'Activo' : 'Inactivo'}
               </div>
               <div className="productTableBodyActions">
                 <MoreProduct product={product} />
                 <StatusProductController
                   id={product.id_product}
-                  UpdateProduct={onUpdateProduct}
-                  isActive={isActive}
+                  isActive={product.active}
+                  activeProduct={isActive}
                   token={token}
                 />
                 <UpdateProduct
@@ -54,7 +53,7 @@ export const ProductListTable = ({ product, onUpdateProduct, onDelete, isActive 
             </div>
           ))
         ) : (
-          <div>No hay productos disponibles</div>
+          <div className='noResult'>No hay productos disponibles</div>
         )}
       </div>
     </section>

@@ -6,7 +6,7 @@ export const updateProductModel = async (
   description,
   price,
   stock,
-  product_status
+  active
 ) => {
   const pool = await getDBPool();
 
@@ -24,7 +24,7 @@ export const updateProductModel = async (
   addToUpdate(`description`, description);
   addToUpdate(`price`, price);
   addToUpdate(`stock`, stock);
-  addToUpdate(`product_status`, product_status);
+  addToUpdate(`active`, active);
 
   if (fieldsToUpdate.length === 0) return {};
 

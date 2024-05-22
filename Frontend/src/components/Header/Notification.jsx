@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaBell } from 'react-icons/fa';
 import { useUser } from '../../context/authContext.jsx';
 import socketService from '../../Services/socket.js';
+import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 import './Notification.css';
 
 export const Notification = () => {
@@ -18,7 +19,7 @@ export const Notification = () => {
 
   useEffect(() => {
     if (token) {
-      const userDataFromToken = JSON.parse(atob(token.split('.')[1])); // Decodificar el token para obtener los datos del usuario
+      const userDataFromToken = getUserDataFromToken(token);
       const driverId = userDataFromToken.id_user;
 
       socketService.on(`deliveryAssigned-${driverId}`, (data) => {

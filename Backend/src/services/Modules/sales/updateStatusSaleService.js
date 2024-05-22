@@ -1,6 +1,6 @@
 import { getDBPool } from '../../../db/getPool.js';
 
-export const updateSaleModel = async (id_sale, id_saleProduct, id_customer) => {
+export const updateStatusSaleService = async (id, newStatus) => {
   const pool = await getDBPool();
 
   const fieldsToUpdate = [];
@@ -13,14 +13,13 @@ export const updateSaleModel = async (id_sale, id_saleProduct, id_customer) => {
     }
   };
 
-  addToUpdate('id_sale', id_sale);
-  addToUpdate('saleProduct_id', id_saleProduct);
-  addToUpdate('customer_id', id_customer);
+  addToUpdate('id_sale', id);
+  addToUpdate('operation_status', newStatus);
 
   if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar, salir
 
   const query = `UPDATE Sales SET ${fieldsToUpdate.join(', ')} WHERE id_sale = ?`;
-  values.push(id_sale);
+  values.push(id);
 
   const [result] = await pool.query(query, values);
 
@@ -30,5 +29,5 @@ export const updateSaleModel = async (id_sale, id_saleProduct, id_customer) => {
     error.code = 'UPDATE_SALE_ERROR';
     throw error;
   }
-  return { message: 'Venta Actualizada correctamente' };
+  return { message: 'Status de venta Actualizada correctamente' };
 };

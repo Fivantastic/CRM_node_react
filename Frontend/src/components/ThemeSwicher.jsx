@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext.jsx';
-import '../components/ThemeSwicher.css';
+import './ThemeSwicher.css';
 
 export const ThemeSwicher = () => {
   const { theme, setTheme } = useContext(ThemeContext);

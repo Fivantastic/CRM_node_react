@@ -6,6 +6,7 @@ import { useSetUser, useUser } from '../../context/authContext.jsx';
 import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 import { getFullName } from '../../Services/getFullName.js';
 import { getRoleName } from '../../Services/getRoleName.js';
+const URL = import.meta.env.VITE_URL;
 
 export const ProfileNav = () => {
   const token = useUser();
@@ -16,11 +17,8 @@ export const ProfileNav = () => {
 
   useEffect(() => {
     if (token) {
-
-
       // Obtener datos del usuario desde el token
       const userDataFromToken = getUserDataFromToken(token);
-
 
       // Guarda los datos del usuario en el estado
       setUserData(userDataFromToken);
@@ -41,7 +39,7 @@ export const ProfileNav = () => {
     }, 200);
   };
 
-  const avatar = userData ? userData.avatar : './profile.svg';
+  const avatar = userData? `${URL}/uploads/image/${userData.id_user}/${userData.avatar}` : './profile.svg';
 
   return (
     <nav className="profileNavContainer">
@@ -53,11 +51,7 @@ export const ProfileNav = () => {
         }}
       >
         {userData && (
-          <img
-            className="avatarProfileNav"
-            src={avatar}
-            alt="Avatar del usuario"
-          />
+          <img className="avatarProfileNav" src={avatar} alt="Avatar del usuario" />
         )}
       </button>
 
@@ -77,11 +71,7 @@ export const ProfileNav = () => {
 
         <NavLink exact="true" to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
           <p>Settings</p>
-          <img
-            className="iconProfileNavSettings iconProfileNav"
-            src="./settings.svg"
-            alt="Imagen de configuración de perfil"
-          />
+          <img className="iconProfileNavSettings iconProfileNav" src="./settings.svg" alt="Imagen de configuración de perfil" />
         </NavLink>
         <li className="btn-logout navli btn-perfilNav" key="logout">
           <LogoutButton setUser={setUser} />

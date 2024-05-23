@@ -29,18 +29,20 @@ export const VisitChartsData = ({ setValueRatingRange, moduleList }) => {
 
   return (
     <section id="product-charts">
-      <h2 id="stock-charts">Valoraciónes</h2>
+      <div className='visit_all_container'>
+        <h2 id="stock-charts">Valoraciónes</h2>
+        <section className="filters_charts">
+          <button className="btn_filter" onClick={() => changeValueRatingRange(1)}>1</button>
+          <button className="btn_filter" onClick={() => changeValueRatingRange(2)}>2</button>
+          <button className="btn_filter" onClick={() => changeValueRatingRange(3)}>3</button>
+          <button className="btn_filter" onClick={() => changeValueRatingRange(4)}>4</button>
+          <button className="btn_filter" onClick={() => changeValueRatingRange(5)}>5</button>
+        </section>
+      </div>
       {loading ? (
         <div className="loading">Cargando...</div>
       ) : (
         <>
-          <section className="filters_charts">
-            <button className="btn_filter" onClick={() => changeValueRatingRange(1)}>1</button>
-            <button className="btn_filter" onClick={() => changeValueRatingRange(2)}>2</button>
-            <button className="btn_filter" onClick={() => changeValueRatingRange(3)}>3</button>
-            <button className="btn_filter" onClick={() => changeValueRatingRange(4)}>4</button>
-            <button className="btn_filter" onClick={() => changeValueRatingRange(5)}>5</button>
-          </section>
           <ResponsiveContainer>
             <BarChart data={chartData} width={500} height={300}>
               <CartesianGrid strokeDasharray="4 2 1" />

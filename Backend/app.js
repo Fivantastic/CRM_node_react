@@ -7,9 +7,18 @@ import { mainRouter } from './src/routes/mainRouter.js';
 import { modulesRoutes } from './src/routes/modulesRoutes.js';
 import { notFoundErrorMiddleware } from './src/middlewares/errors/notFoundErrorMiddleware.js';
 import { errorHandlerMiddleware } from './src/middlewares/errors/errorHandlerMiddleware.js';
+import http from 'http'; // Importar el módulo http para crear el servidor HTTP
+import configureSocket from './socket.js';
+import configureNotificationRoutes from './src/routes/notificationRoutes.js';
 
-// Crear el servidor
+// Crear la aplicación Express
 const app = express();
+
+// Crear el servidor HTTP
+const server = http.createServer(app);
+
+// Configurar Socket.IO
+const { emitDeliveryAssigned } = configureSocket(server);
 
 // Middlewares Globales
 app.use(express.json());
@@ -17,18 +26,21 @@ app.use(fileUpload());
 app.use(morgan('dev'));
 
 // Middleware Cors sin cookies
-app.use(cors(
-  {origin: true,
+app.use(cors({
+  origin: true,
   credentials: true,
   accessControlAllowOrigin: true
-} 
-));
+}));
 
 // Middleware Recursos Estaticos
 app.use('/uploads', express.static('./uploads'));
 
 // Ruta a gestion de personal/clientes/stock
 app.use(mainRouter);
+
+// Ruta para gestión de notificaciones
+const notificationRoutes = configureNotificationRoutes(emitDeliveryAssigned);
+app.use(notificationRoutes);
 
 // Ruta gestion de Modulos
 app.use(modulesRoutes);
@@ -39,7 +51,7 @@ app.use(notFoundErrorMiddleware);
 // Middleware de Gestión de Errores
 app.use(errorHandlerMiddleware);
 
-//Ponemos el servidor a escuchar
-app.listen(PORT, () => {
-  console.log(`Server listen on port ${PORT}`);
+// Ponemos el servidor a escuchar
+server.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });

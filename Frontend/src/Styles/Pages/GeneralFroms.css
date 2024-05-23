@@ -1,3 +1,31 @@
+/* Estilo tamaño de todos los ol */
+#shipment_container {
+  max-width: 750px;
+}
+
+#user_container,
+#customer_container,
+#product_container,
+#invoice_container{
+  max-width: 800px;
+}
+
+#payment_container {
+  max-width: 850px;
+}
+
+#visit_container {
+  max-width: 900px;
+}
+
+#sale_container {
+  max-width: 1000px;
+}
+
+#note_container {
+  max-width: 1150px;
+}
+
 .mainContainer {
   padding: 10px 15px;
 }
@@ -26,21 +54,21 @@
   margin: 10px 0 15px 0;
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
 }
 
-.main_ilist > h2 {
-  font-size: 1.6rem;
-  text-align: center;
-  margin-bottom: 5px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+.noResult {
+  font-size: 1rem;
+  padding: 8px 8px;
+  border: none;
+  background-color: transparent;
+  color: #13214E;
+  width: 100%;
+
 }
 
-.main_ilist > p {
-  font-size: 0.8rem;
-}
 
 /* Boton de crear */
 .mainCreateBtn {
@@ -96,3 +124,22 @@
   color: red;
 }
 
+
+@media screen and (max-width: 600px) {
+
+  #user_nav {
+    width: 320px;
+    grid-template-columns: 1fr auto auto auto;
+  }
+
+  .groupSearch {
+    max-width: 180px;
+    font-size: 1rem;
+  }
+
+  .checkbox-wrapper-35 {
+    display: none;
+  }
+
+  
+}

@@ -2,7 +2,7 @@ import './Max.css';
 
 export const MaximSale = () => {
   return (
-    <div className="card">
+    <div className="card_Dashboard">
       <div className="title">
         <span>
           <svg

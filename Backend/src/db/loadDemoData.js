@@ -123,12 +123,12 @@ export async function loadDemoData(db) {
         description: faker.lorem.paragraph(),
         price: faker.commerce.price({min: 10, max: 150}),
         stock: faker.number.int(1000), 
-        product_status: faker.helpers.arrayElement(['active', 'inactive']),
+        active: faker.datatype.boolean(),
       };
       productData.push(product);
     }
     await db.query(
-      `INSERT INTO Products (id_product, ref_PR, name, description, price, stock, product_status) VALUES ?`,
+      `INSERT INTO Products (id_product, ref_PR, name, description, price, stock, active) VALUES ?`,
       [productData.map(product => Object.values(product))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Products.`));
@@ -250,7 +250,7 @@ export async function loadDemoData(db) {
 
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Invoices...`));
     const invoiceData = [];
-    let currentRefInvoice = await getMaxReference5Digits('Invoices', 'ref_IN') || 'IN-AA00001';
+    let currentRefInvoice = await getMaxReference5Digits('Invoices', 'ref_IN') || 'IN-AA00000';
 
     for (let i = 0; i < 50; i++) {
       let totalPrice = productData[i].price * salesProductData[i].quantity;
@@ -285,7 +285,7 @@ export async function loadDemoData(db) {
 
     console.log(chalk.bold.blue(`->✏️ Insertando datos en tabla Payments...`));
     const paymentData = [];
-    let currentRefPayment = await getMaxReference5Digits('Payments', 'ref_PM') || 'PM-AA00001';
+    let currentRefPayment = await getMaxReference5Digits('Payments', 'ref_PM') || 'PM-AA00000';
 
     for (let i = 0; i < 50; i++) {
       currentRefPayment = generateReference5DigitsFromRef('PM', currentRefPayment);

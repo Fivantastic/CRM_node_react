@@ -239,8 +239,8 @@ const [invoicesList, setInvoicesList] = useState([]);
     handleFilterChange,    
     handleSortChange,
     filteredList,
-    addInvoice,
     deleteInvoice,
+    addInvoice,
     updateInvoice
   }
 }

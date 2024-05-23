@@ -1,12 +1,12 @@
-#btnSalesCreate,
-#btnSalesUpdate {
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
+#sales_list {
+  width: 950px;
+  display: grid;
+  grid-template-columns: 300px 300px;
+  column-gap: 20px;
 }
 
 #sales_table {
-  max-width: 90%;
+  max-width: 950px;
   border-radius: 8px;
   padding: 10px 15px;
   margin-top: 15px;
@@ -17,9 +17,6 @@
 #salesTableHead {
   display: flex;
   justify-content: space-between;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  margin-left: 10px;
 }
 
 #salesTableBody {
@@ -27,60 +24,86 @@
   flex-direction: column;
 }
 
-#salesTableHead .headRow {
+#salesTableHead {
   font-weight: bold;
   text-align: start;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
 }
 
-#salesTableBodyRow {
+.salesTableBodyRow {
   display: flex;
   justify-content: space-between;
-  margin: 10px;
+  border-bottom: 1px solid #eee;
+  padding-left: 5px;
+  align-items: center;
+  height: 50px;
 }
 
-#salesTableHeadRowNameSalesAgent {
-  margin-right: 100px;
+.salesTableBodyRow:hover {
+  background-color: #eee;
 }
+
 
 /* Puedes ajustar los estilos adicionales según sea necesario */
 
+#salesTableHeadRowRef,
+.salesTableBodyRowRef {
+  width: 120px;
+}
+
 #salesTableHeadRowName,
-#salesTableBodyRowName {
-  width: 100px;
+.salesTableBodyName {
+  width: 200px;
 }
 
 #salesTableHeadRowProduct,
-#salesTableBodyProduct {
-  width: 150px;
+.salesTableBodyRowProduct {
+  width: 100px;
+  padding-left: 10px;
 }
 
-/* #salesTableHeadRowCustomer,
-#saleTableBodyRowCustomer {
-  width: 250px;
-} */
+#salesTableHeadRowQuantity,
+.salesTableBodyRowQuantity{
+  width: 90px;
+  padding-left: 10px;
+}
+
+#salesTableHeadRowSalesAgent,
+.salesTableBodyRowSalesAgent {
+  width: 100px;
+  padding-left: 10px;
+}
 
 #salesTableHeadRowEstatus,
-#saleTableBodyRowEstatus {
-  width: 80px;
+.salesTableBodyRowEstatus {
+  width: 90px;
+  padding-left: 10px;
+}
+
+#salesTableHeadRowActions,
+.salesTableBodyRowActions {
+  width: 200px;
+  padding-left: 10px;
+}
+
+#salesTableHeadRowActions {
   padding-left: 20px;
 }
 
-/* #salesTableHeadRowDate,
-#salesTableBodyRowDate {
-  width: 80px;
-  padding-left: 100px;
-} */
 
-#salesTableBodyRowActions,
-#salesTableHeadRowActions {
-  width: 300px;
-}
-
-#salesTableHeadRowActions {
-  padding-left: 90px;
-}
-#salesTableBodyRowActions {
+.salesTableBodyRowActions {
   display: flex;
-  padding-left: 60px;
-  gap: 10px;
+  align-items: center;
+}
+
+@media screen and (max-width: 715px) {
+
+  #sales_list {
+    width: 350px;
+    grid-template-columns: 320px;
+
+  
+}
+
 }

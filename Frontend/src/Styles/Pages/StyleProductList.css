@@ -1,0 +1,28 @@
+#product_list {
+    width: 450px;
+    display: grid;
+    grid-template-columns: 240px 240px;
+    column-gap: 20px;
+}
+
+.productP {
+    font-size: 1rem;
+}
+
+.active {
+    color: green;
+}
+
+.inactive {
+    color: red;
+}
+
+@media screen and (max-width: 600px) {
+
+    #product_list {
+        width: 320px;
+        grid-template-columns: 260px;
+        place-content: center;
+    }
+    
+}

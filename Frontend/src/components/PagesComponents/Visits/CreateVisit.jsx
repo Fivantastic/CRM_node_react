@@ -1,6 +1,6 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { newVisitSchema } from '../../../Schema/Error/createSchema.js';
 import './VisitListTable.css';
 
 export const CreateVisit = ({ onAddVisit, token }) => {
@@ -90,12 +90,6 @@ export const CreateVisit = ({ onAddVisit, token }) => {
     },
   ];
 
-  const newVisitSchema = Joi.object({
-    id_customer: Joi.string().guid().required(),
-    visit_date: Joi.date().required(),
-    observations: Joi.string().optional(),
-  });
-
   const handleClickCreateVisit = () => {
     DynamicFormPopUp(
       title,
@@ -114,7 +108,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
       >
         <img
           id="imgVisitCreate"
-          src="../calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          src="/calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg"
           alt="Boton agregar visita"
         />
       </button>

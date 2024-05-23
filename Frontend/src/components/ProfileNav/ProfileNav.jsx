@@ -16,11 +16,16 @@ export const ProfileNav = () => {
 
   useEffect(() => {
     if (token) {
+
+
       // Obtener datos del usuario desde el token
       const userDataFromToken = getUserDataFromToken(token);
-      
+
+
       // Guarda los datos del usuario en el estado
       setUserData(userDataFromToken);
+    } else {
+      console.log('No se ha obtenido un token');
     }
   }, [token]);
 
@@ -70,7 +75,7 @@ export const ProfileNav = () => {
           </>
         )}
 
-        <NavLink  exact="true" to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
+        <NavLink exact="true" to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
           <p>Settings</p>
           <img
             className="iconProfileNavSettings iconProfileNav"
@@ -86,4 +91,3 @@ export const ProfileNav = () => {
     </nav>
   );
 };
-

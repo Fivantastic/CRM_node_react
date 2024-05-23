@@ -11,7 +11,7 @@ export const VisitsList = ({
   onUpdateVisit,
   typeModule,
   typeModuleMessage,
-  token
+  token,
 }) => {
   const fechaNormal = getNormalizedDate(visit.visit_date);
 
@@ -30,37 +30,59 @@ export const VisitsList = ({
 
   const estadoVisita = traducirEstadoVisita(visit.visit_status);
 
-
   const moreInfoFields = [
     { label: 'Ref', value: visit.ref_VT },
-    { label: 'Nombre', value: `${visit.customer_name} ${visit.customer_last_name}` || visit.customer_name },
+    {
+      label: 'Nombre',
+      value:
+        `${visit.customer_name} ${visit.customer_last_name}` ||
+        visit.customer_name,
+    },
     { label: 'Telefono', value: visit.customer_phone },
     { label: 'Email', value: visit.customer_email },
     { label: 'Fecha de la visita', value: fechaNormal.toLocaleDateString() },
     { label: 'Estado', value: estadoVisita.text, color: estadoVisita.color },
-    { label: 'Dirección', value: `${visit.address} ${visit.number}, ${visit.city}, ${visit.country}` },
+    {
+      label: 'Dirección',
+      value: `${visit.address} ${visit.number}, ${visit.city}, ${visit.country}`,
+    },
     { label: 'Observaciones', value: visit.observations },
   ];
 
-  const modalIds = {
+   const modalIds = {
     idModalContainer: 'visitModalContainer',
     idModalHeader: 'visitModalHeader',
     idModalTitle: 'visitModalTitle',
     idModalBody: 'visitModalBody',
     idModalFooter: 'visitModalFooter',
     idModalBtnClose: 'visitModalBtnClose',
-  };
+  }; 
 
   return (
     <>
-      <p id="element_visit_subtitle" className="mainInsideSub">Ref: {visit.ref_VT}</p>
-      <p id="VisitName" className="mainInsideSub VisitP"><strong>Nombre: </strong> {visit.customer_name} {visit.customer_last_name}</p>
-      <p id="VisitPhone" className="mainInsideSub VisitP"><strong>Telefono: </strong> {visit.customer_phone}</p>
-      <p id="VisitDate" className="mainInsideSub VisitP"><strong>Fecha de la visita: </strong> {fechaNormal.toLocaleDateString()}</p>
-      <p id="VisitState" className={`mainInsideSub VisitP ${visit.visit_status}`} style={{ color: estadoVisita.color }}><strong>Estado: </strong> {estadoVisita.text}</p>
+      <p id="element_visit_subtitle" className="mainInsideSub">
+        Ref: {visit.ref_VT}
+      </p>
+      <p id="VisitName" className="mainInsideSub VisitP">
+        <strong>Nombre: </strong> {visit.customer_name}{' '}
+        {visit.customer_last_name}
+      </p>
+      <p id="VisitPhone" className="mainInsideSub VisitP">
+        <strong>Telefono: </strong> {visit.customer_phone}
+      </p>
+      <p id="VisitDate" className="mainInsideSub VisitP">
+        <strong>Fecha de la visita: </strong> {fechaNormal.toLocaleDateString()}
+      </p>
+      <p
+        id="VisitState"
+        className={`mainInsideSub VisitP ${visit.visit_status}`}
+        style={{ color: estadoVisita.color }}
+      >
+        <strong>Estado: </strong> {estadoVisita.text}
+      </p>
 
       <span id="visit_actions" className="main_actions">
-        <MoreInfo fields={moreInfoFields} modalIds={[]} />
+        <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
         <ToggleVisitStatusButton
           id={visit.id_visit}
           currentStatus={visit.visit_status}

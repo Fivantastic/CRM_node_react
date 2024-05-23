@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
 import { CreateInvoice } from '../../components/PagesComponents/Invoces/CreateInvoice.jsx';
@@ -7,8 +8,7 @@ import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
-import { InvoicesListTable } from '../../components/PagesComponents/Invoices/InvoicesListTable.jsx';
-import { useState } from 'react';
+import { InvoicesListTable } from '../../components/PagesComponents/Invoces/InvoicesListTable.jsx';
 
 export const InvoicePage = () => {
   const token = useUser();
@@ -27,7 +27,7 @@ export const InvoicePage = () => {
     deleteInvoice,
     updateInvoice
   } = useInvoicesList(token)
-  const [isListView, setIsListView] = useState(true);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
   const filterOptions = [
     { label: 'Enviada', value: 'sent' },
@@ -60,7 +60,7 @@ export const InvoicePage = () => {
         <CreateInvoice onAddInvoice={addInvoice} token={token} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
         <SortPages options={sortOptions} onSort={handleSortChange} />
-        <ToggleMode onClick={() => setIsListView(prev => !prev)} />
+        <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
         <ol id="invoice_list" className=" main_olist">
@@ -84,7 +84,7 @@ export const InvoicePage = () => {
           })}
         </ol>
         ) : (
-          <InvoicesListTable invoices={filteredList} onUpdate={updateInvoice} onDelete={deleteInvoice} />
+          <InvoicesListTable invoices={filteredList} onUpdate={updateInvoice} />
         )}
       </section>
     </MainLayout>

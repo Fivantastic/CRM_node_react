@@ -1,16 +1,15 @@
 export const joiErrorMessages = {
-  'any.required': 'El campo "{#key}" es requerido',
-  'string.base': 'El valor de "{#key}" debe ser una cadena',
-  'string.empty': 'El campo "{#key}" no debe estar vacío',
-  'number.base': 'El valor de "{#key}" debe ser un número',
+  'any.required': 'El campo "{#label}" es requerido',
+  'string.base': 'El valor de "{#label}" debe ser una cadena',
+  'string.empty': 'El campo "{#label}" no debe estar vacío',
+  'number.base': 'El valor de "{#label}" debe ser un número',
   'number.max': 'El archivo no debe exceder los 5 MB',
-  'object.base': 'El valor de "{#key}" debe ser un objeto',
+  'object.base': 'El valor de "{#label}" debe ser un objeto',
   'any.only': 'Solo se permiten fotos jpeg o png',
-  'string.email':
-    'Debe proporcionar un correo electrónico válido para "{#key}"',
-  'string.pattern.base':
-    'La contraseña debe contener al menos una mayúscula, una minúscula y un número "{#key}"',
-  'string.min': 'El campo "{#key}" debe tener al menos {#limit} caracteres',
-  'string.max': 'El campo "{#key}" no debe exceder los {#limit} caracteres',
+  'string.email': 'Formato de email no valido',
+  'string.pattern.base': 'Formato de password no valido',
+  'string.min': 'El campo "{#label}" debe tener al menos {#limit} caracteres',
+  'string.max': 'El campo "{#label}" no debe exceder los {#limit} caracteres',
   'object.unknown': 'No se permiten campos adicionales en este objeto',
+  'boolean.base': 'El valor de "{#label}" debe ser un booleano'
 };

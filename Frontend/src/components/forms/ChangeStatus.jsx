@@ -24,11 +24,11 @@ export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , currentStatu
           allowOutsideClick: false,
           showCancelButton: true,
           confirmButtonText: 'Resolver',
-          confirmButtonColor: '#28a745', // Verde para completar
-          cancelButtonColor: '#6c757d', // Color para salir
+          confirmButtonColor: '#28a745', 
+          cancelButtonColor: '#6c757d', 
           showDenyButton: true,
           denyButtonText: 'Cancelar Pago',
-          denyButtonColor: '#dc3545', // Rojo para cancelar
+          denyButtonColor: '#dc3545', 
         });
 
         if (action) {
@@ -43,7 +43,7 @@ export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , currentStatu
           icon: 'question',
           allowOutsideClick: false,
           showCancelButton: true,
-          confirmButtonColor: '#dc3545', // Rojo para cancelar
+          confirmButtonColor: '#dc3545', 
           cancelButtonColor: '#6c757d',
           confirmButtonText: 'Sí, Cancelar',
           cancelButtonText: 'Salir',

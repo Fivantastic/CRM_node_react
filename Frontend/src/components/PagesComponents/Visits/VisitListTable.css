@@ -18,7 +18,7 @@
   flex-direction: column;
 }
 
-.visitTableHead .headRow {
+.visitTableHead{
   font-weight: bold;
   text-align: start;
   padding-bottom: 5px;
@@ -28,19 +28,24 @@
 #visitTableBodyRow {
   display: flex;
   justify-content: space-between;
-
+  border-bottom: 1px solid #eee;
+  padding-left: 5px;
   align-items: center;
   height: 50px;
 }
 
+#visitTableBodyRow:hover {
+  background-color: #eee;
+}
+
 #VisitTableHeadRowRef,
 .visitTableBodyRowRef {
-  width: 150px;
+  width: 140px;
 }
 
 #visitTableHeadRowName,
 .visitTableBodyRowName {
-  width: 150px;
+  width: 120px;
 }
 
 #visitTableHeadRowDate,

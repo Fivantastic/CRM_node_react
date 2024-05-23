@@ -1,7 +1,6 @@
-import joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { joiErrorMessages } from '../../../Schema/Error/JoiErrorMesasage.js';
+import { createCustomerSchema } from '../../../Schema/Error/createSchema.js';
 
 export const CreateCustomer = ({ onAddCustomer, token }) => {
   // Aqui hace la peticion al servidor
@@ -177,25 +176,11 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
     },
   ];
 
-  const customerSchema = joi.object({
-    name: joi.string().min(3).max(30).required().messages(joiErrorMessages),
-    last_name: joi.string().min(3).max(30).required().messages(joiErrorMessages),
-    email: joi.string().email({ tlds: false }).required().messages(joiErrorMessages),
-    phone: joi.string().min(9).max(30).optional().messages(joiErrorMessages),
-    company_name: joi.string().min(0).max(30).optional().messages(joiErrorMessages),
-    NIF: joi.string().optional().messages(joiErrorMessages),
-    address: joi.string().optional().messages(joiErrorMessages),
-    number: joi.string().optional().messages(joiErrorMessages),
-    city: joi.string().optional().messages(joiErrorMessages),
-    zip_code: joi.string().optional().messages(joiErrorMessages),
-    country: joi.string().optional().messages(joiErrorMessages),
-  });
-
   const handleClickCreateCustomer = () => {
     DynamicFormPopUp(
       title,
       customerFormFields,
-      customerSchema,
+      createCustomerSchema,
       handleCustomerCreatedAccion,
       nameButton,
       dynamicIdModal
@@ -204,7 +189,7 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
   return (
     <>
       <button id='btnCustomerCreate' className=" mainCreateBtn" onClick={handleClickCreateCustomer}>
-        <img id='iconCustomerCreate' className='imgCreateBtn' src="./AddCustomer.svg" alt="icono agregar cliente" />
+        <img id='iconCustomerCreate' className='imgCreateBtn' src="/AddCustomer.svg" alt="icono agregar cliente" />
       </button>
     </>
   );

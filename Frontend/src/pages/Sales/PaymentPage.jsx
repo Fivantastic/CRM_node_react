@@ -1,4 +1,4 @@
-// import Swal from 'sweetalert2';
+import { useState } from 'react';
 import { useUser } from '../../context/authContext.jsx';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
@@ -9,26 +9,18 @@ import { usePaymentsList } from '../../hooks/PagesHooks/usePaymentsList.js'
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
 import { PaymentsListTable } from '../../components/PagesComponents/Payments/PaymentsListTable.jsx';
-import { useState } from 'react';
 
 export const PaymentPage = () => {
   const token = useUser();
-
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
-  const typeModule = 'payments';
-  // mensajes al cliente
-  const typeModuleMessage = 'Pagos';
-
   const {
     filteredList,
     handleSearch,
     handleFilterChange,
     handleSortChange,
     addPayment,
-    deletePayment,
     handleNewPaymentStatus
   } = usePaymentsList(token)
-  const [isListView, setIsListView] = useState(true);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
   // Opciones de filtro
   const filterOptions = [
@@ -48,13 +40,13 @@ export const PaymentPage = () => {
 
   return (
     <MainLayout title="Pagos">
-      <section className="payment_container mainContainer">
+      <section id="payment_container" className="mainContainer">
         <nav id="user_nav" className="mainNav">
         <SearchPages onSearch={handleSearch}/>
         <CreatePayment onAddPayment={addPayment} token={token} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
         <SortPages options={sortOptions} onSort={handleSortChange} />
-        <ToggleMode onClick={() => setIsListView(prev => !prev)} />
+        <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView}  />
         </nav>
         {isListView ? (
         <ol className="payment_list main_olist">
@@ -66,17 +58,14 @@ export const PaymentPage = () => {
               >
                 <PaymentsList 
                   payment={data} 
-                  onDelete={deletePayment}
                   handleNewPaymentStatus={handleNewPaymentStatus}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
                   token={token} />
               </li>
             );
           })}
         </ol>
         ) : (
-          <PaymentsListTable payments={filteredList} onUpdatePayment={handleNewPaymentStatus} onDelete={deletePayment} />
+          <PaymentsListTable payments={filteredList} onUpdatePayment={handleNewPaymentStatus} />
         )}
       </section>
     </MainLayout>

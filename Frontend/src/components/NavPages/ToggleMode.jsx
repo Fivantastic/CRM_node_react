@@ -1,13 +1,8 @@
-import { useState } from 'react';
 import './toggleMode.css';
 
-export const ToggleMode = ({ onClick }) => {
-    // Estado para controlar el modo
-    const [isListView, setIsListView] = useState(true);
-
+export const ToggleMode = ({ onClick, isListView }) => {
     // Función para manejar el cambio de modo
     const handleModeChange = () => {
-        setIsListView(prevMode => !prevMode);
         onClick(); // Llama a la función onClick pasada como prop para notificar el cambio de modo
     };
 
@@ -19,8 +14,8 @@ export const ToggleMode = ({ onClick }) => {
                 id="mode"
                 type="checkbox"
                 className="mode"
-                checked={isListView} // Establece el estado checked del checkbox según el modo actual
-                onChange={handleModeChange} // Maneja el cambio de modo
+                checked={isListView}
+                onChange={handleModeChange} 
             />
             <label className="modeLabel" htmlFor="mode">
                 <span className="switch-x-text">Modo </span>

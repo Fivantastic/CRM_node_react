@@ -20,6 +20,7 @@ import { newProductController } from './product/newProductController.js';
 import { productListController } from './product/productListController.js';
 import { updateProductController } from './product/updateProductController.js';
 import { selectSaleProductController } from './product/selectSaleProductController.js';
+import { toggleActiveProductStatusController } from './product/toggleActiveProductStatusController.js';
 
 // Imports Customers
 import { getCustomerListController } from './customer/getCustomerController.js';
@@ -49,6 +50,7 @@ export {
   productListController,
   updateProductController,
   selectSaleProductController,
+  toggleActiveProductStatusController,
   
   getCustomerListController,
   newCustomerController,

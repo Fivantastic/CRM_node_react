@@ -137,7 +137,7 @@ export const CreateShipment = ({ onAddShipment, token }) => {
   return (
     <>
       <button id='btnShipmentCreate' className="mainCreateBtn" onClick={handleClickCreateShipment}>
-        <img id='imgCreateShipmentBtn' className='imgCreateBtn' src="./shipmentRoute.svg" alt="icono agregar Envío" />
+        <img id='imgCreateShipmentBtn' className='imgCreateBtn' src="/shipmentRoute.svg" alt="icono agregar Envío" />
       </button>
     </>
   );

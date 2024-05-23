@@ -8,6 +8,7 @@ import {
   productListController,
   selectSaleProductController,
   updateProductController,
+  toggleActiveProductStatusController,
 } from '../../controllers/mainControllers.js';
 import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 import { getProductSearchController } from '../../controllers/product/getProductSearchController.js';
@@ -31,12 +32,10 @@ productRouter.delete(
 );
 
 // Obtener la lista de productos
-productRouter.get(
-  '/product/list',
-  authenticateUser,
-  checkRoleAgent,
-  productListController
-);
+productRouter.get( '/product/list',  authenticateUser,  checkRoleAgent,  productListController);
+
+// Ruta para listar productos por nombre de producto
+productRouter.get('/product/search', authenticateUser, checkRoleAgent, getProductSearchController);
 
 // Obtener producto para la venta
 productRouter.post(
@@ -55,5 +54,6 @@ productRouter.put(
   updateProductController
 );
 
-// Ruta para listar productos por nombre de producto
-productRouter.get('/product/search', authenticateUser, getProductSearchController);
+// Activar y desactivar productos
+productRouter.put('/product/toggleActivation', authenticateUser, adminAuthMiddleware, toggleActiveProductStatusController);
+

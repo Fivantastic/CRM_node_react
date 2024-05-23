@@ -29,7 +29,10 @@ export const selectDeliveryNotesModel = async () => {
         DeliveryNotes.update_at,
         Customers.name AS customer_name, 
         Customers.email AS customer_email, 
-        Customers.phone AS customer_phone
+        Customers.phone AS customer_phone,
+        Customers.company_name,
+        Sales.ref_SL,
+        Sales.operation_status
     FROM 
         DeliveryNotes
     LEFT JOIN 
@@ -41,7 +44,10 @@ export const selectDeliveryNotesModel = async () => {
     LEFT JOIN 
         Products ON SalesProducts.product_id = Products.id_product
     LEFT JOIN
-        Customers ON DeliveryNotes.customer_id = Customers.id_customer;`
+        Customers ON DeliveryNotes.customer_id = Customers.id_customer
+    LEFT JOIN
+        Sales ON DeliveryNotes.sale_id = Sales.id_sale;
+    `
     );
 
     // Devuelve el resultado de la consulta

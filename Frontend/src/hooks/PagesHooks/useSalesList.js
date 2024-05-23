@@ -147,14 +147,10 @@ export const useSalesList = (token) => {
         sortedList.sort((a, b) => b.salesAgent.localeCompare(a.salesAgent));
         break;
       case 'fecha-asc':
-        sortedList.sort(
-          (a, b) => new Date(a.create_at) - new Date(b.create_at)
-        );
+        sortedList.sort( (a, b) => a.ref_SL.localeCompare(b.ref_SL));
         break;
       case 'fecha-desc':
-        sortedList.sort(
-          (a, b) => new Date(b.create_at) - new Date(a.create_at)
-        );
+        sortedList.sort((a, b) => b.ref_SL.localeCompare(a.ref_SL));
         break;
       default:
         break;

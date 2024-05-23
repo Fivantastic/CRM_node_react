@@ -6,7 +6,7 @@ export const selectDeliveryNoteSearchModel = async (search) => {
     const [rows] = await pool.query(
         `SELECT 
         DeliveryNotes.id_note, 
-        DeliveryNotes.sale_id, 
+        DeliveryNotes.sale_id,
         DeliveryNotes.ref_DN, 
         Users.name AS deliverer, 
         Users.last_name AS deliverer_last_name,  
@@ -26,7 +26,10 @@ export const selectDeliveryNoteSearchModel = async (search) => {
         DeliveryNotes.update_at,
         Customers.name AS customer_name, 
         Customers.email AS customer_email, 
-        Customers.phone AS customer_phone
+        Customers.phone AS customer_phone,
+        Customers.company_name,
+        Sales.ref_SL,
+        Sales.operation_status
     FROM 
         DeliveryNotes
     LEFT JOIN 
@@ -39,6 +42,8 @@ export const selectDeliveryNoteSearchModel = async (search) => {
         Products ON SalesProducts.product_id = Products.id_product
     LEFT JOIN
         Customers ON DeliveryNotes.customer_id = Customers.id_customer
+    LEFT JOIN
+        Sales ON DeliveryNotes.sale_id = Sales.id_sale;
             WHERE 
             DeliveryNotes.ref_DN LIKE ? OR
             Customers.name LIKE ? OR

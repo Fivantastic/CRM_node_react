@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import { SimpleDeleteButton } from "../buttons/DeleteButtons/SimpleDeleteButton.jsx";
+import { Toast } from "../alerts/Toast.jsx";
 
 export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage }) => {
     const handleDelete = async () => {
@@ -56,7 +57,13 @@ export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModule
                     } else {
                       // si la peticion es incorrecta
                       const errorData = await response.json();
+                      console.log(errorData);
                       console.error(`Error en la petición de ${typeModuleMessage}:`, errorData);
+                      Toast.fire({
+                        icon:'error',
+                        title:`Error al eliminar ${typeModuleMessage}`,
+                        // text:errorData.error
+                      })
 
                       // Si el usuario no esta activo muestra un mensaje de error modal
                       if (errorData.code === 'MODULE_ASSIGNED_CRM_ERROR') {

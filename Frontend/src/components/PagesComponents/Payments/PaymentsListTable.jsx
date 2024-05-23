@@ -6,7 +6,7 @@ import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import './PaymentsListTable.css';
 
 export const PaymentsListTable = ({payments, onUpdatePayment, onDelete}) => {
-      const token = useUser();
+  const token = useUser();
 
   // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
   const typeModule = 'payments';
@@ -28,44 +28,48 @@ export const PaymentsListTable = ({payments, onUpdatePayment, onDelete}) => {
   };
   
   return (
-    <section className='Table'>
-       <div className='TableHead'>
-         <div  className='TableHeadRowReference headRow'>Ref</div>
-         <div  className='TableHeadRowMoney headRow'>Cantidad</div>
-         <div  className='TableHeadRowStatus headRow'>Estado</div>
-         <div  className='TableHeadRowActions headRow'>Acciones</div>
-       </div>
-      <div>
+    <section id="payments_table">
+      <div id="paymentsTableHead">
+        <div id="paymentsTableHeadRowRef">Ref. Pagos</div>
+        <div id="paymentsTableHeadRowRefInvoice">Ref. Factura</div>
+        <div id="paymentsTableHeadRowProduct">Importe</div>
+        <div id="paymentsTableHeadRowDate">Fecha de Pago</div>
+        <div id="paymentsTableHeadRowEstatus">Estado</div>
+        <div id="paymentsTableHeadRowActions">Acciones</div>
+      </div>
+      <div id="salesTableBody">
         {payments.length > 0 &&
           payments.map((payment) => {
-            console.log(payment);
 
             const paidDate = getNormalizedDate(payment.payment_date);
             const estadoPago = traducirEstadoPago(payment.payment_status)
           
             const moreInfoFields = [
-              { label: 'Ref', value: payment.ref_PM },
-              { label: 'Cantidad', value: payment.paid_amount + '€'},
-              { label: 'Cliente', value: payment.customer},
-              { label: 'Telefono', value: payment.customer_phone },
+              { label: 'Ref. Pago', value: payment.ref_PM },
+              { label: 'Importe', value: payment.paid_amount + '€'},
+              { label: 'Ref. Albarán', value: payment.ref_IN },
+              { label: 'Empresa', value: payment.company_name},
               { label: 'Email', value: payment.customer_email },
+              { label: 'Telefono', value: payment.customer_phone },
               { label: 'Fecha del pago', value: paidDate.toLocaleDateString() },
               { label: 'Estado', value: estadoPago.text, color: estadoPago.color },
-              { label: 'Factura asociada', value: payment.ref_IN },
             ];
             
             return(
-            <div key={payment.id_payment} id="salesTableBodyRow">
-              <div className='TableBodyRowReference'>{payment.ref_PM}</div>
-              <div className='TableBodyRowMoney'>
-                 <p>
-                   <strong>{payment.paid_amount}</strong>  €
-                </p>
+            <div key={payment.id_payment} className="paymentsTableBodyRow">
+              <div className="paymentsTableBodyRowRef">{payment.ref_PM}</div>
+              <div className="paymentsTableBodyRowRefInvoice">{payment.ref_IN}</div>
+              <div className="paymentsTableBodyProduct">
+              <strong>{payment.paid_amount}</strong> €
               </div>
-              <div className='TableBodyRowStatus'>
+              <div className="paymentsTableBodyDate">
+              {paidDate.toLocaleDateString()}
+              </div>
+
+              <div className="paymentsTableBodyRowEstatus">
                 <p style={{color:estadoPago.color}}>{estadoPago.text}</p>
               </div>
-              <div className='TableBodyRowActions'>
+              <span className="paymentsTableBodyRowActions">
                 <MoreInfo fields={moreInfoFields} modalIds={[]} />
 
 
@@ -75,7 +79,7 @@ export const PaymentsListTable = ({payments, onUpdatePayment, onDelete}) => {
                   onClick={onUpdatePayment}
                   token={token}
                 />
-                  {payment.payment_status === 'cancelled' && (
+                  {/* {payment.payment_status === 'cancelled' && ( */}
                     <DeleteGenericModal
                       id={payment.id_payment}
                       onDelete={onDelete}
@@ -83,8 +87,8 @@ export const PaymentsListTable = ({payments, onUpdatePayment, onDelete}) => {
                       typeModule={typeModule}
                       typeModuleMessage={typeModuleMessage}
                     />
-                  )}
-              </div>
+                  {/* )} */}
+              </span>
             </div>
             )
           })

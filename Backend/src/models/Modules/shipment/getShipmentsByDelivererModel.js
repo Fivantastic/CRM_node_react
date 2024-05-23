@@ -30,6 +30,7 @@ export const getShipmentsByDeliverer = async (delivererId) => {
         Addresses.country AS address_country, 
         DeliveryNotes.id_note, 
         DeliveryNotes.sale_id, 
+        DeliveryNotes.ref_DN,
         Users.name AS deliverer, 
         Users.last_name AS deliverer_last_name,  
         Products.name AS product_name, 

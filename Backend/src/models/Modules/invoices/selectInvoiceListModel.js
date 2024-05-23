@@ -5,7 +5,7 @@ export const selectInvoiceListModel = async () => {
 
   // Obtener todas las facturas
   const result =
-    await pool.query(`SELECT Invoices.ref_IN, Invoices.id_invoice, Invoices.sale_id AS codigo_venta, Users.name AS agent_name, Users.last_name AS agent_Last_name, Products.name AS product, Products.price AS product_price, SalesProducts.quantity AS quantity, Customers.name AS customer_name, Invoices.company_name, Invoices. NIF, Invoices. address, Invoices.total_price, Invoices.including_tax, Invoices.total_amount, Invoices.payment_method, Invoices.invoice_status, Invoices.due_date, Invoices.creation_at, Invoices.update_at
+    await pool.query(`SELECT Invoices.ref_IN, Invoices.id_invoice, Invoices.sale_id AS codigo_venta, Users.name AS agent_name, Users.last_name AS agent_Last_name, Products.name AS product, Products.price AS product_price, SalesProducts.quantity AS quantity, Customers.name AS customer_name, Invoices.company_name, Invoices.NIF, Invoices.address, Invoices.total_price, Invoices.including_tax, Invoices.total_amount, Invoices.payment_method, Invoices.invoice_status, Invoices.due_date, Invoices.creation_at, Invoices.update_at, Sales.ref_SL
     FROM Invoices
     LEFT JOIN Users ON Invoices.agentUser_id = Users.id_user
     LEFT JOIN Sales ON Invoices.sale_id = Sales.id_sale

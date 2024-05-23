@@ -22,7 +22,7 @@ export const UserPage = () => {
     deleteUser,
     activeUser
   } = useUserList(token); // Usa el hook personalizado
-  const [isListView, setIsListView] = useState(true);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
   // Opciones de filtro
   const filterOptions = [
@@ -52,7 +52,7 @@ export const UserPage = () => {
           <CreateUser onAddUser={addUser} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
           <SortPages options={sortOptions} onSort={handleSortChange} />
-          <ToggleMode onClick={() => setIsListView(prev => !prev)} />
+          <ToggleMode onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
           <ol id="user_list" className="main_olist">

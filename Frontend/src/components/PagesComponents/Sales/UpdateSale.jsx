@@ -2,24 +2,23 @@ import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { EditButton } from '../../buttons/EditButton.jsx';
+const URL = import.meta.env.VITE_URL;
 import './SalesListTable.css';
 
 export const UpdateSale = ({ onUpdateSale, sale, token }) => {
   // Aqui hace la peticion al servidor
   const handleUpdateSaleAccion = async (formData) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/sales/update/${sale}`,
-        {
-          method: 'PUT',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-          body: JSON.stringify(formData), // aqui va el formData lo que le envio lo del body
-        }
-      );
+      const response = await fetch(`${URL}/sales/update/${sale}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify(formData), // aqui va el formData lo que le envio lo del body
+      });
+      console.log(response);
 
       if (response.ok) {
         //si la peticion es correcta
@@ -29,7 +28,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -91,7 +90,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
       idInput: 'inputCustomerSaleUpdate',
       required: true,
     },
-    {
+    /*  {
       name: 'operation_status',
       label: 'Estado',
       type: 'select',
@@ -104,7 +103,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
           closed: 'Cerrado',
         },
       },
-    },
+    }, */
   ];
 
   // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
@@ -112,7 +111,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
     product: Joi.string().optional(),
     quantity: Joi.string().optional(),
     customer: Joi.string().optional(),
-    operation_status: Joi.string().optional(),
+    /* operation_status: Joi.string().optional(), */
   });
 
   // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body

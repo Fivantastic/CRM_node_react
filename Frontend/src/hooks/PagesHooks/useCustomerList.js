@@ -112,11 +112,14 @@ export const useCustomerList = (token) => {
         filtered = listCustomer.filter(customer => {
         let activeFilter = true;
 
-        if (selectedFilters.includes('1')) {
-            activeFilter = customer.active;
-        } else if (selectedFilters.includes('0')) {
-            activeFilter = !customer.active;
-        }
+      // Comprobamos si ambos filtros de actividad están presentes
+      if (selectedFilters.includes('1') && selectedFilters.includes('0')) {
+        activeFilter = true; // Muestra tanto activos como inactivos
+      } else if (selectedFilters.includes('1')) {
+        activeFilter = customer.active;
+      } else if (selectedFilters.includes('0')) {
+        activeFilter = !customer.active;
+      }
         return activeFilter;
         });
     }

@@ -53,11 +53,11 @@ export const InvoicesList = ({
   const invoiceMethod = traducirMetodoPago(invoice.payment_method)
 
   const moreInfoFields = [
-    { label: 'Factura', value: invoice.id_invoice },
-    { label: 'Referencia De Venta', value: invoice.codigo_venta },
+    { label: 'Ref. Factura', value: invoice.ref_IN },
+    { label: 'Ref. Venta', value: invoice.ref_SL },
     { label: 'Comercial', value: `${invoice.agent_name} ${invoice.agent_Last_name}` },
     { label: 'Producto', value: invoice.product },
-    { label: 'Precio del Producto', value: invoice.product_price + ' €' },
+    { label: 'Precio', value: invoice.product_price + ' €' },
     { label: 'Cantidad', value: invoice.quantity + ' u.' },
     { label: 'Cliente', value: invoice.customer_name },
     { label: 'Empresa', value: invoice.company_name },
@@ -67,38 +67,28 @@ export const InvoicesList = ({
     { label: 'IVA', value: invoice.including_tax + ' €' },
     { label: 'Total', value: invoice.total_amount + ' €' },
     { label: 'Método De Pago', value: invoiceMethod.text },
-    { label: 'Fecha De Vencimiento Del Pago', value: dueDate.toLocaleDateString() },
-    { label: 'Estado De la Venta', value: invoiceMethod.text, color: invoiceMethod.color },
+    { label: 'Fecha De Vencimiento', value: dueDate.toLocaleDateString() },
+    { label: 'Estado De la Venta', value: invoiceStatus.text, color: invoiceStatus.color },
     { label: 'Fecha De Creación', value: creationDate.toLocaleDateString() }
   ];
   
 
   return (
       <>
-         <div id="element_customer_subtitle" className="mainInsideSub">
-        <p className="refTitle">Ref: {invoice.ref_IN}</p>
+        <div id="element_customer_subtitle" className="mainInsideSub">
+          <p className="refTitle">Ref: {invoice.ref_IN}</p>
         </div>
+        <p className="mainInsideSub"><strong>Importe: </strong> {invoice.total_amount} €</p>
 
-        <h3><strong>Total:</strong> {invoice.total_amount} €</h3>
-        <p><strong>Comercial: </strong> {invoice.agent_name} {invoice.agent_Last_name}</p>
+        <p className="mainInsideSub"> <strong>Ref. Venta: </strong>{invoice.ref_SL}</p>
 
-        <h3 id="element_ivoice_section" className=" mainSubSection">Producto</h3>
-        <p><strong>Nombre: </strong> {invoice.product}</p>
-        <p><strong>Precio: </strong> {invoice.product_price} €</p>
-        <p><strong>Cantidad: </strong> {invoice.quantity} u.</p>
+        <p className="mainInsideSub"><strong>Empresa: </strong> {invoice.company_name}</p>
 
-        <h3 id="element_ivoice_section" className=" mainSubSection">Cliente</h3>
-        <p><strong>Nombre: </strong> {invoice.customer_name}</p>
-        <p><strong>Empresa: </strong> {invoice.company_name}</p>
+        <p className="mainInsideSub"><strong>Método De Pago: </strong>{invoiceMethod.text}</p>
 
-        <h3 id="element_ivoice_section" className=" mainSubSection">Método De Pago</h3>
-        <p>{invoiceMethod.text}</p>
+        <p className="mainInsideSub"><strong>Fecha de Vencimiento: </strong>{dueDate.toLocaleDateString()}</p>
 
-        <h3 id="element_ivoice_section" className=" mainSubSection">Fecha De Vencimiento Del Pago</h3>
-        <p>{dueDate.toLocaleDateString()}</p>
-
-        <h3 id="element_ivoice_section" className=" mainSubSection">Estado De la Venta</h3>
-        <p id="invoice_status" style={{color: invoiceStatus.color}}><strong>{invoiceStatus.text}</strong></p>
+        <p id="invoice_status" className="mainInsideSub"><strong>Estado Factura: </strong><span style={{color: invoiceStatus.color}}>{invoiceStatus.text}</span></p>
 
         <span id="invoice_actions" className="main_actions">
           <MoreInfo fields={moreInfoFields} modalIds={[]} />

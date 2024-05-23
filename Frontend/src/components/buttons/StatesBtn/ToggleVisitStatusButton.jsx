@@ -6,7 +6,7 @@ const URL = import.meta.env.VITE_URL;
 export const ToggleVisitStatusButton = ({ id, currentStatus, updateVisit, token }) => {
   const handleClick = async () => {
     if (currentStatus === 'scheduled') {
-      const { value: action } = await Swal.fire({
+      const result = await Swal.fire({
         title: '¿Qué acción deseas realizar?',
         text: 'Puedes completar o cancelar la visita.',
         icon: 'question',
@@ -20,11 +20,26 @@ export const ToggleVisitStatusButton = ({ id, currentStatus, updateVisit, token 
         denyButtonColor: '#dc3545', // Rojo para cancelar
       });
 
-      if (action) {
+      if (result.isConfirmed) {
         updateStatus('completed');
-      } else if (action === false) {
-        updateStatus('cancelled');
+      } else if (result.isDenied) {
+        const confirmed = await Swal.fire({
+          title: '¿Estás seguro?',
+          text: '¿Quieres cancelar la visita?',
+          icon: 'question',
+          allowOutsideClick: false,
+          showCancelButton: true,
+          confirmButtonColor: '#dc3545', // Rojo para cancelar
+          cancelButtonColor: '#6c757d',
+          confirmButtonText: 'Sí, Cancelar',
+          cancelButtonText: 'Salir',
+        });
+
+        if (confirmed.isConfirmed) {
+          updateStatus('cancelled');
+        }
       }
+      
     } else if (currentStatus === 'completed') {
       const confirmed = await Swal.fire({
         title: '¿Estás seguro?',
@@ -68,7 +83,6 @@ export const ToggleVisitStatusButton = ({ id, currentStatus, updateVisit, token 
       });
 
       if (response.ok) {
-        // Actualizar el estado de la visita en el frontend
         updateVisit(id, newStatus);
 
         // Mostrar un mensaje de éxito
@@ -106,9 +120,9 @@ export const ToggleVisitStatusButton = ({ id, currentStatus, updateVisit, token 
 
   if (currentStatus === 'cancelled') {
     return (
-    <div className="disabledVisit">
-      <img className="disabledVisitimg"  src="./blockCancel.svg" alt="Visita cancelada" />
-    </div>
+      <div className="disabledVisit">
+        <img className="disabledVisitimg" src="/blockCancel.svg" alt="Visita cancelada" />
+      </div>
     );
   }
 

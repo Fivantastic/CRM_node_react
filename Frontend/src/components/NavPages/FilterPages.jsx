@@ -39,14 +39,15 @@ export const FilterPages = ({ options, onChange }) => {
     <div className="filter-menu" ref={dropdownRef}>
       <button onClick={toggleMenu} className="filter-button">
         {Object.values(selectedOptions).some((val) => val) ? (
-          <img src="./filterPagesSoft.svg" alt="Black Filter Icon" />
+          <img src="/filterPagesSoft.svg" alt="Black Filter Icon" />
         ) : (
-          <img src="./filterPages.svg" alt="Filter Icon" />
+          <img src="/filterPages.svg" alt="Filter Icon" />
         )}
       </button>
       {isOpen && (
         <div className="options-container">
           {options.map((option) => (
+            
             <label key={option.value} className="filter-label">
               <input
                 className="filter-checkbox"

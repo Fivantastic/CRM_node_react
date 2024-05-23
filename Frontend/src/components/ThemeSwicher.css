@@ -44,3 +44,210 @@
 .w-8 {
   width: 2rem /* 32px */;
 }
+
+
+/* Resto del CSS */
+.btn-profile,
+.navli,
+.aNav {
+  all: unset;
+  box-sizing: border-box;
+}
+
+#dropdown {
+  max-width: 220px;
+  width: 100%;
+  background-color: #13214E;
+  position: relative;
+}
+
+/* DROPDOWN/SUBMENU ITEMS AND TOGGLES */
+.navLink {
+  cursor: default;
+  justify-content: end;
+}
+
+.dropdown-toggle,
+.nameBar {
+  width: 100%;
+}
+
+:is(.nameBar):first-child {
+  border-top-right-radius: inherit;
+  border-top-left-radius: inherit;
+}
+:is(.nameBar):last-child {
+  border-bottom-right-radius: inherit;
+  border-bottom-left-radius: inherit;
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-toggle.open > i {
+  rotate: 180deg;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.menuProfileNav {
+  display: flex;
+  flex-direction: column;
+  background-color: #13214E;
+  border-radius: 5px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  top: 70px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.menuProfileNav {
+  width: 160px;
+  translate: -10px 0;
+  transition: 0.25s ease;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+.menuProfileNav.open {
+  visibility: visible;
+  opacity: 1;
+  translate: -10px 12px;
+}
+
+/* Estilos del avatar */
+.avatarProfileNav {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  transition: 0.25s ease;
+}
+
+.nameProfileNav {
+  font-size: 1rem;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.roleProfileNav {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  padding-bottom: 5px;
+  padding-left: 3px;
+  color: #ffffff;
+  font-style: italic;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.489);
+}
+
+.btn-perfilNav {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 1px;
+  text-align: end;
+  text-decoration: none;
+  font-size: 1rem;
+  width: 100%;
+
+  margin: 0.2rem 0.2rem 0.2rem 1rem;
+  margin-right: 0;
+  margin-left: 0;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.iconProfileNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+
+}
+
+/* Efecto de los botones de settings y logout */
+
+.btn-perfilNav:hover .iconProfileNavSettings {
+  animation: rotateAnimation 2s infinite linear;
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Definir la animación de boing */
+.btn-perfilNav:hover .iconProfileNavLogout {
+  animation: boing 0.5s infinite alternate;
+}
+
+@keyframes boing {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+.btn-perfilNav:hover {
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-perfilNav:active {
+  transform: scale(0.97);
+  transition: transform 0.05s ease;
+  opacity: 0.9;
+}
+
+.btn-perfilNav {
+  position: relative;
+}
+
+.btn-profile.clicked {
+  transform: scale(0.97); 
+  transition: transform 0.05s ease;
+}
+
+.btn-profile.clicked:active {
+  transform: scale(1); 
+}
+
+@media screen and (min-width: 600px) { 
+  .nameProfileNav {
+    font-size: 1.3rem;
+  }
+
+  .roleProfileNav {
+    font-size: 0.9rem;
+  }
+
+  .menuProfileNav {
+    width: 240px;
+    translate: -10px 0;
+  }
+
+  .menuProfileNav.open {
+    translate: -10px 16px;
+  }
+
+  .avatarProfileNav {
+    width: 60px;
+    height: 60px;
+  }
+
+  .btn-perfilNav {
+    font-size: 1.3rem;
+  }
+}

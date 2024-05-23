@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { EditButton } from '../../buttons/EditButton.jsx';
 
 export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
   const handleUpdateDeliveryAction = async (formData) => {
@@ -97,13 +98,11 @@ export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
 
   return (
     <>
-      <button
+      <EditButton
         id="btnNoteUpdate"
         className="mainUpdateBtn"
         onClick={handleUpdateDelivery}
-      >
-        Actualizar Albarán
-      </button>
+      />
     </>
   );
 };

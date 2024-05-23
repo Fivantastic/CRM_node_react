@@ -30,39 +30,44 @@ export const VisitListTable = ({ visit, onUpdateVisit, onDelete, token }) => {
         <div id="visitTableHeadRowActions" className="headRow">Acciones</div>
       </div>
       <div id="visitTableBody">
-        {visit.length > 0 && visit.map((visitItem) => {
-          const estadoVisita = traducirEstadoVisita(visitItem.visit_status);
-          return (
-            <div key={visitItem.id_visit} id="visitTableBodyRow">
-              <div className="visitTableBodyRowRef">Ref: {visitItem.ref_VT}</div>
-              <div className="visitTableBodyRowName">{visitItem.customer_name}</div>
-              <div className="visitTableBodyDate">
-                {getNormalizedDate(visitItem.visit_date).toLocaleDateString()}
+        {visit.length > 0 ? (
+          visit.map((visitItem) => {
+            const estadoVisita = traducirEstadoVisita(visitItem.visit_status);
+            return (
+              <div key={visitItem.id_visit} id="visitTableBodyRow">
+                <div className="visitTableBodyRowRef">Ref: {visitItem.ref_VT}</div>
+                <div className="visitTableBodyRowName">{visitItem.customer_name}</div>
+                <div className="visitTableBodyDate">
+                  {getNormalizedDate(visitItem.visit_date).toLocaleDateString()}
+                </div>
+                <div className="visitTableBodyRowStatus" style={{ color: estadoVisita.color }}>
+                  {estadoVisita.text}
+                </div>
+                <div className="visitTableBodyRowActions">
+                  <MoreVisits visit={visitItem} />
+                  <ToggleVisitStatusButton
+                    id={visitItem.id_visit}
+                    currentStatus={visitItem.visit_status}
+                    updateVisit={onUpdateVisit}
+                    token={token}
+                  />
+                  <UpdateVisit visit={visitItem.id_visit} onUpdateVisit={onUpdateVisit} />
+                  <DeleteGenericModal
+                    id={visitItem.id_visit}
+                    onDelete={onDelete}
+                    token={token}
+                    typeModule="visit"
+                    typeModuleMessage="Visitas"
+                  />
+                </div>
               </div>
-              <div className="visitTableBodyRowStatus" style={{ color: estadoVisita.color }}>
-                {estadoVisita.text}
-              </div>
-              <div className="visitTableBodyRowActions">
-                <MoreVisits visit={visitItem} />
-                <ToggleVisitStatusButton
-                  id={visitItem.id_visit}
-                  currentStatus={visitItem.visit_status}
-                  updateVisit={onUpdateVisit}
-                  token={token}
-                />
-                <UpdateVisit visit={visitItem.id_visit} onUpdateVisit={onUpdateVisit} />
-                <DeleteGenericModal
-                  id={visitItem.id_visit}
-                  onDelete={onDelete}
-                  token={token}
-                  typeModule="visit"
-                  typeModuleMessage="Visitas"
-                />
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <div className='noResult'>No hay visitas disponibles</div>
+        )}
       </div>
     </section>
   );
+  
 };

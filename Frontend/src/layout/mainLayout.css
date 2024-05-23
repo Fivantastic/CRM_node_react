@@ -35,7 +35,7 @@
 /* MODO DARK */
 .main-layout-container #dark {
   background-color: #333333;
-  color: #ffffff;
+  /* color: #ffffff; */
   border: #ffffff;
 }
 

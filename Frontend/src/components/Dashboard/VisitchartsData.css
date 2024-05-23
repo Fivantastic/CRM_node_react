@@ -1,11 +1,15 @@
 .filters_charts {
   display: flex;
   gap: 10px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
 }
 .btn_filter {
   width: 20px;
   cursor: pointer;
   border: none;
   font-size: 1rem;
+}
+
+.visit_all_container {
+  display: flex;
 }

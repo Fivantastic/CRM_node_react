@@ -64,7 +64,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
   const VisitFormFields = [
     {
       name: 'id_customer',
-      label: 'Cliente',
+      label: 'Cliente *',
       type: 'text',
       placeholder: 'Introduce el  cliente...',
       idLabel: 'labelNameVisitCreate',
@@ -73,7 +73,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
     },
     {
       name: 'visit_date',
-      label: 'Fecha',
+      label: 'Fecha *',
       type: 'date',
       idLabel: 'labelDateVisitCreate',
       idInput: 'inputDateVisitCreate',

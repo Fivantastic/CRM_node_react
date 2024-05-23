@@ -3,31 +3,30 @@ import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { EditButton } from '../../buttons/EditButton.jsx';
 import { updateCustomerSchema } from '../../../Schema/Error/updateSchema.js';
 
-export const UpdateCustomer = ({ customer, token, onUpdateCustomer }) => {
-  // Aqui hace la peticion al servidor
+export const UpdateCustomer = ({ customer, onUpdateCustomer, token }) => {
+  // Aquí hace la petición al servidor
   const handleUpdateCustomerAccion = async (formData) => {
+    console.log(formData);
+    console.log(customer);
     try {
-      const response = await fetch(
-        `http://localhost:3000/customer/${customer}`,
-        {
-          method: 'PUT',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `${token}`,
-          },
-          body: JSON.stringify(formData), // aqui va el formData lo que le envio lo del body
-        }
-      );
+      const response = await fetch(`http://localhost:3000/customer/${customer}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify(formData), // aquí va el formData lo que le envío lo del body
+      });
 
       if (response.ok) {
-        //si la peticion es correcta
+        // Si la petición es correcta
         const responseData = await response.json();
-        console.log('Cliente actualizada satisfactorio:', responseData);
+        console.log('Cliente actualizado satisfactoriamente:', responseData);
 
         onUpdateCustomer(customer);
 
-        // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
+        // Aquí puedes mostrar un mensaje de éxito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -42,26 +41,29 @@ export const UpdateCustomer = ({ customer, token, onUpdateCustomer }) => {
 
         Toast.fire({
           icon: 'success',
-          title: 'Actualización Realizada con exito ! ',
+          title: 'Actualización realizada con éxito!',
         });
       } else {
-        // si la peticion es incorrecta
+        // Si la petición es incorrecta
         const errorData = await response.json();
-        console.error('Actualización cliente fallido:', errorData);
+        console.error('Actualización fallida:', errorData);
         // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
       }
     } catch (error) {
-      // si la peticion falla
-      console.error('Error durante la Actualización de cliente:', error);
+      // Si la petición falla
+      console.error('Error durante la actualización del cliente:', error);
       // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+  // Título de la ventana, CAMBIARLO SI ES NECESARIO
   const title = 'Actualizar Cliente';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Actualizar';
+
+  // Id de la ventana customizable
+  const dynamicIdModal = 'customerCreateModal';
 
   // Campos del formulario personalizables
   const updateCustomerFormFields = [
@@ -69,58 +71,116 @@ export const UpdateCustomer = ({ customer, token, onUpdateCustomer }) => {
       name: 'name',
       label: 'Nombre',
       type: 'text',
-      idLabel: 'labelNameCustomerUpdate',
-      idInput: 'inputNameCustomerUpdate',
-      placeholder: 'Introduce el nombre...',
-      required: true,
+      idLabel: 'labelNameCustomerCreate',
+      idInput: `inputNameCustomerCreate`,
+      idInputContainer: `inputNameCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'last_name',
+      label: 'Apellidos',
+      type: 'text',
+      idLabel: 'labelLastNameCustomerCreate',
+      idInput: `inputLastNameCustomerCreate`,
+      idInputContainer: `inputLastNameCustomerCreateContainer`,
+      required: false,
     },
     {
       name: 'email',
       label: 'Email',
       type: 'email',
-      idLabel: 'labelEmailCustomerUpdate',
-      idInput: 'inputEmailCustomerUpdate',
-      placeholder: 'Introduce el email...',
-      required: true,
+      idLabel: 'labelEmailCustomerCreate',
+      idInput: `inputEmailCustomerCreate`,
+      idInputContainer: `inputEmailCustomerCreateContainer`,
+      required: false,
     },
     {
       name: 'phone',
-      label: 'Telefono',
+      label: 'Teléfono',
       type: 'text',
-      idLabel: 'labelPhoneCustomerUpdate',
-      idInput: 'inputPhoneCustomerUpdate',
-      placeholder: 'Introduce el telefono...',
+      idLabel: 'labelPhoneCustomerCreate',
+      idInput: `inputPhoneCustomerCreate`,
+      idInputContainer: `inputPhoneCustomerCreateContainer`,
+      required: false,
     },
     {
       name: 'company_name',
       label: 'Empresa',
       type: 'text',
-      idLabel: 'labelCompanyCustomerUpdate',
-      idInput: 'inputCompanyCustomerUpdate',
-      placeholder: 'Introduce el Empresa...',
+      idLabel: 'labelCompanyCustomerCreate',
+      idInput: `inputCompanyCustomerCreate`,
+      idInputContainer: `inputCompanyCustomerCreateContainer`,
+      required: false,
     },
     {
       name: 'NIF',
       label: 'NIF',
       type: 'text',
-      idLabel: 'labelNIFCustomerUpdate',
-      idInput: 'inputNIFCustomerUpdate',
-      placeholder: 'Introduce el NIF...',
+      idLabel: 'labelNIFCustomerCreate',
+      idInput: `inputNIFCustomerCreate`,
+      idInputContainer: `inputNIFCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'address',
+      label: 'Dirección',
+      type: 'text',
+      idLabel: 'labelAddressCustomerCreate',
+      idInput: `inputAddressCustomerCreate`,
+      idInputContainer: `inputAddressCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'number',
+      label: 'Número',
+      type: 'text',
+      idLabel: 'labelNumberCustomerCreate',
+      idInput: `inputNumberCustomerCreate`,
+      idInputContainer: `inputNumberCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'city',
+      label: 'Ciudad',
+      type: 'text',
+      idLabel: 'labelCityCustomerCreate',
+      idInput: `inputCityCustomerCreate`,
+      idInputContainer: `inputCityCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'zip_code',
+      label: 'C.P.',
+      type: 'text',
+      idLabel: 'labelZipCodeCustomerCreate',
+      idInput: `inputZipCodeCustomerCreate`,
+      idInputContainer: `inputZipCodeCustomerCreateContainer`,
+      required: false,
+    },
+    {
+      name: 'country',
+      label: 'País',
+      type: 'text',
+      idLabel: 'labelCountryCustomerCreate',
+      idInput: `inputCountryCustomerCreate`,
+      idInputContainer: `inputCountryCustomerCreateContainer`,
+      required: false,
     },
   ];
 
-  // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
+  // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la información que tiene que introducir en el body
   const handleUpdateCustomer = () => {
     DynamicFormPopUp(
       title,
       updateCustomerFormFields,
       updateCustomerSchema,
       handleUpdateCustomerAccion,
-      nameButton
+      nameButton,
+      dynamicIdModal
     );
   };
 
   return (
-    <EditButton id='btnCustomerUpdate ' className="mainUpdateBtn" onClick={handleUpdateCustomer}/>
+    <EditButton id='btnCustomerUpdate' className="mainUpdateBtn" onClick={handleUpdateCustomer} />
   );
 };

@@ -1,3 +1,5 @@
+import { getNormalizedDate } from "../../../Services/getNormalizedDate.js";
+
 export const ShipmentList = ({ shipment }) => {
 
   const traducirEstadoEntrega = (estado) => {
@@ -17,6 +19,8 @@ export const ShipmentList = ({ shipment }) => {
     }
   };
 
+  const dueDate = getNormalizedDate(shipment.delivery_date);
+
   const statusEntrega = traducirEstadoEntrega(shipment.delivery_status);
 
   const addressComplet = `${shipment.delivery_address}, ${'nº ' +shipment.address_number}, ${shipment.address_city}, ${shipment.address_zip_code}, ${shipment.address_country}`
@@ -28,7 +32,7 @@ export const ShipmentList = ({ shipment }) => {
       <p className="mainInsideSub"><strong>Teléfono: </strong> {shipment.customer_phone}</p>
       <p className="mainInsideSub"><strong>Dirección: </strong>{addressComplet}</p>
       <p className="mainInsideSub"><strong>Ref. Albarán: </strong> {shipment.ref_DN}</p>
-      <p className="mainInsideSub"><strong>Fecha estimada: </strong> {shipment.delivery_date}</p>
+      <p className="mainInsideSub"><strong>Fecha estimada: </strong> {dueDate.toLocaleDateString()}</p>
       <p className="mainInsideSub"><strong>Estado: </strong><span style={{ color: statusEntrega.color }}>
         {statusEntrega.text}</span></p>
       <p className="mainInsideSub"><strong>Repartidor: </strong> {shipment.deliverer}</p>

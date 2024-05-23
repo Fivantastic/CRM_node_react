@@ -3,14 +3,11 @@ import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 import { MoreCustomer } from "./MoreCustomer.jsx";
 import { UpdateCustomer } from "./UpdateCustomer.jsx";
 import './CustomerListTable.css';
+import { StatusCustomerController } from "./StatusCustomerController.jsx";
 
-export const CustomerListTable = ({ customer, updateCustomer, deleteCustomer }) => {
+export const CustomerListTable = ({ customer, updateCustomer, deleteCustomer, activeCustomer }) => {
   const token = useUser();
-
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
   const typeModule = 'customer';
-
-  // Tipo de modulo para el nombre de los mensajes al cliente
   const typeModuleMessage = 'Cliente';
 
   return (
@@ -30,8 +27,26 @@ export const CustomerListTable = ({ customer, updateCustomer, deleteCustomer }) 
               <div className={`customerTableBodyRowStatus ${customerItem.active ? 'active' : 'inactive'}`}>{customerItem.active ? 'Activo' : 'Inactivo'}</div>
               <div className="customerTableBodyRowActions">
                 <MoreCustomer customer={customerItem} />
-                <UpdateCustomer customer={customerItem} updateCustomer={updateCustomer} token={token} />
-                <DeleteGenericModal id={customerItem.id_customer} onDelete={deleteCustomer} token={token} typeModule={typeModule} typeModuleMessage={typeModuleMessage} />
+                <StatusCustomerController
+                  id={customerItem.id_customer}
+                  isActive={customerItem.active}
+                  activeCustomer={activeCustomer}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
+                <UpdateCustomer
+                  customer={customerItem.id_customer}
+                  onUpdateCustomer={updateCustomer}
+                  token={token}
+                />
+                <DeleteGenericModal
+                  id={customerItem.id_customer}
+                  onDelete={deleteCustomer}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
               </div>
             </div>
           ))

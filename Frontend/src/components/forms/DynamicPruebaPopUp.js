@@ -29,7 +29,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
         });
 
         // Validar los datos con el esquema
-        const validationResult = schema.validate(values, { abortEarly: false });
+        const validationResult = schema.validate(values);
         if (validationResult.error) {
           // Mostrar mensaje de error si la validación falla
           Swal.showValidationMessage(validationResult.error.message);
@@ -44,7 +44,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
       confirmButtonText: `${buttonText}`,
-      buttonsStyling: false,
+      buttonsStyling: false, 
       customClass: {
         confirmButton: 'customConfirmBtnClass',
         cancelButton: 'customCancelBtnClass'
@@ -63,7 +63,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
             selectElement.classList.add('no-selection');
             // Agregar evento change al elemento select
             selectElement.addEventListener('change', function() {
-              if (this.value !== "") {
+              if (this.value !== "-1") {
                 this.classList.remove('no-selection');
                 this.classList.add('has-selection');
               } else {
@@ -105,7 +105,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
     } else {
       return `
       <div id="${field.idInputContainer || ''}" class="input-container">
-      <input id="${field.idInput}" type="${field.type}" class="inputText" required="">
+      <input id="${field.idInput}" type="${field.type}" class="inputText" required="${field.required}">
       <label for="${field.idInput}" id="${field.idLabel}" class="label labelText">${field.label}</label>
       <div class="underline"></div>
       </div>
@@ -118,7 +118,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
     <div id="${field.idInputContainer || ''}" class="input-container">
       <select id="${field.idInput}" class="inputSelect">
         ${generateSelectOptions(field.options)}
-      </select>
+        </select>
       <label for="${field.idInput}" id="${field.idLabel}" class="labelSelect ">${field.label}</label>
       <div class="underline"></div>
     </div>
@@ -126,12 +126,31 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
   };
 
   const generateSelectOptions = (options) => {
-    let selectOptionsHtml = '<option value="">Selecciona una opción</option>';
+    let selectOptionsHtml = '';
 
-    if (options) {
+    if (Array.isArray(options)) {
       options.forEach(option => {
         selectOptionsHtml += `<option value="${option.value}">${option.label}</option>`;
       });
+    } else {
+      for (const group in options) {
+        if (Object.prototype.hasOwnProperty.call(options, group)) {
+          selectOptionsHtml += `<optgroup label="${group}">`;
+          const groupOptions = options[group];
+          if (Array.isArray(groupOptions)) {
+            groupOptions.forEach(option => {
+              selectOptionsHtml += `<option value="${option.value}">${option.label}</option>`;
+            });
+          } else {
+            for (const key in groupOptions) {
+              if (Object.prototype.hasOwnProperty.call(groupOptions, key)) {
+                selectOptionsHtml += `<option value="${key}">${groupOptions[key]}</option>`;
+              }
+            }
+          }
+          selectOptionsHtml += `</optgroup>`;
+        }
+      }
     }
     return selectOptionsHtml;
   };

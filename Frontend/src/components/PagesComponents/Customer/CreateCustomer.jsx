@@ -1,12 +1,13 @@
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { createCustomerSchema } from '../../../Schema/Error/createSchema.js';
+const URL = import.meta.env.VITE_URL;
 
-export const CreateCustomer = ({ onAddCustomer, token }) => {
-  // Aqui hace la peticion al servidor
+export const CreateCustomer = ({ onAddCustomer, token, typeModule }) => {
+  // Aquí hace la petición al servidor
   const handleCustomerCreatedAccion = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/customer/register', {
+      const response = await fetch(`${URL}/${typeModule}/register`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -17,16 +18,16 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       });
 
       if (response.ok) {
-        //si la peticion es correcta
+        // Si la petición es correcta
         const responseData = await response.json();
         console.log('Venta satisfactorio:', responseData);
 
         onAddCustomer(responseData.data);
 
-        // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
+        // Aquí puedes mostrar un mensaje de éxito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -38,22 +39,22 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
 
         Toast.fire({
           icon: 'success',
-          title: 'Cliente agregado con exito !',
+          title: 'Cliente agregado con éxito!',
         });
       } else {
-        // si la peticion es incorrecta
+        // Si la petición es incorrecta
         const errorData = await response.json();
         console.error('Cliente fallido:', errorData);
         // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
       }
     } catch (error) {
-      // si la peticion falla
+      // Si la petición falla
       console.error('Error al agregar cliente:', error);
       // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+  // Título de la ventana, CAMBIARLO SI ES NECESARIO
   const title = 'Crear Cliente';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
@@ -66,9 +67,8 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
   const customerFormFields = [
     {
       name: 'name',
-      label: 'Nombre',
+      label: 'Nombre *',
       type: 'text',
-      placeholder: 'Introduce el nombre...',
       idLabel: 'labelNameCustomerCreate',
       idInput: `inputNameCustomerCreate`,
       idInputContainer: `inputNameCustomerCreateContainer`,
@@ -76,33 +76,30 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
     },
     {
       name: 'last_name',
-      label: 'Apellidos',
+      label: 'Apellidos *',
       type: 'text',
-      placeholder: 'Introduce los apellidos...',
       idLabel: 'labelLastNameCustomerCreate',
       idInput: `inputLastNameCustomerCreate`,
       idInputContainer: `inputLastNameCustomerCreateContainer`,
-      required: true,
+      required: false,
     },
     {
       name: 'email',
-      label: 'Email',
+      label: 'Email *',
       type: 'email',
       idLabel: 'labelEmailCustomerCreate',
       idInput: `inputEmailCustomerCreate`,
       idInputContainer: `inputEmailCustomerCreateContainer`,
-      placeholder: 'Introduce el email...',
       required: true,
     },
     {
       name: 'phone',
-      label: 'Telefono',
+      label: 'Teléfono',
       type: 'text',
       idLabel: 'labelPhoneCustomerCreate',
       idInput: `inputPhoneCustomerCreate`,
-      placeholder: 'Introduce el telefono...',
       idInputContainer: `inputPhoneCustomerCreateContainer`,
-      required: true,
+      required: false,
     },
     {
       name: 'company_name',
@@ -110,7 +107,6 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       type: 'text',
       idLabel: 'labelCompanyCustomerCreate',
       idInput: `inputCompanyCustomerCreate`,
-      placeholder: 'Introduce el Empresa...',
       idInputContainer: `inputCompanyCustomerCreateContainer`,
       required: false,
     },
@@ -120,28 +116,25 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       type: 'text',
       idLabel: 'labelNIFCustomerCreate',
       idInput: `inputNIFCustomerCreate`,
-      placeholder: 'Introduce el NIF...',
       idInputContainer: `inputNIFCustomerCreateContainer`,
       required: false,
     },
     {
       name: 'address',
-      label: 'Dirección',
+      label: 'Dirección *',
       type: 'text',
       idLabel: 'labelAddressCustomerCreate',
       idInput: `inputAddressCustomerCreate`,
-      placeholder: 'Introduce la dirección...',
       idInputContainer: `inputAddressCustomerCreateContainer`,
-      required: false,
+      required: true,
     },
     {
       name: 'number',
-      label: 'Numero',
+      label: 'Número',
       type: 'text',
       idLabel: 'labelNumberCustomerCreate',
       idInput: `inputNumberCustomerCreate`,
-      placeholder: 'Introduce el numero...', 
-      idInputContainer: `inputNumberCustomerCreateContainer`, 
+      idInputContainer: `inputNumberCustomerCreateContainer`,
       required: false,
     },
     {
@@ -150,7 +143,6 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       type: 'text',
       idLabel: 'labelCityCustomerCreate',
       idInput: `inputCityCustomerCreate`,
-      placeholder: 'Introduce la ciudad...',
       idInputContainer: `inputCityCustomerCreateContainer`,
       required: false,
     },
@@ -160,17 +152,15 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       type: 'text',
       idLabel: 'labelZipCodeCustomerCreate',
       idInput: `inputZipCodeCustomerCreate`,
-      placeholder: 'Introduce el C.P...',
       idInputContainer: `inputZipCodeCustomerCreateContainer`,
       required: false,
     },
     {
       name: 'country',
-      label: 'Pais',
+      label: 'País',
       type: 'text',
       idLabel: 'labelCountryCustomerCreate',
       idInput: `inputCountryCustomerCreate`,
-      placeholder: 'Introduce el pais...',
       idInputContainer: `inputCountryCustomerCreateContainer`,
       required: false,
     },
@@ -186,9 +176,10 @@ export const CreateCustomer = ({ onAddCustomer, token }) => {
       dynamicIdModal
     );
   };
+
   return (
     <>
-      <button id='btnCustomerCreate' className=" mainCreateBtn" onClick={handleClickCreateCustomer}>
+      <button id='btnCustomerCreate' className="mainCreateBtn" onClick={handleClickCreateCustomer}>
         <img id='iconCustomerCreate' className='imgCreateBtn' src="/AddCustomer.svg" alt="icono agregar cliente" />
       </button>
     </>

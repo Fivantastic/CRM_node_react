@@ -22,47 +22,61 @@ export const CustomerPage = () => {
     addCustomer,
     deleteCustomer,
     updateCustomer,
+    activeCustomer,
+    typeModule,
+    typeModuleMessage,
   } = useCustomerList(token);
 
   const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
 
-    // Opciones de filtro
-    const filterOptions = [
-      { label: 'Activo', value: '1' },
-      { label: 'Inactivo', value: '0' },
-    ];
-  
-    // Opciones de ordenamiento
-    const sortOptions = [
-      { label: "Nombre (A - Z)", value: "nombre-asc" },
-      { label: "Nombre (Z - A)", value: "nombre-desc" },
-      { label: "Fecha (Antiguos)", value: "fecha-asc" },
-      { label: "Fecha (Recientes)", value: "fecha-desc" },
-    ];
+  const filterOptions = [
+    { label: 'Activo', value: '1' },
+    { label: 'Inactivo', value: '0' },
+  ];
+
+  const sortOptions = [
+    { label: "Nombre (A - Z)", value: "nombre-asc" },
+    { label: "Nombre (Z - A)", value: "nombre-desc" },
+    { label: "Fecha (Antiguos)", value: "fecha-asc" },
+    { label: "Fecha (Recientes)", value: "fecha-desc" },
+  ];
 
   return (
     <MainLayout title="Clientes">
       <section id="customer_container" className="mainContainer">
         <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
-          <CreateCustomer onAddCustomer={addCustomer} token={token} />
+          <CreateCustomer onAddCustomer={addCustomer} token={token} typeModule={typeModule} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
           <SortPages options={sortOptions} onSort={handleSortChange} />
-          <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView}  />
+          <ToggleMode onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
           <ol id="customer_list" className="main_olist">
             {filteredCustomerList.map(customer => (
               <li key={customer.id_customer} id="element_customer_container">
-                <CustomerList customer={customer} updateCustomer={updateCustomer} onDelete={deleteCustomer} />
+                <CustomerList
+                  customer={customer}
+                  updateCustomer={updateCustomer}
+                  deleteCustomer={deleteCustomer}
+                  activeCustomer={activeCustomer}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
               </li>
             ))}
           </ol>
         ) : (
-          <CustomerListTable customer={filteredCustomerList} updateCustomer={updateCustomer} onDelete={deleteCustomer} />
+          <CustomerListTable
+            customer={filteredCustomerList}
+            updateCustomer={updateCustomer}
+            deleteCustomer={deleteCustomer}
+            activeCustomer={activeCustomer}
+            typeModule={typeModule}
+            typeModuleMessage={typeModuleMessage}
+          />
         )}
       </section>
     </MainLayout>
   );
-  
 };

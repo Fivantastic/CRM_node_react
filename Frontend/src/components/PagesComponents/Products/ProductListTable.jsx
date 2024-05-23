@@ -5,7 +5,7 @@ import { MoreProduct } from "./MoreProduct.jsx";
 import './productListTable.css';
 import { StatusProductController } from './StatusProductController.jsx';
 
-export const ProductListTable = ({ product, onUpdateProduct, onDelete, isActive }) => {
+export const ProductListTable = ({ product, onUpdateProduct, onDelete, isActive, typeModule, typeModuleMessage }) => {
   const token = useUser();
   return (
     <section id="product_table">
@@ -37,6 +37,8 @@ export const ProductListTable = ({ product, onUpdateProduct, onDelete, isActive 
                   isActive={product.active}
                   activeProduct={isActive}
                   token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
                 />
                 <UpdateProduct
                   product={product}

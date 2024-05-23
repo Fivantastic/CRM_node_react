@@ -1,12 +1,7 @@
 import { getDBPool } from '../../db/getPool.js';
 
 export const updateCustomerModel = async (
-  customerId,
-  name,
-  email,
-  phone,
-  company_name,
-  NIF
+  customerId, name, last_name, email, phone, company_name, NIF, address, number, city, zip_code, country
 ) => {
   const pool = await getDBPool();
 
@@ -21,10 +16,16 @@ export const updateCustomerModel = async (
   };
 
   addToUpdate('name', name);
+  addToUpdate('last_name', last_name);
   addToUpdate('email', email);
   addToUpdate('phone', phone);
   addToUpdate('company_name', company_name);
   addToUpdate('NIF', NIF);
+  addToUpdate('address', address);
+  addToUpdate('number', number);
+  addToUpdate('city', city);
+  addToUpdate('zip_code', zip_code);
+  addToUpdate('country', country);
 
   if (fieldsToUpdate.length === 0) return {};
 

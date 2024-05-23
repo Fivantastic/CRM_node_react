@@ -14,17 +14,19 @@ export const newUserSchema = Joi.object({
 
 export const createCustomerSchema = Joi.object({
   name: Joi.string().min(3).max(30).required().messages(joiErrorMessages),
-  last_name: Joi.string().min(3).max(30).required().messages(joiErrorMessages),
+  last_name: Joi.string().min(3).max(30).optional().messages(joiErrorMessages),
   email: Joi.string().email({ tlds: false }).required().messages(joiErrorMessages),
   phone: Joi.string().min(9).max(30).optional().messages(joiErrorMessages),
-  company_name: Joi.string().min(0).max(30).optional().messages(joiErrorMessages),
+  company_name: Joi.string().max(30).optional().messages(joiErrorMessages),
   NIF: Joi.string().optional().messages(joiErrorMessages),
-  address: Joi.string().optional().messages(joiErrorMessages),
+  address: Joi.string().required().messages(joiErrorMessages),
   number: Joi.string().optional().messages(joiErrorMessages),
   city: Joi.string().optional().messages(joiErrorMessages),
   zip_code: Joi.string().optional().messages(joiErrorMessages),
   country: Joi.string().optional().messages(joiErrorMessages),
 });
+
+
 
 export  const newVisitSchema = Joi.object({
   id_customer: Joi.string().guid().required().messages(joiErrorMessages),
@@ -34,8 +36,8 @@ export  const newVisitSchema = Joi.object({
 
 export  const newProductSchema = Joi.object({
   name: Joi.string().required().min(3).max(30).messages(joiErrorMessages),
-  description: Joi.string().required().messages(joiErrorMessages),
   price: Joi.string().required().messages(joiErrorMessages),
   stock: Joi.number().required().min(1).max(10000).messages(joiErrorMessages),
+  description: Joi.string().optional().messages(joiErrorMessages),
   active: Joi.boolean().optional().messages(joiErrorMessages)
 });

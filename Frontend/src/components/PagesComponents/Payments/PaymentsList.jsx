@@ -42,7 +42,9 @@ const moreInfoFields = [
 
   return (
       <>
-        <h2 id="element_payment_title" className=" mainInsideTitle">{payment.ref_PM}</h2>
+        <div id="element_customer_subtitle" className="mainInsideSub">
+        <p className="refTitle">Ref: {payment.ref_PM}</p>
+        </div>
         <h3 id="element_payment_paid" className=" mainInsideTitle"><strong>Pago: </strong> {payment.paid_amount}€</h3>
         <p id="element_payment_subtitle" className=" mainInsideSub"><strong>Fecha de pago: </strong> {paidDate.toLocaleDateString()}</p>
 

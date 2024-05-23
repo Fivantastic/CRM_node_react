@@ -3,6 +3,7 @@ import { useUser } from '../../../context/authContext.jsx';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { ClosedInvoice } from '../Invoces/ClosedInvoice.jsx';
+import './InvoicesListTable.css';
 
 export const InvoicesListTable = ({invoices, onUpdate, onDelete}) => {
       const token = useUser();
@@ -49,13 +50,13 @@ export const InvoicesListTable = ({invoices, onUpdate, onDelete}) => {
 
   
   return (
-    <section id="sales_table">
-      <div id="salesTableHead">
-        <div id="salesTableHeadRowNameSalesAgent">Ref</div>
-        <div id="salesTableHeadRowProduct">Cantidad</div>
-        <div id="salesTableHeadRowDate">Fecha</div>
-        <div id="salesTableHeadRowEstatus">Estado</div>
-        <div id="salesTableHeadRowActions">Acciones</div>
+    <section className='Table'>
+      <div className='TableHead'>
+        <div className='TableHeadRowReference headRow'>Ref</div>
+        <div className='TableHeadRowMoney headRow'>Cantidad</div>
+        <div className='TableHeadRowDate headRow'>Fecha</div>
+        <div className='InvoiceStatus headRow'>Estado</div>
+        <div className='TableHeadRowActions headRow'>Acciones</div>
       </div>
       <div id="salesTableBody">
         {invoices.length > 0 &&
@@ -89,19 +90,19 @@ export const InvoicesListTable = ({invoices, onUpdate, onDelete}) => {
             
             return(
             <div key={invoice.id_invoice} id="salesTableBodyRow">
-              <div id="salesTableBodyRowName">{invoice.ref_IN}</div>
-              <div id="salesTableBodyProduct">
+              <div className='TableBodyRowReference'>{invoice.ref_IN}</div>
+              <div className='TableBodyRowMoney'>
                  <p>
                    <strong>{invoice.total_price}</strong>  €
                 </p>
               </div>
-              <div id='salesTavleBodyRowDate'>
+              <div className='TableBodyRowDate'>
                 <p>{dueDate.toLocaleDateString()}</p>
               </div>
-              <div id="salesTableBodyRowEstatus">
+              <div className='InvoiceStatus'>
                 <p style={{color:invoiceStatus.color}}>{invoiceStatus.text}</p>
               </div>
-              <div id="salesTableBodyRowActions">
+              <div className='TableBodyRowActions'>
                 <MoreInfo fields={moreInfoFields} modalIds={[]} />
 
 

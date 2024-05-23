@@ -75,7 +75,9 @@ export const InvoicesList = ({
 
   return (
       <>
-        <h2 id="element_ivoice_title" className=" mainInsideTitle">{invoice.ref_IN}</h2>
+         <div id="element_customer_subtitle" className="mainInsideSub">
+        <p className="refTitle">Ref: {invoice.ref_IN}</p>
+        </div>
 
         <h3><strong>Total:</strong> {invoice.total_amount} €</h3>
         <p><strong>Comercial: </strong> {invoice.agent_name} {invoice.agent_Last_name}</p>

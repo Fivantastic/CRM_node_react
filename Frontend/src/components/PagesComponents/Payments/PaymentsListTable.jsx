@@ -3,6 +3,7 @@ import { useUser } from '../../../context/authContext.jsx';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 import { ChangeStatus } from '../../forms/ChangeStatus.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
+import './PaymentsListTable.css';
 
 export const PaymentsListTable = ({payments, onUpdatePayment, onDelete}) => {
       const token = useUser();
@@ -27,14 +28,14 @@ export const PaymentsListTable = ({payments, onUpdatePayment, onDelete}) => {
   };
   
   return (
-    <section id="sales_table">
-      <div id="salesTableHead">
-        <div id="salesTableHeadRowNameSalesAgent">Ref</div>
-        <div id="salesTableHeadRowProduct">Cantidad</div>
-        <div id="salesTableHeadRowEstatus">Estado</div>
-        <div id="salesTableHeadRowActions">Acciones</div>
-      </div>
-      <div id="salesTableBody">
+    <section className='Table'>
+       <div className='TableHead'>
+         <div  className='TableHeadRowReference headRow'>Ref</div>
+         <div  className='TableHeadRowMoney headRow'>Cantidad</div>
+         <div  className='TableHeadRowStatus headRow'>Estado</div>
+         <div  className='TableHeadRowActions headRow'>Acciones</div>
+       </div>
+      <div>
         {payments.length > 0 &&
           payments.map((payment) => {
             console.log(payment);
@@ -55,16 +56,16 @@ export const PaymentsListTable = ({payments, onUpdatePayment, onDelete}) => {
             
             return(
             <div key={payment.id_payment} id="salesTableBodyRow">
-              <div id="salesTableBodyRowName">{payment.ref_PM}</div>
-              <div id="salesTableBodyProduct">
+              <div className='TableBodyRowReference'>{payment.ref_PM}</div>
+              <div className='TableBodyRowMoney'>
                  <p>
                    <strong>{payment.paid_amount}</strong>  €
                 </p>
               </div>
-              <div id="salesTableBodyRowEstatus">
+              <div className='TableBodyRowStatus'>
                 <p style={{color:estadoPago.color}}>{estadoPago.text}</p>
               </div>
-              <div id="salesTableBodyRowActions">
+              <div className='TableBodyRowActions'>
                 <MoreInfo fields={moreInfoFields} modalIds={[]} />
 
 

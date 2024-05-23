@@ -7,7 +7,7 @@ import { mainRouter } from './src/routes/mainRouter.js';
 import { modulesRoutes } from './src/routes/modulesRoutes.js';
 import { notFoundErrorMiddleware } from './src/middlewares/errors/notFoundErrorMiddleware.js';
 import { errorHandlerMiddleware } from './src/middlewares/errors/errorHandlerMiddleware.js';
-import http from 'http'; // Importar el módulo http para crear el servidor HTTP
+import http from 'http';
 import configureSocket from './socket.js';
 import configureNotificationRoutes from './src/routes/notificationRoutes.js';
 

@@ -122,7 +122,7 @@ export async function loadDemoData(db) {
         name: faker.commerce.product(),
         description: faker.lorem.paragraph(),
         price: faker.commerce.price({min: 10, max: 150}),
-        stock: faker.number.int(1000), 
+        stock: faker.number.int({min: 5, max: 1000}), 
         active: faker.datatype.boolean(),
       };
       productData.push(product);
@@ -139,7 +139,7 @@ export async function loadDemoData(db) {
       const saleProduct = {
         id_saleProduct: faker.string.uuid(),
         product_id: productData[i].id_product,
-        quantity: faker.number.int(10), 
+        quantity: faker.number.int({min: 1, max: 10}), 
         description: faker.lorem.sentence(),
       };
       salesProductData.push(saleProduct);
@@ -213,7 +213,7 @@ export async function loadDemoData(db) {
         customer_id: customerData[i].id_customer,
         address_id: addressData[i].id_address,
         saleProduct_id: salesProductData[i].id_saleProduct,
-        delivery_date: faker.date.soon({ days: 3 }),
+        delivery_date: faker.date.soon({ days: 5 }),
       };
       deliveryNoteData.push(deliveryNote);
     }

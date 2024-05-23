@@ -82,11 +82,8 @@
 
 #paymentsTableHeadRowActions,
 .paymentsTableBodyRowActions {
-    /* min-width: 120px; */
-    width: 130px;
-    /* align-self: left; */
-    /* display: flex;
-    justify-content: left; */
+    width: 120px;
+
 }
 
 #paymentsTableHeadRowActions {

@@ -1,18 +1,11 @@
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { useUser } from '../../../context/authContext.jsx';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
-import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { ClosedInvoice } from './ClosedInvoice.jsx';
 import './InvoicesListTable.css';
 
-export const InvoicesListTable = ({invoices, onUpdate, onDelete }) => {
-      const token = useUser();
-
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
-  const typeModule = 'invoice';
-
-  // Tipo de modulo para el nombre de los mensajes al cliente
-  const typeModuleMessage = 'Facturas';
+export const InvoicesListTable = ({invoices, onUpdate }) => {
+  const token = useUser();
 
   const traducirEstadoFactura = (estado) => {
     switch (estado) {
@@ -57,7 +50,7 @@ export const InvoicesListTable = ({invoices, onUpdate, onDelete }) => {
         <div id="invoicesTableHeadRowPrice">Importe</div>
         <div id="invoicesTableHeadRowDate">Fecha</div>
         <div id="invoicesTableHeadRowEstatus">Estado</div>
-        <div id=" invoicesTableHeadRowActions" className='invoicesTableRowActions'>Acciones</div>
+        <div id="invoicesTableHeadRowActions">Acciones</div>
       </div>
       <div id="invoicesTableBody">
         {invoices.length > 0 &&
@@ -93,36 +86,21 @@ export const InvoicesListTable = ({invoices, onUpdate, onDelete }) => {
             <div key={invoice.id_invoice} className="invoicesTableBodyRow">
               <div className="invoicesTableBodyRowRef">{invoice.ref_IN}</div>
               <div className="invoicesTableBodyRowRefSales">{invoice.ref_SL}</div>
-              <div className="invoicesTableBodyPrice">
-
-                   <strong>{invoice.total_price}</strong>  €
-
-              </div>
+              <div className="invoicesTableBodyPrice"><strong>{invoice.total_price}</strong> €</div>
               <div className='invoicesTavleBodyRowDate'>
               {dueDate.toLocaleDateString()}
               </div>
               <div className="invoicesTableBodyRowEstatus"style={{color:invoiceStatus.color}}>
               {invoiceStatus.text}
               </div>
-              <div className="invoicesTableRowActions invoicesTableBodyRowActions">
+              <div className="invoicesTableBodyRowActions">
                 <MoreInfo fields={moreInfoFields} modalIds={[]} />
-
-
                 <ClosedInvoice
                     invoice={invoice.id_invoice}
                     currentStatus={invoice.invoice_status}
                     onUpdateInvoice={onUpdate}
                     token={token}
                 />
-                  {/* {invoice.invoice_status === 'cancelled' && ( */}
-                    <DeleteGenericModal
-                    id={invoice.id_invoice}
-                    onDelete={onDelete}
-                    token={token}
-                    typeModule={typeModule}
-                    typeModuleMessage={typeModuleMessage}
-                  />
-                  {/* )} */}
               </div>
             </div>
             )

@@ -55,21 +55,21 @@ export const CreateProduct = ({ onAddProduct, token }) => {
   const ProductFormFields = [
     {
         name: 'name',
-        label: 'Nombre',
+        label: 'Nombre*',
         type: 'text',
         idLabel: 'labelNameProductCreate',
         idInput: 'inputNameProductCreate',
     },
     {
         name: 'price',
-        label: 'Precio',
+        label: 'Precio*',
         type: 'text',
         idLabel: 'labelPriceProductCreate',
         idInput: 'inputPriceProductCreate',
     },
     {
         name: 'stock',
-        label: 'Cantidad',
+        label: 'Cantidad*',
         type: 'text',
         idLabel: 'labelStockProductCreate',
         idInput: 'inputStockProductCreate',

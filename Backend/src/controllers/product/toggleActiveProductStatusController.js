@@ -11,7 +11,7 @@ export const toggleActiveProductStatusController = async (req, res, next) => {
 
         // Devolvemos el usuario actualizado.
         const isActive = product.active === '1' ? true : false;
-        const message = `Estado del usuario cambiado a: ${isActive ? 'Activo' : 'Inactivo'} `
+        const message = `Estado del producto cambiado a: ${isActive ? 'Activo' : 'Inactivo'} `
 
         res.send({
             status: 'ok',

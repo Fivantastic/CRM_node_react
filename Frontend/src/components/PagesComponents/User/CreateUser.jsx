@@ -65,7 +65,7 @@ export const CreateUser = ({ onAddUser, token }) => {
     {
       name: 'name',
       type: 'text',
-      label: 'Nombre',
+      label: 'Nombre*',
       required: true,
 
       idLabel: 'labelNameUserCreate',
@@ -82,7 +82,7 @@ export const CreateUser = ({ onAddUser, token }) => {
     {
       name: 'email',
       type: 'email',
-      label: 'Email',
+      label: 'Email*',
       idLabel: 'labelEmailUserCreate',
       idInput: `inputEmailUserCreate`,
       required: true,
@@ -90,7 +90,7 @@ export const CreateUser = ({ onAddUser, token }) => {
     {
       name: 'role',
       type: 'select',
-      label: 'Rol',
+      label: 'Rol*',
       idLabel: 'labelRoleUserCreate',
       idInput: `inputSelectUserCreate`,
       value: '',

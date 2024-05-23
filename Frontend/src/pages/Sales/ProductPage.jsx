@@ -64,6 +64,8 @@ export const ProductPage = () => {
                     isActive={product.active}
                     activeProduct={activeProduct}
                     token={token}
+                    typeModule={typeModule}
+                    typeModuleMessage={typeModuleMessage}
                   />
                   <UpdateProduct
                     product={product.id_product}
@@ -81,7 +83,7 @@ export const ProductPage = () => {
             ))}
           </ol>
         ) : (
-          <ProductListTable product={filteredProductList} onUpdateProduct={updateProduct} onDelete={deleteProduct} isActive={activeProduct} />
+          <ProductListTable product={filteredProductList} onUpdateProduct={updateProduct} onDelete={deleteProduct} isActive={activeProduct} typeModule={typeModule}  typeModuleMessage={typeModuleMessage} />
         )}
       </section>
     </MainLayout>

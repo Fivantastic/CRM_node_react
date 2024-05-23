@@ -7,6 +7,7 @@ import {
     getCustomerListController, 
     getCustomerSearchController, 
     newCustomerController, 
+    toggleActiveCustomerStatusController, 
     updateCustomerController 
 } from '../../controllers/mainControllers.js';
 import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
@@ -28,3 +29,8 @@ customerRouter.put('/customer/:customerId',authenticateUser, customerExists, upd
 
 // Eliminar cliente, solo para administradores
 customerRouter.delete('/customer/delete/:customerId', authenticateUser, adminAuthMiddleware, deleteCustomerController);
+
+// Activar y desactivar clientes
+customerRouter.put('/customer/toggleActivation', authenticateUser, adminAuthMiddleware, toggleActiveCustomerStatusController);
+
+

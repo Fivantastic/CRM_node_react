@@ -3,31 +3,18 @@ import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 import { UpdateCustomer } from "./UpdateCustomer.jsx";
 import { MoreInfo } from "../../InfoModal/MoreInfo.jsx";
 import '../../../Styles/Pages/StyleCustomerList.css';
+import { StatusCustomerController } from "./StatusCustomerController.jsx";
 
-
-export const CustomerList = ({ customer, updateCustomer, deleteCustomer }) => {
+export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeModule, typeModuleMessage, activeCustomer }) => {
   const token = useUser();
 
-  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
-  const typeModule = 'customer';
-
-  // Tipo de modulo para el nombre de los mensajes al cliente
-  const typeModuleMessage = 'Cliente';
-
-  // Concatena el nombre y los apellidos del cliente
   const nameComplete = `${customer.name} ${customer.last_name}`;
-
-  // Si active es 1 que ponga activo si es 0 que muestre inactivo
   const active = customer.active === 1 ? 'Activo' : 'Inactivo';
   const activeClass = customer.active ? 'active' : 'inactive';
-
-  // Construye el contenido del modal con la información del usuario
   const addressConcatenated = customer.address 
     ? `${customer.address} ${customer.number}, ${customer.city}, ${customer.country}` 
     : 'Dirección no disponible';
-    
 
-  // Lista de campos para crear la información del botón de más info
   const moreInfoFields = [
     { label: 'Ref', value: customer.ref_CT, id: 'element_customer_ref' },
     { label: 'Nombre', value: nameComplete, id: 'element_customer_name' },
@@ -64,6 +51,14 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer }) => {
 
       <nav className="actions">
         <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
+        <StatusCustomerController
+          id={customer.id_customer}
+          isActive={customer.active}
+          activeCustomer={activeCustomer}
+          token={token}
+          typeModule={typeModule}
+          typeModuleMessage={typeModuleMessage}
+        />
         <UpdateCustomer
           customer={customer.id_customer}
           onUpdateCustomer={updateCustomer}

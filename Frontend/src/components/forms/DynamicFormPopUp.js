@@ -8,10 +8,13 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
     idToNameMap[field.idInput] = field.name;
   });
 
-  // Modifico la id el dynamicIdModal es null, para no generar conflictos
+  // Modificar la id si dynamicIdModal es null, para no generar conflictos
   if (!dynamicIdModal) {
     dynamicIdModal = 'dynamicFormModal';
   }
+
+  // Verificar si hay campos obligatorios
+  const hasRequiredFields = fields.some(field => field.label.includes('*'));
 
   const handleClickSubmit = async () => {
     const { value: formData } = await Swal.fire({
@@ -19,17 +22,21 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
       html: `
         <form id=${dynamicIdModal} class="dynamicFromModal">
           ${generateFormHtml(fields)}
+          ${hasRequiredFields ? '<p class="info-text">* Campos obligatorios</p>' : '<p class="info-text">Modifica el campo que necesites</p>'}
         </form>
       `,
       focusConfirm: false,
       preConfirm: async () => {
         const values = {};
         fields.forEach(field => {
-          values[idToNameMap[field.idInput]] = document.getElementById(field.idInput).value;
+          const inputElement = document.getElementById(field.idInput);
+          if (inputElement.value.trim()) {
+            values[idToNameMap[field.idInput]] = inputElement.value.trim();
+          }
         });
 
         // Validar los datos con el esquema
-        const validationResult = schema.validate(values);
+        const validationResult = schema.validate(values, { abortEarly: false });
         if (validationResult.error) {
           // Mostrar mensaje de error si la validación falla
           Swal.showValidationMessage(validationResult.error.message);
@@ -44,7 +51,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
       confirmButtonText: `${buttonText}`,
-      buttonsStyling: false, 
+      buttonsStyling: false,
       customClass: {
         confirmButton: 'customConfirmBtnClass',
         cancelButton: 'customCancelBtnClass'
@@ -72,6 +79,11 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
               }
             });
           }
+          if (field.type === 'date') {
+            updateDateInputState(input);
+            input.addEventListener('change', () => updateDateInputState(input));
+            input.addEventListener('blur', () => updateDateInputState(input));
+          }
         });
       }
     });
@@ -98,14 +110,14 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
       return `
       <div id="${field.idInputContainer || ''}" class="input-container">
         <label for="${field.idInput}" id="${field.idLabel}" class="labelText">${field.label}</label>
-        <input id="${field.idInput}" type="file" class="inputFile" onChange="${field.onChange}">
+        <input id="${field.idInput}" type="file" placeholder="" class="inputFile" onChange="${field.onChange}">
         <div class="underline"></div>
       </div>
       `;
     } else {
       return `
       <div id="${field.idInputContainer || ''}" class="input-container">
-      <input id="${field.idInput}" type="${field.type}" class="inputText" required="">
+      <input id="${field.idInput}" type="${field.type}" placeholder="" class="inputText">
       <label for="${field.idInput}" id="${field.idLabel}" class="label labelText">${field.label}</label>
       <div class="underline"></div>
       </div>
@@ -116,7 +128,7 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
   const generateSelectField = (field) => {
     return `
     <div id="${field.idInputContainer || ''}" class="input-container">
-      <select id="${field.idInput}" class="inputSelect">
+      <select id="${field.idInput}" placeholder="" class="inputSelect">
         ${generateSelectOptions(field.options)}
         </select>
       <label for="${field.idInput}" id="${field.idLabel}" class="labelSelect ">${field.label}</label>
@@ -153,6 +165,14 @@ const DynamicFormPopUp = (title, fields, schema, onSubmit, buttonText, dynamicId
       }
     }
     return selectOptionsHtml;
+  };
+
+  const updateDateInputState = (input) => {
+    if (input.value) {
+      input.classList.add('has-content');
+    } else {
+      input.classList.remove('has-content');
+    }
   };
 
   handleClickSubmit();

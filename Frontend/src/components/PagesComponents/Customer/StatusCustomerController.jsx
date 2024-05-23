@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import { CompletButton } from '../../buttons/StatesBtn/CompletButton.jsx';
 const URL = import.meta.env.VITE_URL;
 
-export const StatusProductController = ({ id, isActive, activeProduct, token, typeModule, typeModuleMessage }) => {
+export const StatusCustomerController = ({ id, isActive, activeCustomer, token, typeModule, typeModuleMessage }) => {
   const handleClick = async () => {
     const confirmButtonText = isActive ? 'Desactivar' : 'Activar';
     const confirmButtonColor = isActive ? '#dc3545' : '#28a745';
@@ -51,7 +51,7 @@ export const StatusProductController = ({ id, isActive, activeProduct, token, ty
             text: successMessage,
           });
 
-          activeProduct(id, responseData.isActive);
+          activeCustomer(id, responseData.isActive);
         } else {
           Swal.fire({
             icon: 'error',

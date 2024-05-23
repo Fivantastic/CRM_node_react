@@ -2,10 +2,10 @@ import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { useUser } from '../../../context/authContext.jsx';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
-import { ClosedInvoice } from './ClosedInvoice.jsx';
+import { ClosedInvoice } from '../Invoces/ClosedInvoice.jsx';
 import './InvoicesListTable.css';
 
-export const InvoicesListTable = ({invoices, onUpdate, onDelete }) => {
+export const InvoicesListTable = ({invoices, onUpdate, onDelete}) => {
       const token = useUser();
 
   // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
@@ -50,19 +50,18 @@ export const InvoicesListTable = ({invoices, onUpdate, onDelete }) => {
 
   
   return (
-    <section id="invoices_table" className='invoicesTable'>
-      <div id="invoicesTableHead">
-        <div id="invoicesTableHeadRowRef">Ref. Factura</div>
-        <div id="invoicesTableHeadRowRefSales">Ref. Venta</div>
-        <div id="invoicesTableHeadRowPrice">Importe</div>
-        <div id="invoicesTableHeadRowDate">Fecha</div>
-        <div id="invoicesTableHeadRowEstatus">Estado</div>
-        <div id=" invoicesTableHeadRowActions" className='invoicesTableRowActions'>Acciones</div>
+    <section className='Table'>
+      <div className='TableHead'>
+        <div className='TableHeadRowReference headRow'>Ref</div>
+        <div className='TableHeadRowMoney headRow'>Cantidad</div>
+        <div className='TableHeadRowDate headRow'>Fecha</div>
+        <div className='InvoiceStatus headRow'>Estado</div>
+        <div className='TableHeadRowActions headRow'>Acciones</div>
       </div>
-      <div id="invoicesTableBody">
+      <div id="salesTableBody">
         {invoices.length > 0 &&
           invoices.map((invoice) => {
-
+            // console.log(invoice);
 
             const dueDate = getNormalizedDate(invoice.due_date);
             const creationDate = getNormalizedDate(invoice.creation_at);
@@ -70,41 +69,40 @@ export const InvoicesListTable = ({invoices, onUpdate, onDelete }) => {
             const invoiceMethod = traducirMetodoPago(invoice.payment_method)          
             
             const moreInfoFields = [
-              { label: 'Ref. Factura', value: invoice.ref_IN },
-              { label: 'Ref. Venta', value: invoice.ref_SL },
-              { label: 'Comercial', value: `${invoice.agent_name} ${invoice.agent_Last_name}` },
-              { label: 'Producto', value: invoice.product },
-              { label: 'Precio', value: invoice.product_price + ' €' },
-              { label: 'Cantidad', value: invoice.quantity + ' u.' },
-              { label: 'Cliente', value: invoice.customer_name },
-              { label: 'Empresa', value: invoice.company_name },
-              { label: 'NIF', value: invoice.NIF },
-              { label: 'Dirección', value: invoice.address },
-              { label: 'Importe', value: invoice.total_price + ' €' },
-              { label: 'IVA', value: invoice.including_tax + ' €' },
-              { label: 'Total', value: invoice.total_amount + ' €' },
-              { label: 'Método De Pago', value: invoiceMethod.text },
-              { label: 'Fecha De Vencimiento', value: dueDate.toLocaleDateString() },
-              { label: 'Estado De la Venta', value: invoiceStatus.text, color: invoiceStatus.color },
-              { label: 'Fecha De Creación', value: creationDate.toLocaleDateString() }
-            ];
+                { label: 'Factura', value: invoice.id_invoice },
+                { label: 'Referencia De Venta', value: invoice.codigo_venta },
+                { label: 'Comercial', value: `${invoice.agent_name} ${invoice.agent_Last_name}` },
+                { label: 'Producto', value: invoice.product },
+                { label: 'Precio del Producto', value: invoice.product_price + ' €' },
+                { label: 'Cantidad', value: invoice.quantity + ' u.' },
+                { label: 'Cliente', value: invoice.customer_name },
+                { label: 'Empresa', value: invoice.company_name },
+                { label: 'NIF', value: invoice.NIF },
+                { label: 'Dirección', value: invoice.address },
+                { label: 'Importe', value: invoice.total_price + ' €' },
+                { label: 'IVA', value: invoice.including_tax + ' €' },
+                { label: 'Total', value: invoice.total_amount + ' €' },
+                { label: 'Método De Pago', value: invoiceMethod.text },
+                { label: 'Fecha De Vencimiento Del Pago', value: dueDate.toLocaleDateString() },
+                { label: 'Estado De la Venta', value: invoiceMethod.text, color: invoiceMethod.color },
+                { label: 'Fecha De Creación', value: creationDate.toLocaleDateString() }
+              ];
             
             return(
-            <div key={invoice.id_invoice} className="invoicesTableBodyRow">
-              <div className="invoicesTableBodyRowRef">{invoice.ref_IN}</div>
-              <div className="invoicesTableBodyRowRefSales">{invoice.ref_SL}</div>
-              <div className="invoicesTableBodyPrice">
-
+            <div key={invoice.id_invoice} id="salesTableBodyRow">
+              <div className='TableBodyRowReference'>{invoice.ref_IN}</div>
+              <div className='TableBodyRowMoney'>
+                 <p>
                    <strong>{invoice.total_price}</strong>  €
-
+                </p>
               </div>
-              <div className='invoicesTavleBodyRowDate'>
-              {dueDate.toLocaleDateString()}
+              <div className='TableBodyRowDate'>
+                <p>{dueDate.toLocaleDateString()}</p>
               </div>
-              <div className="invoicesTableBodyRowEstatus"style={{color:invoiceStatus.color}}>
-              {invoiceStatus.text}
+              <div className='InvoiceStatus'>
+                <p style={{color:invoiceStatus.color}}>{invoiceStatus.text}</p>
               </div>
-              <div className="invoicesTableRowActions invoicesTableBodyRowActions">
+              <div className='TableBodyRowActions'>
                 <MoreInfo fields={moreInfoFields} modalIds={[]} />
 
 
@@ -114,7 +112,7 @@ export const InvoicesListTable = ({invoices, onUpdate, onDelete }) => {
                     onUpdateInvoice={onUpdate}
                     token={token}
                 />
-                  {/* {invoice.invoice_status === 'cancelled' && ( */}
+                  {invoice.invoice_status === 'cancelled' && (
                     <DeleteGenericModal
                     id={invoice.id_invoice}
                     onDelete={onDelete}
@@ -122,7 +120,7 @@ export const InvoicesListTable = ({invoices, onUpdate, onDelete }) => {
                     typeModule={typeModule}
                     typeModuleMessage={typeModuleMessage}
                   />
-                  {/* )} */}
+                  )}
               </div>
             </div>
             )

@@ -2,11 +2,17 @@ import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { useUser } from '../../../context/authContext.jsx';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 import { ChangeStatus } from '../../forms/ChangeStatus.jsx';
-// import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
+import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import './PaymentsListTable.css';
 
-export const PaymentsListTable = ({payments, onUpdatePayment }) => {
+export const PaymentsListTable = ({payments, onUpdatePayment, onDelete}) => {
   const token = useUser();
+
+  // Tipo de Modulo para que la ruta URL de la peticion sea dinamica
+  const typeModule = 'payments';
+
+  // Tipo de modulo para el nombre de los mensajes al cliente
+  const typeModuleMessage = 'Pagos';
 
   const traducirEstadoPago = (estado) => {
     switch (estado) {
@@ -73,7 +79,7 @@ export const PaymentsListTable = ({payments, onUpdatePayment }) => {
                   onClick={onUpdatePayment}
                   token={token}
                 />
-                  {/* {payment.payment_status === 'cancelled' && (
+                  {/* {payment.payment_status === 'cancelled' && ( */}
                     <DeleteGenericModal
                       id={payment.id_payment}
                       onDelete={onDelete}
@@ -81,7 +87,7 @@ export const PaymentsListTable = ({payments, onUpdatePayment }) => {
                       typeModule={typeModule}
                       typeModuleMessage={typeModuleMessage}
                     />
-                  )} */}
+                  {/* )} */}
               </span>
             </div>
             )

@@ -1,11 +1,14 @@
 import { getNormalizedDate } from "../../../Services/getNormalizedDate.js";
 import { MoreInfo } from "../../InfoModal/MoreInfo.jsx";
-// import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
+import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 import { ClosedInvoice } from "./ClosedInvoice.jsx";
 
 export const InvoicesList = ({ 
   invoice,
+  onDelete,
   handleNewInvoiceStatus,
+  typeModule,
+  typeModuleMessage,
   token
  }) => {
   const dueDate = getNormalizedDate(invoice.due_date);
@@ -95,13 +98,13 @@ export const InvoicesList = ({
             onUpdateInvoice={handleNewInvoiceStatus}
             token={token}
           />
-          {/* <DeleteGenericModal
+          <DeleteGenericModal
             id={invoice.id_invoice}
             onDelete={onDelete}
             token={token}
             typeModule={typeModule}
             typeModuleMessage={typeModuleMessage}
-          /> */}
+          />
         </span>
       </>
   );

@@ -1,11 +1,14 @@
 import { getNormalizedDate } from "../../../Services/getNormalizedDate.js";
 import { MoreInfo } from "../../InfoModal/MoreInfo.jsx";
 import { ChangeStatus } from "../../forms/ChangeStatus.jsx";
-// import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
+import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 
 export const PaymentsList = ({
   payment,
+  onDelete,
   handleNewPaymentStatus,
+  typeModule,
+  typeModuleMessage,
   token
 
 }) => {
@@ -62,13 +65,13 @@ const moreInfoFields = [
           onClick={handleNewPaymentStatus}
           token={token}
         />
-        {/* <DeleteGenericModal
+        <DeleteGenericModal
           id={payment.id_payment}
           onDelete={onDelete}
           token={token}
           typeModule={typeModule}
           typeModuleMessage={typeModuleMessage}
-        /> */}
+        />
 
         </span>
       </>

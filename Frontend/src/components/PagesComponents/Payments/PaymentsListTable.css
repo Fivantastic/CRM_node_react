@@ -8,7 +8,7 @@
 
 
 #payments_table {
-    max-width: 800px;
+    max-width: 850px;
     border-radius: 8px;
     padding: 10px 15px;
     margin-top: 15px;
@@ -82,7 +82,11 @@
 
 #paymentsTableHeadRowActions,
 .paymentsTableBodyRowActions {
-    width: 120px;
+    /* min-width: 120px; */
+    width: 130px;
+    /* align-self: left; */
+    /* display: flex;
+    justify-content: left; */
 }
 
 #paymentsTableHeadRowActions {

@@ -1,14 +1,10 @@
 import { getNormalizedDate } from "../../../Services/getNormalizedDate.js";
 import { MoreInfo } from "../../InfoModal/MoreInfo.jsx";
-import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 import { ClosedInvoice } from "./ClosedInvoice.jsx";
 
 export const InvoicesList = ({ 
   invoice,
-  onDelete,
   handleNewInvoiceStatus,
-  typeModule,
-  typeModuleMessage,
   token
  }) => {
   const dueDate = getNormalizedDate(invoice.due_date);
@@ -88,7 +84,7 @@ export const InvoicesList = ({
 
         <p className="mainInsideSub"><strong>Fecha de Vencimiento: </strong>{dueDate.toLocaleDateString()}</p>
 
-        <p id="invoice_status" className="mainInsideSub"><strong>Estado Factura: </strong><span style={{color: invoiceStatus.color}}>{invoiceStatus.text}</span></p>
+ lassNa <p id="invoice_status" className="mainInsideSub"><strong>Estado Factura: </strong><span style={{color: invoiceStatus.color}}>{invoiceStatus.text}</span></p>
 
         <span id="invoice_actions" className="main_actions">
           <MoreInfo fields={moreInfoFields} modalIds={[]} />
@@ -97,13 +93,6 @@ export const InvoicesList = ({
             currentStatus={invoice.invoice_status}
             onUpdateInvoice={handleNewInvoiceStatus}
             token={token}
-          />
-          <DeleteGenericModal
-            id={invoice.id_invoice}
-            onDelete={onDelete}
-            token={token}
-            typeModule={typeModule}
-            typeModuleMessage={typeModuleMessage}
           />
         </span>
       </>

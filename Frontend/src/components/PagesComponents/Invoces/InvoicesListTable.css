@@ -31,14 +31,13 @@
 #invoicesTableHead {
     font-weight: bold;
     text-align: start;
-    column-gap: 10px;
 }
 
 .invoicesTableBodyRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    column-gap: 10px;
+
     height: 50px;
     border-bottom: 1px solid #eee;
 }
@@ -102,7 +101,7 @@
         display: grid;
         grid-template-columns: 320px;
         place-content: center;
-    
+
     }
-    
+
 }

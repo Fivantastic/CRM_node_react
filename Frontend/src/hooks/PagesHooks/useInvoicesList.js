@@ -197,23 +197,6 @@ const [invoicesList, setInvoicesList] = useState([]);
       };
     
       // Actualizo el estado con la venta eliminada
-      const deleteInvoice = async (id_invoice) => {
-        try {
-          setInvoicesList((prevSales) =>
-            prevSales.filter((invoice) => invoice.id_invoice !== id_invoice)
-          );
-    
-          await getInvoicesList();
-        } catch (error) {
-          console.error('Error al eliminar la factura:', error);
-          Toast.fire({
-            icon: 'error',
-            title: 'Error al eliminar la factura',
-        });
-        }
-      };
-    
-      // Actualizo el estado con la venta eliminada
       const updateInvoice = async (id_invoice) => {
         try {
           setInvoicesList((prevSales) =>
@@ -239,7 +222,6 @@ const [invoicesList, setInvoicesList] = useState([]);
     handleFilterChange,    
     handleSortChange,
     filteredList,
-    deleteInvoice,
     addInvoice,
     updateInvoice
   }

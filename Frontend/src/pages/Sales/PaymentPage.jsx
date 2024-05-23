@@ -49,12 +49,13 @@ export const PaymentPage = () => {
         <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView}  />
         </nav>
         {isListView ? (
-        <ol className="payment_list main_olist">
+        <ol id='payments_list' className="main_olist">
           {filteredList.map((data) => {
             return (
               <li
                 key={data.id_payment}
-                className="element_payment_content main_ilist"
+                id='element_payment_content'
+                className="main_ilist"
               >
                 <PaymentsList 
                   payment={data} 

@@ -3,9 +3,9 @@ import { getDBPool } from '../../../db/getPool.js';
 export const selectDeliveryNoteByIdModel = async (deliveryNote_id) => {
   const pool = await getDBPool();
 
-  // Comprobar si existe un cliente con el id proporcionado.
+  // Seleccionar todos los campos necesarios del albarán.
   const [deliveryNote] = await pool.query(
-    `SELECT customer_id, address_id FROM DeliveryNotes WHERE id_note = ?`,
+    `SELECT id_note, delivery_status, customer_id, address_id FROM DeliveryNotes WHERE id_note = ?`,
     [deliveryNote_id]
   );
 

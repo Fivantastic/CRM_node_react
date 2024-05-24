@@ -93,8 +93,7 @@ export const CreateShipment = ({ onAddShipment, token }) => {
         'Estados': {
           inTransit: 'En proceso',
           cancelled: 'Cancelado',
-          delayed: 'Retrasado',
-          delivered: 'Entregado'
+          delayed: 'Retrasado'
         }
       },
       idLabel: 'labelShipmentStatusShipmentCreate',

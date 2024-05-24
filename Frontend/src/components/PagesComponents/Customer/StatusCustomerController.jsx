@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import { CompletButton } from '../../buttons/StatesBtn/CompletButton.jsx';
 const URL = import.meta.env.VITE_URL;
 
-export const StatusCustomerController = ({ id, isActive, activeCustomer, token, typeModule, typeModuleMessage }) => {
+export const StatusCustomerController = ({ id, isActive, activeCustomer, token, typeModuleMessage }) => {
   const handleClick = async () => {
     const confirmButtonText = isActive ? 'Desactivar' : 'Activar';
     const confirmButtonColor = isActive ? '#dc3545' : '#28a745';
@@ -21,7 +21,7 @@ export const StatusCustomerController = ({ id, isActive, activeCustomer, token, 
 
     if (confirmed.isConfirmed) {
       try {
-        const response = await fetch(`${URL}/${typeModule}/toggleActivation`, {
+        const response = await fetch(`${URL}/custo/active`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

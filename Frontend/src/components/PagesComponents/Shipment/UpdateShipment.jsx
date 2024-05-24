@@ -42,9 +42,7 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       options: [
         { value: 'pending', label: 'Pendiente' },
         { value: 'inTransit', label: 'En Tránsito' },
-        { value: 'delivered', label: 'Entregado' },
         { value: 'delayed', label: 'Retrasado' },
-        { value: 'cancelled', label: 'Cancelado' },
       ],
       required: true,
     },

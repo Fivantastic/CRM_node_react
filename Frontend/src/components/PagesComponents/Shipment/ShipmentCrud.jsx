@@ -44,9 +44,7 @@ export const ShipmentsCrud = () => {
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },
     { label: 'En Tránsito', value: 'inTransit' },
-    { label: 'Entregado', value: 'delivered' },
     { label: 'Retrasado', value: 'delayed' },
-    { label: 'Cancelado', value: 'cancelled' },
   ];
 
   const sortOptions = [

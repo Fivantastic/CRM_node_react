@@ -8,16 +8,17 @@ export const closeDeliveryNoteController = async (req, res, next) => {
     // Validar el cuerpo de la solicitud
     await validateSchemaUtil(closeDeliveryNoteSchema, req.body);
 
-    // Obtengo el id del delevery_note
+    // Obtengo el id del delivery_note
     const deliveryNote_id = req.params.deliveryNote_id;
 
-    const deleveryNote = await inserClosedDeleveryNoteService(
+    // Llamar al servicio para cerrar el albarán
+    const result = await inserClosedDeleveryNoteService(
       deliveryNote_id,
       req.body
     );
 
     // Mensaje al cliente para cerrando la operación exitosamente.
-    res.json(success({ message: 'Albarán creado con éxito', data: result }));
+    res.json(success({ message: 'Albarán modificado con éxito', data: result }));
   } catch (error) {
     next(error);
   }

@@ -39,13 +39,13 @@ export const VisitsList = ({
         visit.customer_name,
     },
     { label: 'Telefono', value: visit.customer_phone },
-    { label: 'Email', value: visit.customer_email },
-    { label: 'Fecha de la visita', value: fechaNormal.toLocaleDateString() },
-    { label: 'Estado', value: estadoVisita.text, color: estadoVisita.color },
     {
       label: 'Dirección',
       value: `${visit.address} ${visit.number}, ${visit.city}, ${visit.country}`,
     },
+    { label: 'Email', value: visit.customer_email },
+    { label: 'Fecha de la visita', value: fechaNormal.toLocaleDateString() },
+    { label: 'Estado', value: estadoVisita.text, color: estadoVisita.color },
     { label: 'Observaciones', value: visit.observations },
   ];
 

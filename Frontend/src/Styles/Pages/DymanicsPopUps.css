@@ -112,6 +112,14 @@
   gap: 20px;
 }
 
+.main_ilist span:last-child {
+  margin-top: auto;
+}
+
+.main_actions{
+  border-top: 1px solid #eee;
+}
+
 .customConfirmBtnClass,
 .customCancelBtnClass {
   background-color: transparent;

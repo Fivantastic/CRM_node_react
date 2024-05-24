@@ -132,6 +132,10 @@
     grid-template-columns: 1fr auto auto auto;
   }
 
+  .mainInsideSub {
+    font-size: 0.85rem;
+  }
+
   .groupSearch {
     max-width: 180px;
     font-size: 1rem;

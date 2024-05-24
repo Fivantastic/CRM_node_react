@@ -8,11 +8,10 @@ import { FilterPages } from '../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../components/NavPages/SortPages.jsx';
 import { UserListTable } from '../components/PagesComponents/User/UserListTable.jsx';
 import { useUserList } from '../hooks/PagesHooks/useUserList.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const UserPage = () => {
   const token = useUser();
-  // Importa el hook personalizado
   const {
     filteredUserList,
     handleSearch,
@@ -21,10 +20,20 @@ export const UserPage = () => {
     addUser,
     deleteUser,
     activeUser
-  } = useUserList(token); // Usa el hook personalizado
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
+  } = useUserList(token);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 860);
 
-  // Opciones de filtro
+  useEffect(() => {
+    const handleResize = () => {
+      setIsListView(window.innerWidth <= 860);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const filterOptions = [
     { label: 'Activo', value: '1' },
     { label: 'Inactivo', value: '0' },
@@ -33,7 +42,6 @@ export const UserPage = () => {
     { label: 'Repartidor', value: 'deliverer' },
   ];
 
-  // Opciones de ordenamiento 
   const sortOptions = [
     { label: "Nombre (A - Z)", value: "nombre-asc" },
     { label: "Nombre (Z - A)", value: "nombre-desc" },
@@ -41,7 +49,6 @@ export const UserPage = () => {
     { label: "Fecha (Recientes)", value: "fecha-desc" },
   ];
 
-  // Manejadores de eventos
   return (
     <MainLayout title="Usuarios">
       <section id="user_container" className="mainContainer">

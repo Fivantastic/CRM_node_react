@@ -1,6 +1,6 @@
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SalesList } from '../../components/PagesComponents/Sales/SalesList.jsx';
 import { CreateSale } from '../../components/PagesComponents/Sales/CreateSale.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
@@ -26,7 +26,18 @@ export const SalesPage = () => {
     typeModuleMessage,
   } = useSalesList(token);
 
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1050);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsListView(window.innerWidth <= 1050);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const filterOptions = [
     { label: 'Proceso', value: 'open' },

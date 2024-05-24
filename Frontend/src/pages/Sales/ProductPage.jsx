@@ -1,6 +1,6 @@
 import { useUser } from '../../context/authContext';
 import { CreateProduct } from '../../components/PagesComponents/Products/CreateProduct.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SearchPages } from '../../components/NavPages/SearchPages.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
@@ -28,7 +28,18 @@ export const ProductPage = () => {
     typeModule,
     typeModuleMessage,
   } = useProductList(token);
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 860);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsListView(window.innerWidth <= 860);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const filterOptions = [
     { label: 'Activo', value: '1' },

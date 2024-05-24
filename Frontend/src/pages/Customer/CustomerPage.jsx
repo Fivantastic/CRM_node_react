@@ -1,6 +1,6 @@
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCustomerList } from '../../hooks/PagesHooks/useCustomerList.js';
 import { CreateCustomer } from '../../components/PagesComponents/Customer/CreateCustomer.jsx';
 import { CustomerList } from '../../components/PagesComponents/Customer/CustomerList.jsx';
@@ -27,7 +27,18 @@ export const CustomerPage = () => {
     typeModuleMessage,
   } = useCustomerList(token);
 
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 860);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsListView(window.innerWidth <= 860);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const filterOptions = [
     { label: 'Activo', value: '1' },

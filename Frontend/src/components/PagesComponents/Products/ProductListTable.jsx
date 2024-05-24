@@ -2,8 +2,8 @@ import { useUser } from '../../../context/authContext.jsx';
 import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 import { UpdateProduct } from "./UpdateProduct.jsx";
 import { MoreProduct } from "./MoreProduct.jsx";
-import './productListTable.css';
 import { StatusProductController } from './StatusProductController.jsx';
+import './productListTable.css';
 
 export const ProductListTable = ({ product, onUpdateProduct, onDelete, isActive, typeModule, typeModuleMessage }) => {
   const token = useUser();

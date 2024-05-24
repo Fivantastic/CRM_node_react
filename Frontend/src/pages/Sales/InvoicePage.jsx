@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
 import { CreateInvoice } from '../../components/PagesComponents/Invoces/CreateInvoice.jsx';
@@ -20,7 +20,18 @@ export const InvoicePage = () => {
     addInvoice,
     updateInvoice
   } = useInvoicesList(token)
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 860);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsListView(window.innerWidth <= 860);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const filterOptions = [
     { label: 'Enviada', value: 'sent' },

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUser } from '../../context/authContext.jsx';
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
@@ -20,7 +20,18 @@ export const PaymentPage = () => {
     addPayment,
     handleNewPaymentStatus
   } = usePaymentsList(token)
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <=930);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsListView(window.innerWidth <= 930);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // Opciones de filtro
   const filterOptions = [

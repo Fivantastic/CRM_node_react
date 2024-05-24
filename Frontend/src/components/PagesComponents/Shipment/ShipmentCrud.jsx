@@ -1,5 +1,5 @@
 import { useUser } from '../../../context/authContext.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SearchPages } from '../../../components/NavPages/SearchPages.jsx';
 import { CreateShipment } from '../../../components/PagesComponents/Shipment/CreateShipment.jsx';
 import { SortPages } from '../../../components/NavPages/SortPages.jsx';
@@ -28,7 +28,18 @@ export const ShipmentsCrud = () => {
     deleteShipment,
     updateShipment
   } = useShipmentList(token);
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <=825);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsListView(window.innerWidth <= 825);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },

@@ -25,17 +25,17 @@ export const UserListTable = ({ user, activeUser, onDelete }) => {
     return (
         <section id="user_table" className="userTable">
             <div className="userTableHead">
-                <div className="userTableHeadRowName headRow">Nombre y Apellidos</div>
-                <div className="userTableHeadRowRole headRow">Rol</div>
-                <div className="userTableHeadRowActive headRow">Estado</div>
-                <div className="userTableHeadRowActions headRow">Acciones</div>
+                <div className="userTableHeadRowName">Nombre y Apellidos</div>
+                <div className="userTableHeadRowRole">Rol</div>
+                <div className="userTableHeadRowActive">Estado</div>
+                <div className="userTableHeadRowActions">Acciones</div>
             </div>
             <div className="userTableBody">
                 {userData && userData.length > 0 ? (userData.map((userData) => (
                     <div key={userData.id_user} className="userTableBodyRow">
                         <div className="userTableBodyRowName">{`${userData.name} ${userData.last_name}`}</div>
                         <div className="userTableBodyRowRole">{traducirRole(userData.role)}</div>
-                        <div className={`userTableBodyRow ${userData.active === 1 ? 'active' : 'inactive'}`}>{userData.active === 1 ? 'Activo' : 'Inactivo'}</div>
+                        <div id="userTableBodyRowActive" className={`userTableBodyRow ${userData.active === 1 ? 'active' : 'inactive'}`}>{userData.active === 1 ? 'Activo' : 'Inactivo'}</div>
                         <div className="userTableBodyRowActions">
                             <ProfileButton userData={userData} isActive={userData.active} />
                             <ButtonMoreUserActions id={userData.id_user} activeUser={activeUser} isActive={userData.active} token={token} />

@@ -9,7 +9,7 @@ import { FilterPages } from '../../components/NavPages/FilterPages.jsx';
 import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { useDeliveryList } from '../../hooks/PagesHooks/useDeliveryList.js';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NoteListTable } from '../../components/PagesComponents/DeliveryNotes/NoteListTable.jsx';
 import { MoreNote } from '../../components/PagesComponents/DeliveryNotes/MoreNote.jsx';
 
@@ -28,7 +28,18 @@ export const DeliveryNotePage = () => {
     updateDeleveryNotes,
   } = useDeliveryList(token);
 
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1000);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1200);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsListView(window.innerWidth <= 1200);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },

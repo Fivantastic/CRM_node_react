@@ -1,8 +1,15 @@
+#visit_list {
+  width: 800px;
+  display: grid;
+  grid-template-columns: 350px 350px; 
+  column-gap: 25px;
+}
+
 #visit_table {
   max-width: 850px;
   border-radius: 8px;
   padding: 10px 15px;
-  margin-top: 15px;
+  margin-top: 10px;
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
@@ -70,4 +77,15 @@
 .visitTableBodyRowActions {
   display: flex;
   align-items: center;
+}
+
+
+@media  screen and (max-width: 825px) {
+
+  #visit_list {
+    width: 350px;
+    grid-template-columns: 320px;
+
+  }
+  
 }

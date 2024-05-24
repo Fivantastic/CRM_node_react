@@ -1,19 +1,16 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { useState } from 'react';
 import { useOpenSales } from '../../../hooks/PagesHooks/useOpenSales.js';
 import { useDeliverers } from '../../../hooks/PagesHooks/useDeliverers.js';
-import { useState } from 'react';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import { joiErrorMessages } from '../../../Schema/Error/JoiErrorMesasage.js';
+
 
 export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
   const [reload, setReload] = useState(false);
   const openSales = useOpenSales(token, reload);
   const deliverers = useDeliverers(token, reload);
-
-  const [formValues, setFormValues] = useState({
-    id_sale: '',
-    deliverer_id: ''
-  });
 
   const handleDeliveryNoteCreatedAction = async (formData) => {
     console.log(formData);
@@ -44,7 +41,6 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
             toast: true,
           });
   
-          // Recargar datos de ventas y repartidores
           setReload(!reload);
         } else {
           console.error('La respuesta del servidor no contiene id_note:', responseData);
@@ -57,22 +53,14 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
     }
   };
 
-  const handleFieldChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
   const title = 'Crear Nota de Entrega';
   const nameButton = 'Crear';
 
   const deliveryNoteFormFields = [
     {
-      key: 'id_sale', 
+      key: 'id_sale',
       name: 'id_sale',
-      label: 'Venta',
+      label: 'Venta *',
       type: 'select',
       options: {
         'Órdenes de venta': openSales.map(sale => ({
@@ -82,50 +70,46 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
       },
       idLabel: 'labelRefSLNoteCreate',
       idInput: 'inputRefSLNoteCreate',
-      required: true,
-      onChange: handleFieldChange,
-      value: formValues.id_sale
+      required: true
     },
     {
-      key: 'deliverer_id', 
+      key: 'deliverer_id',
       name: 'deliverer_id',
-      label: 'Repartidor',
+      label: 'Repartidor *',
       type: 'select',
       options: {
         'Repartidores': deliverers.map(deliverer => ({
           value: deliverer.id_user,
-          label: `${deliverer.ref_US} - ${deliverer.name} ${deliverer.last_name}` 
+          label: `${deliverer.ref_US} - ${deliverer.name}`
         }))
       },
       idLabel: 'labelDelivererNoteCreate',
       idInput: 'inputDelivererNoteCreate',
-      required: true,
-      onChange: handleFieldChange,
-      value: formValues.deliverer_id
+      required: true
     }
   ];
 
+  const StyleButton = {
+    idBtn:'btnNoteCreate',
+    idImgBtn:'imgCreateNoteBtn',
+    srcImgBtn:'/addNote.svg',
+    altImgBtn:'icono agregar Albaran',
+  }
+  
   const deliveryNoteSchema = Joi.object({
-    id_sale: Joi.string().guid().required(),
-    deliverer_id: Joi.string().guid().required()
+    id_sale: Joi.string().guid().required().messages(joiErrorMessages),
+    deliverer_id: Joi.string().guid().required().messages(joiErrorMessages),
   });
 
-  const handleClickCreateDeliveryNote = () => {
-    DynamicFormPopUp(
-      title,
-      deliveryNoteFormFields,
-      deliveryNoteSchema,
-      handleDeliveryNoteCreatedAction,
-      nameButton,
-      formValues
-    );
-  };
-
   return (
-    <>
-      <button className="btnNoteCreate mainCreateBtn" onClick={handleClickCreateDeliveryNote}>
-        <img id='imgCreateNoteBtn' className='imgCreateBtn' src="/addNote.svg" alt="icono agregar Albaran" />
-      </button>
-    </>
+    <DynamicModalWrapper
+      title={title}
+      fields={deliveryNoteFormFields}
+      schema={deliveryNoteSchema}
+      onSubmit={handleDeliveryNoteCreatedAction}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+    />
   );
 };

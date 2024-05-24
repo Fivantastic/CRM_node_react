@@ -1,0 +1,173 @@
+.input-container {
+    position: relative;
+    margin: 30px auto;
+    width: 300px;
+  }
+  
+  .input-container .inputText,
+  .input-container input[type="email"],
+  .input-container input[type="password"],
+  .input-container input[type="textarea"],
+  .input-container input[type="date"] {
+    font-size: 20px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 5px 0;
+    background-color: transparent;
+    outline: none;
+  }
+  
+  .inputSelect {
+    width: 300px;
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 5px 10px;
+  }
+  
+  .input-container input[type="date"] { 
+    color: #ccc;
+  }
+  
+  .input-container input[type="date"]:focus,
+  .input-container input[type="date"].has-content {
+    color: black;
+  }
+  
+  .input-container .label {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    font-size: 1.2rem;
+    color: #ccc;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .input-container .labelSelect {
+    position: absolute;
+    top: 17px;
+    left: 0;
+    font-size: 1.2rem;
+    color: #ccc;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .has-selection ~ .labelSelect,
+  .input-container .has-selection:focus ~ .labelSelect,
+  .input-container input[type="date"].has-content ~ .label {
+    top: -5px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .input-container input[type="date"]:not(:placeholder-shown) ~ .label {
+    color: #ccc;
+  }
+  
+
+  .input-container .inputSelect:focus ~ .labelSelect,
+  .input-container .has-selection:focus ~ .labelSelect,
+  .input-container .has-selection ~ .labelSelect {
+    top: 0;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .input-container .inputText:focus ~ .label,
+  .input-container .inputText:not(:placeholder-shown) ~ .label,
+  .input-container input[type="date"]:focus ~ .label,
+  .input-container input[type="date"].has-content ~ .label,
+  .input-container input[type="email"]:focus ~ .label,
+  .input-container input[type="email"]:not(:placeholder-shown) ~ .label,
+  .input-container input[type="password"]:focus ~ .label,
+  .input-container input[type="password"]:not(:placeholder-shown) ~ .label {
+    top: -15px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  
+  .input-container .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #333;
+    transform: scaleX(0);
+    transition: all 0.3s ease;
+  }
+  
+  .input-container input[type="date"]:not(:placeholder-shown) ~ .underline {
+    transform: scaleX(0);
+  }
+  
+  .input-container .inputText:focus ~ .underline,
+  .input-container .inputText:not(:placeholder-shown) ~ .underline,
+  .input-container .has-selection:focus ~ .underline,
+  .input-container .has-selection ~ .underline,
+  .input-container input[type="date"]:focus ~ .underline,
+  .input-container input[type="date"].has-content ~ .underline,
+  .input-container input[type="email"]:focus ~ .underline,
+  .input-container input[type="email"]:not(:placeholder-shown) ~ .underline,
+  .input-container input[type="password"]:focus ~ .underline,
+  .input-container input[type="password"]:not(:placeholder-shown) ~ .underline {
+    transform: scaleX(1);
+  }
+  
+  /* Hacer que el date siempre esté en focus para que el label esté arriba */
+  .input-container input[type="date"] ~ .label {
+    top: -20px;
+    font-size: 16px;
+  }
+
+  .labelSelect.has-focus {
+    top: -5px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .underline.has-focus {
+    transform: scaleX(1);
+  }
+  
+  .swal2-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .main_ilist span:last-child {
+    margin-top: auto;
+  }
+  
+  .main_actions{
+    border-top: 1px solid #eee;
+  }
+
+  
+  .info-text {
+    font-style: italic;
+    font-size: 14px;
+    text-align: end;
+    color: #ccc;
+  }
+  
+  .validation-errors {
+    color: red;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    text-align: start;
+    font-style: italic;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .validation-error-item {
+    margin: 10px 0 5px 0;
+  }

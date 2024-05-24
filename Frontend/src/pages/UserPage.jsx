@@ -39,8 +39,6 @@ export const UserPage = () => {
     { label: "Nombre (Z - A)", value: "nombre-desc" },
     { label: "Fecha (Antiguos)", value: "fecha-asc" },
     { label: "Fecha (Recientes)", value: "fecha-desc" },
-    { label: "Rol (A - Z)", value: "rol-asc" },
-    { label: "Rol (Z - A)", value: "rol-desc" },
   ];
 
   // Manejadores de eventos

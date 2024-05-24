@@ -43,6 +43,7 @@ export const ProfileButton = ({ userData, isActive }) => {
         </div>
         <div class="container-details-modal">
           <p><strong>Nombre: </strong> ${nameComplete} </p>
+          <p><strong>Codigo usuario: </strong> ${userData.ref_US}</p>
           <p><strong>Email: </strong> ${userData.email}</p>
           <p><strong>Teléfono: </strong> ${userData.phone}</p>
           <p><strong>Dirección: </strong> ${addressConcatenated}</p>

@@ -88,6 +88,8 @@
 
 .input-container .inputText:focus ~ .underline,
 .input-container .inputText:not(:placeholder-shown) ~ .underline,
+.input-container .has-selection:focus ~ .underline,
+.input-container .has-selection ~ .underline,
 .input-container input[type="date"]:focus ~ .underline,
 .input-container input[type="date"].has-content ~ .underline,
 .input-container input[type="email"]:focus ~ .underline,

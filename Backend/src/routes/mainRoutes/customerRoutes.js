@@ -10,7 +10,6 @@ import {
     toggleActiveCustomerStatusController, 
     updateCustomerController 
 } from '../../controllers/mainControllers.js';
-import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 
 // Creamos un router
 export const customerRouter = express.Router();
@@ -31,6 +30,6 @@ customerRouter.put('/customer/:customerId',authenticateUser, customerExists, upd
 customerRouter.delete('/customer/delete/:customerId', authenticateUser, adminAuthMiddleware, deleteCustomerController);
 
 // Activar y desactivar clientes
-customerRouter.put('/customer/toggleActivation', authenticateUser, adminAuthMiddleware, toggleActiveCustomerStatusController);
+customerRouter.put('/custo/active', authenticateUser, adminAuthMiddleware, toggleActiveCustomerStatusController);
 
 

@@ -55,5 +55,10 @@ productRouter.put(
 );
 
 // Activar y desactivar productos
-productRouter.put('/product/toggleActivation', authenticateUser, adminAuthMiddleware, toggleActiveProductStatusController);
+productRouter.put(
+  '/product/toggleActivation', 
+  authenticateUser, 
+  adminAuthMiddleware, 
+  toggleActiveProductStatusController
+);
 

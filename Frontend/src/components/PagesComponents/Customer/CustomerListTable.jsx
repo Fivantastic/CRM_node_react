@@ -32,7 +32,6 @@ export const CustomerListTable = ({ customer, updateCustomer, deleteCustomer, ac
                   isActive={customerItem.active}
                   activeCustomer={activeCustomer}
                   token={token}
-                  typeModule={typeModule}
                   typeModuleMessage={typeModuleMessage}
                 />
                 <UpdateCustomer

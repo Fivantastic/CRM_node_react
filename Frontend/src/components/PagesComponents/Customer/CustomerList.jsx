@@ -2,8 +2,8 @@ import { useUser } from "../../../context/authContext.jsx";
 import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 import { UpdateCustomer } from "./UpdateCustomer.jsx";
 import { MoreInfo } from "../../InfoModal/MoreInfo.jsx";
-import '../../../Styles/Pages/StyleCustomerList.css';
 import { StatusCustomerController } from "./StatusCustomerController.jsx";
+import '../../../Styles/Pages/StyleCustomerList.css';
 
 export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeModule, typeModuleMessage, activeCustomer }) => {
   const token = useUser();
@@ -47,7 +47,7 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeMod
 
       <p className="mainInsideSub"><strong>Email: </strong> {customer.email}</p>
       <p className="mainInsideSub"><strong>Teléfono: </strong> {customer.phone}</p>
-      <p className="mainInsideSub"><strong>Estado: </strong> <span className={activeClass}>{active}</span></p>
+      <p className="mainInsideSub"><strong>Estado: </strong> <span className={activeClass}>{customer.active ? 'Activo' : 'Inactivo'}</span></p>
 
       <span className="main_actions">
         <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
@@ -63,6 +63,7 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeMod
           customer={customer.id_customer}
           onUpdateCustomer={updateCustomer}
           token={token}
+          typeModuleMessage={typeModuleMessage}
         />
         <DeleteGenericModal
           id={customer.id_customer}

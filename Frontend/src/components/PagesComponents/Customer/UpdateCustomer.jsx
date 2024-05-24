@@ -2,12 +2,13 @@ import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { EditButton } from '../../buttons/EditButton.jsx';
 import { updateCustomerSchema } from '../../../Schema/Error/updateSchema.js';
+const URL = import.meta.env.VITE_URL;
 
-export const UpdateCustomer = ({ customer, onUpdateCustomer, token }) => {
+export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
   // Aquí hace la petición al servidor
   const handleUpdateCustomerAccion = async (formData) => {
     try {
-      const response = await fetch(`http://localhost:3000/customer/${customer}`, {
+      const response = await fetch(`${URL}/customer/${customer}`, {
         method: 'PUT',
         credentials: 'include',
         headers: {

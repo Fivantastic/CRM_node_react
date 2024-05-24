@@ -27,7 +27,7 @@ export const CreateUser = ({ onAddUser, token }) => {
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -65,7 +65,7 @@ export const CreateUser = ({ onAddUser, token }) => {
     {
       name: 'name',
       type: 'text',
-      label: 'Nombre*',
+      label: 'Nombre *',
       required: true,
 
       idLabel: 'labelNameUserCreate',
@@ -74,7 +74,7 @@ export const CreateUser = ({ onAddUser, token }) => {
     { 
       name: 'last_name',
       type: 'text',
-      label: 'Apellidos',
+      label: 'Apellidos *',
       required: true,
       idLabel: 'labelLastNameUserCreate',
       idInput: `inputLastNameUserCreate`,
@@ -82,7 +82,7 @@ export const CreateUser = ({ onAddUser, token }) => {
     {
       name: 'email',
       type: 'email',
-      label: 'Email*',
+      label: 'Email *',
       idLabel: 'labelEmailUserCreate',
       idInput: `inputEmailUserCreate`,
       required: true,
@@ -90,7 +90,7 @@ export const CreateUser = ({ onAddUser, token }) => {
     {
       name: 'role',
       type: 'select',
-      label: 'Rol*',
+      label: 'Rol *',
       idLabel: 'labelRoleUserCreate',
       idInput: `inputSelectUserCreate`,
       value: '',

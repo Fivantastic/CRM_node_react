@@ -143,16 +143,10 @@ const applyFilters = () => {
         sortedList.sort((a, b) => b.name.localeCompare(a.name));
         break;
       case 'fecha-asc':
-        sortedList.sort((a, b) => new Date(a.create_at) - new Date(b.create_at));
+        sortedList.sort((a, b) => a.ref_US.localeCompare(b.ref_US));
         break;
       case 'fecha-desc':
-        sortedList.sort((a, b) => new Date(b.create_at) - new Date(a.create_at));
-        break;
-      case 'rol-asc':
-        sortedList.sort((a, b) => a.role.localeCompare(b.role));
-        break;
-      case 'rol-desc':
-        sortedList.sort((a, b) => b.role.localeCompare(a.role));
+        sortedList.sort((a, b) => b.ref_US.localeCompare(a.ref_US));
         break;
       default:
         break;

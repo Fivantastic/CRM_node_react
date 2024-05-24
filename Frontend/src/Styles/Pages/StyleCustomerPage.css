@@ -77,3 +77,25 @@
 }
 
 
+@media screen and (max-width: 750px) {
+    #customerCreateModal {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "Nombre"
+        "Apellidos"
+        "Email"
+        "Telefono"
+        "Direccion"
+        "Numero"
+        "Ciudad"
+        "CP"
+        "pais"
+        "NIF"
+        "Empresa"
+        "activo"
+        ;
+
+
+    }
+    
+}

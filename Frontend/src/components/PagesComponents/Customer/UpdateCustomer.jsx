@@ -6,8 +6,6 @@ import { updateCustomerSchema } from '../../../Schema/Error/updateSchema.js';
 export const UpdateCustomer = ({ customer, onUpdateCustomer, token }) => {
   // Aquí hace la petición al servidor
   const handleUpdateCustomerAccion = async (formData) => {
-    console.log(formData);
-    console.log(customer);
     try {
       const response = await fetch(`http://localhost:3000/customer/${customer}`, {
         method: 'PUT',
@@ -16,7 +14,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token }) => {
           'Content-Type': 'application/json',
           Authorization: `${token}`,
         },
-        body: JSON.stringify(formData), // aquí va el formData lo que le envío lo del body
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -24,9 +22,10 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token }) => {
         const responseData = await response.json();
         console.log('Cliente actualizado satisfactoriamente:', responseData);
 
-        onUpdateCustomer(customer);
+        // Actualiza el cliente localmente
+        onUpdateCustomer(responseData.data.customer);
 
-        // Aquí puedes mostrar un mensaje de éxito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
+        // Mostrar un mensaje de éxito con Swal
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -47,12 +46,10 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token }) => {
         // Si la petición es incorrecta
         const errorData = await response.json();
         console.error('Actualización fallida:', errorData);
-        // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
       }
     } catch (error) {
       // Si la petición falla
       console.error('Error durante la actualización del cliente:', error);
-      // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
     }
   };
 
@@ -66,6 +63,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token }) => {
   const dynamicIdModal = 'customerCreateModal';
 
   // Campos del formulario personalizables
+
   const updateCustomerFormFields = [
     {
       name: 'name',
@@ -168,17 +166,16 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token }) => {
     },
   ];
 
-  // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la información que tiene que introducir en el body
-  const handleUpdateCustomer = () => {
-    DynamicFormPopUp(
-      title,
-      updateCustomerFormFields,
-      updateCustomerSchema,
-      handleUpdateCustomerAccion,
-      nameButton,
-      dynamicIdModal
-    );
-  };
+    const handleUpdateCustomer = () => {
+      DynamicFormPopUp(
+        title,
+        updateCustomerFormFields,
+        updateCustomerSchema,
+        handleUpdateCustomerAccion,
+        nameButton,
+        dynamicIdModal
+      );
+    };
 
   return (
     <EditButton id='btnCustomerUpdate' className="mainUpdateBtn" onClick={handleUpdateCustomer} />

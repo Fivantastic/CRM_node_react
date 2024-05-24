@@ -23,8 +23,8 @@ export const selectCustomerSearchModel = async (search) => {
             Addresses.country
         FROM Customers 
         INNER JOIN Addresses ON Customers.address_id = Addresses.id_address 
-        WHERE Customers.name LIKE ? OR Customers.email LIKE ? OR Customers.ref_CT LIKE ?`,
-        [`%${search}%`, `%${search}%`, `%${search}%`]
+        WHERE Customers.name LIKE ? OR Customers.email LIKE ? OR Customers.ref_CT LIKE ? OR Customers.company_name LIKE ?`,
+        [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`]
     );
 
     return rows;

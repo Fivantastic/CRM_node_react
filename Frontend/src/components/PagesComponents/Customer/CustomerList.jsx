@@ -10,6 +10,7 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeMod
 
   const nameComplete = `${customer.name} ${customer.last_name}`;
   const active = customer.active === 1 ? 'Activo' : 'Inactivo';
+  const activeColor = customer.active === 1 ? 'green' : 'red';
   const activeClass = customer.active ? 'active' : 'inactive';
   const addressConcatenated = customer.address 
     ? `${customer.address} ${customer.number}, ${customer.city}, ${customer.country}` 
@@ -23,7 +24,7 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeMod
     { label: 'Empresa', value: customer.company_name, id: 'element_customer_company' },
     { label: 'NIF', value: customer.NIF, id: 'element_customer_NIF' },
     { label: 'Dirección', value: addressConcatenated, id: 'element_customer_address' },
-    { label: 'Estado', value: active, id: 'element_customer_active' },
+    { label: 'Estado', value: active, id: 'element_customer_active', color: activeColor },
   ];
 
   const modalIds = {
@@ -39,17 +40,16 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeMod
     <>
       <div id="element_customer_subtitle" className="mainInsideSub">
         <p className="refTitle">Ref: {customer.ref_CT}</p>
-         - 
-        <p className="companyTitle">{customer.company_name}</p>
       </div>
+      <p className="mainInsideSub"><strong>Empresa: </strong>{customer.company_name}</p>
 
-      <p className="mainInsideSub"><strong>Nombre: </strong> {nameComplete}</p>
+      <p className="mainInsideSub"><strong>Contacto: </strong> {nameComplete}</p>
 
       <p className="mainInsideSub"><strong>Email: </strong> {customer.email}</p>
       <p className="mainInsideSub"><strong>Teléfono: </strong> {customer.phone}</p>
       <p className="mainInsideSub"><strong>Estado: </strong> <span className={activeClass}>{active}</span></p>
 
-      <nav className="actions">
+      <span className="main_actions">
         <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
         <StatusCustomerController
           id={customer.id_customer}
@@ -71,7 +71,7 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeMod
           typeModule={typeModule}
           typeModuleMessage={typeModuleMessage}
         />
-      </nav>
+      </span>
     </>
   );
 };

@@ -7,6 +7,7 @@ export const MoreCustomer = ({ customer }) => {
 
   // Si active es 1 que ponga activo si es 0 que muestre inactivo
   const active = customer.active === 1 ? 'Activo' : 'Inactivo';
+  const activeColor = customer.active === 1 ? 'green' : 'red';
 //   const activeClass = customer.active ? 'active' : 'inactive';
 
   // Construye el contenido del modal con la información del usuario
@@ -24,7 +25,7 @@ export const MoreCustomer = ({ customer }) => {
     { label: 'Empresa', value: customer.company_name, id: 'element_customer_company' },
     { label: 'NIF', value: customer.NIF, id: 'element_customer_NIF' },
     { label: 'Dirección', value: addressConcatenated, id: 'element_customer_address' },
-    { label: 'Estado', value: active, id: 'element_customer_active' },
+    { label: 'Estado', value: active, id: 'element_customer_active', color: activeColor },
   ];
 
   const modalIds = {

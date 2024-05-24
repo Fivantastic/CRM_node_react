@@ -124,16 +124,16 @@ export const useCustomerList = (token) => {
 
     switch (sortOption) {
       case 'nombre-asc':
-        sortedList.sort((a, b) => a.name.localeCompare(b.name));
+        sortedList.sort((a, b) => a.company_name.localeCompare(b.company_name));
         break;
       case 'nombre-desc':
-        sortedList.sort((a, b) => b.name.localeCompare(a.name));
+        sortedList.sort((a, b) => b.company_name.localeCompare(a.company_name));
         break;
       case 'fecha-asc':
-        sortedList.sort((a, b) => new Date(a.create_at) - new Date(b.create_at));
+        sortedList.sort((a, b) => a.ref_CT.localeCompare(b.ref_CT));
         break;
       case 'fecha-desc':
-        sortedList.sort((a, b) => new Date(b.create_at) - new Date(a.create_at));
+        sortedList.sort((a, b) => b.ref_CT.localeCompare(a.ref_CT));
         break;
       default:
         break;
@@ -170,13 +170,13 @@ export const useCustomerList = (token) => {
   const updateCustomer = (updatedCustomer) => {
     setListCustomer((prevList) =>
       prevList.map((customer) =>
-        customer.id_customer === updatedCustomer.id_customer ? updatedCustomer : customer
+        customer.id_customer === updatedCustomer.id_customer ? { ...customer, ...updatedCustomer } : customer
       )
     );
     
     setFilteredCustomerList((prevList) =>
       prevList.map((customer) =>
-        customer.id_customer === updatedCustomer.id_customer ? updatedCustomer : customer
+        customer.id_customer === updatedCustomer.id_customer ? { ...customer, ...updatedCustomer } : customer
       )
     );
   };

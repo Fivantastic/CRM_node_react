@@ -1,7 +1,7 @@
 #sales_list {
   width: 950px;
   display: grid;
-  grid-template-columns: 300px 300px;
+  grid-template-columns: 300px 300px 300px;
   column-gap: 20px;
 }
 
@@ -9,7 +9,7 @@
   max-width: 950px;
   border-radius: 8px;
   padding: 10px 15px;
-  margin-top: 15px;
+  margin-top: 10px;
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
@@ -97,13 +97,18 @@
   align-items: center;
 }
 
-@media screen and (max-width: 715px) {
+@media screen and (max-width: 1040px) {
+
+  #sales_list {
+    width: 700px;
+    grid-template-columns: 320px 320px;
+  }
+}
+
+@media screen and (max-width: 760px) {
 
   #sales_list {
     width: 350px;
     grid-template-columns: 320px;
-
-  
-}
-
+  }
 }

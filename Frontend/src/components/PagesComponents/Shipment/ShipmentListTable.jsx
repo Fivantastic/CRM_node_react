@@ -2,9 +2,8 @@ import { useUser } from '../../../context/authContext.jsx';
 import { UpdateShipment } from './UpdateShipment.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
-
-import './ShipListTable.css';
 import { MoreShipments } from './MoreShipments.jsx';
+import './ShipListTable.css';
 
 export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete }) => {
   const token = useUser();

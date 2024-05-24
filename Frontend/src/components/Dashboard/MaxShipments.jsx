@@ -16,7 +16,7 @@ export const MaxShipments = () => {
           </svg>
         </span>
         <p className="title-text">Envios</p>
-        <p className="percent">
+        <s className="percent">
           <svg
             width="20"
             height="20"
@@ -27,10 +27,10 @@ export const MaxShipments = () => {
             <path d="M1408 1216q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z"></path>
           </svg>{' '}
           20%
-        </p>
+        </s>
       </div>
       <div className="data">
-        <p>
+        <section>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="34px"
@@ -41,7 +41,7 @@ export const MaxShipments = () => {
             <path d="m400-570 80-40 80 40v-190H400v190ZM280-280v-80h200v80H280Zm-80 160q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-640v560-560Zm0 560h560v-560H640v320l-160-80-160 80v-320H200v560Z" />
           </svg>
           &nbsp;39,500
-        </p>
+        </section>
 
         <div className="range">
           <div className="fill"></div>

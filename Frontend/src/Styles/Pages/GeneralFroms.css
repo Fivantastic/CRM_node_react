@@ -1,7 +1,5 @@
 /* Estilo tamaño de todos los ol */
 #shipment_container {
-  margin-left: 15px;
-  margin-top: 15px;
   max-width: 750px;
 }
 
@@ -146,8 +144,6 @@
   .checkbox-wrapper-35 {
     display: none;
   }
-  .main_ilist{
-    margin-right: 45px;
-  }
+
   
 }

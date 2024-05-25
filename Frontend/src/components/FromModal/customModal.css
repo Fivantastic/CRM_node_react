@@ -83,7 +83,8 @@
 
 
 .modal-footer-custom {
-  max-width: 330px;
+  max-width: 100%;
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
   padding-top: 10px;
@@ -95,7 +96,6 @@
   color: #13214E;
   border: none;
   padding: 8px 20px;
-  margin: 0 50px 0 26px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -111,7 +111,7 @@
   color: #13214E;
   border: none;
   padding: 8px 20px;
-  margin: 0 34px 0 58px;
+
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;

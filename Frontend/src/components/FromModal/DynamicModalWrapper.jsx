@@ -3,7 +3,7 @@ import { DynamicFormModal } from './DynamicFormModal';
 import { EditButton } from '../buttons/EditButton.jsx';
 import { StyleButtonCreate } from '../buttons/StyleButtonCreate.jsx';
 
-export const DynamicModalWrapper = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, StyleButton, customModalSize }) => {
+export const DynamicModalWrapper = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, StyleButton, customModalSize, StyleAcceptBtn }) => {
   const [showModal, setShowModal] = useState(false);
   const [initialValues, setInitialValues] = useState({});
 
@@ -38,6 +38,7 @@ export const DynamicModalWrapper = ({ title, fields, schema, onSubmit, buttonTex
         initialValues={initialValues}
         resetFormValues={() => setInitialValues({})}
         customModalSize={customModalSize} 
+        StyleAcceptBtn={StyleAcceptBtn}
       />
     </>
   );

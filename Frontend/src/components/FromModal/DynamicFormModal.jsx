@@ -4,7 +4,7 @@ import { CustomModal } from './CustomModal';
 import { customStyles } from './customStyle.js';
 import './DynamicFormModal.css';
 
-export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues, resetFormValues,customModalSize }) => {
+export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues, resetFormValues,customModalSize, StyleAcceptBtn }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [validationErrors, setValidationErrors] = useState([]);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -136,6 +136,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
     buttonText={buttonText} 
     isSubmitDisabled={isSubmitDisabled} 
     customModalSize={customModalSize} 
+    StyleAcceptBtn={StyleAcceptBtn}
     >
       <h2>{title}</h2>
       <form id={dynamicIdModal} className="dynamicCustomFromModal">

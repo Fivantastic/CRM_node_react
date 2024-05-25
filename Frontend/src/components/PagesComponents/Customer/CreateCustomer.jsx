@@ -176,6 +176,14 @@ const customModalSize = {
   idModalContainer:'createCustomerContainerModal',
 }
 
+const StyleAcceptBtn = {
+  idAcceptBtn:'btnAcceptVisitsCreate',
+  altImgBtn:'icono crear Visita',
+  btnSvg:'/AddCustomerWhite.svg',
+  altAcceptBtn:'Boton crear',
+  action:'create'
+}
+
 return (
   <DynamicModalWrapper
     title={title}
@@ -186,6 +194,7 @@ return (
     dynamicIdModal="customerCreateModal"
     StyleButton={StyleButton}
     customModalSize={customModalSize} 
+    StyleAcceptBtn={StyleAcceptBtn}
   />
 );
 };

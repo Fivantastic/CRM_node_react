@@ -1,10 +1,9 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
 import { useOpenSales } from '../../../hooks/PagesHooks/useOpenSales.js';
 import { useDeliverers } from '../../../hooks/PagesHooks/useDeliverers.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
-import { joiErrorMessages } from '../../../Schema/Error/JoiErrorMesasage.js';
+import { deliveryNoteSchema } from '../../../Schema/Error/createSchema.js';
 
 
 export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
@@ -96,11 +95,13 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
     altImgBtn:'icono agregar Albaran',
     action:'create'
   }
-  
-  const deliveryNoteSchema = Joi.object({
-    id_sale: Joi.string().guid().required().messages(joiErrorMessages),
-    deliverer_id: Joi.string().guid().required().messages(joiErrorMessages),
-  });
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptNoteCreate',
+    altImgBtn:'icono agregar Albaran',
+    btnSvg:'/addNoteWhite.svg',
+    altAcceptBtn:'Boton crear',
+  }
 
   return (
     <DynamicModalWrapper
@@ -111,6 +112,7 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
       buttonText={nameButton}
       dynamicIdModal="dynamicFormModal"
       StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
     />
   );
 };

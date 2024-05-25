@@ -34,7 +34,7 @@ export const customStyles = {
     }),
     indicatorsContainer: (provided) => ({
       ...provided,
-      padding: '0',
+      padding: '0 0 0 -15px',
     }),
     indicatorSeparator: () => ({
       display: 'none',
@@ -49,8 +49,8 @@ export const customStyles = {
     }),
     menu: (provided) => ({
       ...provided,
-      marginTop: '0',
-      borderRadius: '0',
+      margin: '3px 10px 0 -10px',
+      borderRadius: '0 0 5px 5px',
     }),
     menuList: (provided) => ({
       ...provided,

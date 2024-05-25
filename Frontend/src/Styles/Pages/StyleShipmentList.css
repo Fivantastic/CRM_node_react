@@ -1,20 +1,35 @@
-.main_olist {
-    max-height: 400px; /* Ajustar la altura máxima para un mejor desplazamiento */
-    overflow-y: auto; /* Permitir el desplazamiento vertical */
+/* .main_olist {
+    max-height: 400px; 
+    overflow-y: auto; 
   }
   
   .main_olist::-webkit-scrollbar {
-    width: 0px; /* Ocultar la barra de desplazamiento en navegadores WebKit */
+    width: 0px; 
   }
   
   .main_olist {
-    -ms-overflow-style: none; /* Ocultar la barra de desplazamiento en IE y Edge */
-    scrollbar-width: none; /* Ocultar la barra de desplazamiento en Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
   }
   .mainShipment{
     padding: 0;
    }
+ */
 
+ #Shipment_external_container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+
+/* #shipment_container {
+  grid-area: shipmentList;
+} */
+
+/* #delivery_route {
+  grid-area: routeList;
+} */
   
   /* Popup styling */
   .popup {
@@ -41,24 +56,24 @@
   /* Estilos específicos para dispositivos móviles */
   @media (max-width: 600px) {
     .popup {
-      width: 90%; /* Ajusta el ancho para pantallas pequeñas */
+      width: 90%; 
     }
     
-    .main_olist {
-      padding: 5px 10px; /* Reduce el padding en dispositivos móviles */
-      max-height: 290px; /* Ajustar la altura máxima para un mejor desplazamiento en móviles */
+   /*  .main_olist {
+      padding: 5px 10px; 
+      max-height: 290px; 
     }
     
     .card-container {
-      margin: 10px 0; /* Ajusta el margen de las tarjetas en dispositivos móviles */
+      margin: 10px 0; 
     }
     
     .card-content {
-      padding: 10px; /* Ajusta el padding en el contenido de las tarjetas */
+      padding: 10px; 
     }
    .mainShipment{
     margin-right: 500px;
     padding: 0;
-   }
+   } */
   }
   

@@ -4,8 +4,21 @@ import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { EditButton } from '../../buttons/EditButton.jsx';
 const URL = import.meta.env.VITE_URL;
 import './SalesListTable.css';
+import { useState } from 'react';
+/* import { useOpenProducts } from '../../../hooks/selectsHook/useOpenProducts.js'; */
+import { useOpenCustomers } from '../../../hooks/selectsHook/useOpenCustomer.js';
 
-export const UpdateSale = ({ onUpdateSale, sale, token }) => {
+
+export const UpdateSale = ({ onUpdateSale, sale, token}) => {
+  const [listStatus, setListStatus] = useState([]);
+  const [reload, setReload] = useState(false);
+  /* const openProducts = useOpenProducts(token, reload); */
+  const openCustomers = useOpenCustomers(token, reload);
+  const [formValues, setFormValues] = useState({
+    id_product: '',
+  });
+  
+
   // Aqui hace la peticion al servidor
   const handleUpdateSaleAccion = async (formData) => {
     try {
@@ -25,6 +38,9 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
         const responseData = await response.json();
         console.log('Venta actualizada satisfactorio:', responseData);
         onUpdateSale(sale);
+        setListStatus(responseData.data);
+        console.log(responseData.data);
+
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
@@ -42,6 +58,8 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
           icon: 'success',
           title: 'Actualización Realizada con exito ! ',
         });
+
+        setReload(!reload);
       } else {
         // si la peticion es incorrecta
         const errorData = await response.json();
@@ -55,6 +73,14 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
     }
   };
 
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
   const title = 'Actualizar Venta';
 
@@ -63,15 +89,23 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
 
   // Campos del formulario personalizables
   const updateSaleFormFields = [
-    {
+    /* {
+      key: 'id_product', 
       name: 'product',
       label: 'Producto',
-      type: 'text',
-      placeholder: 'Introduce el producto...',
-      idLabel: 'labelNameSaleUpdate',
-      idInput: 'inputNameSaleUpdate',
+      type: 'select',
+      options: {
+        'Productos': openProducts.map(product => ({
+          value: product.id_product,
+          label: `${product.ref_PR} - ${product.name}`
+        }))
+      },
+      idLabel: 'labelNameSaleCreate',
+      idInput: 'inputNameSaleCreate',
       required: true,
-    },
+      onChange: handleFieldChange,
+      value: formValues.id_product
+    }, */
     {
       name: 'quantity',
       label: 'Cantidad',
@@ -82,33 +116,27 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
       required: true,
     },
     {
+      key: 'id_customer', 
       name: 'customer',
       label: 'Cliente',
-      type: 'text',
-      placeholder: 'Introduce el cliente...',
-      idLabel: 'labelCustomerSaleUpdate',
-      idInput: 'inputCustomerSaleUpdate',
-      required: true,
-    },
-    /*  {
-      name: 'operation_status',
-      label: 'Estado',
       type: 'select',
-      idLabel: 'labelStatusSaleUpdate',
-      idInput: 'inputStatusSaleUpdate',
       options: {
-        Estado: {
-          open: 'En Proceso',
-          cancelled: 'Cancelado',
-          closed: 'Cerrado',
-        },
+        'Clientes': openCustomers.map(customer => ({
+          value: customer.id_customer,
+          label: `${customer.ref_CT} - ${customer.company_name}`
+        }))
       },
-    }, */
+      idLabel: 'labelCustomerSaleCreate',
+      idInput: 'inputCustomerSaleCreate',
+      required: true,
+      onChange: handleFieldChange,
+      value: formValues.id_customer
+    },
   ];
 
   // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
   const updateSaleSchema = Joi.object({
-    product: Joi.string().optional(),
+    /* product: Joi.string().optional(), */
     quantity: Joi.string().optional(),
     customer: Joi.string().optional(),
     /* operation_status: Joi.string().optional(), */
@@ -126,10 +154,14 @@ export const UpdateSale = ({ onUpdateSale, sale, token }) => {
   };
 
   return (
-    <EditButton
-      id="btnSalesUpdate"
-      className="mainUpdateBtn"
-      onClick={handleUpdateSale}
-    />
+    <>
+      {listStatus !== 'closed' && (
+        <EditButton
+          id="btnSalesUpdate"
+          className="mainUpdateBtn"
+          onClick={handleUpdateSale}
+        />
+      )}
+    </>
   );
 };

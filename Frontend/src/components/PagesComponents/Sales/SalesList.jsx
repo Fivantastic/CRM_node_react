@@ -11,6 +11,8 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
 
   const traducirEstadoVenta = (estado) => {
     switch (estado) {
+      case "processing":
+        return { text: "Procesando", color: "orange"}
       case 'open':
         return { text: 'Pendiente', color: 'blue' };
       case 'cancelled':
@@ -23,11 +25,14 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
   };
 
   const statusSale = traducirEstadoVenta(sale.operation_status);
+  // Concatena el nombre y los apellidos del cliente
+  const nameComplete = `${sale.customer} ${sale.customer_lastname}`;
 
 
   const moreInfoFields = [
     { label: 'Ref', value: sale.ref_SL },
     { label: 'Empresa', value: sale.company_name },
+    { label: 'Nombre', value: nameComplete},
     { label: 'Producto', value: sale.product_name },
     { label: 'Precio', value: sale.product_price + ' €' } ,
     { label: 'Cantidad', value: sale.quantity + ' u.' } ,

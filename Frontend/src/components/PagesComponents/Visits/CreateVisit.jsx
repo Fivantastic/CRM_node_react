@@ -85,21 +85,20 @@ export const CreateVisit = ({ onAddVisit, token }) => {
       type: 'textarea',
       idLabel: 'labelObservationsVisitCreate',
       idInput: 'inputObservationsVisitCreate',
-      placeholder: 'Introduce las observaciones...',
       required: false,
     },
   ];
 
-
+  // Estilos del boton, copia el id del antiguo
   const StyleButton = {
     idBtn:'btnVisitCreate',
     idImgBtn:'imgVisitCreate',
     srcImgBtn:'/calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg',
     altImgBtn:'Boton agregar visita',
+    action:'create'
   }
 
   return (
-    <>
       <DynamicModalWrapper
         title={title}
         fields={VisitFormFields}
@@ -109,6 +108,5 @@ export const CreateVisit = ({ onAddVisit, token }) => {
         dynamicIdModal="dynamicFormModal"
         StyleButton={StyleButton}
       />
-    </>
   );
 };

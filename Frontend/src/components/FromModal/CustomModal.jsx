@@ -1,44 +1,53 @@
 import { useState, useEffect } from 'react';
 import './customModal.css';
 
-export const CustomModal = ({ show, onClose, onSubmit, children, modalIds, buttonText }) => {
+export const CustomModal = ({ show, onClose, onSubmit, children, buttonText, isSubmitDisabled, customModalSize = {} }) => {
   const [animationClass, setAnimationClass] = useState('');
 
   useEffect(() => {
     if (show) {
-      setAnimationClass('modal-show-forms');
-    } else if (animationClass === 'modal-show') {
-      setAnimationClass('modal-hide-forms');
+      setAnimationClass('modal-show-custom');
+    } else if (animationClass === 'modal-show-custom') {
+      setAnimationClass('modal-hide');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
 
   const handleClose = () => {
-    setAnimationClass('modal-hide-forms');
+    setAnimationClass('modal-hide-custom');
     setTimeout(() => {
       onClose();
       setAnimationClass('');
     }, 300);
   };
 
-  if (!show && animationClass !== 'modal-hide-forms') return null;
+  if (!show && animationClass !== 'modal-hide-custom') return null;
 
-  const {
-    idModalContainer = 'modal-container',
-    idModalBody = 'modal-body',
-    idModalFooter = 'modal-footer',
-    idModalBtnClose = 'close-modal-button'
-  } = modalIds || {};
+  const { 
+    idModalContainer = 'modal-container-custom', 
+    idModalBody = 'modal-body-custom', 
+    idModalFooter = 'modal-footer-custom', 
+    idModalBtnClose = 'close-modal-button-custom' 
+  } = customModalSize;
+
+
 
   return (
-    <div className="modal-backdrop-forms">
-      <div id={idModalContainer} className={`modal-content-forms ${animationClass}`}>
-        <div id={idModalBody} className="modal-body-forms">
+    <div className="modal-backdrop-custom">
+      <div id={idModalContainer} className={`modal-content-custom ${animationClass}`}>
+        <div id={idModalBody} className="modal-body-custom">
           {children}
         </div>
-        <div id={idModalFooter} className="modal-footer-forms">
-          <button id="submit-button" className="submit-button-forms" onClick={onSubmit}>{buttonText}</button>
-          <button id={idModalBtnClose} className="cancel-button-forms" onClick={handleClose}>Cancelar</button>
+        <div id={idModalFooter} className="modal-footer-custom">
+          <button
+            id="submit-button-custom"
+            className="submit-button-custom"
+            onClick={onSubmit}
+            disabled={isSubmitDisabled}
+          >
+            {buttonText}
+          </button>
+          <button id={idModalBtnClose} className="cancel-button-custom" onClick={handleClose}>Cancelar</button>
         </div>
       </div>
     </div>

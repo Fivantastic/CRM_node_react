@@ -1,15 +1,17 @@
-import { useState, useEffect  } from 'react';
+import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { CustomModal } from './CustomModal';
 import { customStyles } from './customStyle.js';
 import './DynamicFormModal.css';
 
-export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues, resetFormValues }) => {
+export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues, resetFormValues,customModalSize }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [validationErrors, setValidationErrors] = useState([]);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   useEffect(() => {
     setFormValues(initialValues);
+    setIsSubmitDisabled(true);
 
     fields.forEach(field => {
       const inputElement = document.getElementById(field.idInput);
@@ -42,6 +44,8 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
     if (e.target.type === 'date') {
       updateDateInputState(e.target);
     }
+
+    checkFormValues({ ...formValues, [name]: value });
   };
 
   const handleSelectChange = (selectedOption, name) => {
@@ -60,10 +64,25 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
         selectElement.classList.add('no-selection');
       }
     }
+
+    checkFormValues({ ...formValues, [name]: selectedOption ? selectedOption.value : '' });
+  };
+
+  const checkFormValues = (newFormValues) => {
+    const hasValues = Object.values(newFormValues).some(value => value && value.trim() !== '');
+    setIsSubmitDisabled(!hasValues);
   };
 
   const handleSubmit = () => {
-    const validationResult = schema.validate(formValues, { abortEarly: false });
+    const filteredValues = {};
+    fields.forEach(field => {
+      const value = formValues[field.name];
+      if (field.required || value.trim() !== '') {
+        filteredValues[field.name] = value.trim();
+      }
+    });
+
+    const validationResult = schema.validate(filteredValues, { abortEarly: false });
     if (validationResult.error) {
       setValidationErrors(validationResult.error.details.map(detail => detail.message));
       setTimeout(() => {
@@ -71,7 +90,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
       }, 5000);
       return;
     }
-    onSubmit(formValues);
+    onSubmit(filteredValues);
     onClose();
     resetFormValues();
   };
@@ -107,14 +126,21 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
     handleFocus(name);
   };
 
-  const hasRequiredFields = fields.some(field => field.label.includes('*'));
+  const hasRequiredFields = fields.some(field => field.required);
 
   return (
-    <CustomModal show={show} onClose={handleCancel} onSubmit={handleSubmit} modalIds={{ modalIds: dynamicIdModal }} buttonText={buttonText}>
+    <CustomModal 
+    show={show} 
+    onClose={handleCancel} 
+    onSubmit={handleSubmit} 
+    buttonText={buttonText} 
+    isSubmitDisabled={isSubmitDisabled} 
+    customModalSize={customModalSize} 
+    >
       <h2>{title}</h2>
       <form id={dynamicIdModal} className="dynamicCustomFromModal">
         {fields.map((field, index) => (
-          <div key={index} className="input-container" id={field.idInputContainer}>
+          <div key={index} className="input-container" id={field.idInputContainer || ''}>
             {field.type === 'select' ? (
               <>
                 <Select
@@ -134,6 +160,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   onBlur={() => handleBlur(field.name)}
                   onMenuClose={() => handleMenuClose(field.name)}
                   onMenuOpen={() => handleMenuOpen(field.name)}
+                  noOptionsMessage={() => 'No hay opciones disponibles'}
                 />
                 <label htmlFor={`react-select-${field.name}-input`} className="labelSelect">
                   {field.label}
@@ -148,7 +175,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   className="inputText"
                   value={formValues[field.name]}
                   onChange={handleInputChange}
-                  required
+                  required={field.required}
                   placeholder=""
                 />
                 <label htmlFor={field.idInput} className="label">

@@ -30,6 +30,7 @@ export const customStyles = {
     valueContainer: (provided) => ({
       ...provided,
       padding: '0',
+      cursor: 'text',
     }),
     indicatorsContainer: (provided) => ({
       ...provided,
@@ -40,6 +41,7 @@ export const customStyles = {
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
+      cursor: 'pointer',
       color: '#333',
       '&:hover': {
         color: '#333',
@@ -57,6 +59,7 @@ export const customStyles = {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected ? '#f5f5f5' : state.isFocused ? '#e6e6e6' : 'white',
+      cursor: 'pointer',
       color: 'black',
       '&:hover': {
         backgroundColor: '#e6e6e6',

@@ -94,6 +94,7 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
     idImgBtn:'imgCreateNoteBtn',
     srcImgBtn:'/addNote.svg',
     altImgBtn:'icono agregar Albaran',
+    action:'create'
   }
   
   const deliveryNoteSchema = Joi.object({

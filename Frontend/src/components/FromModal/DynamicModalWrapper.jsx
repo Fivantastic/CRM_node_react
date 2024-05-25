@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { DynamicFormModal } from './DynamicFormModal';
+import { EditButton } from '../buttons/EditButton.jsx';
+import { StyleButtonCreate } from '../buttons/StyleButtonCreate.jsx';
 
-export const DynamicModalWrapper = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, StyleButton }) => {
+export const DynamicModalWrapper = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, StyleButton, customModalSize }) => {
   const [showModal, setShowModal] = useState(false);
   const [initialValues, setInitialValues] = useState({});
 
@@ -20,20 +22,22 @@ export const DynamicModalWrapper = ({ title, fields, schema, onSubmit, buttonTex
 
   return (
     <>
-      <button id={StyleButton.idBtn || ''} className='mainCreateBtn' onClick={handleClickOpen}>
-        <img id={StyleButton.idImgBtn || ''} className='imgCreateBtn' src={StyleButton.srcImgBtn || ''} alt={StyleButton.altImgBtn || 'Icono'} />
-      </button>
+      {StyleButton.action === 'create' ? 
+      <StyleButtonCreate StyleButton={StyleButton} onClick={handleClickOpen} />
+      : <EditButton onClick={handleClickOpen} />
+      }
       <DynamicFormModal
         show={showModal}
         onClose={handleCloseModal}
         title={title}
         fields={fields}
         schema={schema}
-        onSubmit={onSubmit}
+        onSubmit={onSubmit} 
         buttonText={buttonText}
         dynamicIdModal={dynamicIdModal}
         initialValues={initialValues}
         resetFormValues={() => setInitialValues({})}
+        customModalSize={customModalSize} 
       />
     </>
   );

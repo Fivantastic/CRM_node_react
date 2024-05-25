@@ -37,3 +37,8 @@ export const UpdateProductSchema = Joi.object({
   stock: Joi.number().optional().min(1).max(10000).messages(joiErrorMessages),
   active: Joi.boolean().optional().messages(joiErrorMessages)
 });
+
+export const updateSaleSchema = Joi.object({
+  quantity: Joi.string().optional(),
+  customer: Joi.string().optional(),
+});

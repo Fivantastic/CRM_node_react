@@ -1,11 +1,12 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { EditButton } from '../../buttons/EditButton.jsx';
+/* import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { EditButton } from '../../buttons/EditButton.jsx'; */
 const URL = import.meta.env.VITE_URL;
 import './SalesListTable.css';
 import { useState } from 'react';
 import { useOpenCustomers } from '../../../hooks/selectsHook/useOpenCustomer.js';
+import { updateSaleSchema } from '../../../Schema/Error/updateSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
 
 export const UpdateSale = ({ onUpdateSale, sale, token}) => {
@@ -97,24 +98,24 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
     },
   ];
 
-  // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
-  const updateSaleSchema = Joi.object({
-    quantity: Joi.string().optional(),
-    customer: Joi.string().optional(),
-  });
-
-  // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
-  const handleUpdateSale = () => {
-    DynamicFormPopUp(
-      title,
-      updateSaleFormFields,
-      updateSaleSchema,
-      handleUpdateSaleAccion,
-      nameButton
-    );
-  };
-
+  const StyleButton = {
+    idBtn:'btnSalesUpdate',
+    idImgBtn:'imgSalesCreate',
+    srcImgBtn:'/list_alt_add_24dp_FILL0_wght400_GRAD0_opsz24.svg',
+    altImgBtn:'Boton agregar visita',
+    action:'Update'
+  }
+  
   return (
-    <EditButton id="btnSalesUpdate" className="mainUpdateBtn" onClick={handleUpdateSale} />
+    <DynamicModalWrapper
+      title={title}
+      fields={updateSaleFormFields}
+      schema={updateSaleSchema}
+      onSubmit={handleUpdateSaleAccion}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+    />
+    
   );
 };

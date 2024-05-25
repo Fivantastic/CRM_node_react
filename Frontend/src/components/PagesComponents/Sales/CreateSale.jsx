@@ -1,10 +1,10 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
 import './SalesListTable.css';
 import { useOpenProducts } from '../../../hooks/selectsHook/useOpenProducts.js';
 import { useState } from 'react';
 import { useOpenCustomers } from '../../../hooks/selectsHook/useOpenCustomer.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import { saleSchema } from '../../../Schema/Error/createSchema.js';
 const URL = import.meta.env.VITE_URL;
 
 export const CreateSale = ({ onAddSale, token }) => {
@@ -73,7 +73,7 @@ export const CreateSale = ({ onAddSale, token }) => {
     {
       key: 'id_product', 
       name: 'product',
-      label: 'Producto',
+      label: 'Producto *',
       type: 'select',
       options: {
         'Productos': openProducts.map(product => ({
@@ -87,7 +87,7 @@ export const CreateSale = ({ onAddSale, token }) => {
     },
     {
       name: 'quantity',
-      label: 'Cantidad ',
+      label: 'Cantidad *',
       type: 'text',
       placeholder: 'Introduce la cantidad de producto...',
       idLabel: 'labelQuantitySaleCreate',
@@ -97,7 +97,7 @@ export const CreateSale = ({ onAddSale, token }) => {
     {
       key: 'id_customer', 
       name: 'customer',
-      label: 'Cliente',
+      label: 'Cliente *',
       type: 'select',
       options: {
         'Clientes': openCustomers.map(customer => ({
@@ -118,12 +118,6 @@ export const CreateSale = ({ onAddSale, token }) => {
     altImgBtn:'icono agregar Venta',
     action:'create'
   }
-
-  const saleSchema = Joi.object({
-    product: Joi.string().required(),
-    quantity: Joi.string().required(),
-    customer: Joi.string().required(),
-  });
 
   return (
     <DynamicModalWrapper

@@ -1,10 +1,11 @@
 import Swal from 'sweetalert2';
 import { newVisitSchema } from '../../../Schema/Error/createSchema.js';
-import './VisitListTable.css';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import './VisitListTable.css';
 import { useOpenCustomers } from '../../../hooks/selectsHook/useOpenCustomer.js';
 import { useState } from 'react';
 const URL = import.meta.env.VITE_URL;
+
 
 export const CreateVisit = ({ onAddVisit, token }) => {
   const [reload, setReload] = useState(false);
@@ -60,9 +61,9 @@ export const CreateVisit = ({ onAddVisit, token }) => {
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+  // Titulo de la ventana
   const title = 'Programar Visita';
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
+
   const nameButton = 'Crear';
 
   // Campos del formulario personalizables
@@ -104,8 +105,16 @@ export const CreateVisit = ({ onAddVisit, token }) => {
   const StyleButton = {
     idBtn:'btnVisitCreate',
     idImgBtn:'imgVisitCreate',
-    srcImgBtn:'/calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg',
+    srcImgBtn:'/addVisit.svg',
     altImgBtn:'Boton agregar visita',
+    action:'create'
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptVisitsCreate',
+    altImgBtn:'icono crear Visita',
+    btnSvg:'/addVisitWhite.svg',
+    altAcceptBtn:'Boton crear',
     action:'create'
   }
 
@@ -118,6 +127,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
         buttonText={nameButton}
         dynamicIdModal="dynamicFormModal"
         StyleButton={StyleButton}
+        StyleAcceptBtn={StyleAcceptBtn}
       />
   );
 };

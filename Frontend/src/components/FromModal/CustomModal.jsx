@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import './customModal.css';
+import { AcceptBtn } from '../buttons/BtnForms/AcceptBtn.jsx';
+import { CancelBtn } from '../buttons/BtnForms/CancelBtn.jsx';
 
-export const CustomModal = ({ show, onClose, onSubmit, children, buttonText, isSubmitDisabled, customModalSize = {} }) => {
+export const CustomModal = ({ show, onClose, onSubmit, children, buttonText, isSubmitDisabled, customModalSize = {}, StyleAcceptBtn }) => {
   const [animationClass, setAnimationClass] = useState('');
 
   useEffect(() => {
@@ -31,7 +33,6 @@ export const CustomModal = ({ show, onClose, onSubmit, children, buttonText, isS
   } = customModalSize;
 
 
-
   return (
     <div className="modal-backdrop-custom">
       <div id={idModalContainer} className={`modal-content-custom ${animationClass}`}>
@@ -39,15 +40,14 @@ export const CustomModal = ({ show, onClose, onSubmit, children, buttonText, isS
           {children}
         </div>
         <div id={idModalFooter} className="modal-footer-custom">
-          <button
-            id="submit-button-custom"
-            className="submit-button-custom"
-            onClick={onSubmit}
+          <AcceptBtn
             disabled={isSubmitDisabled}
-          >
-            {buttonText}
-          </button>
-          <button id={idModalBtnClose} className="cancel-button-custom" onClick={handleClose}>Cancelar</button>
+            StyleAcceptBtn={StyleAcceptBtn}
+            onClick={onSubmit}
+            buttonText={buttonText}
+          />
+
+          <CancelBtn id={idModalBtnClose} className="cancel-button-custom" onClick={handleClose} />
         </div>
       </div>
     </div>

@@ -60,11 +60,11 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
-  const title = 'Modificar Visita';
+  // Titulo de la ventana
+  const title = 'Actualizar Visita';
 
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
-  const nameButton = 'Modificar';
+  // Nombre que se muestra en el botón de submit, 
+  const nameButton = 'Actualizar';
 
   // Campos del formulario personalizables
   const updateVisitFormFields = [
@@ -95,11 +95,14 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
   ];
 
   const StyleButton = {
-    idBtn:'btnVisitCreate',
-    idImgBtn:'imgVisitCreate',
-    srcImgBtn:'/calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg',
-    altImgBtn:'Boton agregar visita',
     action:'Update'
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptVisitsUpdate',
+    altImgBtn:'icono actualizar Visitas',
+    altAcceptBtn:'Boton actualizar Visitas',
+    action:'update',
   }
 
 
@@ -112,6 +115,7 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
     buttonText={nameButton}
     dynamicIdModal="dynamicFormModal"
     StyleButton={StyleButton}
+    StyleAcceptBtn={StyleAcceptBtn}
   />
   );
 };

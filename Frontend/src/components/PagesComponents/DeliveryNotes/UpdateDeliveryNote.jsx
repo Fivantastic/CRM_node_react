@@ -1,7 +1,6 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { EditButton } from '../../buttons/EditButton.jsx';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
 export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
   const handleUpdateDeliveryAction = async (formData) => {
@@ -67,42 +66,50 @@ export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
       name: 'delivery_status',
       label: 'Estado',
       type: 'select',
-      defaultValue: 'pending',
-      required: true,
+      defaultValue: '',
+      required: false,
       idLabel: 'labelStatusNoteUpdate',
       idInput: 'inputStatusNoteUpdate',
       options: {
-        Estados: {
-          pending: 'En proceso',
-          cancelled: 'Cancelado',
-          delivering: 'Cerrado',
-          delivered: 'Entregado',
-        },
+        Estados: [
+          { value: 'pending', label: 'En proceso' },
+          { value: 'cancelled', label: 'Cancelado' },
+          { value: 'delivering', label: 'Cerrado' },
+          { value: 'delivered', label: 'Entregado' },
+        ],
       },
     },
   ];
+  
+  
 
   const updateDeliverySchema = Joi.object({
     delivery_status: Joi.string().required(),
   });
 
-  const handleUpdateDelivery = () => {
-    DynamicFormPopUp(
-      title,
-      updateDeliveryFormFields,
-      updateDeliverySchema,
-      handleUpdateDeliveryAction,
-      nameButton
-    );
-  };
+
+  const StyleButton = {
+    action:'update',
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptNoteUpdate',
+    altImgBtn:'icono actualizar Albaran',
+    btnSvg:'/addNoteWhite.svg',
+    altAcceptBtn:'Boton actualizar Albaran',
+    action:'update',
+  }
 
   return (
-    <>
-      <EditButton
-        id="btnNoteUpdate"
-        className="mainUpdateBtn"
-        onClick={handleUpdateDelivery}
-      />
-    </>
+    <DynamicModalWrapper
+      title={title}
+      fields={updateDeliveryFormFields}
+      schema={updateDeliverySchema}
+      onSubmit={handleUpdateDeliveryAction}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
   );
-};
+  };

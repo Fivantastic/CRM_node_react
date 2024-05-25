@@ -6,8 +6,11 @@
   }
   
   #shipment_table {
+    max-height: 400px; 
+    overflow-y: auto; 
     min-width: 720px;
     max-width: 750px;
+    max-height: 444px;
     border-radius: 8px;
     padding: 10px 15px;
     margin-top: 10px;
@@ -15,6 +18,10 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
   }
 
+
+  #shipment_table::-webkit-scrollbar {
+    width: 0px; /* Ocultar la barra de desplazamiento en navegadores WebKit */
+  }
   
   #shipmentTableBody {
     display: flex;

@@ -1,14 +1,64 @@
-#Shipment_external_container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.main_olist {
+    max-height: 400px; /* Ajustar la altura máxima para un mejor desplazamiento */
+    overflow-y: auto; /* Permitir el desplazamiento vertical */
+  }
+  
+  .main_olist::-webkit-scrollbar {
+    width: 0px; /* Ocultar la barra de desplazamiento en navegadores WebKit */
+  }
+  
+  .main_olist {
+    -ms-overflow-style: none; /* Ocultar la barra de desplazamiento en IE y Edge */
+    scrollbar-width: none; /* Ocultar la barra de desplazamiento en Firefox */
+  }
+  .mainShipment{
+    padding: 0;
+   }
 
-}
-
-/* #shipment_container {
-    grid-area: shipmentList;
-} */
-
-/* #delivery_route {
-    grid-area: routeList;
-} */
+  
+  /* Popup styling */
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%; /* Ajusta el ancho para pantallas pequeñas */
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    padding: 20px; /* Aumenta el padding */
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    display: none;
+  }
+  
+  .popup.open {
+    display: block;
+  }
+  
+  /* Estilos específicos para dispositivos móviles */
+  @media (max-width: 600px) {
+    .popup {
+      width: 90%; /* Ajusta el ancho para pantallas pequeñas */
+    }
+    
+    .main_olist {
+      padding: 5px 10px; /* Reduce el padding en dispositivos móviles */
+      max-height: 290px; /* Ajustar la altura máxima para un mejor desplazamiento en móviles */
+    }
+    
+    .card-container {
+      margin: 10px 0; /* Ajusta el margen de las tarjetas en dispositivos móviles */
+    }
+    
+    .card-content {
+      padding: 10px; /* Ajusta el padding en el contenido de las tarjetas */
+    }
+   .mainShipment{
+    margin-right: 500px;
+    padding: 0;
+   }
+  }
+  

@@ -4,12 +4,15 @@ import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { MoreSales } from './MoreSales.jsx';
 import { UpdateSale } from './UpdateSale.jsx';
 import '../Sales/SalesListTable.css';
+import { EditButton } from '../../buttons/EditButton.jsx';
 
 export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   const token = useUser();
 
   const traducirEstadoVenta = (estado) => {
     switch (estado) {
+      case "processing":
+        return { text: "Procesando", color: "orange"}
       case 'open':
         return { text: 'Pendiente', color: 'blue' };
       case 'cancelled':
@@ -54,11 +57,13 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
                     onUpdateSale={onUpdateSale}
                     token={token}
                   />
-                  <UpdateSale
-                    sale={sale.id_sale}
-                    onUpdateSale={onUpdateSale}
-                    token={token}
-                  />
+                   {sale.operation_status === 'closed'? (
+                      <EditButton  />
+                    ) : sale.operation_status === 'cancelled'? (
+                      <EditButton />
+                    ) : (
+                  <UpdateSale sale={sale.id_sale} onUpdateSale={onUpdateSale} token={token} />
+                    )}
                   <DeleteGenericModal
                     id={sale.id_sale}
                     onDelete={onDelete}

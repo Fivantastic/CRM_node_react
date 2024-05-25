@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { newVisitSchema } from '../../../Schema/Error/createSchema.js';
 import './VisitListTable.css';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
 export const CreateVisit = ({ onAddVisit, token }) => {
   // Aqui hace la peticion al servidor
@@ -85,33 +85,28 @@ export const CreateVisit = ({ onAddVisit, token }) => {
       type: 'textarea',
       idLabel: 'labelObservationsVisitCreate',
       idInput: 'inputObservationsVisitCreate',
-      placeholder: 'Introduce las observaciones...',
       required: false,
     },
   ];
 
-  const handleClickCreateVisit = () => {
-    DynamicFormPopUp(
-      title,
-      VisitFormFields,
-      newVisitSchema,
-      handleVisitCreate,
-      nameButton
-    );
-  };
+  // Estilos del boton, copia el id del antiguo
+  const StyleButton = {
+    idBtn:'btnVisitCreate',
+    idImgBtn:'imgVisitCreate',
+    srcImgBtn:'/calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg',
+    altImgBtn:'Boton agregar visita',
+    action:'create'
+  }
+
   return (
-    <>
-      <button
-        id="btnVisitCreate"
-        className=" mainCreateBtn"
-        onClick={handleClickCreateVisit}
-      >
-        <img
-          id="imgVisitCreate"
-          src="/calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg"
-          alt="Boton agregar visita"
-        />
-      </button>
-    </>
+      <DynamicModalWrapper
+        title={title}
+        fields={VisitFormFields}
+        schema={newVisitSchema}
+        onSubmit={handleVisitCreate}
+        buttonText={nameButton}
+        dynamicIdModal="dynamicFormModal"
+        StyleButton={StyleButton}
+      />
   );
 };

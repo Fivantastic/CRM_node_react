@@ -10,11 +10,13 @@ import { validateSchemaUtil } from '../../../utils/validateSchemaUtil.js';
 
 export const insertSalesController = async (req, res, next) => {
   try {
-    const id_user = req.user.id_user;
-    const { product, quantity, customer } = req.body;
-
     // Validamos el body
     await validateSchemaUtil(newSaleProductSchema, req.body);
+
+    const id_user = req.user.id_user;
+
+    const { product, quantity, customer } = req.body;
+    /* console.log(req.body); */
 
     // Busco el producto
     const seachSaleProduct = await selectProductModel(product);

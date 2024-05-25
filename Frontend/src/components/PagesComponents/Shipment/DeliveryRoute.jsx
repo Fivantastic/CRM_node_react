@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useUser } from '../../../context/authContext.jsx';
 import defaultAvatar from '/profile.svg';
 import shipmentIcon from '../../../../public/shipmentRoute.svg';
+import { Toast } from '../../alerts/Toast.jsx';
 import './DeliveryRoutes.css'; // Archivo de estilos para la representación visual de la ruta
 
 const URL = import.meta.env.VITE_URL;
@@ -130,6 +131,7 @@ export const DeliveryRoutes = () => {
                               <p>{shipment.delivery_address}</p>
                             </div>
                           </li>
+
                         ))
                       ) : (
                         <li>No hay envíos asociados</li>

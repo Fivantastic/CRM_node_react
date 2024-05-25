@@ -9,7 +9,7 @@ export const selectSaleProducModel = async (id_sale) => {
   ]);
 
   if (!result || result.length === 0) {
-    notFoundError('SalesProducts');
+    notFoundError('Sale');
   }
 
   return result[0];

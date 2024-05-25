@@ -39,7 +39,10 @@ export const ProfileNav = () => {
     }, 200);
   };
 
-  const avatar = userData? `${URL}/uploads/image/${userData.id_user}/${userData.avatar}` : './profile.svg';
+  const handleError = (e) => {
+    e.target.onerror = null;
+    e.target.src = './profile.svg';
+  };
 
   return (
     <nav className="profileNavContainer">
@@ -51,7 +54,12 @@ export const ProfileNav = () => {
         }}
       >
         {userData && (
-          <img className="avatarProfileNav" src={avatar} alt="Avatar del usuario" />
+          <img 
+            className="avatarProfileNav" 
+            src={userData.avatar? `${URL}/uploads/image/${userData.id_user}/${userData.avatar}` : './profile.svg'} 
+            alt="Avatar del usuario" 
+            onError={handleError}
+          />
         )}
       </button>
 

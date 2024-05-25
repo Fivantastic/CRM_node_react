@@ -82,7 +82,7 @@ export const MaxInvoices = () => {
           >
             <path d="M1408 1216q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z"></path>
           </svg>{' '}
-          {(previousTotalIncome / currentMonthInvoices.reduce((total, invoice) => total + parseFloat(invoice.total_amount), 0)) * 100 - 100}%
+          {((previousTotalIncome / currentMonthInvoices.reduce((total, invoice) => total + parseFloat(invoice.total_amount), 0)) * 100 - 100).toFixed(2)}%
         </p>
       </div>
       <div className="data">

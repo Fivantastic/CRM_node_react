@@ -1,0 +1,58 @@
+.button__accept {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #34974d;
+    background-color: #3aa856;
+  }
+  
+  .button__accept, .button__icon, .button__text {
+    transition: all 0.3s;
+  }
+  
+  .button__accept .button__text {
+    transform: translateX(30px);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .button__accept .button__icon {
+    position: absolute;
+    transform: translateX(105px);
+    height: 100%;
+    width: 39px;
+    background-color: #34974d;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button__accept .svg {
+  fill: currentColor;
+  }
+  
+  .button__accept:hover {
+    background: #34974d;
+  }
+  
+  .button__accept:hover .button__text {
+    color: transparent;
+  }
+  
+  .button__accept:hover .button__icon {
+    width: 150px;
+    transform: translateX(0);
+  }
+  
+  .button__accept:active .button__icon {
+    background-color: #2e8644;
+  }
+  
+  .button__accept:active {
+    border: 1px solid #2e8644;
+  }

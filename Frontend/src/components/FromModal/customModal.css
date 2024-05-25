@@ -1,0 +1,129 @@
+@keyframes modal-show-custom {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modal-hide-custom {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+.modal-backdrop-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.modal-content-custom {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 95%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  z-index: 6;
+}
+
+.dynamicCustomFromModal {
+  margin: 0 15px;
+}
+
+.modal-show-custom {
+  animation: modal-show 0.3s ease forwards;
+}
+
+.modal-hide-custom {
+  animation: modal-hide 0.2s ease forwards;
+}
+
+
+#modal-body-custom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#modal-body-custom h2 {
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: 600;
+  color: #545454;
+}
+
+
+.modal-footer-custom {
+  max-width: 330px;
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 10px;
+  margin-top: 20px;
+}
+
+.cancel-button-custom {
+  background-color: #f15867;
+  color: #13214E;
+  border: none;
+  padding: 8px 20px;
+  margin: 0 50px 0 26px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-button-custom:hover {
+  background-color: red;
+  color: white;
+}
+
+.submit-button-custom {
+  background-color: #3ac25a;
+  color: #13214E;
+  border: none;
+  padding: 8px 20px;
+  margin: 0 34px 0 58px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button-custom:hover {
+  background-color: green;
+  color: white;
+}
+
+.submit-button-custom:disabled {
+  background-color: #ccc;
+  color: #13214E;
+  cursor: default;
+}

@@ -1,35 +1,73 @@
-import { updateSaleModel } from '../../../models/Modules/sales/updateSaleModel.js';
-import { selectCustomerByIdModel } from '../../../models/Modules/sales/selectCustomerByIdModel.js';
-import { selectProductByIdModel } from '../../../models/Modules/sales/selectProductByIdModel.js';
-import { selectSaleByIdModel } from '../../../models/Modules/sales/selectSaleByIdModel.js';
-import { notFoundError } from '../../error/errorService.js';
+import { selectCustomerModel } from "../../../models/Modules/sales/selectCustomerModel.js";
+import { selectProductIsSaleProductModel } from "../../../models/Modules/sales/selectProductIsSaleProductModel.js";
+import { selectSaleByIdModel } from "../../../models/Modules/sales/selectSaleByIdModel.js";
+import { selectSaleProducModel } from "../../../models/Modules/sales/selectSaleProducModel.js";
+import { updateSaleModel } from "../../../models/Modules/sales/updateSaleModel.js";
+import { updateSaleProductModel } from "../../../models/Modules/sales/updateSaleProductModel.js";
+import { updateSalesQuantityModel } from "../../../models/Modules/sales/updateSalesQuantityModel.js";
+import { limitedStock, notFoundError } from "../../error/errorService.js";
+import { controlStockProductService } from "../../product/controlStockProductService.js";
 
-export const updateSalesService = async (
-  id_sale,
-  id_saleProduct,
-  id_customer
-) => {
-  // Obtengo el id de la venta
-  const sale = await selectSaleByIdModel(id_sale);
+export const updateSalesService = async (id_sale, body) => {
 
-  if (sale.id_sale !== id_sale) {
-    notFoundError('Sale');
-  }
+  // Verificar qué campos están presentes en el cuerpo de la solicitud
+  const { quantity, customer  } = body;
+  console.log(body);
 
-  const saleProduct = await selectProductByIdModel(id_saleProduct);
+  // Si la cantidad está presente, actualizarla
+ 
+    // Obtengo el id de salesProduct
+    if (quantity) {
+      const seachSaleProductId = await selectSaleProducModel(id_sale);
+  
+      // Obtengo el id del producto de selasProduct
+      const seachSaleProduct = await selectProductIsSaleProductModel(seachSaleProductId.saleProduct_id);
+  
+      const checkQuantity = await controlStockProductService(seachSaleProduct.product_id);
+      const stock = JSON.parse(JSON.stringify(checkQuantity));
+  
+      if (stock < quantity) {
+        limitedStock(quantity)
+      }
+  
+      // Actualizar la cantidad en la venta
+       await updateSalesQuantityModel(
+        seachSaleProduct.product_id,
+        quantity
+      );
 
-  if (saleProduct && saleProduct.id_saleProduct !== id_saleProduct) {
-    notFoundError('Sale Product');
-  }
+      
+    // Actualizo el saleProduct
+    await updateSaleProductModel(
+      seachSaleProductId.saleProduct_id,
+      seachSaleProduct.product_id,
+      quantity
+    );
 
-  const customer = await selectCustomerByIdModel(id_customer);
+    // Actualizo la venta 
+     const response = await updateSaleModel(id_sale, seachSaleProductId.saleProduct_id );
+     return response;
+    }
+    
+  // Si el cliente está presente, actualizarlo
+    if (customer) {
+      const sale = await selectSaleByIdModel(id_sale);
+      
+      if (!sale || sale.id_sale !== id_sale) {
+        notFoundError('Sale');
+      }
 
-  if (customer && customer.id_customer !== id_customer) {
-    notFoundError('customer');
-  }
+      const seachCustomer = await selectCustomerModel(customer);
+  
+      if (!seachCustomer || seachCustomer.id_customer !== customer) {
+        notFoundError('Customer');
+      }
 
-  // Actualizamos la venta de producto en la base de datos
-  const response = await updateSaleModel(id_sale, id_saleProduct, id_customer);
+      // Actualizo la venta 
+       const response = await updateSaleModel(id_sale, sale.seleProduct_id, customer );
+       return response;
+    }
 
-  return response;
+    // Retornar la respuesta después de realizar todas las actualizaciones necesarias
+    return response;
 };

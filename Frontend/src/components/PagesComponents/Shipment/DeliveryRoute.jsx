@@ -3,7 +3,6 @@ import { Avatar, Card, CardContent, Typography, Grid, Box, Container, List, List
 import { ExpandMore, ExpandLess } from '@mui/icons-material';
 import { useUser } from '../../../context/authContext.jsx';
 import defaultAvatar from '/profile.svg';
-import shipmentIcon from '../../../../public/shipmentRoute.svg';
 import { Toast } from '../../alerts/Toast.jsx';
 import './DeliveryRoutes.css'; // Archivo de estilos para la representación visual de la ruta
 
@@ -143,7 +142,7 @@ export const DeliveryRoutes = () => {
                         filteredShipments.map((shipment) => (
                           <ListItem key={shipment.id_shipment} button onClick={() => handlePickupPointClick(shipment.id_shipment)}>
                             <ListItemAvatar>
-                              <Avatar src={shipmentIcon} alt="Shipment" />
+                              <Avatar src='/shipmentRoute.svg' alt="Shipment" />
                             </ListItemAvatar>
                             <ListItemText primary={shipment.customer_name} secondary={shipment.delivery_address} />
                             {shipment.id_shipment === selectedShipment && (

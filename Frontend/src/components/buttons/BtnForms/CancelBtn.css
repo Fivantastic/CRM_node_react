@@ -1,0 +1,59 @@
+.button__cancel {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid red;
+    background-color: #f14e4e;
+  }
+  
+  .button__cancel, .button__icon__cancel, .button__text__cancel {
+    transition: all 0.3s;
+  }
+  
+  .button__cancel .button__text__cancel {
+    transform: translateX(30px);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .button__cancel .button__icon__cancel {
+    position: absolute;
+    transform: translateX(105px);
+    height: 100%;
+    width: 39px;
+    border-radius: 5px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button__cancel .svg {
+    width: 30px;
+    stroke: #fff;
+  }
+  
+  .button__cancel:hover {
+    background: red;
+  }
+  
+  .button__cancel:hover .button__text__cancel {
+    color: transparent;
+  }
+  
+  .button__cancel:hover .button__icon__cancel {
+    width: 140px;
+    transform: translateX(0);
+  }
+  
+  .button__cancel:active .button__icon__cancel {
+    background-color: #2e8644;
+  }
+  
+  .button__cancel:active {
+    border: 1px solid #2e8644;
+  }

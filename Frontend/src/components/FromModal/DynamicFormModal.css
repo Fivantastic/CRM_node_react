@@ -56,21 +56,14 @@
     pointer-events: none;
   }
   
-  .has-selection ~ .labelSelect,
-  .input-container .has-selection:focus ~ .labelSelect,
-  .input-container input[type="date"].has-content ~ .label {
-    top: -5px;
-    font-size: 1rem;
-    color: #333;
-  }
+
   
   .input-container input[type="date"]:not(:placeholder-shown) ~ .label {
     color: #ccc;
   }
   
 
-  .input-container .inputSelect:focus ~ .labelSelect,
-  .input-container .has-selection:focus ~ .labelSelect,
+  .labelSelect.has-focus,
   .input-container .has-selection ~ .labelSelect {
     top: 0;
     font-size: 16px;
@@ -125,12 +118,6 @@
     font-size: 16px;
   }
 
-  .labelSelect.has-focus {
-    top: -5px;
-    font-size: 16px;
-    color: #333;
-  }
-  
   .underline.has-focus {
     transform: scaleX(1);
   }

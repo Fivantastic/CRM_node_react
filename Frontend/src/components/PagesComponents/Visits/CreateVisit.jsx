@@ -2,12 +2,17 @@ import Swal from 'sweetalert2';
 import { newVisitSchema } from '../../../Schema/Error/createSchema.js';
 import './VisitListTable.css';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import { useOpenCustomers } from '../../../hooks/selectsHook/useOpenCustomer.js';
+import { useState } from 'react';
+const URL = import.meta.env.VITE_URL;
 
 export const CreateVisit = ({ onAddVisit, token }) => {
+  const [reload, setReload] = useState(false);
+  const openCustomers = useOpenCustomers(token, reload);
   // Aqui hace la peticion al servidor
   const handleVisitCreate = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/visits/new', {
+      const response = await fetch(`${URL}/visits/new`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -41,6 +46,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
           icon: 'success',
           title: 'Visita programada con exito !',
         });
+        setReload(!reload);
       } else {
         // si la peticion es incorrecta
         const errorData = await response.json();
@@ -56,17 +62,22 @@ export const CreateVisit = ({ onAddVisit, token }) => {
 
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
   const title = 'Programar Visita';
-
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Crear';
 
   // Campos del formulario personalizables
   const VisitFormFields = [
     {
+      key: 'id_customer', 
       name: 'id_customer',
       label: 'Cliente *',
-      type: 'text',
-      placeholder: 'Introduce el  cliente...',
+      type: 'select',
+      options: {
+        'Clientes': openCustomers.map(customer => ({
+          value: customer.id_customer,
+          label: `${customer.ref_CT} - ${customer.company_name}`
+        }))
+      },
       idLabel: 'labelNameVisitCreate',
       idInput: 'inputNameVisitCreate',
       required: true,

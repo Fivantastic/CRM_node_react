@@ -4,6 +4,7 @@ import { UpdateVisit } from './UpdateVisit.jsx';
 import { MoreVisits } from './MoreVisits.jsx';
 import { ToggleVisitStatusButton } from '../../buttons/StatesBtn/ToggleVisitStatusButton.jsx';
 import '../Visits/VisitListTable.css';
+import { EditButton } from '../../buttons/EditButton.jsx';
 
 export const VisitListTable = ({ visit, onUpdateVisit, onDelete, token }) => {
 
@@ -51,7 +52,13 @@ export const VisitListTable = ({ visit, onUpdateVisit, onDelete, token }) => {
                     updateVisit={onUpdateVisit}
                     token={token}
                   />
-                  <UpdateVisit visit={visitItem.id_visit} onUpdateVisit={onUpdateVisit} />
+                  {visitItem.visit_status === 'completed'? (
+                    <EditButton  />
+                  ) : visitItem.visit_status === 'cancelled'? (
+                    <EditButton />
+                  ) : (
+                    <UpdateVisit visit={visitItem.id_visit} onUpdateVisit={onUpdateVisit} />
+                  )}
                   <DeleteGenericModal
                     id={visitItem.id_visit}
                     onDelete={onDelete}

@@ -41,3 +41,9 @@ export  const newProductSchema = Joi.object({
   description: Joi.string().optional().messages(joiErrorMessages),
   active: Joi.boolean().optional().messages(joiErrorMessages)
 });
+
+export const saleSchema = Joi.object({
+  product: Joi.string().required(),
+  quantity: Joi.string().required(),
+  customer: Joi.string().required(),
+});

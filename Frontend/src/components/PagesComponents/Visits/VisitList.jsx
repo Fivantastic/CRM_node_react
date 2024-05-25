@@ -4,6 +4,7 @@ import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateVisit } from './UpdateVisit.jsx';
 import { ToggleVisitStatusButton } from '../../buttons/StatesBtn/ToggleVisitStatusButton.jsx';
 import '../../../Styles/Pages/StyleVisitList.css';
+import { EditButton } from '../../buttons/EditButton.jsx';
 
 export const VisitsList = ({
   visit,
@@ -89,7 +90,13 @@ export const VisitsList = ({
           updateVisit={onUpdateVisit}
           token={token}
         />
-        <UpdateVisit visit={visit.id_visit} onUpdateVisit={onUpdateVisit} />
+          {visit.visit_status === 'completed'? (
+            <EditButton  />
+          ) : visit.visit_status === 'cancelled'? (
+            <EditButton />
+          ) : (
+          <UpdateVisit visit={visit.id_visit} onUpdateVisit={onUpdateVisit} />
+          )}
         <DeleteGenericModal
           id={visit.id_visit}
           onDelete={onDelete}

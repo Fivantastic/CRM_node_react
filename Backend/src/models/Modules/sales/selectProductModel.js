@@ -1,16 +1,16 @@
 import { getDBPool } from '../../../db/getPool.js';
 import { notFoundError } from '../../../services/error/errorService.js';
 
-export const selectProductModel = async (product) => {
+export const selectProductModel = async (product_id) => {
   const pool = getDBPool();
 
   const [result] = await pool.query(
-    `SELECT * FROM Products WHERE name LIKE ?`,
-    [`%${product}%`]
+    `SELECT * FROM Products WHERE id_product = ?`,
+    [product_id]
   );
 
   if (!result || result.length === 0) {
-    notFoundError('SalesProducts');
+    notFoundError('Products');
   }
 
   return result[0];

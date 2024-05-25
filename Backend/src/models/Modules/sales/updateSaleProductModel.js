@@ -1,19 +1,13 @@
 import { getDBPool } from '../../../db/getPool.js';
-import { controlStockProductService } from '../../../services/product/controlStockProductService.js';
+import { updateSalesQuantityModel } from './updateSalesQuantityModel.js';
 
 export const updateSaleProductModel = async (
   saleProduct_id,
-  id_product,
+  product_id,
   quantity
 ) => {
   const pool = await getDBPool();
-
-  // Comprobar si existe un producto con el id proporcionado.
-  const [result] = await pool.query(
-    `UPDATE SalesProducts SET product_id = ?, quantity = ? WHERE id_saleProduct = ?`,
-    [id_product, quantity, saleProduct_id]
-  );
-
+  
   // Actualizo el stock del producto
   const fieldsToUpdate = [];
   const values = [];
@@ -25,29 +19,24 @@ export const updateSaleProductModel = async (
     }
   };
 
+  addToUpdate('id_saleProduct', saleProduct_id);
+  addToUpdate('product_id', product_id);
+  addToUpdate('quantity ', quantity);
+
+  if (fieldsToUpdate.length === 0) return {}; // No hay campos para actualizar, salir
+
+    const query = `UPDATE SalesProducts SET ${fieldsToUpdate.join(', ')} WHERE id_saleProduct = ?`;
+    values.push(saleProduct_id);   
+
+    const [result] = await pool.query(query, values);
+
   // Obtengo el stock de base de datos
-  const stock = await controlStockProductService(id_product);
-
-  // Convierto la info ha numeros
-  const numberStock = Number(stock.stock);
-  const number = Number(quantity);
-
-  const namberModify = (storage, number) => {
-    return storage - number;
+  if (quantity !== undefined) {
+    const saleQuantity = await updateSalesQuantityModel(product_id, quantity);
+    
+    return saleQuantity;
   };
-
-  // Le resto la cantidad vendida
-  const update = namberModify(numberStock, number);
-
-  addToUpdate(`stock`, update);
-
-  if (fieldsToUpdate.length === 0) return {};
-
-  const query = `UPDATE Products SET ${fieldsToUpdate.join(', ')} WHERE id_product = ?`;
-  values.push(id_product);
-
-  const [updateStock] = await pool.query(query, values);
-
+  
   // Si no se ha insertado ningún producto, lanzar un error.
   if (result.affectedRows === 0) {
     const error = new Error('No se ha podido actualizar el producto');
@@ -55,5 +44,5 @@ export const updateSaleProductModel = async (
     error.code = 'INSERT_PRODUCT_ERROR';
     throw error;
   }
-  return { message: 'saleProduct actualizado correctamente' };
+  /* return { message: 'sale actualizado correctamente' }; */
 };

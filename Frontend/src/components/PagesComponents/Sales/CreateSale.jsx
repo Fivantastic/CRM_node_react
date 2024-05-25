@@ -2,8 +2,18 @@ import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import './SalesListTable.css';
+import { useOpenProducts } from '../../../hooks/selectsHook/useOpenProducts.js';
+import { useState } from 'react';
+import { useOpenCustomers } from '../../../hooks/selectsHook/useOpenCustomer.js';
 
 export const CreateSale = ({ onAddSale, token }) => {
+  const [reload, setReload] = useState(false);
+  const openProducts = useOpenProducts(token, reload);
+  const openCustomers = useOpenCustomers(token, reload);
+  const [formValues, setFormValues] = useState({
+    id_product: '',
+  });
+  
   // Aqui hace la peticion al servidor
   const handleSaleCreatedAccion = async (formData) => {
     try {
@@ -27,7 +37,7 @@ export const CreateSale = ({ onAddSale, token }) => {
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -41,6 +51,7 @@ export const CreateSale = ({ onAddSale, token }) => {
           icon: 'success',
           title: 'Venta Realizada con exito !',
         });
+        setReload(!reload);
       } else {
         // si la peticion es incorrecta
         const errorData = await response.json();
@@ -60,16 +71,32 @@ export const CreateSale = ({ onAddSale, token }) => {
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Crear';
 
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
   // Campos del formulario personalizables
   const saleFormFields = [
     {
+      key: 'id_product', 
       name: 'product',
-      label: 'Producto ',
-      type: 'text',
-      placeholder: 'Introduce el producto...',
+      label: 'Producto',
+      type: 'select',
+      options: {
+        'Productos': openProducts.map(product => ({
+          value: product.id_product,
+          label: `${product.ref_PR} - ${product.name}`
+        }))
+      },
       idLabel: 'labelNameSaleCreate',
       idInput: 'inputNameSaleCreate',
       required: true,
+      onChange: handleFieldChange,
+      value: formValues.id_product
     },
     {
       name: 'quantity',
@@ -81,13 +108,21 @@ export const CreateSale = ({ onAddSale, token }) => {
       required: true,
     },
     {
+      key: 'id_customer', 
       name: 'customer',
       label: 'Cliente',
-      type: 'text',
-      placeholder: 'Introduce el cliente...',
+      type: 'select',
+      options: {
+        'Clientes': openCustomers.map(customer => ({
+          value: customer.id_customer,
+          label: `${customer.ref_CT} - ${customer.company_name}`
+        }))
+      },
       idLabel: 'labelCustomerSaleCreate',
       idInput: 'inputCustomerSaleCreate',
       required: true,
+      onChange: handleFieldChange,
+      value: formValues.id_customer
     },
   ];
 

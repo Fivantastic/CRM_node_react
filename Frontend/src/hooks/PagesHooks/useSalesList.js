@@ -114,7 +114,7 @@ export const useSalesList = (token) => {
 
         if (
           selectedFilters.some((filter) =>
-            ['open', 'cancelled', 'closed'].includes(filter)
+            ['open', 'processing', 'cancelled', 'closed'].includes(filter)
           )
         ) {
           activeFilter = selectedFilters.some(
@@ -151,6 +151,12 @@ export const useSalesList = (token) => {
         break;
       case 'fecha-desc':
         sortedList.sort((a, b) => b.ref_SL.localeCompare(a.ref_SL));
+        break;
+      case 'empresa-asc':
+        sortedList.sort( (a, b) => a.company_name.localeCompare(b.company_name));
+        break;
+      case 'empresa-desc':
+        sortedList.sort((a, b) => b.company_name.localeCompare(a.company_name));
         break;
       default:
         break;

@@ -9,7 +9,6 @@ import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SalesListTable } from '../../components/PagesComponents/Sales/SalesListTable.jsx';
 import { useSalesList } from '../../hooks/PagesHooks/useSalesList.js';
-/* import { DeleteGenericModal } from '../../components/forms/DeleteGenericModal.jsx'; */
 
 export const SalesPage = () => {
   const token = useUser();
@@ -40,7 +39,8 @@ export const SalesPage = () => {
   }, []);
 
   const filterOptions = [
-    { label: 'Proceso', value: 'open' },
+    { label: 'Procesado', value: 'processing' },
+    { label: 'Pendiente', value: 'open' },
     { label: 'Cancelado', value: 'cancelled' },
     { label: 'Cerrado ', value: 'closed' },
   ];
@@ -50,6 +50,8 @@ export const SalesPage = () => {
     { label: 'Nombre (Z - A)', value: 'nombre-desc' },
     { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
     { label: 'Fecha (Recientes)', value: 'fecha-desc' },
+    { label: 'Empresa (A - Z)', value: 'empresa-asc' },
+    { label: 'Empresa (Z - A)', value: 'empresa-desc' },
   ];
 
   return (
@@ -63,7 +65,7 @@ export const SalesPage = () => {
           <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
-          <ol id="sales_list" className=" main_olist">
+          <ol id="sales_list" className="main_olist">
             {filteredSalesList.map((data) => {
               return (
                 <li

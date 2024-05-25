@@ -4,6 +4,7 @@ import { ProfileButton } from "./ProfileButton.jsx";
 import { ButtonMoreUserActions } from "../../buttons/Profile/ButtonMoreUserActions.jsx";
 import { useUser } from "../../../context/authContext.jsx";
 import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
+const URL = import.meta.env.VITE_URL;
 import '../../../Styles/Pages/StyleUserList.css';
 
 // Objeto de mapeo de roles
@@ -29,10 +30,15 @@ export const UserList = ({ user, id, activeUser, onDelete }) => {
   // Obtener el rol traducido
   const translatedRole = roleMapping[user.role] || user.role;
 
+  const handleError = (e) => {
+    e.target.onerror = null;
+    e.target.src = `${URL}/uploads/image/${user.id_user}/${user.avatar}`;
+  };
+
   return (
     <>
       <figure className={`container-avatar-active ${isActive ? 'active' : 'inactive'}`}>
-        <img src={user.avatar || defaultAvatar} alt="Avatar del usuario" className="avatar" />
+        <img src={user.avatar || defaultAvatar} alt="Avatar del usuario" className="avatar" onError={handleError}/>
       </figure>
       <section className="container-details-actions">
         <article className="details">

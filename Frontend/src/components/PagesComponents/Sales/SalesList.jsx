@@ -1,6 +1,7 @@
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { useUser } from '../../../context/authContext.jsx';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
+import { EditButton } from '../../buttons/EditButton.jsx';
 import { ToggleSalesStatusButton } from '../../buttons/StatesBtn/ToggleSalesStatusButton.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateSale } from './UpdateSale.jsx';
@@ -69,11 +70,13 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
           onUpdateSale={onUpdateSale}
           token={token}
         />
-        <UpdateSale
-          sale={sale.id_sale}
-          onUpdateSale={onUpdateSale}
-          token={token}
-        />
+        {sale.operation_status === 'closed'? (
+          <EditButton  />
+        ) : sale.operation_status === 'cancelled'? (
+          <EditButton />
+        ) : (
+        <UpdateSale sale={sale.id_sale} onUpdateSale={onUpdateSale} token={token} />
+        )}
         <DeleteGenericModal
           id={sale.id_sale}
           onDelete={onDelete}

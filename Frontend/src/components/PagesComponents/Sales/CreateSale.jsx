@@ -1,23 +1,21 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import './SalesListTable.css';
 import { useOpenProducts } from '../../../hooks/selectsHook/useOpenProducts.js';
 import { useState } from 'react';
 import { useOpenCustomers } from '../../../hooks/selectsHook/useOpenCustomer.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const CreateSale = ({ onAddSale, token }) => {
   const [reload, setReload] = useState(false);
   const openProducts = useOpenProducts(token, reload);
   const openCustomers = useOpenCustomers(token, reload);
-  const [formValues, setFormValues] = useState({
-    id_product: '',
-  });
   
   // Aqui hace la peticion al servidor
   const handleSaleCreatedAccion = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/sales/create', {
+      const response = await fetch(`${URL}/sales/create`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -67,17 +65,8 @@ export const CreateSale = ({ onAddSale, token }) => {
 
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
   const title = 'Crear Venta';
-
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Crear';
-
-  const handleFieldChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
 
   // Campos del formulario personalizables
   const saleFormFields = [
@@ -95,8 +84,6 @@ export const CreateSale = ({ onAddSale, token }) => {
       idLabel: 'labelNameSaleCreate',
       idInput: 'inputNameSaleCreate',
       required: true,
-      onChange: handleFieldChange,
-      value: formValues.id_product
     },
     {
       name: 'quantity',
@@ -121,10 +108,16 @@ export const CreateSale = ({ onAddSale, token }) => {
       idLabel: 'labelCustomerSaleCreate',
       idInput: 'inputCustomerSaleCreate',
       required: true,
-      onChange: handleFieldChange,
-      value: formValues.id_customer
     },
   ];
+
+  const StyleButton = {
+    idBtn:'btnSalesCreate"',
+    idImgBtn:'imgSaleCreate',
+    srcImgBtn:'/list_alt_add_24dp_FILL0_wght400_GRAD0_opsz24.svg',
+    altImgBtn:'icono agregar Venta',
+    action:'create'
+  }
 
   const saleSchema = Joi.object({
     product: Joi.string().required(),
@@ -132,28 +125,15 @@ export const CreateSale = ({ onAddSale, token }) => {
     customer: Joi.string().required(),
   });
 
-  const handleClickCreateSale = () => {
-    DynamicFormPopUp(
-      title,
-      saleFormFields,
-      saleSchema,
-      handleSaleCreatedAccion,
-      nameButton
-    );
-  };
   return (
-    <>
-      <button
-        id="btnSalesCreate"
-        className=" mainCreateBtn"
-        onClick={handleClickCreateSale}
-      >
-        <img
-          id="imgUserCreate"
-          src="/list_alt_add_24dp_FILL0_wght400_GRAD0_opsz24.svg"
-          alt="Boton agregar usuario"
-        />
-      </button>
-    </>
+    <DynamicModalWrapper
+      title={title}
+      fields={saleFormFields}
+      schema={saleSchema}
+      onSubmit={handleSaleCreatedAccion}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+    />
   );
 };

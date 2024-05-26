@@ -185,16 +185,16 @@ const StyleAcceptBtn = {
 }
 
 return (
-  <DynamicModalWrapper
-    title={title}
-    fields={customerFormFields}
-    schema={createCustomerSchema}
-    onSubmit={handleCustomerCreatedAccion}
-    buttonText={nameButton}
-    dynamicIdModal="customerCreateModal"
-    StyleButton={StyleButton}
-    customModalSize={customModalSize} 
-    StyleAcceptBtn={StyleAcceptBtn}
-  />
-);
+    <DynamicModalWrapper
+      title={title}
+      fields={customerFormFields}
+      schema={createCustomerSchema}
+      onSubmit={handleCustomerCreatedAccion}
+      buttonText={nameButton}
+      dynamicIdModal="customerCreateModal"
+      StyleButton={StyleButton}
+      customModalSize={customModalSize} 
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
+  );
 };

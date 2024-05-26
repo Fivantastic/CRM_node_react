@@ -1,6 +1,6 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import { updateDeliverySchema } from '../../../Schema/Error/updateSchema.js';
 
 export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
   const handleUpdateDeliveryAction = async (formData) => {
@@ -73,20 +73,12 @@ export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
       options: {
         Estados: [
           { value: 'pending', label: 'En proceso' },
+          { value: 'delivering', label: 'En reparto' },
           { value: 'cancelled', label: 'Cancelado' },
-          { value: 'delivering', label: 'Cerrado' },
-          { value: 'delivered', label: 'Entregado' },
         ],
       },
     },
   ];
-  
-  
-
-  const updateDeliverySchema = Joi.object({
-    delivery_status: Joi.string().required(),
-  });
-
 
   const StyleButton = {
     action:'update',
@@ -94,9 +86,6 @@ export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
 
   const StyleAcceptBtn = {
     idAcceptBtn:'btnAcceptNoteUpdate',
-    altImgBtn:'icono actualizar Albaran',
-    btnSvg:'/addNoteWhite.svg',
-    altAcceptBtn:'Boton actualizar Albaran',
     action:'update',
   }
 

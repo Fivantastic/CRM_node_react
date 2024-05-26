@@ -1,6 +1,5 @@
-import Joi from 'joi';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp';
-import { EditButton } from '../../buttons/EditButton.jsx';
+import { updateShipmentSchema } from '../../../Schema/Error/updateSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
 export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
   const handleUpdateShipmentAction = async (formData) => {
@@ -39,30 +38,39 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       name: 'shipment_status',
       label: 'Estado del envío',
       type: 'select',
-      options: [
-        { value: 'pending', label: 'Pendiente' },
-        { value: 'inTransit', label: 'En Tránsito' },
-        { value: 'delayed', label: 'Retrasado' },
-      ],
-      required: true,
+      options: {
+        Estados: [
+          { value: 'pending', label: 'Pendiente' },
+          { value: 'inTransit', label: 'En Tránsito' },
+          { value: 'delayed', label: 'Retrasado' },
+          { value: 'cancelled', label: 'Cancelado' },
+          { value: 'delivered', label: 'Entregado' },
+        ]
+      },
+      required: false,
     },
   ];
+  
 
-  const updateShipmentSchema = Joi.object({
-    shipment_status: Joi.string().valid('pending', 'inTransit', 'delivered', 'delayed', 'cancelled').required(),
-  });
+  const StyleButton = {
+    action:'update',
+  }
 
-  const handleUpdateShipment = () => {
-    DynamicFormPopUp(
-      title,
-      updateShipmentFormFields,
-      updateShipmentSchema,
-      handleUpdateShipmentAction,
-      nameButton
-    );
-  };
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptShipmentUpdate',
+    action:'update',
+  }
 
   return (
-      <EditButton id="btnShipmentUpdate" className="mainUpdateBtn" onClick={handleUpdateShipment}/>
-  );
-};
+      <DynamicModalWrapper
+        title={title}
+        fields={updateShipmentFormFields}
+        schema={updateShipmentSchema}
+        onSubmit={handleUpdateShipmentAction}
+        buttonText={nameButton}
+        dynamicIdModal="dynamicFormModal"
+        StyleButton={StyleButton}
+        StyleAcceptBtn={StyleAcceptBtn}
+      />
+    );
+  };

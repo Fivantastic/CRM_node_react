@@ -1,7 +1,7 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { createInvoiceSchema } from '../../../Schema/Error/createSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
 export const CreateInvoice = ({ onAddInvoice }) => {
   const token = useUser();
@@ -55,74 +55,75 @@ export const CreateInvoice = ({ onAddInvoice }) => {
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+  // Titulo de la ventana
   const title = 'Crear Factura';
 
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
+  // Nombre que se muestra en el botón de submit
   const nameButton = 'Crear';
 
   // Campos del formulario personalizables
   const invoiceFormFields = [
     {
       name: 'sale_id',
-      label: 'Codigo De Venta',
+      label: 'Referencia de Venta *',
       type: 'text',
-      placeholder: 'Introduce el codigo...',
+      placeholder: 'Introduce el código...',
       idLabel: 'labelNameInvoiceCreate',
       idInput: 'inputNameInvoiceCreate',
       required: true,
     },
     {
       name: 'payment_method',
-      label: 'Metodo De Pago',
+      label: 'Método de Pago',
       type: 'select',
-      required: true,
-      defaultValue: 'Transfecia',
+      required: false,
       idLabel: 'labelMethodInvoiceCreate',
       idInput: 'inputMethodInvoiceCreate',
       options: {
-        Metodo: {
-          transfer: 'Transferencia',
-          cash: 'Efectivo',
-          card: 'Tarjeta',
-    
-        },
+        Métodos: [
+          { value: 'transfer', label: 'Transferencia' },
+          { value: 'cash', label: 'Efectivo' },
+          { value: 'card', label: 'Tarjeta' },
+        ],
       },
     },
     {
       name: 'due_date',
-      label: 'Vencimiento Del Pago',
+      label: 'Vencimiento del Pago',
       type: 'date',
-      placeholder: 'Introduce el fecha...',
+      placeholder: 'Introduce la fecha...',
       idLabel: 'labelDateInvoiceCreate',
       idInput: 'inputDateInvoiceCreate',
+      required: true,
     },
   ];
+  
+  const StyleButton = {
+    idBtn:'btnInvoiceCreate',
+    idImgBtn:'imgInvoiceCreateBtn',
+    srcImgBtn:'/addInvoice.svg',
+    altImgBtn:'Boton agregar factura',
+    action:'create'
+  }
 
-  const invoiceSchema = Joi.object({
-    sale_id: Joi.string().guid().required(),
-    payment_method: Joi.string().valid('cash', 'card', 'transfer').optional(),
-    due_date: Joi.date().optional()
-  });
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptInvoiceCreate',
+    altImgBtn:'icono crear factura',
+    btnSvg:'/addInvoiceWhite.svg',
+    altAcceptBtn:'Boton crear',
+    action:'create'
+  }
 
-  const handleClickCreateInvoice = () => {
-    DynamicFormPopUp(
-      title,
-      invoiceFormFields,
-      invoiceSchema,
-      handleInvoiceCreatedAccion,
-      nameButton
-    );
-  };
   return (
-    <div>
-      <button
-        id="btnInvoiceCreate"
-        className=" mainCreateBtn"
-        onClick={handleClickCreateInvoice}
-      >
-        <img id='imgCreateInvoiceBtn' className='imgCreateBtn' src="/addInvoice.svg" alt="icono agregar factura" />
-      </button>
-    </div>
-  );
+    <DynamicModalWrapper
+      title={title}
+      fields={invoiceFormFields}
+      schema={createInvoiceSchema}
+      onSubmit={handleInvoiceCreatedAccion}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
+);
 };

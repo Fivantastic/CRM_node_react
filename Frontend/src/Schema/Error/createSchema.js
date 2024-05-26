@@ -52,5 +52,20 @@ export const saleSchema = Joi.object({
   product: Joi.string().required().messages(joiErrorMessages),
   quantity: Joi.string().required().messages(joiErrorMessages),
   customer: Joi.string().required().messages(joiErrorMessages),
+});
 
+
+export const createInvoiceSchema = Joi.object({
+  sale_id: Joi.string().guid().required().messages(joiErrorMessages),
+  payment_method: Joi.string().valid('cash', 'card', 'transfer').optional().messages(joiErrorMessages),
+  due_date: Joi.date().optional().messages(joiErrorMessages),
+});
+
+export const createPaymentSchema = Joi.object({
+  invoice_id: Joi.string().required().guid().messages(joiErrorMessages),
+});
+
+export const createShipmentSchema = Joi.object({
+  deliveryNote_id: Joi.string().guid().required().messages(joiErrorMessages),
+  additional_notes: Joi.string().optional().messages(joiErrorMessages),
 });

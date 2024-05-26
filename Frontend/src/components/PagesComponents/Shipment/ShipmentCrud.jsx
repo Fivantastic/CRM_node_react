@@ -9,9 +9,9 @@ import { ShipmentList } from '../../../components/PagesComponents/Shipment/Shipm
 import { MoreShipments } from '../../../components/PagesComponents/Shipment/MoreShipments.jsx';
 import { UpdateShipment } from '../../../components/PagesComponents/Shipment/UpdateShipment.jsx';
 import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal.jsx';
-import '../../../Styles/Pages/StyleShipmentList.css';
 import useShipmentList from '../../../hooks/PagesHooks/useShipmentList.js';
 import { ShipmentListTable } from './ShipmentListTable.jsx';
+import '../../../Styles/Pages/StyleShipmentList.css';
 
 export const ShipmentsCrud = () => {
   const token = useUser();
@@ -76,7 +76,7 @@ export const ShipmentsCrud = () => {
   ];
 
   return (
-    <section id="shipment_container" className="mainShipment">
+    <section id="shipment_container" className="mainContainer">
       <nav id="user_nav" className="mainNav">
         <SearchPages onSearch={handleSearch} />
         <CreateShipment onAddShipment={addShipment} token={token} />

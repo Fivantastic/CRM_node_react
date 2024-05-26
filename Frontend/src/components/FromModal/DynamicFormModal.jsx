@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { CustomModal } from './CustomModal';
 import { customStyles } from './customStyle.js';
+import MenuConRetraso from './MenuConRetraso'; // Importa el componente de menú personalizado
 import './DynamicFormModal.css';
 
-export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues, resetFormValues,customModalSize, StyleAcceptBtn }) => {
+export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues, resetFormValues, customModalSize, StyleAcceptBtn }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [validationErrors, setValidationErrors] = useState([]);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -130,13 +131,13 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
 
   return (
     <CustomModal 
-    show={show} 
-    onClose={handleCancel} 
-    onSubmit={handleSubmit} 
-    buttonText={buttonText} 
-    isSubmitDisabled={isSubmitDisabled} 
-    customModalSize={customModalSize} 
-    StyleAcceptBtn={StyleAcceptBtn}
+      show={show} 
+      onClose={handleCancel} 
+      onSubmit={handleSubmit} 
+      buttonText={buttonText} 
+      isSubmitDisabled={isSubmitDisabled} 
+      customModalSize={customModalSize} 
+      StyleAcceptBtn={StyleAcceptBtn}
     >
       <h2>{title}</h2>
       <form id={dynamicIdModal} className="dynamicCustomFromModal">
@@ -161,6 +162,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   onBlur={() => handleBlur(field.name)}
                   onMenuClose={() => handleMenuClose(field.name)}
                   onMenuOpen={() => handleMenuOpen(field.name)}
+                  components={{ Menu: MenuConRetraso }} // Utiliza el componente de menú personalizado
                   noOptionsMessage={() => 'No hay opciones disponibles'}
                 />
                 <label htmlFor={`react-select-${field.name}-input`} className="labelSelect">

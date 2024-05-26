@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { useUser } from '../../context/authContext.jsx';
 const URL = import.meta.env.VITE_URL;
 import './Max.css';
+import { IsLoading } from './DataDashboard/isLoading.jsx';
 
 export const MaxInvoices = () => {
   const token = useUser();
- /*  const [invoiceList, setInvoiceList] = useState([]); */
   const [currentMonthInvoices, setCurrentMonthInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [range, setRange] = useState({ min: 0, max: 0 });
+
 
   const getInvoicesMonth = async () => {
     try {
@@ -36,6 +38,11 @@ export const MaxInvoices = () => {
 
         // Actualizar el estado con las facturas del mes actual
         setCurrentMonthInvoices(filteredInvoices);
+        
+        setRange({
+          min: Math.min(...filteredInvoices.map(invoice => parseFloat(invoice.total_amount))),
+          max: Math.max(...filteredInvoices.map(invoice => parseFloat(invoice.total_amount)))
+        });
       } else {
         const errorData = await response.json();
         console.error('Obetener fallido:', errorData);
@@ -56,6 +63,8 @@ export const MaxInvoices = () => {
     }, 2000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  const percentageChange = ((previousTotalIncome / currentMonthInvoices.reduce((total, invoice) => total + parseFloat(invoice.total_amount), 0)) * 100 - 100).toFixed(2);
 
   return (
     <div className="card_Dashboard">
@@ -82,7 +91,7 @@ export const MaxInvoices = () => {
           >
             <path d="M1408 1216q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z"></path>
           </svg>{' '}
-          {((previousTotalIncome / currentMonthInvoices.reduce((total, invoice) => total + parseFloat(invoice.total_amount), 0)) * 100 - 100).toFixed(2)}%
+          {percentageChange}%
         </p>
       </div>
       <div className="data">
@@ -97,18 +106,18 @@ export const MaxInvoices = () => {
             <path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z" />
           </svg>
           {loading ? (
-          <div className="loading">...</div>
-        ) : (
-          <>
-            {currentMonthInvoices.length > 
-            0? currentMonthInvoices.reduce((total, invoice) => 
-            total + parseFloat(invoice.total_amount), 0).toFixed(2) : 0}
-          </>
-        )}
+            <IsLoading />
+          ) : (
+            <>
+              {currentMonthInvoices.length > 
+              0? currentMonthInvoices.reduce((total, invoice) => 
+              total + parseFloat(invoice.total_amount), 0).toFixed(2) : 0}
+            </>
+          )}
         </section>
 
         <div className="range">
-          <div className="fill"></div>
+          <div className="fill" style={{ maxWidth: "100%", width: `${(range.max - range.min) * (percentageChange / 100)}%`}}></div>
         </div>
       </div>
     </div>

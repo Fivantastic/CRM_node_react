@@ -1,6 +1,72 @@
+import { useEffect, useState } from 'react';
+import { useUser } from '../../context/authContext.jsx';
+import { IsLoading } from './DataDashboard/isLoading.jsx';
+const URL = import.meta.env.VITE_URL;
 import './Max.css';
 
 export const MaximSale = () => {
+  const token = useUser();
+  const [currentMonthSales, setCurrentMonthSales] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [range, setRange] = useState({ min: 0, max: 0 });
+
+  const getSalesMonth = async () => {
+    try {
+      const response = await fetch(`${URL}/sales/list`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+      });
+
+      
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Obtener satisfactorio:', responseData);
+
+        // Obtener el año y mes actual
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1; 
+
+        // Filtrar facturas por mes actual
+        const filteredSales = responseData.data.filter(sale =>
+          new Date(sale.create_at).getFullYear() === year && new Date(sale.create_at).getMonth() + 1 === month
+        );
+
+        // Actualizar el estado con las facturas del mes actual
+        setCurrentMonthSales(filteredSales);
+        calculateTotalSales(filteredSales);
+        setRange({
+          min: Math.min(...filteredSales.map(sale => parseFloat(sale.quantity))),
+          max: Math.max(...filteredSales.map(sale => parseFloat(sale.quantity)))
+        });
+      } else {
+        const errorData = await response.json();
+        console.error('Obetener fallido:', errorData);
+      }
+    } catch (error) {
+      console.error('Error al obtener la lista de facturas:', error);
+    }
+  };
+
+  // Ejemplo de total de ingresos previos
+  const previousTotalIncome = 100000; 
+
+
+  useEffect(() => {
+    getSalesMonth();
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  const calculateTotalSales = (sales) => sales.reduce((total, sale) => total + (parseFloat(sale.product_price) * parseFloat(sale.quantity)), 0);
+
+  const percentageChange = ((calculateTotalSales(currentMonthSales) / previousTotalIncome) * 100).toFixed(2);
+
   return (
     <div className="card_Dashboard">
       <div className="title">
@@ -26,7 +92,7 @@ export const MaximSale = () => {
           >
             <path d="M1408 1216q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z"></path>
           </svg>{' '}
-          50%
+          {percentageChange}%
         </p>
       </div>
       <div className="data">
@@ -40,11 +106,17 @@ export const MaximSale = () => {
           >
             <path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z" />
           </svg>
-          59,500
+          {loading ? (
+            <IsLoading />
+          ) : (
+            <>
+              {calculateTotalSales(currentMonthSales)}
+            </>
+          )}
         </section>
 
         <div className="range">
-          <div className="fill"></div>
+          <div className="fill" style={{ maxWidth: "100%", width: `${(range.max - range.min) * (percentageChange / 100)}%`}}></div>
         </div>
       </div>
     </div>

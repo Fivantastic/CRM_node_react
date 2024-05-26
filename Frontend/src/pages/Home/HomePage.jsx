@@ -17,17 +17,19 @@ export const HomePage = () => {
         className="note_container mainContainer"
       >
         <section id="max-charts">
-          <MaximSale />
-          <MaxShipments />
-          <MaxInvoices />
+            <MaximSale />
+            <MaxShipments />
+            <MaxInvoices />
+        </section>
+        <section id="charts">
+          <StockProductBarCharts />
+          <VisitBarCharts />
         </section>
         <section id="charts">
           <SalesBarCharts />
-          <StockProductBarCharts />
         </section>
         <section id="charts">
           <InvoicesBarCharts />
-          <VisitBarCharts />
         </section>
       </section>
     </MainLayout>

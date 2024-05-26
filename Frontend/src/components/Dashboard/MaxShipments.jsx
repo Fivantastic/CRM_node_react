@@ -1,6 +1,77 @@
+import { useEffect, useState } from 'react';
+import { useUser } from '../../context/authContext.jsx';
+const URL = import.meta.env.VITE_URL;
+import { IsLoading } from './DataDashboard/isLoading.jsx';
 import './Max.css';
 
 export const MaxShipments = () => {
+  const token = useUser();
+  const [currentMonthShipments, setCurrentMonthShipments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [range, setRange] = useState({ min: 0, max: 0 });
+
+  const getShipmentMonth = async () => {
+    try {
+      const response = await fetch(`${URL}/shipment/list`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${token}`,
+        },
+      });
+
+      
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Obtener satisfactorio:', responseData);
+
+        // Obtener el año y mes actual
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1; 
+
+        // Filtrar facturas por mes actual
+        const filteredSales = responseData.data.filter(shipment =>
+          new Date(shipment.deliveryNote_create_at
+          ).getFullYear() === year && new Date(shipment.deliveryNote_create_at
+          ).getMonth() + 1 === month
+        );
+
+        // Actualizar el estado con las facturas del mes actual
+        setCurrentMonthShipments(filteredSales);
+
+        calculateTotalShipments(filteredSales);
+        setRange({
+          min: Math.min(...filteredSales.map(shipment => parseFloat(shipment.product_quantity))),
+          max: Math.max(...filteredSales.map(shipment => parseFloat(shipment.product_quantity)))
+        });
+      } else {
+        const errorData = await response.json();
+        console.error('Obetener fallido:', errorData);
+      }
+    } catch (error) {
+      console.error('Error al obtener la lista de facturas:', error);
+    }
+  };
+
+  // Ejemplo de total de ingresos previos
+  const previousTotalIncome = 100000; 
+
+
+  useEffect(() => {
+    getShipmentMonth();
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+
+  const calculateTotalShipments = (sales) => sales.reduce((total, shipment) => total + ( parseFloat(shipment.product_quantity
+  )), 0);
+
+  const percentageChange = ((calculateTotalShipments(currentMonthShipments) / previousTotalIncome) * 100).toFixed(2);
+
   return (
     <div className="card_Dashboard">
       <div className="title">
@@ -26,7 +97,7 @@ export const MaxShipments = () => {
           >
             <path d="M1408 1216q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z"></path>
           </svg>{' '}
-          20%
+          {percentageChange}%
         </s>
       </div>
       <div className="data">
@@ -40,11 +111,17 @@ export const MaxShipments = () => {
           >
             <path d="m400-570 80-40 80 40v-190H400v190ZM280-280v-80h200v80H280Zm-80 160q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-640v560-560Zm0 560h560v-560H640v320l-160-80-160 80v-320H200v560Z" />
           </svg>
-          &nbsp;39,500
+          {loading ? (
+            <IsLoading />
+          ) : (
+            <>
+               &nbsp;{calculateTotalShipments(currentMonthShipments)}
+            </>
+          )}
         </section>
 
         <div className="range">
-          <div className="fill"></div>
+          <div className='fill' style={{ maxWidth: "100%", width: `${(range.max - range.min) * (percentageChange / 100)}%`}}></div>
         </div>
       </div>
     </div>

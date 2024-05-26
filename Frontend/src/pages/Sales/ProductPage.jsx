@@ -79,7 +79,7 @@ export const ProductPage = () => {
                     typeModuleMessage={typeModuleMessage}
                   />
                   <UpdateProduct
-                    product={product.id_product}
+                    id={product.id_product}
                     onUpdateProduct={updateProduct}
                   />
                   <DeleteGenericModal

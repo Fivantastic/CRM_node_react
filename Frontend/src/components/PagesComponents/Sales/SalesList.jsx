@@ -1,7 +1,7 @@
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
+import { PencilBroken } from '../../../assets/creado/PencilBroken.jsx';
 import { useUser } from '../../../context/authContext.jsx';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
-import { EditButton } from '../../buttons/EditButton.jsx';
 import { ToggleSalesStatusButton } from '../../buttons/StatesBtn/ToggleSalesStatusButton.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateSale } from './UpdateSale.jsx';
@@ -71,9 +71,9 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
           token={token}
         />
         {sale.operation_status === 'closed'? (
-          <EditButton  />
+          <PencilBroken  />
         ) : sale.operation_status === 'cancelled'? (
-          <EditButton />
+          <PencilBroken />
         ) : (
         <UpdateSale sale={sale.id_sale} onUpdateSale={onUpdateSale} token={token} />
         )}

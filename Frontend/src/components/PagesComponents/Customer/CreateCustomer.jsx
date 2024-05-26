@@ -174,6 +174,9 @@ const StyleButton = {
 
 const customModalSize = {
   idModalContainer:'createCustomerContainerModal',
+  idModalFooter:'createCustomerFooterModal',
+  idModalBtnClose:'createCustomerBtnCloseModal',
+  idAcceptBtn:'createCustomerAcceptBtn',
 }
 
 const StyleAcceptBtn = {

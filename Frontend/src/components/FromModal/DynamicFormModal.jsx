@@ -5,13 +5,21 @@ import { customStyles } from './customStyle.js';
 import MenuConRetraso from './MenuConRetraso'; // Importa el componente de menú personalizado
 import './DynamicFormModal.css';
 
-export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues, resetFormValues, customModalSize, StyleAcceptBtn }) => {
-  const [formValues, setFormValues] = useState(initialValues);
+export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues = {}, resetFormValues, customModalSize, StyleAcceptBtn }) => {
+  const initializeFormValues = () => {
+    const initialFormValues = {};
+    fields.forEach(field => {
+      initialFormValues[field.name] = initialValues[field.name] || '';
+    });
+    return initialFormValues;
+  };
+
+  const [formValues, setFormValues] = useState(initializeFormValues);
   const [validationErrors, setValidationErrors] = useState([]);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   useEffect(() => {
-    setFormValues(initialValues);
+    setFormValues(initializeFormValues());
     setIsSubmitDisabled(true);
 
     fields.forEach(field => {
@@ -25,9 +33,11 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
         inputElement.classList.add('no-selection');
       }
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues, fields]);
 
   const updateDateInputState = (input) => {
+    event.preventDefault();
     if (input.value) {
       input.classList.add('has-content');
     } else {
@@ -176,7 +186,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   type={field.type}
                   name={field.name}
                   className="inputText"
-                  value={formValues[field.name]}
+                  value={formValues[field.name] || ''}
                   onChange={handleInputChange}
                   required={field.required}
                   placeholder=""

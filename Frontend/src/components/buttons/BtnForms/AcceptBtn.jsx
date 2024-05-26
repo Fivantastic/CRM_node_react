@@ -2,14 +2,14 @@ import { EditButtonSvg } from '../EditButton.jsx';
 import './AcceptBtn.css';
 import './UpdateBtn.css';
 
-export const AcceptBtn = ({ disabled, StyleAcceptBtn, onClick, buttonText }) => {
+export const AcceptBtn = ({ id, disabled, StyleAcceptBtn, onClick, buttonText }) => {
   const { action } = StyleAcceptBtn;
   return (
     <>
       {action === 'update' ? (
         <button
           type="button"
-          id={StyleAcceptBtn.idAcceptBtn}
+          id={id}
           className="button__acceptUpdate"
           onClick={onClick}
           disabled={disabled}
@@ -22,7 +22,7 @@ export const AcceptBtn = ({ disabled, StyleAcceptBtn, onClick, buttonText }) => 
       ) : (
         <button
           type="button"
-          id={StyleAcceptBtn.idAcceptBtn}
+          id={id}
           className="button__accept"
           onClick={onClick}
           disabled={disabled}

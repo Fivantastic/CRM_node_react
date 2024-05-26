@@ -84,7 +84,7 @@ export const InvoicesList = ({
 
         <p className="mainInsideSub"><strong>Fecha de Vencimiento: </strong>{dueDate.toLocaleDateString()}</p>
 
- lassNa <p id="invoice_status" className="mainInsideSub"><strong>Estado Factura: </strong><span style={{color: invoiceStatus.color}}>{invoiceStatus.text}</span></p>
+        <p id="invoice_status" className="mainInsideSub"><strong>Estado Factura: </strong><span style={{color: invoiceStatus.color}}>{invoiceStatus.text}</span></p>
 
         <span id="invoice_actions" className="main_actions">
           <MoreInfo fields={moreInfoFields} modalIds={[]} />

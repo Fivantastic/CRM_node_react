@@ -3,16 +3,13 @@ import { useUser } from '../../../context/authContext.jsx';
 import { UpdateProductSchema } from '../../../Schema/Error/updateSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
-export const UpdateProduct = ({ product, onUpdateProduct }) => {
+export const UpdateProduct = ({ id, onUpdateProduct }) => {
   const token = useUser();
 
   const handleButtonUpdateProduct = async (formData) => {
-    // Convertir el valor del estado a booleano
-    formData.active = formData.active === 'true' ? true : false;
-
     try {
       const response = await fetch(
-        `http://localhost:3000/product/update/${product}`,
+        `http://localhost:3000/product/update/${id}`,
         {
           method: 'PUT',
           credentials: 'include',
@@ -28,7 +25,8 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
         const responseData = await response.json();
         console.log('Producto actualizado correctamente', responseData);
 
-        onUpdateProduct(responseData);
+        // Recargar la lista para asegurar la consistencia
+        onUpdateProduct(responseData.data);
 
         const Toast = Swal.mixin({
           toast: true,
@@ -61,34 +59,23 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
   const updateProductFormFields = [
     {
       name: 'name',
-      label: 'nombre del producto',
+      label: 'Nombre',
       type: 'text',
-      placeholder: 'Introduce nombre del producto',
       idLabel: 'labelNameProductCreate',
       idInput: 'inputNameProductCreate',
       required: false,
     },
     {
-      name: 'description',
-      label: 'descripción producto',
-      type: 'text',
-      placeholder: 'Introduce descripción del producto',
-      idLabel: 'labelDescriptionProductCreate',
-      idInput: 'inputDescriptionProductCreate',
-      required: false,
-    },
-    {
       name: 'price',
-      label: 'price',
+      label: 'Precio',
       type: 'text',
-      placeholder: 'Introduce precio del producto',
       idLabel: 'labelPriceProductCreate',
       idInput: 'inputPriceProductCreate',
       required: false,
     },
     {
       name: 'stock',
-      label: 'stock',
+      label: 'Stock',
       type: 'text',
       placeholder: 'introduce las cantidad',
       idLabel: 'labelStockProductCreate',
@@ -96,18 +83,12 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
       required: false,
     },
     {
-      name: 'active',
-      label: 'Estado',
-      type: 'select',
-      idLabel: 'labelStatusProductCreate',
-      idInput: 'inputStatusProductCreate',
+      name: 'description',
+      label: 'Descripción',
+      type: 'text',
+      idLabel: 'labelDescriptionProductCreate',
+      idInput: 'inputDescriptionProductCreate',
       required: false,
-      options: {
-        Estado: [
-          { value: 'true', label: 'Activo' },
-          { value: 'false', label: 'Inactivo' },
-        ],
-      },
     },
   ];
 
@@ -135,5 +116,4 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
       StyleAcceptBtn={StyleAcceptBtn}
     />
   );
-  };
-
+};

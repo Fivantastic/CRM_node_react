@@ -87,7 +87,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
     },
     {
       name: 'active',
-      label: 'Estado',
+      label: 'Estado *',
       type: 'select',
       idLabel: 'labelStatusProductCreate',
       idInput: 'inputStatusProductCreate',

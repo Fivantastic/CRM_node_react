@@ -3,8 +3,8 @@ import { ToggleSalesStatusButton } from '../../buttons/StatesBtn/ToggleSalesStat
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { MoreSales } from './MoreSales.jsx';
 import { UpdateSale } from './UpdateSale.jsx';
+import { PencilBroken } from '../../../assets/creado/PencilBroken.jsx';
 import '../Sales/SalesListTable.css';
-import { EditButton } from '../../buttons/EditButton.jsx';
 
 export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   const token = useUser();
@@ -57,10 +57,10 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
                     onUpdateSale={onUpdateSale}
                     token={token}
                   />
-                   {sale.operation_status === 'closed'? (
-                      <EditButton  />
+                    {sale.operation_status === 'closed'? (
+                      <PencilBroken  />
                     ) : sale.operation_status === 'cancelled'? (
-                      <EditButton />
+                      <PencilBroken />
                     ) : (
                   <UpdateSale sale={sale.id_sale} onUpdateSale={onUpdateSale} token={token} />
                     )}

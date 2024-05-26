@@ -4,7 +4,7 @@ import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateVisit } from './UpdateVisit.jsx';
 import { ToggleVisitStatusButton } from '../../buttons/StatesBtn/ToggleVisitStatusButton.jsx';
 import '../../../Styles/Pages/StyleVisitList.css';
-import { EditButton } from '../../buttons/EditButton.jsx';
+import { PencilBroken } from '../../../assets/creado/PencilBroken.jsx';
 
 export const VisitsList = ({
   visit,
@@ -91,9 +91,9 @@ export const VisitsList = ({
           token={token}
         />
           {visit.visit_status === 'completed'? (
-            <EditButton  />
+            <PencilBroken  />
           ) : visit.visit_status === 'cancelled'? (
-            <EditButton />
+            <PencilBroken />
           ) : (
           <UpdateVisit visit={visit.id_visit} onUpdateVisit={onUpdateVisit} />
           )}

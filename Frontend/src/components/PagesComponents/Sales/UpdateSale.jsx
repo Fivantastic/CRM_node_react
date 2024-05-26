@@ -23,7 +23,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
           'Content-Type': 'application/json',
           Authorization: `${token}`,
         },
-        body: JSON.stringify(formData), // aqui va el formData lo que le envio lo del body
+        body: JSON.stringify(formData), 
       });
       console.log(response);
 

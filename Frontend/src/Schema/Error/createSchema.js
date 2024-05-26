@@ -46,6 +46,7 @@ export  const newProductSchema = Joi.object({
 export const deliveryNoteSchema = Joi.object({
   id_sale: Joi.string().guid().required().messages(joiErrorMessages),
   deliverer_id: Joi.string().guid().required().messages(joiErrorMessages),
+});
 
 export const saleSchema = Joi.object({
   product: Joi.string().required().messages(joiErrorMessages),

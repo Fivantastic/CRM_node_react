@@ -8,6 +8,7 @@ import {
   getInvoiceController,
   getInvoiceSearchController,
 } from '../../controllers/modulesControllers.js';
+import { getUnasignedSalesController } from '../../controllers/Modules/invoices/salesInvoiceController.js';
 
 export const invoicesRouter = express.Router();
 
@@ -52,4 +53,10 @@ invoicesRouter.get(
   authenticateUser,
   checkRoleAgent,
   getInvoiceSearchController
-)
+);
+
+invoicesRouter.get(
+  '/invoices/unasigned-sales', 
+  authenticateUser, 
+  getUnasignedSalesController
+);

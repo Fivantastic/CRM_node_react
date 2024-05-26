@@ -1,11 +1,14 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
-import { useUser } from '../../../context/authContext.jsx';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import { useState } from 'react';
+import { joiErrorMessages } from '../../../Schema/Error/JoiErrorMesasage.js';
+import { useUnasignedSales } from '../../../hooks/PagesHooks/useUnasignedSales.js';
 
-export const CreateInvoice = ({ onAddInvoice }) => {
-  const token = useUser();
-  // peticion al servidor
+export const CreateInvoice = ({ onAddInvoice, token }) => {
+  const [reload, setReload] = useState(false);
+  const unasignedSales = useUnasignedSales(token, reload);  
+
   const handleInvoiceCreatedAccion = async (formData) => {
     try {
       const response = await fetch('http://localhost:3000/invoice', {
@@ -19,110 +22,105 @@ export const CreateInvoice = ({ onAddInvoice }) => {
       });
 
       if (response.ok) {
-        //si la peticion es correcta
         const responseData = await response.json();
-        console.log('Factura satisfactorio:', responseData);
+        console.log('Factura creada satisfactoriamente:', responseData);
 
-        onAddInvoice(responseData.data);
+        if (responseData.data && responseData.data.id_note) {
+          onAddInvoice(responseData.data);
+          Swal.fire({
+            icon: 'success',
+            title: 'Factura creada con éxito',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            position: 'top-end',
+            toast: true,
+          });
 
-        // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
+          setReload(!reload);
+        } else {
+          console.error('La respuesta del servidor no contiene id_invoice:', responseData);
 
-        Toast.fire({
-          icon: 'success',
-          title: 'Factura Realizada con exito !',
-        });
+        }
+        
       } else {
-        // si la peticion es incorrecta
-        const errorData = await response.json();
-        console.error('Factura fallido:', errorData);
-        // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
+        console.error('Error al crear la factura:', await response.text());
       }
     } catch (error) {
-      // si la peticion falla
-      console.error('Error durante la Factura:', error);
-      // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
+      console.error('Error durante la creación de la factura:', error);
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
   const title = 'Crear Factura';
-
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Crear';
 
-  // Campos del formulario personalizables
   const invoiceFormFields = [
     {
-      name: 'sale_id',
-      label: 'Codigo De Venta',
-      type: 'text',
-      placeholder: 'Introduce el codigo...',
-      idLabel: 'labelNameInvoiceCreate',
-      idInput: 'inputNameInvoiceCreate',
-      required: true,
-    },
-    {
-      name: 'payment_method',
-      label: 'Metodo De Pago',
+      key: 'id_sale',
+      name: 'id_sale',
+      label: 'Venta *',
       type: 'select',
-      required: true,
-      defaultValue: 'Transfecia',
-      idLabel: 'labelMethodInvoiceCreate',
-      idInput: 'inputMethodInvoiceCreate',
       options: {
-        Metodo: {
-          transfer: 'Transferencia',
-          cash: 'Efectivo',
-          card: 'Tarjeta',
-    
-        },
+        'Órdenes de venta': unasignedSales.map(sale => ({
+          value: sale.id_sale,
+          label: `${sale.ref_SL} - ${sale.customer_name}`
+        }))
       },
+      idLabel: 'labelRefSLInvoiceCreate',
+      idInput: 'inputRefSLInvoiceCreate',
+      required: true
     },
-    {
-      name: 'due_date',
-      label: 'Vencimiento Del Pago',
-      type: 'date',
-      placeholder: 'Introduce el fecha...',
-      idLabel: 'labelDateInvoiceCreate',
-      idInput: 'inputDateInvoiceCreate',
-    },
+    // {
+    //   key: 'payment_method',
+    //   name: 'payment_method',
+    //   label: 'Metodo De Pago *',
+    //   type: 'select',
+    //   // defaultValue: 'Transfecia',
+    //   idLabel: 'labelMethodInvoiceCreate',
+    //   idInput: 'inputMethodInvoiceCreate',
+    //   options: {
+    //     Metodo: {
+    //       transfer: 'Transferencia',
+    //       cash: 'Efectivo',
+    //       card: 'Tarjeta',
+    
+    //     },
+        
+    //   },
+    //   required: true,
+    // },
+    // {
+    //   name: 'due_date',
+    //   label: 'Vencimiento Del Pago',
+    //   type: 'date',
+    //   placeholder: 'Introduce el fecha...',
+    //   idLabel: 'labelDateInvoiceCreate',
+    //   idInput: 'inputDateInvoiceCreate',
+    // },
   ];
 
+  const StyleButton = {
+    idBtn:'btnInvoiceCreate',
+    idImgBtn:'imgCreateInvoiceBtn',
+    srcImgBtn:'/addInvoice.svg', // TODO - Works?
+    altImgBtn:'icono agregar Factura',
+  }
+
   const invoiceSchema = Joi.object({
-    sale_id: Joi.string().guid().required(),
-    payment_method: Joi.string().valid('cash', 'card', 'transfer').optional(),
+    sale_id: Joi.string().guid().required().messages(joiErrorMessages),
+    payment_method: Joi.string().valid('cash', 'card', 'transfer').messages(joiErrorMessages),
     due_date: Joi.date().optional()
   });
 
-  const handleClickCreateInvoice = () => {
-    DynamicFormPopUp(
-      title,
-      invoiceFormFields,
-      invoiceSchema,
-      handleInvoiceCreatedAccion,
-      nameButton
-    );
-  };
   return (
-    <div>
-      <button
-        id="btnInvoiceCreate"
-        className=" mainCreateBtn"
-        onClick={handleClickCreateInvoice}
-      >
-        <img id='imgCreateInvoiceBtn' className='imgCreateBtn' src="/addInvoice.svg" alt="icono agregar factura" />
-      </button>
-    </div>
+    <DynamicModalWrapper
+      title={title}
+      fields={invoiceFormFields}
+      schema={invoiceSchema}
+      onSubmit={handleInvoiceCreatedAccion}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+    />
   );
 };

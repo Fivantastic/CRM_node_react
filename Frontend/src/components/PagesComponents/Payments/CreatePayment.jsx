@@ -1,6 +1,6 @@
-import Joi from "joi";
 import Swal from "sweetalert2";
-import DynamicFormPopUp from "../../forms/DynamicFormPopUp";
+import { createPaymentSchema } from "../../../Schema/Error/createSchema.js";
+import { DynamicModalWrapper } from "../../FromModal/DynamicModalWrapper.jsx";
 
 export const CreatePayment = ({onAddPayment, token}) => {
   // Modelo swal
@@ -69,10 +69,10 @@ export const CreatePayment = ({onAddPayment, token}) => {
     }
 
 
-    // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+    // Titulo de la ventana
   const title = 'Crear Pago';
 
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
+  // Nombre que se muestra en el botón de submit
   const nameButton = 'Crear';
 
   // Campos del formulario personalizables
@@ -81,31 +81,38 @@ export const CreatePayment = ({onAddPayment, token}) => {
       name: 'invoice_id',
       label: 'Factura',
       type: 'text',
-      placeholder: 'Introduce el identificador...',
       idLabel: 'labelIdPaymentCreate',
       idInput: 'inputIdPaymentCreate',
       required: true,
     }
   ];
 
-  const paymentSchema = Joi.object({
-    invoice_id: Joi.string().required().guid()
-  });
+  const StyleButton = {
+    idBtn:'btnPaymentCreate',
+    idImgBtn:'imgCreatePaymentBtn',
+    srcImgBtn:'/addPay.svg',
+    altImgBtn:'Boton crear pago',
+    action:'create'
+  }
 
-  const handleClickCreatePayment = () => {
-    DynamicFormPopUp(
-      title,
-      saleFormFields,
-      paymentSchema,
-      handlePaymentCreatedAction,
-      nameButton
-    );
-  };
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptPayCreate',
+    altImgBtn:'icono crear pago',
+    btnSvg:'/addPayWhite.svg',
+    altAcceptBtn:'Boton crear',
+    action:'create'
+  }
 
-    return (
-        <>
-            <button id="btnPaymentCreate" className=" mainCreateBtn" onClick={handleClickCreatePayment}> 
-              <img id="imgCreatePaymentBtn" className='imgCreateBtn' src="/addPay.svg" alt="icono de agregar pago" />
-            </button>
-        </>
-    )}
+  return (
+      <DynamicModalWrapper
+        title={title}
+        fields={saleFormFields}
+        schema={createPaymentSchema}
+        onSubmit={handlePaymentCreatedAction}
+        buttonText={nameButton}
+        dynamicIdModal="dynamicFormModal"
+        StyleButton={StyleButton}
+        StyleAcceptBtn={StyleAcceptBtn}
+      />
+  );
+};

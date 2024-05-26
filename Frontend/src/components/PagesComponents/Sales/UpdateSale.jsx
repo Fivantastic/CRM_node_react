@@ -65,9 +65,9 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+  // Titulo de la ventana
   const title = 'Actualizar Venta';
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
+  // Nombre que se muestra en el botón de submit
   const nameButton = 'Actualizar';
 
   // Campos del formulario personalizables
@@ -87,23 +87,27 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
       label: 'Cliente',
       type: 'select',
       options: {
-        'Clientes': openCustomers.map(customer => ({
+        Clientes: openCustomers.map(customer => ({
           value: customer.id_customer,
           label: `${customer.ref_CT} - ${customer.company_name}`
         }))
       },
-      idLabel: 'labelCustomerSaleCreate',
-      idInput: 'inputCustomerSaleCreate',
+      idLabel: 'labelCustomerSaleUpdate',
+      idInput: 'inputCustomerSaleUpdate',
       required: true,
     },
   ];
+  
 
   const StyleButton = {
-    idBtn:'btnSalesUpdate',
-    idImgBtn:'imgSalesCreate',
-    srcImgBtn:'/list_alt_add_24dp_FILL0_wght400_GRAD0_opsz24.svg',
-    altImgBtn:'Boton agregar visita',
     action:'Update'
+  }
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptSalesUpdate',
+    altImgBtn:'icono actualizar Venta',
+    btnSvg:'/addSalesWhite.svg',
+    altAcceptBtn:'Boton actualizar Venta',
+    action:'update'
   }
   
   return (
@@ -115,6 +119,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
       buttonText={nameButton}
       dynamicIdModal="dynamicFormModal"
       StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
     />
     
   );

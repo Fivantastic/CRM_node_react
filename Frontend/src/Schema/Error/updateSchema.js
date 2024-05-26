@@ -39,6 +39,14 @@ export const UpdateProductSchema = Joi.object({
 });
 
 export const updateSaleSchema = Joi.object({
-  quantity: Joi.string().optional(),
-  customer: Joi.string().optional(),
+  quantity: Joi.string().optional().messages(joiErrorMessages),
+  customer: Joi.string().optional().messages(joiErrorMessages)
+});
+
+export const updateDeliverySchema = Joi.object({
+  delivery_status: Joi.string().optional().messages(joiErrorMessages)
+});
+
+export const updateShipmentSchema = Joi.object({
+  shipment_status: Joi.string().valid('pending', 'inTransit', 'delivered', 'delayed', 'cancelled').optional().messages(joiErrorMessages)
 });

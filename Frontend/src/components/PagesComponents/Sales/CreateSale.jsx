@@ -76,7 +76,7 @@ export const CreateSale = ({ onAddSale, token }) => {
       label: 'Producto *',
       type: 'select',
       options: {
-        'Productos': openProducts.map(product => ({
+        Productos: openProducts.map(product => ({
           value: product.id_product,
           label: `${product.ref_PR} - ${product.name}`
         }))
@@ -100,7 +100,7 @@ export const CreateSale = ({ onAddSale, token }) => {
       label: 'Cliente *',
       type: 'select',
       options: {
-        'Clientes': openCustomers.map(customer => ({
+        Clientes: openCustomers.map(customer => ({
           value: customer.id_customer,
           label: `${customer.ref_CT} - ${customer.company_name}`
         }))
@@ -110,12 +110,21 @@ export const CreateSale = ({ onAddSale, token }) => {
       required: true,
     },
   ];
+  
 
   const StyleButton = {
     idBtn:'btnSalesCreate"',
     idImgBtn:'imgSaleCreate',
-    srcImgBtn:'/list_alt_add_24dp_FILL0_wght400_GRAD0_opsz24.svg',
+    srcImgBtn:'/addSales.svg',
     altImgBtn:'icono agregar Venta',
+    action:'create'
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptSalesCreate',
+    altImgBtn:'icono crear Venta',
+    btnSvg:'/addSalesWhite.svg',
+    altAcceptBtn:'Boton crear',
     action:'create'
   }
 
@@ -128,6 +137,7 @@ export const CreateSale = ({ onAddSale, token }) => {
       buttonText={nameButton}
       dynamicIdModal="dynamicFormModal"
       StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
     />
   );
 };

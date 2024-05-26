@@ -1,8 +1,7 @@
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { EditButton } from '../../buttons/EditButton.jsx';
 import { UpdateProductSchema } from '../../../Schema/Error/updateSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
 export const UpdateProduct = ({ product, onUpdateProduct }) => {
   const token = useUser();
@@ -56,8 +55,8 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
     }
   };
 
-  const title = 'Modificar producto';
-  const nameButton = 'Modificar';
+  const title = 'Actualizar producto';
+  const nameButton = 'Actualizar';
 
   const updateProductFormFields = [
     {
@@ -67,6 +66,7 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
       placeholder: 'Introduce nombre del producto',
       idLabel: 'labelNameProductCreate',
       idInput: 'inputNameProductCreate',
+      required: false,
     },
     {
       name: 'description',
@@ -75,6 +75,7 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
       placeholder: 'Introduce descripción del producto',
       idLabel: 'labelDescriptionProductCreate',
       idInput: 'inputDescriptionProductCreate',
+      required: false,
     },
     {
       name: 'price',
@@ -83,6 +84,7 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
       placeholder: 'Introduce precio del producto',
       idLabel: 'labelPriceProductCreate',
       idInput: 'inputPriceProductCreate',
+      required: false,
     },
     {
       name: 'stock',
@@ -91,6 +93,7 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
       placeholder: 'introduce las cantidad',
       idLabel: 'labelStockProductCreate',
       idInput: 'inputStockProductCreate',
+      required: false,
     },
     {
       name: 'active',
@@ -98,30 +101,39 @@ export const UpdateProduct = ({ product, onUpdateProduct }) => {
       type: 'select',
       idLabel: 'labelStatusProductCreate',
       idInput: 'inputStatusProductCreate',
+      required: false,
       options: {
-        Estado: {
-          true: 'Activado',
-          false: 'Inactivo',
-        },
+        Estado: [
+          { value: 'true', label: 'Activo' },
+          { value: 'false', label: 'Inactivo' },
+        ],
       },
-  },
+    },
   ];
 
-  const handleUpdateProduct = () => {
-    DynamicFormPopUp(
-      title,
-      updateProductFormFields,
-      UpdateProductSchema,
-      handleButtonUpdateProduct,
-      nameButton
-    );
-  };
+  const StyleButton = {
+    action:'update',
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptProductUpdate',
+    altImgBtn:'icono actualizar producto',
+    btnSvg:'/AddProductWhite.svg',
+    altAcceptBtn:'Boton actualizar producto',
+    action:'update',
+  }
 
   return (
-    <EditButton
-      id="btnProductUpdate"
-      className="mainUpdateBtn"
-      onClick={handleUpdateProduct}
+    <DynamicModalWrapper
+      title={title}
+      fields={updateProductFormFields}
+      schema={UpdateProductSchema}
+      onSubmit={handleButtonUpdateProduct}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
     />
   );
-};
+  };
+

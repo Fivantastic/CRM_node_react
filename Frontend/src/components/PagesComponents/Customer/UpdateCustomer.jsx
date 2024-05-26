@@ -164,6 +164,13 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
     },
   ];
 
+  const customModalSize = {
+    idModalContainer:'createCustomerContainerModal',
+    idModalFooter:'createCustomerFooterModal',
+    idModalBtnClose:'createCustomerBtnCloseModal',
+    idAcceptBtn:'createCustomerAcceptBtn',
+  }
+
   const StyleButton = {
     action:'Update'
   }
@@ -184,6 +191,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       buttonText={nameButton}
       dynamicIdModal="customerCreateModal"
       StyleButton={StyleButton}
+      customModalSize={customModalSize}
       StyleAcceptBtn={StyleAcceptBtn}
     />
     );

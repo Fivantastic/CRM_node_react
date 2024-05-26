@@ -29,7 +29,8 @@ export const CustomModal = ({ show, onClose, onSubmit, children, buttonText, isS
     idModalContainer = 'modal-container-custom', 
     idModalBody = 'modal-body-custom', 
     idModalFooter = 'modal-footer-custom', 
-    idModalBtnClose = 'close-modal-button-custom' 
+    idModalBtnClose = '' ,
+    idAcceptBtn = ''
   } = customModalSize;
 
 
@@ -41,6 +42,7 @@ export const CustomModal = ({ show, onClose, onSubmit, children, buttonText, isS
         </div>
         <div id={idModalFooter} className="modal-footer-custom">
           <AcceptBtn
+            id={idAcceptBtn}
             disabled={isSubmitDisabled}
             StyleAcceptBtn={StyleAcceptBtn}
             onClick={onSubmit}

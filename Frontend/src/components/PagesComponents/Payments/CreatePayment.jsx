@@ -1,9 +1,13 @@
 import Swal from "sweetalert2";
 import { createPaymentSchema } from "../../../Schema/Error/createSchema.js";
 import { DynamicModalWrapper } from "../../FromModal/DynamicModalWrapper.jsx";
+import { useState } from "react";
+import { useOpenInvoices } from "../../../hooks/selectsHook/useOpenInvoice.js";
 const URL = import.meta.env.VITE_URL;
 
 export const CreatePayment = ({onAddPayment, token}) => {
+  const [reload, setReload] = useState(false);
+  const openInvoices = useOpenInvoices(token, reload);
   // Modelo swal
   const Toast = Swal.mixin({
     toast: true,
@@ -45,6 +49,7 @@ export const CreatePayment = ({onAddPayment, token}) => {
                 icon: 'success',
                 title: 'Pago creado con exito!',
                 });
+                setReload(!reload);
             } else {
                 // Fallo en la respuesta del servidor
                 const errorData = await response.json();
@@ -79,13 +84,20 @@ export const CreatePayment = ({onAddPayment, token}) => {
   // Campos del formulario personalizables
   const saleFormFields = [
     {
+      key: 'invoice_id', 
       name: 'invoice_id',
-      label: 'Factura',
-      type: 'text',
+      label: 'Factura *',
+      type: 'select',
+      options: {
+        Productos: openInvoices.map(invoice => ({
+          value: invoice.id_invoice,
+          label: `${invoice.ref_IN} - ${invoice.company_name}`
+        }))
+      },
       idLabel: 'labelIdPaymentCreate',
       idInput: 'inputIdPaymentCreate',
       required: true,
-    }
+    },
   ];
 
   const StyleButton = {

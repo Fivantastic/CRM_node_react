@@ -3,7 +3,7 @@ import { getDBPool } from '../../../db/getPool.js';
 export const selectIdVisitByIdService = async (ref_VT) => {
   const pool = getDBPool();
 
-  const [result] = await pool.query(`SELECT * FROM Visits WHERE id_visit = ?`, [
+  const [result] = await pool.query(`SELECT * FROM Visits WHERE ref_VT = ?`, [
     ref_VT,
   ]);
 

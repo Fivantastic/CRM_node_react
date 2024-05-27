@@ -1,11 +1,12 @@
 import { updateShipmentSchema } from '../../../Schema/Error/updateSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
   const handleUpdateShipmentAction = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/shipment/update/${shipment}`,
+        `${URL}/shipment/update/${shipment}`,
         {
           method: 'PUT',
           credentials: 'include',

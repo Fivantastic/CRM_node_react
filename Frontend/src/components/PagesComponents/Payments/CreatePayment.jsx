@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import { createPaymentSchema } from "../../../Schema/Error/createSchema.js";
 import { DynamicModalWrapper } from "../../FromModal/DynamicModalWrapper.jsx";
+const URL = import.meta.env.VITE_URL;
 
 export const CreatePayment = ({onAddPayment, token}) => {
   // Modelo swal
@@ -22,7 +23,7 @@ export const CreatePayment = ({onAddPayment, token}) => {
         console.log('Function works!');
 
         try{
-            const response = await fetch('http://localhost:3000/payments/create', {
+            const response = await fetch(`${URL}/payments/create`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

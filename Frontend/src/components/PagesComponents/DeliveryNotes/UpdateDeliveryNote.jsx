@@ -1,13 +1,14 @@
 import Swal from 'sweetalert2';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 import { updateDeliverySchema } from '../../../Schema/Error/updateSchema.js';
+const URL = import.meta.env.VITE_URL;
 
 export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
   const handleUpdateDeliveryAction = async (formData) => {
     console.log(formData);
     try {
       const response = await fetch(
-        `http://localhost:3000/deliveryNotes/close/${deliveryNote}`,
+        `${URL}/deliveryNotes/close/${deliveryNote}`,
         {
           method: 'PUT',
           credentials: 'include',

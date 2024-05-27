@@ -2,6 +2,7 @@ import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
 import { updateVisitSchema } from '../../../Schema/Error/updateSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const UpdateVisit = ({ visit, onUpdateSale }) => {
   // Asi obtienes el token del usuario de la sesión
@@ -11,7 +12,7 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
   const handleButtonUpdateVisit = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/visits/update/${visit}`,
+        `${URL}/visits/update/${visit}`,
         {
           method: 'PUT',
           credentials: 'include',

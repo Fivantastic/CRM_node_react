@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import { Toast } from "../alerts/Toast";
 import { CancelButton } from "../buttons/StatesBtn/CancelButton";
 import { CompletButton } from "../buttons/StatesBtn/CompletButton";
+const URL = import.meta.env.VITE_URL;
 
 export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , currentStatus, token}) => {
 
@@ -58,7 +59,7 @@ export const ChangeStatus = ({id, onClick: handleNewPaymentStatus , currentStatu
     const updateStatus = async (newStatus) => {
       try {
           const response = await fetch(
-            `http://localhost:3000/payments/status`,
+            `${URL}/payments/status`,
             {
               method: 'PUT',
               credentials: 'include',

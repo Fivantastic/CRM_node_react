@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const URL = import.meta.env.VITE_URL;
 
 export const useOpenCustomers = (token, reload) => {
   const [openCustomers, setOpenCustomers] = useState([]);
@@ -6,7 +7,7 @@ export const useOpenCustomers = (token, reload) => {
   useEffect(() => {
     const fetchOpenCustomers = async () => {
       try {
-        const response = await fetch('http://localhost:3000/customer/list', {
+        const response = await fetch(`${URL}/customer/list`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `${token}`,

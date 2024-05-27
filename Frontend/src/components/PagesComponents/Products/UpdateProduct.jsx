@@ -2,6 +2,7 @@ import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
 import { UpdateProductSchema } from '../../../Schema/Error/updateSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const UpdateProduct = ({ id, onUpdateProduct }) => {
   const token = useUser();
@@ -9,7 +10,7 @@ export const UpdateProduct = ({ id, onUpdateProduct }) => {
   const handleButtonUpdateProduct = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/product/update/${id}`,
+        `${URL}/product/update/${id}`,
         {
           method: 'PUT',
           credentials: 'include',

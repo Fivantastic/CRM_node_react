@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const URL = import.meta.env.VITE_URL;
 
 export const useOpenProducts = (token, reload) => {
   const [openProducts, setOpenProducts] = useState([]);
@@ -6,7 +7,7 @@ export const useOpenProducts = (token, reload) => {
   useEffect(() => {
     const fetchOpenProduct = async () => {
       try {
-        const response = await fetch('http://localhost:3000/product/list', {
+        const response = await fetch(`${URL}/product/list`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `${token}`,

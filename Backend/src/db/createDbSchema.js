@@ -134,7 +134,7 @@ export async function createDBSchema(db) {
         ref_DN CHAR(10) UNIQUE NOT NULL,
         sale_id CHAR(36),
         deliverer_id CHAR(36),
-        delivery_status ENUM('pending', 'cancelled', 'delivering', 'delivered') DEFAULT 'pending',
+        delivery_status ENUM('pending', 'processing', 'cancelled', 'delivering', 'delivered') DEFAULT 'pending',
         customer_id CHAR(36),
         address_id CHAR(36),
         saleProduct_id CHAR(36), 

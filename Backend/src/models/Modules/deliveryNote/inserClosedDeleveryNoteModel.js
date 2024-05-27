@@ -16,7 +16,6 @@ export const inserClosedDeleveryNoteModel = async (
     }
   };
 
-  addToUpdate('id_note', deliveryNote_id);
   addToUpdate('delivery_status', delivery_status);
 
   if (fieldsToUpdate.length === 0) return {};

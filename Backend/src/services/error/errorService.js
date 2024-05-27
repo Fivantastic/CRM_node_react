@@ -107,3 +107,12 @@ export const moduleAssignedError = () => {
     message: 'Tiene un modulo asignado, no puede eliminarlo'
   };
 }
+
+// El albaran ya tiene asignado un envio
+export const errorShipmentExists = () => {
+  throw {
+    statusCode: 401,
+    code: 'SHIPMENT_EXISTS_CRM_ERROR',
+    message: 'El albarán ya tiene asignado un envio'
+  };
+}

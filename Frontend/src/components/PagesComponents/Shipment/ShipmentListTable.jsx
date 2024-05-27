@@ -38,24 +38,25 @@ export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete }) => {
       <div id="shipmentTableBody">
         {shipment.length > 0 &&
           shipment.map((shipmentItem) => {
-            const fechaEnvio = getNormalizedDate(shipmentItem.delivery_date);
+           const fechaEnvio = getNormalizedDate(shipmentItem.delivery_date);
+           console.log(getNormalizedDate);
             const statusEntrega = traducirEstadoEntrega(shipmentItem.delivery_status);
             return (
               <div key={shipmentItem.id_shipment} className="shipmentTableBodyRow">
                 <div className="shipmentTableBodyRowRef">{shipmentItem.ref_SH}</div>
                 <div className="shipmentTableBodyRowRefSales">{shipmentItem.ref_DN}</div>
                 {/* <div className="shipmentTableBodyRowCompany">{shipmentItem.company_name}</div> */}
-
-                <div className="shipmentTableBodyRowDate">{fechaEnvio.toLocaleDateString()}</div>
+                <div className="shipmentTableBodyRowDate">{ fechaEnvio.toLocaleDateString()}</div>
                 <div className="shipmentTableBodyRowStatus" style={{ color: statusEntrega.color }}>
                   {statusEntrega.text}
                 </div>
                 <span className="shipmentTableBodyRowActions">
-                  <MoreShipments shipment={shipmentItem} />
+                  <MoreShipments shipment={shipmentItem} key={`more-${shipmentItem.id_shipment}`} />
                   <UpdateShipment
                     shipment={shipmentItem.id_shipment}
                     onUpdateShipment={onUpdateShipment}
                     token={token}
+                    key={`update-${shipmentItem.id_shipment}`}
                   />
                   <DeleteGenericModal
                     id={shipmentItem.id_shipment}
@@ -63,6 +64,7 @@ export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete }) => {
                     token={token}
                     typeModule="shipment"
                     typeModuleMessage="Envío"
+                    key={`delete-${shipmentItem.id_shipment}`}
                   />
                 </span>
               </div>

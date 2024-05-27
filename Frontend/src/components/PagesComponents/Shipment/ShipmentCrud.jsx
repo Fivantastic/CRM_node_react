@@ -92,11 +92,12 @@ export const ShipmentsCrud = () => {
                 <ShipmentList shipment={shipment} />
               </div>
               <div id="shipment_actions" className="main_actions">
-                <MoreShipments shipment={shipment} />
+                <MoreShipments shipment={shipment} key={`more-${shipment.id_shipment}`} />
                 <UpdateShipment
                   shipment={shipment.id_shipment}
                   onUpdateShipment={updateShipment}
                   token={token}
+                  key={`update-${shipment.id_shipment}`}
                 />
                 <DeleteGenericModal
                   id={shipment.id_shipment}
@@ -104,6 +105,7 @@ export const ShipmentsCrud = () => {
                   token={token}
                   typeModule={typeModule}
                   typeModuleMessage={typeModuleMessage}
+                  key={`delete-${shipment.id_shipment}`}
                 />
               </div>
             </div>

@@ -1,7 +1,7 @@
-const { selectShipmentsByUserIdService } = require('../../../services/Modules/shipment/selectShipmentsByUserIdService.js');
+import { selectShipmentsByUserIdService } from ('../../../services/Modules/shipment/selectShipmentsByUserIdService.js');
 
 // Controlador para obtener envíos por repartidor
-const shipmentListByUserController = async (req, res, next) => {
+ export const shipmentListByUserController = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const shipments = await selectShipmentsByUserIdService(userId);
@@ -14,11 +14,4 @@ const shipmentListByUserController = async (req, res, next) => {
   }
 };
 
-const shipmentUpdateController = async (req, res, next) => {
-  // Implementación del controlador para actualizar envíos...
-};
 
-module.exports = {
-  shipmentUpdateController,
-  shipmentListByUserController,
-};

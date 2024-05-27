@@ -5,27 +5,26 @@ const typeModule = 'shipment';
 
 const useShipmentList = (token) => {
   const [shipmentList, setShipmentList] = useState([]);
-  const [initialShipmentList, setInitialShipmentList] = useState([]);
   const [filteredShipmentList, setFilteredShipmentList] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [sortOption, setSortOption] = useState(null);
 
   useEffect(() => {
     getShipmentList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [token]);
 
   useEffect(() => {
     applyFilters();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilters, shipmentList]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [selectedFilters, shipmentList]);
 
   useEffect(() => {
     if (filteredShipmentList.length > 0) {
       sortShipments(filteredShipmentList);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortOption]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [sortOption]);
 
   const getShipmentList = async () => {
     try {
@@ -40,7 +39,6 @@ const useShipmentList = (token) => {
       if (response.ok) {
         const responseData = await response.json();
         setShipmentList(responseData.data);
-        setInitialShipmentList(responseData.data);
         setFilteredShipmentList(responseData.data);
       } else {
         const errorData = await response.json();
@@ -89,7 +87,7 @@ const useShipmentList = (token) => {
   const handleSortChange = (option) => {
     setSortOption(option ? option.value : null);
     if (!option) {
-      setFilteredShipmentList([...initialShipmentList]);
+      setFilteredShipmentList([...shipmentList]);
     }
   };
 
@@ -133,10 +131,12 @@ const useShipmentList = (token) => {
 
   const deleteShipment = async (id_shipment) => {
     try {
+      setShipmentList((prevShipments) =>
+        prevShipments.filter((shipment) => shipment.id_shipment !== id_shipment)
+      );
       setFilteredShipmentList((prevShipments) =>
         prevShipments.filter((shipment) => shipment.id_shipment !== id_shipment)
       );
-      await getShipmentList();
     } catch (error) {
       console.error('Error al eliminar el envío:', error);
     }
@@ -144,12 +144,35 @@ const useShipmentList = (token) => {
 
   const updateShipment = async (id_shipment) => {
     try {
-      setFilteredShipmentList((prevShipments) =>
-        prevShipments.filter((shipment) => shipment.id_shipment !== id_shipment)
+      const updatedShipment = await fetchShipmentById(id_shipment);
+      setShipmentList((prevShipments) =>
+        prevShipments.map((shipment) =>
+          shipment.id_shipment === id_shipment ? updatedShipment : shipment
+        )
       );
-      await getShipmentList();
+      setFilteredShipmentList((prevShipments) =>
+        prevShipments.map((shipment) =>
+          shipment.id_shipment === id_shipment ? updatedShipment : shipment
+        )
+      );
     } catch (error) {
       console.error('Error al actualizar el envío:', error);
+    }
+  };
+
+  const fetchShipmentById = async () => {
+    const response = await fetch(`${URL}/${typeModule}/list`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`,
+      },
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData.data;
+    } else {
+      throw new Error('Error al obtener el envío actualizado');
     }
   };
 

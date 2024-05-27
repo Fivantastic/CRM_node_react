@@ -1,0 +1,171 @@
+
+
+.routes_page_lista-repartidores {
+  margin-top: 55px;
+  margin-right: 30px;
+  margin-left: 30px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  max-height: 670px;
+  overflow-y: scroll;
+}
+
+.routes_page_lista-repartidores::-webkit-scrollbar {
+  width: 0px;
+}
+
+.routes_page_lista-repartidores {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.routes_page_envios {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Asegura que el contenido dentro esté separado */
+  cursor: pointer;
+}
+
+.routes_page_popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  max-width: 300px;
+  border-radius: 8px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+.routes_page_popup.open {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .routes_page_popup {
+    width: 90%; 
+  }
+  
+  .routes_page_lista-repartidores {
+    padding: 5px 10px; 
+    max-height: 260px; 
+    max-width: 300px;
+    margin-left: 10px;
+  }
+  .routes_page_titulo-repartidores {
+    margin-left: 10px;
+    font-size: x-large;
+  }
+
+  .routes_page_card-container {
+    margin: 10px 0; 
+  }
+  
+  .routes_page_card-content {
+    padding: 10px; 
+  }
+}
+
+.routes_page_card-container {
+  margin-bottom: 20px;
+}
+
+.routes_page_card {
+  border: 1px solid #ddd;
+  width: 100% !important;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.routes_page_user-info {
+  display: flex;
+  align-items: center;
+}
+
+.routes_page_avatar {
+  width: 50px; 
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.routes_page_user-details {
+  flex-grow: 1;
+}
+
+.routes_page_shipments-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.routes_page_shipments-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Asegura que el contenido dentro esté separado */
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.routes_page_shipment-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.routes_page_shipment-details {
+  flex-grow: 1;
+}
+
+.routes_page_shipment-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.routes_page_noteTableHeadRowStatus, .routes_page_noteTableHeadRowActions {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.routes_page_noteTableBodyRowStatus, .routes_page_noteTableBodyRowActions {
+  margin-right: 20px;
+}
+
+.routes_page_icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Añadido: Estilos para el botón de entregar */
+.routes_page_deliver-button {
+  background-color: #4CAF50; /* Verde */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: auto; /* Añadido para alinear a la derecha */
+  cursor: pointer;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+}
+
+.routes_page_deliver-button:hover {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}

@@ -1,31 +1,31 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../buttons/Profile/LogoutButton.jsx';
-import './ProfileNav.css';
-import { useSetUser, useUser } from '../../context/authContext.jsx';
+import { useUserInfo, useUser, useSetUser } from '../../context/authContext.jsx';
 import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
 import { getFullName } from '../../Services/getFullName.js';
 import { getRoleName } from '../../Services/getRoleName.js';
 const URL = import.meta.env.VITE_URL;
+import './ProfileNav.css';
 
 export const ProfileNav = () => {
   const token = useUser();
   const setUser = useSetUser();
+  const userInfo = useUserInfo();
   const [userData, setUserData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
-    if (token) {
-      // Obtener datos del usuario desde el token
+    if (token && !userInfo) {
+      // Obtener datos del usuario desde el token solo si no hay datos en userInfo
       const userDataFromToken = getUserDataFromToken(token);
-
-      // Guarda los datos del usuario en el estado
       setUserData(userDataFromToken);
-    } else {
-      console.log('No se ha obtenido un token');
+    } else if (userInfo) {
+      // Si ya hay datos en userInfo, usarlos
+      setUserData(userInfo);
     }
-  }, [token]);
+  }, [token, userInfo]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -33,7 +33,6 @@ export const ProfileNav = () => {
 
   const handleClick = () => {
     setIsClicked(true);
-
     setTimeout(() => {
       setIsClicked(false);
     }, 200);
@@ -56,7 +55,7 @@ export const ProfileNav = () => {
         {userData && (
           <img 
             className="avatarProfileNav" 
-            src={userData.avatar? `${URL}/uploads/image/${userData.id_user}/${userData.avatar}` : './profile.svg'} 
+            src={userData.avatar ? `${URL}/uploads/image/${userData.id_user}/${userData.avatar}` : './profile.svg'} 
             alt="Avatar del usuario" 
             onError={handleError}
           />
@@ -68,7 +67,7 @@ export const ProfileNav = () => {
           <>
             <li className="nameBar navli navLink" key="nameBar">
               <p className="nameProfileNav">
-                {getFullName(userData.name, userData.lastName)}
+                {getFullName(userData.name, userData.last_name)}
               </p>
             </li>
             <li className="roleBar navli navLink" key="roleBar">
@@ -78,7 +77,7 @@ export const ProfileNav = () => {
         )}
 
         <NavLink exact="true" to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
-          <p id="textProfileNavSettings">Settings</p>
+          <p className="textProfileNav">Settings</p>
           <img className="iconProfileNavSettings iconProfileNav" src="./settings.svg" alt="Imagen de configuración de perfil" />
         </NavLink>
         <li className="btn-logout navli btn-perfilNav" key="logout">

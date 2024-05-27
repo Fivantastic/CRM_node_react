@@ -1,20 +1,14 @@
-import { useState } from 'react';
-import { useUser } from '../../context/authContext.jsx';
-import Swal from 'sweetalert2'; // Asegúrate de importar SweetAlert2
+import { useUser, useSetUserInfo } from '../../context/authContext.jsx';
+import Swal from 'sweetalert2';
 const URL = import.meta.env.VITE_URL;
 
-function ImageUpload() {
-  const [selectedImage, setSelectedImage] = useState(null);
+function ImageUpload({ updateinfo }) {
   const token = useUser();
+  const setUserInfo = useSetUserInfo();
 
-  const handleImageUpload = async () => {
-    if (!selectedImage) {
-      console.error('No se ha seleccionado ninguna imagen.');
-      return;
-    }
-
+  const handleImageUpload = async (file) => {
     const formData = new FormData();
-    formData.append('avatar', selectedImage);
+    formData.append('avatar', file);
 
     try {
       const response = await fetch(`${URL}/user/update`, {
@@ -27,9 +21,8 @@ function ImageUpload() {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log('Avatar actualizada satisfactorio:', responseData);
+        console.log('Avatar actualizada satisfactoriamente:', responseData);
 
-        // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -44,54 +37,84 @@ function ImageUpload() {
 
         Toast.fire({
           icon: 'success',
-          title: 'Actualización Realizada con exito ! ',
+          title: 'Actualización realizada con éxito!',
         });
+
+        setUserInfo(responseData.data); // Actualiza el usuario en el contexto
+
+        if (updateinfo) {
+          updateinfo(responseData.data);
+        }
       } else {
-        // si la peticion es incorrecta
         const errorData = await response.json();
-        console.error('Actualización avatar fallido:', errorData);
-        // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
+        console.error('Actualización avatar fallida:', errorData);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo actualizar el avatar. Por favor, intenta nuevamente.',
+        });
       }
     } catch (error) {
       console.error('Error:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ha ocurrido un error. Por favor, intenta nuevamente.',
+      });
     }
   };
 
   const selectImage = async () => {
     const { value: file } = await Swal.fire({
-      title: 'Select image',
+      title: 'Selecciona una imagen',
       input: 'file',
       inputAttributes: {
         accept: 'image/*',
-        'aria-label': 'Upload your profile picture',
+        'aria-label': 'Sube tu foto de perfil',
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Cambiar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: (file) => {
+        return new Promise((resolve, reject) => {
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              Swal.fire({
+                title: 'Tu foto de perfil',
+                imageUrl: e.target.result,
+                imageAlt: 'Tu foto de perfil',
+                showCancelButton: true,
+                confirmButtonText: 'Subir',
+                cancelButtonText: 'Cancelar',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  resolve(file);
+                } else {
+                  reject('No file selected');
+                }
+              });
+            };
+            reader.readAsDataURL(file);
+          } else {
+            reject('No file selected');
+          }
+        });
       },
     });
 
     if (file) {
-      setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        Swal.fire({
-          title: 'Tu foto de perfil',
-          imageUrl: e.target.result,
-          imageAlt: 'Tu foto de perfil',
-        });
-      };
-      reader.readAsDataURL(file);
+      handleImageUpload(file);
+    } else {
+      console.error('No se ha seleccionado ninguna imagen.');
     }
   };
 
   return (
     <div id="image-upload-container">
       <button id="btn-selectAvatar" onClick={selectImage}>
-        <img
-          src="/userBlue.svg"
-          alt=""
-        />
+        <img src="/userBlue.svg" alt="" />
         <p>Cambiar Avatar</p>
-      </button>
-      <button id="btn-send" onClick={handleImageUpload}>
-        Subir
       </button>
     </div>
   );

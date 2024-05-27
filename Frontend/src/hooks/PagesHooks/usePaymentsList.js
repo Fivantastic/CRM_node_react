@@ -153,12 +153,12 @@ const [paymentsList, setPaymentsList] = useState([]);
       case 'ref-desc':
         sortedList.sort((a, b) => b.ref_PM.localeCompare(a.ref_PM));
         break;
-      /* case 'status-asc':
-        sortedList.sort((a, b) => a.payment_status.localeCompare(b.payment_status));
-        break;
-      case 'status-desc':
-        sortedList.sort((a, b) => b.payment_status.localeCompare(a.payment_status));
-        break; */
+      case 'fecha-asc':
+      sortedList.sort( (a, b) => a.create_at.localeCompare(b.create_at));
+      break;
+      case 'fecha-desc':
+      sortedList.sort((a, b) => b.create_at.localeCompare(a.create_at));
+      break;
       default:
         break;
 

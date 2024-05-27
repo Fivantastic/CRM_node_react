@@ -1,13 +1,19 @@
 import Swal from 'sweetalert2';
 import { newVisitSchema } from '../../../Schema/Error/createSchema.js';
-import './VisitListTable.css';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import './VisitListTable.css';
+import { useOpenCustomers } from '../../../hooks/selectsHook/useOpenCustomer.js';
+import { useState } from 'react';
+const URL = import.meta.env.VITE_URL;
+
 
 export const CreateVisit = ({ onAddVisit, token }) => {
+  const [reload, setReload] = useState(false);
+  const openCustomers = useOpenCustomers(token, reload);
   // Aqui hace la peticion al servidor
   const handleVisitCreate = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/visits/new', {
+      const response = await fetch(`${URL}/visits/new`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -27,7 +33,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -41,6 +47,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
           icon: 'success',
           title: 'Visita programada con exito !',
         });
+        setReload(!reload);
       } else {
         // si la peticion es incorrecta
         const errorData = await response.json();
@@ -54,19 +61,24 @@ export const CreateVisit = ({ onAddVisit, token }) => {
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+  // Titulo de la ventana
   const title = 'Programar Visita';
 
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Crear';
 
   // Campos del formulario personalizables
   const VisitFormFields = [
     {
+      key: 'id_customer', 
       name: 'id_customer',
       label: 'Cliente *',
-      type: 'text',
-      placeholder: 'Introduce el  cliente...',
+      type: 'select',
+      options: {
+        'Clientes': openCustomers.map(customer => ({
+          value: customer.id_customer,
+          label: `${customer.ref_CT} - ${customer.company_name}`
+        }))
+      },
       idLabel: 'labelNameVisitCreate',
       idInput: 'inputNameVisitCreate',
       required: true,
@@ -85,21 +97,28 @@ export const CreateVisit = ({ onAddVisit, token }) => {
       type: 'textarea',
       idLabel: 'labelObservationsVisitCreate',
       idInput: 'inputObservationsVisitCreate',
-      placeholder: 'Introduce las observaciones...',
       required: false,
     },
   ];
 
-
+  // Estilos del boton, copia el id del antiguo
   const StyleButton = {
     idBtn:'btnVisitCreate',
     idImgBtn:'imgVisitCreate',
-    srcImgBtn:'/calendar_add_on_24dp_FILL0_wght400_GRAD0_opsz24.svg',
+    srcImgBtn:'/addVisit.svg',
     altImgBtn:'Boton agregar visita',
+    action:'create'
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptVisitsCreate',
+    altImgBtn:'icono crear Visita',
+    btnSvg:'/addVisitWhite.svg',
+    altAcceptBtn:'Boton crear',
+    action:'create'
   }
 
   return (
-    <>
       <DynamicModalWrapper
         title={title}
         fields={VisitFormFields}
@@ -108,7 +127,7 @@ export const CreateVisit = ({ onAddVisit, token }) => {
         buttonText={nameButton}
         dynamicIdModal="dynamicFormModal"
         StyleButton={StyleButton}
+        StyleAcceptBtn={StyleAcceptBtn}
       />
-    </>
   );
 };

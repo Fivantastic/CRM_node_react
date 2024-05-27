@@ -1,18 +1,17 @@
+import { useEffect, useState, useRef } from 'react';
 import { useUser } from '../../../context/authContext.jsx';
-import { useEffect, useState } from 'react';
 import { SearchPages } from '../../../components/NavPages/SearchPages.jsx';
 import { CreateShipment } from '../../../components/PagesComponents/Shipment/CreateShipment.jsx';
 import { SortPages } from '../../../components/NavPages/SortPages.jsx';
 import { FilterPages } from '../../../components/NavPages/FilterPages.jsx';
-import { ToggleMode } from '../../NavPages/ToggleMode.jsx';
+import { ToggleMode } from '../../../components/NavPages/ToggleMode.jsx';
 import { ShipmentList } from '../../../components/PagesComponents/Shipment/ShipmentList.jsx';
 import { MoreShipments } from '../../../components/PagesComponents/Shipment/MoreShipments.jsx';
 import { UpdateShipment } from '../../../components/PagesComponents/Shipment/UpdateShipment.jsx';
 import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal.jsx';
-import '../../../Styles/Pages/StyleShipmentList.css'
-
 import useShipmentList from '../../../hooks/PagesHooks/useShipmentList.js';
 import { ShipmentListTable } from './ShipmentListTable.jsx';
+import '../../../Styles/Pages/StyleShipmentList.css';
 
 export const ShipmentsCrud = () => {
   const token = useUser();
@@ -28,7 +27,10 @@ export const ShipmentsCrud = () => {
     deleteShipment,
     updateShipment
   } = useShipmentList(token);
-  const [isListView, setIsListView] = useState(() => window.innerWidth <=825);
+
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 825);
+  const [selectedShipment, setSelectedShipment] = useState(null);
+  const popupRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,6 +42,27 @@ export const ShipmentsCrud = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setSelectedShipment(null);
+    }
+  };
+
+  const handleShipmentClick = (shipmentId) => {
+    if (selectedShipment === shipmentId) {
+      setSelectedShipment(null);
+    } else {
+      setSelectedShipment(shipmentId);
+    }
+  };
 
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },
@@ -53,40 +76,65 @@ export const ShipmentsCrud = () => {
   ];
 
   return (
-      <section id="shipment_container" className="mainContainer">
-        <nav id="user_nav" className="mainNav">
-          <SearchPages onSearch={handleSearch} />
-          <CreateShipment onAddShipment={addShipment} token={token} />
-          <FilterPages options={filterOptions} onChange={handleFilterChange} />
-          <SortPages options={sortOptions} onSort={handleSortChange} />
-          <ToggleMode onClick={() => setIsListView((prev) => !prev)} isListView={isListView} />
-        </nav>
-        {isListView ? (
-          <ol id="shipments_list" className="main_olist">
-            {filteredShipmentList.map((shipment) => (
-              <li key={shipment.id_shipment} id="element_shipment_container" className="main_ilist">
+    <section id="shipment_container" className="mainContainer">
+      <nav id="user_nav" className="mainNav">
+        <SearchPages onSearch={handleSearch} />
+        <CreateShipment onAddShipment={addShipment} token={token} />
+        <FilterPages options={filterOptions} onChange={handleFilterChange} />
+        <SortPages options={sortOptions} onSort={handleSortChange} />
+        <ToggleMode onClick={() => setIsListView((prev) => !prev)} isListView={isListView} />
+      </nav>
+      {isListView ? (
+        <div id="shipments_list" className="main_olist">
+          {filteredShipmentList.map((shipment) => (
+            <div key={shipment.id_shipment} id="element_shipment_container" className="main_ilist">
+              <div className="shipment-item" onClick={() => handleShipmentClick(shipment.id_shipment)}>
                 <ShipmentList shipment={shipment} />
-                <span id="shipment_actions" className="main_actions">
-                  <MoreShipments shipment={shipment} />
-                  <UpdateShipment
-                    shipment={shipment.id_shipment}
-                    onUpdateShipment={updateShipment}
-                    token={token}
-                  />
-                  <DeleteGenericModal
-                    id={shipment.id_shipment}
-                    onDelete={deleteShipment}
-                    token={token}
-                    typeModule={typeModule}
-                    typeModuleMessage={typeModuleMessage}
-                  />
-                </span>
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <ShipmentListTable shipment={filteredShipmentList} onUpdateShipment={updateShipment} onDelete={deleteShipment} />
-        )}
-      </section>
+              </div>
+              <div id="shipment_actions" className="main_actions">
+                <MoreShipments shipment={shipment} />
+                <UpdateShipment
+                  shipment={shipment.id_shipment}
+                  onUpdateShipment={updateShipment}
+                  token={token}
+                />
+                <DeleteGenericModal
+                  id={shipment.id_shipment}
+                  onDelete={deleteShipment}
+                  token={token}
+                  typeModule={typeModule}
+                  typeModuleMessage={typeModuleMessage}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div id="shipments_table">
+          <ShipmentListTable
+            shipment={filteredShipmentList}
+            onUpdateShipment={updateShipment}
+            onDelete={deleteShipment}
+          />
+        </div>
+      )}
+      {selectedShipment && (
+        <div className="popup open" ref={popupRef}>
+          <h6>Detalles del envío</h6>
+          {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment) && (
+            <>
+              <p><strong>Nombre:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.customer_name}</p>
+              <p><strong>Compañía:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.company_name}</p>
+              <p><strong>Dirección:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.delivery_address}</p>
+              <p><strong>NIF:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.NIF}</p>
+              <p><strong>Producto:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.product_name}</p>
+              <p><strong>Cantidad:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.product_quantity}</p>
+              <p><strong>Ciudad:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.address_city}</p>
+              <p><strong>Teléfono:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.customer_phone}</p>
+            </>
+          )}
+        </div>
+      )}
+    </section>
   );
 };

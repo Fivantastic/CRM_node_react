@@ -10,6 +10,7 @@ import {
 } from 'recharts';
 import './VisitchartsData.css';
 import { useEffect, useMemo, useState } from 'react';
+import { IsLoading } from './DataDashboard/isLoading.jsx';
 
 export const VisitChartsData = ({ setValueRatingRange, moduleList }) => {
   const [loading, setLoading] = useState(true);
@@ -40,7 +41,9 @@ export const VisitChartsData = ({ setValueRatingRange, moduleList }) => {
         </section>
       </div>
       {loading ? (
-        <div className="loading">Cargando...</div>
+        <div className='isloading'>
+          <IsLoading />
+      </div>
       ) : (
         <>
           <ResponsiveContainer>

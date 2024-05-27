@@ -30,6 +30,7 @@ export const CustomerPage = () => {
   const [isListView, setIsListView] = useState(() => window.innerWidth <= 860);
 
   useEffect(() => {
+    
     const handleResize = () => {
       setIsListView(window.innerWidth <= 860);
     };

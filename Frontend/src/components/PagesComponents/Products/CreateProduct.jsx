@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { newProductSchema } from '../../../Schema/Error/createSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const CreateProduct = ({ onAddProduct, token }) => {  
   const handleProductCreate = async (formData) => {
@@ -8,7 +9,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
     formData.active = formData.active === 'true' ? true : false;
     
     try {
-      const response = await fetch('http://localhost:3000/product/register', {
+      const response = await fetch(`${URL}/product/register`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -26,7 +27,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
 
         const Toast = Swal.mixin({ 
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -49,68 +50,86 @@ export const CreateProduct = ({ onAddProduct, token }) => {
     }
   };
 
-  const title = 'Agregar producto';
-  const nameButton = 'Agregar';
+  const title = 'Crear producto';
+  const nameButton = 'Crear';
 
   const ProductFormFields = [
     {
-        name: 'name',
-        label: 'Nombre*',
-        type: 'text',
-        idLabel: 'labelNameProductCreate',
-        idInput: 'inputNameProductCreate',
+      name: 'name',
+      label: 'Nombre *',
+      type: 'text',
+      idLabel: 'labelNameProductCreate',
+      idInput: 'inputNameProductCreate',
+      required: true,
     },
     {
-        name: 'price',
-        label: 'Precio*',
-        type: 'text',
-        idLabel: 'labelPriceProductCreate',
-        idInput: 'inputPriceProductCreate',
+      name: 'price',
+      label: 'Precio *',
+      type: 'text',
+      idLabel: 'labelPriceProductCreate',
+      idInput: 'inputPriceProductCreate',
+      required: true,
     },
     {
-        name: 'stock',
-        label: 'Cantidad*',
-        type: 'text',
-        idLabel: 'labelStockProductCreate',
-        idInput: 'inputStockProductCreate',
+      name: 'stock',
+      label: 'Cantidad *',
+      type: 'text',
+      idLabel: 'labelStockProductCreate',
+      idInput: 'inputStockProductCreate',
+      required: true,
     },
     {
-        name: 'description',
-        label: 'Descripción',
-        type: 'text',
-        idLabel: 'labelDescriptionProductCreate',
-        idInput: 'inputDescriptionProductCreate',
+      name: 'description',
+      label: 'Descripción',
+      type: 'text',
+      idLabel: 'labelDescriptionProductCreate',
+      idInput: 'inputDescriptionProductCreate',
+      required: false,
     },
     {
-        name: 'active',
-        label: 'Estado',
-        type: 'select',
-        idLabel: 'labelStatusProductCreate',
-        idInput: 'inputStatusProductCreate',
-        options: {
-          Estado: {
-            true: 'Activado',
-            false: 'Inactivo',
-          },
-        },
+      name: 'active',
+      label: 'Estado *',
+      type: 'select',
+      idLabel: 'labelStatusProductCreate',
+      idInput: 'inputStatusProductCreate',
+      required: true,
+      options: {
+        Estado: [
+          { value: 'true', label: 'Activo' },
+          { value: 'false', label: 'Inactivo' },
+        ],
+      },
     },
   ];
 
-  const handleClickCreateProduct = () => {
-    DynamicFormPopUp(
-      title,
-      ProductFormFields,
-      newProductSchema,
-      handleProductCreate,
-      nameButton
-    );
-  };
+    // Estilos del boton, copia el id del antiguo
+    const StyleButton = {
+      idBtn:'btnProductCreate',
+      idImgBtn:'imgProductCreate',
+      srcImgBtn:'/AddProduct.svg',
+      altImgBtn:'Boton agregar producto',
+      action:'create'
+    }
+  
+    const StyleAcceptBtn = {
+      idAcceptBtn:'btnAcceptVisitsCreate',
+      altImgBtn:'icono crear Visita',
+      btnSvg:'/AddProductWhite.svg',
+      altAcceptBtn:'Boton crear',
+      action:'create'
+    }
 
-  return (
-    <div>
-      <button className="btnProductCreate mainCreateBtn" onClick={handleClickCreateProduct}>
-        <img id='imgProductCreate' className='imgCreateBtn' src="/productAdd.svg" alt="logoproduct" />
-      </button>
-    </div>
-  );
+
+return (
+  <DynamicModalWrapper
+    title={title}
+    fields={ProductFormFields}
+    schema={newProductSchema}
+    onSubmit={handleProductCreate}
+    buttonText={nameButton}
+    dynamicIdModal="dynamicFormModal"
+    StyleButton={StyleButton}
+    StyleAcceptBtn={StyleAcceptBtn}
+  />
+);
 };

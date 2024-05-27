@@ -7,7 +7,7 @@ export const getPaymentSearchController = async (req, res, next) => {
 
         // Llamamos al servicio
         const response = await getPaymentSearchService(searchTerm);
-        console.log('response', response);
+
         res.status(200).json({
             status: 'ok',
             message: 'Users',

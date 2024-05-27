@@ -35,5 +35,25 @@ export const UpdateProductSchema = Joi.object({
   description: Joi.string().optional().messages(joiErrorMessages),
   price: Joi.string().optional().messages(joiErrorMessages),
   stock: Joi.number().optional().min(1).max(10000).messages(joiErrorMessages),
-  active: Joi.boolean().optional().messages(joiErrorMessages)
+});
+
+export const updateSaleSchema = Joi.object({
+  quantity: Joi.string().optional().messages(joiErrorMessages),
+  customer: Joi.string().optional().messages(joiErrorMessages)
+});
+
+export const updateDeliverySchema = Joi.object({
+  delivery_status: Joi.string().optional().messages(joiErrorMessages)
+});
+
+export const updateShipmentSchema = Joi.object({
+  shipment_status: Joi.string().valid('pending', 'inTransit', 'delivered', 'delayed', 'cancelled').optional().messages(joiErrorMessages)
+});
+
+export const updateUserProfileSchema = Joi.object({
+  name: Joi.string().min(3).max(30).optional().messages(joiErrorMessages),
+  last_name: Joi.string().min(3).max(30).optional().messages(joiErrorMessages),
+  email: Joi.string().email({ tlds: false }).optional().messages(joiErrorMessages),
+  phone: Joi.number().optional().messages(joiErrorMessages),
+  bio: Joi.string().optional().messages(joiErrorMessages),
 });

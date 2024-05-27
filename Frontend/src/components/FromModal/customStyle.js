@@ -30,16 +30,18 @@ export const customStyles = {
     valueContainer: (provided) => ({
       ...provided,
       padding: '0',
+      cursor: 'text',
     }),
     indicatorsContainer: (provided) => ({
       ...provided,
-      padding: '0',
+      padding: '0 0 0 -15px',
     }),
     indicatorSeparator: () => ({
       display: 'none',
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
+      cursor: 'pointer',
       color: '#333',
       '&:hover': {
         color: '#333',
@@ -47,8 +49,8 @@ export const customStyles = {
     }),
     menu: (provided) => ({
       ...provided,
-      marginTop: '0',
-      borderRadius: '0',
+      margin: '3px 10px 0 -10px',
+      borderRadius: '0 0 5px 5px',
     }),
     menuList: (provided) => ({
       ...provided,
@@ -57,6 +59,7 @@ export const customStyles = {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected ? '#f5f5f5' : state.isFocused ? '#e6e6e6' : 'white',
+      cursor: 'pointer',
       color: 'black',
       '&:hover': {
         backgroundColor: '#e6e6e6',

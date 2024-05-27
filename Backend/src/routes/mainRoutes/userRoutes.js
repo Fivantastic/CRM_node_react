@@ -16,6 +16,7 @@ import {
   deleteUserController,
   getUserListController,
   getUserSearchController,
+  getProfileUserController,
 } from '../../controllers/mainControllers.js';
 
 // Creamos el router
@@ -59,3 +60,6 @@ userRouter.put('/user/reset-password/:registration_code',resetPasswordController
 
 // Ruta para renovación de token
 userRouter.get('/user/renew-token', renewTokenMiddleware, renewTokenController);
+
+// Ruta para obtener la informacion de perfil
+userRouter.get('/user/profile', authenticateUser, getProfileUserController);

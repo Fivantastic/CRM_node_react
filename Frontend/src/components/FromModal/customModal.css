@@ -1,4 +1,4 @@
-@keyframes modal-show {
+@keyframes modal-show-custom {
   0% {
     opacity: 0;
     transform: scale(0.7);
@@ -17,7 +17,7 @@
   }
 }
 
-@keyframes modal-hide {
+@keyframes modal-hide-custom {
   0% {
     opacity: 1;
     transform: scale(1);
@@ -28,7 +28,7 @@
   }
 }
 
-.modal-backdrop-forms {
+.modal-backdrop-custom {
   position: fixed;
   top: 0;
   left: 0;
@@ -41,57 +41,57 @@
   z-index: 5;
 }
 
-
-.dynamicCustomFromModal {
-  width: 300px;
-  margin: auto;
-}
-
-.modal-body-forms h2 {
-  text-align: center;
-  font-size: 1.8em;
-  font-weight: 600;
-  color: #545454;
-  margin-bottom: 20px;
-}
-
-
-.modal-content-forms {
+.modal-content-custom {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  max-width: 400px;
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
   width: 95%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
   z-index: 6;
 }
 
-.modal-show-forms {
+.dynamicCustomFromModal {
+  margin: 0 15px;
+}
+
+.modal-show-custom {
   animation: modal-show 0.3s ease forwards;
 }
 
-.modal-hide-forms {
+.modal-hide-custom {
   animation: modal-hide 0.2s ease forwards;
 }
 
-.modal-body-forms .modal-field-forms {
-  margin: 10px 0;
-  font-size: 1em;
-  color: #555555;
+
+#modal-body-custom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.modal-body .modal-field-forms strong {
-  color: #333333;
+#modal-body-custom h2 {
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: 600;
+  color: #545454;
 }
 
-.modal-footer-forms {
+
+.modal-footer-custom {
+  max-width: 100%;
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
   padding-top: 10px;
   margin-top: 20px;
 }
 
-.cancel-button-forms {
+.cancel-button-custom {
   background-color: #f15867;
   color: #13214E;
   border: none;
@@ -101,54 +101,29 @@
   transition: background-color 0.3s;
 }
 
-.cancel-button-forms:hover {
+.cancel-button-custom:hover {
   background-color: red;
   color: white;
 }
 
-.submit-button-forms {
+.submit-button-custom {
   background-color: #3ac25a;
   color: #13214E;
   border: none;
   padding: 8px 20px;
+
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.submit-button-forms:hover {
+.submit-button-custom:hover {
   background-color: green;
   color: white;
 }
 
-.customConfirmBtnClass,
-.customCancelBtnClass {
-  background-color: transparent;
-  border: transparent;
-  border-radius: 20px;
-  padding: 5px 15px;
-  font-size: 16px;
-  margin: 5px 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.customConfirmBtnClass {
+.submit-button-custom:disabled {
+  background-color: #ccc;
   color: #13214E;
-  background-color: rgba(0, 128, 0, 0.5);
-}
-
-.customCancelBtnClass {
-  color: #13214E;
-  background-color: rgba(255, 0, 0, 0.5);
-}
-
-.customConfirmBtnClass:hover {
-  background-color: rgba(0, 128, 0, 1);
-  color: white;
-}
-
-.customCancelBtnClass:hover {
-  background-color: rgba(255, 0, 0, 1);
-  color: white;
+  cursor: default;
 }

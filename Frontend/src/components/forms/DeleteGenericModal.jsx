@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import { SimpleDeleteButton } from "../buttons/DeleteButtons/SimpleDeleteButton.jsx";
 import { Toast } from "../alerts/Toast.jsx";
+const URL = import.meta.env.VITE_URL;
 
 export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage }) => {
     const handleDelete = async () => {
@@ -18,7 +19,7 @@ export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModule
             if (result.isConfirmed) {
                 try {
                     const response = await fetch(
-                      `http://localhost:3000/${typeModule}/delete/${id}`,
+                      `${URL}/${typeModule}/delete/${id}`,
                       {
                         method: 'DELETE',
                         credentials: 'include',

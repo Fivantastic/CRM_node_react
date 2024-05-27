@@ -1,7 +1,6 @@
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { EditButton } from '../../buttons/EditButton.jsx';
 import { updateCustomerSchema } from '../../../Schema/Error/updateSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
@@ -54,14 +53,12 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
     }
   };
 
-  // Título de la ventana, CAMBIARLO SI ES NECESARIO
+  // Título de la ventana
   const title = 'Actualizar Cliente';
 
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
+  // Nombre que se muestra en el botón de submit
   const nameButton = 'Actualizar';
 
-  // Id de la ventana customizable
-  const dynamicIdModal = 'customerCreateModal';
 
   // Campos del formulario personalizables
 
@@ -167,18 +164,36 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
     },
   ];
 
-    const handleUpdateCustomer = () => {
-      DynamicFormPopUp(
-        title,
-        updateCustomerFormFields,
-        updateCustomerSchema,
-        handleUpdateCustomerAccion,
-        nameButton,
-        dynamicIdModal
-      );
-    };
+  const customModalSize = {
+    idModalContainer:'createCustomerContainerModal',
+    idModalFooter:'createCustomerFooterModal',
+    idModalBtnClose:'createCustomerBtnCloseModal',
+    idAcceptBtn:'createCustomerAcceptBtn',
+  }
 
-  return (
-    <EditButton id='btnCustomerUpdate' className="mainUpdateBtn" onClick={handleUpdateCustomer} />
-  );
-};
+  const StyleButton = {
+    action:'Update'
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptVisitsUpdate',
+    altImgBtn:'icono actualizar Visitas',
+    altAcceptBtn:'Boton actualizar Visitas',
+    action:'update',
+  }
+
+    return (
+      <DynamicModalWrapper
+      title={title}
+      fields={updateCustomerFormFields}
+      schema={updateCustomerSchema}
+      onSubmit={handleUpdateCustomerAccion}
+      buttonText={nameButton}
+      dynamicIdModal="customerCreateModal"
+      StyleButton={StyleButton}
+      customModalSize={customModalSize}
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
+    );
+  };
+

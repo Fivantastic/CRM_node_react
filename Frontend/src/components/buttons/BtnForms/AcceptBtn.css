@@ -1,0 +1,64 @@
+/* AcceptBtn.css */
+
+.button__accept {
+  position: relative;
+  width: 120px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #34974d;
+  background-color: #3aa856;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.button__accept,
+.button__icon,
+.button__text {
+  transition: all 0.3s;
+}
+
+.button__accept .button__text {
+  transform: translateX(22px);
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.button__accept .button__icon {
+  position: absolute;
+  transform: translateX(80px);
+  height: 100%;
+  width: 39px;
+  background-color: #34974d;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button__accept .svg {
+  fill: currentColor;
+}
+
+.button__accept:hover {
+  background: #34974d;
+}
+
+.button__accept:hover .button__text {
+  color: transparent;
+}
+
+.button__accept:hover .button__icon {
+  width: 119px;
+  transform: translateX(0);
+}
+
+.button__accept:active .button__icon {
+  background-color: #1c7833;
+}
+
+.button__accept:active {
+  border: 1px solid #1c7833;
+}

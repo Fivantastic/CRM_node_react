@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 4rem;
+  gap: 2rem;
 }
 #dashboard_title {
   padding: 1rem;
@@ -15,7 +15,7 @@
   justify-content: center;
   flex-wrap: wrap;
   margin: 1rem;
-  gap: 1rem;
+  gap: 4rem;
   width: 100%;
 }
 
@@ -23,12 +23,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 84%;
   margin: 1rem;
-}
-
-.loading {
-  margin-left: 50px;
+  border-radius: 16px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
 }
 
 @media screen and (max-width: 480px) {

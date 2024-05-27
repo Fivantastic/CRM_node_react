@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { CustomCheckbox } from '../checkbox/CustomCheckbox.jsx';
+import { EyePassword } from '../buttons/Profile/EyePasword.jsx';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -74,6 +75,19 @@ function DynamicForm({ title, imgTitle, imgTitleActive, idCustom, onSubmit, sche
                   field={field}
                   register={register}
                 />
+              ) : field.type === 'password' ? (
+                <div className="password-container">
+                  <input
+                    id={field.idInput}
+                    type="password"
+                    className={`inputText-login ${fieldValues[field.name] ? 'filled' : ''}`}
+                    {...register(field.name)}
+                    onChange={(e) => handleFieldChange(field.name, e.target.value)}
+                  />
+                  <label htmlFor={field.idInput} id={field.idLabel} className="label-login">{field.label}</label>
+                  <EyePassword idInput={field.idInput} />
+                  <div className="underline-login"></div>
+                </div>
               ) : (
                 <>
                   <input

@@ -171,18 +171,22 @@ export const useProductList = (token) => {
     }
   };
 
-  const updateProduct = (updatedProduct) => {
+  const updateProduct = async (updatedProduct) => {
+    // Update the product locally
     setProductList((prevList) =>
       prevList.map((product) =>
-        product.id_product === updatedProduct.id_product ? updatedProduct : product
+        product.id_product === updatedProduct.id_product ? { ...product, ...updatedProduct } : product
       )
     );
     
     setFilteredProductList((prevList) =>
       prevList.map((product) =>
-        product.id_product === updatedProduct.id_product ? updatedProduct : product
+        product.id_product === updatedProduct.id_product ? { ...product, ...updatedProduct }  : product
       )
     );
+
+    // Fetch the product list again to ensure consistency
+    await getProductList();
   };
 
   const activeProduct = (id_product) => {

@@ -1,6 +1,5 @@
 import { getDBPool } from "../../db/getPool.js";
 
-
 export const selectUserByEmailModel = async (email) => {
   const pool = await getDBPool();
   // Obtener el usuario con ese email.

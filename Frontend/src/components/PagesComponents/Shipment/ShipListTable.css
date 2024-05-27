@@ -1,87 +1,86 @@
 #shipments_list {
-    width: 750px;
-    display: grid;
-    grid-template-columns: 350px 350px;
-    column-gap: 20px;
-  }
-  
-  #shipment_table {
-    min-width: 720px;
-    max-width: 750px;
-    border-radius: 8px;
-    padding: 10px 15px;
-    margin-top: 10px;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-  }
+  width: 750px;
+  display: grid;
+  grid-template-columns: 350px 350px;
+  column-gap: 20px;
+}
 
-  
-  #shipmentTableBody {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  #shipmentTableHead {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    text-align: start;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .shipmentTableBodyRow {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #eee;
-    padding-left: 5px;
-    align-items: center;
-    height: 50px;
-  }
-  
-  .shipmentTableBodyRow:hover {
-    background-color: #eee;
-  }
-  
-  #shipmentTableHeadRowRef,
-  .shipmentTableBodyRowRef {
-    width: 120px;
-  }
-  
-  #shipmentTableHeadRowRefSales,
-  .shipmentTableBodyRowRefSales {
-    width: 120px;
-  }
+#shipment_table {
+  min-width: 720px;
+  max-width: 750px;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-top: 10px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
 
-  
-  #shipmentTableHeadRowDate,
-  .shipmentTableBodyRowDate {
-    width: 130px;
+
+#shipmentTableBody {
+  display: flex;
+  flex-direction: column;
+}
+
+#shipmentTableHead {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  text-align: start;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.shipmentTableBodyRow {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding-left: 5px;
+  align-items: center;
+  height: 50px;
+}
+
+.shipmentTableBodyRow:hover {
+  background-color: #eee;
+}
+
+#shipmentTableHeadRowRef,
+.shipmentTableBodyRowRef {
+  width: 120px;
+}
+
+#shipmentTableHeadRowRefSales,
+.shipmentTableBodyRowRefSales {
+  width: 120px;
+}
+
+
+#shipmentTableHeadRowDate,
+.shipmentTableBodyRowDate {
+  width: 130px;
+}
+
+#shipmentTableHeadRowStatus,
+.shipmentTableBodyRowStatus {
+  width: 100px;
+}
+
+#shipmentTableHeadRowActions,
+.shipmentTableBodyRowActions {
+  width: 150px;
+}
+
+#shipmentTableHeadRowActions {
+  padding-left: 15px;
+}
+
+.shipmentTableBodyRowActions {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 820px) {
+  #shipments_list {
+    width: 350px;
+    grid-template-columns: 320px;
   }
-  
-  #shipmentTableHeadRowStatus,
-  .shipmentTableBodyRowStatus {
-    width: 100px;
-  }
-  
-  #shipmentTableHeadRowActions,
-  .shipmentTableBodyRowActions {
-    width: 150px;
-  }
-  
-  #shipmentTableHeadRowActions {
-    padding-left: 15px;
-  }
-  
-  .shipmentTableBodyRowActions {
-    display: flex;
-    align-items: center;
-  }
-  
-  @media screen and (max-width: 820px) {
-    #shipments_list {
-      width: 350px;
-      grid-template-columns: 320px;
-    }
-  }
-  
+}

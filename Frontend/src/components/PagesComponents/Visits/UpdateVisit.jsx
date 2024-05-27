@@ -1,8 +1,8 @@
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { EditButton } from '../../buttons/EditButton.jsx';
 import { updateVisitSchema } from '../../../Schema/Error/updateSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const UpdateVisit = ({ visit, onUpdateSale }) => {
   // Asi obtienes el token del usuario de la sesión
@@ -12,7 +12,7 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
   const handleButtonUpdateVisit = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/visits/update/${visit}`,
+        `${URL}/visits/update/${visit}`,
         {
           method: 'PUT',
           credentials: 'include',
@@ -61,11 +61,11 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
-  const title = 'Modificar Visita';
+  // Titulo de la ventana
+  const title = 'Actualizar Visita';
 
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
-  const nameButton = 'Modificar';
+  // Nombre que se muestra en el botón de submit, 
+  const nameButton = 'Actualizar';
 
   // Campos del formulario personalizables
   const updateVisitFormFields = [
@@ -75,6 +75,7 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
       type: 'text',
       idLabel: 'labelUserVisitUpdate',
       idInput: 'inputUserVisitUpdate',
+      required: false,
     },
     {
       name: 'visit_date',
@@ -82,6 +83,7 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
       type: 'date',
       idLabel: 'labelDateVisitUpdate',
       idInput: 'inputDateVisitUpdate',
+      required: false,
     },
     {
       name: 'observations',
@@ -89,25 +91,32 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
       type: 'textarea',
       idLabel: 'labelObservationsVisitUpdate',
       idInput: 'inputObservationsVisitUpdate',
+      required: false,
     },
   ];
 
-  // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
-  const handleUpdateVisit = () => {
-    DynamicFormPopUp(
-      title,
-      updateVisitFormFields,
-      updateVisitSchema,
-      handleButtonUpdateVisit,
-      nameButton
-    );
-  };
+  const StyleButton = {
+    action:'Update'
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptVisitsUpdate',
+    altImgBtn:'icono actualizar Visitas',
+    altAcceptBtn:'Boton actualizar Visitas',
+    action:'update',
+  }
+
 
   return (
-    <EditButton
-      id="btnSalesUpdate"
-      className="mainUpdateBtn"
-      onClick={handleUpdateVisit}
-    />
+    <DynamicModalWrapper
+    title={title}
+    fields={updateVisitFormFields}
+    schema={updateVisitSchema}
+    onSubmit={handleButtonUpdateVisit}
+    buttonText={nameButton}
+    dynamicIdModal="dynamicFormModal"
+    StyleButton={StyleButton}
+    StyleAcceptBtn={StyleAcceptBtn}
+  />
   );
 };

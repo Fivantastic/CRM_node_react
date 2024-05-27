@@ -4,6 +4,7 @@ import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { UpdateVisit } from './UpdateVisit.jsx';
 import { ToggleVisitStatusButton } from '../../buttons/StatesBtn/ToggleVisitStatusButton.jsx';
 import '../../../Styles/Pages/StyleVisitList.css';
+import { PencilBroken } from '../../../assets/creado/PencilBroken.jsx';
 
 export const VisitsList = ({
   visit,
@@ -29,14 +30,13 @@ export const VisitsList = ({
   };
 
   const estadoVisita = traducirEstadoVisita(visit.visit_status);
+  const nameComplete = `${visit.customer_name} ${visit.customer_last_name}`;
 
   const moreInfoFields = [
     { label: 'Ref', value: visit.ref_VT },
     {
       label: 'Nombre',
-      value:
-        `${visit.customer_name} ${visit.customer_last_name}` ||
-        visit.customer_name,
+      value: nameComplete,
     },
     { label: 'Telefono', value: visit.customer_phone },
     {
@@ -64,8 +64,7 @@ export const VisitsList = ({
         Ref: {visit.ref_VT}
       </p>
       <p id="VisitName" className="mainInsideSub VisitP">
-        <strong>Nombre: </strong> {visit.customer_name}{' '}
-        {visit.customer_last_name}
+        <strong>Nombre: </strong> { nameComplete }
       </p>
       <p id="VisitPhone" className="mainInsideSub VisitP">
         <strong>Telefono: </strong> {visit.customer_phone}
@@ -89,7 +88,13 @@ export const VisitsList = ({
           updateVisit={onUpdateVisit}
           token={token}
         />
-        <UpdateVisit visit={visit.id_visit} onUpdateVisit={onUpdateVisit} />
+          {visit.visit_status === 'completed'? (
+            <PencilBroken  />
+          ) : visit.visit_status === 'cancelled'? (
+            <PencilBroken />
+          ) : (
+          <UpdateVisit visit={visit.id_visit} onUpdateVisit={onUpdateVisit} />
+          )}
         <DeleteGenericModal
           id={visit.id_visit}
           onDelete={onDelete}

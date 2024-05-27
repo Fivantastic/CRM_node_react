@@ -11,6 +11,7 @@ import {
   YAxis,
 } from 'recharts';
 import './Charts.css';
+import { IsLoading } from './DataDashboard/isLoading.jsx';
 
 const URL = import.meta.env.VITE_URL;
 
@@ -81,7 +82,7 @@ export const InvoicesBarCharts = () => {
     // Convertir el objeto agrupado en un array de objetos compatibles con Recharts
     const chartData = Object.entries(groupedByMonth).map(([name, value]) => ({
       name,
-      ingresos: value,
+      ingresos: value.toFixed(2),
     }));
 
     return chartData;
@@ -94,7 +95,9 @@ export const InvoicesBarCharts = () => {
       <section id="payments-charts">
         <h2 id="stock-charts">Ingresos</h2>
         {loading ? (
-          <div className="loading">Cargando...</div>
+          <div className='isloading'>
+            <IsLoading />
+          </div>
         ) : (
           <ResponsiveContainer>
             <BarChart data={chartData} width={500} height={300}>

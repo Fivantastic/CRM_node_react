@@ -1,23 +1,15 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { EditButton } from '../../buttons/EditButton.jsx';
 const URL = import.meta.env.VITE_URL;
 import './SalesListTable.css';
 import { useState } from 'react';
-/* import { useOpenProducts } from '../../../hooks/selectsHook/useOpenProducts.js'; */
 import { useOpenCustomers } from '../../../hooks/selectsHook/useOpenCustomer.js';
+import { updateSaleSchema } from '../../../Schema/Error/updateSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
 
 export const UpdateSale = ({ onUpdateSale, sale, token}) => {
-  const [listStatus, setListStatus] = useState([]);
   const [reload, setReload] = useState(false);
-  /* const openProducts = useOpenProducts(token, reload); */
   const openCustomers = useOpenCustomers(token, reload);
-  const [formValues, setFormValues] = useState({
-    id_product: '',
-  });
-  
 
   // Aqui hace la peticion al servidor
   const handleUpdateSaleAccion = async (formData) => {
@@ -29,7 +21,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
           'Content-Type': 'application/json',
           Authorization: `${token}`,
         },
-        body: JSON.stringify(formData), // aqui va el formData lo que le envio lo del body
+        body: JSON.stringify(formData), 
       });
       console.log(response);
 
@@ -38,8 +30,6 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
         const responseData = await response.json();
         console.log('Venta actualizada satisfactorio:', responseData);
         onUpdateSale(sale);
-        setListStatus(responseData.data);
-        console.log(responseData.data);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
@@ -73,39 +63,13 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
     }
   };
 
-  const handleFieldChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+  // Titulo de la ventana
   const title = 'Actualizar Venta';
-
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
+  // Nombre que se muestra en el botón de submit
   const nameButton = 'Actualizar';
 
   // Campos del formulario personalizables
   const updateSaleFormFields = [
-    /* {
-      key: 'id_product', 
-      name: 'product',
-      label: 'Producto',
-      type: 'select',
-      options: {
-        'Productos': openProducts.map(product => ({
-          value: product.id_product,
-          label: `${product.ref_PR} - ${product.name}`
-        }))
-      },
-      idLabel: 'labelNameSaleCreate',
-      idInput: 'inputNameSaleCreate',
-      required: true,
-      onChange: handleFieldChange,
-      value: formValues.id_product
-    }, */
     {
       name: 'quantity',
       label: 'Cantidad',
@@ -121,47 +85,40 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
       label: 'Cliente',
       type: 'select',
       options: {
-        'Clientes': openCustomers.map(customer => ({
+        Clientes: openCustomers.map(customer => ({
           value: customer.id_customer,
           label: `${customer.ref_CT} - ${customer.company_name}`
         }))
       },
-      idLabel: 'labelCustomerSaleCreate',
-      idInput: 'inputCustomerSaleCreate',
+      idLabel: 'labelCustomerSaleUpdate',
+      idInput: 'inputCustomerSaleUpdate',
       required: true,
-      onChange: handleFieldChange,
-      value: formValues.id_customer
     },
   ];
+  
 
-  // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
-  const updateSaleSchema = Joi.object({
-    /* product: Joi.string().optional(), */
-    quantity: Joi.string().optional(),
-    customer: Joi.string().optional(),
-    /* operation_status: Joi.string().optional(), */
-  });
-
-  // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
-  const handleUpdateSale = () => {
-    DynamicFormPopUp(
-      title,
-      updateSaleFormFields,
-      updateSaleSchema,
-      handleUpdateSaleAccion,
-      nameButton
-    );
-  };
-
+  const StyleButton = {
+    action:'Update'
+  }
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptSalesUpdate',
+    altImgBtn:'icono actualizar Venta',
+    btnSvg:'/addSalesWhite.svg',
+    altAcceptBtn:'Boton actualizar Venta',
+    action:'update'
+  }
+  
   return (
-    <>
-      {listStatus !== 'closed' && (
-        <EditButton
-          id="btnSalesUpdate"
-          className="mainUpdateBtn"
-          onClick={handleUpdateSale}
-        />
-      )}
-    </>
+    <DynamicModalWrapper
+      title={title}
+      fields={updateSaleFormFields}
+      schema={updateSaleSchema}
+      onSubmit={handleUpdateSaleAccion}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
+    
   );
 };

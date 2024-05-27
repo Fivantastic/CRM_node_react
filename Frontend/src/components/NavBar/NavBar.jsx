@@ -36,39 +36,43 @@ export const NavBar = () => {
                         <>
                             <NavLink to="/user" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar profileBar" src="/user.svg" alt="" />
-                                <span className="hidden">User</span>
+                                <span className="hidden">Usuarios</span>
                             </NavLink>
                             <NavLink to="/customer" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/customer.svg" alt="" />
-                                <span className="hidden">Customer</span>
+                                <span className="hidden">Clientes</span>
                             </NavLink>
                             <NavLink to="/product" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img id='iconSidebarProduct' className="iconSidebar" src="/product.svg" alt="" />
-                                <span className="hidden">Product</span>
+                                <span className="hidden">Productos</span>
                             </NavLink>
                             <NavLink to="/visit" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/visit.svg" alt="" />
-                                <span className="hidden">Visits</span>
+                                <span className="hidden">Visitas</span>
                             </NavLink>
                             <NavLink to="/sale" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/sale.svg" alt="" />
-                                <span className="hidden">Sales Orders</span>
+                                <span className="hidden">Ordenes de venta</span>
                             </NavLink>
                             <NavLink to="/deliveryNote" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/note.svg" alt="" />
-                                <span className="hidden">Delivery Note</span>
+                                <span className="hidden">Albaranes</span>
                             </NavLink>
                             <NavLink to="/shipment" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/shipment.svg" alt="" />
-                                <span className="hidden">Shipments</span>
+                                <span className="hidden">Envíos</span>
+                            </NavLink>
+                            <NavLink to="/route" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
+                                <img className="iconSidebar" src="/route.svg" alt="" />
+                                <span className="hidden">Rutas</span>
                             </NavLink>
                             <NavLink to="/invoice" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/delivery.svg" alt="" />
-                                <span className="hidden">Invoices</span>
+                                <span className="hidden">Facturas</span>
                             </NavLink>
                             <NavLink to="/payment" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/payment.svg" alt="" />
-                                <span className="hidden">Payments</span>
+                                <span className="hidden">Pagos</span>
                             </NavLink>
                         </>
                     )}
@@ -76,23 +80,23 @@ export const NavBar = () => {
                         <>
                             <NavLink to="/customer" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/customer.svg" alt="" />
-                                <span className="hidden">Customer</span>
+                                <span className="hidden">Clientes</span>
                             </NavLink>
                             <NavLink to="/visit" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/visit.svg" alt="" />
-                                <span className="hidden">Visits</span>
+                                <span className="hidden">Visitas</span>
                             </NavLink>
                             <NavLink to="/sale" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/sale.svg" alt="" />
-                                <span className="hidden">Sales Orders</span>
+                                <span className="hidden">Ordenes de ventas</span>
                             </NavLink>
                             <NavLink to="/invoice" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/delivery.svg" alt="" />
-                                <span className="hidden">Invoices</span>
+                                <span className="hidden">Facturas</span>
                             </NavLink>
                             <NavLink to="/payment" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/payment.svg" alt="" />
-                                <span className="hidden">Payments</span>
+                                <span className="hidden">Pagos</span>
                             </NavLink>
                         </>
                     )}
@@ -100,15 +104,19 @@ export const NavBar = () => {
                         <>
                             <NavLink to="/customer" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/customer.svg" alt="" />
-                                <span className="hidden">Customer</span>
+                                <span className="hidden">Clientes</span>
                             </NavLink>
                             <NavLink to="/deliveryNote" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/note.svg" alt="" />
-                                <span className="hidden">Delivery Note</span>
+                                <span className="hidden">Albaranes</span>
                             </NavLink>
                             <NavLink to="/shipment" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
                                 <img className="iconSidebar" src="/shipment.svg" alt="" />
-                                <span className="hidden">Shipments</span>
+                                <span className="hidden">Envíos</span>
+                            </NavLink>
+                            <NavLink to="/route" className={({ isActive }) => isActive? "linkPage active" : "linkPage"}>
+                                <img className="iconSidebar" src="/route.svg" alt="" />
+                                <span className="hidden">Rutas</span>
                             </NavLink>
                         </>
                     )}

@@ -82,17 +82,13 @@ function ImageUpload() {
   };
 
   return (
-    <div id="avatar-container">
-      <button onClick={selectImage} id="btn-select-img">
+    <div id="image-upload-container">
+      <button id="btn-selectAvatar" onClick={selectImage}>
         <img
-          id="incon-setting"
-          src="/person_add_24dp_FILL0_wght400_GRAD0_opsz24.svg"
+          src="/userBlue.svg"
           alt=""
         />
-        <div id="content">
-          <h3>Avatar</h3>
-          <p id="info">Cambiar</p>
-        </div>
+        <p>Cambiar Avatar</p>
       </button>
       <button id="btn-send" onClick={handleImageUpload}>
         Subir

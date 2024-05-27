@@ -1,13 +1,14 @@
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { newUserSchema } from '../../../Schema/Error/createSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const CreateUser = ({ onAddUser, token }) => {
 
   // Aqui hace la peticion al servidor
   const handleUserCreate = async (formData) => {
     try {
-        const response = await fetch('http://localhost:3000/user/register', {
+        const response = await fetch(`${URL}/user/register`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -54,10 +55,10 @@ export const CreateUser = ({ onAddUser, token }) => {
     }
   };
 
-  // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
+  // Titulo de la ventana
   const title = 'Crear usuario';
 
-  // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
+  // Nombre que se muestra en el botón de submit
   const nameButton = 'Crear';
 
   // Campos del formulario personalizables
@@ -92,36 +93,51 @@ export const CreateUser = ({ onAddUser, token }) => {
       type: 'select',
       label: 'Rol *',
       idLabel: 'labelRoleUserCreate',
-      idInput: `inputSelectUserCreate`,
+      idInput: 'inputSelectUserCreate',
       value: '',
       required: true,
       options: {
-        Administradores: { 
-          admin: 'Administrador'
-        },
-        Empleados: {
-          salesAgent: 'Comercial', 
-          deliverer: 'Repartidor'
-        },
+        Cargo: [
+          { value: 'admin', label: 'Administrador' },
+          { value: 'salesAgent', label: 'Comercial' },
+          { value: 'deliverer', label: 'Repartidor' },
+        ],
       },
-    },
+    }
   ];
   
 
-  const handleClickCreateUser = () => {
-    DynamicFormPopUp(
-      title,
-      userFormFields,
-      newUserSchema,
-      handleUserCreate,
-      nameButton
-    );
-  };
-  return (
-    <>
-      <button id='btnUserCreate' className=" mainCreateBtn" onClick={handleClickCreateUser}>
-        <img id='imgUserCreate' className='imgCreateBtn' src="/addUser.svg" alt="Boton agregar usuario" />
-      </button>
-    </>
+  const StyleButton = {
+    idBtn:'btnUserCreate',
+    idImgBtn:'imgUserCreate',
+    srcImgBtn:'/addUser.svg',
+    altImgBtn:'icono agregar usuario',
+    action:'create'
+  }
+
+  const customModalSize = {
+    idModalContainer:'createCustomerContainerModal',
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptUserCreate',
+    altImgBtn:'icono crear usuario',
+    btnSvg:'/addUserWhite.svg',
+    altAcceptBtn:'Boton crear',
+    action:'create'
+  }
+
+return (
+    <DynamicModalWrapper
+      title={title}
+      fields={userFormFields}
+      schema={newUserSchema}
+      onSubmit={handleUserCreate}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+      customModalSize={customModalSize} 
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
   );
 };

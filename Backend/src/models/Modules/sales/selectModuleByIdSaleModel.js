@@ -8,7 +8,6 @@ export const selectModuleByIdSaleModel = async (sale_id) => {
     `SELECT * FROM Modules WHERE sale_id = ?`,
     [sale_id]
   );
-  console.log(Modules[0]);
 
   return Modules[0];
 };

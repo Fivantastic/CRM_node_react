@@ -1,14 +1,14 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { EditButton } from '../../buttons/EditButton.jsx';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import { updateDeliverySchema } from '../../../Schema/Error/updateSchema.js';
+const URL = import.meta.env.VITE_URL;
 
 export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
   const handleUpdateDeliveryAction = async (formData) => {
     console.log(formData);
     try {
       const response = await fetch(
-        `http://localhost:3000/deliveryNotes/close/${deliveryNote}`,
+        `${URL}/deliveryNotes/close/${deliveryNote}`,
         {
           method: 'PUT',
           credentials: 'include',
@@ -67,42 +67,39 @@ export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
       name: 'delivery_status',
       label: 'Estado',
       type: 'select',
-      defaultValue: 'pending',
-      required: true,
+      defaultValue: '',
+      required: false,
       idLabel: 'labelStatusNoteUpdate',
       idInput: 'inputStatusNoteUpdate',
       options: {
-        Estados: {
-          pending: 'En proceso',
-          cancelled: 'Cancelado',
-          delivering: 'Cerrado',
-          delivered: 'Entregado',
-        },
+        Estados: [
+          { value: 'pending', label: 'En proceso' },
+          { value: 'delivering', label: 'En reparto' },
+          { value: 'cancelled', label: 'Cancelado' },
+        ],
       },
     },
   ];
 
-  const updateDeliverySchema = Joi.object({
-    delivery_status: Joi.string().required(),
-  });
+  const StyleButton = {
+    action:'update',
+  }
 
-  const handleUpdateDelivery = () => {
-    DynamicFormPopUp(
-      title,
-      updateDeliveryFormFields,
-      updateDeliverySchema,
-      handleUpdateDeliveryAction,
-      nameButton
-    );
-  };
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptNoteUpdate',
+    action:'update',
+  }
 
   return (
-    <>
-      <EditButton
-        id="btnNoteUpdate"
-        className="mainUpdateBtn"
-        onClick={handleUpdateDelivery}
-      />
-    </>
+    <DynamicModalWrapper
+      title={title}
+      fields={updateDeliveryFormFields}
+      schema={updateDeliverySchema}
+      onSubmit={handleUpdateDeliveryAction}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
   );
-};
+  };

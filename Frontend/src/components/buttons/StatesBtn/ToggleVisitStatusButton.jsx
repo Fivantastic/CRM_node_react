@@ -13,11 +13,11 @@ export const ToggleVisitStatusButton = ({ id, currentStatus, updateVisit, token 
         allowOutsideClick: false,
         showCancelButton: true,
         confirmButtonText: 'Completar',
-        confirmButtonColor: '#28a745', // Verde para completar
+        confirmButtonColor: '#3aa856', // Verde para completar
         cancelButtonColor: '#6c757d', // Color para salir
         showDenyButton: true,
         denyButtonText: 'Cancelar visita',
-        denyButtonColor: '#dc3545', // Rojo para cancelar
+        denyButtonColor: '#eb3a3a', // Rojo para cancelar
       });
 
       if (result.isConfirmed) {
@@ -29,7 +29,7 @@ export const ToggleVisitStatusButton = ({ id, currentStatus, updateVisit, token 
           icon: 'question',
           allowOutsideClick: false,
           showCancelButton: true,
-          confirmButtonColor: '#dc3545', // Rojo para cancelar
+          confirmButtonColor: '#eb3a3a', // Rojo para cancelar
           cancelButtonColor: '#6c757d',
           confirmButtonText: 'Sí, Cancelar',
           cancelButtonText: 'Salir',
@@ -47,7 +47,7 @@ export const ToggleVisitStatusButton = ({ id, currentStatus, updateVisit, token 
         icon: 'question',
         allowOutsideClick: false,
         showCancelButton: true,
-        confirmButtonColor: '#dc3545', // Rojo para cancelar
+        confirmButtonColor: '#eb3a3a', // Rojo para cancelar
         cancelButtonColor: '#6c757d',
         confirmButtonText: 'Sí, Cancelar',
         cancelButtonText: 'Salir',

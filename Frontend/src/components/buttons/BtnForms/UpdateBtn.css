@@ -1,0 +1,65 @@
+/* UpdateBtn.css */
+
+.button__acceptUpdate {
+    position: relative;
+    width: 130px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #34974d;
+    background-color: #3aa856;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .button__acceptUpdate,
+  .button__iconUpdate,
+  .button__textUpdate {
+    transition: all 0.3s;
+  }
+  
+  .button__acceptUpdate .button__textUpdate {
+    transform: translateX(8px);
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .button__acceptUpdate .button__iconUpdate {
+    position: absolute;
+    transform: translateX(90px);
+    height: 100%;
+    width: 39px;
+    background-color: #34974d;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button__acceptUpdate .svg {
+    fill: currentColor;
+  }
+  
+  .button__acceptUpdate:hover {
+    background: #34974d;
+  }
+  
+  .button__acceptUpdate:hover .button__textUpdate {
+    color: transparent;
+  }
+  
+  .button__acceptUpdate:hover .button__iconUpdate {
+    width: 129px;
+    transform: translateX(0);
+  }
+  
+  .button__acceptUpdate:active .button__iconUpdate {
+    background-color: #1c7833;
+  }
+  
+  .button__acceptUpdate:active {
+    border: 1px solid #1c7833;
+  }
+  

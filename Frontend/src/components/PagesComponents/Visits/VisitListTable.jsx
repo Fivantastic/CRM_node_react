@@ -4,6 +4,7 @@ import { UpdateVisit } from './UpdateVisit.jsx';
 import { MoreVisits } from './MoreVisits.jsx';
 import { ToggleVisitStatusButton } from '../../buttons/StatesBtn/ToggleVisitStatusButton.jsx';
 import '../Visits/VisitListTable.css';
+import { PencilBroken } from '../../../assets/creado/PencilBroken.jsx';
 
 export const VisitListTable = ({ visit, onUpdateVisit, onDelete, token }) => {
 
@@ -51,12 +52,18 @@ export const VisitListTable = ({ visit, onUpdateVisit, onDelete, token }) => {
                     updateVisit={onUpdateVisit}
                     token={token}
                   />
+                  {visitItem.visit_status === 'completed'? (
+                    <PencilBroken  />
+                  ) : visitItem.visit_status === 'cancelled'? (
+                    <PencilBroken />
+                  ) : (
                   <UpdateVisit visit={visitItem.id_visit} onUpdateVisit={onUpdateVisit} />
+                  )}
                   <DeleteGenericModal
                     id={visitItem.id_visit}
                     onDelete={onDelete}
                     token={token}
-                    typeModule="visit"
+                    typeModule="visits"
                     typeModuleMessage="Visitas"
                   />
                 </div>

@@ -76,6 +76,14 @@
     margin : 16px 10px;
 }
 
+/* Container de los botones */
+#createCustomerBtnCloseModal {
+    margin-right: 150px;
+}
+#createCustomerAcceptBtn {
+    margin-left: 150px;
+}
+
 
 @media screen and (max-width: 750px) {
     #customerCreateModal {
@@ -94,8 +102,13 @@
         "Empresa"
         "activo"
         ;
+    }
 
-
+    #createCustomerBtnCloseModal {
+        margin-right: 0;
+    }
+    #createCustomerAcceptBtn {
+        margin-left: 0;
     }
     
 }

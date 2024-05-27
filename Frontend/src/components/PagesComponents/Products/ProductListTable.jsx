@@ -41,7 +41,7 @@ export const ProductListTable = ({ product, onUpdateProduct, onDelete, isActive,
                   typeModuleMessage={typeModuleMessage}
                 />
                 <UpdateProduct
-                  product={product}
+                  id={product.id_product}
                   onUpdateProduct={onUpdateProduct}
                 />
                 <DeleteGenericModal

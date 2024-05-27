@@ -1,0 +1,14 @@
+/* .mainExternalContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0px;
+    width: 100%;
+}
+
+@media (max-width: 825px) {
+    .mainExternalContainer {
+        grid-template-columns: 1fr;
+    }
+}
+ */

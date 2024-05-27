@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Avatar, Card, CardContent, Typography, Grid, Box, Container, List, ListItem, ListItemAvatar, ListItemText, IconButton, Collapse } from '@mui/material';
-import { ExpandMore, ExpandLess } from '@mui/icons-material';
 import { useUser } from '../../../context/authContext.jsx';
 import defaultAvatar from '/profile.svg';
 import shipmentIcon from '../../../../public/shipmentRoute.svg';
@@ -14,12 +12,12 @@ export const DeliveryRoutes = () => {
   const [deliveryUsers, setDeliveryUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [shipments, setShipments] = useState([]);
-  const [selectedShipment, setSelectedShipment] = useState(null); // Nuevo estado para controlar qué envío se muestra en el popup
-  const popupRef = useRef(null); // Referencia al elemento del popup
+  const [selectedShipment, setSelectedShipment] = useState(null);
+  const popupRef = useRef(null);
 
   useEffect(() => {
     getDeliveryUsers();
-    getShipments(); // Cargar todos los envíos
+    getShipments();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -38,7 +36,7 @@ export const DeliveryRoutes = () => {
 
   const getDeliveryUsers = async () => {
     try {
-      const response = await fetch(`${URL}/user/list`, {
+      const response = await fetch(`${URL}/user/list?role=deliverer`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -48,24 +46,15 @@ export const DeliveryRoutes = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log('Usuarios recibidos satisfactoriamente:', responseData);
-        setDeliveryUsers(
-          responseData.data.filter((user) => user.role === 'deliverer')
-        );
+        setDeliveryUsers(responseData.data);
       } else {
         const errorData = await response.json();
         console.error('Error al obtener las rutas de reparto', errorData);
-        Toast.fire({
-          icon: 'error',
-          title: 'Error al obtener las rutas de reparto',
-        });
+        // Aquí deberías implementar una notificación de error
       }
     } catch (error) {
       console.error('Error al obtener las rutas de reparto', error);
-      Toast.fire({
-        icon: 'error',
-        title: 'Error al obtener las rutas de reparto',
-      });
+      // Aquí deberías implementar una notificación de error
     }
   };
 
@@ -81,7 +70,6 @@ export const DeliveryRoutes = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log('Envíos recibidos satisfactoriamente:', responseData);
         setShipments(responseData.data);
       } else {
         const errorData = await response.json();
@@ -94,17 +82,20 @@ export const DeliveryRoutes = () => {
 
   const handleViewShipments = (userId) => {
     if (selectedUser === userId) {
-      setSelectedUser(null); // Si se hace clic nuevamente en el mismo usuario, ocultar los envíos
+      setSelectedUser(null);
     } else {
       setSelectedUser(userId);
     }
   };
 
   const handlePickupPointClick = (shipmentId) => {
-    setSelectedShipment(shipmentId); // Actualizar el estado para mostrar los detalles del envío en el popup
+    if (selectedShipment === shipmentId) {
+      setSelectedShipment(null);
+    } else {
+      setSelectedShipment(shipmentId);
+    }
   };
 
-  // Filtrar los envíos basados en el nombre del repartidor seleccionado
   const selectedDelivererName = selectedUser ? deliveryUsers.find(user => user.id_user === selectedUser)?.name : null;
   const filteredShipments = selectedDelivererName
     ? shipments.filter(shipment => shipment.deliverer === selectedDelivererName)
@@ -112,68 +103,64 @@ export const DeliveryRoutes = () => {
 
   return (
     <section id="delivery_route" className="delivery_route">
-      <Container>
-        <Typography variant="h4" gutterBottom>
-          Lista de repartidores
-        </Typography>
-        <List>
+      <div className="container">
+      <h4 className="titulo-repartidores">Lista de repartidores</h4>
+        <ul className="lista-repartidores">
           {deliveryUsers.map((user) => (
-            <Box key={user.id_user} mb={2}>
-              <Card>
-                <CardContent>
-                  <Grid container spacing={2} alignItems="center">
-                    <Grid item>
-                      <Avatar src={user.avatar || defaultAvatar} alt="Avatar" />
-                    </Grid>
-                    <Grid item xs>
-                      <Typography variant="h6">{user.name}</Typography>
-                      <Typography variant="body2" color="textSecondary">
-                        Repartidor
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <IconButton onClick={() => handleViewShipments(user.id_user)}>
-                        {selectedUser === user.id_user ? <ExpandLess /> : <ExpandMore />}
-                      </IconButton>
-                    </Grid>
-                  </Grid>
-                  <Collapse in={selectedUser === user.id_user} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
+            <div key={user.id_user} className="card-container">
+              <div className="card">
+                <div className="card-content">
+                  <div className="user-info">
+                    <img src={user.avatar || defaultAvatar} alt="Avatar" className="avatar" />
+                    <div className="user-details">
+                      <h6>{user.name}</h6>
+                      <p>Repartidor</p>
+                    </div>
+                    <button onClick={() => handleViewShipments(user.id_user)}>
+                      {selectedUser === user.id_user ? '-' : '+'}
+                    </button>
+                  </div>
+                  {selectedUser === user.id_user && (
+                    <ul className="shipments-list">
                       {filteredShipments.length > 0 ? (
                         filteredShipments.map((shipment) => (
-                          <ListItem key={shipment.id_shipment} button onClick={() => handlePickupPointClick(shipment.id_shipment)}>
-                            <ListItemAvatar>
-                              <Avatar src={shipmentIcon} alt="Shipment" />
-                            </ListItemAvatar>
-                            <ListItemText primary={shipment.customer_name} secondary={shipment.delivery_address} />
-                            {shipment.id_shipment === selectedShipment && (
-                              <Box className="popup" ref={popupRef}>
-                                <Typography variant="h6">Detalles del envío</Typography>
-                                <Typography><strong>Nombre:</strong> {shipment.customer_name}</Typography>
-                                <Typography><strong>Compañía:</strong> {shipment.company_name}</Typography>
-                                <Typography><strong>Dirección:</strong> {shipment.delivery_address}</Typography>
-                                <Typography><strong>NIF:</strong> {shipment.NIF}</Typography>
-                                <Typography><strong>Producto:</strong> {shipment.product_name}</Typography>
-                                <Typography><strong>Cantidad:</strong> {shipment.product_quantity}</Typography>
-                                <Typography><strong>Ciudad:</strong> {shipment.address_city}</Typography>
-                                <Typography><strong>Teléfono:</strong> {shipment.customer_phone}</Typography>
-                              </Box>
-                            )}
-                          </ListItem>
+                          <li key={shipment.id_shipment} className="envios" onClick={() => handlePickupPointClick(shipment.id_shipment)}>
+                            <img src={shipmentIcon} alt="Shipment" className="shipment-icon" />
+                            <div>
+                              <strong>{shipment.customer_name}</strong>
+                              <p>{shipment.delivery_address}</p>
+                            </div>
+                          </li>
+
                         ))
                       ) : (
-                        <ListItem>
-                          <ListItemText primary="Este repartidor no tiene envíos asociados" />
-                        </ListItem>
+                        <li>No hay envíos asociados</li>
                       )}
-                    </List>
-                  </Collapse>
-                </CardContent>
-              </Card>
-            </Box>
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
           ))}
-        </List>
-      </Container>
+        </ul>
+        {selectedShipment && (
+          <div className="popup open" ref={popupRef}>
+            <h6>Detalles del envío</h6>
+            {filteredShipments.find(shipment => shipment.id_shipment === selectedShipment) && (
+              <>
+                <p><strong>Nombre:</strong> {filteredShipments.find(shipment => shipment.id_shipment === selectedShipment)?.customer_name}</p>
+                <p><strong>Compañía:</strong> {filteredShipments.find(shipment => shipment.id_shipment === selectedShipment)?.company_name}</p>
+                <p><strong>Dirección:</strong> {filteredShipments.find(shipment => shipment.id_shipment === selectedShipment)?.delivery_address}</p>
+                <p><strong>NIF:</strong> {filteredShipments.find(shipment => shipment.id_shipment === selectedShipment)?.NIF}</p>
+                <p><strong>Producto:</strong> {filteredShipments.find(shipment => shipment.id_shipment === selectedShipment)?.product_name}</p>
+                <p><strong>Cantidad:</strong> {filteredShipments.find(shipment => shipment.id_shipment === selectedShipment)?.product_quantity}</p>
+                <p><strong>Ciudad:</strong> {filteredShipments.find(shipment => shipment.id_shipment === selectedShipment)?.address_city}</p>
+                <p><strong>Teléfono:</strong> {filteredShipments.find(shipment => shipment.id_shipment === selectedShipment)?.customer_phone}</p>
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </section>
   );
 };

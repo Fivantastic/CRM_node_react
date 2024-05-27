@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { createCustomerSchema } from '../../../Schema/Error/createSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const CreateCustomer = ({ onAddCustomer, token, typeModule }) => {
@@ -59,9 +59,6 @@ export const CreateCustomer = ({ onAddCustomer, token, typeModule }) => {
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
   const nameButton = 'Crear';
-
-  // Id de la ventana customizable
-  const dynamicIdModal = 'customerCreateModal';
 
   // Campos del formulario personalizables
   const customerFormFields = [
@@ -166,22 +163,41 @@ export const CreateCustomer = ({ onAddCustomer, token, typeModule }) => {
     },
   ];
 
-  const handleClickCreateCustomer = () => {
-    DynamicFormPopUp(
-      title,
-      customerFormFields,
-      createCustomerSchema,
-      handleCustomerCreatedAccion,
-      nameButton,
-      dynamicIdModal
-    );
-  };
 
-  return (
-    <>
-      <button id='btnCustomerCreate' className="mainCreateBtn" onClick={handleClickCreateCustomer}>
-        <img id='iconCustomerCreate' className='imgCreateBtn' src="/AddCustomer.svg" alt="icono agregar cliente" />
-      </button>
-    </>
+const StyleButton = {
+  idBtn:'btnCustomerCreate',
+  idImgBtn:'iconCustomerCreate',
+  srcImgBtn:'/AddCustomer.svg',
+  altImgBtn:'icono agregar cliente',
+  action:'create'
+}
+
+const customModalSize = {
+  idModalContainer:'createCustomerContainerModal',
+  idModalFooter:'createCustomerFooterModal',
+  idModalBtnClose:'createCustomerBtnCloseModal',
+  idAcceptBtn:'createCustomerAcceptBtn',
+}
+
+const StyleAcceptBtn = {
+  idAcceptBtn:'btnAcceptVisitsCreate',
+  altImgBtn:'icono crear Visita',
+  btnSvg:'/AddCustomerWhite.svg',
+  altAcceptBtn:'Boton crear',
+  action:'create'
+}
+
+return (
+    <DynamicModalWrapper
+      title={title}
+      fields={customerFormFields}
+      schema={createCustomerSchema}
+      onSubmit={handleCustomerCreatedAccion}
+      buttonText={nameButton}
+      dynamicIdModal="customerCreateModal"
+      StyleButton={StyleButton}
+      customModalSize={customModalSize} 
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
   );
 };

@@ -1,22 +1,18 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp';
 import usePendingDeliveryNotes from '../../../hooks/PagesHooks/usePendingDeliveryNotes';
 import { useState } from 'react';
+import { createShipmentSchema } from '../../../Schema/Error/createSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
 export const CreateShipment = ({ onAddShipment, token }) => {
   const [reload, setReload] = useState(false);
   const pendingDeliveryNotes = usePendingDeliveryNotes(token, reload);
+  const URL = import.meta.env.VITE_URL;
 
-  const [formValues, setFormValues] = useState({
-    deliveryNote_id: '',
-    shipment_status: '',
-    additional_notes: ''
-  });
 
   const handleShipmentCreatedAction = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/shipment/create', {
+      const response = await fetch(`${URL}/shipment/create`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -55,20 +51,11 @@ export const CreateShipment = ({ onAddShipment, token }) => {
     }
   };
 
-  const handleFieldChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
   const title = 'Crear Envío';
   const nameButton = 'Crear';
 
   const createShipmentFormFields = [
     {
-      key: 'deliveryNote_id',
       name: 'deliveryNote_id',
       label: 'Nota de entrega',
       type: 'select',
@@ -81,29 +68,8 @@ export const CreateShipment = ({ onAddShipment, token }) => {
       idLabel: 'labelDeliveryNoteShipmentCreate',
       idInput: 'inputDeliveryNoteShipmentCreate',
       required: true,
-      onChange: handleFieldChange,
-      value: formValues.deliveryNote_id
     },
     {
-      key: 'shipment_status',
-      name: 'shipment_status',
-      label: 'Estado',
-      type: 'select',
-      options: {
-        'Estados': {
-          inTransit: 'En proceso',
-          cancelled: 'Cancelado',
-          delayed: 'Retrasado'
-        }
-      },
-      idLabel: 'labelShipmentStatusShipmentCreate',
-      idInput: 'inputShipmentStatusShipmentCreate',
-      required: true,
-      onChange: handleFieldChange,
-      value: formValues.shipment_status
-    },
-    {
-      key: 'additional_notes',
       name: 'additional_notes',
       label: 'Notas adicionales',
       type: 'text',
@@ -111,33 +77,36 @@ export const CreateShipment = ({ onAddShipment, token }) => {
       idLabel: 'labelAdditionalNotesShipmentCreate',
       idInput: 'inputAdditionalNotesShipmentCreate',
       required: false,
-      onChange: handleFieldChange,
-      value: formValues.additional_notes
     }
   ];
+  
+  // Estilos del boton, copia el id del antiguo
+  const StyleButton = {
+    idBtn:'btnShipmentCreate',
+    idImgBtn:'imgCreateShipmentBtn',
+    srcImgBtn:'/addShipment.svg',
+    altImgBtn:'Boton agregar Envío',
+    action:'create'
+  }
 
-  const createShipmentSchema = Joi.object({
-    deliveryNote_id: Joi.string().guid().required(),
-    shipment_status: Joi.string().valid('inTransit', 'cancelled', 'delayed', 'delivered').required(),
-    additional_notes: Joi.string().allow('', null)
-  }).messages({});
-
-  const handleClickCreateShipment = () => {
-    DynamicFormPopUp(
-      title,
-      createShipmentFormFields,
-      createShipmentSchema,
-      handleShipmentCreatedAction,
-      nameButton,
-      formValues
-    );
-  };
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptShipmentCreate',
+    altImgBtn:'icono crear envío',
+    btnSvg:'/addShipmentWhite.svg',
+    altAcceptBtn:'Boton crear',
+    action:'create'
+  }
 
   return (
-    <>
-      <button id='btnShipmentCreate' className="mainCreateBtn" onClick={handleClickCreateShipment}>
-        <img id='imgCreateShipmentBtn' className='imgCreateBtn' src="/shipmentRoute.svg" alt="icono agregar Envío" />
-      </button>
-    </>
+      <DynamicModalWrapper
+        title={title}
+        fields={createShipmentFormFields}
+        schema={createShipmentSchema}
+        onSubmit={handleShipmentCreatedAction}
+        buttonText={nameButton}
+        dynamicIdModal="dynamicFormModal"
+        StyleButton={StyleButton}
+        StyleAcceptBtn={StyleAcceptBtn}
+      />
   );
 };

@@ -1,51 +1,183 @@
+
+ul,
+li {
+  list-style: none;
+}
+
+#profile_container {
+  padding: 40px;
+  color: #13214E;
+}
+
 #account {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-  gap: 10px;
+  width: 100%;
+  min-width: 1000px;
+  max-width: 1200px;
+  height: calc(100vh - 180px);
+  max-height: 650px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 80px;
+  grid-template-areas: 
+  "info settings"
+  "back back";
+  background-color: #fbfbf5;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+
 }
 
-/* Avatar */
-#avatar-container {
-  border: 2px solid #6e6d6d;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  width: 8rem;
-  height: 7.5rem;
-  cursor: pointer;
+/* Estilo de la sección de información */
+#account_info,
+#account_settings {
+  padding: 40px 40px 0 40px;
+
+}
+
+/* Estilo seccion de perfil */
+#account_info {
+  grid-area: info;
+  display: grid;
+  grid-template-rows: 50px 1fr 120px;
+}
+
+#account_settings {
+  grid-area: settings;
+}
+
+#profile_back {
+  grid-area: back;
+}
+
+
+/* estilos titulos */
+#profile_title,
+#profile_title-settings {
+  width: fit-content;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+/* linea de subrayado con pseuclases */
+#profile_title::after,
+#profile_title-settings::after {
+  content: "";
+  display: block;
+  width: 80%;
+  height: 2px;
+  background-color: #13214E;
+}
+
+/* Estilo de la sección de datos */
+#profile_info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  "name email"
+  "phone password"
+  "role password"
+  ;
+  column-gap: 20px;
+}
+
+.info_paragraph {
+  margin-bottom: 5px;
+}
+
+.title-Par  {
+  font-style: italic;
+  font-size: 0.9rem;
+}
+ 
+#profile_name {
+  grid-area: name;
+}
+
+#profile_phone {
+  grid-area: phone;
+}
+
+#profile_role {
+  grid-area: role;
+}
+
+#profile_email {
+  grid-area: email;
+}
+
+#profile_password {
+  grid-area: password;
+}
+
+/* Estilo area avatar */
+#profile_img_section {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #f0f0f6;
 }
 
-#btn-select-img {
+
+/* Estilo boton cambio de contraseña */
+
+
+
+
+/* Estilo cambio avatar */
+#btn-selectAvatar {
+  display: flex;
+  align-items: center;
   border: none;
+  background-color: transparent;
   cursor: pointer;
-  margin-top: 20px;
 }
 
-#btn-send {
-  cursor: pointer;
-  margin-top: 3px;
-  width: 100px;
-  background-color: #14214e;
-  color: aliceblue;
-  border-radius: 6px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+#image-upload-container {
+  margin-left: 20px;
 }
 
-#content {
+#profile_img_container {
+  width: 120px;
+  height: 120px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
+
 }
 
-#info {
-  font-size: 0.6rem;
+#profile_img_circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background-color: #13214E;
 }
 
-#incon-setting {
-  padding: 0.5rem;
+.avatarProfileSetting {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  scale: 0.99;
+}
+
+#btn-selectAvatar:hover {
+  text-decoration: underline;
+}
+
+
+/* Estilo seccion volver */
+
+#profile_back {
+  padding: 0 40px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+#profile_back-button {
+  color: #13214E;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: bold;
+  margin-right: 20px;
 }

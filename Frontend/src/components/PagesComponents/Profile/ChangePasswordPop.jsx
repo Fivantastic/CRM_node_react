@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+const URL = import.meta.env.VITE_URL;
 
 
 const ChangePasswordPop = ({ token }) => {
@@ -20,7 +21,7 @@ const ChangePasswordPop = ({ token }) => {
       };
 
       const response = await fetch(
-        'http://localhost:3000/user/change-password',
+        `${URL}/user/change-password`,
         {
           method: 'PUT',
           credentials: 'include',
@@ -38,7 +39,7 @@ const ChangePasswordPop = ({ token }) => {
 
         const Toast = Swal.mixin({
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
@@ -121,12 +122,8 @@ const ChangePasswordPop = ({ token }) => {
 
   return (
     <div>
-      <button onClick={handleClickChangePassword} id="avatar-container">
-        <img id="incon-setting" src='password_24dp_FILL0_wght400_GRAD0_opsz24.svg' alt="" />
-        <div id="content">
-          <h3>Contraseña</h3>
-          <p id="info">Cambiar</p>
-        </div>
+      <button onClick={handleClickChangePassword} id='changePassword' className='btn-text-profile'>
+        Cambiar
       </button>
     </div>
   );

@@ -11,6 +11,7 @@ import {
   YAxis,
 } from 'recharts';
 import './Charts.css';
+import { IsLoading } from './DataDashboard/isLoading.jsx';
 
 const URL = import.meta.env.VITE_URL;
 
@@ -80,7 +81,9 @@ export const StockProductBarCharts = () => {
       <section id="product-charts">
         <h2 id="stock-charts">Productos</h2>
         {loading ? (
-          <div className="loading">Cargando...</div>
+          <div className='isloading'>
+            <IsLoading />
+          </div>
         ) : (
           <ResponsiveContainer>
             <BarChart data={chartData} width={500} height={300}>

@@ -1,6 +1,7 @@
 import { MainLayout } from '../../layout/MainLayout.jsx';
-import {ShipmentsCrud} from '../../components/PagesComponents/Shipment/ShipmentCrud.jsx'; 
-import {DeliveryRoutes} from '../../components/PagesComponents/Shipment/DeliveryRoute.jsx'
+import { ShipmentsCrud } from '../../components/PagesComponents/Shipment/ShipmentCrud.jsx'; 
+import { DeliveryRoutes } from '../../components/PagesComponents/Shipment/DeliveryRoute.jsx';
+import '../../components/PagesComponents/Shipment/ShipmentPage.css'; 
 
 export const ShipmentPage = () => {
 

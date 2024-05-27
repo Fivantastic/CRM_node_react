@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+const URL = import.meta.env.VITE_URL;
 
 export const useDeliverers = (token) => {
   const [deliverers, setDeliverers] = useState([]);
@@ -6,7 +7,7 @@ export const useDeliverers = (token) => {
   useEffect(() => {
     const fetchDeliverers = async () => {
       try {
-        const response = await fetch('http://localhost:3000/deliveryNotes/deliverers', {
+        const response = await fetch(`${URL}/deliveryNotes/deliverers`, {
           method: 'GET',
           credentials: 'include',
           headers: {

@@ -2,7 +2,7 @@ import { selectProductById } from '../../models/products/selectProductById.js';
 import { updateProductModel } from '../../models/products/updateProductModel.js';
 
 export const updateProductService = async (id_product, body) => {
-  const { name, description, price, stock, active } = body;
+  const { name, description, price, stock } = body;
 
   // Comprobar si el producto existe.
   const existProduct = await selectProductById(id_product);
@@ -18,8 +18,7 @@ export const updateProductService = async (id_product, body) => {
     name,
     description,
     price,
-    stock,
-    active
+    stock
   );
 
   // devolver el producto actualizado.

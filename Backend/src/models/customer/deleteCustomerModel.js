@@ -2,7 +2,6 @@ import { getDBPool } from '../../db/getPool.js';
 
 export const deleteCustomerModel = async (id_customer, address_id) => {
   const pool = await getDBPool();
-  console.log('delete', address_id);
 
   const [result] = await pool.query(
     'DELETE FROM Customers WHERE id_customer = ?',

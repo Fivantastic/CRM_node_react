@@ -1,4 +1,3 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 import { useState } from 'react';
@@ -7,12 +6,11 @@ import { useUnasignedSales } from '../../../hooks/PagesHooks/useUnasignedSales.j
 
 export const CreateInvoice = ({ onAddInvoice, token }) => {
   const [reload, setReload] = useState(false);
-  const unasignedSales = useUnasignedSales(token, reload);  
-
+  const unasignedSales = useUnasignedSales(token, reload); 
   const handleInvoiceCreatedAccion = async (formData) => {
     console.log("DEBUG: CreateInvoice.jsx - Formdata:", formData);
     try {
-      const response = await fetch('http://localhost:3000/invoice', {
+      const response = await fetch(`${URL}/invoice`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -72,7 +70,15 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
       required: true
     }
   ];
-
+  
+  const StyleButton = {
+    idBtn:'btnInvoiceCreate',
+    idImgBtn:'imgInvoiceCreateBtn',
+    srcImgBtn:'/addInvoice.svg',
+    altImgBtn:'Boton agregar factura',
+    action:'create'
+  }
+  
   const StyleButton = {
     idBtn:'btnInvoiceCreate',
     idImgBtn:'imgCreateInvoiceBtn',

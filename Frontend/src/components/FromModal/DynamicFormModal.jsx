@@ -1,15 +1,26 @@
-import { useState, useEffect  } from 'react';
+import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { CustomModal } from './CustomModal';
 import { customStyles } from './customStyle.js';
+import MenuConRetraso from './MenuConRetraso'; // Importa el componente de menú personalizado
 import './DynamicFormModal.css';
 
-export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues, resetFormValues }) => {
-  const [formValues, setFormValues] = useState(initialValues);
+export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues = {}, resetFormValues, customModalSize, StyleAcceptBtn }) => {
+  const initializeFormValues = () => {
+    const initialFormValues = {};
+    fields.forEach(field => {
+      initialFormValues[field.name] = initialValues[field.name] || '';
+    });
+    return initialFormValues;
+  };
+
+  const [formValues, setFormValues] = useState(initializeFormValues);
   const [validationErrors, setValidationErrors] = useState([]);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   useEffect(() => {
-    setFormValues(initialValues);
+    setFormValues(initializeFormValues());
+    setIsSubmitDisabled(true);
 
     fields.forEach(field => {
       const inputElement = document.getElementById(field.idInput);
@@ -22,9 +33,11 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
         inputElement.classList.add('no-selection');
       }
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues, fields]);
 
   const updateDateInputState = (input) => {
+    event.preventDefault();
     if (input.value) {
       input.classList.add('has-content');
     } else {
@@ -42,6 +55,8 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
     if (e.target.type === 'date') {
       updateDateInputState(e.target);
     }
+
+    checkFormValues({ ...formValues, [name]: value });
   };
 
   const handleSelectChange = (selectedOption, name) => {
@@ -60,10 +75,25 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
         selectElement.classList.add('no-selection');
       }
     }
+
+    checkFormValues({ ...formValues, [name]: selectedOption ? selectedOption.value : '' });
+  };
+
+  const checkFormValues = (newFormValues) => {
+    const hasValues = Object.values(newFormValues).some(value => value && value.trim() !== '');
+    setIsSubmitDisabled(!hasValues);
   };
 
   const handleSubmit = () => {
-    const validationResult = schema.validate(formValues, { abortEarly: false });
+    const filteredValues = {};
+    fields.forEach(field => {
+      const value = formValues[field.name];
+      if (field.required || value.trim() !== '') {
+        filteredValues[field.name] = value.trim();
+      }
+    });
+
+    const validationResult = schema.validate(filteredValues, { abortEarly: false });
     if (validationResult.error) {
       setValidationErrors(validationResult.error.details.map(detail => detail.message));
       setTimeout(() => {
@@ -71,7 +101,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
       }, 5000);
       return;
     }
-    onSubmit(formValues);
+    onSubmit(filteredValues);
     onClose();
     resetFormValues();
   };
@@ -107,14 +137,22 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
     handleFocus(name);
   };
 
-  const hasRequiredFields = fields.some(field => field.label.includes('*'));
+  const hasRequiredFields = fields.some(field => field.required);
 
   return (
-    <CustomModal show={show} onClose={handleCancel} onSubmit={handleSubmit} modalIds={{ modalIds: dynamicIdModal }} buttonText={buttonText}>
+    <CustomModal 
+      show={show} 
+      onClose={handleCancel} 
+      onSubmit={handleSubmit} 
+      buttonText={buttonText} 
+      isSubmitDisabled={isSubmitDisabled} 
+      customModalSize={customModalSize} 
+      StyleAcceptBtn={StyleAcceptBtn}
+    >
       <h2>{title}</h2>
       <form id={dynamicIdModal} className="dynamicCustomFromModal">
         {fields.map((field, index) => (
-          <div key={index} className="input-container" id={field.idInputContainer}>
+          <div key={index} className="input-container" id={field.idInputContainer || ''}>
             {field.type === 'select' ? (
               <>
                 <Select
@@ -134,6 +172,8 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   onBlur={() => handleBlur(field.name)}
                   onMenuClose={() => handleMenuClose(field.name)}
                   onMenuOpen={() => handleMenuOpen(field.name)}
+                  components={{ Menu: MenuConRetraso }} // Utiliza el componente de menú personalizado
+                  noOptionsMessage={() => 'No hay opciones disponibles'}
                 />
                 <label htmlFor={`react-select-${field.name}-input`} className="labelSelect">
                   {field.label}
@@ -146,9 +186,9 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   type={field.type}
                   name={field.name}
                   className="inputText"
-                  value={formValues[field.name]}
+                  value={formValues[field.name] || ''}
                   onChange={handleInputChange}
-                  required
+                  required={field.required}
                   placeholder=""
                 />
                 <label htmlFor={field.idInput} className="label">

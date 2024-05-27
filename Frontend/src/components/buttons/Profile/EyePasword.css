@@ -1,0 +1,49 @@
+/* Estilos para el componente EyePassword */
+.container-eye {
+    --color: #13214E;
+    --size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 20px; /* Ajusta según sea necesario */
+    top: 50%; /* Ajusta según sea necesario */
+    transform: translateY(-50%);
+    opacity: 0.7;
+    cursor: pointer;
+    font-size: var(--size);
+    user-select: none;
+    fill: var(--color);
+}
+
+.container-eye:active .eye {
+    scale: 1.1;
+}
+
+.container-eye:active .eye-slash {
+    scale: 1.1;
+}
+
+.container-eye .eye, .container-eye .eye-slash {
+    position: absolute;
+}
+
+/* Hide the default checkbox */
+.container-eye input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Animation */
+@keyframes keyframes-fill {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}

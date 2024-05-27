@@ -3,5 +3,5 @@ import Joi from 'joi';
 
 export const newShipmentSchema = Joi.object({
   deliveryNote_id: Joi.string().guid().required(),
-  additional_notes: Joi.string().allow('', null),
+  additional_notes: Joi.string().optional(),
 });

@@ -24,7 +24,6 @@ export const CreateCustomer = ({ onAddCustomer, token, typeModule }) => {
 
         onAddCustomer(responseData.data);
 
-        // Aquí puedes mostrar un mensaje de éxito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',

@@ -11,8 +11,11 @@ export const selectPendingDeliveryNotesModel = async () => {
       DeliveryNotes DN
     JOIN 
       Customers C ON DN.customer_id = C.id_customer
+    LEFT JOIN 
+      Shipments S ON DN.id_note = S.deliveryNote_id
     WHERE 
-      DN.delivery_status = 'pending'
+      (DN.delivery_status = 'pending' OR DN.delivery_status = 'processing') 
+      AND S.deliveryNote_id IS NULL
   `);
 
   return rows;

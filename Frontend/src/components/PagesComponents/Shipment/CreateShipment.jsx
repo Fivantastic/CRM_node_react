@@ -11,6 +11,7 @@ export const CreateShipment = ({ onAddShipment, token }) => {
 
 
   const handleShipmentCreatedAction = async (formData) => {
+    console.log(formData);
     try {
       const response = await fetch(`${URL}/shipment/create`, {
         method: 'POST',
@@ -26,8 +27,7 @@ export const CreateShipment = ({ onAddShipment, token }) => {
         const responseData = await response.json();
         console.log('Envío creado satisfactoriamente:', responseData);
 
-        if (responseData.id_shipment) {
-          onAddShipment(responseData);
+          onAddShipment(responseData.data);
           Swal.fire({
             icon: 'success',
             title: 'Envío creado con éxito!',
@@ -40,9 +40,7 @@ export const CreateShipment = ({ onAddShipment, token }) => {
 
           // Recargar datos de notas de entrega
           setReload(!reload);
-        } else {
-          console.error('La respuesta del servidor no contiene id_shipment:', responseData);
-        }
+
       } else {
         console.error('Error al crear el envío:', await response.text());
       }

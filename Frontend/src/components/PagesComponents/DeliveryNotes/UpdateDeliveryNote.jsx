@@ -73,8 +73,8 @@ export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
       idInput: 'inputStatusNoteUpdate',
       options: {
         Estados: [
-          { value: 'pending', label: 'En proceso' },
-          { value: 'delivering', label: 'En reparto' },
+          { value: 'pending', label: 'Pendiente' },
+          { value: 'processing', label: 'Procesando' },
           { value: 'cancelled', label: 'Cancelado' },
         ],
       },

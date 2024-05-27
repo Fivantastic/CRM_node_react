@@ -62,7 +62,7 @@ export const newInvoiceService = async (userId, body) => {
     const expiry_date = await generateExpiryDate(due_date);
 
     // Obtenemos la referencia máxima de la tabla Invoices
-    const maxRef = await getMaxReference5Digits('Invoices', 'ref_IN');
+    const maxRef = await getMaxReference5Digits('Invoices', 'ref_IN') || 'IN-AA00000';
 
     // Generamos la nueva referencia de Invoices
     const ref = generateReference5DigitsFromRef('IN', maxRef);

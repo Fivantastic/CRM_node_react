@@ -4,7 +4,8 @@ import {
   cancelPaymentController,
   deletePaymentController,
   getPaymentsController,
-  getPaymentSearchController
+  getPaymentSearchController,
+  getUnasignedInvoicesController
 } from '../../controllers/modulesControllers.js';
 import { authenticateUser } from '../../middlewares/authenticateUser.js';
 import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
@@ -20,5 +21,11 @@ paymentsRouter.put('/payments/status', authenticateUser, checkRoleDelivery, canc
 // Eliminar un pago
 paymentsRouter.delete('/payments/delete/:paymentsId', authenticateUser, deletePaymentController);
 
+// Obtener lista de pagos
 paymentsRouter.get('/payments/list', authenticateUser, checkRoleDelivery, getPaymentsController);
+
+// Buscar pagos
 paymentsRouter.get('/payments/search', authenticateUser, checkRoleDelivery, getPaymentSearchController);
+
+// Obtener lista de facturas sin pago asignados
+paymentsRouter.get('/payments/unasigned-invoices', authenticateUser, checkRoleDelivery, getUnasignedInvoicesController);

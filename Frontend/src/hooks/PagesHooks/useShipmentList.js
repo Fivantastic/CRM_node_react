@@ -123,6 +123,7 @@ const useShipmentList = (token) => {
 
   const addShipment = async () => {
     try {
+
       await getShipmentList();
     } catch (error) {
       console.error('Error al agregar el envío:', error);

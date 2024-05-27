@@ -43,9 +43,10 @@ export const DeliveryNotePage = () => {
 
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },
-    { label: 'Entregado', value: 'delivered' },
-    { label: 'Cancelado', value: 'cancelled' },
+    { label: 'En proceso', value: 'processing' },
     { label: 'En reparto', value: 'delivering' },
+    { label: 'Cancelado', value: 'cancelled' },
+    { label: 'Entregado', value: 'delivered' },
   ];
 
   const sortOptions = [

@@ -11,8 +11,10 @@ export const InvoicesListTable = ({invoices, onUpdate }) => {
     switch (estado) {
       case 'pending':
         return { text: 'Pendiente', color: 'blue' };
+      case 'processing':
+        return { text: 'En proceso', color: 'orange' };
       case 'partially_paid':
-      return { text: 'Pago Parcial', color: 'blue' };
+        return { text: 'Pago Parcial', color: 'blue' };
       case 'overdue':
         return { text: 'Vencida', color: 'orange' };
       case 'paid':
@@ -25,6 +27,8 @@ export const InvoicesListTable = ({invoices, onUpdate }) => {
         return { text: 'Reclamada', color: 'black' };
       case 'sent':
         return { text: 'Enviada', color: 'black' };
+      default:
+        return { text: estado, color: 'black' };
    }
   };
 
@@ -96,9 +100,8 @@ export const InvoicesListTable = ({invoices, onUpdate }) => {
               <div className="invoicesTableBodyRowActions">
                 <MoreInfo fields={moreInfoFields} modalIds={[]} />
                 <ClosedInvoice
-                    invoice={invoice.id_invoice}
-                    currentStatus={invoice.invoice_status}
                     onUpdateInvoice={onUpdate}
+                    invoice={invoice.id_invoice}
                     token={token}
                 />
               </div>

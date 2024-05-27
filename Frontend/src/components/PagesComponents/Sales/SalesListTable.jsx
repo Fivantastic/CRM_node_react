@@ -12,7 +12,7 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   const traducirEstadoVenta = (estado) => {
     switch (estado) {
       case "processing":
-        return { text: "Procesando", color: "orange"}
+        return { text: "En proceso", color: "orange"}
       case 'open':
         return { text: 'Pendiente', color: 'blue' };
       case 'cancelled':

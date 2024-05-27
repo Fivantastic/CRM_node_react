@@ -60,7 +60,7 @@ export const ToggleSalesStatusButton = ({ id, currentStatus, onUpdateSale, token
 
   const updateStatus = async (newStatus) => {
     try {
-      const response = await fetch(`${URL}/sales/updateStatus`, {
+      const response = await fetch(`${URL}/updateSalesStatus`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

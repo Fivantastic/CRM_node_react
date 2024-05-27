@@ -8,6 +8,19 @@ export const newInvoiceSchema = Joi.object({
     due_date: Joi.date().optional().messages(joiErrorMessages),
 });
 
-export const closeInvoiceSchema = Joi.object({
-    invoice_status: Joi.string().valid('pending', 'paid', 'overdue', 'partially_paid', 'cancelled', 'refunded', 'disputed', 'sent').required().messages(joiErrorMessages),
-});
+
+export const closedInvoiceSchema = Joi.object({
+    invoice_status: Joi.string()
+        .valid(
+        'pending',
+        'processing',
+        'paid',
+        'overdue',
+        'partially_paid',
+        'cancelled',
+        'refunded',
+        'disputed',
+        'sent'
+        )
+        .optional().messages(joiErrorMessages),
+    });

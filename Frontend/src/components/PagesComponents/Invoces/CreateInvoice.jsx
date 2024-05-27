@@ -24,7 +24,6 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
         const responseData = await response.json();
         console.log('Factura creada satisfactoriamente:', responseData);
 
-        // if (responseData.data && responseData.data.id_invoice) {
           onAddInvoice(responseData.data);
           Swal.fire({
             icon: 'success',
@@ -37,10 +36,6 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
           });
 
           setReload(!reload);
-        // } else {
-        //   console.error('La respuesta del servidor no contiene id_invoice:', responseData.data);
-
-        // }
         
       } else {
         console.error('Error al crear la factura:', await response.text());

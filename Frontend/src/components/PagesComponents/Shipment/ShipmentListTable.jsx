@@ -39,7 +39,6 @@ export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete }) => {
         {shipment.length > 0 &&
           shipment.map((shipmentItem) => {
            const fechaEnvio = getNormalizedDate(shipmentItem.delivery_date);
-           console.log(getNormalizedDate);
             const statusEntrega = traducirEstadoEntrega(shipmentItem.delivery_status);
             return (
               <div key={shipmentItem.id_shipment} className="shipmentTableBodyRow">

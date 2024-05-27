@@ -89,9 +89,8 @@ export const InvoicesList = ({
         <span id="invoice_actions" className="main_actions">
           <MoreInfo fields={moreInfoFields} modalIds={[]} />
           <ClosedInvoice
-            invoice={invoice.id_invoice}
-            currentStatus={invoice.invoice_status}
             onUpdateInvoice={handleNewInvoiceStatus}
+            invoice={invoice.id_invoice}
             token={token}
           />
         </span>

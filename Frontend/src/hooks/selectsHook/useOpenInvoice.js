@@ -7,7 +7,7 @@ export const useOpenInvoices = (token, reload) => {
   useEffect(() => {
     const fetchOpenCustomers = async () => {
       try {
-        const response = await fetch(`${URL}/invoice`, {
+        const response = await fetch(`${URL}/payments/unasigned-invoices`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `${token}`,

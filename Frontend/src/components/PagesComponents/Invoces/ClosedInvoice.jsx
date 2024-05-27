@@ -1,13 +1,10 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { CompletButton } from '../../buttons/StatesBtn/CompletButton.jsx';
-import { CancelButton } from '../../buttons/StatesBtn/CancelButton.jsx';
+import { closedInvoiceSchema } from '../../../Schema/Error/updateSchema.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 const URL = import.meta.env.VITE_URL;
 
-export const ClosedInvoice = ({ onUpdateInvoice, currentStatus, invoice, token }) => {
-  /* const token = useUser(); */
-  // Aqui hace la peticion al servidor
+export const ClosedInvoice = ({ onUpdateInvoice, invoice, token }) => {
+
   const handleclosedInvoiceAccion = async (formData) => {
     try {
       const response = await fetch(
@@ -19,7 +16,7 @@ export const ClosedInvoice = ({ onUpdateInvoice, currentStatus, invoice, token }
             'Content-Type': 'application/json',
             Authorization: `${token}`,
           },
-          body: JSON.stringify(formData), // aqui va el formData lo que le envio lo del body
+          body: JSON.stringify(formData), 
         }
       );
 
@@ -61,10 +58,10 @@ export const ClosedInvoice = ({ onUpdateInvoice, currentStatus, invoice, token }
   };
 
   // Titulo de la ventana, CAMBIARLO SI ES NECESARIO
-  const title = 'Nuevo estado de factura';
+  const title = 'Actualizar estado';
 
   // Nombre que se muestra en el botón de submit, CAMBIARLO SI ES NECESARIO
-  const nameButton = 'Cambiar';
+  const nameButton = 'Actualizar';
 
   // Campos del formulario personalizables
   const updateSaleFormFields = [
@@ -72,59 +69,44 @@ export const ClosedInvoice = ({ onUpdateInvoice, currentStatus, invoice, token }
       name: 'invoice_status',
       label: 'Estado',
       type: 'select',
+      required: false,
+      idLabel: 'labelStatusInvoiceUpdate',
+      idInput: 'inputStatusInvoiceUpdate',
       options: {
-        Estado: {
-          paid: 'Pagada',
-          partially_paid: 'Parcialmente pagada',
-          overdue: 'Atrasada',
-          refunded: 'Reintegrada',
-          disputed: 'Disputa',
-          sent: 'Enviada',
-          cancelled: 'Cancelada',
-        },
+        Estado: [
+          { value: 'pending', label: 'Pendiente' },
+          { value: 'processing', label: 'Procesando' },
+          { value: 'paid', label: 'Pagada' },
+          { value: 'overdue', label: 'Vencida' },
+          { value: 'partially_paid', label: 'Pago parcial' },
+          { value: 'cancelled', label: 'Cancelada' },
+          { value: 'refunded', label: 'Reembolsada' },
+          { value: 'disputed', label: 'Reclamada' },
+          { value: 'sent', label: 'Enviada' },
+        ]
       },
     },
   ];
 
-  // Esquema de validación, que sea el mismo que hay en la base de datos, solo cambiando lo de message por el label
-  const closedInvoiceSchema = Joi.object({
-    invoice_status: Joi.string()
-      .valid(
-        'pending',
-        'paid',
-        'overdue',
-        'partially_paid',
-        'cancelled',
-        'refunded',
-        'disputed',
-        'sent'
-      )
-      .required(),
-  });
-
-  // Crea el modal POP e inserta los campos y el esquema de validación, y luego retorna la informacion que tiene que introducir en el body
-  const handleClosedInvoice = () => {
-    DynamicFormPopUp(
-      title,
-      updateSaleFormFields,
-      closedInvoiceSchema,
-      handleclosedInvoiceAccion,
-      nameButton
-    );
-  };
-
-  if (currentStatus === 'cancelled') {
-    return (
-      <div className="disabledVisit">
-      <img className="disabledVisitimg"  src="./blockCancel.svg" alt="Visita cancelada" />
-    </div>
-    )
+  const StyleButton = {
+    action:'update',
   }
 
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptInvoiceUpdate',
+    action:'update',
+  }
 
-  return currentStatus === 'paid' ? (
-    <CancelButton onClick={handleClosedInvoice} />
-  ) : (
-    <CompletButton onClick={handleClosedInvoice} />
-  )
-};
+  return (
+    <DynamicModalWrapper
+      title={title}
+      fields={updateSaleFormFields}
+      schema={closedInvoiceSchema}
+      onSubmit={handleclosedInvoiceAccion}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
+  );
+  };

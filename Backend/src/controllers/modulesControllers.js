@@ -48,6 +48,7 @@ import { deleteShipmentController } from './Modules/shipment/deleteShipmentContr
 import { closeShipmentController } from './Modules/shipment/closeShipmentController.js';
 import { shipmentRouteController } from './Modules/shipment/shipmentRouteController.js';
 import { closeShipmentStatusController } from './Modules/shipment/closeShipmentStatusController.js'
+import { getUnasignedInvoicesController } from './Modules/payments/getUnasignedInvoicesController.js';
 // Exportar todos los controladores
 export {
   getModuleController,
@@ -87,4 +88,5 @@ export {
   deleteShipmentController,
   closeShipmentController,
   closeShipmentStatusController,
+  getUnasignedInvoicesController
 };

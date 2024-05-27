@@ -12,7 +12,6 @@ export const closeSalesController = async (req, res, next) => {
 
     // Inserto en la base de datos el estado
     const statusUpdate = await updateStatusSaleService(id, newStatus);
-    console.log(statusUpdate);
 
     res.send({
       status: 'ok',

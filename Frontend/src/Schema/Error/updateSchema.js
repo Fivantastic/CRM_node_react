@@ -72,3 +72,19 @@ export const updatePasswordSchema = Joi.object({
     .required()
     .label('Repetir nueva contraseña').messages(joiErrorMessages),
 });
+
+export const closedInvoiceSchema = Joi.object({
+  invoice_status: Joi.string()
+    .valid(
+      'pending',
+      'processing',
+      'paid',
+      'overdue',
+      'partially_paid',
+      'cancelled',
+      'refunded',
+      'disputed',
+      'sent'
+    )
+    .optional().messages(joiErrorMessages),
+});

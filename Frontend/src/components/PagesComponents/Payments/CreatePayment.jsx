@@ -3,23 +3,13 @@ import { createPaymentSchema } from "../../../Schema/Error/createSchema.js";
 import { DynamicModalWrapper } from "../../FromModal/DynamicModalWrapper.jsx";
 import { useState } from "react";
 import { useOpenInvoices } from "../../../hooks/selectsHook/useOpenInvoice.js";
+import { Toast } from "../../alerts/Toast.jsx";
 const URL = import.meta.env.VITE_URL;
 
 export const CreatePayment = ({onAddPayment, token}) => {
   const [reload, setReload] = useState(false);
   const openInvoices = useOpenInvoices(token, reload);
-  // Modelo swal
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.onmouseenter = Swal.stopTimer;
-      toast.onmouseleave = Swal.resumeTimer;
-    },
-  });
+
     
     // Petición al servidor
     const handlePaymentCreatedAction = async (formData) => {

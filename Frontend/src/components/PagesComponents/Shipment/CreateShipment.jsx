@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import usePendingDeliveryNotes from '../../../hooks/PagesHooks/usePendingDeliveryNotes';
+import { usePendingDeliveryNotes } from '../../../hooks/PagesHooks/usePendingDeliveryNotes';
 import { useState } from 'react';
 import { createShipmentSchema } from '../../../Schema/Error/createSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
@@ -11,7 +11,6 @@ export const CreateShipment = ({ onAddShipment, token }) => {
 
 
   const handleShipmentCreatedAction = async (formData) => {
-    console.log(formData);
     try {
       const response = await fetch(`${URL}/shipment/create`, {
         method: 'POST',

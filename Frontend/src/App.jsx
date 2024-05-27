@@ -20,6 +20,7 @@ import { ProductPage } from './pages/Sales/ProductPage.jsx';
 import './Styles/Pages/GeneralFroms.css';
 import './App.css';
 import { RatingVisit } from './pages/Auth/RatingVisit.jsx';
+import { RatingShipment } from './pages/Auth/RatingShipment.jsx';
 
 function App() {
   return (
@@ -38,6 +39,10 @@ function App() {
       <Route
         path="/visit/rating-valoration/:ref_VT"
         element={<RatingVisit />}
+      />
+      <Route
+        path="/shipment/rating-valoration/:trackingNumber"
+        element={<RatingShipment />} 
       />
       <Route
         path="/validation/:registration_code"

@@ -13,6 +13,8 @@ import { getShipmentSearchController } from '../../controllers/Modules/shipment/
 import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliveryMiddleware.js';
 import { getPendingDeliveryNotesController } from '../../controllers/Modules/shipment/getPendingDeliveryNotesController.js';
 import { shipmentByDelivererController } from '../../controllers/Modules/shipment/shipmentByDelivererController.js';
+import { shipmentFeedbackController } from '../../controllers/Modules/shipment/shipmentFeedbackController.js';
+
 
 export const shipmentRouter = express.Router();
 
@@ -34,7 +36,7 @@ shipmentRouter.put(
 );
 
 // Ruta para obtener la hoja de ruta de los repartidores
-shipmentRouter.get('/shipment/list', authenticateUser, checkRoleDelivery, shipmentRouteController);
+shipmentRouter.get('/shipment/list', shipmentRouteController, authenticateUser, checkRoleDelivery);
 
 // Ruta para buscar envíos por término de búsqueda
 shipmentRouter.get('/shipments/search', authenticateUser, adminAuthMiddleware, getShipmentSearchController);
@@ -44,3 +46,6 @@ shipmentRouter.get('/shipments/pending-delivery-notes', authenticateUser, getPen
 
 // Ruta para obtener los envios asociados a los repartidores 
 shipmentRouter.get('/shipments/deliverer', shipmentByDelivererController);
+
+// Ruta recibir valoración del cliente 
+shipmentRouter.put('/shipment/feedback/:trackingNumber', shipmentFeedbackController);

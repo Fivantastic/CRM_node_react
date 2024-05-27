@@ -20,7 +20,9 @@ import { ProductPage } from './pages/Sales/ProductPage.jsx';
 import './Styles/Pages/GeneralFroms.css';
 import './App.css';
 import { RatingVisit } from './pages/Auth/RatingVisit.jsx';
+import { RatingShipment } from './pages/Auth/RatingShipment.jsx';
 import { RoutesPage } from './pages/Others/RoutesPage.jsx';
+
 
 function App() {
   return (
@@ -32,6 +34,22 @@ function App() {
       <Route path="/customer" element={<CustomerPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route
+        path="/user/reset-password/:registration_code"
+        element={<ResetPassword />}
+      />
+      <Route
+        path="/visit/rating-valoration/:ref_VT"
+        element={<RatingVisit />}
+      />
+      <Route
+        path="/shipment/rating-valoration/:trackingNumber"
+        element={<RatingShipment />} 
+      />
+      <Route
+        path="/validation/:registration_code"
+        element={<ValidationPage />}
+      />
       <Route path="/user/reset-password/:registration_code" element={<ResetPassword />}/>
       <Route path="/visit/rating-valoration/:ref_VT" element={<RatingVisit />}  />
       <Route path="/validation/:registration_code" element={<ValidationPage />} />

@@ -127,7 +127,7 @@ export const sendEmailForVisitFeedback = async (ref_VT, email) => {
 export const sendEmailForShipmentDelivery = async (trackingNumber, email) => {
   try {
     // Construir la URL de seguimiento con el número de seguimiento
-    const trackingUrl = `http://localhost:5173/track-shipment/${trackingNumber}`;
+    const trackingUrl = `http://localhost:5173/shipment/rating-valoration/${trackingNumber}`;
 
     // Configurar el mensaje de correo electrónico
     const mailOptions = {

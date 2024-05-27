@@ -9,7 +9,7 @@ export const deleteShipmentModel = async (shipmentId) => {
   );
   if (result.affectedRows === 0) {
     const error = new Error('No se ha podido eliminar el envio');
-    error.code = 'DELETE_SHIPMENTR_ERROR';
+    error.code = 'DELETE_SHIPMENT_ERROR';
     throw error;
   }
   return { message: 'Envio eliminado correctamente' };

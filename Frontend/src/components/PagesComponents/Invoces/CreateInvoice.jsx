@@ -1,14 +1,13 @@
 import Swal from 'sweetalert2';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 import { useState } from 'react';
-import { joiErrorMessages } from '../../../Schema/Error/JoiErrorMesasage.js';
 import { useUnasignedSales } from '../../../hooks/PagesHooks/useUnasignedSales.js';
+import { createInvoiceSchema } from '../../../Schema/Error/createSchema.js';
 
 export const CreateInvoice = ({ onAddInvoice, token }) => {
   const [reload, setReload] = useState(false);
   const unasignedSales = useUnasignedSales(token, reload); 
   const handleInvoiceCreatedAccion = async (formData) => {
-    console.log("DEBUG: CreateInvoice.jsx - Formdata:", formData);
     try {
       const response = await fetch(`${URL}/invoice`, {
         method: 'POST',
@@ -71,6 +70,7 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
     }
   ];
   
+
   const StyleButton = {
     idBtn:'btnInvoiceCreate',
     idImgBtn:'imgInvoiceCreateBtn',
@@ -78,29 +78,26 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
     altImgBtn:'Boton agregar factura',
     action:'create'
   }
-  
-  const StyleButton = {
-    idBtn:'btnInvoiceCreate',
-    idImgBtn:'imgCreateInvoiceBtn',
-    srcImgBtn:'/addInvoice.svg', // TODO - Works?
-    altImgBtn:'icono agregar Factura',
-  }
 
-  const invoiceSchema = Joi.object({
-    sale_id: Joi.string().guid().required().messages(joiErrorMessages),
-    payment_method: Joi.string().valid('cash', 'card', 'transfer').messages(joiErrorMessages),
-    due_date: Joi.date().optional()
-  });
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptInvoiceCreate',
+    altImgBtn:'icono crear factura',
+    btnSvg:'/addInvoiceWhite.svg',
+    altAcceptBtn:'Boton crear',
+    action:'create'
+  }
 
   return (
     <DynamicModalWrapper
       title={title}
       fields={invoiceFormFields}
-      schema={invoiceSchema}
+      schema={createInvoiceSchema}
       onSubmit={handleInvoiceCreatedAccion}
       buttonText={nameButton}
       dynamicIdModal="dynamicFormModal"
       StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
     />
   );
-};
+
+}

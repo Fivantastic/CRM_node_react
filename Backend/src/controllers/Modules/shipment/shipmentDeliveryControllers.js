@@ -1,5 +1,6 @@
 import { selectShipmentsByUserIdService } from ('../../../services/Modules/shipment/selectShipmentsByUserIdService.js');
 
+
 // Controlador para obtener envíos por repartidor
  export const shipmentListByUserController = async (req, res, next) => {
   try {
@@ -13,5 +14,6 @@ import { selectShipmentsByUserIdService } from ('../../../services/Modules/shipm
     next(error);
   }
 };
+
 
 

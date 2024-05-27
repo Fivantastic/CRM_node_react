@@ -62,7 +62,7 @@
 
 #noteTableHeadRowProduct,
 .noteTableBodyRowProduct {
-  width: 100px;
+  width: 150px;
 
 }
 
@@ -74,7 +74,7 @@
 
 #noteTableHeadRowDate,
 .noteTableBodyRowDate {
-  width: 180px;
+  width: 125px;
 }
 
 #noteTableHeadRowStatus,

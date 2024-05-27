@@ -1,15 +1,16 @@
 import Swal from 'sweetalert2';
-import { useUser } from '../../../context/authContext.jsx';
-import { createInvoiceSchema } from '../../../Schema/Error/createSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import { useState } from 'react';
+import { useUnasignedSales } from '../../../hooks/PagesHooks/useUnasignedSales.js';
+import { createInvoiceSchema } from '../../../Schema/Error/createSchema.js';
 const URL = import.meta.env.VITE_URL;
 
-export const CreateInvoice = ({ onAddInvoice }) => {
-  const token = useUser();
-  // peticion al servidor
+export const CreateInvoice = ({ onAddInvoice, token }) => {
+  const [reload, setReload] = useState(false);
+  const unasignedSales = useUnasignedSales(token, reload); 
   const handleInvoiceCreatedAccion = async (formData) => {
     try {
-      const response = await fetch(`${URL}/invoice`, {
+      const response = await fetch(`${URL}/invoice/create`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -20,85 +21,57 @@ export const CreateInvoice = ({ onAddInvoice }) => {
       });
 
       if (response.ok) {
-        //si la peticion es correcta
         const responseData = await response.json();
-        console.log('Factura satisfactorio:', responseData);
+        console.log('Factura creada satisfactoriamente:', responseData);
 
-        onAddInvoice(responseData.data);
+        // if (responseData.data && responseData.data.id_invoice) {
+          onAddInvoice(responseData.data);
+          Swal.fire({
+            icon: 'success',
+            title: 'Factura creada con éxito',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            position: 'top-end',
+            toast: true,
+          });
 
-        // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
+          setReload(!reload);
+        // } else {
+        //   console.error('La respuesta del servidor no contiene id_invoice:', responseData.data);
 
-        Toast.fire({
-          icon: 'success',
-          title: 'Factura Realizada con exito !',
-        });
+        // }
+        
       } else {
-        // si la peticion es incorrecta
-        const errorData = await response.json();
-        console.error('Factura fallido:', errorData);
-        // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
+        console.error('Error al crear la factura:', await response.text());
       }
     } catch (error) {
-      // si la peticion falla
-      console.error('Error durante la Factura:', error);
-      // Aquí podrías mostrar un mensaje de error con Swal.fire si lo deseas
+      console.error('Error durante la creación de la factura:', error);
     }
   };
 
-  // Titulo de la ventana
   const title = 'Crear Factura';
-
-  // Nombre que se muestra en el botón de submit
   const nameButton = 'Crear';
 
-  // Campos del formulario personalizables
   const invoiceFormFields = [
     {
+      key: 'sale_id',
       name: 'sale_id',
-      label: 'Referencia de Venta *',
-      type: 'text',
-      placeholder: 'Introduce el código...',
-      idLabel: 'labelNameInvoiceCreate',
-      idInput: 'inputNameInvoiceCreate',
-      required: true,
-    },
-    {
-      name: 'payment_method',
-      label: 'Método de Pago',
+      label: 'Venta *',
       type: 'select',
-      required: false,
-      idLabel: 'labelMethodInvoiceCreate',
-      idInput: 'inputMethodInvoiceCreate',
       options: {
-        Métodos: [
-          { value: 'transfer', label: 'Transferencia' },
-          { value: 'cash', label: 'Efectivo' },
-          { value: 'card', label: 'Tarjeta' },
-        ],
+        'Órdenes de venta': unasignedSales.map(sale => ({
+          value: sale.id_sale,
+          label: `${sale.ref_SL} - ${sale.company}`
+        }))
       },
-    },
-    {
-      name: 'due_date',
-      label: 'Vencimiento del Pago',
-      type: 'date',
-      placeholder: 'Introduce la fecha...',
-      idLabel: 'labelDateInvoiceCreate',
-      idInput: 'inputDateInvoiceCreate',
-      required: true,
-    },
+      idLabel: 'labelRefSLInvoiceCreate',
+      idInput: 'inputRefSLInvoiceCreate',
+      required: true
+    }
   ];
   
+
   const StyleButton = {
     idBtn:'btnInvoiceCreate',
     idImgBtn:'imgInvoiceCreateBtn',
@@ -126,5 +99,6 @@ export const CreateInvoice = ({ onAddInvoice }) => {
       StyleButton={StyleButton}
       StyleAcceptBtn={StyleAcceptBtn}
     />
-);
-};
+  );
+
+}

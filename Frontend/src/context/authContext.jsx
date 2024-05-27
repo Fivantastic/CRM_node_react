@@ -8,6 +8,7 @@ export const RoleContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useLocalStorage('session', '');
+    const [userInfo, setUserInfo] = useState(null);
     const [role, setRole] = useState('');
 
     useEffect(() => {
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     }, [user, setUser]);
 
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, userInfo, setUserInfo }}>
             <RoleContext.Provider value={{ role, setRole }}>
                 {children}
             </RoleContext.Provider>
@@ -52,6 +53,11 @@ export const AuthProvider = ({ children }) => {
 export const useUser = () => useContext(AuthContext).user;
 // eslint-disable-next-line react-refresh/only-export-components
 export const useSetUser = () => useContext(AuthContext).setUser;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useUserInfo = () => useContext(AuthContext).userInfo;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useSetUserInfo = () => useContext(AuthContext).setUserInfo;
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useRole = () => useContext(RoleContext).role;

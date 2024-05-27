@@ -7,11 +7,9 @@ export const getVisitSearchController = async (req, res, next) => {
     // Dividimos la cadena para obtener el término de búsqueda real
 
     // const searchTerm = queryString.split(' ')[1];
-    console.log('searchTerm', searchTerm);
 
     // Llamamos al servicio
     const response = await getVisitSearchService(searchTerm);
-    console.log('response', response);
 
     res.status(200).json({
       status: 'ok',

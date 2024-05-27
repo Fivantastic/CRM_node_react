@@ -30,14 +30,13 @@ export const VisitsList = ({
   };
 
   const estadoVisita = traducirEstadoVisita(visit.visit_status);
+  const nameComplete = `${visit.customer_name} ${visit.customer_last_name}`;
 
   const moreInfoFields = [
     { label: 'Ref', value: visit.ref_VT },
     {
       label: 'Nombre',
-      value:
-        `${visit.customer_name} ${visit.customer_last_name}` ||
-        visit.customer_name,
+      value: nameComplete,
     },
     { label: 'Telefono', value: visit.customer_phone },
     {
@@ -65,8 +64,7 @@ export const VisitsList = ({
         Ref: {visit.ref_VT}
       </p>
       <p id="VisitName" className="mainInsideSub VisitP">
-        <strong>Nombre: </strong> {visit.customer_name}{' '}
-        {visit.customer_last_name}
+        <strong>Nombre: </strong> { nameComplete }
       </p>
       <p id="VisitPhone" className="mainInsideSub VisitP">
         <strong>Telefono: </strong> {visit.customer_phone}

@@ -45,8 +45,6 @@ export const PaymentPage = () => {
     { label: "Importe (Desc)", value: "importe-desc" },
     { label: "Referencia (A - Z)", value: "ref-asc" },
     { label: "Referencia (Z -A)", value: "ref-desc" },
-    { label: "Estado (A - Z)", value: "status-asc" },
-    { label: "Estado (Z - A)", value: "status-desc" },
   ];
 
   return (

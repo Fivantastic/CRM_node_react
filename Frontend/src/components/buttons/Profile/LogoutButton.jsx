@@ -6,7 +6,6 @@ function LogoutButton({ setUser }) {
   const handleLogout = () => {
     // Borrar el localStorage
     localStorage.removeItem('session');
-    localStorage.removeItem('userData');
     
     // Establecer el usuario en una cadena vacía
     setUser('');

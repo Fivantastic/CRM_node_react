@@ -9,6 +9,5 @@ export const selectModulesByUserIdModel = async (userId) => {
         [userId, userId]
     );
     
-
     return modules;
 }

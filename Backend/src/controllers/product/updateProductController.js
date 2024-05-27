@@ -7,8 +7,6 @@ export const updateProductController = async (req, res, next) => {
     //Validar el body con joi.
     await validateSchemaUtil(UpdateProductSchema, req.body);
 
-    console.log(req.params);
-    console.log(req.body);
     // Obtenemos el id del producto.
     const id_product = req.params.id_product;
 

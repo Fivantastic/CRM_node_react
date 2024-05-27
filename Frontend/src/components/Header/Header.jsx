@@ -1,4 +1,3 @@
-import { ThemeSwicher } from '../ThemeSwicher.jsx';
 import { ProfileNav } from '../ProfileNav/ProfileNav.jsx';
 import { Notification } from '../Header/Notification.jsx';
 import './Header.css';
@@ -9,7 +8,7 @@ export const Header = ({ title }) => {
       <h1 className="header-title-pages">{title}</h1>
       <div className="header-icons">
         <Notification />
-        <ThemeSwicher />
+
       </div>
         <ProfileNav />
     </header>

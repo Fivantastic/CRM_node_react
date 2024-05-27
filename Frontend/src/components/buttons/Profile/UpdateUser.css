@@ -1,33 +1,40 @@
 #updateUserProfile {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 120px;
     height: 120px;
+    margin: 10px;
     border: none;
     outline: none;
     background: #f0f0ea;
     cursor: pointer;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s;
 }
 
 #imgUpdateUserProfile {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     transition: all 0.3s ease;
 }
 
-#imgUpdateUserProfile:hover {
-    transform: scale(1.1);
+#updateUserProfile:hover {
+    transform: scale(1.05);
     transition: all 0.3s;
+}
+.textUpdateUserProfile {
+    font-size: 0.9rem;
+    font-family: 'montserrat' sans-serif;
+}
+
+#updateUserProfile:active{
+    transform: scale(1);
+    transition: all 0.1s;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 #textUpdateUserProfile {
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-#textUpdateUserProfile:hover {
-    transform: scale(1.1);
-    transition: all 0.3s;
+    color: #13214E;
 }

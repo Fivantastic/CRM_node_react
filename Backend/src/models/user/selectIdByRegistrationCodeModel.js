@@ -7,7 +7,7 @@ export const selectIdByRegistrationCode = async (registration_code) => {
             "SELECT id_user, registration_code FROM Users WHERE registration_code = ?",
             [registration_code]
         );
-        console.log(`Resultados: ${JSON.stringify(rows)}`);
+        /* console.log(`Resultados: ${JSON.stringify(rows)}`); */
         return rows[0];
     } catch (error) {
         console.error(`Error al consultar id_user: ${error.message}`);

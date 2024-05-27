@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const HelpMe = () => {
@@ -61,7 +61,7 @@ export const HelpMe = () => {
 
   const title = 'Ayuda';
 
-  const nameButton = 'Enviar';
+  const nameButton = 'Contactar';
 
   const helpFields = [
     {
@@ -75,29 +75,32 @@ export const HelpMe = () => {
     help: Joi.string().min(3).max(50).required(),
   });
 
-  const handleClickHelp = () => {
-    DynamicFormPopUp(
-      title,
-      helpFields,
-      helpSchema,
-      handleHelpAction,
-      nameButton
-    );
-  };
+
+  const StyleButton = {
+    action:'profileUpdate',
+    imgProfile: '/help.svg',
+    altImgProfile: 'icono de ayuda',
+    textProfile: 'Ayuda',
+  }
+
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptProfileUpdate',
+    altImgBtn:'icono actualizar perfil',
+    altAcceptBtn:'Boton actualizar perfil',
+    action:'update',
+  }
+
 
   return (
-    <div>
-      <button onClick={handleClickHelp} id="avatar-container">
-        <img
-          id="incon-setting"
-          src="help_24dp_FILL0_wght400_GRAD0_opsz24.svg"
-          alt=""
-        />
-        <div id="content">
-          <h3>Ayuda</h3>
-          <p id="info">Preguntas</p>
-        </div>
-      </button>
-    </div>
+    <DynamicModalWrapper
+    title={title}
+    fields={helpFields}
+    schema={helpSchema}
+    onSubmit={handleHelpAction}
+    buttonText={nameButton}
+    dynamicIdModal="dynamicFormModal"
+    StyleButton={StyleButton}
+    StyleAcceptBtn={StyleAcceptBtn}
+  />
   );
 };

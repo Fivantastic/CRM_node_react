@@ -1,6 +1,6 @@
-import Joi from 'joi';
 import Swal from 'sweetalert2';
-import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import { updatePasswordSchema } from '../../../Schema/Error/updateSchema.js';
 const URL = import.meta.env.VITE_URL;
 
 
@@ -73,59 +73,64 @@ const ChangePasswordPop = ({ token }) => {
     }
   };
 
-  const title = 'Cambiar contraseña';
+  const title = 'Modificar contraseña';
 
-  const nameButton = 'Cambiar';
+  const nameButton = 'Modificar';
 
   const updatePasswordFields = [
     {
       name: 'currentPassword',
       type: 'password',
-      label: 'Contraseña actual',
+      label: 'Contraseña actual *',
+      idLabel: 'labelCurrentPassword',
+      idInput: 'inputCurrentPassword',
+      required: true,
     },
     {
       name: 'newPassword',
       type: 'password',
-      label: 'Nueva contraseña',
+      label: 'Nueva contraseña *',
+      idLabel: 'labelNewPassword',
+      idInput: 'inputNewPassword',
+      required: true,
     },
     {
       name: 'repeatPassword',
       type: 'password',
-      label: 'Repetir nueva contraseña',
+      label: 'Repetir nueva contraseña *',
+      idLabel: 'labelRepeatPassword',
+      idInput: 'inputRepeatPassword',
+      required: true,
     },
   ];
 
-  const updatePasswordSchema = Joi.object({
-    currentPassword: Joi.string()
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
-      .required()
-      .label('Contraseña actual'),
-    newPassword: Joi.string()
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
-      .required()
-      .label('Nueva contraseña'),
-    repeatPassword: Joi.string()
-      .valid(Joi.ref('newPassword'))
-      .required()
-      .label('Repetir nueva contraseña'),
-  });
+  const StyleButton = {
+    action:'profileUpdate',
+    imgProfile: '/currentPass.svg',
+    altImgProfile: 'icono de perfil',
+    textProfile: 'Password',
+    classProfileText: 'textProfile',
+  }
 
-  const handleClickChangePassword = () => {
-    DynamicFormPopUp(
-      title,
-      updatePasswordFields,
-      updatePasswordSchema,
-      handleChangePassword,
-      nameButton
-    );
-  };
+  const StyleAcceptBtn = {
+    idAcceptBtn:'btnAcceptProfileUpdate',
+    altImgBtn:'icono actualizar perfil',
+    altAcceptBtn:'Boton actualizar perfil',
+    action:'update',
+  }
+
 
   return (
-    <div>
-      <button onClick={handleClickChangePassword} id='changePassword' className='btn-text-profile'>
-        Cambiar
-      </button>
-    </div>
+    <DynamicModalWrapper
+    title={title}
+    fields={updatePasswordFields}
+    schema={updatePasswordSchema}
+    onSubmit={handleChangePassword}
+    buttonText={nameButton}
+    dynamicIdModal="dynamicFormModal"
+    StyleButton={StyleButton}
+    StyleAcceptBtn={StyleAcceptBtn}
+  />
   );
 };
 

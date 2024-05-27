@@ -8,12 +8,13 @@ import {
   getInvoiceController,
   getInvoiceSearchController,
 } from '../../controllers/modulesControllers.js';
+import { getUnasignedSalesController } from '../../controllers/Modules/invoices/salesInvoiceController.js';
 
 export const invoicesRouter = express.Router();
 
 // Creacion de una nueva factura
 invoicesRouter.post(
-  '/invoice',
+  '/invoice/create',
   authenticateUser,
   checkRoleAgent,
   newInvoiceController
@@ -52,4 +53,10 @@ invoicesRouter.get(
   authenticateUser,
   checkRoleAgent,
   getInvoiceSearchController
-)
+);
+
+invoicesRouter.get(
+  '/invoices/unasigned-sales', 
+  authenticateUser, 
+  getUnasignedSalesController
+);

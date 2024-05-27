@@ -57,3 +57,18 @@ export const updateUserProfileSchema = Joi.object({
   phone: Joi.number().optional().messages(joiErrorMessages),
   bio: Joi.string().optional().messages(joiErrorMessages),
 });
+
+export const updatePasswordSchema = Joi.object({
+  currentPassword: Joi.string()
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
+    .required()
+    .label('Contraseña actual').messages(joiErrorMessages),
+  newPassword: Joi.string()
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/)
+    .required()
+    .label('Nueva contraseña').messages(joiErrorMessages),
+  repeatPassword: Joi.string()
+    .valid(Joi.ref('newPassword'))
+    .required()
+    .label('Repetir nueva contraseña').messages(joiErrorMessages),
+});

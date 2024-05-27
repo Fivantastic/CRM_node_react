@@ -140,23 +140,23 @@ export const useSalesList = (token) => {
     let sortedList = [...list];
 
     switch (sortOption) {
-      case 'nombre-asc':
-        sortedList.sort((a, b) => a.salesAgent.localeCompare(b.salesAgent));
-        break;
-      case 'nombre-desc':
-        sortedList.sort((a, b) => b.salesAgent.localeCompare(a.salesAgent));
-        break;
       case 'fecha-asc':
-        sortedList.sort( (a, b) => a.ref_SL.localeCompare(b.ref_SL));
+        sortedList.sort( (a, b) => a.create_at.localeCompare(b.create_at));
         break;
       case 'fecha-desc':
-        sortedList.sort((a, b) => b.ref_SL.localeCompare(a.ref_SL));
+        sortedList.sort((a, b) => b.create_at.localeCompare(a.create_at));
         break;
       case 'empresa-asc':
         sortedList.sort( (a, b) => a.company_name.localeCompare(b.company_name));
         break;
       case 'empresa-desc':
         sortedList.sort((a, b) => b.company_name.localeCompare(a.company_name));
+        break;
+        case 'ref-asc':
+        sortedList.sort( (a, b) => a.ref_SL.localeCompare(b.ref_SL));
+        break;
+        case 'ref-desc':
+        sortedList.sort((a, b) => b.ref_SL.localeCompare(a.ref_SL));
         break;
       default:
         break;

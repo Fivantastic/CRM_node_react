@@ -2,13 +2,14 @@ import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
 import { createInvoiceSchema } from '../../../Schema/Error/createSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const CreateInvoice = ({ onAddInvoice }) => {
   const token = useUser();
   // peticion al servidor
   const handleInvoiceCreatedAccion = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/invoice', {
+      const response = await fetch(`${URL}/invoice`, {
         method: 'POST',
         credentials: 'include',
         headers: {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const URL = import.meta.env.VITE_URL;
 
 const usePendingDeliveryNotes = (token) => {
   const [pendingDeliveryNotes, setPendingDeliveryNotes] = useState([]);
@@ -6,7 +7,7 @@ const usePendingDeliveryNotes = (token) => {
   useEffect(() => {
     const fetchPendingDeliveryNotes = async () => {
       try {
-        const response = await fetch('http://localhost:3000/shipments/pending-delivery-notes', {
+        const response = await fetch(`${URL}/shipments/pending-delivery-notes`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `${token}`,

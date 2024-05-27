@@ -4,6 +4,7 @@ import { useOpenSales } from '../../../hooks/PagesHooks/useOpenSales.js';
 import { useDeliverers } from '../../../hooks/PagesHooks/useDeliverers.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 import { deliveryNoteSchema } from '../../../Schema/Error/createSchema.js';
+const URL = import.meta.env.VITE_URL;
 
 
 export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
@@ -14,7 +15,7 @@ export const CreateDeliveryNote = ({ onAddDeliveryNote, token }) => {
   const handleDeliveryNoteCreatedAction = async (formData) => {
     console.log(formData);
     try {
-      const response = await fetch('http://localhost:3000/delivery-notes', {
+      const response = await fetch(`${URL}/delivery-notes`, {
         method: 'POST',
         credentials: 'include',
         headers: {

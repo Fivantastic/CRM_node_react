@@ -11,7 +11,7 @@ export const Header = ({ title }) => {
         <Notification />
         <ThemeSwicher />
       </div>
-      <ProfileNav />
+        <ProfileNav />
     </header>
   );
 };

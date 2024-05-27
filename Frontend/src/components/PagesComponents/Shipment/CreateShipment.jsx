@@ -7,11 +7,12 @@ import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 export const CreateShipment = ({ onAddShipment, token }) => {
   const [reload, setReload] = useState(false);
   const pendingDeliveryNotes = usePendingDeliveryNotes(token, reload);
+  const URL = import.meta.env.VITE_URL;
 
 
   const handleShipmentCreatedAction = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/shipment/create', {
+      const response = await fetch(`${URL}/shipment/create`, {
         method: 'POST',
         credentials: 'include',
         headers: {

@@ -10,10 +10,7 @@ export const deleteVisitController = async (req, res, next) => {
     try {
         const visitId = req.params.visitId;
         
-
         const visit = await selectIdVisitByIdService(visitId);
-
-        console.log(visit.id_visit);
 
         if(visit.id_visit !== visitId) {
             invalidCredentials('No se encontró el identificador de la visita');

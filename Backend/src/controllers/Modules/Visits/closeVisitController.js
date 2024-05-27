@@ -14,8 +14,6 @@ export const closeVisitController = async (req, res, next) => {
     // Obtengo la referencia de la visita
     const referecia = await selectRefVisitService(visitId);
 
-    console.log(referecia.ref_VT);
-
     // Enviar email al cliente si la visita se completa
     if (newStatus === 'completed' && email) {
       await sendEmailForVisitFeedback(referecia.ref_VT, email);

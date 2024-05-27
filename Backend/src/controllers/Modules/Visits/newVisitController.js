@@ -23,8 +23,6 @@ export const newVisitController = async (req, res, next) => {
         // Enviar correo electrónico de bienvenida
         await sendConfirmationVisitEmail(name, email, visit_date );
 
-        console.log('Correo enviado');
-
         // Devolvemos el usuario actualizado.
         res.send({
             status: 'ok',

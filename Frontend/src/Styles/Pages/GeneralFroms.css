@@ -4,10 +4,13 @@
 }
 
 #user_container,
-#customer_container,
-#product_container,
-#invoice_container{
+#customer_container {
   max-width: 800px;
+}
+
+#product_container,
+#invoice_container {
+  max-width: 1000px;
 }
 
 #payment_container {
@@ -23,7 +26,7 @@
 }
 
 #note_container {
-  max-width: 1150px;
+  max-width: 1200px;
 }
 
 .mainContainer {

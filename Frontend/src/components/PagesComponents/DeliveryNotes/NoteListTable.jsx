@@ -31,7 +31,7 @@ export const NoteListTable = ({ note, onDeliveryNote, onDelete }) => {
         <div id="noteTableHeadRowCompany">Empresa</div>
         <div id="noteTableHeadRowProduct">Producto</div>
         <div id="noteTableHeadRowQuantity">Cant.</div>
-        <div id="noteTableHeadRowDate">Fecha de entrega</div>
+        <div id="noteTableHeadRowDate">Fecha entrega</div>
         <div id="noteTableHeadRowStatus">Estado</div>
         <div id="noteTableHeadRowActions">Acciones</div>
       </div>
@@ -46,7 +46,7 @@ export const NoteListTable = ({ note, onDeliveryNote, onDelete }) => {
                 <div className="noteTableBodyRowRefSales">{noteItem.ref_SL}</div>
                 <div className="noteTableBodyRowCompany">{noteItem.company_name}</div>
                 <div className="noteTableBodyRowProduct">{noteItem.product_name}</div>
-                <div className="noteTableBodyRowQuantity">{noteItem.product_quantity}</div>
+                <div className="noteTableBodyRowQuantity">{noteItem.product_quantity} u.</div>
                 <div className="noteTableBodyRowDate">{fechaEntrega.toLocaleDateString()}</div>
                 <div className="noteTableBodyRowStatus" style={{ color: statusEntrega.color }}>
                   {statusEntrega.text}

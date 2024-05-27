@@ -19,6 +19,3 @@ export const getUnasignedSales = async () => {
   
   return rows;
 };
-
-const rows = await getUnasignedSales()
-console.log('Debug getUnasignedSales: ', rows);

@@ -163,7 +163,7 @@ export async function loadDemoData(db) {
         user_id: userData[i % 80].id_user,
         saleProduct_id: salesProductData[i].id_saleProduct,
         customer_id: customerData[i].id_customer,
-        operation_status: faker.helpers.arrayElement(['open', 'closed']),
+        operation_status: faker.helpers.arrayElement(['open', 'processing', 'cancelled', 'closed']),
       };
       salesData.push(sale);
     }
@@ -185,7 +185,7 @@ export async function loadDemoData(db) {
         ref_VT: currentRefVisit,
         user_id: userData[i % 80].id_user,
         customer_id: customerData[i].id_customer,
-        visit_status: faker.helpers.arrayElement(['scheduled', 'completed']),
+        visit_status: faker.helpers.arrayElement(['scheduled','cancelled', 'completed']),
         visit_date: faker.date.past(),
         observations: faker.lorem.sentence(),
       };

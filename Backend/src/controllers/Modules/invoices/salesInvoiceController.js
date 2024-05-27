@@ -4,8 +4,8 @@ import { success } from '../../../utils/success.js';
 export const getUnasignedSalesController = async (req, res, next) => {
   try {
     const unasignedSales = await getUnasignedSales();
-    console.log('corre por aquí');
-    res.json(success({ data: unasignedSales }));
+    res.send(success({ data: unasignedSales }));
+    console.log((success({data: unasignedSales})));
   } catch (error) {
     next(error);
   }

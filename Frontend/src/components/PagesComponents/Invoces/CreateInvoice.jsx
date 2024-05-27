@@ -10,6 +10,7 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
   const unasignedSales = useUnasignedSales(token, reload);  
 
   const handleInvoiceCreatedAccion = async (formData) => {
+    console.log("DEBUG: CreateInvoice.jsx - Formdata:", formData);
     try {
       const response = await fetch('http://localhost:3000/invoice', {
         method: 'POST',
@@ -25,7 +26,7 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
         const responseData = await response.json();
         console.log('Factura creada satisfactoriamente:', responseData);
 
-        if (responseData.data && responseData.data.id_note) {
+        // if (responseData.data && responseData.data.id_invoice) {
           onAddInvoice(responseData.data);
           Swal.fire({
             icon: 'success',
@@ -38,10 +39,10 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
           });
 
           setReload(!reload);
-        } else {
-          console.error('La respuesta del servidor no contiene id_invoice:', responseData);
+        // } else {
+        //   console.error('La respuesta del servidor no contiene id_invoice:', responseData.data);
 
-        }
+        // }
         
       } else {
         console.error('Error al crear la factura:', await response.text());
@@ -57,46 +58,19 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
   const invoiceFormFields = [
     {
       key: 'id_sale',
-      name: 'id_sale',
+      name: 'sale_id',
       label: 'Venta *',
       type: 'select',
       options: {
         'Órdenes de venta': unasignedSales.map(sale => ({
           value: sale.id_sale,
-          label: `${sale.ref_SL} - ${sale.customer_name}`
+          label: `${sale.ref_SL} - ${sale.company}`
         }))
       },
       idLabel: 'labelRefSLInvoiceCreate',
       idInput: 'inputRefSLInvoiceCreate',
       required: true
-    },
-    // {
-    //   key: 'payment_method',
-    //   name: 'payment_method',
-    //   label: 'Metodo De Pago *',
-    //   type: 'select',
-    //   // defaultValue: 'Transfecia',
-    //   idLabel: 'labelMethodInvoiceCreate',
-    //   idInput: 'inputMethodInvoiceCreate',
-    //   options: {
-    //     Metodo: {
-    //       transfer: 'Transferencia',
-    //       cash: 'Efectivo',
-    //       card: 'Tarjeta',
-    
-    //     },
-        
-    //   },
-    //   required: true,
-    // },
-    // {
-    //   name: 'due_date',
-    //   label: 'Vencimiento Del Pago',
-    //   type: 'date',
-    //   placeholder: 'Introduce el fecha...',
-    //   idLabel: 'labelDateInvoiceCreate',
-    //   idInput: 'inputDateInvoiceCreate',
-    // },
+    }
   ];
 
   const StyleButton = {

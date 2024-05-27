@@ -8,8 +8,11 @@ export const newInvoiceController = async (req, res, next) => {
         // Validamos el body
         await validateSchemaUtil(newInvoiceSchema, req.body);
 
+        // Obtenemos el id del usuario
+        const userId = req.user.id_user;
+
         // Insertamos el cliente en la base de datos
-        const response = await newInvoiceService(req.user.id_user ,req.body);
+        const response = await newInvoiceService(userId ,req.body);
 
         // Respondemos al cliente
         res.status(201).send(

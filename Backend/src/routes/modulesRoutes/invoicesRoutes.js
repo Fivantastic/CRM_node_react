@@ -14,7 +14,7 @@ export const invoicesRouter = express.Router();
 
 // Creacion de una nueva factura
 invoicesRouter.post(
-  '/invoice',
+  '/invoice/create',
   authenticateUser,
   checkRoleAgent,
   newInvoiceController

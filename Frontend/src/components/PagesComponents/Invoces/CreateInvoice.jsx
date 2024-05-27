@@ -3,13 +3,14 @@ import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 import { useState } from 'react';
 import { useUnasignedSales } from '../../../hooks/PagesHooks/useUnasignedSales.js';
 import { createInvoiceSchema } from '../../../Schema/Error/createSchema.js';
+const URL = import.meta.env.VITE_URL;
 
 export const CreateInvoice = ({ onAddInvoice, token }) => {
   const [reload, setReload] = useState(false);
   const unasignedSales = useUnasignedSales(token, reload); 
   const handleInvoiceCreatedAccion = async (formData) => {
     try {
-      const response = await fetch(`${URL}/invoice`, {
+      const response = await fetch(`${URL}/invoice/create`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -54,7 +55,7 @@ export const CreateInvoice = ({ onAddInvoice, token }) => {
 
   const invoiceFormFields = [
     {
-      key: 'id_sale',
+      key: 'sale_id',
       name: 'sale_id',
       label: 'Venta *',
       type: 'select',

@@ -5,7 +5,7 @@ export const getUnasignedSalesController = async (req, res, next) => {
   try {
     const unasignedSales = await getUnasignedSales();
     res.send(success({ data: unasignedSales }));
-    console.log((success({data: unasignedSales})));
+    /* console.log((success({data: unasignedSales}))); */
   } catch (error) {
     next(error);
   }

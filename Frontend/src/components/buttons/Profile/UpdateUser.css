@@ -1,0 +1,33 @@
+#updateUserProfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border: none;
+    outline: none;
+    background: #f0f0ea;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+#imgUpdateUserProfile {
+    width: 60px;
+    height: 60px;
+    transition: all 0.3s ease;
+}
+
+#imgUpdateUserProfile:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+}
+
+#textUpdateUserProfile {
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+#textUpdateUserProfile:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+}

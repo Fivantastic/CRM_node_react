@@ -122,12 +122,8 @@ const ChangePasswordPop = ({ token }) => {
 
   return (
     <div>
-      <button onClick={handleClickChangePassword} id="avatar-container">
-        <img id="incon-setting" src='password_24dp_FILL0_wght400_GRAD0_opsz24.svg' alt="" />
-        <div id="content">
-          <h3>Contraseña</h3>
-          <p id="info">Cambiar</p>
-        </div>
+      <button onClick={handleClickChangePassword} id='changePassword' className='btn-text-profile'>
+        Cambiar
       </button>
     </div>
   );

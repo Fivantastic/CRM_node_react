@@ -37,7 +37,6 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
   }, [initialValues, fields]);
 
   const updateDateInputState = (input) => {
-    event.preventDefault();
     if (input.value) {
       input.classList.add('has-content');
     } else {
@@ -190,6 +189,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   onChange={handleInputChange}
                   required={field.required}
                   placeholder=""
+                  autoComplete='off'
                 />
                 <label htmlFor={field.idInput} className="label">
                   {field.label}

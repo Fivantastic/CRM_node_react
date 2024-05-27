@@ -1,8 +1,9 @@
 .notification-icon-container {
-    position: relative;
     display: flex;
     align-items: center;
+    translate: 0 5px;
     cursor: pointer;
+    margin: 0 20px;
   }
   
   .notification-icon {

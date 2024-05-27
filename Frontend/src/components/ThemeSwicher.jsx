@@ -6,11 +6,11 @@ export const ThemeSwicher = () => {
   const { theme, setTheme } = useContext(ThemeContext);
 
   return (
-    <section className="container-mode">
+    <section className="container-mode" onClick={() => setTheme(!theme)}>
       <label className="toggle" htmlFor="switch">
         <input
           id="switch"
-          onClick={() => setTheme(!theme)}
+
           checked={theme}
           onChange={() => {}}
           className="input checkoff"
@@ -43,6 +43,7 @@ export const ThemeSwicher = () => {
           </svg>
         </div>
       </label>
+      <p className="textProfile">{theme ? 'Dark Mode' : 'Light Mode'}</p>
     </section>
   );
 };

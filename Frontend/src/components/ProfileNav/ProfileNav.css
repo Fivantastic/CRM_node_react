@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+.profileNavContainer {
+  cursor: pointer;
+}
+
 #dropdown {
   max-width: 220px;
   width: 100%;

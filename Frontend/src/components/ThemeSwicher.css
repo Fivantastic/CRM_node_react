@@ -1,13 +1,47 @@
+.container-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 120px;
+  height: 120px;
+  margin: 10px; 
+  border: none;
+  outline: none;
+  background: #f0f0ea;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s;
+}
+
+.container-mode:hover {
+  transform: scale(1.05);
+  transition: all 0.3s;
+}
+
+.container-mode:active{
+  transform: scale(1);
+  transition: all 0.1s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
 .toggle {
+  scale: 1.3;
   background-color: transparent;
-  width: 56px;
-  height: 56px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: grid;
   place-items: center;
   cursor: pointer;
   line-height: 1;
   color: #13214E;
+}
+
+.textProfile {
+  font-size: 0.8rem;
+  color: #13214E;
+  font-family: 'montserrat', sans-serif;
 }
 
 .input {

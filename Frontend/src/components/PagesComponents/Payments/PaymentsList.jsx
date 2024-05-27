@@ -44,7 +44,6 @@ const moreInfoFields = [
 
         <p className="mainInsideSub"><strong>Ref. Albarán: </strong> {payment.ref_IN}</p>
         <p className="mainInsideSub"><strong>Empresa: </strong> {payment.company_name}</p>
-        <p className="mainInsideSub"><strong>Email: </strong> {payment.customer_email}</p>
         <p className="mainInsideSub"><strong>Telefono: </strong> {payment.customer_phone}</p>
 
         <p className="mainInsideSub"><strong>Fecha de pago: </strong> {paidDate.toLocaleDateString()}</p>

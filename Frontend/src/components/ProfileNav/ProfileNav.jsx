@@ -78,7 +78,7 @@ export const ProfileNav = () => {
         )}
 
         <NavLink exact="true" to="/Profile" className="btn-home navli btn-perfilNav" key="profile">
-          <p>Settings</p>
+          <p id="textProfileNavSettings">Settings</p>
           <img className="iconProfileNavSettings iconProfileNav" src="./settings.svg" alt="Imagen de configuración de perfil" />
         </NavLink>
         <li className="btn-logout navli btn-perfilNav" key="logout">

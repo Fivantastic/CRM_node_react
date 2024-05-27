@@ -1,6 +1,4 @@
 import Swal from 'sweetalert2';
-/* import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
-import { EditButton } from '../../buttons/EditButton.jsx'; */
 const URL = import.meta.env.VITE_URL;
 import './SalesListTable.css';
 import { useState } from 'react';

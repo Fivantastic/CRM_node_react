@@ -1,13 +1,14 @@
 import Swal from 'sweetalert2';
 import { newUserSchema } from '../../../Schema/Error/createSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const CreateUser = ({ onAddUser, token }) => {
 
   // Aqui hace la peticion al servidor
   const handleUserCreate = async (formData) => {
     try {
-        const response = await fetch('http://localhost:3000/user/register', {
+        const response = await fetch(`${URL}/user/register`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

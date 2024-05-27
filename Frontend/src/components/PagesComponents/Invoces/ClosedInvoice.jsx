@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { CompletButton } from '../../buttons/StatesBtn/CompletButton.jsx';
 import { CancelButton } from '../../buttons/StatesBtn/CancelButton.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const ClosedInvoice = ({ onUpdateInvoice, currentStatus, invoice, token }) => {
   /* const token = useUser(); */
@@ -10,7 +11,7 @@ export const ClosedInvoice = ({ onUpdateInvoice, currentStatus, invoice, token }
   const handleclosedInvoiceAccion = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/invoice/close/${invoice}`,
+        `${URL}/invoice/close/${invoice}`,
         {
           method: 'PUT',
           credentials: 'include',

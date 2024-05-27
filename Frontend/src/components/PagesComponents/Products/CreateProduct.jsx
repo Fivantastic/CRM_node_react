@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 import { newProductSchema } from '../../../Schema/Error/createSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const CreateProduct = ({ onAddProduct, token }) => {  
   const handleProductCreate = async (formData) => {
@@ -8,7 +9,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
     formData.active = formData.active === 'true' ? true : false;
     
     try {
-      const response = await fetch('http://localhost:3000/product/register', {
+      const response = await fetch(`${URL}/product/register`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -26,7 +27,7 @@ export const CreateProduct = ({ onAddProduct, token }) => {
 
         const Toast = Swal.mixin({ 
           toast: true,
-          position: 'bottom-end',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,

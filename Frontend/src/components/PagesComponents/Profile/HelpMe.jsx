@@ -2,13 +2,14 @@ import Joi from 'joi';
 import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+const URL = import.meta.env.VITE_URL;
 
 export const HelpMe = () => {
   const token = useUser();
 
   const handleHelpAction = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/user/avatar', {
+      const response = await fetch(`${URL}/help`, {
         method: 'PUT',
         credentials: 'include',
         headers: {

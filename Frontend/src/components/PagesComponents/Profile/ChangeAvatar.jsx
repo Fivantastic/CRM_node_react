@@ -4,6 +4,7 @@ import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { useUser } from '../../../context/authContext.jsx';
 import { getUserDataFromToken } from '../../../Services/GetUserDataToken.js';
 import { imgSchema } from '../../../Schema/Error/ImgSchema.js';
+const URL = import.meta.env.VITE_URL;
 
 export const ChangeAvatar = () => {
   const token = useUser();
@@ -18,7 +19,7 @@ export const ChangeAvatar = () => {
       }
 
       const response = await fetch(
-        `http://localhost:3000/user/avatar/${id_user}`,
+        `${URL}/user/avatar/${id_user}`,
         {
           method: 'PUT',
           credentials: 'include',

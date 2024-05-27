@@ -1,6 +1,6 @@
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
 import { updateUserSchema } from '../../../Schema/Error/updateUserSchema.js';
-
+const URL = import.meta.env.VITE_URL;
 import Swal from 'sweetalert2';
 
 export const UpdateUser = ({ id, updateUser, token }) => {
@@ -9,7 +9,7 @@ export const UpdateUser = ({ id, updateUser, token }) => {
   const handleButtonUpdateVisit = async (formData) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/user/update/${id}`,
+        `${URL}/user/update/${id}`,
         {
           method: 'PUT',
           credentials: 'include',

@@ -1,12 +1,13 @@
 import Joi from 'joi';
 import Swal from 'sweetalert2';
 import DynamicFormPopUp from '../../forms/DynamicFormPopUp.js';
+const URL = import.meta.env.VITE_URL;
 
 export const DeleteProduct = ({ onDeleteProduct, token }) => {  
     // Función para manejar el borrado de productos
     const handleProductDelete = async (formData) => {
         try {
-            const response = await fetch('http://localhost:3000/products/delete', {
+            const response = await fetch(`${URL}/products/delete`, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
@@ -26,7 +27,7 @@ export const DeleteProduct = ({ onDeleteProduct, token }) => {
                 // Mostrar mensaje de éxito
                 const Toast = Swal.mixin({ 
                     toast: true,
-                    position: 'bottom-end',
+                    position: 'top-end',
                     showConfirmButton: false,
                     timer: 3000,
                     timerProgressBar: true,

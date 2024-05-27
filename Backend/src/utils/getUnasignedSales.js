@@ -19,3 +19,4 @@ export const getUnasignedSales = async () => {
   
   return rows;
 };
+

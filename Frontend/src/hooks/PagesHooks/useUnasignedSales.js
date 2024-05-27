@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const URL = import.meta.env.VITE_URL;
 
 export const useUnasignedSales = (token, reload) => {
   const [unasignedSales, setUnasignedSales] = useState([]);
@@ -6,7 +7,8 @@ export const useUnasignedSales = (token, reload) => {
   useEffect(() => {
     const fetchUnasignedSales = async () => {
       try { 
-        const response = await fetch('http://localhost:3000/invoices/unasigned-sales', {
+        const response = await fetch(`${URL}/invoices/unasigned-sales`, {
+          method: 'get',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `${token}`,

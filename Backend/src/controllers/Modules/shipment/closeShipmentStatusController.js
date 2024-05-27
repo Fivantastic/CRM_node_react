@@ -7,8 +7,6 @@ export const closeShipmentStatusController = async (req, res, next) => {
     const { shipmentId } = req.params; // Obtener shipmentId de los parámetros de la ruta
     const { newStatus } = req.body; // Obtener newStatus del cuerpo de la solicitud
 
-    console.log(`Request to close shipment. Shipment ID: ${shipmentId}, New Status: ${newStatus}, Delivery Note ID: ${id_user}, Role: ${role}`);
-
     // Cerramos el envío y obtenemos el email del cliente si es necesario
     const { email, trackingNumber } = await closeShipmentStatusService(shipmentId, id_user, role, newStatus);
 

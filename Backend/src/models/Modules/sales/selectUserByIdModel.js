@@ -8,6 +8,5 @@ export const selectUserByIdModel = async (user_id) => {
     user_id,
   ]);
 
-  console.log('selecciona el usuario', user);
   return user[0];
 };

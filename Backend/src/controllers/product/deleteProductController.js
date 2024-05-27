@@ -5,7 +5,6 @@ export const deleteProductController = async (req, res, next) => {
     try {
         // Obtenemos el id del producto
         const product_id = req.params.product_id;
-        console.log(product_id);
 
         const response = await deleteProductService(product_id);
 

@@ -4,7 +4,6 @@ import { changePaymentStatusModel } from "../../../models/Modules/payments/chang
 
 export const cancelPaymentController = async (req, res, next) => {
     try { 
-        console.log(req.body);
         // Validar los datos
         await validateSchemaUtil(cancelPaymentSchema, req.body);
 

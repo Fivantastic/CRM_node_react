@@ -10,11 +10,8 @@ export const changePaymentStatusModel = async (id_payment, status) => {
     console.log(rows);
     if (rows.length === 0) throw notFoundError('Payment');
     
-
     // Actualizar el pago
     const [result] = await pool.query(`UPDATE Payments SET payment_status = ? WHERE id_payment = ?`, [status, id_payment]);
-
-    console.log(result);
 
     if (result.affectedRows === 0) {
         const error = new Error('No se ha podido actualizar el pago.');

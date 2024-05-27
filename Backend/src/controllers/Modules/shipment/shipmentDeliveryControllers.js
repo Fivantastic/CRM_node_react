@@ -1,4 +1,5 @@
 const { selectShipmentsByUserIdService } = require('../../../services/Modules/shipment/selectShipmentsByUserIdService.js');
+/* Este import esta mal por que estamos usando S6 con import. No con require */
 
 // Controlador para obtener envíos por repartidor
 const shipmentListByUserController = async (req, res, next) => {
@@ -14,7 +15,7 @@ const shipmentListByUserController = async (req, res, next) => {
   }
 };
 
-const shipmentUpdateController = async (req, res, next) => {
+const shipmentUpdateController = async (req, res, next) => { // Y esta linea que hace ???
   // Implementación del controlador para actualizar envíos...
 };
 

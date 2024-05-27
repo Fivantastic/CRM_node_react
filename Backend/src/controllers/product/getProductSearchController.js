@@ -5,8 +5,6 @@ export const getProductSearchController = async (req, res, next) => {
         //Recibimos la cadena completa desde la consulta
         const searchTerm = req.query.searchTerm;
 
-        console.log('searchTerm', searchTerm);
-
         //Llamanos al servivio
         const response = await getProductSearchService(searchTerm);
 

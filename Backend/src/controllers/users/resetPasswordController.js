@@ -9,7 +9,6 @@ export const resetPasswordController = async (req, res, next) => {
         await validateSchemaUtil(changeResetPasswordSchema, req.body);   
         
         const registration_code = decodeURIComponent(req.params.registration_code);
-        console.log(`Registration code: ${registration_code}`);
 
         // Actualizar la contraseña en la base de datos
         const response = await updatePasswordService(registration_code, req.body);

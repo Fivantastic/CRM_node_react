@@ -137,12 +137,13 @@ export const useDeliveryList = (token) => {
     setFilteredAlbaranList(sortedList);
   };
 
-  const addDeliveryNote = (newDeliveryNote) => {
+  const addDeliveryNote = async (newDeliveryNote) => {
     if (!newDeliveryNote.id_note) {
       console.error('El nuevo albarán no tiene id_note:', newDeliveryNote);
       return;
     }
     setFilteredAlbaranList((prevList) => [...prevList, newDeliveryNote]);
+    addDeliveryNote();
   };
   
 

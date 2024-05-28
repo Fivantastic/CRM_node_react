@@ -12,6 +12,8 @@ export const NoteListTable = ({ note, onDeliveryNote, onDelete }) => {
     switch (estado) {
       case 'pending':
         return { text: 'Pendiente', color: 'blue' };
+      case 'processing':
+        return { text: 'En proceso', color: 'orange' };
       case 'delivered':
         return { text: 'Entregado', color: 'green' };
       case 'cancelled':

@@ -77,7 +77,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
       placeholder: 'Introduce la cantidad de producto...',
       idLabel: 'labelQuantitySaleUpdate',
       idInput: 'inputQuantitySaleUpdate',
-      required: true,
+      required: false,
     },
     {
       key: 'id_customer', 
@@ -92,7 +92,7 @@ export const UpdateSale = ({ onUpdateSale, sale, token}) => {
       },
       idLabel: 'labelCustomerSaleUpdate',
       idInput: 'inputCustomerSaleUpdate',
-      required: true,
+      required: false,
     },
   ];
   

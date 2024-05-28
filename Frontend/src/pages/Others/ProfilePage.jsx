@@ -112,7 +112,7 @@ export const ProfilePage = () => {
             <h2 id="profile_title-settings">Your settings</h2>
             <div id="profile_settings_container">
               <ChangeInfo updateinfo={getInfoProfile} />
-              <ChangePasswordPop />
+              <ChangePasswordPop token={token} />
               <ThemeSwicher id="profile_theme-settings" />
               <HelpMe id="profile_help-settings" />
             </div>

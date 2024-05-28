@@ -90,10 +90,11 @@ export const ShipmentsCrud = () => {
       </nav>
       {isListView ? (
         <div id="shipments_list" className="main_olist">
-          {filteredShipmentList.map((shipment) => (
-            <div key={shipment.id_shipment} id="element_shipment_container" className="main_ilist">
-              <div className="shipment-item" onClick={() => handleShipmentClick(shipment.id_shipment)}>
-                <ShipmentList shipment={shipment} onUpdateShipment={updateShipment} />
+          {filteredShipmentList.length > 0 ? (
+            filteredShipmentList.map((shipment) => (
+              <div key={shipment.id_shipment} id="element_shipment_container" className="main_ilist">
+                <div className="shipment-item" onClick={() => handleShipmentClick(shipment.id_shipment)}>
+                  <ShipmentList shipment={shipment} />
                 </div>
                 <div id="shipment_actions" className="main_actions">
                   <MoreShipments shipment={shipment} key={`more-${shipment.id_shipment}`} />

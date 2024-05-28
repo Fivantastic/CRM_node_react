@@ -6,7 +6,7 @@ import { useUser } from "../../../context/authContext.jsx";
 import { DeleteGenericModal } from "../../forms/DeleteGenericModal.jsx";
 const URL = import.meta.env.VITE_URL;
 import '../../../Styles/Pages/StyleUserList.css';
-import { AddLoading } from "../../Loading/AddLoading.jsx";
+// import { AddLoading } from "../../Loading/AddLoading.jsx";
 
 // Objeto de mapeo de roles
 const roleMapping = {
@@ -16,7 +16,7 @@ const roleMapping = {
 };
 
 export const UserList = ({ user, id, activeUser, onDelete }) => {
-  const [onLoading, setOnLoading] = useState(true);
+  // const [onLoading, setOnLoading] = useState(true);
 
   const token = useUser();
   const userData = user;
@@ -38,23 +38,25 @@ export const UserList = ({ user, id, activeUser, onDelete }) => {
     e.target.src = `${URL}/uploads/image/${user.id_user}/${user.avatar}`;
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-    setOnLoading(false);
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //   setOnLoading(false);
+  //   }, 2000);
+  // }, []);
 
   return (
     <>
-      {onLoading ? (
+      {/* {onLoading ? (
         <div className='container-avatar-active'>
           <AddLoading />
         </div>
-      ) : (
+      ) : ( */}
         <figure className={`container-avatar-active ${isActive ? 'active' : 'inactive'}`}>
-        <img src={user.avatar || defaultAvatar} alt="Avatar del usuario" className="avatar" onError={handleError}/>
+        <img src={user.avatar || defaultAvatar} alt="Avatar del usuario" className="avatar" onError={handleError} 
+        loading="lazy"
+        />
         </figure>
-      )}
+      {/* )} */}
       <section className="container-details-actions">
         <article className="details">
           <h2 className="userName">{`${user.name} ${user.last_name}`}</h2>
@@ -69,3 +71,4 @@ export const UserList = ({ user, id, activeUser, onDelete }) => {
     </>
   );
 };
+

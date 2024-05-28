@@ -45,14 +45,12 @@ export const InvoicePage = () => {
   ];
 
   const sortOptions = [ 
-    { label: "Referencia (A - Z)", value: "ref-asc" },
-    { label: "Referencia (Z - A)", value: "ref-desc" },
     { label: "Comercial (A - Z)", value: "comercial-asc" },
     { label: "Comercial (Z - A)", value: "comercial-desc" },
     { label: "Vencimiento (Próximos)", value: "fecha-desc" },
     { label: "Vencimiento (Útlimos)", value: "fecha-asc" },
-    { label: "Estado (A - Z)", value: "status-asc" },
-    { label: "Estado (Z - A)", value: "status-desc" },
+    { label: "Ref (ASC)", value: "ref-asc" },
+    { label: "Ref (DSC)", value: "ref-desc" },
   ];
   
   return (

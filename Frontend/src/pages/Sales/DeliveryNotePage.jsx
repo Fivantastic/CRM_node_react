@@ -50,8 +50,12 @@ export const DeliveryNotePage = () => {
   ];
 
   const sortOptions = [
+    { label: 'Nombre (A - Z)', value: 'nombre-asc' },
+    { label: 'Nombre (Z - A)', value: 'nombre-desc' },
     { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
     { label: 'Fecha (Recientes)', value: 'fecha-desc' },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
+    { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
 
   return (

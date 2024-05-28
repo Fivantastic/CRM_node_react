@@ -155,10 +155,10 @@ const [paymentsList, setPaymentsList] = useState([]);
         break;
       case 'fecha-asc':
       sortedList.sort( (a, b) => a.create_at.localeCompare(b.create_at));
-      break;
+        break;
       case 'fecha-desc':
       sortedList.sort((a, b) => b.create_at.localeCompare(a.create_at));
-      break;
+        break;
       default:
         break;
 

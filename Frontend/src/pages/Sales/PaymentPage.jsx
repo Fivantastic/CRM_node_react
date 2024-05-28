@@ -43,10 +43,10 @@ export const PaymentPage = () => {
   const sortOptions = [
     { label: "Importe (Asc)", value: "importe-asc" },
     { label: "Importe (Desc)", value: "importe-desc" },
-    { label: "Referencia (A - Z)", value: "ref-asc" },
-    { label: "Referencia (Z -A)", value: "ref-desc" },
     { label: "Fecha (A - Z)", value: "fecha-asc" },
-    { label: "fecha (Z -A)", value: "fecha-desc" }
+    { label: "fecha (Z -A)", value: "fecha-desc" },
+    { label: "Ref (ASC)", value: "ref-asc" },
+    { label: "Ref (DSC)", value: "ref-desc" },
   ];
 
   return (

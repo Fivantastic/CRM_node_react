@@ -167,18 +167,21 @@ export const useCustomerList = (token) => {
     }
   };
 
-  const updateCustomer = (updatedCustomer) => {
+  const updateCustomer = async (updatedCustomer) => {
     setListCustomer((prevList) =>
       prevList.map((customer) =>
         customer.id_customer === updatedCustomer.id_customer ? { ...customer, ...updatedCustomer } : customer
-      )
+      ) 
+      
     );
+    
     
     setFilteredCustomerList((prevList) =>
       prevList.map((customer) =>
         customer.id_customer === updatedCustomer.id_customer ? { ...customer, ...updatedCustomer } : customer
       )
     );
+    await getCustomerList();
   };
 
   const activeCustomer = (id_customer) => {

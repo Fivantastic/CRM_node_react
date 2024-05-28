@@ -37,7 +37,7 @@ export const InvoicePage = () => {
     { label: 'Enviada', value: 'sent' },
     { label: 'Pendiente', value: 'pending' },
     { label: 'Pago parcial', value: 'partially_paid' },
-    { label: 'Atrasada', value: 'overdue' },
+    { label: 'Vencida', value: 'overdue' },
     { label: 'Pagada', value: 'paid' },
     { label: 'Reclamada', value: 'disputed' },
     { label: 'Reembolsada', value: 'refunded' },

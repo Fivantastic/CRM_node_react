@@ -168,12 +168,13 @@ const [paymentsList, setPaymentsList] = useState([]);
   }
 
   // Añadir
-  const addPayment = (newPayment) => {
+  const addPayment = async (newPayment) => {
     try {
       setPaymentsList((prevPayment) => {
         console.log('Nuevo payment:', newPayment);
         return [...prevPayment, newPayment];
       }) 
+      await getPaymentsList();
     }catch (error){
       console.error('Error al crear el pago', error);
       Toast.fire({

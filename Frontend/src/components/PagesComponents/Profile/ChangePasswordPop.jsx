@@ -85,6 +85,7 @@ const ChangePasswordPop = ({ token }) => {
       idLabel: 'labelCurrentPassword',
       idInput: 'inputCurrentPassword',
       required: true,
+      eye: false
     },
     {
       name: 'newPassword',
@@ -93,6 +94,7 @@ const ChangePasswordPop = ({ token }) => {
       idLabel: 'labelNewPassword',
       idInput: 'inputNewPassword',
       required: true,
+      eye: true
     },
     {
       name: 'repeatPassword',
@@ -101,6 +103,7 @@ const ChangePasswordPop = ({ token }) => {
       idLabel: 'labelRepeatPassword',
       idInput: 'inputRepeatPassword',
       required: true,
+      eye: true
     },
   ];
 

@@ -32,7 +32,7 @@ export async function sendWelcomeEmail(
       html: `<p>Bienvenido/a a nuestra plataforma, ${name} ${last_name}.</p>
                <p>Tu datos de usuario son:</p>
                <p><span>Usuario:</span> ${email}</p>
-               <p><span>Contraseña provisional:</span> ${random_password}.</p>
+               <p><span>Contraseña provisional:</span> ${random_password}</p>
                <p>Para validar tu cuenta, por favor haz clic en el siguiente enlace:</p>
                <a href="${validateURL}">Validar Cuenta</a>
 

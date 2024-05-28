@@ -5,6 +5,7 @@ import { MoreSales } from './MoreSales.jsx';
 import { UpdateSale } from './UpdateSale.jsx';
 import { PencilBroken } from '../../../assets/creado/PencilBroken.jsx';
 import '../Sales/SalesListTable.css';
+import { Pending } from '../../../assets/creado/Pending.jsx';
 
 export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   const token = useUser();
@@ -51,12 +52,14 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
                 </div>
                 <span className="salesTableBodyRowActions">
                   <MoreSales sale={sale} />
-                  <ToggleSalesStatusButton
-                    id={sale.id_sale}
-                    currentStatus={sale.operation_status}
-                    onUpdateSale={onUpdateSale}
-                    token={token}
-                  />
+                  {sale.operation_status === 'open'? ( <Pending /> ) : (
+                    <ToggleSalesStatusButton
+                      id={sale.id_sale}
+                      currentStatus={sale.operation_status}
+                      onUpdateSale={onUpdateSale}
+                      token={token}
+                      /> 
+                  )}
                     {sale.operation_status === 'closed'? (
                       <PencilBroken  />
                     ) : sale.operation_status === 'cancelled'? (

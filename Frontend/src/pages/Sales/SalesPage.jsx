@@ -39,10 +39,10 @@ export const SalesPage = () => {
   }, []);
 
   const filterOptions = [
-    { label: 'Procesado', value: 'processing' },
     { label: 'Pendiente', value: 'open' },
-    { label: 'Cancelado', value: 'cancelled' },
-    { label: 'Cerrado ', value: 'closed' },
+    { label: 'En proceso', value: 'processing' },
+    { label: 'Cancelada', value: 'cancelled' },
+    { label: 'Cerrada', value: 'closed' },
   ];
 
   const sortOptions = [

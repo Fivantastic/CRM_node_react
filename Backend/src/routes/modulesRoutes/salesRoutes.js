@@ -37,7 +37,7 @@ salesRouter.put(
 
 // Cerrar vemta
 salesRouter.put(
-  '/updateSalesStatus',
+  '/sales/updateStatus',
   authenticateUser,
   closeSalesController
 );

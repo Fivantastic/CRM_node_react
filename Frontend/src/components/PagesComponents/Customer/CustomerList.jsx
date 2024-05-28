@@ -9,8 +9,8 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeMod
   const token = useUser();
 
   const nameComplete = `${customer.name} ${customer.last_name}`;
-  const active = customer.active === 1 ? 'Activo' : 'Inactivo';
-  const activeColor = customer.active === 1 ? 'green' : 'red';
+  const active = customer.active  ? 'Activo' : 'Inactivo';
+  const activeColor = customer.active  ? 'green' : 'red';
   const activeClass = customer.active ? 'active' : 'inactive';
   const addressConcatenated = customer.address 
     ? `${customer.address} ${customer.number}, ${customer.city}, ${customer.country}` 

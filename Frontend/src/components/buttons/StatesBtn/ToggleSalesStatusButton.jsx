@@ -5,7 +5,7 @@ const URL = import.meta.env.VITE_URL;
 
 export const ToggleSalesStatusButton = ({ id, currentStatus, onUpdateSale, token }) => {
   const handleClick = async () => {
-    if (currentStatus === 'open') {
+    if (currentStatus === 'processing') {
       const result = await Swal.fire({
         title: '¿Qué acción deseas realizar?',
         text: 'Puedes completar o cancelar la venta.',
@@ -60,7 +60,7 @@ export const ToggleSalesStatusButton = ({ id, currentStatus, onUpdateSale, token
 
   const updateStatus = async (newStatus) => {
     try {
-      const response = await fetch(`${URL}/updateSalesStatus`, {
+      const response = await fetch(`${URL}/sales/updateStatus`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

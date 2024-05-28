@@ -35,7 +35,7 @@ export const UserListTable = ({ user, activeUser, onDelete }) => {
                     <div key={userData.id_user} className="userTableBodyRow">
                         <div className="userTableBodyRowName">{`${userData.name} ${userData.last_name}`}</div>
                         <div className="userTableBodyRowRole">{traducirRole(userData.role)}</div>
-                        <div id="userTableBodyRowActive" className={`userTableBodyRow ${userData.active === 1 ? 'active' : 'inactive'}`}>{userData.active === 1 ? 'Activo' : 'Inactivo'}</div>
+                        <div id="userTableBodyRowActive" className={`userTableBodyRow ${userData.active ? 'active' : 'inactive'}`}>{userData.active ? 'Activo' : 'Inactivo'}</div>
                         <div className="userTableBodyRowActions">
                             <ProfileButton userData={userData} isActive={userData.active} />
                             <ButtonMoreUserActions id={userData.id_user} activeUser={activeUser} isActive={userData.active} token={token} />

@@ -9,6 +9,7 @@ import { selectmoduleByIdVisitModel } from "../../../models/Modules/visits/selec
 export const deleteVisitController = async (req, res, next) => {
     try {
         const visitId = req.params.visitId;
+        console.log(visitId);
         
         const visit = await selectIdVisitByIdService(visitId);
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 const URL = import.meta.env.VITE_URL;
 import { useParams } from 'react-router-dom';
 import './ratingVisit.css';
@@ -10,8 +10,8 @@ export const RatingVisit = () => {
   const [comment_visit, setComment_visit] = useState('');
   const [isSuccess, setIsSuccess] = useState(true);
   const { ref_VT } = useParams();
-  const [isChecked, setIsChecked] = useState([]);
-  console.log(isSuccess)
+/*   const [isChecked, setIsChecked] = useState({});
+  console.log(isSuccess) */
 
   const handleRatingChange = (e) => {
     setRating_visit(e.target.value);
@@ -35,7 +35,8 @@ export const RatingVisit = () => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Rating enviado con éxito:', responseData);
-        setIsChecked(responseData.data)
+        /* setIsChecked(responseData.data); */
+
         Toast.fire({
           icon: 'success',
           position: 'top-end',
@@ -47,7 +48,7 @@ export const RatingVisit = () => {
         Toast.fire({
           icon: 'error',
           position: 'top-end',
-          title: 'Error al enviar la valoración',
+          title: 'La valoración ya ha sido emitida...',
         });
       }
     } catch (error) {
@@ -65,12 +66,14 @@ export const RatingVisit = () => {
     setIsSuccess(false);
   };
 
-  useEffect(() => {
-    if (isChecked.rating_visit !== null) {
-        setIsSuccess(false);
+  /* useEffect(() => {
+    if (isChecked.rating_visit === null) {
+      setIsSuccess(true);
+    } else {
+      setIsSuccess(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isChecked]); */
 
   return (
     <section className="rating_container">

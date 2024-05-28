@@ -1,16 +1,10 @@
-import { selectIdVisitMosuleByIdService } from "../../../services/Modules/selectIdVisitMosuleByIdService.js";
-import { selectIdVisitByIdService } from "../../../services/Modules/visits/selectIdVisitByIdService.js";
+import { selectIdVisitByIdFeedbackService } from "../../../services/Modules/visits/selectIdVisitByIdFeedbackService.js";
 
 export const feedbackVisitCheckService = async ( ref_VT ) => {
   
     // Obtengo el id de la visita
-    const feedbackVisit = await selectIdVisitByIdService(ref_VT);
-  
-    // Validamos que no exista una valoracion previa
-    const response = await selectIdVisitMosuleByIdService(
-      feedbackVisit.id_visit
-    );
+    const response = await selectIdVisitByIdFeedbackService(ref_VT);
     
-    return response;
+    return response[0];
   };
   

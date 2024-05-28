@@ -37,7 +37,7 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
         <div id="salesTableHeadRowActions">Acciones</div>
       </div>
       <div id="salesTableBody">
-        {sale.length > 0 &&
+        {sale && sale.length > 0 ? (
           sale.map((sale) => {
             const statusSale = traducirEstadoVenta(sale.operation_status);
             return (
@@ -76,8 +76,12 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
                   />
                 </span>
               </div>
-            );
-          })}
+              );
+            }
+          )
+          ) : (
+          <div className='noResult'>No hay clientes disponibles</div>
+          )}
       </div>
     </section>
   );

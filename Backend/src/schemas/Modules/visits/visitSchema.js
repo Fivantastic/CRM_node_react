@@ -26,6 +26,5 @@ export const feedbackVisitSchema = Joi.object({
     .min(1)
     .max(5)
     .messages(joiErrorMessages),
-  comment_visit: Joi.string().optional().messages(joiErrorMessages),
-  /* email: Joi.string().email().required().messages(joiErrorMessages), */
+  comment_visit: Joi.string().optional().min(0).messages(joiErrorMessages),
 });

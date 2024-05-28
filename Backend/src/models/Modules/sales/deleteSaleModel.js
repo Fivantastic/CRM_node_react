@@ -1,42 +1,38 @@
 import { getDBPool } from '../../../db/getPool.js';
+import { notFoundError } from '../../../services/error/errorService.js';
 
 export const deleteSaleModel = async (id_sale) => {
   const pool = await getDBPool();
 
-  // 1. Eliminar registros en Modules que dependen de Shipments
-  await pool.query(
-    'DELETE FROM Modules WHERE shipment_id IN (SELECT id_shipment FROM Shipments WHERE deliveryNote_id IN (SELECT id_note FROM DeliveryNotes WHERE sale_id = ?))',
-    [id_sale]
-  );
+  // Verificar si existen deleveryNote en cancelado
+  const deliveryNotes = await pool.query('SELECT * FROM DeliveryNotes WHERE sale_id = ?', [id_sale]);
 
-  // 2. Eliminar registros en Shipments que dependen de DeliveryNotes
-  await pool.query(
-    'DELETE FROM Shipments WHERE deliveryNote_id IN (SELECT id_note FROM DeliveryNotes WHERE sale_id = ?)',
-    [id_sale]
-  );
+  console.log(deliveryNotes)
 
-  // 3. Eliminar registros en DeliveryNotes
-  await pool.query('DELETE FROM DeliveryNotes WHERE sale_id = ?', [id_sale]);
+ /*  if (deliveryNotes.delivery_status === 'cancelled') { */
 
-  // 4. Eliminar registros en Payments que dependen de Invoices
-  await pool.query(
-    'DELETE FROM Payments WHERE invoice_id IN (SELECT id_invoice FROM Invoices WHERE sale_id = ?)',
-    [id_sale]
-  );
+    await pool.query('DELETE FROM Modules WHERE sale_id =?', [id_sale]);
+    
+    await pool.query('DELETE FROM Shipments WHERE deliveryNote_id IN (SELECT id_note FROM DeliveryNotes WHERE sale_id =?)', [id_sale]);
+    
+    await pool.query('DELETE FROM DeliveryNotes WHERE sale_id =?', [id_sale]);
+    
+    await pool.query('DELETE FROM Payments WHERE invoice_id IN (SELECT id_invoice FROM Invoices WHERE sale_id =?)', [id_sale]);
+    
+    await pool.query('DELETE FROM Invoices WHERE sale_id =?', [id_sale]);
+    
+    const result = await pool.query('DELETE FROM Sales WHERE id_sale =?', [id_sale]);
 
-  // 5. Eliminar registros en Invoices
-  await pool.query('DELETE FROM Invoices WHERE sale_id = ?', [id_sale]);
+  
+  notFoundError('La venta no ha sido cancelada');
 
-  // 6. Finalmente, eliminar la venta
-  const result = await pool.query('DELETE FROM Sales WHERE id_sale = ?', [
-    id_sale,
-  ]);
 
   if (result.affectedRows === 0) {
     const error = new Error('No se ha podido eliminar la venta.');
     error.code = 'DELETE_SALES_ERROR';
     throw error;
   }
+
 
   return { message: 'Venta eliminada correctamente' };
 };

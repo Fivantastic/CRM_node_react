@@ -91,7 +91,7 @@ export const ShipmentsCrud = () => {
           {filteredShipmentList.map((shipment) => (
             <div key={shipment.id_shipment} id="element_shipment_container" className="main_ilist">
               <div className="shipment-item" onClick={() => handleShipmentClick(shipment.id_shipment)}>
-                <ShipmentList shipment={shipment} />
+                <ShipmentList shipment={shipment} onUpdateShipment={updateShipment} />
               </div>
               <div id="shipment_actions" className="main_actions">
                 <MoreShipments shipment={shipment} key={`more-${shipment.id_shipment}`} />

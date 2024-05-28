@@ -3,11 +3,11 @@ import { updateCustomerSchema } from '../../../Schema/Error/updateSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 const URL = import.meta.env.VITE_URL;
 
-export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
+export const UpdateCustomer = ({ customerData, onUpdateCustomer, token }) => {
   // Aquí hace la petición al servidor
   const handleUpdateCustomerAccion = async (formData) => {
     try {
-      const response = await fetch(`${URL}/customer/${customer}`, {
+      const response = await fetch(`${URL}/customer/${customerData.id_customer}`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
@@ -59,9 +59,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
   // Nombre que se muestra en el botón de submit
   const nameButton = 'Actualizar';
 
-
   // Campos del formulario personalizables
-
   const updateCustomerFormFields = [
     {
       name: 'name',
@@ -71,6 +69,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputNameCustomerCreate`,
       idInputContainer: `inputNameCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.name,
     },
     {
       name: 'last_name',
@@ -80,6 +79,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputLastNameCustomerCreate`,
       idInputContainer: `inputLastNameCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.last_name,
     },
     {
       name: 'email',
@@ -89,6 +89,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputEmailCustomerCreate`,
       idInputContainer: `inputEmailCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.email,
     },
     {
       name: 'phone',
@@ -98,6 +99,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputPhoneCustomerCreate`,
       idInputContainer: `inputPhoneCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.phone,
     },
     {
       name: 'company_name',
@@ -107,6 +109,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputCompanyCustomerCreate`,
       idInputContainer: `inputCompanyCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.company_name,
     },
     {
       name: 'NIF',
@@ -116,6 +119,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputNIFCustomerCreate`,
       idInputContainer: `inputNIFCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.NIF,
     },
     {
       name: 'address',
@@ -125,6 +129,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputAddressCustomerCreate`,
       idInputContainer: `inputAddressCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.address,
     },
     {
       name: 'number',
@@ -134,6 +139,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputNumberCustomerCreate`,
       idInputContainer: `inputNumberCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.number,
     },
     {
       name: 'city',
@@ -143,6 +149,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputCityCustomerCreate`,
       idInputContainer: `inputCityCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.city,
     },
     {
       name: 'zip_code',
@@ -152,6 +159,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputZipCodeCustomerCreate`,
       idInputContainer: `inputZipCodeCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.zip_code,
     },
     {
       name: 'country',
@@ -161,6 +169,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       idInput: `inputCountryCustomerCreate`,
       idInputContainer: `inputCountryCustomerCreateContainer`,
       required: false,
+      defaultValue: customerData.country,
     },
   ];
 
@@ -182,8 +191,8 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
     action:'update',
   }
 
-    return (
-      <DynamicModalWrapper
+  return (
+    <DynamicModalWrapper
       title={title}
       fields={updateCustomerFormFields}
       schema={updateCustomerSchema}
@@ -193,7 +202,7 @@ export const UpdateCustomer = ({ customer, onUpdateCustomer, token, }) => {
       StyleButton={StyleButton}
       customModalSize={customModalSize}
       StyleAcceptBtn={StyleAcceptBtn}
+      initialValues={customerData}
     />
-    );
-  };
-
+  );
+};

@@ -84,6 +84,7 @@ export const ProductPage = () => {
                     <UpdateProduct
                       id={product.id_product}
                       onUpdateProduct={updateProduct}
+                      productData={product}
                     />
                     <DeleteGenericModal
                       id={product.id_product}

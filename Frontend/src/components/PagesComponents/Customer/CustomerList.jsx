@@ -60,7 +60,7 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeMod
           typeModuleMessage={typeModuleMessage}
         />
         <UpdateCustomer
-          customer={customer.id_customer}
+          customerData={customer}
           onUpdateCustomer={updateCustomer}
           token={token}
           typeModuleMessage={typeModuleMessage}

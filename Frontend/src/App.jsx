@@ -17,11 +17,11 @@ import { UserPage } from './pages/UserPage.jsx';
 import { CustomerPage } from './pages/Customer/CustomerPage.jsx';
 import { ProfilePage } from './pages/Others/ProfilePage.jsx';
 import { ProductPage } from './pages/Sales/ProductPage.jsx';
-import './Styles/Pages/GeneralFroms.css';
-import './App.css';
 import { RatingVisit } from './pages/Auth/RatingVisit.jsx';
 import { RatingShipment } from './pages/Auth/RatingShipment.jsx';
-import { RoutesPage } from './pages/Others/RoutesPage.jsx';
+import { RoutesPage } from './components/PagesComponents/Route/RoutesPage.jsx';
+import './Styles/Pages/GeneralFroms.css';
+import './App.css';
 
 
 function App() {

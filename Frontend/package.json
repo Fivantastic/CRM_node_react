@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.4.0",
     "@react-pdf/renderer": "^3.4.4",
+    "file-saver": "^2.0.5",
     "joi": "^17.13.1",
     "jwt-decode": "^4.0.0",
     "prettier": "^3.2.5",
@@ -27,7 +28,8 @@
     "recharts": "^2.12.7",
     "socket.io-client": "^4.7.5",
     "sweetalert2": "^11.6.14",
-    "universal-cookie": "^7.1.4"
+    "universal-cookie": "^7.1.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

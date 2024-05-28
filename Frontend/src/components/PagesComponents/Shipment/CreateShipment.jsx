@@ -1,10 +1,10 @@
 import Swal from 'sweetalert2';
-import { usePendingDeliveryNotes } from '../../../hooks/PagesHooks/usePendingDeliveryNotes';
+import { usePendingDeliveryNotes } from '../../../hooks/selectsHook/usePendingDeliveryNotes.js';
 import { useState } from 'react';
 import { createShipmentSchema } from '../../../Schema/Error/createSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 
-export const CreateShipment = ({ onAddShipment, token }) => {
+export const CreateShipment = ({ onAddShipment, token, typeModule }) => {
   const [reload, setReload] = useState(false);
   const pendingDeliveryNotes = usePendingDeliveryNotes(token, reload);
   const URL = import.meta.env.VITE_URL;
@@ -12,7 +12,7 @@ export const CreateShipment = ({ onAddShipment, token }) => {
 
   const handleShipmentCreatedAction = async (formData) => {
     try {
-      const response = await fetch(`${URL}/shipment/create`, {
+      const response = await fetch(`${URL}/${typeModule}/create`, {
         method: 'POST',
         credentials: 'include',
         headers: {

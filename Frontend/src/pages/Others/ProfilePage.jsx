@@ -65,7 +65,7 @@ export const ProfilePage = () => {
         return 'Desconocido';
     }
   };
-
+  
   return (
     <MainLayout title="Settings">
       <section id="profile_container" className="mainContainer">
@@ -111,7 +111,7 @@ export const ProfilePage = () => {
           <div id="account_settings">
             <h2 id="profile_title-settings">Your settings</h2>
             <div id="profile_settings_container">
-              <ChangeInfo updateinfo={getInfoProfile} />
+              <ChangeInfo updateinfo={getInfoProfile} user={user} />
               <ChangePasswordPop token={token} />
               <ThemeSwicher id="profile_theme-settings" />
               <HelpMe id="profile_help-settings" />

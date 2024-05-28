@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Toast } from '../../components/alerts/Toast.jsx';
 const URL = import.meta.env.VITE_URL;
 
-
 export const useDeliveryList = (token) => {
   const [albaranList, setAlbaranList] = useState([]);
   const [initialAlbaranList, setInitialAlbaranList] = useState([]);
@@ -14,19 +13,19 @@ export const useDeliveryList = (token) => {
   
   useEffect(() => {
     getAlbaranList();
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   useEffect(() => {
     applyFilters(); 
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilters, albaranList]);
 
   useEffect(() => {
     if (filteredAlbaranList.length > 0) {
       sortAlbaranes(filteredAlbaranList);
     }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOption]);
 
   const getAlbaranList = async () => {
@@ -131,21 +130,26 @@ export const useDeliveryList = (token) => {
       case 'ref-desc':
           sortedList.sort((a, b) => b.ref_DN.localeCompare(a.ref_DN));
           break;
-
     }
 
     setFilteredAlbaranList(sortedList);
   };
-
   const addDeliveryNote = async (newDeliveryNote) => {
-    if (!newDeliveryNote.id_note) {
+    if (!newDeliveryNote || !newDeliveryNote.id_note) {
       console.error('El nuevo albarán no tiene id_note:', newDeliveryNote);
       return;
     }
     setFilteredAlbaranList((prevList) => [...prevList, newDeliveryNote]);
-    addDeliveryNote();
+    try {
+      await getAlbaranList();
+    } catch (error) {
+      console.error('Error al sincronizar la lista de albaranes:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al sincronizar la lista de albaranes',
+      });
+    }
   };
-  
 
   const deleteDeliveryNote = async (id_note) => {
     try {

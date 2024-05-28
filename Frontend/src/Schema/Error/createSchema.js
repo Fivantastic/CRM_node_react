@@ -3,8 +3,8 @@ import { joiErrorMessages } from './JoiErrorMesasage.js';
 
 // Esquema para la creación de un nuevo usuario
 export const newUserSchema = Joi.object({
-  name: Joi.string().min(3).max(30).required().messages(joiErrorMessages),
-  last_name: Joi.string().min(3).max(60).optional().messages(joiErrorMessages),
+  name: Joi.string().min(2).max(30).required().messages(joiErrorMessages),
+  last_name: Joi.string().min(2).max(60).optional().messages(joiErrorMessages),
   email: Joi.string().email({ tlds: { allow: false } }).required().messages(joiErrorMessages),
   role: Joi.string().valid('salesAgent', 'deliverer', 'admin').required().messages({
     'any.required': 'El campo rol es requerido.',
@@ -13,10 +13,10 @@ export const newUserSchema = Joi.object({
 });
 
 export const createCustomerSchema = Joi.object({
-  name: Joi.string().min(3).max(30).required().messages(joiErrorMessages),
-  last_name: Joi.string().min(3).max(30).optional().messages(joiErrorMessages),
+  name: Joi.string().min(2).max(30).required().messages(joiErrorMessages),
+  last_name: Joi.string().min(2).max(30).optional().messages(joiErrorMessages),
   email: Joi.string().email({ tlds: false }).required().messages(joiErrorMessages),
-  phone: Joi.string().min(9).max(30).optional().messages(joiErrorMessages),
+  phone: Joi.string().min(6).max(30).optional().messages(joiErrorMessages),
   company_name: Joi.string().max(30).optional().messages(joiErrorMessages),
   NIF: Joi.string().optional().messages(joiErrorMessages),
   address: Joi.string().required().messages(joiErrorMessages),
@@ -35,7 +35,7 @@ export  const newVisitSchema = Joi.object({
 });
 
 export  const newProductSchema = Joi.object({
-  name: Joi.string().required().min(3).max(30).messages(joiErrorMessages),
+  name: Joi.string().required().min(2).max(30).messages(joiErrorMessages),
   price: Joi.string().required().messages(joiErrorMessages),
   stock: Joi.number().required().min(1).max(10000).messages(joiErrorMessages),
   description: Joi.string().optional().messages(joiErrorMessages),

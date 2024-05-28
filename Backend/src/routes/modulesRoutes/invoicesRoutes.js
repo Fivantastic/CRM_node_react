@@ -57,7 +57,7 @@ invoicesRouter.get(
 
 // Obtener facturas sin asignar
 invoicesRouter.get(
-  '/invoices/unasigned-sales', 
+  '/invoice/unasigned-sales', 
   authenticateUser, 
   getUnasignedSalesController
 );

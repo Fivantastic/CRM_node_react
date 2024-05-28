@@ -4,7 +4,7 @@ import { UpdateProductSchema } from '../../../Schema/Error/updateSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 const URL = import.meta.env.VITE_URL;
 
-export const UpdateProduct = ({ id, onUpdateProduct }) => {
+export const UpdateProduct = ({ id, onUpdateProduct, productData }) => {
   const token = useUser();
 
   const handleButtonUpdateProduct = async (formData) => {
@@ -43,7 +43,7 @@ export const UpdateProduct = ({ id, onUpdateProduct }) => {
 
         Toast.fire({
           icon: 'success',
-          title: 'Producto actualizado con exito! ',
+          title: 'Producto actualizado con éxito!',
         });
       } else {
         const errorData = await response.json();
@@ -65,6 +65,7 @@ export const UpdateProduct = ({ id, onUpdateProduct }) => {
       idLabel: 'labelNameProductCreate',
       idInput: 'inputNameProductCreate',
       required: false,
+      defaultValue: productData.name,
     },
     {
       name: 'price',
@@ -73,6 +74,7 @@ export const UpdateProduct = ({ id, onUpdateProduct }) => {
       idLabel: 'labelPriceProductCreate',
       idInput: 'inputPriceProductCreate',
       required: false,
+      defaultValue: productData.price,
     },
     {
       name: 'stock',
@@ -82,28 +84,30 @@ export const UpdateProduct = ({ id, onUpdateProduct }) => {
       idLabel: 'labelStockProductCreate',
       idInput: 'inputStockProductCreate',
       required: false,
+      defaultValue: productData.stock,
     },
     {
       name: 'description',
       label: 'Descripción',
-      type: 'text',
+      type: 'textarea',
       idLabel: 'labelDescriptionProductCreate',
       idInput: 'inputDescriptionProductCreate',
       required: false,
+      defaultValue: productData.description,
     },
   ];
 
   const StyleButton = {
-    action:'update',
-  }
+    action: 'update',
+  };
 
   const StyleAcceptBtn = {
-    idAcceptBtn:'btnAcceptProductUpdate',
-    altImgBtn:'icono actualizar producto',
-    btnSvg:'/AddProductWhite.svg',
-    altAcceptBtn:'Boton actualizar producto',
-    action:'update',
-  }
+    idAcceptBtn: 'btnAcceptProductUpdate',
+    altImgBtn: 'icono actualizar producto',
+    btnSvg: '/AddProductWhite.svg',
+    altAcceptBtn: 'Boton actualizar producto',
+    action: 'update',
+  };
 
   return (
     <DynamicModalWrapper
@@ -115,6 +119,7 @@ export const UpdateProduct = ({ id, onUpdateProduct }) => {
       dynamicIdModal="dynamicFormModal"
       StyleButton={StyleButton}
       StyleAcceptBtn={StyleAcceptBtn}
+      initialValues={productData} // Asegúrate de pasar initialValues aquí
     />
   );
 };

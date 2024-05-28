@@ -1,6 +1,5 @@
 import { getDBPool } from "../../../db/getPool.js";
 
-// Función para obtener una lista de envíos basada en un término de búsqueda
 export const selectShipmentSearchModel = async (search) => {
     const pool = getDBPool();
 
@@ -57,9 +56,8 @@ export const selectShipmentSearchModel = async (search) => {
         WHERE 
             Shipments.ref_SH LIKE ? OR
             Customers.name LIKE ? OR
-            Products.name LIKE ? OR
             Customers.company_name LIKE ?`,
-        [`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`]
+        [`%${search}%`, `%${search}%`, `%${search}%`]
     );
 
     return rows;

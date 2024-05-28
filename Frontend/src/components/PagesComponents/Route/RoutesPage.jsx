@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { useUser } from '../../context/authContext.jsx';
+import { useUser } from '../../../context/authContext.jsx';
 import defaultAvatar from '/profile.svg';
-import shipmentIcon from '../../../public/shipmentRoute.svg';
 import './RoutesPage.css';
-import { MainLayout } from "../../layout/MainLayout.jsx";
+import { MainLayout } from '../../../layout/MainLayout.jsx';
+
 
 const URL = import.meta.env.VITE_URL;
 
@@ -58,7 +58,7 @@ export const RoutesPage = () => {
 
   const getShipments = async () => {
     try {
-      const response = await fetch(`${URL}/shipments/deliverer`, {
+      const response = await fetch(`${URL}/shipment/deliverer`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ export const RoutesPage = () => {
                           filteredShipments.map((shipment) => (
                             <li key={shipment.id_shipment} className="routes_page_envios">
                               <div className="routes_page_envios_info" onClick={() => handlePickupPointClick(shipment.id_shipment)}>
-                                <img src={shipmentIcon} alt="Shipment" className="routes_page_shipment-icon" />
+                                <img src='/shipmentRoute.svg' alt="Shipment" className="routes_page_shipment-icon" />
                                 <div>
                                   <strong>{shipment.customer_name}</strong>
                                   <p>{shipment.delivery_address}</p>

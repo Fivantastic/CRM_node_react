@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { useState } from 'react';
-import { useOpenSales } from '../../../hooks/PagesHooks/useOpenSales.js';
-import { useDeliverers } from '../../../hooks/PagesHooks/useDeliverers.js';
+import { useOpenSales } from '../../../hooks/selectsHook/useOpenSales.js';
+import { useDeliverers } from '../../../hooks/selectsHook/useDeliverers.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 import { deliveryNoteSchema } from '../../../Schema/Error/createSchema.js';
 const URL = import.meta.env.VITE_URL;

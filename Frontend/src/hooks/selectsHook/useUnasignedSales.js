@@ -7,7 +7,7 @@ export const useUnasignedSales = (token, reload) => {
   useEffect(() => {
     const fetchUnasignedSales = async () => {
       try { 
-        const response = await fetch(`${URL}/invoices/unasigned-sales`, {
+        const response = await fetch(`${URL}/invoice/unasigned-sales`, {
           method: 'get',
           headers: {
             'Content-Type': 'application/json',

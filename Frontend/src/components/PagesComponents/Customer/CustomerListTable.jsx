@@ -35,7 +35,7 @@ export const CustomerListTable = ({ customer, updateCustomer, deleteCustomer, ac
                   typeModuleMessage={typeModuleMessage}
                 />
                 <UpdateCustomer
-                  customer={customerItem.id_customer}
+                  customerData={customerItem}
                   onUpdateCustomer={updateCustomer}
                   token={token}
                 />

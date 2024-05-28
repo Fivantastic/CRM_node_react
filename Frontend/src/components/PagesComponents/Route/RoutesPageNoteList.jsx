@@ -1,6 +1,6 @@
-import { useUser } from '../../context/authContext.jsx';
-import { UpdateDelivery } from '../../components/PagesComponents/DeliveryNotes/UpdateDeliveryNote.jsx';
-import { MoreNote } from '../../components/PagesComponents/DeliveryNotes/MoreNote.jsx';
+import { useUser } from '../../../context/authContext.jsx';
+import { UpdateDelivery } from '../DeliveryNotes/UpdateDeliveryNote.jsx';
+import { MoreNote } from '../DeliveryNotes/MoreNote.jsx';
 import './RoutesPage.css';
 
 export const RoutesPageNoteList = ({ notes, onDeliveryNote }) => {

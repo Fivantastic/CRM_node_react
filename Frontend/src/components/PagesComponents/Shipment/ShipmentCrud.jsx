@@ -83,7 +83,7 @@ export const ShipmentsCrud = () => {
     <section id="shipment_container" className="mainContainer">
       <nav id="user_nav" className="mainNav">
         <SearchPages onSearch={handleSearch} />
-        <CreateShipment onAddShipment={addShipment} token={token} />
+        <CreateShipment onAddShipment={addShipment} token={token} typeModule={typeModule} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
         <SortPages options={sortOptions} onSort={handleSortChange} />
         <ToggleMode onClick={() => setIsListView((prev) => !prev)} isListView={isListView} />
@@ -127,23 +127,6 @@ export const ShipmentsCrud = () => {
             onDelete={deleteShipment}
             token={token}
           />
-        </div>
-      )}
-      {selectedShipment && (
-        <div className="popup open" ref={popupRef}>
-          <h6>Detalles del envío</h6>
-          {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment) && (
-            <>
-              <p><strong>Nombre:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.customer_name}</p>
-              <p><strong>Compañía:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.company_name}</p>
-              <p><strong>Dirección:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.delivery_address}</p>
-              <p><strong>NIF:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.NIF}</p>
-              <p><strong>Producto:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.product_name}</p>
-              <p><strong>Cantidad:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.product_quantity}</p>
-              <p><strong>Ciudad:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.address_city}</p>
-              <p><strong>Teléfono:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.customer_phone}</p>
-            </>
-          )}
         </div>
       )}
     </section>

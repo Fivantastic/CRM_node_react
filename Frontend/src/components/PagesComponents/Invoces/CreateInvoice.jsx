@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 import { useState } from 'react';
-import { useUnasignedSales } from '../../../hooks/PagesHooks/useUnasignedSales.js';
+import { useUnasignedSales } from '../../../hooks/selectsHook/useUnasignedSales.js';
 import { createInvoiceSchema } from '../../../Schema/Error/createSchema.js';
 const URL = import.meta.env.VITE_URL;
 

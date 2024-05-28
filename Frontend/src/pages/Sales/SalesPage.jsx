@@ -25,11 +25,11 @@ export const SalesPage = () => {
     typeModuleMessage,
   } = useSalesList(token);
 
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1050);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1080);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsListView(window.innerWidth <= 1050);
+      setIsListView(window.innerWidth <= 1080);
     };
 
     window.addEventListener('resize', handleResize);
@@ -39,19 +39,19 @@ export const SalesPage = () => {
   }, []);
 
   const filterOptions = [
-    { label: 'Procesado', value: 'processing' },
     { label: 'Pendiente', value: 'open' },
-    { label: 'Cancelado', value: 'cancelled' },
-    { label: 'Cerrado ', value: 'closed' },
+    { label: 'En proceso', value: 'processing' },
+    { label: 'Cancelada', value: 'cancelled' },
+    { label: 'Cerrada', value: 'closed' },
   ];
 
   const sortOptions = [
-    { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
-    { label: 'Fecha (Recientes)', value: 'fecha-desc' },
     { label: 'Empresa (A - Z)', value: 'empresa-asc' },
     { label: 'Empresa (Z - A)', value: 'empresa-desc' },
-    { label: 'Ref (A - Z)', value: 'ref-asc' },
-    { label: 'Ref (Z - A)', value: 'ref-desc' },
+    { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
+    { label: 'Fecha (Recientes)', value: 'fecha-desc' },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
+    { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
 
   return (
@@ -66,12 +66,12 @@ export const SalesPage = () => {
         </nav>
         {isListView ? (
           <ol id="sales_list" className="main_olist">
-            {filteredSalesList.map((data) => {
-              return (
+            {filteredSalesList.length > 0 ? (
+              filteredSalesList.map((data) => (
                 <li
                   key={data.id_sale}
                   id="element_sale_container"
-                  className=" main_ilist"
+                  className="main_ilist"
                 >
                   <SalesList
                     sale={data}
@@ -81,8 +81,10 @@ export const SalesPage = () => {
                     typeModuleMessage={typeModuleMessage}
                   />
                 </li>
-              );
-            })}
+              ))
+            ) : (
+              <div className="noResult">No hay ventas disponibles</div>
+            )}
           </ol>
         ) : (
           <SalesListTable sale={filteredSalesList} onUpdateSale={updateSale} onDelete={deleteSale} />

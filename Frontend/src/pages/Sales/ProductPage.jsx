@@ -28,11 +28,11 @@ export const ProductPage = () => {
     typeModule,
     typeModuleMessage,
   } = useProductList(token);
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 860);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1060);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsListView(window.innerWidth <= 860);
+      setIsListView(window.innerWidth <= 1060);
     };
 
     window.addEventListener('resize', handleResize);
@@ -51,6 +51,8 @@ export const ProductPage = () => {
     { label: "Nombre (Z - A)", value: "nombre-desc" },
     { label: "Fecha (Antiguos)", value: "fecha-asc" },
     { label: "Fecha (Recientes)", value: "fecha-desc" },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
+    { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
 
   return (
@@ -65,37 +67,49 @@ export const ProductPage = () => {
         </nav>
         {isListView ? (
           <ol id="product_list" className="main_olist">
-            {filteredProductList.map((product) => (
-              <li key={product.id_product} id="element_product_container" className="main_ilist">
-                <ProductList product={product} activeProduct={activeProduct} />
-                <span id="product_actions" className="main_actions">
-                  <MoreProduct product={product} />
-                  <StatusProductController
-                    id={product.id_product}
-                    isActive={product.active}
-                    activeProduct={activeProduct}
-                    token={token}
-                    typeModule={typeModule}
-                    typeModuleMessage={typeModuleMessage}
-                  />
-                  <UpdateProduct
-                    id={product.id_product}
-                    onUpdateProduct={updateProduct}
-                  />
-                  <DeleteGenericModal
-                    id={product.id_product}
-                    onDelete={deleteProduct}
-                    token={token}
-                    typeModule={typeModule}
-                    typeModuleMessage={typeModuleMessage}
-                  />
-                </span>
-              </li>
-            ))}
+            {filteredProductList.length > 0 ? (
+              filteredProductList.map((product) => (
+                <li key={product.id_product} id="element_product_container" className="main_ilist">
+                  <ProductList product={product} activeProduct={activeProduct} />
+                  <span id="product_actions" className="main_actions">
+                    <MoreProduct product={product} />
+                    <StatusProductController
+                      id={product.id_product}
+                      isActive={product.active}
+                      activeProduct={activeProduct}
+                      token={token}
+                      typeModule={typeModule}
+                      typeModuleMessage={typeModuleMessage}
+                    />
+                    <UpdateProduct
+                      id={product.id_product}
+                      onUpdateProduct={updateProduct}
+                    />
+                    <DeleteGenericModal
+                      id={product.id_product}
+                      onDelete={deleteProduct}
+                      token={token}
+                      typeModule={typeModule}
+                      typeModuleMessage={typeModuleMessage}
+                    />
+                  </span>
+                </li>
+              ))
+            ) : (
+              <div className="noResult">No hay productos disponibles</div>
+            )}
           </ol>
         ) : (
-          <ProductListTable product={filteredProductList} onUpdateProduct={updateProduct} onDelete={deleteProduct} isActive={activeProduct} typeModule={typeModule}  typeModuleMessage={typeModuleMessage} />
+          <ProductListTable
+            product={filteredProductList}
+            onUpdateProduct={updateProduct}
+            onDelete={deleteProduct}
+            isActive={activeProduct}
+            typeModule={typeModule}
+            typeModuleMessage={typeModuleMessage}
+          />
         )}
+
       </section>
     </MainLayout>
   );

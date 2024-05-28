@@ -43,10 +43,10 @@ export const PaymentPage = () => {
   const sortOptions = [
     { label: "Importe (Asc)", value: "importe-asc" },
     { label: "Importe (Desc)", value: "importe-desc" },
-    { label: "Referencia (A - Z)", value: "ref-asc" },
-    { label: "Referencia (Z -A)", value: "ref-desc" },
     { label: "Fecha (A - Z)", value: "fecha-asc" },
-    { label: "fecha (Z -A)", value: "fecha-desc" }
+    { label: "fecha (Z -A)", value: "fecha-desc" },
+    { label: "Ref (ASC)", value: "ref-asc" },
+    { label: "Ref (DSC)", value: "ref-desc" },
   ];
 
   return (
@@ -60,22 +60,25 @@ export const PaymentPage = () => {
         <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView}  />
         </nav>
         {isListView ? (
-        <ol id='payments_list' className="main_olist">
-          {filteredList.map((data) => {
-            return (
-              <li
-                key={data.id_payment}
-                id='element_payment_content'
-                className="main_ilist"
-              >
-                <PaymentsList 
-                  payment={data} 
-                  handleNewPaymentStatus={handleNewPaymentStatus}
-                  token={token} />
-              </li>
-            );
-          })}
-        </ol>
+          <ol id="payments_list" className="main_olist">
+            {filteredList.length > 0 ? (
+              filteredList.map((data) => (
+                <li
+                  key={data.id_payment}
+                  id="element_payment_content"
+                  className="main_ilist"
+                >
+                  <PaymentsList 
+                    payment={data} 
+                    handleNewPaymentStatus={handleNewPaymentStatus}
+                    token={token} 
+                  />
+                </li>
+              ))
+            ) : (
+              <div className="noResult">No hay pagos disponibles</div>
+            )}
+          </ol>
         ) : (
           <PaymentsListTable payments={filteredList} onUpdatePayment={handleNewPaymentStatus} />
         )}

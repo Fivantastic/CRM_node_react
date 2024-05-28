@@ -59,6 +59,7 @@ export const customStyles = {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected ? '#f5f5f5' : state.isFocused ? '#e6e6e6' : 'white',
+      fontSize: '14px',
       cursor: 'pointer',
       color: 'black',
       '&:hover': {

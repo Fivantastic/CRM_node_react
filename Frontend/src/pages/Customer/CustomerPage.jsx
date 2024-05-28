@@ -49,8 +49,8 @@ export const CustomerPage = () => {
   const sortOptions = [
     { label: "Nombre (A - Z)", value: "nombre-asc" },
     { label: "Nombre (Z - A)", value: "nombre-desc" },
-    { label: "Fecha (Antiguos)", value: "fecha-asc" },
-    { label: "Fecha (Recientes)", value: "fecha-desc" },
+    { label: "Ref (ASC)", value: "ref-asc" },
+    { label: "Ref (DSC)", value: "ref-desc" },
   ];
 
   return (
@@ -65,18 +65,22 @@ export const CustomerPage = () => {
         </nav>
         {isListView ? (
           <ol id="customer_list" className="main_olist">
-            {filteredCustomerList.map(customer => (
-              <li key={customer.id_customer} id="element_customer_container">
-                <CustomerList
-                  customer={customer}
-                  updateCustomer={updateCustomer}
-                  deleteCustomer={deleteCustomer}
-                  activeCustomer={activeCustomer}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
-                />
-              </li>
-            ))}
+            {filteredCustomerList.length > 0 ? (
+              filteredCustomerList.map(customer => (
+                <li key={customer.id_customer} id="element_customer_container">
+                  <CustomerList
+                    customer={customer}
+                    updateCustomer={updateCustomer}
+                    deleteCustomer={deleteCustomer}
+                    activeCustomer={activeCustomer}
+                    typeModule={typeModule}
+                    typeModuleMessage={typeModuleMessage}
+                  />
+                </li>
+              ))
+            ) : (
+              <div className="noResult">No hay listas disponibles</div>
+            )}
           </ol>
         ) : (
           <CustomerListTable

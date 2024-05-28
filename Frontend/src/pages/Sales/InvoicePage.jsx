@@ -37,7 +37,7 @@ export const InvoicePage = () => {
     { label: 'Enviada', value: 'sent' },
     { label: 'Pendiente', value: 'pending' },
     { label: 'Pago parcial', value: 'partially_paid' },
-    { label: 'Atrasada', value: 'overdue' },
+    { label: 'Vencida', value: 'overdue' },
     { label: 'Pagada', value: 'paid' },
     { label: 'Reclamada', value: 'disputed' },
     { label: 'Reembolsada', value: 'refunded' },
@@ -45,14 +45,12 @@ export const InvoicePage = () => {
   ];
 
   const sortOptions = [ 
-    { label: "Referencia (A - Z)", value: "ref-asc" },
-    { label: "Referencia (Z - A)", value: "ref-desc" },
     { label: "Comercial (A - Z)", value: "comercial-asc" },
     { label: "Comercial (Z - A)", value: "comercial-desc" },
     { label: "Vencimiento (Próximos)", value: "fecha-desc" },
     { label: "Vencimiento (Útlimos)", value: "fecha-asc" },
-    { label: "Estado (A - Z)", value: "status-asc" },
-    { label: "Estado (Z - A)", value: "status-desc" },
+    { label: "Ref (ASC)", value: "ref-asc" },
+    { label: "Ref (DSC)", value: "ref-desc" },
   ];
   
   return (
@@ -66,26 +64,29 @@ export const InvoicePage = () => {
         <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
-        <ol id="invoice_list" className=" main_olist">
-          {filteredList.map((data) => {
-            return (
-              <li
-                key={data.id_invoice}
-                id="element_invoice_container"
-                className=" main_ilist"
-              >
-                <InvoicesList 
-                  invoice={data} 
-                  handleNewInvoiceStatus={updateInvoice}
-                  token={token}
-                />
-              </li>
-            );
-          })}
-        </ol>
+          <ol id="invoice_list" className="main_olist">
+            {filteredList.length > 0 ? (
+              filteredList.map((data) => (
+                <li
+                  key={data.id_invoice}
+                  id="element_invoice_container"
+                  className="main_ilist"
+                >
+                  <InvoicesList 
+                    invoice={data} 
+                    handleNewInvoiceStatus={updateInvoice}
+                    token={token}
+                  />
+                </li>
+              ))
+            ) : (
+              <div className="noResult">No hay listas disponibles</div>
+            )}
+          </ol>
         ) : (
           <InvoicesListTable invoices={filteredList} onUpdate={updateInvoice} />
         )}
+
       </section>
     </MainLayout>
   );

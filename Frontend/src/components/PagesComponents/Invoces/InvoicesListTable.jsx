@@ -45,7 +45,6 @@ export const InvoicesListTable = ({invoices, onUpdate }) => {
     }  
   }
 
-  
   return (
     <section id="invoices_table" className='invoicesTable'>
       <div id="invoicesTableHead">
@@ -57,14 +56,12 @@ export const InvoicesListTable = ({invoices, onUpdate }) => {
         <div id="invoicesTableHeadRowActions">Acciones</div>
       </div>
       <div id="invoicesTableBody">
-        {invoices.length > 0 &&
+        {invoices && invoices.length > 0 ? (
           invoices.map((invoice) => {
-
-
             const dueDate = getNormalizedDate(invoice.due_date);
             const creationDate = getNormalizedDate(invoice.creation_at);
-            const invoiceStatus = traducirEstadoFactura(invoice.invoice_status)
-            const invoiceMethod = traducirMetodoPago(invoice.payment_method)          
+            const invoiceStatus = traducirEstadoFactura(invoice.invoice_status);
+            const invoiceMethod = traducirMetodoPago(invoice.payment_method);
             
             const moreInfoFields = [
               { label: 'Ref. Factura', value: invoice.ref_IN },
@@ -86,30 +83,33 @@ export const InvoicesListTable = ({invoices, onUpdate }) => {
               { label: 'Fecha De Creación', value: creationDate.toLocaleDateString() }
             ];
             
-            return(
-            <div key={invoice.id_invoice} className="invoicesTableBodyRow">
-              <div className="invoicesTableBodyRowRef">{invoice.ref_IN}</div>
-              <div className="invoicesTableBodyRowRefSales">{invoice.ref_SL}</div>
-              <div className="invoicesTableBodyPrice"><strong>{invoice.total_price}</strong> €</div>
-              <div className='invoicesTavleBodyRowDate'>
-              {dueDate.toLocaleDateString()}
-              </div>
-              <div className="invoicesTableBodyRowEstatus"style={{color:invoiceStatus.color}}>
-              {invoiceStatus.text}
-              </div>
-              <div className="invoicesTableBodyRowActions">
-                <MoreInfo fields={moreInfoFields} modalIds={[]} />
-                <ClosedInvoice
+            return (
+              <div key={invoice.id_invoice} className="invoicesTableBodyRow">
+                <div className="invoicesTableBodyRowRef">{invoice.ref_IN}</div>
+                <div className="invoicesTableBodyRowRefSales">{invoice.ref_SL}</div>
+                <div className="invoicesTableBodyPrice"><strong>{invoice.total_price}</strong> €</div>
+                <div className='invoicesTavleBodyRowDate'>
+                  {dueDate.toLocaleDateString()}
+                </div>
+                <div className="invoicesTableBodyRowEstatus" style={{color:invoiceStatus.color}}>
+                  {invoiceStatus.text}
+                </div>
+                <div className="invoicesTableBodyRowActions">
+                  <MoreInfo fields={moreInfoFields} modalIds={[]} />
+                  <ClosedInvoice
                     onUpdateInvoice={onUpdate}
                     invoice={invoice.id_invoice}
                     token={token}
-                />
+                  />
+                </div>
               </div>
-            </div>
-            )
+            );
           })
-        }
+        ) : (
+          <div className="noResult">No hay facturas disponibles</div>
+        )}
       </div>
     </section>
   );
+  
 };

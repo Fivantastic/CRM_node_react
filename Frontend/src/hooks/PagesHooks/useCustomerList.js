@@ -129,10 +129,10 @@ export const useCustomerList = (token) => {
       case 'nombre-desc':
         sortedList.sort((a, b) => b.company_name.localeCompare(a.company_name));
         break;
-      case 'fecha-asc':
+      case 'ref-asc':
         sortedList.sort((a, b) => a.ref_CT.localeCompare(b.ref_CT));
         break;
-      case 'fecha-desc':
+      case 'ref-desc':
         sortedList.sort((a, b) => b.ref_CT.localeCompare(a.ref_CT));
         break;
       default:
@@ -167,18 +167,21 @@ export const useCustomerList = (token) => {
     }
   };
 
-  const updateCustomer = (updatedCustomer) => {
+  const updateCustomer = async (updatedCustomer) => {
     setListCustomer((prevList) =>
       prevList.map((customer) =>
         customer.id_customer === updatedCustomer.id_customer ? { ...customer, ...updatedCustomer } : customer
-      )
+      ) 
+      
     );
+    
     
     setFilteredCustomerList((prevList) =>
       prevList.map((customer) =>
         customer.id_customer === updatedCustomer.id_customer ? { ...customer, ...updatedCustomer } : customer
       )
     );
+    await getCustomerList();
   };
 
   const activeCustomer = (id_customer) => {

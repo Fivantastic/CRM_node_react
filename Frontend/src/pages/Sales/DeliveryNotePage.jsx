@@ -28,11 +28,11 @@ export const DeliveryNotePage = () => {
     updateDeleveryNotes,
   } = useDeliveryList(token);
 
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1200);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1205);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsListView(window.innerWidth <= 1200);
+      setIsListView(window.innerWidth <= 1205);
     };
 
     window.addEventListener('resize', handleResize);
@@ -50,8 +50,12 @@ export const DeliveryNotePage = () => {
   ];
 
   const sortOptions = [
+    { label: 'Nombre (A - Z)', value: 'nombre-asc' },
+    { label: 'Nombre (Z - A)', value: 'nombre-desc' },
     { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
     { label: 'Fecha (Recientes)', value: 'fecha-desc' },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
+    { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
 
   return (
@@ -65,32 +69,41 @@ export const DeliveryNotePage = () => {
           <ToggleMode onClick={() => setIsListView((prev) => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
-          <ol id='note_list' className="main_olist">
-            {filteredAlbaranList.map((note) => (
-              <li key={note.id_note} id="element_note_container" className="main_ilist">
-                <DeliveryNoteList deliveryNote={note} />
-                <span id="note_actions" className="main_actions">
-                  <MoreNote note={note} />
-                  <UpdateDelivery
-                    deliveryNote={note.id_note}
-                    onDeliveryNote={updateDeleveryNotes}
-                    token={token}
-                    typeModule={typeModule}
-                  />
-                  <DeleteGenericModal
-                    id={note.id_note} // Asegúrate de pasar el ID correcto
-                    onDelete={deleteDeliveryNote}
-                    token={token}
-                    typeModule={typeModule}
-                    typeModuleMessage={typeModuleMessage}
-                  />
-                </span>
-              </li>
-            ))}
+          <ol id="note_list" className="main_olist">
+            {filteredAlbaranList.length > 0 ? (
+              filteredAlbaranList.map((note) => (
+                <li key={note.id_note} id="element_note_container" className="main_ilist">
+                  <DeliveryNoteList deliveryNote={note} />
+                  <span id="note_actions" className="main_actions">
+                    <MoreNote note={note} />
+                    <UpdateDelivery
+                      deliveryNote={note.id_note}
+                      onDeliveryNote={updateDeleveryNotes}
+                      token={token}
+                      typeModule={typeModule}
+                    />
+                    <DeleteGenericModal
+                      id={note.id_note}
+                      onDelete={deleteDeliveryNote}
+                      token={token}
+                      typeModule={typeModule}
+                      typeModuleMessage={typeModuleMessage}
+                    />
+                  </span>
+                </li>
+              ))
+            ) : (
+              <div className="noResult">No hay albaranes disponibles</div>
+            )}
           </ol>
         ) : (
-          <NoteListTable note={filteredAlbaranList} onDeliveryNote={updateDeleveryNotes} onDelete={deleteDeliveryNote} />
+          <NoteListTable
+            note={filteredAlbaranList}
+            onDeliveryNote={updateDeleveryNotes}
+            onDelete={deleteDeliveryNote}
+          />
         )}
+
       </section>
     </MainLayout>
   );

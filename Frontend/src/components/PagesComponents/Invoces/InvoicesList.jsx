@@ -14,8 +14,10 @@ export const InvoicesList = ({
     switch (estado) {
       case 'pending':
         return { text: 'Pendiente', color: 'blue' };
+      case 'processing':
+        return { text: 'En proceso', color: 'orange' };
       case 'partially_paid':
-      return { text: 'Pago Parcial', color: 'blue' };
+        return { text: 'Pago Parcial', color: 'blue' };
       case 'overdue':
         return { text: 'Vencida', color: 'orange' };
       case 'paid':
@@ -28,7 +30,9 @@ export const InvoicesList = ({
         return { text: 'Reclamada', color: 'black' };
       case 'sent':
         return { text: 'Enviada', color: 'black' };
-   }
+      default:
+        return { text: 'Desconocido', color: 'black' };
+    }
   };
 
   const traducirMetodoPago = (metodo) => {
@@ -44,9 +48,8 @@ export const InvoicesList = ({
     }  
   }
     
-
-  const invoiceStatus = traducirEstadoFactura(invoice.invoice_status)
-  const invoiceMethod = traducirMetodoPago(invoice.payment_method)
+  const invoiceStatus = traducirEstadoFactura(invoice.invoice_status);
+  const invoiceMethod = traducirMetodoPago(invoice.payment_method);
 
   const moreInfoFields = [
     { label: 'Ref. Factura', value: invoice.ref_IN },
@@ -68,7 +71,6 @@ export const InvoicesList = ({
     { label: 'Fecha De Creación', value: creationDate.toLocaleDateString() }
   ];
   
-
   return (
       <>
         <div id="element_customer_subtitle" className="mainInsideSub">

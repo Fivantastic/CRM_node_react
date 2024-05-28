@@ -1,12 +1,14 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import DynamicForm from '../../components/forms/DynamicForm.jsx';
 import { InitialLayout } from '../../layout/InitialLayout.jsx';
 import { resetPasswordUserSchema } from '../../Schema/Error/AuthSchema.js';
 import { NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const URL = import.meta.env.VITE_URL;
 
 export const ResetPassword = () => {
   const { registration_code } = useParams();
+  const navigate = useNavigate();
 
   const handleResetPasswordSubmit = async (data) => {
     try {
@@ -27,6 +29,24 @@ export const ResetPassword = () => {
         const responseData = await response.json();
         console.log('Contraseña cambiada con exito:', responseData);
         // redireccionar a la página principal
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+              navigate('/login');
+          },
+      });
+
+      Toast.fire({
+          icon: 'success',
+          title: 'Password restablecido!',
+      });
       } else {
         const errorData = await response.json();
         console.error('Restablecer contraseña a fallado:', errorData);

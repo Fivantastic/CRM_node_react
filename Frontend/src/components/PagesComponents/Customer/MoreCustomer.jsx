@@ -6,8 +6,8 @@ export const MoreCustomer = ({ customer }) => {
   const nameComplete = `${customer.name} ${customer.last_name}`;
 
   // Si active es 1 que ponga activo si es 0 que muestre inactivo
-  const active = customer.active === 1 ? 'Activo' : 'Inactivo';
-  const activeColor = customer.active === 1 ? 'green' : 'red';
+  const active = customer.active  ? 'Activo' : 'Inactivo';
+  const activeColor = customer.active  ? 'green' : 'red';
 //   const activeClass = customer.active ? 'active' : 'inactive';
 
   // Construye el contenido del modal con la información del usuario

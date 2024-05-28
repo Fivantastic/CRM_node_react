@@ -4,7 +4,7 @@ export const updateStatusSaleService = async (id, newStatus) => {
   const pool = await getDBPool();
 
   const [result] = await pool.query(
-    `UPDATE Sales SET status = ? WHERE id_sale = ?`,
+    `UPDATE Sales SET operation_status = ? WHERE id_sale = ?`,
     [newStatus, id]
   );
   return result;

@@ -134,9 +134,15 @@ export const useProductList = (token) => {
         sortedList.sort((a, b) => b.name.localeCompare(a.name));
         break;
       case 'fecha-asc':
-        sortedList.sort((a, b) => a.ref_PR.localeCompare(b.ref_PR));
+        sortedList.sort((a, b) => a.creation_at.localeCompare(b.creation_at));
         break;
       case 'fecha-desc':
+        sortedList.sort((a, b) => b.creation_at.localeCompare(a.creation_at));
+        break;
+      case 'ref-asc':
+          sortedList.sort((a, b) => a.ref_PR.localeCompare(b.ref_PR));
+        break;
+      case 'ref-desc':
         sortedList.sort((a, b) => b.ref_PR.localeCompare(a.ref_PR));
         break;
       default:

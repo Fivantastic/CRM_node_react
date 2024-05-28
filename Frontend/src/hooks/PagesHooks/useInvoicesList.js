@@ -147,31 +147,26 @@ const [invoicesList, setInvoicesList] = useState([]);
 
       // crear la lista
     let sortedList = [...list];
+    console.log(sortedList);
     switch (sortOption) {
-      case 'ref-asc':
-        sortedList.sort((a, b) => a.ref_IN.localeCompare(b.ref_IN));
-        break;
-      case 'ref-desc':
-        sortedList.sort((a, b) => b.ref_IN.localeCompare(a.ref_IN));
-        break;
       case 'comercial-asc':
         sortedList.sort((a, b) => a.agent_name.localeCompare(b.agent_name));
         break;
-      case 'comercial-desc':
-        sortedList.sort((a, b) => b.agent_name.localeCompare(a.agent_name));
-        break;
-      case 'fecha-asc':
-        sortedList.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
-        break;
-      case 'fecha-desc':
-        sortedList.sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
-        break;
-      case 'status-asc':
-        sortedList.sort((a, b) => a.invoice_status.localeCompare(b.invoice_status));
-        break;
-      case 'status-desc':
-        sortedList.sort((a, b) => b.invoice_status.localeCompare(a.invoice_status));
-        break;
+        case 'comercial-desc':
+          sortedList.sort((a, b) => b.agent_name.localeCompare(a.agent_name));
+          break;
+          case 'fecha-asc':
+            sortedList.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+            break;
+          case 'fecha-desc':
+              sortedList.sort((a, b) => new Date(b.due_date) - new Date(a.due_date));
+            break;
+          case 'ref-asc':
+                sortedList.sort((a, b) => a.ref_IN.localeCompare(b.ref_IN));
+            break;
+          case 'ref-desc':
+                sortedList.sort((a, b) => b.ref_IN.localeCompare(a.ref_IN));
+            break;
       default:
         break;
 

@@ -5,43 +5,66 @@ export const updateCustomerModel = async (
 ) => {
   const pool = await getDBPool();
 
-  const fieldsToUpdate = [];
-  const values = [];
+  const customerFieldsToUpdate = [];
+  const addressFieldsToUpdate = [];
+  const customerValues = [];
+  const addressValues = [];
 
-  const addToUpdate = (field, value) => {
+  const addToUpdate = (field, value, targetArray, valuesArray) => {
     if (value !== undefined && value !== null) {
-      fieldsToUpdate.push(`${field} = ?`);
-      values.push(value);
+      targetArray.push(`${field} = ?`);
+      valuesArray.push(value);
     }
   };
 
-  addToUpdate('name', name);
-  addToUpdate('last_name', last_name);
-  addToUpdate('email', email);
-  addToUpdate('phone', phone);
-  addToUpdate('company_name', company_name);
-  addToUpdate('NIF', NIF);
-  addToUpdate('address', address);
-  addToUpdate('number', number);
-  addToUpdate('city', city);
-  addToUpdate('zip_code', zip_code);
-  addToUpdate('country', country);
+  // Añadir campos
+  addToUpdate('name', name, customerFieldsToUpdate, customerValues);
+  addToUpdate('last_name', last_name, customerFieldsToUpdate, customerValues);
+  addToUpdate('email', email, customerFieldsToUpdate, customerValues);
+  addToUpdate('phone', phone, customerFieldsToUpdate, customerValues);
+  addToUpdate('company_name', company_name, customerFieldsToUpdate, customerValues);
+  addToUpdate('NIF', NIF, customerFieldsToUpdate, customerValues);
 
-  if (fieldsToUpdate.length === 0) return {};
+  addToUpdate('address', address, addressFieldsToUpdate, addressValues);
+  addToUpdate('number', number, addressFieldsToUpdate, addressValues);
+  addToUpdate('city', city, addressFieldsToUpdate, addressValues);
+  addToUpdate('zip_code', zip_code, addressFieldsToUpdate, addressValues);
+  addToUpdate('country', country, addressFieldsToUpdate, addressValues);
 
-  const query = `UPDATE Customers SET ${fieldsToUpdate.join(', ')} WHERE id_customer = ?`;
-  values.push(customerId);
+  if (customerFieldsToUpdate.length === 0 && addressFieldsToUpdate.length === 0) return {};
 
-  const [result] = await pool.query(query, values);
+  // Update de cliente
+  if (customerFieldsToUpdate.length > 0) {
+    const customerQuery = `UPDATE Customers SET ${customerFieldsToUpdate.join(', ')} WHERE id_customer = ?`;
+    customerValues.push(customerId);
+    const [customerResult] = await pool.query(customerQuery, customerValues);
 
-  // Si no se ha actualizado ningún cliente, lanzar un error.
-  if (result.affectedRows === 0) {
-    const error = new Error('No se ha podido actualizar el cliente');
-    error.httpStatus = 500;
-    error.code = 'UPDATE_CUSTOMER_ERROR';
-    throw error;
+    if (customerResult.affectedRows === 0) {
+      const error = new Error('No se ha podido actualizar el cliente');
+      error.httpStatus = 500;
+      error.code = 'UPDATE_CUSTOMER_ERROR';
+      throw error;
+    }
+  }
+
+  // Update de direcciones
+  if (addressFieldsToUpdate.length > 0) {
+    const addressIdQuery = `SELECT address_id FROM Customers WHERE id_customer = ?`;
+    const [addressIdResult] = await pool.query(addressIdQuery, [customerId]);
+    const addressId = addressIdResult[0].address_id;
+
+    const addressQuery = `UPDATE Addresses SET ${addressFieldsToUpdate.join(', ')} WHERE id_address = ?`;
+    addressValues.push(addressId);
+    const [addressResult] = await pool.query(addressQuery, addressValues);
+
+    if (addressResult.affectedRows === 0) {
+      const error = new Error('No se ha podido actualizar la dirección');
+      error.httpStatus = 500;
+      error.code = 'UPDATE_ADDRESS_ERROR';
+      throw error;
+    }
   }
 
   // Devolver el resultado.
-  return { message: 'Cliente actualizado correctamente' };
+  return { message: 'Cliente y dirección actualizados correctamente' };
 };

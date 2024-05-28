@@ -155,10 +155,10 @@ const [paymentsList, setPaymentsList] = useState([]);
         break;
       case 'fecha-asc':
       sortedList.sort( (a, b) => a.create_at.localeCompare(b.create_at));
-      break;
+        break;
       case 'fecha-desc':
       sortedList.sort((a, b) => b.create_at.localeCompare(a.create_at));
-      break;
+        break;
       default:
         break;
 
@@ -168,12 +168,13 @@ const [paymentsList, setPaymentsList] = useState([]);
   }
 
   // Añadir
-  const addPayment = (newPayment) => {
+  const addPayment = async (newPayment) => {
     try {
       setPaymentsList((prevPayment) => {
         console.log('Nuevo payment:', newPayment);
         return [...prevPayment, newPayment];
       }) 
+      await getPaymentsList();
     }catch (error){
       console.error('Error al crear el pago', error);
       Toast.fire({

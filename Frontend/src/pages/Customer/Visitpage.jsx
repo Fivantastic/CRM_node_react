@@ -48,6 +48,8 @@ export const Visitpage = () => {
     { label: 'Nombre (Z - A)', value: 'nombre-desc' },
     { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
     { label: 'Fecha (Recientes)', value: 'fecha-desc' },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
+    { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
 
   return (
@@ -61,14 +63,13 @@ export const Visitpage = () => {
           <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView}  />
         </nav>
         {isListView ? (
-        
           <ol id="visit_list" className="main_olist">
-            {filteredVisitList.map((visit) => {
-              return (
+            {filteredVisitList.length > 0 ? (
+              filteredVisitList.map((visit) => (
                 <li
                   key={visit.id_visit}
                   id="element_visit_container"
-                  className=" main_ilist"
+                  className="main_ilist"
                 >
                   <VisitsList
                     visit={visit}
@@ -79,12 +80,20 @@ export const Visitpage = () => {
                     token={token}
                   />
                 </li>
-              );
-            })}
+              ))
+            ) : (
+              <div className="noResult">No hay visitas disponibles</div>
+            )}
           </ol>
         ) : (
-          <VisitListTable visit={filteredVisitList} onUpdateVisit={updateVisit} onDelete={deleteVisit} token={token} />
+          <VisitListTable
+            visit={filteredVisitList}
+            onUpdateVisit={updateVisit}
+            onDelete={deleteVisit}
+            token={token}
+          />
         )}
+
       </section>
     </MainLayout>
   );

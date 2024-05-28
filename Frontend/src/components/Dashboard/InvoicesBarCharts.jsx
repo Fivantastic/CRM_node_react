@@ -36,6 +36,7 @@ export const InvoicesBarCharts = () => {
 
         // Actualizar el estado con los datos obtenidos
         setInvoiceList(responseData.data);
+        setLoading(false); //
       } else {
         const errorData = await response.json();
         console.error('Obetener fallido:', errorData);
@@ -47,10 +48,7 @@ export const InvoicesBarCharts = () => {
 
   useEffect(() => {
     getInvoicesList();
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   useEffect(() => {

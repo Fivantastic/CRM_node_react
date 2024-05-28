@@ -113,10 +113,16 @@ const useShipmentList = (token) => {
 
     switch (sortOption) {
       case 'fecha-asc':
-        sortedList.sort((a, b) => new Date(a.shipment_create_at) - new Date(b.shipment_create_at));
+        sortedList.sort((a, b) => new Date(a.delivery_date) - new Date(b.delivery_date));
         break;
       case 'fecha-desc':
-        sortedList.sort((a, b) => new Date(b.shipment_create_at) - new Date(a.shipment_create_at));
+        sortedList.sort((a, b) => new Date(b.delivery_date) - new Date(a.delivery_date));
+        break;
+        case 'ref-asc':
+        sortedList.sort((a, b) => a.ref_SH.localeCompare(b.ref_SH));
+        break;
+      case 'ref-desc':
+        sortedList.sort((a, b) => b.ref_SH.localeCompare(a.ref_SH));
         break;
     }
 

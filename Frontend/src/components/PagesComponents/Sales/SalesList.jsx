@@ -1,5 +1,6 @@
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { PencilBroken } from '../../../assets/creado/PencilBroken.jsx';
+import { Pending } from '../../../assets/creado/Pending.jsx';
 import { useUser } from '../../../context/authContext.jsx';
 import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 import { ToggleSalesStatusButton } from '../../buttons/StatesBtn/ToggleSalesStatusButton.jsx';
@@ -13,7 +14,7 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
   const traducirEstadoVenta = (estado) => {
     switch (estado) {
       case "processing":
-        return { text: "Procesando", color: "orange"}
+        return { text: "En proceso", color: "orange"}
       case 'open':
         return { text: 'Pendiente', color: 'blue' };
       case 'cancelled':
@@ -26,6 +27,7 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
   };
 
   const statusSale = traducirEstadoVenta(sale.operation_status);
+
   // Concatena el nombre y los apellidos del cliente
   const nameComplete = `${sale.customer} ${sale.customer_lastname}`;
 
@@ -64,12 +66,14 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
       </p>
       <span id="sales_actions_list" className="main_actions">
         <MoreInfo fields={moreInfoFields} modalIds={[]} />
-        <ToggleSalesStatusButton
-          id={sale.id_sale}
-          currentStatus={sale.operation_status}
-          onUpdateSale={onUpdateSale}
-          token={token}
-        />
+        {sale.operation_status === 'open'? ( <Pending /> ) : (
+          <ToggleSalesStatusButton
+            id={sale.id_sale}
+            currentStatus={sale.operation_status}
+            onUpdateSale={onUpdateSale}
+            token={token}
+            /> 
+        )}
         {sale.operation_status === 'closed'? (
           <PencilBroken  />
         ) : sale.operation_status === 'cancelled'? (

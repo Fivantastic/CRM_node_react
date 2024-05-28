@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { CustomModal } from './CustomModal';
 import { customStyles } from './customStyle.js';
-import MenuConRetraso from './MenuConRetraso'; // Importa el componente de menú personalizado
+import MenuConRetraso from './MenuConRetraso';
+import { EyePassword } from '../buttons/Profile/EyePasword.jsx';
 import './DynamicFormModal.css';
 
 export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues = {}, resetFormValues, customModalSize, StyleAcceptBtn }) => {
@@ -178,6 +179,23 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   {field.label}
                 </label>
               </>
+            ) : field.type === 'password' ? (
+              <div className="password-containerFrom">
+                <input
+                  id={field.idInput}
+                  type="password"
+                  name={field.name}
+                  className={`inputText ${formValues[field.name] ? 'filled' : ''}`}
+                  value={formValues[field.name] || ''}
+                  onChange={handleInputChange}
+                  required={field.required}
+                  placeholder=""
+                  autoComplete="off"
+                />
+                <label htmlFor={field.idInput} className="label">{field.label}</label>
+                {field.eye && <EyePassword idInput={field.idInput} />}
+                <div className="underline"></div>
+              </div>
             ) : (
               <>
                 <input

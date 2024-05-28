@@ -158,3 +158,53 @@
   .validation-error-item {
     margin: 10px 0 5px 0;
   }
+
+  .password-containerFrom {
+    position: relative;
+    margin: 30px auto;
+    width: 300px;
+  }
+  
+  .password-containerFrom .inputText {
+    font-size: 20px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 5px 0;
+    background-color: transparent;
+    outline: none;
+  }
+  
+  .password-containerFrom .label {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    font-size: 1.2rem;
+    color: #ccc;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .password-containerFrom .inputText:focus ~ .label,
+  .password-containerFrom .inputText:not(:placeholder-shown) ~ .label {
+    top: -15px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .password-containerFrom .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #333;
+    transform: scaleX(0);
+    transition: all 0.3s ease;
+  }
+  
+  .password-containerFrom .inputText:focus ~ .underline,
+  .password-containerFrom .inputText:not(:placeholder-shown) ~ .underline {
+    transform: scaleX(1);
+  }
+  

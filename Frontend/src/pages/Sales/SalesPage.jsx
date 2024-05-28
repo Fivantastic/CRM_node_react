@@ -46,12 +46,12 @@ export const SalesPage = () => {
   ];
 
   const sortOptions = [
-    { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
-    { label: 'Fecha (Recientes)', value: 'fecha-desc' },
     { label: 'Empresa (A - Z)', value: 'empresa-asc' },
     { label: 'Empresa (Z - A)', value: 'empresa-desc' },
-    { label: 'Ref (A - Z)', value: 'ref-asc' },
-    { label: 'Ref (Z - A)', value: 'ref-desc' },
+    { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
+    { label: 'Fecha (Recientes)', value: 'fecha-desc' },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
+    { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
 
   return (

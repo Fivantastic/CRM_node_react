@@ -113,12 +113,24 @@ export const useDeliveryList = (token) => {
     let sortedList = [...list];
 
     switch (sortOption) {
+      case 'nombre-asc':
+          sortedList.sort((a, b) => a.company_name.localeCompare(b.company_name));
+          break;
+      case 'nombre-desc':
+          sortedList.sort((a, b) => b.company_name.localeCompare(a.company_name));
+          break;
       case 'fecha-asc':
         sortedList.sort((a, b) => new Date(a.create_at) - new Date(b.create_at));
         break;
       case 'fecha-desc':
         sortedList.sort((a, b) => new Date(b.create_at) - new Date(a.create_at));
         break;
+      case 'ref-asc':
+          sortedList.sort((a, b) => a.ref_DN.localeCompare(b.ref_DN));
+          break;
+      case 'ref-desc':
+          sortedList.sort((a, b) => b.ref_DN.localeCompare(a.ref_DN));
+          break;
 
     }
 

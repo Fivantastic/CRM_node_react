@@ -75,6 +75,8 @@ export const ShipmentsCrud = () => {
   const sortOptions = [
     { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
     { label: 'Fecha (Recientes)', value: 'fecha-desc' },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
+    { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
 
   return (

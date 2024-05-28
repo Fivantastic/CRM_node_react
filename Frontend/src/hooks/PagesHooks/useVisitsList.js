@@ -136,6 +136,12 @@ export const useVisitsList = (token) => {
           (a, b) => new Date(b.visit_date) - new Date(a.visit_date)
         );
         break;
+      case 'ref-asc':
+          sortedList.sort((a, b) => a.ref_VT.localeCompare(b.ref_VT));
+        break;
+      case 'ref-desc':sortedList.sort((a, b) => b.ref_VT.localeCompare(a.ref_VT
+          ));
+        break;
       default:
         break;
     }

@@ -142,10 +142,10 @@ const applyFilters = () => {
       case 'nombre-desc':
         sortedList.sort((a, b) => b.name.localeCompare(a.name));
         break;
-      case 'fecha-asc':
+      case 'ref-asc':
         sortedList.sort((a, b) => a.ref_US.localeCompare(b.ref_US));
         break;
-      case 'fecha-desc':
+      case 'ref-desc':
         sortedList.sort((a, b) => b.ref_US.localeCompare(a.ref_US));
         break;
       default:

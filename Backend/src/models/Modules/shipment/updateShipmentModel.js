@@ -1,9 +1,8 @@
 import { getDBPool } from '../../../db/getPool.js';
 
-export const updateShipmentModel = async (shipmentId, fieldsToUpdate) => {
+export const updateShipmentModel = async (shipmentId, shipment_status) => {
   const pool = await getDBPool();
 
-  const { shipment_status } = fieldsToUpdate;
 
   const query = `UPDATE Shipments SET shipment_status = ? WHERE id_shipment = ?`;
   const values = [shipment_status, shipmentId];

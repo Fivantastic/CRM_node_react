@@ -1,12 +1,10 @@
-import { useUser } from '../../../context/authContext.jsx';
 import { UpdateShipment } from './UpdateShipment.jsx';
 import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { MoreShipments } from './MoreShipments.jsx';
 import './ShipListTable.css';
 
-export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete }) => {
-  const token = useUser();
+export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete, token }) => {
 
   const traducirEstadoEntrega = (estado) => {
     switch (estado) {
@@ -27,35 +25,33 @@ export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete }) => {
 
   return (
     <section id="shipment_table">
-      <div id="shipmentTableHead">
-        <div id="shipmentTableHeadRowRef">Ref. Envío</div>
-        <div id="shipmentTableHeadRowRefSales">Ref. Albarán</div>
-        {/* <div id="shipmentTableHeadRowCompany">Empresa</div> */}
-        <div id="shipmentTableHeadRowDate">Fecha de envío</div>
-        <div id="shipmentTableHeadRowStatus">Estado</div>
-        <div id="shipmentTableHeadRowActions">Acciones</div>
+      <div id="shipmentTableHead" className="shipmentTableHead">
+        <div id="shipmentTableHeadRowRef" className="headRow">Ref. Envío</div>
+        <div id="shipmentTableHeadRowRefSales" className="headRow">Ref. Albarán</div>
+        <div id="shipmentTableHeadRowDate" className="headRow">Fecha de envío</div>
+        <div id="shipmentTableHeadRowStatus" className="headRow">Estado</div>
+        <div id="shipmentTableHeadRowActions" className="headRow">Acciones</div>
       </div>
       <div id="shipmentTableBody">
-        {shipment.length > 0 &&
+        {shipment.length > 0 ? (
           shipment.map((shipmentItem) => {
-           const fechaEnvio = getNormalizedDate(shipmentItem.delivery_date);
-            const statusEntrega = traducirEstadoEntrega(shipmentItem.delivery_status);
+            const estadoEntrega = traducirEstadoEntrega(shipmentItem.shipment_status);
             return (
-              <div key={shipmentItem.id_shipment} className="shipmentTableBodyRow">
+              <div key={shipmentItem.id_shipment} id="shipmentTableBodyRow" className="shipmentTableBodyRow">
                 <div className="shipmentTableBodyRowRef">{shipmentItem.ref_SH}</div>
                 <div className="shipmentTableBodyRowRefSales">{shipmentItem.ref_DN}</div>
-                {/* <div className="shipmentTableBodyRowCompany">{shipmentItem.company_name}</div> */}
-                <div className="shipmentTableBodyRowDate">{ fechaEnvio.toLocaleDateString()}</div>
-                <div className="shipmentTableBodyRowStatus" style={{ color: statusEntrega.color }}>
-                  {statusEntrega.text}
+                <div className="shipmentTableBodyRowDate">
+                  {getNormalizedDate(shipmentItem.delivery_date).toLocaleDateString()}
                 </div>
-                <span className="shipmentTableBodyRowActions">
-                  <MoreShipments shipment={shipmentItem} key={`more-${shipmentItem.id_shipment}`} />
+                <div className="shipmentTableBodyRowStatus" style={{ color: estadoEntrega.color }}>
+                  {estadoEntrega.text}
+                </div>
+                <div className="shipmentTableBodyRowActions">
+                  <MoreShipments shipment={shipmentItem} />
                   <UpdateShipment
                     shipment={shipmentItem.id_shipment}
                     onUpdateShipment={onUpdateShipment}
                     token={token}
-                    key={`update-${shipmentItem.id_shipment}`}
                   />
                   <DeleteGenericModal
                     id={shipmentItem.id_shipment}
@@ -63,12 +59,14 @@ export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete }) => {
                     token={token}
                     typeModule="shipment"
                     typeModuleMessage="Envío"
-                    key={`delete-${shipmentItem.id_shipment}`}
                   />
-                </span>
+                </div>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className='noResult'>No hay envíos disponibles</div>
+        )}
       </div>
     </section>
   );

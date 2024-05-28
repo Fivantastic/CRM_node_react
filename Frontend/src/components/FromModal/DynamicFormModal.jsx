@@ -25,13 +25,23 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
 
     fields.forEach(field => {
       const inputElement = document.getElementById(field.idInput);
-      if (field.type === 'date' && inputElement) {
-        updateDateInputState(inputElement);
-        inputElement.addEventListener('change', () => updateDateInputState(inputElement));
-        inputElement.addEventListener('blur', () => updateDateInputState(inputElement));
-      }
-      if (field.type === 'select' && inputElement) {
-        inputElement.classList.add('no-selection');
+      const underlineElement = inputElement ? inputElement.nextElementSibling : null;
+      if (inputElement) {
+        if (formValues[field.name]) {
+          inputElement.classList.add('has-initial-value');
+          if (underlineElement) underlineElement.classList.add('has-initial-value');
+        }
+        if (field.type === 'date') {
+          updateDateInputState(inputElement);
+          inputElement.addEventListener('change', () => updateDateInputState(inputElement));
+          inputElement.addEventListener('blur', () => updateDateInputState(inputElement));
+        }
+        if (field.type === 'textarea') {
+          adjustTextareaHeight(inputElement);
+        }
+        if (field.type === 'select') {
+          inputElement.classList.add('no-selection');
+        }
       }
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,13 +57,23 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const inputElement = e.target;
+    const underlineElement = inputElement.nextElementSibling;
+
     setFormValues({
       ...formValues,
       [name]: value,
     });
 
+    inputElement.classList.remove('has-initial-value');
+    if (underlineElement) underlineElement.classList.remove('has-initial-value');
+
     if (e.target.type === 'date') {
       updateDateInputState(e.target);
+    }
+
+    if (e.target.tagName === 'TEXTAREA') {
+      adjustTextareaHeight(e.target);
     }
 
     checkFormValues({ ...formValues, [name]: value });
@@ -68,7 +88,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
     const selectElement = document.getElementById(`react-select-${name}-input`);
     if (selectElement) {
       if (selectedOption) {
-        selectElement.classList.remove('no-selection');
+        selectElement.classList.remove('no-selection', 'has-initial-value');
         selectElement.classList.add('has-selection');
       } else {
         selectElement.classList.remove('has-selection');
@@ -79,21 +99,28 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
     checkFormValues({ ...formValues, [name]: selectedOption ? selectedOption.value : '' });
   };
 
+  const adjustTextareaHeight = (textarea) => {
+    textarea.style.height = 'auto';
+    const maxHeight = 5 * 20; // 5 lines * 20px per line height
+    textarea.style.height = `${Math.min(textarea.scrollHeight, maxHeight)}px`;
+  };
+
   const checkFormValues = (newFormValues) => {
     const hasValues = Object.values(newFormValues).some(value => value && value.trim() !== '');
     setIsSubmitDisabled(!hasValues);
   };
 
   const handleSubmit = () => {
-    const filteredValues = {};
+    const modifiedValues = {};
     fields.forEach(field => {
-      const value = formValues[field.name];
-      if (field.required || value.trim() !== '') {
-        filteredValues[field.name] = value.trim();
+      const initialValue = initialValues[field.name] || '';
+      const currentValue = formValues[field.name] || '';
+      if (initialValue !== currentValue) {
+        modifiedValues[field.name] = currentValue.trim();
       }
     });
 
-    const validationResult = schema.validate(filteredValues, { abortEarly: false });
+    const validationResult = schema.validate(modifiedValues, { abortEarly: false });
     if (validationResult.error) {
       setValidationErrors(validationResult.error.details.map(detail => detail.message));
       setTimeout(() => {
@@ -101,7 +128,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
       }, 5000);
       return;
     }
-    onSubmit(filteredValues);
+    onSubmit(modifiedValues);
     onClose();
     resetFormValues();
   };
@@ -111,11 +138,15 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
     resetFormValues();
   };
 
-  const handleFocus = (name) => {
-    const labelElement = document.querySelector(`#react-select-${name}-input ~ .labelSelect`);
-    const underlineElement = document.querySelector(`#react-select-${name}-input ~ .underline`);
-    if (labelElement) labelElement.classList.add('has-focus');
-    if (underlineElement) underlineElement.classList.add('has-focus');
+  const handleFocus = (e) => {
+    const inputElement = e.target;
+    const underlineElement = inputElement.nextElementSibling;
+
+    inputElement.classList.remove('has-initial-value');
+    if (underlineElement) underlineElement.classList.remove('has-initial-value');
+    if (inputElement.tagName === 'TEXTAREA') {
+      adjustTextareaHeight(inputElement);
+    }
   };
 
   const handleBlur = (name) => {
@@ -191,30 +222,51 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   required={field.required}
                   placeholder=""
                   autoComplete="off"
+                  onFocus={handleFocus}
                 />
                 <label htmlFor={field.idInput} className="label">{field.label}</label>
                 {field.eye && <EyePassword idInput={field.idInput} />}
-                <div className="underline"></div>
+                <div className="underline has-initial-value"></div>
               </div>
+            ) : field.type === 'textarea' ? (
+              <>
+                <textarea
+                  id={field.idInput}
+                  name={field.name}
+                  className={`inputText ${formValues[field.name] ? 'has-initial-value' : ''}`}
+                  value={formValues[field.name] || ''}
+                  onChange={handleInputChange}
+                  required={field.required}
+                  placeholder=""
+                  onFocus={handleFocus}
+                  rows="1"
+                  style={{ overflow: 'hidden', resize: 'none' }}
+                />
+                <label htmlFor={field.idInput} className="label">
+                  {field.label}
+                </label>
+                <div className="underline has-initial-value"></div>
+              </>
             ) : (
               <>
                 <input
                   id={field.idInput}
                   type={field.type}
                   name={field.name}
-                  className="inputText"
+                  className={`inputText ${formValues[field.name] ? 'has-initial-value' : ''}`}
                   value={formValues[field.name] || ''}
                   onChange={handleInputChange}
                   required={field.required}
                   placeholder=""
                   autoComplete='off'
+                  onFocus={handleFocus}
                 />
                 <label htmlFor={field.idInput} className="label">
                   {field.label}
                 </label>
+                <div className="underline has-initial-value"></div>
               </>
             )}
-            <div className="underline"></div>
           </div>
         ))}
         {hasRequiredFields ? <p className="info-text">* Campos obligatorios</p> : <p className="info-text">Modifica el campo que necesites</p>}

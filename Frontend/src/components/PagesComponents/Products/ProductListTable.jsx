@@ -43,6 +43,7 @@ export const ProductListTable = ({ product, onUpdateProduct, onDelete, isActive,
                 <UpdateProduct
                   id={product.id_product}
                   onUpdateProduct={onUpdateProduct}
+                  productData={product}
                 />
                 <DeleteGenericModal
                   id={product.id_product}

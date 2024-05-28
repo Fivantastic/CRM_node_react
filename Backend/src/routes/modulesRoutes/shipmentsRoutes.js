@@ -39,13 +39,13 @@ shipmentRouter.put(
 shipmentRouter.get('/shipment/list', shipmentRouteController, authenticateUser, checkRoleDelivery);
 
 // Ruta para buscar envíos por término de búsqueda
-shipmentRouter.get('/shipments/search', authenticateUser, adminAuthMiddleware, getShipmentSearchController);
+shipmentRouter.get('/shipment/search', authenticateUser, adminAuthMiddleware, getShipmentSearchController);
 
 // Nueva ruta para obtener las notas de entrega pendientes
-shipmentRouter.get('/shipments/pending-delivery-notes', authenticateUser, getPendingDeliveryNotesController);
+shipmentRouter.get('/shipment/pending-delivery-notes', authenticateUser, getPendingDeliveryNotesController);
 
 // Ruta para obtener los envios asociados a los repartidores 
-shipmentRouter.get('/shipments/deliverer', shipmentByDelivererController);
+shipmentRouter.get('/shipment/deliverer', shipmentByDelivererController);
 
 // Ruta recibir valoración del cliente 
 shipmentRouter.put('/shipment/feedback/:trackingNumber', shipmentFeedbackController);

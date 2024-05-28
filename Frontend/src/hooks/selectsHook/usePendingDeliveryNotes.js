@@ -7,7 +7,7 @@ export const usePendingDeliveryNotes = (token, reload) => {
   useEffect(() => {
     const fetchPendingDeliveryNotes = async () => {
       try {
-        const response = await fetch(`${URL}/shipments/pending-delivery-notes`, {
+        const response = await fetch(`${URL}/shipment/pending-delivery-notes`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `${token}`,

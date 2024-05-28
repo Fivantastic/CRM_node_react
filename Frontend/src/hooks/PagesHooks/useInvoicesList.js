@@ -29,8 +29,6 @@ const [invoicesList, setInvoicesList] = useState([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOption]);
 
-  // ___________________________________________________________________________________
-
   // Obtener lista
   const getInvoicesList = async () => {
     try {
@@ -114,13 +112,6 @@ const [invoicesList, setInvoicesList] = useState([]);
         // let activeFilter = true;
         let statusFilter = true;
 
-            // ? Aquí filtra por activo / inactivo
-    //     if (selectedFilters.includes('1')) {
-    //       activeFilter = user.active;
-    //     } else if (selectedFilters.includes('0')) {
-    //       activeFilter = !user.active;
-    //     }
-
             // Filtrar por status
         if (selectedFilters.some(filter => ['pending', 'paid', 'overdue', 'partially_paid', 'cancelled', 'refunded', 'disputed', 'sent'].includes(filter))) {
           statusFilter = selectedFilters.some(filter => filter === invoice.invoice_status);
@@ -174,9 +165,6 @@ const [invoicesList, setInvoicesList] = useState([]);
 
     setFilteredList(sortedList);
   }
-
-
-  // ---------------------------------------------------------------------------
 
     // Actualizo el estado con la venta añadida
     const addInvoice = async () => {

@@ -6,9 +6,10 @@ export const closeSalesController = async (req, res, next) => {
   try {
     // Validamos el body
     await validateSchemaUtil(updateStatusSchema, req.body);
-    
+    console.log(req.body);
+
     // Obtenemos el id_user y el rol del token
-    const { id, newStatus } = req.body;;
+    const { id, newStatus } = req.body;
 
     // Inserto en la base de datos el estado
     const statusUpdate = await updateStatusSaleService(id, newStatus);

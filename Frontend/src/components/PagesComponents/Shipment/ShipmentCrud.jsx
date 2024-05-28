@@ -119,6 +119,7 @@ export const ShipmentsCrud = () => {
             shipment={filteredShipmentList}
             onUpdateShipment={updateShipment}
             onDelete={deleteShipment}
+            token={token}
           />
         </div>
       )}

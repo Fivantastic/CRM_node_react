@@ -1,9 +1,10 @@
+import Swal from 'sweetalert2';
 import { updateShipmentSchema } from '../../../Schema/Error/updateSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
 const URL = import.meta.env.VITE_URL;
 
-export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
-  const handleUpdateShipmentAction = async (formData) => {
+export const UpdateShipment = ({ shipment, onUpdateShipment, token }) => {
+  const handleButtonUpdateShipment = async (formData) => {
     try {
       const response = await fetch(
         `${URL}/shipment/update/${shipment}`,
@@ -21,7 +22,25 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Envío actualizado satisfactoriamente:', responseData);
-        onUpdateShipment(shipment);
+
+        onUpdateShipment(responseData.data); // Asegúrate de pasar los datos actualizados
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Actualización realizada con éxito!',
+        });
       } else {
         const errorData = await response.json();
         console.error('Actualización de envío fallida:', errorData);
@@ -42,36 +61,35 @@ export const UpdateShipment = ({ onUpdateShipment, shipment, token }) => {
       options: {
         Estados: [
           { value: 'pending', label: 'Pendiente' },
-          { value: 'inTransit', label: 'En Tránsito' },
+          { value: 'inTransit', label: 'En Reparto' },
           { value: 'delayed', label: 'Retrasado' },
           { value: 'cancelled', label: 'Cancelado' },
           { value: 'delivered', label: 'Entregado' },
-        ]
+        ],
       },
       required: false,
     },
   ];
-  
 
   const StyleButton = {
-    action:'update',
-  }
+    action: 'update',
+  };
 
   const StyleAcceptBtn = {
-    idAcceptBtn:'btnAcceptShipmentUpdate',
-    action:'update',
-  }
+    idAcceptBtn: 'btnAcceptShipmentUpdate',
+    action: 'update',
+  };
 
   return (
-      <DynamicModalWrapper
-        title={title}
-        fields={updateShipmentFormFields}
-        schema={updateShipmentSchema}
-        onSubmit={handleUpdateShipmentAction}
-        buttonText={nameButton}
-        dynamicIdModal="dynamicFormModal"
-        StyleButton={StyleButton}
-        StyleAcceptBtn={StyleAcceptBtn}
-      />
-    );
-  };
+    <DynamicModalWrapper
+      title={title}
+      fields={updateShipmentFormFields}
+      schema={updateShipmentSchema}
+      onSubmit={handleButtonUpdateShipment}
+      buttonText={nameButton}
+      dynamicIdModal="dynamicFormModal"
+      StyleButton={StyleButton}
+      StyleAcceptBtn={StyleAcceptBtn}
+    />
+  );
+};

@@ -17,7 +17,7 @@ export const shipmentUpdateController = async (req, res, next) => {
     res.send({
       status: 'ok',
       message: 'Envío actualizado',
-      data: { shipment },
+      data: shipment ,
     });
   } catch (error) {
     next(error);

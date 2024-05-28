@@ -65,18 +65,22 @@ export const CustomerPage = () => {
         </nav>
         {isListView ? (
           <ol id="customer_list" className="main_olist">
-            {filteredCustomerList.map(customer => (
-              <li key={customer.id_customer} id="element_customer_container">
-                <CustomerList
-                  customer={customer}
-                  updateCustomer={updateCustomer}
-                  deleteCustomer={deleteCustomer}
-                  activeCustomer={activeCustomer}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
-                />
-              </li>
-            ))}
+            {filteredCustomerList.length > 0 ? (
+              filteredCustomerList.map(customer => (
+                <li key={customer.id_customer} id="element_customer_container">
+                  <CustomerList
+                    customer={customer}
+                    updateCustomer={updateCustomer}
+                    deleteCustomer={deleteCustomer}
+                    activeCustomer={activeCustomer}
+                    typeModule={typeModule}
+                    typeModuleMessage={typeModuleMessage}
+                  />
+                </li>
+              ))
+            ) : (
+              <div className="noResult">No hay listas disponibles</div>
+            )}
           </ol>
         ) : (
           <CustomerListTable

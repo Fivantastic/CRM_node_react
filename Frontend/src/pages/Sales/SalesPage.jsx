@@ -25,11 +25,11 @@ export const SalesPage = () => {
     typeModuleMessage,
   } = useSalesList(token);
 
-  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1050);
+  const [isListView, setIsListView] = useState(() => window.innerWidth <= 1080);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsListView(window.innerWidth <= 1050);
+      setIsListView(window.innerWidth <= 1080);
     };
 
     window.addEventListener('resize', handleResize);
@@ -66,12 +66,12 @@ export const SalesPage = () => {
         </nav>
         {isListView ? (
           <ol id="sales_list" className="main_olist">
-            {filteredSalesList.map((data) => {
-              return (
+            {filteredSalesList.length > 0 ? (
+              filteredSalesList.map((data) => (
                 <li
                   key={data.id_sale}
                   id="element_sale_container"
-                  className=" main_ilist"
+                  className="main_ilist"
                 >
                   <SalesList
                     sale={data}
@@ -81,8 +81,10 @@ export const SalesPage = () => {
                     typeModuleMessage={typeModuleMessage}
                   />
                 </li>
-              );
-            })}
+              ))
+            ) : (
+              <div className="noResult">No hay ventas disponibles</div>
+            )}
           </ol>
         ) : (
           <SalesListTable sale={filteredSalesList} onUpdateSale={updateSale} onDelete={deleteSale} />

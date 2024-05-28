@@ -61,15 +61,20 @@ export const UserPage = () => {
         </nav>
         {isListView ? (
           <ol id="user_list" className="main_olist">
-            {filteredUserList.map(data => (
-              <li key={data.id_user} id="element_user_container">
-                <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser} />
-              </li>
-            ))}
+            {filteredUserList.length > 0 ? (
+              filteredUserList.map(data => (
+                <li key={data.id_user} id="element_user_container">
+                  <UserList user={data} id={data.id_user} activeUser={activeUser} onDelete={deleteUser} />
+                </li>
+              ))
+            ) : (
+              <div className="noResult">No hay usuarios disponibles</div>
+            )}
           </ol>
         ) : (
           <UserListTable user={filteredUserList} activeUser={activeUser} onDelete={deleteUser} />
         )}
+
       </section>
     </MainLayout>
   );

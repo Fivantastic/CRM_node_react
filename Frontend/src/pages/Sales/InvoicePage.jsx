@@ -64,26 +64,29 @@ export const InvoicePage = () => {
         <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (
-        <ol id="invoice_list" className=" main_olist">
-          {filteredList.map((data) => {
-            return (
-              <li
-                key={data.id_invoice}
-                id="element_invoice_container"
-                className=" main_ilist"
-              >
-                <InvoicesList 
-                  invoice={data} 
-                  handleNewInvoiceStatus={updateInvoice}
-                  token={token}
-                />
-              </li>
-            );
-          })}
-        </ol>
+          <ol id="invoice_list" className="main_olist">
+            {filteredList.length > 0 ? (
+              filteredList.map((data) => (
+                <li
+                  key={data.id_invoice}
+                  id="element_invoice_container"
+                  className="main_ilist"
+                >
+                  <InvoicesList 
+                    invoice={data} 
+                    handleNewInvoiceStatus={updateInvoice}
+                    token={token}
+                  />
+                </li>
+              ))
+            ) : (
+              <div className="noResult">No hay listas disponibles</div>
+            )}
+          </ol>
         ) : (
           <InvoicesListTable invoices={filteredList} onUpdate={updateInvoice} />
         )}
+
       </section>
     </MainLayout>
   );

@@ -4,8 +4,8 @@ import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { MoreSales } from './MoreSales.jsx';
 import { UpdateSale } from './UpdateSale.jsx';
 import { PencilBroken } from '../../../assets/creado/PencilBroken.jsx';
-import '../Sales/SalesListTable.css';
 import { Pending } from '../../../assets/creado/Pending.jsx';
+import '../Sales/SalesListTable.css';
 
 export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   const token = useUser();

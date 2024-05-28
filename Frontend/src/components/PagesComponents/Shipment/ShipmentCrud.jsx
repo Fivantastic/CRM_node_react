@@ -90,30 +90,34 @@ export const ShipmentsCrud = () => {
       </nav>
       {isListView ? (
         <div id="shipments_list" className="main_olist">
-          {filteredShipmentList.map((shipment) => (
-            <div key={shipment.id_shipment} id="element_shipment_container" className="main_ilist">
-              <div className="shipment-item" onClick={() => handleShipmentClick(shipment.id_shipment)}>
-                <ShipmentList shipment={shipment} />
+          {filteredShipmentList.length > 0 ? (
+            filteredShipmentList.map((shipment) => (
+              <div key={shipment.id_shipment} id="element_shipment_container" className="main_ilist">
+                <div className="shipment-item" onClick={() => handleShipmentClick(shipment.id_shipment)}>
+                  <ShipmentList shipment={shipment} />
+                </div>
+                <div id="shipment_actions" className="main_actions">
+                  <MoreShipments shipment={shipment} key={`more-${shipment.id_shipment}`} />
+                  <UpdateShipment
+                    shipment={shipment.id_shipment}
+                    onUpdateShipment={updateShipment}
+                    token={token}
+                    key={`update-${shipment.id_shipment}`}
+                  />
+                  <DeleteGenericModal
+                    id={shipment.id_shipment}
+                    onDelete={deleteShipment}
+                    token={token}
+                    typeModule={typeModule}
+                    typeModuleMessage={typeModuleMessage}
+                    key={`delete-${shipment.id_shipment}`}
+                  />
+                </div>
               </div>
-              <div id="shipment_actions" className="main_actions">
-                <MoreShipments shipment={shipment} key={`more-${shipment.id_shipment}`} />
-                <UpdateShipment
-                  shipment={shipment.id_shipment}
-                  onUpdateShipment={updateShipment}
-                  token={token}
-                  key={`update-${shipment.id_shipment}`}
-                />
-                <DeleteGenericModal
-                  id={shipment.id_shipment}
-                  onDelete={deleteShipment}
-                  token={token}
-                  typeModule={typeModule}
-                  typeModuleMessage={typeModuleMessage}
-                  key={`delete-${shipment.id_shipment}`}
-                />
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div className="noResult">No hay envíos disponibles</div>
+          )}
         </div>
       ) : (
         <div id="shipments_table">

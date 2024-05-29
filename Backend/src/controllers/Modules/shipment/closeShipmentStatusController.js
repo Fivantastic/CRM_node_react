@@ -8,11 +8,14 @@ export const closeShipmentStatusController = async (req, res, next) => {
     const { newStatus } = req.body; // Obtener newStatus del cuerpo de la solicitud
 
     // Cerramos el envío y obtenemos el email del cliente si es necesario
-    const { email, trackingNumber } = await closeShipmentStatusService(shipmentId, id_user, role, newStatus);
+    const { email, ref_SH } = await closeShipmentStatusService(shipmentId, id_user, role, newStatus);
+    
+    console.log('Email:', email);
+    console.log('ref_SH:', ref_SH);
 
     // Enviar email al cliente si el envío se entrega
     if (newStatus === 'delivered' && email) {
-      await sendEmailForShipmentDelivery(trackingNumber, email);
+      await sendEmailForShipmentDelivery(ref_SH, email);
     }
 
     res.send({

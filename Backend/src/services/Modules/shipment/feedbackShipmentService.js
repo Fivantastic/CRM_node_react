@@ -1,17 +1,19 @@
 import { feedbackShipmentModel } from '../../../models/Modules/shipment/feedbackShipmentModel.js';
-import { selectShipmentByTrackingNumber } from '../../../services/Modules/shipment/selectShipmentByTrackingNumberService.js';
+import { selectShipmentByrefSH } from '../../../models/Modules/shipment/selectShipmentByTrackingNumberModel.js';
 
-export const feedbackShipmentService = async (body, trackingNumber) => {
-  const { rating_shipment, comment_shipment } = body;
+export const feedbackShipmentService = async (body, ref_SH) => {
+  const { rating_module, rating_comment } = body;
 
-  // Obtener el id del envío por el número de seguimiento
-  const shipment = await selectShipmentByTrackingNumber(trackingNumber);
+  // Obtener el id del envío por el número de referencia del envío
+  const shipment = await selectShipmentByrefSH(ref_SH);
 
-  // Insertar el feedback en la base de datos
+  console.log('Resultado de la consulta del número de referencia:', shipment);
+
+  // Insertar o actualizar el feedback en la base de datos
   const response = await feedbackShipmentModel(
     shipment.id_shipment,
-    rating_shipment,
-    comment_shipment
+    rating_module,
+    rating_comment
   );
 
   return response;

@@ -23,8 +23,8 @@ export const closeShipmentStatusService = async (shipmentId, deliveryNote_id, ro
   if (newStatus === 'delivered') {
     const customer = await selectCustomerByIdModel(shipmentData.customer_id);
     const email = customer.email;
-    console.log(`Email for delivery: ${email}, tracking number: ${shipmentData.tracking_number}`);
-    return { email, trackingNumber: shipmentData.tracking_number };
+    console.log(`Email for delivery: ${email}, ref_SH: ${shipmentData.ref_SH}`);
+    return { email, ref_SH: shipmentData.ref_SH };
   }
 
   return null;

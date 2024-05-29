@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './ratingShipment.css';
 import { Toast } from '../../components/alerts/Toast.jsx';
@@ -7,22 +7,26 @@ import { SuccesRating } from '../../components/alerts/SuccesRating.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const RatingShipment = () => {
-  const [rating_shipment, setRating_shipment] = useState(0);
-  const [comment_shipment, setComment_shipment] = useState('');
+  const [rating_module, setRating_module] = useState(0);
+  const [rating_comment, setRating_comment] = useState('');
   const [isSuccess, setIsSuccess] = useState(true);
-  const { trackingNumber } = useParams();
+  const { ref_SH } = useParams();
+
+  useEffect(() => {
+    console.log('ref_SH Number from URL:', ref_SH);
+  }, [ref_SH]);
 
   const handleRatingChange = (e) => {
-    setRating_shipment(e.target.value);
+    setRating_module(e.target.value);
   };
 
   const handleCommentChange = (e) => {
-    setComment_shipment(e.target.value);
+    setRating_comment(e.target.value);
   };
 
   const handleRatingShipmentSubmit = async (data) => {
     try {
-      const response = await fetch(`${URL}/shipment/feedback/${trackingNumber}`, {
+      const response = await fetch(`${URL}/shipment/feedback/${ref_SH}`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
@@ -31,17 +35,16 @@ export const RatingShipment = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        // Opcional: puedes descomentar el siguiente console.log para ver la respuesta en la consola
         const responseData = await response.json();
-         console.log('Rating enviado con éxito:', responseData);
+        console.log('Rating enviado con éxito:', responseData);
         Toast.fire({
           icon: 'success',
           position: 'top-end',
           title: 'Valoración enviada con éxito!',
         });
       } else {
-         const errorData = await response.json();
-         console.error('Rating falló:', errorData);
+        const errorData = await response.json();
+        console.error('Rating falló:', errorData);
         Toast.fire({
           icon: 'error',
           position: 'top-end',
@@ -60,8 +63,8 @@ export const RatingShipment = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleRatingShipmentSubmit({
-      rating_shipment,
-      comment_shipment,
+      rating_module,
+      rating_comment,
     });
     setIsSuccess(false);
   };
@@ -77,7 +80,7 @@ export const RatingShipment = () => {
               <div className="rating">
                 <input
                   value="5"
-                  name="rating_shipment"
+                  name="rating_module"
                   id="star5"
                   type="radio"
                   onChange={handleRatingChange}
@@ -85,7 +88,7 @@ export const RatingShipment = () => {
                 <label htmlFor="star5"></label>
                 <input
                   value="4"
-                  name="rating_shipment"
+                  name="rating_module"
                   id="star4"
                   type="radio"
                   onChange={handleRatingChange}
@@ -93,7 +96,7 @@ export const RatingShipment = () => {
                 <label htmlFor="star4"></label>
                 <input
                   value="3"
-                  name="rating_shipment"
+                  name="rating_module"
                   id="star3"
                   type="radio"
                   onChange={handleRatingChange}
@@ -101,7 +104,7 @@ export const RatingShipment = () => {
                 <label htmlFor="star3"></label>
                 <input
                   value="2"
-                  name="rating_shipment"
+                  name="rating_module"
                   id="star2"
                   type="radio"
                   onChange={handleRatingChange}
@@ -109,7 +112,7 @@ export const RatingShipment = () => {
                 <label htmlFor="star2"></label>
                 <input
                   value="1"
-                  name="rating_shipment"
+                  name="rating_module"
                   id="star1"
                   type="radio"
                   onChange={handleRatingChange}
@@ -118,9 +121,9 @@ export const RatingShipment = () => {
               </div>
               <textarea
                 className="textarea_rating"
-                id="comment_shipment"
-                name="comment_shipment"
-                value={comment_shipment}
+                id="rating_comment"
+                name="rating_comment"
+                value={rating_comment}
                 placeholder="Comentario"
                 onChange={handleCommentChange}
               ></textarea>

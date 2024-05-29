@@ -48,4 +48,4 @@ shipmentRouter.get('/shipment/pending-delivery-notes', authenticateUser, getPend
 shipmentRouter.get('/shipment/deliverer', shipmentByDelivererController);
 
 // Ruta recibir valoración del cliente 
-shipmentRouter.put('/shipment/feedback/:trackingNumber', shipmentFeedbackController);
+shipmentRouter.put('/shipment/feedback/:ref_SH', shipmentFeedbackController);

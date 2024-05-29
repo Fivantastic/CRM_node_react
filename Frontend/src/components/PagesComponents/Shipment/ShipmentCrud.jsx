@@ -15,6 +15,8 @@ import '../../../Styles/Pages/StyleShipmentList.css';
 
 export const ShipmentsCrud = () => {
   const token = useUser();
+  const typeModule = 'shipment';
+  const typeModuleMessage = 'Envío';
 
   const {
     filteredShipmentList,
@@ -81,7 +83,7 @@ export const ShipmentsCrud = () => {
     <section id="shipment_container" className="mainContainer">
       <nav id="user_nav" className="mainNav">
         <SearchPages onSearch={handleSearch} />
-        <CreateShipment onAddShipment={addShipment} token={token} />
+        <CreateShipment onAddShipment={addShipment} token={token} typeModule={typeModule} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
         <SortPages options={sortOptions} onSort={handleSortChange} />
         <ToggleMode onClick={() => setIsListView((prev) => !prev)} isListView={isListView} />
@@ -92,28 +94,21 @@ export const ShipmentsCrud = () => {
             filteredShipmentList.map((shipment) => (
               <div key={shipment.id_shipment} id="element_shipment_container" className="main_ilist">
                 <div className="shipment-item" onClick={() => handleShipmentClick(shipment.id_shipment)}>
-                  <ShipmentList
-                    shipment={shipment}
-                    onUpdateShipment={updateShipment}
-                    onDelete={deleteShipment}
-                    token={token}
-                  />
+                  <ShipmentList shipment={shipment} />
                 </div>
                 <div id="shipment_actions" className="main_actions">
-                  <MoreShipments shipment={shipment} key={`more-${shipment.id_shipment}`} />
+                  <MoreShipments shipment={shipment} />
                   <UpdateShipment
                     shipment={shipment.id_shipment}
                     onUpdateShipment={updateShipment}
                     token={token}
-                    key={`update-${shipment.id_shipment}`}
                   />
                   <DeleteGenericModal
                     id={shipment.id_shipment}
                     onDelete={deleteShipment}
                     token={token}
-                    typeModule="shipment"
-                    typeModuleMessage="Envío"
-                    key={`delete-${shipment.id_shipment}`}
+                    typeModule={typeModule}
+                    typeModuleMessage={typeModuleMessage}
                   />
                 </div>
               </div>
@@ -132,23 +127,11 @@ export const ShipmentsCrud = () => {
           />
         </div>
       )}
-      {selectedShipment && (
-        <div className="popup open" ref={popupRef}>
-          <h6>Detalles del envío</h6>
-          {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment) && (
-            <>
-              <p><strong>Nombre:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.customer_name}</p>
-              <p><strong>Compañía:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.company_name}</p>
-              <p><strong>Dirección:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.delivery_address}</p>
-              <p><strong>NIF:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.NIF}</p>
-              <p><strong>Producto:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.product_name}</p>
-              <p><strong>Cantidad:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.product_quantity}</p>
-              <p><strong>Ciudad:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.address_city}</p>
-              <p><strong>Teléfono:</strong> {filteredShipmentList.find(shipment => shipment.id_shipment === selectedShipment)?.customer_phone}</p>
-            </>
-          )}
-        </div>
-      )}
     </section>
   );
 };
+
+
+
+
+

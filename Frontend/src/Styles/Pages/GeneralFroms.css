@@ -42,7 +42,7 @@
 .mainNav {
   width: 480px;
   display: grid;
-  grid-template-columns: 1fr auto auto auto auto;
+  grid-template-columns: 1fr auto auto auto auto auto;
   align-items: center;
   column-gap: 20px;
 }

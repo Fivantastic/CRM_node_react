@@ -1,0 +1,13 @@
+/* quitar todos los estilos de boton y reemplazarlos por un nuevo estilo */
+
+.export-excel-button {
+    border: none;
+    background: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+}

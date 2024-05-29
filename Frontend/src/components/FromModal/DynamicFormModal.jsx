@@ -6,7 +6,7 @@ import MenuConRetraso from './MenuConRetraso';
 import { EyePassword } from '../buttons/Profile/EyePasword.jsx';
 import './DynamicFormModal.css';
 
-export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues = {}, resetFormValues, customModalSize, StyleAcceptBtn }) => {
+export const DynamicFormModal = ({title, fields, schema, onSubmit, buttonText, dynamicIdModal, show, onClose, initialValues = {}, resetFormValues, customModalSize, StyleAcceptBtn }) => {
   const initializeFormValues = () => {
     const initialFormValues = {};
     fields.forEach(field => {
@@ -45,7 +45,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
       }
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues, fields]);
+  }, [initialValues, fields]); 
 
   const updateDateInputState = (input) => {
     if (input.value) {
@@ -60,10 +60,10 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
     const inputElement = e.target;
     const underlineElement = inputElement.nextElementSibling;
 
-    setFormValues({
-      ...formValues,
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
       [name]: value,
-    });
+    }));
 
     if (inputElement) {
       inputElement.classList.remove('has-initial-value');
@@ -82,10 +82,10 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
   };
 
   const handleSelectChange = (selectedOption, name) => {
-    setFormValues({
-      ...formValues,
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
       [name]: selectedOption ? selectedOption.value : '',
-    });
+    }));
 
     const selectElement = document.getElementById(`react-select-${name}-input`);
     if (selectElement) {
@@ -261,7 +261,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   onChange={handleInputChange}
                   required={field.required}
                   placeholder=""
-                  autoComplete='off'
+                  autoComplete="off"
                   onFocus={handleFocus}
                 />
                 <label htmlFor={field.idInput} className="label">

@@ -1,3 +1,4 @@
+// src/pages/Sales/SalesPage.jsx
 import { MainLayout } from '../../layout/MainLayout.jsx';
 import { useUser } from '../../context/authContext.jsx';
 import { useEffect, useState } from 'react';
@@ -9,6 +10,7 @@ import { SortPages } from '../../components/NavPages/SortPages.jsx';
 import { ToggleMode } from '../../components/NavPages/ToggleMode.jsx';
 import { SalesListTable } from '../../components/PagesComponents/Sales/SalesListTable.jsx';
 import { useSalesList } from '../../hooks/PagesHooks/useSalesList.js';
+import { ExportCompletTableDB } from '../../components/ExcelModal/ExportCompletTableDB.jsx';
 
 export const SalesPage = () => {
   const token = useUser();
@@ -54,6 +56,47 @@ export const SalesPage = () => {
     { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
 
+  const tables = [
+    {
+      name: 'Sales',
+      columns: [
+        { field: 'ref_SL', header: 'Ref. venta' },
+        { field: 'operation_status', header: 'Estado de la Venta' },
+        { field: 'create_at', header: 'Fecha de Creación' },
+      ],
+    },
+    {
+      name: 'Customers',
+      columns: [
+        { field: 'company_name', header: 'Empresa' },
+        { field: 'name', header: 'Contacto' },
+        { field: 'email', header: 'Email' },
+        { field: 'phone', header: 'Teléfono' },
+      ],
+    },
+    {
+      name: 'Products',
+      columns: [
+        { field: 'name', header: 'Producto' },
+        { field: 'price', header: 'Precio' },
+      ],
+    },
+    {
+      name: 'SalesProducts',
+      columns: [
+        { field: 'quantity', header: 'Cantidad' },
+      ],
+    },
+    {
+      name: 'Users',
+      columns: [
+        { field: 'name', header: 'Comercial' },
+      ],
+    },
+  ];
+
+  const page = 'orderSales';
+
   return (
     <MainLayout title="Ordenes de venta">
       <section id="sale_container" className="mainContainer">
@@ -62,6 +105,7 @@ export const SalesPage = () => {
           <CreateSale onAddSale={addSale} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
           <SortPages options={sortOptions} onSort={handleSortChange} />
+          <ExportCompletTableDB tables={tables} token={token} page={page} />
           <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (

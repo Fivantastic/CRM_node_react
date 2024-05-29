@@ -5,6 +5,7 @@ import cors from 'cors';
 import { PORT } from './env.js';
 import { mainRouter } from './src/routes/mainRouter.js';
 import { modulesRoutes } from './src/routes/modulesRoutes.js';
+import { actionRoutes } from './src/routes/actionRoutes.js';
 import { notFoundErrorMiddleware } from './src/middlewares/errors/notFoundErrorMiddleware.js';
 import { errorHandlerMiddleware } from './src/middlewares/errors/errorHandlerMiddleware.js';
 import http from 'http';
@@ -44,6 +45,9 @@ app.use(notificationRoutes);
 
 // Ruta gestion de Modulos
 app.use(modulesRoutes);
+
+// Ruta gestion de diversas acciones
+app.use(actionRoutes);
 
 // Middleware 404 Not Found
 app.use(notFoundErrorMiddleware);

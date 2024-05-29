@@ -43,7 +43,7 @@ function App() {
         element={<RatingVisit />}
       />
       <Route
-        path="/shipment/rating-valoration/:trackingNumber"
+        path="/shipment/feedback/:ref_SH"
         element={<RatingShipment />} 
       />
       <Route
@@ -52,6 +52,7 @@ function App() {
       />
       <Route path="/user/reset-password/:registration_code" element={<ResetPassword />}/>
       <Route path="/visit/rating-valoration/:ref_VT" element={<RatingVisit />}  />
+      <Route path="/shipment/feedback/:ref_SH" element={<RatingVisit />}  />
       <Route path="/validation/:registration_code" element={<ValidationPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/product" element={<ProductPage />} />

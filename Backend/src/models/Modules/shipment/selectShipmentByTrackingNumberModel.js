@@ -1,10 +1,10 @@
 import { getDBPool } from '../../../db/getPool.js';
 
-export const selectShipmentByTrackingNumberModel = async (trackingNumber) => {
+export const selectShipmentByrefSH = async (ref_SH) => {
   const pool = await getDBPool();
-  const [rows] = await pool.query(
-    'SELECT id_shipment FROM Shipments WHERE tracking_number = ?',
-    [trackingNumber]
+  const [result] = await pool.query(
+    'SELECT id_shipment FROM Shipments WHERE ref_SH = ?',
+    [ref_SH]
   );
-  return rows[0];
+  return result[0];
 };

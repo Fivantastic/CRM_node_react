@@ -124,17 +124,17 @@ export const sendEmailForVisitFeedback = async (ref_VT, email) => {
   }
 };
 
-export const sendEmailForShipmentDelivery = async (trackingNumber, email) => {
+export const sendEmailForShipmentDelivery = async (ref_SH, email) => {
   try {
     // Construir la URL de seguimiento con el número de seguimiento
-    const trackingUrl = `http://localhost:5173/shipment/rating-valoration/${trackingNumber}`;
+    const refShUrl = `http://localhost:5173/shipment/feedback/${ref_SH}`;
 
     // Configurar el mensaje de correo electrónico
     const mailOptions = {
       from: MAIL_TRAP_AUTH_USER,
       to: email,
       subject: 'Su envío ha sido entregado',
-      html: `¡Hola! Nos complace informarle que su envío ha sido entregado. Puede rastrear los detalles de su envío <a href="${trackingUrl}">aquí</a>. ¡Gracias por confiar en nosotros!`,
+      html: `¡Hola! Nos complace informarle que su envío ha sido entregado. Puede valorar los detalles de su envío <a href="${refShUrl}">aquí</a>. ¡Gracias por confiar en nosotros!`,
     };
 
     // Enviar el correo electrónico

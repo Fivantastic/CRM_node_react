@@ -31,6 +31,7 @@ export const VisitsList = ({
 
   const estadoVisita = traducirEstadoVisita(visit.visit_status);
   const nameComplete = `${visit.customer_name} ${visit.customer_last_name}`;
+  const nameCompleteAgent = `${visit.selesAgent} ${visit.selesAgent_lastName}`;
 
   const moreInfoFields = [
     { label: 'Ref', value: visit.ref_VT },
@@ -47,6 +48,7 @@ export const VisitsList = ({
     { label: 'Fecha de la visita', value: fechaNormal.toLocaleDateString() },
     { label: 'Estado', value: estadoVisita.text, color: estadoVisita.color },
     { label: 'Observaciones', value: visit.observations },
+    { label: 'Comercial', value: nameCompleteAgent },
   ];
 
    const modalIds = {

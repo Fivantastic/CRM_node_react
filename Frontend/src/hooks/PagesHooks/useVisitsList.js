@@ -176,7 +176,7 @@ export const useVisitsList = (token) => {
     }
   };
 
-  const updateVisit = (id_visit, newStatus) => {
+  const updateVisit = async (id_visit, newStatus) => {
     try {
       setVisitList((prevVisitList) =>
         prevVisitList.map((visit) =>
@@ -185,6 +185,7 @@ export const useVisitsList = (token) => {
             : visit
         )
       );
+      await getVisitList();
     } catch (error) {
       console.error('Error al cambiar el estado de la visita:', error);
       Toast.fire({

@@ -7,7 +7,9 @@ export const selectUserVisitsByIdModel = async () => {
   const result = await pool.query(`
     SELECT 
       Visits.id_visit, 
-      Visits.ref_VT, 
+      Visits.ref_VT,
+      Users.name AS selesAgent,
+      Users.last_name AS selesAgent_lastName, 
       Customers.name AS customer_name, 
       Customers.last_name AS customer_last_name, 
       Customers.email AS customer_email,
@@ -25,6 +27,7 @@ export const selectUserVisitsByIdModel = async () => {
     FROM Visits
     LEFT JOIN Customers ON Visits.customer_id = Customers.id_customer
     LEFT JOIN Addresses ON Customers.address_id = Addresses.id_address
+    LEFT JOIN Users ON Visits.user_id = Users.id_user
   `);
 
   return result[0];

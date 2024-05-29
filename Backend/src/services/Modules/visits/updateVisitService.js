@@ -5,38 +5,42 @@ import { getVisitData } from "../../../models/Modules/visits/getVisitData.js";
 import { updateVisitModel } from "../../../models/Modules/visits/updateVisitModel.js";
 
 export const updateVisitService = async (visitId, id_user, visit_date, observations) => {
-    // Verifica si id_user existe
+     // Verifica si id_user existe
     const userData = await selectUserByIdModel(id_user);
-    if (!userData) {
+    /* if (!userData) {
         invalidCredentials('El usuario no existe');
-    }
-    
-    const userId = userData.id_user;
+    } */
 
+   /*  const userId = userData.id_user */;
+    
     // Obtiene la información de la visita existente
     const existingVisitData = await getVisitData(visitId);
 
-    // Compara los datos actuales con los datos proporcionados
-    const visitData = {
-        user_id: userId,
-        customer_id: customerId,
-        visit_date,
-        observations
-    };
-
-    // Convertir la fecha en visitData a formato de fecha estándar
-    const visitDataDate = new Date(visitData.visit_date).toISOString();
-
-    // Comprueba si los datos son iguales
-    if (existingVisitData.user_id === visitData.user_id &&
-        existingVisitData.customer_id === visitData.customer_id &&
-        existingVisitData.visit_date.toISOString() === visitDataDate &&
-        existingVisitData.observations === visitData.observations) {
-        // Los datos son iguales
-        return { status: 'ok', message: 'Los datos ya estaban registrados.' };
-    } else {
-        // Si los datos son diferentes, actualiza la visita
-        await updateVisitModel(visitId, userId, customerId, visit_date, observations);
-        return { status: 'ok', message: 'Visita actualizada exitosamente' };
+    // Identificar campos cambiados
+    let fieldsToUpdate = {};
+    if (existingVisitData.user_id !== id_user) {
+        fieldsToUpdate.user_id = id_user;
     }
-}
+    if (existingVisitData.customer_id !== existingVisitData.customer_Id) {
+        fieldsToUpdate.customer_id = existingVisitData.customer_Id;
+    }
+
+    const visitDataDate = new Date(existingVisitData.visit_date).toISOString();
+
+    if (visitDataDate.visit_date !== visit_date) {
+        fieldsToUpdate.visit_date = visit_date;
+    }
+    
+    if (existingVisitData.observations !== observations) {
+        fieldsToUpdate.observations = observations;
+    }
+
+    // Actualizar solo los campos que han cambiado
+    if (Object.keys(fieldsToUpdate).length > 0) {
+        await updateVisitModel(visitId, id_user, existingVisitData.customer_Id, fieldsToUpdate.visit_date, fieldsToUpdate.observations);
+        return { status: 'ok', message: 'Visita actualizada exitosamente' };
+    } else {
+        return { status: 'ok', message: 'Los datos ya estaban registrados.' };
+    }
+};
+

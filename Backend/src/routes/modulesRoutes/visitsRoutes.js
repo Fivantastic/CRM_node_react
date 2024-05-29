@@ -9,6 +9,7 @@ import {
   closeVisitController,
   feedbackVisitController,
   getVisitSearchController,
+  getVisitSaleAgetsController,
 } from '../../controllers/modulesControllers.js';
 import { checkRoleAgent } from '../../middlewares/checkRoles/checkRoleAgentMiddleware.js';
 
@@ -64,3 +65,6 @@ visitsRouter.put(
 
 // Recibir e insertar la valoracion del cliente
 visitsRouter.put('/visits/feedback/:ref_VT', feedbackVisitController);
+
+// Obtengo los usuarios con el rol de comercial
+visitsRouter.get('/visits/salesAgents', getVisitSaleAgetsController);

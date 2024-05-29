@@ -10,6 +10,8 @@ import '../Sales/SalesListTable.css';
 export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   const token = useUser();
 
+  const errorMsg = "No se puede eliminar la venta porque tiene un albaran sin cancelado";
+
   const traducirEstadoVenta = (estado) => {
     switch (estado) {
       case "processing":
@@ -73,6 +75,7 @@ export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
                     token={token}
                     typeModule="sales"
                     typeModuleMessage="Venta"
+                    typeError={errorMsg}
                   />
                 </span>
               </div>

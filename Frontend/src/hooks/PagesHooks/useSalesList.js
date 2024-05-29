@@ -56,10 +56,10 @@ export const useSalesList = (token) => {
         console.error('Error al obtener la lista:', errorData);
       }
     } catch (error) {
-      console.error('Error al obtener la lista de usuarios:', error);
+      console.error('Error al obtener la lista de ventas:', error);
       Toast.fire({
         icon: 'error',
-        title: 'Error al obtener la lista de usuarios',
+        title: 'Error al obtener la lista de ventas',
       });
     }
   };
@@ -169,10 +169,10 @@ export const useSalesList = (token) => {
     try {
       await getSalesList();
     } catch (error) {
-      console.error('Error al agregar el usuario:', error);
+      console.error('Error al agregar el venta:', error);
       Toast.fire({
         icon: 'error',
-        title: 'Error al agregar el usuario',
+        title: 'Error al agregar el venta',
       });
     }
   };
@@ -184,10 +184,10 @@ export const useSalesList = (token) => {
       );
       await getSalesList();
     } catch (error) {
-      console.error('Error al eliminar el usuario:', error);
+      console.error('Error al eliminar el venta:', error);
       Toast.fire({
         icon: 'error',
-        title: 'Error al eliminar el usuario',
+        title: 'Error al eliminar el venta',
       });
     }
   };

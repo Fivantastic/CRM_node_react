@@ -18,6 +18,7 @@ export const MoreVisits = ({ visit }) => {
 
   const estadoVisita = traducirEstadoVisita(visit.visit_status);
   const fechaNormal = getNormalizedDate(visit.visit_date);
+  const nameComplete = `${visit.selesAgent} ${visit.selesAgent_lastName}`
 
   const moreInfoFields = [
     { label: 'Ref', value: visit.ref_VT },
@@ -28,6 +29,7 @@ export const MoreVisits = ({ visit }) => {
     { label: 'Estado', value: estadoVisita.text, color: estadoVisita.color },
     { label: 'Dirección', value: `${visit.address} ${visit.number}, ${visit.city}, ${visit.country}` },
     { label: 'Observaciones', value: visit.observations },
+    { label: 'Comercial', value: nameComplete },
   ];
 
   return (

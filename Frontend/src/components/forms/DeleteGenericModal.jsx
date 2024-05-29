@@ -3,7 +3,7 @@ import { SimpleDeleteButton } from "../buttons/DeleteButtons/SimpleDeleteButton.
 import { Toast } from "../alerts/Toast.jsx";
 const URL = import.meta.env.VITE_URL;
 
-export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage }) => {
+export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage, typeError }) => {
     const handleDelete = async () => {
         Swal.fire({
             title: "¿Estas seguro?",
@@ -75,11 +75,19 @@ export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModule
                           text:'Solo se pueden eliminar elementos cancelados'
                         })
                       } else {
-                        Toast.fire({
-                          icon:'error',
-                          title:`Error al eliminar ${typeModuleMessage}`,
-                          // text:errorData.error
-                        })
+                        {typeError ? (
+                          Toast.fire({
+                            icon:'error',
+                            title:typeError,
+                            // text:errorData.error
+                          })
+                        ) : (
+                          Toast.fire({
+                            icon:'error',
+                            title:`Error al eliminar ${typeModuleMessage}`,
+                            // text:errorData.error
+                          })
+                        )}
                       }
                       
                     }

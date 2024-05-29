@@ -12,6 +12,7 @@ import { getUserVisitsController } from './Modules/Visits/getUserVisitsControlle
 import { newVisitController } from './Modules/Visits/newVisitController.js';
 import { updateVisitController } from './Modules/Visits/updateVisitController.js';
 import { getVisitSearchController } from './Modules/Visits/getVisitSearchController.js';
+import { getVisitSaleAgetsController } from './Modules/Visits/getVisitSelesAgentsController.js'; 
 
 // Imports ventas
 import { insertSalesController } from './Modules/sales/insertSalesController.js';
@@ -62,6 +63,7 @@ export {
   newVisitController,
   updateVisitController,
   getVisitSearchController,
+  getVisitSaleAgetsController,
   insertSalesController,
   updateSalesController,
   deleteSalesController,

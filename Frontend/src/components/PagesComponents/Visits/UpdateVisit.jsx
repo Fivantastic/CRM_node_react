@@ -2,11 +2,15 @@ import Swal from 'sweetalert2';
 import { useUser } from '../../../context/authContext.jsx';
 import { updateVisitSchema } from '../../../Schema/Error/updateSchema.js';
 import { DynamicModalWrapper } from '../../FromModal/DynamicModalWrapper.jsx';
+import { useState } from 'react';
+import { useOpenUser } from '../../../hooks/selectsHook/useOpenUser.js';
 const URL = import.meta.env.VITE_URL;
 
-export const UpdateVisit = ({ visit, onUpdateSale }) => {
+export const UpdateVisit = ({ visit, onUpdateVisit }) => {
   // Asi obtienes el token del usuario de la sesión
   const token = useUser();
+  const [reload, setReload] = useState(false);
+  const openUsers = useOpenUser(token, reload);
 
   // Aqui hace la peticion al servidor
   const handleButtonUpdateVisit = async (formData) => {
@@ -29,7 +33,7 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
         const responseData = await response.json();
         console.log('Venta actualizada satisfactorio:', responseData);
 
-        onUpdateSale(responseData);
+        onUpdateVisit(visit);
 
         // Aqui puedes mostrar un mensaje de exito con Swal que sale abajo a la derecha de la pantalla y dura 3 segundos
         const Toast = Swal.mixin({
@@ -48,6 +52,8 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
           icon: 'success',
           title: 'Actualización Realizada con exito ! ',
         });
+
+        setReload(!reload);
       } else {
         // si la peticion es incorrecta
         const errorData = await response.json();
@@ -70,9 +76,16 @@ export const UpdateVisit = ({ visit, onUpdateSale }) => {
   // Campos del formulario personalizables
   const updateVisitFormFields = [
     {
+      key: 'id_user', 
       name: 'id_user',
       label: 'Comercial',
-      type: 'text',
+      type: 'select',
+      options: {
+        Comercial: openUsers.map(user => ({
+          value: user.id_user,
+          label: `${user.ref_US} - ${user.name} ${user.last_name}`,
+        }))
+      },
       idLabel: 'labelUserVisitUpdate',
       idInput: 'inputUserVisitUpdate',
       required: false,

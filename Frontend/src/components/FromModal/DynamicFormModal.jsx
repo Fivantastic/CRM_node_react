@@ -25,8 +25,8 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
 
     fields.forEach(field => {
       const inputElement = document.getElementById(field.idInput);
-      const underlineElement = inputElement ? inputElement.nextElementSibling : null;
       if (inputElement) {
+        const underlineElement = inputElement.nextElementSibling;
         if (formValues[field.name]) {
           inputElement.classList.add('has-initial-value');
           if (underlineElement) underlineElement.classList.add('has-initial-value');
@@ -65,8 +65,10 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
       [name]: value,
     });
 
-    inputElement.classList.remove('has-initial-value');
-    if (underlineElement) underlineElement.classList.remove('has-initial-value');
+    if (inputElement) {
+      inputElement.classList.remove('has-initial-value');
+      if (underlineElement) underlineElement.classList.remove('has-initial-value');
+    }
 
     if (e.target.type === 'date') {
       updateDateInputState(e.target);
@@ -140,12 +142,13 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
 
   const handleFocus = (e) => {
     const inputElement = e.target;
-    const underlineElement = inputElement.nextElementSibling;
-
-    inputElement.classList.remove('has-initial-value');
-    if (underlineElement) underlineElement.classList.remove('has-initial-value');
-    if (inputElement.tagName === 'TEXTAREA') {
-      adjustTextareaHeight(inputElement);
+    if (inputElement) {
+      const underlineElement = inputElement.nextElementSibling;
+      inputElement.classList.remove('has-initial-value');
+      if (underlineElement) underlineElement.classList.remove('has-initial-value');
+      if (inputElement.tagName === 'TEXTAREA') {
+        adjustTextareaHeight(inputElement);
+      }
     }
   };
 
@@ -165,7 +168,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
   };
 
   const handleMenuOpen = (name) => {
-    handleFocus(name);
+    handleFocus({ target: document.getElementById(`react-select-${name}-input`) });
   };
 
   const hasRequiredFields = fields.some(field => field.required);
@@ -199,7 +202,7 @@ export const DynamicFormModal = ({ title, fields, schema, onSubmit, buttonText, 
                   isClearable
                   placeholder=""
                   styles={customStyles}
-                  onFocus={() => handleFocus(field.name)}
+                  onFocus={() => handleFocus({ target: document.getElementById(`react-select-${field.name}-input`) })}
                   onBlur={() => handleBlur(field.name)}
                   onMenuClose={() => handleMenuClose(field.name)}
                   onMenuOpen={() => handleMenuOpen(field.name)}

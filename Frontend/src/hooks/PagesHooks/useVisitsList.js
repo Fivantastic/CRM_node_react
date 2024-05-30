@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Toast } from '../../components/alerts/Toast.jsx';
+import { RatingDashboard } from '../../components/Dashboard/DataDashboard/RatingDashboard.jsx';
 const URL = import.meta.env.VITE_URL;
 
 export const useVisitsList = (token) => {
@@ -167,6 +168,7 @@ export const useVisitsList = (token) => {
         prevVisits.filter((visit) => visit.id_visit !== id_visit)
       );
       await getVisitList();
+      RatingDashboard();
     } catch (error) {
       console.error('Error al eliminar la visita:', error);
       Toast.fire({

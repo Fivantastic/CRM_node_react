@@ -53,7 +53,9 @@ export const MaxInvoices = () => {
   };
 
   // Ejemplo de total de ingresos previos
-  const previousTotalIncome = 100000; 
+  const previousTotalIncome = 100000;
+  const calculateTotalInvoice = (invoice) => invoice.reduce((total, shipment) => total + ( parseFloat(shipment.total_amount
+  )), 0); 
 
 
   useEffect(() => {
@@ -64,7 +66,7 @@ export const MaxInvoices = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  const percentageChange = ((previousTotalIncome / currentMonthInvoices.reduce((total, invoice) => total + parseFloat(invoice.total_amount), 0)) * 100 - 100).toFixed(2);
+  const percentageChange = ((calculateTotalInvoice(currentMonthInvoices) / previousTotalIncome) * 100).toFixed(2);
 
   return (
     <div className="card_Dashboard">

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-const URL = import.meta.env.VITE_URL;
 import { useParams } from 'react-router-dom';
 import './ratingVisit.css';
 import { Toast } from '../../components/alerts/Toast.jsx';
 import { SuccesRating } from '../../components/alerts/SuccesRating.jsx';
+const URL = import.meta.env.VITE_URL;
 
 export const RatingVisit = () => {
   const [rating_visit, setRating_visit] = useState(0);

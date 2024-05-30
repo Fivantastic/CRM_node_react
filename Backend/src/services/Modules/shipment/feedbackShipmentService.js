@@ -9,8 +9,8 @@ export const feedbackShipmentService = async (body, ref_SH) => {
 
   console.log('Resultado de la consulta del número de referencia:', shipment);
 
-  // Insertar o actualizar el feedback en la base de datos
-  const response = await feedbackShipmentModel(
+  // Actualizar el feedback en la base de datos
+  const response = await feedbackShipmentModel.updateFeedback(
     shipment.id_shipment,
     rating_module,
     rating_comment

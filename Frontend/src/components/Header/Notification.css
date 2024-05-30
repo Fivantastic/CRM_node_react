@@ -1,51 +1,84 @@
-.notification-icon-container {
-    display: flex;
-    align-items: center;
-    translate: 0 5px;
-    cursor: pointer;
-    margin: 0 20px;
-  }
-  
-  .notification-icon {
-    font-size: 24px;
-    color: #13214E;
-  }
-  
-  .notification-count {
-    position: absolute;
-    top: -5px; 
-    right: -5px; 
-    background: red;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px;
-  }
-  
-  .notification-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    border: 1px solid #ccc;
-    width: 300px;
-    max-height: 400px;
-    overflow-y: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    display: none;
-  }
-  
-  .notification-dropdown.open {
-    display: block;
-  }
-  
-  .notification-dropdown li {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .notification-dropdown li:hover {
-    background: #f5f5f5;
-  }
-  
+/* Estilos para el contenedor de notificaciones */
+.notificationNavContainer {
+  cursor: pointer;
+  position: relative;
+  margin-right: 20px; /* Añadido margen para separar del perfil */
+}
+
+/* Estilos para el icono de notificación */
+.iconNotificationNav {
+  font-size: 24px;
+  color: #13214E;
+}
+
+/* Estilos para el contador de notificaciones */
+.notificationCountNav {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+/* Estilos para el menú desplegable de notificaciones */
+.menuNotificationNav {
+  display: flex;
+  flex-direction: column;
+  background-color: #13214E;
+  border-radius: 5px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  width: 220px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+.menuNotificationNav.open {
+  visibility: visible;
+  opacity: 1;
+  translate: -10px 12px;
+  top: 40px;
+}
+
+/* Estilos para los elementos de la lista de notificaciones */
+.notificationItemNav {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.notificationItemNav:hover {
+  background: #f5f5f5;
+  color: #000;
+}
+
+/* Estilos para el mensaje de no notificaciones */
+.noNotificationsNav {
+  text-align: center;
+  color: #999;
+}
+
+/* Estilos para el botón de notificación */
+.btn-notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.btn-notification.clicked {
+  transform: scale(0.97);
+  transition: transform 0.05s ease;
+}
+
+.btn-notification.open > .iconNotificationNav {
+  transform: rotate(0deg); /* Corregir la rotación del icono */
+}

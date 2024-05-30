@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaBell } from 'react-icons/fa';
 import { useUser } from '../../context/authContext.jsx';
 import socketService from '../../Services/socket.js';
 import { getUserDataFromToken } from '../../Services/GetUserDataToken.js';
+import { useNavigate } from 'react-router-dom';
 import './Notification.css';
 
 export const Notification = () => {
   const token = useUser();
+  const navigate = useNavigate();
   const [notificationCount, setNotificationCount] = useState(() => {
     const storedCount = localStorage.getItem('notificationCount');
     return storedCount ? JSON.parse(storedCount) : 0;
@@ -16,6 +18,8 @@ export const Notification = () => {
     return storedNotifications ? JSON.parse(storedNotifications) : [];
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const notificationRef = useRef();
 
   useEffect(() => {
     if (token) {
@@ -42,33 +46,63 @@ export const Notification = () => {
     }
   }, [token]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [notificationRef]);
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleNotificationClick = () => {
-    setNotificationCount(0);
-    setNotifications([]);
-    localStorage.removeItem('notificationCount');
-    localStorage.removeItem('notifications');
+  const handleClick = () => {
+    setIsClicked(true);
+    setTimeout(() => {
+      setIsClicked(false);
+    }, 200);
+  };
+
+  const handleNotificationClick = (id) => {
+    navigate(`/deliveries/${id}`);
+    setNotificationCount(notificationCount - 1);
+    const newNotifications = notifications.filter(notification => notification.id !== id);
+    setNotifications(newNotifications);
+    localStorage.setItem('notifications', JSON.stringify(newNotifications));
+    localStorage.setItem('notificationCount', JSON.stringify(notificationCount - 1));
     setIsOpen(false);
   };
 
   return (
-    <div className="notification-icon-container" onClick={toggleDropdown}>
-      <div className="notification-icon">
-        <FaBell />
+    <div ref={notificationRef} className="notificationNavContainer" onClick={() => {
+      toggleDropdown();
+      handleClick();
+    }}>
+      <div className={`dropdown-toggle btn-notification ${isOpen ? 'open' : ''} ${isClicked ? 'clicked' : ''}`}>
+        <FaBell className="iconNotificationNav" />
         {notificationCount > 0 && (
-          <span className="notification-count">{notificationCount}</span>
+          <span className="notificationCountNav">{notificationCount}</span>
         )}
       </div>
-      {isOpen && (
-        <ul className="notification-dropdown open">
-          {notifications.map((notification, index) => (
-            <li key={index} onClick={handleNotificationClick}>{notification.message}</li>
-          ))}
-        </ul>
-      )}
+
+      <ul className={`menuNotificationNav ${isOpen ? 'open' : ''}`}>
+        {notifications.length === 0 ? (
+          <li className="noNotificationsNav">No tienes notificaciones</li>
+        ) : (
+          notifications.map((notification, index) => (
+            <li key={index} className="notificationItemNav" onClick={() => handleNotificationClick(notification.id)}>
+              <p>{notification.message}</p>
+              <p>{notification.details}</p>
+            </li>
+          ))
+        )}
+      </ul>
     </div>
   );
 };

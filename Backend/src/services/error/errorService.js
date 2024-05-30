@@ -116,3 +116,95 @@ export const errorShipmentExists = () => {
     message: 'El albarán ya tiene asignado un envio'
   };
 }
+
+// El albaran aun no esta cancelado
+export const errorNoteNotCancelled = () => {
+  throw {
+    statusCode: 401,
+    code: 'NOTE_NOT_CANCELLED_CRM_ERROR',
+    message: 'El albarán no esta cancelado'
+  };
+}
+
+// Compruebo que el albaran y envio estan cancelados
+export const errorNoteAndShipmentNotCancelled = () => {
+  throw {
+    statusCode: 401,
+    code: 'NOTE_SHIPMENT_NOT_CANCELLED_CRM_ERROR',
+    message: 'El albarán y el envio no estan cancelados'
+  };
+}
+
+// Error al cancelar porque tiene un albaran asignado que no esta cancelado
+export const errorDeleteSale= () => {
+  throw {
+    statusCode: 401,
+    code: 'DELETE_SALE_NOT_CANCELLED_NOTE_CRM_ERROR',
+    message: 'No se puede eliminar porque tiene un albarán asignado que no esta cancelado'
+  };
+}
+
+// Error al cancelar porque tienes que cancelar la venta primero
+export const errorNotCancelSale= () => {
+  throw {
+    statusCode: 401,
+    code: 'DELETE_SALE_NOT_CANCELLED_SALE_CRM_ERROR',
+    message: 'Tienes que cancelar la venta antes de eliminarla'
+  };
+}
+
+export const errorDeleteSalesHasInvoice = () => {
+  throw {
+    statusCode: 401,
+    code: 'DELETE_SALES_HAS_INVOICE_CRM_ERROR',
+    message: 'No se puede eliminar porque tiene facturas asociadas'
+  };
+}
+
+export const errorDeleteSalesHasNoteAndShipment = () => {
+  throw {
+    statusCode: 401,
+    code: 'DELETE_SALES_HAS_NOTE_AND_SHIPMENT_CRM_ERROR',
+    message: 'No se puede eliminar porque tiene albaranes y envios asociados'
+  };
+}
+
+export const errorDeleteSalesHasShipments = () => {
+  throw {
+    statusCode: 401,
+    code: 'DELETE_SALES_HAS_SHIPMENTS_CRM_ERROR',
+    message: 'No se puede eliminar porque tiene envios asociados'
+  };
+}
+
+export const errorDeleteSalesHasNote = () => {
+  throw {
+    statusCode: 401,
+    code: 'DELETE_SALES_HAS_NOTE_CRM_ERROR',
+    message: 'No se puede eliminar porque tiene albaranes asociados'
+  };
+}
+
+export const errorDeleteNoteHasShipment = () => {
+  throw {
+    statusCode: 401,
+    code: 'DELETE_NOTE_HAS_SHIPMENT_CRM_ERROR',
+    message: 'No se puede eliminar porque tiene envios asociados'
+  };
+}
+
+export const errorDeleteShipmentNotCancelled = () => {
+  throw {
+    statusCode: 401,
+    code: 'DELETE_SHIPMENT_NOT_CANCELLED_CRM_ERROR',
+    message: 'El envio no esta cancelado'
+  };
+}
+
+export const errorDeleteShipmentNotCancelledNote = () => {
+  throw {
+    statusCode: 401,
+    code: 'DELETE_SHIPMENT_NOT_CANCELLED_NOTE_CRM_ERROR',
+    message: 'El albaran no esta cancelado'
+  };
+}

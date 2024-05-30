@@ -31,7 +31,7 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
   // Concatena el nombre y los apellidos del cliente
   const nameComplete = `${sale.customer} ${sale.customer_lastname}`;
 
-  const errorMsg = "No se puede eliminar la venta porque tiene un albaran sin cancelado";
+  const errorMsg = "No se puede eliminar la venta porque tiene un albaran sin cancelar";
 
   const moreInfoFields = [
     { label: 'Ref', value: sale.ref_SL },

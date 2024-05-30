@@ -39,6 +39,7 @@ salesRouter.put(
 salesRouter.put(
   '/sales/updateStatus',
   authenticateUser,
+  checkRoleAgent,
   closeSalesController
 );
 

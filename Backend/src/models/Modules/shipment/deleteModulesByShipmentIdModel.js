@@ -1,9 +1,9 @@
 import { getDBPool } from '../../../db/getPool.js';
 
-export const deleteModulesByShipmentIdModel = async (shipmentId) => {
+export const updateModulesByShipmentIdModel = async (shipmentId) => {
   const pool = await getDBPool();
   const [result] = await pool.query(
-    'DELETE FROM Modules WHERE shipment_id = ?',
+    'UPDATE Modules SET shipment_id = NULL WHERE shipment_id = ?',
     [shipmentId]
   );
   return result;

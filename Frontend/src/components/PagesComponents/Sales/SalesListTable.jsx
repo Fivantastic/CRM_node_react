@@ -10,7 +10,7 @@ import '../Sales/SalesListTable.css';
 export const SalesListTable = ({ sale, onUpdateSale, onDelete }) => {
   const token = useUser();
 
-  const errorMsg = "No se puede eliminar la venta porque tiene un albaran sin cancelado";
+  const errorMsg = "No se puede eliminar la venta porque tiene un albaran sin cancelar";
 
   const traducirEstadoVenta = (estado) => {
     switch (estado) {

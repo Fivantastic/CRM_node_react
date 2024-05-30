@@ -3,7 +3,7 @@ import { SimpleDeleteButton } from "../buttons/DeleteButtons/SimpleDeleteButton.
 import { Toast } from "../alerts/Toast.jsx";
 const URL = import.meta.env.VITE_URL;
 
-export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage, typeError }) => {
+export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModuleMessage }) => {
     const handleDelete = async () => {
         Swal.fire({
             title: "¿Estas seguro?",
@@ -74,20 +74,57 @@ export const DeleteGenericModal = ({ id, onDelete, token, typeModule, typeModule
                           icon:'warning',
                           text:'Solo se pueden eliminar elementos cancelados'
                         })
+                      } else if (errorData.code === 'NOTE_SHIPMENT_NOT_CANCELLED_CRM_ERROR') {
+                        Toast.fire({
+                          icon:'warning',
+                          text:'La venta tiene albaranes y envios sin cancelar'
+                        })
+                      } else if(errorData.code === 'DELETE_SALE_NOT_CANCELLED_SALE_CRM_ERROR'){
+                        Toast.fire({
+                          icon:'warning',
+                          text:'Tienes que cancelar la venta antes de eliminarla'
+                        })
+                      } else if (errorData.code === 'DELETE_SALES_HAS_INVOICE_CRM_ERROR') {
+                        Toast.fire({
+                          icon:'warning',
+                          text:'No puedes eliminar esta venta que tiene una facturacion'
+                        })
+                      } else if (errorData.code === 'DELETE_SALES_HAS_NOTE_AND_SHIPMENT_CRM_ERROR') {
+                        Toast.fire({
+                          icon:'warning',
+                          text:'No puedes eliminar esta venta ya que tiene albaranes y envios'
+                        })
+                      } else if (errorData.code === 'DELETE_SALES_HAS_SHIPMENTS_CRM_ERROR') {
+                        Toast.fire({
+                          icon:'warning',
+                          text:'No puedes eliminar esta venta que tiene envios'
+                        })
+                      } else if (errorData.code === 'DELETE_SALES_HAS_NOTE_CRM_ERROR') {
+                        Toast.fire({
+                          icon:'warning',
+                          text:'No puedes eliminar esta venta que tiene albaranes'
+                        })
+                      } else if (errorData.code === 'DELETE_NOTE_HAS_SHIPMENT_CRM_ERROR') {
+                        Toast.fire({
+                          icon:'warning',
+                          text:'No puedes eliminar el albaran, tiene envios asociados'
+                        })
+                      } else if (errorData.code === 'DELETE_SHIPMENT_NOT_CANCELLED_CRM_ERROR') {
+                        Toast.fire({
+                          icon:'warning',
+                          text:'El envio no esta cancelado'
+                        })
+                      } else if (errorData.code === 'DELETE_SHIPMENT_NOT_CANCELLED_NOTE_CRM_ERROR') {
+                        Toast.fire({
+                          icon:'warning',
+                          text:'El albaran no esta cancelado'
+                        })
                       } else {
-                        {typeError ? (
-                          Toast.fire({
-                            icon:'error',
-                            title:typeError,
-                            // text:errorData.error
-                          })
-                        ) : (
                           Toast.fire({
                             icon:'error',
                             title:`Error al eliminar ${typeModuleMessage}`,
-                            // text:errorData.error
                           })
-                        )}
+                        
                       }
                       
                     }

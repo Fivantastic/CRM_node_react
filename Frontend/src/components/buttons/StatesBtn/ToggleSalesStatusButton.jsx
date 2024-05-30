@@ -91,14 +91,25 @@ export const ToggleSalesStatusButton = ({ id, currentStatus, onUpdateSale, token
           title: `Venta ${newStatus === 'closed' ? 'completada' : 'cancelada'} con éxito`,
         });
       } else {
-        // Mostrar un mensaje de error si la petición falla
-        Toast.fire({
-          icon: 'error',
-          title: 'Hubo un problema al realizar la operación',
-        });
+        const data = await response.json();
+        if (data.code === 'NOTE_NOT_CANCELLED_CRM_ERROR') {
+          Toast.fire({
+            icon: 'warning',
+            title: 'Esta venta tiene el albaran sin cancelar',
+          });
+        } else if (data.code === 'NOTE_SHIPMENT_NOT_CANCELLED_CRM_ERROR') {
+          Toast.fire({
+            icon: 'warning',
+            title: 'Esta venta tiene albaranes y envios sin cancelar',
+          });
+        } else {
+          Toast.fire({
+            icon: 'error',
+            title: 'Hubo un problema al realizar la operación',
+          });
+        }
       }
     } catch (error) {
-      // Mostrar un mensaje de error si hay algún error en la petición
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',

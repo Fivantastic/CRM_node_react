@@ -1,6 +1,8 @@
 import { deleteDeliveryNoteModel } from '../../../models/Modules/deliveryNote/deleteDeliveryNoteModel.js';
+import { selectSaleByIdModel } from '../../../models/Modules/sales/selectSaleByIdModel.js';
 import { selectDeliveryNoteByIdModel } from '../../../models/Modules/shipment/selectDeliveryNoteByIdModel.js';
-import { invalidCredentials } from '../../error/errorService.js';
+import { selectShipmentByIdNoteModel } from '../../../models/Modules/shipment/selectShipmentByIdNoteModel.js';
+import { errorDeleteNoteHasShipment, invalidCredentials } from '../../error/errorService.js';
 
 export const selectDeliveryNoteService = async (id_note) => {
 
@@ -10,6 +12,13 @@ export const selectDeliveryNoteService = async (id_note) => {
   // Verifica si el albarán existe
   if (!deliveryNote || deliveryNote.id_note !== id_note) {
     invalidCredentials('El albarán no existe');
+  }
+
+  const shipment = await selectShipmentByIdNoteModel(id_note);
+
+  // Verifica si el albarán está asociado a un envío
+  if (shipment) {
+    errorDeleteNoteHasShipment();
   }
 
   // Verifica si el albarán está cancelado

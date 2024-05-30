@@ -3,15 +3,12 @@ import { getDBPool } from '../../../db/getPool.js';
 export const deleteDeliveryNoteModel = async (deliveryNote_id) => {
   const pool = await getDBPool();
 
-  // Eliminar de las tablas todos los pagos relacionados
-  await pool.query('DELETE FROM Modules WHERE deliveryNote_id = ? ', [
+  // Establecer el campo deliveryNote_id a NULL en la tabla Modules
+  await pool.query('UPDATE Modules SET deliveryNote_id = NULL WHERE deliveryNote_id = ?', [
     deliveryNote_id,
   ]);
 
-  await pool.query('DELETE FROM Shipments WHERE deliveryNote_id = ? ', [
-    deliveryNote_id,
-  ]);
-
+  // Eliminar el registro de la tabla DeliveryNotes
   const [result] = await pool.query(
     'DELETE FROM DeliveryNotes WHERE id_note = ?',
     [deliveryNote_id]

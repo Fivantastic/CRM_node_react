@@ -1,3 +1,4 @@
+import { RatingDashboard } from '../../components/Dashboard/DataDashboard/RatingDashboard.jsx';
 import { InvoicesBarCharts } from '../../components/Dashboard/InvoicesBarCharts.jsx';
 import { MaxInvoices } from '../../components/Dashboard/MaxInvoice.jsx';
 
@@ -31,6 +32,7 @@ export const HomePage = () => {
         <section id="charts">
           <InvoicesBarCharts />
         </section>
+          <RatingDashboard />
       </section>
     </MainLayout>
   );

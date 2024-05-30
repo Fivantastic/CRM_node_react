@@ -9,11 +9,13 @@ export const feedbackVisitService = async (body, ref_VT) => {
 
   // Obtengo el id de la visita
   const feedbackVisit = await selectIdVisitByIdFeedbackService(ref_VT);
+  console.log(feedbackVisit);
 
   // Validamos que no exista una valoracion previa
   const feedbackModules = await selectIdVisitMosuleByIdService(
     feedbackVisit.id_visit
   );
+  console.log(feedbackModules);
 
   if (feedbackModules.rating_module !== null) {
     invalidCredentials('Ya has realizado una valoración para esta visita');

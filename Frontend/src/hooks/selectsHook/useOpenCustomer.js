@@ -18,12 +18,12 @@ export const useOpenCustomers = (token, reload) => {
           const data = await response.json();
           setOpenCustomers(data.data);
         } else {
-          console.error('Error al obtener las ventas abiertas');
-          setOpenCustomers([]); // Asegura que se establece un array vacío en caso de error
+          console.error('Error al obtener los clientes');
+          setOpenCustomers([]); 
         }
       } catch (error) {
         console.error('Error al realizar la solicitud:', error);
-        setOpenCustomers([]); // Asegura que se establece un array vacío en caso de error
+        setOpenCustomers([]);
       }
     };
 

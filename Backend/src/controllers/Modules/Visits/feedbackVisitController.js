@@ -8,7 +8,7 @@ export const feedbackVisitController = async (req, res, next) => {
     //validamos con el joi
     await validateSchemaUtil(feedbackVisitSchema, req.body);
 
-    const ref_VT = req.params.ref_VT;;
+    const ref_VT = req.params.ref_VT;
 
     //Llamamos al servicio
     const response = await feedbackVisitService(req.body, ref_VT);

@@ -9,11 +9,40 @@ const URL = import.meta.env.VITE_URL;
 export const RatingShipment = () => {
   const [rating_module, setRating_module] = useState(0);
   const [rating_comment, setRating_comment] = useState('');
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false); // Cambiado a false inicialmente
   const { ref_SH } = useParams();
 
   useEffect(() => {
     console.log('ref_SH Number from URL:', ref_SH);
+
+    const checkRatingStatus = async () => {
+      try {
+        const response = await fetch(`${URL}/shipment/check-feedback/${ref_SH}`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log('Feedback status:', responseData);
+
+          if (responseData.feedbackExists) {
+            setIsSuccess(true); // Si la valoración ya existe, mostrar el mensaje de éxito
+          } else {
+            setIsSuccess(false); // Si no hay valoración, mostrar el formulario
+          }
+        } else {
+          console.error('Error al comprobar el estado de la valoración:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error al comprobar el estado de la valoración:', error);
+      }
+    };
+
+    checkRatingStatus();
   }, [ref_SH]);
 
   const handleRatingChange = (e) => {
@@ -42,6 +71,7 @@ export const RatingShipment = () => {
           position: 'top-end',
           title: 'Valoración enviada con éxito!',
         });
+        setIsSuccess(true); // Cambiar el estado a éxito después de enviar la valoración
       } else {
         const errorData = await response.json();
         console.error('Rating falló:', errorData);
@@ -66,13 +96,14 @@ export const RatingShipment = () => {
       rating_module,
       rating_comment,
     });
-    setIsSuccess(false);
   };
 
   return (
     <section className="rating_container">
       <img className="title_rating" src="../../../Logo_cosmic.svg" alt="Logo" />
       {isSuccess ? (
+        <SuccesRating />
+      ) : (
         <>
           <p className="rating_agent">Valora nuestro servicio de envío</p>
           <form onSubmit={handleSubmit}>
@@ -134,8 +165,6 @@ export const RatingShipment = () => {
             </section>
           </form>
         </>
-      ) : (
-        <SuccesRating />
       )}
     </section>
   );

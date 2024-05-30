@@ -14,6 +14,7 @@ import { checkRoleDelivery } from '../../middlewares/checkRoles/checkRoleDeliver
 import { getPendingDeliveryNotesController } from '../../controllers/Modules/shipment/getPendingDeliveryNotesController.js';
 import { shipmentByDelivererController } from '../../controllers/Modules/shipment/shipmentByDelivererController.js';
 import { shipmentFeedbackController } from '../../controllers/Modules/shipment/shipmentFeedbackController.js';
+import { checkFeedbackController } from '../../controllers/Modules/shipment/checkFeedbackController.js';
 
 
 export const shipmentRouter = express.Router();
@@ -49,3 +50,7 @@ shipmentRouter.get('/shipment/deliverer', shipmentByDelivererController);
 
 // Ruta recibir valoración del cliente 
 shipmentRouter.put('/shipment/feedback/:ref_SH', shipmentFeedbackController);
+
+// Ruta si la valoración ya fue valorada
+
+shipmentRouter.get('/shipment/check-feedback/:ref_SH', checkFeedbackController);

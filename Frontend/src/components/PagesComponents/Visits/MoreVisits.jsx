@@ -32,7 +32,11 @@ export const MoreVisits = ({ visit }) => {
     { label: 'Comercial', value: nameComplete },
   ];
 
+  const modalIds = {
+    classState: 'font-bold'
+  };
+
   return (
-    <MoreInfo fields={moreInfoFields} modalIds={[]} />
+    <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
   );
 };

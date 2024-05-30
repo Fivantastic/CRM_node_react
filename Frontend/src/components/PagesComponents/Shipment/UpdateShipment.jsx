@@ -23,8 +23,7 @@ export const UpdateShipment = ({ shipment, onUpdateShipment, token }) => {
         const responseData = await response.json();
         console.log('Envío actualizado satisfactoriamente:', responseData);
 
-        onUpdateShipment(responseData.data); // Asegúrate de pasar los datos actualizados
-
+        onUpdateShipment(responseData.data);
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -53,6 +52,7 @@ export const UpdateShipment = ({ shipment, onUpdateShipment, token }) => {
   const title = 'Actualizar Estado de Envío';
   const nameButton = 'Actualizar';
 
+
   const updateShipmentFormFields = [
     {
       name: 'shipment_status',
@@ -60,11 +60,11 @@ export const UpdateShipment = ({ shipment, onUpdateShipment, token }) => {
       type: 'select',
       options: {
         Estados: [
-          { value: 'pending', label: 'Pendiente' },
-          { value: 'inTransit', label: 'En Reparto' },
+          { value: 'inTransit', label: 'En trásnsito' },
+          { value: 'delivered', label: 'Entregado' },
           { value: 'delayed', label: 'Retrasado' },
           { value: 'cancelled', label: 'Cancelado' },
-          { value: 'delivered', label: 'Entregado' },
+          { value: 'refused', label: 'Rechazado' },
         ],
       },
       required: false,

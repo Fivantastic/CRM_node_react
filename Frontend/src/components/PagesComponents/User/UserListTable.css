@@ -26,8 +26,9 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
     align-items: center;
-    height: 50px;
+    height: 45px;
 }
 
 .userTableBodyRow:hover {
@@ -53,6 +54,10 @@
 .userTableHeadRowActive,
 #userTableBodyRowActive {
     width: 60px;
+}
+
+#userTableBodyRowActive {
+    font-weight: 600;
 }
 
 .userTableHeadRowActions,

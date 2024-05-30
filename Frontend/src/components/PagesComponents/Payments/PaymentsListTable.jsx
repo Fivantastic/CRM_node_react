@@ -46,6 +46,10 @@ export const PaymentsListTable = ({payments, onUpdatePayment }) => {
               { label: 'Fecha del pago', value: paidDate.toLocaleDateString() },
               { label: 'Estado', value: estadoPago.text, color: estadoPago.color },
             ];
+
+            const modalIds = {
+              classState: 'font-bold'
+            };
             
             return (
               <div key={payment.id_payment} className="paymentsTableBodyRow">
@@ -61,7 +65,7 @@ export const PaymentsListTable = ({payments, onUpdatePayment }) => {
                   <p style={{color: estadoPago.color}}>{estadoPago.text}</p>
                 </div>
                 <span className="paymentsTableBodyRowActions">
-                  <MoreInfo fields={moreInfoFields} modalIds={[]} />
+                  <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
                   <ChangeStatus
                     id={payment.id_payment}
                     currentStatus={payment.payment_status}

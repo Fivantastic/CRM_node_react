@@ -35,6 +35,10 @@ const moreInfoFields = [
   { label: 'Estado', value: estadoPago.text, color: estadoPago.color },
 ];
 
+const modalIds = {
+  classState: 'font-bold'
+};
+
   return (
       <>
         <div id="element_customer_subtitle" className="mainInsideSub">
@@ -47,11 +51,11 @@ const moreInfoFields = [
         <p className="mainInsideSub"><strong>Telefono: </strong> {payment.customer_phone}</p>
 
         <p className="mainInsideSub"><strong>Fecha de pago: </strong> {paidDate.toLocaleDateString()}</p>
-        <p className="mainInsideSub"><strong>Estado: </strong><span style={{color: estadoPago.color}}>{estadoPago.text}</span></p>
+        <p className="mainInsideSub"><strong>Estado: </strong><span style={{color: estadoPago.color, fontWeight: '600'}}>{estadoPago.text}</span></p>
 
         <span id="visit_actions" className="main_actions">
 
-        <MoreInfo fields={moreInfoFields} modalIds={[]} />
+        <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
 
         <ChangeStatus
           id={payment.id_payment}

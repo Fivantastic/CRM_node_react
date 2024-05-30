@@ -34,6 +34,7 @@ export const CustomerList = ({ customer, updateCustomer, deleteCustomer, typeMod
     idModalBody: 'customerModalBody',
     idModalFooter: 'customerModalFooter',
     idModalBtnClose: 'customerModalBtnClose',
+    classState: 'font-bold',
   };
 
   return (

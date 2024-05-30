@@ -15,6 +15,7 @@ export const CustomerListTable = ({ customer, updateCustomer, deleteCustomer, ac
       <div className="customerTableHead">
         <div className="customerTableHeadRowReference headRow">Referencia</div>
         <div className="customerTableHeadRowCompany headRow">Empresa</div>
+        <div className="customerTableHeadRowPhone headRow">Telefono</div>
         <div className="customerTableHeadRowStatus headRow">Estado</div>
         <div className="customerTableHeadRowActions headRow">Acciones</div>
       </div>
@@ -24,6 +25,7 @@ export const CustomerListTable = ({ customer, updateCustomer, deleteCustomer, ac
             <div key={customerItem.id_customer} className="customerTableBodyRow">
               <div className="customerTableBodyRowReference">{customerItem.ref_CT}</div>
               <div className="customerTableBodyRowCompany">{customerItem.company_name}</div>
+              <div className="customerTableBodyRowPhone">{customerItem.phone}</div>
               <div className={`customerTableBodyRowStatus ${customerItem.active ? 'active' : 'inactive'}`}>{customerItem.active ? 'Activo' : 'Inactivo'}</div>
               <div className="customerTableBodyRowActions">
                 <MoreCustomer customer={customerItem} />

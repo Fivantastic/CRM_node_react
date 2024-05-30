@@ -47,7 +47,7 @@ export const updateDeliverySchema = Joi.object({
 });
 
 export const updateShipmentSchema = Joi.object({
-  shipment_status: Joi.string().valid('pending', 'inTransit', 'delivered', 'delayed', 'cancelled').optional().messages(joiErrorMessages)
+  shipment_status: Joi.string().valid('pending', 'inTransit', 'delivered', 'cancelled', 'delayed', 'refused').optional().messages(joiErrorMessages)
 });
 
 export const updateUserProfileSchema = Joi.object({

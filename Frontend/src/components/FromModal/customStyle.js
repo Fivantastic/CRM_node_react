@@ -25,7 +25,7 @@ export const customStyles = {
     singleValue: (provided, state) => ({
       ...provided,
       color: state.isDisabled ? '#ccc' : '#333',
-      fontSize: '20px',
+      fontSize: '16px',
     }),
     valueContainer: (provided) => ({
       ...provided,
@@ -59,7 +59,7 @@ export const customStyles = {
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected ? '#f5f5f5' : state.isFocused ? '#e6e6e6' : 'white',
-      fontSize: '14px',
+      fontSize: '16px',
       cursor: 'pointer',
       color: 'black',
       '&:hover': {

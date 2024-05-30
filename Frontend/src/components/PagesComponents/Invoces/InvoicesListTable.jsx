@@ -82,6 +82,10 @@ export const InvoicesListTable = ({invoices, onUpdate }) => {
               { label: 'Estado De la Venta', value: invoiceStatus.text, color: invoiceStatus.color },
               { label: 'Fecha De Creación', value: creationDate.toLocaleDateString() }
             ];
+
+            const modalIds = {
+              classState: 'font-bold'
+            };
             
             return (
               <div key={invoice.id_invoice} className="invoicesTableBodyRow">
@@ -95,7 +99,7 @@ export const InvoicesListTable = ({invoices, onUpdate }) => {
                   {invoiceStatus.text}
                 </div>
                 <div className="invoicesTableBodyRowActions">
-                  <MoreInfo fields={moreInfoFields} modalIds={[]} />
+                  <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
                   <ClosedInvoice
                     onUpdateInvoice={onUpdate}
                     invoice={invoice.id_invoice}

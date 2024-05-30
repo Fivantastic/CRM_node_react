@@ -12,6 +12,7 @@ import { DeleteGenericModal } from '../../../components/forms/DeleteGenericModal
 import useShipmentList from '../../../hooks/PagesHooks/useShipmentList.js';
 import { ShipmentListTable } from './ShipmentListTable.jsx';
 import '../../../Styles/Pages/StyleShipmentList.css';
+import { Prohibited } from '../../buttons/BtnForms/Prohibited.jsx';
 
 export const ShipmentsCrud = () => {
   const token = useUser();
@@ -66,10 +67,11 @@ export const ShipmentsCrud = () => {
 
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },
-    { label: 'En Reparto', value: 'inTransit' },
-    { label: 'Retrasado', value: 'delayed' },
-    { label: 'Cancelado', value: 'cancelled' },
-    { label: 'Entregado', value: 'delivered' },
+    { label: 'En trásnsito', value: 'inTransit' },
+    { label: 'Entregados', value: 'delivered' },
+    { label: 'Cancelados', value: 'cancelled' },
+    { label: 'Retrasados', value: 'delayed' },
+    { label: 'Rechazados', value: 'refused' },
   ];
 
   const sortOptions = [
@@ -98,11 +100,14 @@ export const ShipmentsCrud = () => {
                 </div>
                 <div id="shipment_actions" className="main_actions">
                   <MoreShipments shipment={shipment} />
-                  <UpdateShipment
-                    shipment={shipment.id_shipment}
-                    onUpdateShipment={updateShipment}
-                    token={token}
-                  />
+                  {['delayed', 'cancelled', 'refused'].includes(shipment.shipment_status) ? 
+                    <Prohibited /> : 
+                    <UpdateShipment
+                      shipment={shipment.id_shipment}
+                      onUpdateShipment={updateShipment}
+                      token={token}
+                    />
+                  }
                   <DeleteGenericModal
                     id={shipment.id_shipment}
                     onDelete={deleteShipment}
@@ -121,8 +126,8 @@ export const ShipmentsCrud = () => {
         <div id="shipments_table">
           <ShipmentListTable
             shipment={filteredShipmentList}
-            onUpdateShipment={updateShipment}
-            onDelete={deleteShipment}
+            updateShipment={updateShipment}
+            deleteShipment={deleteShipment}
             token={token}
           />
         </div>

@@ -2,27 +2,28 @@ import { MoreInfo } from '../../InfoModal/MoreInfo.jsx';
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 
 export const MoreShipments = ({ shipment }) => {
-  if (!shipment) return null;
 
   const dueDate = getNormalizedDate(shipment.shipment_create_at);
   const traducirEstadoEntrega = (estado) => {
     switch (estado) {
       case 'pending':
         return { text: 'Pendiente', color: 'blue' };
+      case 'inTransit':
+        return { text: 'En trásnsito', color: 'orange' };
       case 'delivered':
         return { text: 'Entregado', color: 'green' };
-      case 'cancelled':
-        return { text: 'Cancelado', color: 'red' };
-      case 'inTransit':
-        return { text: 'En tránsito', color: 'orange' };
       case 'delayed':
         return { text: 'Retrasado', color: 'purple' };
+      case 'cancelled':
+        return { text: 'Cancelado', color: 'red' };
+      case 'refused':
+        return { text: 'Rechazado', color: 'red' };
       default:
         return { text: estado, color: 'black' };
     }
   };
 
-  const estadoEntrega = traducirEstadoEntrega(shipment.delivery_status);
+  const estadoEntrega = traducirEstadoEntrega(shipment.shipment_status);
 
   const moreInfoFields = [
     { label: 'Referencia envío', value: shipment.ref_SH },
@@ -37,5 +38,9 @@ export const MoreShipments = ({ shipment }) => {
     { label: 'Estado', value: estadoEntrega.text, color: estadoEntrega.color },
   ];
 
-  return <MoreInfo fields={moreInfoFields} modalIds={[]} />;
+  const modalIds = {
+    classState: 'font-bold'
+  };
+
+  return <MoreInfo fields={moreInfoFields} modalIds={modalIds} />;
 };

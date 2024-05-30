@@ -6,17 +6,19 @@ export const MoreNote = ({ note }) => {
 
   const dueDate = getNormalizedDate(note.delivery_date);
   const traducirEstadoEntrega = (estado) => {
-    switch (estado) {
+    switch (estado) { 
       case 'pending':
         return { text: 'Pendiente', color: 'blue' };
-      case 'processing':
-        return { text: 'En proceso', color: 'orange' };
       case 'delivered':
         return { text: 'Entregado', color: 'green' };
       case 'cancelled':
         return { text: 'Cancelado', color: 'red' };
       case 'delivering':
         return { text: 'En reparto', color: 'orange' };
+      case 'readyToShipment':
+        return { text: 'Listo para envio', color: 'orange' };
+      case 'incidence':
+        return { text: 'Incidencia', color: 'red' };
       default:
         return { text: estado, color: 'black' };
     }
@@ -38,5 +40,9 @@ export const MoreNote = ({ note }) => {
     { label: 'Estado', value: estadoEntrega.text, color: estadoEntrega.color },
   ];
 
-  return <MoreInfo fields={moreInfoFields} modalIds={[]} />;
+  const modalIds = {
+    classState: 'font-bold',
+  }
+
+  return <MoreInfo fields={moreInfoFields} modalIds={modalIds} />;
 };

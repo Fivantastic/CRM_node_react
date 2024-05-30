@@ -22,7 +22,7 @@
 }
 
 #sale_container {
-  max-width: 1000px;
+  max-width: 1100px;
 }
 
 #note_container {
@@ -121,10 +121,16 @@
 /* Clases para el Estado Activo e Inactivo */
 .active {
   color: green;
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 600;
 }
 
 .inactive {
   color: red;
+  font-weight: 600;
 }
 
 

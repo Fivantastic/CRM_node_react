@@ -14,9 +14,11 @@ export const selectPendingDeliveryNotesModel = async () => {
     LEFT JOIN 
       Shipments S ON DN.id_note = S.deliveryNote_id
     WHERE 
-      (DN.delivery_status = 'pending' OR DN.delivery_status = 'processing') 
-      AND S.deliveryNote_id IS NULL
+      DN.delivery_status = 'readyToShipment'
+      AND (
+        S.deliveryNote_id IS NULL
+        OR S.shipment_status IN ('cancelled', 'delayed', 'refused')
+      )
   `);
-
   return rows;
 };

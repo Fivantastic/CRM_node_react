@@ -2,17 +2,19 @@ import { getNormalizedDate } from "../../../Services/getNormalizedDate.js";
 
 export const DeliveryNoteList = ({ deliveryNote }) => {
   const traducirEstadoEntrega = (estado) => {
-    switch (estado) {
+    switch (estado) { 
       case 'pending':
         return { text: 'Pendiente', color: 'blue' };
-      case 'processing':
-        return { text: 'En proceso', color: 'orange' };
       case 'delivered':
         return { text: 'Entregado', color: 'green' };
       case 'cancelled':
         return { text: 'Cancelado', color: 'red' };
       case 'delivering':
         return { text: 'En reparto', color: 'orange' };
+      case 'readyToShipment':
+        return { text: 'Listo para envio', color: 'orange' };
+      case 'incidence':
+        return { text: 'Incidencia', color: 'red' };
       default:
         return { text: estado, color: 'black' };
     }
@@ -34,7 +36,7 @@ export const DeliveryNoteList = ({ deliveryNote }) => {
       <p className="mainInsideSub"><strong>Producto: </strong> {deliveryNote.product_name}</p>
       <p className="mainInsideSub"><strong>Cantidad: </strong> {deliveryNote.product_quantity + ' u.'}</p>
       <p className="mainInsideSub"><strong>Fecha de entrega: </strong> {fechaEntrega.toLocaleDateString()}</p>
-      <p className="mainInsideSub"><strong>Estado: </strong> <span style={{ color: statusEntrega.color }}>{statusEntrega.text}</span></p>
+      <p className="mainInsideSub"><strong>Estado: </strong> <span style={{ color: statusEntrega.color, fontWeight: '600' }}>{statusEntrega.text}</span></p>
     </>
   );
 };

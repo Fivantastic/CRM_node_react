@@ -97,7 +97,7 @@ const useShipmentList = (token) => {
     let filtered = shipmentList;
 
     if (selectedFilters.length > 0) {
-      filtered = shipmentList.filter((shipment) => selectedFilters.includes(shipment.delivery_status));
+      filtered = shipmentList.filter((shipment) => selectedFilters.includes(shipment.shipment_status));
     }
 
     setFilteredShipmentList(filtered);
@@ -134,9 +134,13 @@ const useShipmentList = (token) => {
       await getShipmentList();
     } catch (error) {
       console.error('Error al agregar el envío:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al agregar el envío',
+      });
     }
   };
-
+  
   const deleteShipment = async (id_shipment) => {
     try {
       setFilteredShipmentList((prevShipments) =>
@@ -145,32 +149,43 @@ const useShipmentList = (token) => {
       await getShipmentList();
     } catch (error) {
       console.error('Error al eliminar el envío:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al eliminar el envío',
+      });
     }
   };
-
+  
   const updateShipment = async (updatedShipment) => {
     try {
-      // Actualiza la lista de envíos con los datos actualizados
       setFilteredShipmentList((prevShipments) =>
         prevShipments.map((shipment) =>
-          shipment.id_shipment === updatedShipment.id_shipment ? updatedShipment : shipment
+          shipment.id_shipment === updatedShipment.id_shipment ? { ...shipment, ...updatedShipment } : shipment
         )
       );
+  
       setShipmentList((prevShipments) =>
         prevShipments.map((shipment) =>
-          shipment.id_shipment === updatedShipment.id_shipment ? updatedShipment : shipment
+          shipment.id_shipment === updatedShipment.id_shipment ? { ...shipment, ...updatedShipment } : shipment
         )
       );
+  
       setInitialShipmentList((prevShipments) =>
         prevShipments.map((shipment) =>
-          shipment.id_shipment === updatedShipment.id_shipment ? updatedShipment : shipment
+          shipment.id_shipment === updatedShipment.id_shipment ? { ...shipment, ...updatedShipment } : shipment
         )
       );
-      console.log('State updated successfully.');
+  
+      await getShipmentList();
     } catch (error) {
       console.error('Error al actualizar el envío:', error);
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al actualizar el envío',
+      });
     }
   };
+  
 
   return {
     filteredShipmentList,

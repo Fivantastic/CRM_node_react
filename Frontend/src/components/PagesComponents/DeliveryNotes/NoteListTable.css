@@ -10,6 +10,7 @@
   border-radius: 8px;
   padding: 10px 15px;
   margin-top: 10px;
+
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
@@ -35,9 +36,10 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
   padding-left: 5px;
   align-items: center;
-  height: 50px;
+  height: 40px;
 }
 
 .noteTableBodyRow:hover {
@@ -46,12 +48,12 @@
 
 #noteTableHeadRowRef,
 .noteTableBodyRowRef {
-  width: 110px;
+  width: 105px;
 }
 
 #noteTableHeadRowRefSales,
 .noteTableBodyRowRefSales {
-  width: 110px;
+  width: 105px;
 
 }
 
@@ -62,7 +64,7 @@
 
 #noteTableHeadRowProduct,
 .noteTableBodyRowProduct {
-  width: 150px;
+  width: 180px;
 
 }
 
@@ -74,13 +76,16 @@
 
 #noteTableHeadRowDate,
 .noteTableBodyRowDate {
-  width: 125px;
+  width: 100px;
 }
 
 #noteTableHeadRowStatus,
 .noteTableBodyRowStatus {
-  width: 90px;
+  width: 130px;
+}
 
+.noteTableBodyRowStatus {
+  font-weight: 600;
 }
 
 #noteTableHeadRowActions,

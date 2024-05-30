@@ -4,6 +4,7 @@ import { notFoundError } from '../../error/errorService.js';
 import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
 import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
 import { getShipmentData } from './getShipmentData.js';
+import { updateStatusModel } from '../../../models/updateStatusModel.js';
 
 export const newShipmentService = async ( deliveryNote_id, additional_notes ) => {
 
@@ -28,6 +29,10 @@ export const newShipmentService = async ( deliveryNote_id, additional_notes ) =>
   await insertShipmentModel({
     shipmentId, ref, customer_id, address_id, deliveryNote_id, additional_notes,
   });
+
+ // Cambiamos el estado de la nota de entrega
+ await updateStatusModel('DeliveryNotes', 'delivery_status', 'id_note', 'delivering', deliveryNote_id);
+
 
   const result = await getShipmentData(shipmentId);
 

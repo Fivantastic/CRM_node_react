@@ -59,6 +59,8 @@ export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
     }
   };
 
+  'pending', 'readyToShipment', 'incidence', 'cancelled', 'delivering', 'delivered'
+
   const title = 'Actualizar Nota de Entrega';
   const nameButton = 'Actualizar';
 
@@ -73,9 +75,11 @@ export const UpdateDelivery = ({ onDeliveryNote, deliveryNote, token }) => {
       idInput: 'inputStatusNoteUpdate',
       options: {
         Estados: [
-          { value: 'pending', label: 'Pendiente' },
-          { value: 'processing', label: 'Procesando' },
+          { value: 'readyToShipment', label: 'Listo para envio' },
           { value: 'cancelled', label: 'Cancelado' },
+          { value: 'delivering', label: 'En reparto' },
+          { value: 'incidence', label: 'Incidencia' },
+          { value: 'pending', label: 'Pendiente' },
         ],
       },
     },

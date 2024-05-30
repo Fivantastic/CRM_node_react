@@ -35,6 +35,7 @@ export const MoreCustomer = ({ customer }) => {
     idModalBody: 'customerModalBody',
     idModalFooter: 'customerModalFooter',
     idModalBtnClose: 'customerModalBtnClose',
+    classState: 'font-bold',
   };
     return (
         <MoreInfo fields={moreInfoFields} modalIds={modalIds} />

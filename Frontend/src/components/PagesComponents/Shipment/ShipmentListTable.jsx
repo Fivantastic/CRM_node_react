@@ -3,21 +3,24 @@ import { DeleteGenericModal } from '../../forms/DeleteGenericModal.jsx';
 import { getNormalizedDate } from '../../../Services/getNormalizedDate.js';
 import { MoreShipments } from './MoreShipments.jsx';
 import './ShipListTable.css';
+import { Prohibited } from '../../buttons/BtnForms/Prohibited.jsx';
 
-export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete, token }) => {
+export const ShipmentListTable = ({ shipment, updateShipment, deleteShipment, token }) => {
 
   const traducirEstadoEntrega = (estado) => {
     switch (estado) {
       case 'pending':
         return { text: 'Pendiente', color: 'blue' };
+      case 'inTransit':
+        return { text: 'En trásnsito', color: 'orange' };
       case 'delivered':
         return { text: 'Entregado', color: 'green' };
-      case 'cancelled':
-        return { text: 'Cancelado', color: 'red' };
-      case 'inTransit':
-        return { text: 'En tránsito', color: 'orange' };
       case 'delayed':
         return { text: 'Retrasado', color: 'purple' };
+      case 'cancelled':
+        return { text: 'Cancelado', color: 'red' };
+      case 'refused':
+        return { text: 'Rechazado', color: 'red' };
       default:
         return { text: estado, color: 'black' };
     }
@@ -48,14 +51,17 @@ export const ShipmentListTable = ({ shipment, onUpdateShipment, onDelete, token 
                 </div>
                 <div className="shipmentTableBodyRowActions">
                   <MoreShipments shipment={shipmentItem} />
-                  <UpdateShipment
-                    shipment={shipmentItem.id_shipment}
-                    onUpdateShipment={onUpdateShipment}
-                    token={token}
-                  />
+                  {['delayed', 'cancelled', 'refused'].includes(shipmentItem.shipment_status) ? 
+                    <Prohibited /> : 
+                    <UpdateShipment
+                      shipment={shipmentItem.id_shipment}
+                      onUpdateShipment={updateShipment}
+                      token={token}
+                    />
+                  }
                   <DeleteGenericModal
                     id={shipmentItem.id_shipment}
-                    onDelete={onDelete}
+                    onDelete={deleteShipment}
                     token={token}
                     typeModule="shipment"
                     typeModuleMessage="Envío"

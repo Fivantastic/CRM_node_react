@@ -36,7 +36,7 @@ shipmentRouter.put(
 );
 
 // Ruta para obtener la hoja de ruta de los repartidores
-shipmentRouter.get('/shipment/list', shipmentRouteController, authenticateUser, checkRoleDelivery);
+shipmentRouter.get('/shipment/list', authenticateUser, checkRoleDelivery, shipmentRouteController);
 
 // Ruta para buscar envíos por término de búsqueda
 shipmentRouter.get('/shipment/search', authenticateUser, adminAuthMiddleware, getShipmentSearchController);

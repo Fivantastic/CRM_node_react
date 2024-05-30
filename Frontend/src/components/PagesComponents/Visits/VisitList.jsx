@@ -66,13 +66,13 @@ export const VisitsList = ({
         Ref: {visit.ref_VT}
       </p>
       <p id="VisitName" className="mainInsideSub VisitP">
-        <strong>Nombre: </strong> { nameComplete }
+        <strong>Contacto: </strong> { nameComplete }
       </p>
       <p id="VisitPhone" className="mainInsideSub VisitP">
         <strong>Telefono: </strong> {visit.customer_phone}
       </p>
       <p id="VisitDate" className="mainInsideSub VisitP">
-        <strong>Fecha de la visita: </strong> {fechaNormal.toLocaleDateString()}
+        <strong>Fecha de visita: </strong> {fechaNormal.toLocaleDateString()}
       </p>
       <p
         id="VisitState"

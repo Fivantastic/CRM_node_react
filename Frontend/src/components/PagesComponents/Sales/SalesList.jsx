@@ -63,7 +63,7 @@ export const SalesList = ({ sale, onUpdateSale, onDelete }) => {
       <p className="mainInsideSub"> <strong>Cantidad: </strong> {sale.quantity} u.{' '}</p>
       <p className="mainInsideSub"> <strong>Comercial: </strong> {sale.salesAgent}</p>
 
-      <p  className="mainInsideSub"><strong>Estado: </strong><span className={`${sale.operation_status}`}  style={{ color: statusSale.color }}>{statusSale.text}</span>
+      <p  className="mainInsideSub"><strong>Estado: </strong><span className={`${sale.operation_status}`}  style={{ color: statusSale.color, fontWeight: '600'}}>{statusSale.text}</span>
       </p>
       <span id="sales_actions_list" className="main_actions">
         <MoreInfo fields={moreInfoFields} modalIds={[]} />

@@ -39,7 +39,8 @@
     justify-content: space-between;
     align-items: center;
     column-gap: 10px;
-    height: 50px;
+    font-size: 0.9rem;
+    height: 45px;
     border-bottom: 1px solid #eee;
 }
 
@@ -78,6 +79,10 @@
 #paymentsTableHeadRowEstatus,
 .paymentsTableBodyRowEstatus {
     width: 120px;
+}
+
+.paymentsTableBodyRowEstatus {
+    font-weight: 600;
 }
 
 #paymentsTableHeadRowActions,

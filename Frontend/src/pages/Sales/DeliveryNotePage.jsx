@@ -40,11 +40,12 @@ export const DeliveryNotePage = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
+  'pending', 'readyToShipment', 'incidence', 'cancelled', 'delivering', 'delivered'
   const filterOptions = [
     { label: 'Pendiente', value: 'pending' },
-    { label: 'En proceso', value: 'processing' },
+    { label: 'Listo para envio', value: 'readyToShipment' },
     { label: 'En reparto', value: 'delivering' },
+    { label: 'Incidencia', value: 'incidence' },
     { label: 'Cancelado', value: 'cancelled' },
     { label: 'Entregado', value: 'delivered' },
   ];

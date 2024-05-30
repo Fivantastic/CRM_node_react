@@ -70,6 +70,10 @@ export const InvoicesList = ({
     { label: 'Estado De la Venta', value: invoiceStatus.text, color: invoiceStatus.color },
     { label: 'Fecha De Creación', value: creationDate.toLocaleDateString() }
   ];
+
+  const modalIds = {
+    classState: 'font-bold'
+  };
   
   return (
       <>
@@ -86,10 +90,10 @@ export const InvoicesList = ({
 
         <p className="mainInsideSub"><strong>Fecha de Vencimiento: </strong>{dueDate.toLocaleDateString()}</p>
 
-        <p id="invoice_status" className="mainInsideSub"><strong>Estado Factura: </strong><span style={{color: invoiceStatus.color}}>{invoiceStatus.text}</span></p>
+        <p id="invoice_status" className="mainInsideSub"><strong>Estado Factura: </strong><span style={{color: invoiceStatus.color, fontWeight: '600'}}>{invoiceStatus.text}</span></p>
 
         <span id="invoice_actions" className="main_actions">
-          <MoreInfo fields={moreInfoFields} modalIds={[]} />
+          <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
           <ClosedInvoice
             onUpdateInvoice={handleNewInvoiceStatus}
             invoice={invoice.id_invoice}

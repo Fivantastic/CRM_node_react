@@ -37,12 +37,15 @@
 /* Colores para los diferentes estados de la visita */
 .scheduled {
   color: blue ;
+  font-weight: 600;
 }
 
 .cancelled {
   color: red ;
+  font-weight: 600;
 }
 
 .completed {
   color: green;
+  font-weight: 600;
 }

@@ -20,7 +20,11 @@ export const MoreProduct = ({ product }) => {
      { label: 'Descripción', value:''+ product.description},
      ];
 
+     const modalIds = {
+      classState: 'font-bold'
+    };
+
     return (
-        <MoreInfo fields={moreInfoFields} modalIds={[]} />
+        <MoreInfo fields={moreInfoFields} modalIds={modalIds} />
     )
 }

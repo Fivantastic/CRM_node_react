@@ -24,9 +24,10 @@ export const VisitListTable = ({ visit, onUpdateVisit, onDelete, token }) => {
   return (
     <section id="visit_table">
       <div id="visitTableHead" className="visitTableHead">
-        <div id="VisitTableHeadRowRef" className="headRow">Ref</div>
-        <div id="visitTableHeadRowName" className="headRow">Nombre</div>
-        <div id="visitTableHeadRowDate" className="headRow">Fecha de la visita</div>
+        <div id="VisitTableHeadRowRef" className="headRow">Referencia</div>
+        <div id="visitTableHeadRowName" className="headRow">Contacto</div>
+        <div id="visitTableHeadRowPhone" className="headRow">Telefono</div>
+        <div id="visitTableHeadRowDate" className="headRow">Fecha de visita</div>
         <div id="visitTableHeadRowStatus" className="headRow">Estado</div>
         <div id="visitTableHeadRowActions" className="headRow">Acciones</div>
       </div>
@@ -38,6 +39,7 @@ export const VisitListTable = ({ visit, onUpdateVisit, onDelete, token }) => {
               <div key={visitItem.id_visit} id="visitTableBodyRow">
                 <div className="visitTableBodyRowRef">Ref: {visitItem.ref_VT}</div>
                 <div className="visitTableBodyRowName">{visitItem.customer_name}</div>
+                <div className="visitTableBodyRowPhone">{visitItem.customer_phone}</div>
                 <div className="visitTableBodyDate">
                   {getNormalizedDate(visitItem.visit_date).toLocaleDateString()}
                 </div>

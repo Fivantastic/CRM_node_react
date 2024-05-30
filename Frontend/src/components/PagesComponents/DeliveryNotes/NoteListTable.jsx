@@ -9,17 +9,19 @@ export const NoteListTable = ({ note, onDeliveryNote, onDelete }) => {
   const token = useUser();
 
   const traducirEstadoEntrega = (estado) => {
-    switch (estado) {
+    switch (estado) { 
       case 'pending':
         return { text: 'Pendiente', color: 'blue' };
-      case 'processing':
-        return { text: 'En proceso', color: 'orange' };
       case 'delivered':
         return { text: 'Entregado', color: 'green' };
       case 'cancelled':
         return { text: 'Cancelado', color: 'red' };
       case 'delivering':
         return { text: 'En reparto', color: 'orange' };
+      case 'readyToShipment':
+        return { text: 'Listo para envio', color: 'orange' };
+      case 'incidence':
+        return { text: 'Incidencia', color: 'red' };
       default:
         return { text: estado, color: 'black' };
     }
@@ -33,7 +35,7 @@ export const NoteListTable = ({ note, onDeliveryNote, onDelete }) => {
         <div id="noteTableHeadRowCompany">Empresa</div>
         <div id="noteTableHeadRowProduct">Producto</div>
         <div id="noteTableHeadRowQuantity">Cant.</div>
-        <div id="noteTableHeadRowDate">Fecha entrega</div>
+        <div id="noteTableHeadRowDate">F. entrega</div>
         <div id="noteTableHeadRowStatus">Estado</div>
         <div id="noteTableHeadRowActions">Acciones</div>
       </div>

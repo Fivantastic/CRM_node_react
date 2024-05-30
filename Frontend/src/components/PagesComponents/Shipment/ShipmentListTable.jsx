@@ -16,7 +16,7 @@ export const ShipmentListTable = ({ shipment, updateShipment, deleteShipment, to
       case 'delivered':
         return { text: 'Entregado', color: 'green' };
       case 'delayed':
-        return { text: 'Retrasado', color: 'purple' };
+        return { text: 'Atrasado', color: 'purple' };
       case 'cancelled':
         return { text: 'Cancelado', color: 'red' };
       case 'refused':

@@ -14,7 +14,7 @@ export const ShipmentList = ({ shipment }) => {
       case 'inTransit':
         return { text: 'En tránsito', color: 'orange' };
       case 'delayed':
-        return { text: 'Retrasado', color: 'purple' };
+        return { text: 'Atrasado', color: 'purple' };
       case 'refused':
         return { text: 'Rechazado', color: 'red' };
       default:

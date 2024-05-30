@@ -62,7 +62,7 @@ export const UpdateShipment = ({ shipment, onUpdateShipment, token }) => {
         Estados: [
           { value: 'inTransit', label: 'En trásnsito' },
           { value: 'delivered', label: 'Entregado' },
-          { value: 'delayed', label: 'Retrasado' },
+          { value: 'delayed', label: 'Atrasado' },
           { value: 'cancelled', label: 'Cancelado' },
           { value: 'refused', label: 'Rechazado' },
         ],

@@ -6,6 +6,7 @@ import { updateSalesStatusOfNoteModel } from '../../../models/Modules/deliveryNo
 import { selectSalesByIdModel } from '../../../models/Modules/deliveryNote/selectSalesByIdModel.js';
 import { selectCustomerByIdModel } from '../../../models/customer/selectCustomerByIdModel.js';
 import { selectDeliveryNotesByIdModel } from '../../../models/Modules/deliveryNote/selectNotesByIdModel.js';
+import { insertIdNoteInModulesByIdSaleModel } from '../../../models/Modules/deliveryNote/insertIdNoteInModulesByIdSale.js';
 
 export const createDeliveryNoteService = async (id_sale, deliverer_id) => {
   // Extraer la información de la venta
@@ -41,6 +42,10 @@ export const createDeliveryNoteService = async (id_sale, deliverer_id) => {
 
   // Obtener la nota de entrega recién creada
   const data = await selectDeliveryNotesByIdModel(id_note);
+
+  // Insertar el id de la nota de entrega en modulo asociado a la venta
+  await insertIdNoteInModulesByIdSaleModel(id_sale, id_note);
+
 
   return data;
 };

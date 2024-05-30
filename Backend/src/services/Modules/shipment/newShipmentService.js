@@ -5,6 +5,7 @@ import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
 import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
 import { getShipmentData } from './getShipmentData.js';
 import { updateStatusModel } from '../../../models/updateStatusModel.js';
+import { insertIdShipmentInModulesByIdNoteModel } from '../../../models/Modules/shipment/insertIdNoteInModulesByIdNoteModel.js';
 
 export const newShipmentService = async ( deliveryNote_id, additional_notes ) => {
 
@@ -33,8 +34,10 @@ export const newShipmentService = async ( deliveryNote_id, additional_notes ) =>
  // Cambiamos el estado de la nota de entrega
  await updateStatusModel('DeliveryNotes', 'delivery_status', 'id_note', 'delivering', deliveryNote_id);
 
-
   const result = await getShipmentData(shipmentId);
+
+  // insertar id del envio a la tabla de Modules
+  await insertIdShipmentInModulesByIdNoteModel(deliveryNote_id, shipmentId);
 
   return result;
 };

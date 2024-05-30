@@ -70,7 +70,7 @@ export const ShipmentsCrud = () => {
     { label: 'En trásnsito', value: 'inTransit' },
     { label: 'Entregados', value: 'delivered' },
     { label: 'Cancelados', value: 'cancelled' },
-    { label: 'Retrasados', value: 'delayed' },
+    { label: 'Atrasados', value: 'delayed' },
     { label: 'Rechazados', value: 'refused' },
   ];
 

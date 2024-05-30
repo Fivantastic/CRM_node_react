@@ -1,6 +1,7 @@
 import { insertSaleProductModel } from '../../../models/Modules/sales/insertSaleProductModel.js';
 import { selectCustomerByIdModel } from '../../../models/Modules/sales/selectCustomerByIdModel.js';
 import { selectProductByIdModel } from '../../../models/Modules/sales/selectProductByIdModel.js';
+import { insertModuleSalesModel } from '../../../models/Modules/sales/insertModuleSalesModel.js';
 import { getMaxReference5Digits } from '../../../models/getMaxReference.js';
 import { selectUserByIdModel } from '../../../models/user/selectUserByIdModel.js';
 import { generateReference5DigitsFromRef } from '../../../utils/generateReference5Digits.js';
@@ -48,6 +49,23 @@ export const insertSalesService = async (
     id_saleProduct,
     id_customer
   );
+
+  // Cremaos el Modulo en la base de datos
+
+  // Creamos una id para el modulo
+  // Creamos un id para el modulo
+  const moduleId = crypto.randomUUID();
+  // Obtenemos la referencia máxima de la tabla Modules
+  const maxRefModule = await getMaxReference5Digits('Modules', 'ref_MD') || 'MD-AA00000';
+
+  // Generamos la nueva referencia de Modules
+  const refModule = generateReference5DigitsFromRef('MD', maxRefModule);
+
+  const service_type = 'sale';
+
+  
+  // Insertamos el modulo en la base de datos.
+  await insertModuleSalesModel(moduleId, refModule, id_user, service_type, id_sale)
 
   return response;
 };

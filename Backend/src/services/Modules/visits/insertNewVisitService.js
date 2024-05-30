@@ -42,7 +42,7 @@ export const insertNewVisitService = async (user_id, id_customer, visit_date, ob
     await insertVisitModel(visitId, ref, user_id, id_customer, visit_date, observations);
 
     // Obtenemos la referencia máxima de la tabla Modules
-    const maxRefModule = await getMaxReference5Digits('Modules', 'ref_MD');
+    const maxRefModule = await getMaxReference5Digits('Modules', 'ref_MD') || 'MD-AA00000';
 
     // Generamos la nueva referencia de Modules
     const refModule = generateReference5DigitsFromRef('MD', maxRefModule);

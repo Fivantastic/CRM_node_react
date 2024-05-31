@@ -8,8 +8,10 @@ export const deleteShipmentService = async (shipmentId) => {
   // Obtener los datos de shipment y verificar si el envío esta cancelado
   const shipment = await selectShipmentByIdShipmentModel(shipmentId);
 
-  if (shipment.shipment_status !== 'cancelled') {
-    errorDeleteShipmentNotCancelled();
+  const allowedStatuses = ['delayed', 'cancelled', 'refused'];
+
+  if (!allowedStatuses.includes(shipment.shipment_status)) {
+    errorDeleteShipmentNotCancelledNote();
   }
 
   const deliveryNote = await selectDeliveryNoteByIdShipmentModel(shipment.deliveryNote_id);

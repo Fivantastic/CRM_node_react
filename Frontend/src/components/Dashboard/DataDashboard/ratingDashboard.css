@@ -31,12 +31,13 @@
 .servicio_dashboard {
     font-size: 1.3rem;
     font-weight: 600;
-    margin-bottom: 10px;
+
 }
 .company_dashboard {
     font-size: 1.1rem;
     margin-bottom: 5px;
     font-weight: 500;
+    margin-top: 5px;
 
 }
 

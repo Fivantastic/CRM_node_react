@@ -18,7 +18,9 @@ export const selectDeliveryNoteService = async (id_note) => {
 
   // Verifica si el albarán está asociado a un envío
   if (shipment) {
-    errorDeleteNoteHasShipment();
+    if (deliveryNote.delivery_status !== 'cancelled') {
+      errorDeleteNoteHasShipment();
+    }
   }
 
   // Verifica si el albarán está cancelado

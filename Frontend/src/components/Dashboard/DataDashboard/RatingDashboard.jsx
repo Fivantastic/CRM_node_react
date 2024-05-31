@@ -80,10 +80,10 @@ export const RatingDashboard = () => {
                 ) : (
                   <div className="servicio_dashboard">Visita</div>
                 )}
+                {renderStars(module.rating_module)}
                 <div className="company_dashboard">{module.company_name || `${module.agent_name} ${module.agent_last_name}`}</div>
                 <div>{module.rating_comment}</div>
                 <div>{getNormalizedDate(module.update_at)}</div>
-                {renderStars(module.rating_module)}
               </li>
           </ul>
         </>

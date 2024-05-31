@@ -380,13 +380,15 @@ export async function loadMinusData(db) {
         agentUser_id: agentUser_id,
         service_type: service_type,
         sale_id: sale_id,
-        visit_id: visit_id
+        visit_id: visit_id,
+        rating_module: faker.helpers.arrayElement([1, 2, 3, 4, 5]),
+        rating_comment: faker.lorem.paragraph(),
       };
       moduleData.push(module);
     }
 
     await db.query(
-      `INSERT INTO Modules (id_module, ref_MD, agentUser_id, service_type, sale_id, visit_id) VALUES ?`,
+      `INSERT INTO Modules (id_module, ref_MD, agentUser_id, service_type, sale_id, visit_id, rating_module, rating_comment) VALUES ?`,
       [moduleData.map(module => Object.values(module))]
     );
     console.log(chalk.bold.green(`✅ Datos insertados en tabla Modules.`));

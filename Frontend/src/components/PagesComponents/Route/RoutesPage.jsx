@@ -156,8 +156,8 @@ export const RoutesPage = () => {
                         <h6>{user.name}</h6>
                         <p>Repartidor</p>
                       </div>
-                      <button className="routes_page_button" onClick={() => handleViewShipments(user.id_user)}>
-                        {selectedUser === user.id_user ? '-' : '+'}
+                      <button className="routes_page_button"  onClick={() => handleViewShipments(user.id_user)}>
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#13214E"><path d="M480-200 240-440l56-56 184 183 184-183 56 56-240 240Zm0-240L240-680l56-56 184 183 184-183 56 56-240 240Z"/></svg>
                       </button>
                     </div>
                     {selectedUser === user.id_user && (

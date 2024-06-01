@@ -16,15 +16,15 @@ export const updateUserController = async (req, res, next) => {
     let data = {};
 
     // Actualizamos el usuario en la base de datos.
-    if (req.files !== undefined) {
-      // Guardamos el avatar en la carpeta de subida de archivos. Redimensionamos a un ancho de 100 píxeles.
-      const avatarName = await updateAvatarUserService(
-        userId,
-        req.files.avatar,
-        100
-      );
-      message += 'Avatar actualizado ';
-      data.avatarName = avatarName;
+    if (req.files?.avatar) {
+    // Guardamos el avatar en la carpeta de subida de archivos. Redimensionamos a un ancho de 100 píxeles.
+    const avatarName = await updateAvatarUserService(
+      userId,
+      req.files.avatar,
+      100
+    );
+    message += 'Avatar actualizado ';
+    data.avatarName = avatarName;
     }
 
     const user = await updateUserService(userId, req.body);

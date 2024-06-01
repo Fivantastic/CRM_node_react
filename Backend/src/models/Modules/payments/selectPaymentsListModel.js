@@ -26,6 +26,7 @@ export const selectPaymentsListModel = async () => {
     LEFT JOIN Invoices ON Payments.invoice_id = Invoices.id_invoice
     LEFT JOIN Sales ON Invoices.sale_id = Sales.id_sale
     LEFT JOIN Customers ON Invoices.customer_id = Customers.id_customer
+    ORDER BY Payments.ref_PM DESC
     `);
 
 

@@ -48,13 +48,15 @@ export const SalesPage = () => {
   ];
 
   const sortOptions = [
+    { label: 'Ref (DSC)', value: 'ref-desc' },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
     { label: 'Empresa (A - Z)', value: 'empresa-asc' },
     { label: 'Empresa (Z - A)', value: 'empresa-desc' },
     { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
     { label: 'Fecha (Recientes)', value: 'fecha-desc' },
-    { label: 'Ref (ASC)', value: 'ref-asc' },
-    { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
+
+  const defaultSort =  { label: 'Ref (DSC)', value: 'ref-desc' }
 
   const tables = [
     {
@@ -104,7 +106,7 @@ export const SalesPage = () => {
           <SearchPages onSearch={handleSearch} />
           <CreateSale onAddSale={addSale} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
-          <SortPages options={sortOptions} onSort={handleSortChange} />
+          <SortPages options={sortOptions} onSort={handleSortChange} defaultSort={defaultSort}/>
           <ExportCompletTableDB tables={tables} token={token} page={page} />
           <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>

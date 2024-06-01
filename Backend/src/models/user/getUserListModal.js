@@ -12,6 +12,7 @@ export const getUserListModel = async () => {
              Addresses.city, Addresses.zip_code, Addresses.country
       FROM Users
       LEFT JOIN Addresses ON Users.address_id = Addresses.id_address
+      ORDER BY Users.name, Users.last_name ASC
     `);
   
     return result;

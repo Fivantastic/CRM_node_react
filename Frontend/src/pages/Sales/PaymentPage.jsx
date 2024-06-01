@@ -41,13 +41,15 @@ export const PaymentPage = () => {
   ];
 
   const sortOptions = [
+    { label: "Ref (DSC)", value: "ref-desc" },
+    { label: "Ref (ASC)", value: "ref-asc" },
     { label: "Importe (Asc)", value: "importe-asc" },
     { label: "Importe (Desc)", value: "importe-desc" },
     { label: "Fecha (A - Z)", value: "fecha-asc" },
     { label: "fecha (Z -A)", value: "fecha-desc" },
-    { label: "Ref (ASC)", value: "ref-asc" },
-    { label: "Ref (DSC)", value: "ref-desc" },
   ];
+
+  const defaultSort =  { label: "Ref (DSC)", value: "ref-desc" }
 
   return (
     <MainLayout title="Pagos">
@@ -56,7 +58,7 @@ export const PaymentPage = () => {
         <SearchPages onSearch={handleSearch}/>
         <CreatePayment onAddPayment={addPayment} token={token} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
-        <SortPages options={sortOptions} onSort={handleSortChange} />
+        <SortPages options={sortOptions} onSort={handleSortChange} defaultSort={defaultSort}/>
         <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView}  />
         </nav>
         {isListView ? (

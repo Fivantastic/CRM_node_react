@@ -14,6 +14,10 @@ export const getUserSearchController = async (req, res, next) => {
             data: response
         })
     } catch (error) {
-        next(error);
+        next({
+            statusCode: error.statusCode || 500,
+            code: error.code || 'GET_USER_LIST_ERROR',
+            message: error.message || 'Error al obtener la lista de usuarios con la busqueda',
+          });
     }
 }

@@ -19,6 +19,8 @@ import {
   getProfileUserController,
 } from '../../controllers/mainControllers.js';
 
+//TODO - En proceso de mejorar el codigo implementado try catch en cada servicio y modulo, para manejar mejor errores especificos.
+
 // Creamos el router
 export const userRouter = express.Router();
 
@@ -28,14 +30,19 @@ userRouter.get('/user/list', authenticateUser, adminAuthMiddleware, getUserListC
 // Ruta para listar usuario por busqueda nombre y apellidos
 userRouter.get('/user/search', authenticateUser, adminAuthMiddleware, getUserSearchController);
 
+// Ruta para obtener la informacion de perfil
+userRouter.get('/user/profile', authenticateUser, getProfileUserController);
+
 // Ruta de registro solo para administradores
 userRouter.post('/user/register', authenticateUser, adminAuthMiddleware, newUserController);
 
-// Ruta de activación/desactivación solo para administradores
-userRouter.put('/user/toggleActivation', authenticateUser, adminAuthMiddleware, toggleActiveStatusController);
+// TODO - Corregido hasta aqui.
 
 // Ruta de eliminación de un usuario solo para administradores
 userRouter.delete('/user/delete/:id_user', authenticateUser, adminAuthMiddleware, deleteUserController);
+
+// Ruta de activación/desactivación solo para administradores
+userRouter.put('/user/toggleActivation', authenticateUser, adminAuthMiddleware, toggleActiveStatusController);
 
 // Ruta de validación
 userRouter.put('/user/validate/:registration_code', validateUserController);
@@ -60,6 +67,3 @@ userRouter.put('/user/reset-password/:registration_code',resetPasswordController
 
 // Ruta para renovación de token
 userRouter.get('/user/renew-token', renewTokenMiddleware, renewTokenController);
-
-// Ruta para obtener la informacion de perfil
-userRouter.get('/user/profile', authenticateUser, getProfileUserController);

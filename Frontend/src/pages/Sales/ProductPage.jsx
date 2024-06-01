@@ -47,13 +47,15 @@ export const ProductPage = () => {
   ];
 
   const sortOptions = [
+    { label: 'Ref (DSC)', value: 'ref-desc' },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
     { label: "Nombre (A - Z)", value: "nombre-asc" },
     { label: "Nombre (Z - A)", value: "nombre-desc" },
     { label: "Fecha (Antiguos)", value: "fecha-asc" },
-    { label: "Fecha (Recientes)", value: "fecha-desc" },
-    { label: 'Ref (ASC)', value: 'ref-asc' },
-    { label: 'Ref (DSC)', value: 'ref-desc' },
+    { label: "Fecha (Recientes)", value: "fecha-desc" },  
   ];
+
+  const defaultSort = { label: 'Ref (DSC)', value: 'ref-desc' }
 
   return (
     <MainLayout title="Productos">
@@ -62,7 +64,7 @@ export const ProductPage = () => {
           <SearchPages onSearch={handleSearch} />
           <CreateProduct onAddProduct={addProduct} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
-          <SortPages options={sortOptions} onSort={handleSortChange} />
+          <SortPages options={sortOptions} onSort={handleSortChange} defaultSort={defaultSort}/>
           <ToggleMode onClick={() => setIsListView((prev) => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (

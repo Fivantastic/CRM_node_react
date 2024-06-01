@@ -47,11 +47,13 @@ export const CustomerPage = () => {
   ];
 
   const sortOptions = [
+    { label: "Ref (DSC)", value: "ref-desc" },
+    { label: "Ref (ASC)", value: "ref-asc" },
     { label: "Nombre (A - Z)", value: "nombre-asc" },
     { label: "Nombre (Z - A)", value: "nombre-desc" },
-    { label: "Ref (ASC)", value: "ref-asc" },
-    { label: "Ref (DSC)", value: "ref-desc" },
-  ];
+     ];
+
+  const defaultSort = { label: "Ref (DSC)", value: "ref-desc" }
 
   return (
     <MainLayout title="Clientes">
@@ -59,8 +61,8 @@ export const CustomerPage = () => {
         <nav id="user_nav" className="mainNav">
           <SearchPages onSearch={handleSearch} />
           <CreateCustomer onAddCustomer={addCustomer} token={token} typeModule={typeModule} />
-          <FilterPages options={filterOptions} onChange={handleFilterChange} />
-          <SortPages options={sortOptions} onSort={handleSortChange} />
+          <FilterPages options={filterOptions} onChange={handleFilterChange}/>
+          <SortPages options={sortOptions} onSort={handleSortChange} defaultSort={defaultSort} />
           <ToggleMode onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (

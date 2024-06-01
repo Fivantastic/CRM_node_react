@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "./sortPages.css";
 
-export const SortPages = ({ options, onSort }) => {
+export const SortPages = ({ options, onSort, defaultSort }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(defaultSort);
   const dropdownRef = useRef(null);
 
   const toggleMenu = () => {
@@ -13,8 +13,8 @@ export const SortPages = ({ options, onSort }) => {
   const handleOptionSelect = (option) => {
     if (selectedOption && selectedOption.value === option.value) {
       // Si se hace clic en la opción seleccionada, la deselecciona
-      setSelectedOption(null);
-      onSort(null); // Llama a la función de ordenamiento con null para deseleccionar
+      setSelectedOption(defaultSort);
+      onSort(defaultSort); // Llama a la función de ordenamiento con null para deseleccionar
     } else {
       setSelectedOption(option);
       onSort(option); // Llama a la función de ordenamiento
@@ -32,6 +32,14 @@ export const SortPages = ({ options, onSort }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
+  }, []);
+
+  // Ordenamiento por defecto SOLO al montar el componente
+  useEffect(() => {
+    if (defaultSort) {
+      onSort(defaultSort);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

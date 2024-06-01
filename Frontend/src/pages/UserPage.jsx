@@ -49,6 +49,8 @@ export const UserPage = () => {
     { label: "Ref (DSC)", value: "ref-desc" },
   ];
 
+  const defaultSort = { label: "Nombre (A - Z)", value: "nombre-asc" }
+
   return (
     <MainLayout title="Usuarios">
       <section id="user_container" className="mainContainer">
@@ -56,7 +58,7 @@ export const UserPage = () => {
           <SearchPages onSearch={handleSearch} />
           <CreateUser onAddUser={addUser} token={token} />
           <FilterPages options={filterOptions} onChange={handleFilterChange} />
-          <SortPages options={sortOptions} onSort={handleSortChange} />
+          <SortPages options={sortOptions} onSort={handleSortChange} defaultSort={defaultSort} />
           <ToggleMode onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (

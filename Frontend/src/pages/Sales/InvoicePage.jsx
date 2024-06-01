@@ -45,13 +45,15 @@ export const InvoicePage = () => {
   ];
 
   const sortOptions = [ 
+    { label: "Ref (DSC)", value: "ref-desc" },
+    { label: "Ref (ASC)", value: "ref-asc" },
     { label: "Comercial (A - Z)", value: "comercial-asc" },
     { label: "Comercial (Z - A)", value: "comercial-desc" },
     { label: "Vencimiento (Próximos)", value: "fecha-desc" },
     { label: "Vencimiento (Útlimos)", value: "fecha-asc" },
-    { label: "Ref (ASC)", value: "ref-asc" },
-    { label: "Ref (DSC)", value: "ref-desc" },
   ];
+
+  const defaultSort = { label: "Ref (DSC)", value: "ref-desc" }
   
   return (
     <MainLayout title="Facturas">
@@ -60,7 +62,7 @@ export const InvoicePage = () => {
         <SearchPages onSearch={handleSearch}/>
         <CreateInvoice onAddInvoice={addInvoice} token={token} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
-        <SortPages options={sortOptions} onSort={handleSortChange} />
+        <SortPages options={sortOptions} onSort={handleSortChange} defaultSort={defaultSort}/>
         <ToggleMode  onClick={() => setIsListView(prev => !prev)} isListView={isListView} />
         </nav>
         {isListView ? (

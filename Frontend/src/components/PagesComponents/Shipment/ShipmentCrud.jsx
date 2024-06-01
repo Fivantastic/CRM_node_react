@@ -75,11 +75,13 @@ export const ShipmentsCrud = () => {
   ];
 
   const sortOptions = [
+    { label: 'Ref (DSC)', value: 'ref-desc' },
+    { label: 'Ref (ASC)', value: 'ref-asc' },
     { label: 'Fecha (Antiguos)', value: 'fecha-asc' },
     { label: 'Fecha (Recientes)', value: 'fecha-desc' },
-    { label: 'Ref (ASC)', value: 'ref-asc' },
-    { label: 'Ref (DSC)', value: 'ref-desc' },
   ];
+
+  const defaultSort = { label: 'Ref (DSC)', value: 'ref-desc' }
 
   return (
     <section id="shipment_container" className="mainContainer">
@@ -87,7 +89,7 @@ export const ShipmentsCrud = () => {
         <SearchPages onSearch={handleSearch} />
         <CreateShipment onAddShipment={addShipment} token={token} typeModule={typeModule} />
         <FilterPages options={filterOptions} onChange={handleFilterChange} />
-        <SortPages options={sortOptions} onSort={handleSortChange} />
+        <SortPages options={sortOptions} onSort={handleSortChange} defaultSort={defaultSort}/>
         <ToggleMode onClick={() => setIsListView((prev) => !prev)} isListView={isListView} />
       </nav>
       {isListView ? (

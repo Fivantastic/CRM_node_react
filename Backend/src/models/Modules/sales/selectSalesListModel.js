@@ -11,7 +11,7 @@ export const selectSalesListModel = async () => {
   LEFT JOIN SalesProducts ON Sales.saleProduct_id = SalesProducts.id_saleProduct
   LEFT JOIN Products ON SalesProducts.product_id = Products.id_product
   LEFT JOIN Customers ON Sales.customer_id = Customers.id_customer
-  ORDER BY Sales.create_at DESC`);
+  ORDER BY Sales.ref_SL DESC`);
 
   return result[0];
 };

@@ -53,7 +53,9 @@ export const getModuleShipmentModel = async () => {
       LEFT JOIN 
         SalesProducts ON DeliveryNotes.saleProduct_id = SalesProducts.id_saleProduct
       LEFT JOIN 
-        Products ON SalesProducts.product_id = Products.id_product`
+        Products ON SalesProducts.product_id = Products.id_product
+      ORDER BY Shipments.ref_SH DESC  
+      `
     );
 
     return result[0];

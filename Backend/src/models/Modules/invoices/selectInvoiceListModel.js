@@ -12,7 +12,7 @@ export const selectInvoiceListModel = async () => {
     LEFT JOIN SalesProducts ON Sales.saleProduct_id = SalesProducts.id_saleProduct
     LEFT JOIN Products ON SalesProducts.product_id = Products.id_product
     LEFT JOIN Customers ON Invoices.customer_id = Customers.id_customer 
-    ORDER BY Invoices.creation_at DESC`);
+    ORDER BY Invoices.ref_IN DESC`);
 
   return result[0];
 };

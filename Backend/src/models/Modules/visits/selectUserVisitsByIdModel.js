@@ -28,6 +28,7 @@ export const selectUserVisitsByIdModel = async () => {
     LEFT JOIN Customers ON Visits.customer_id = Customers.id_customer
     LEFT JOIN Addresses ON Customers.address_id = Addresses.id_address
     LEFT JOIN Users ON Visits.user_id = Users.id_user
+    ORDER BY Visits.ref_VT DESC
   `);
 
   return result[0];
